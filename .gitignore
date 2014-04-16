@@ -1,0 +1,17 @@
+node_modules
+dist
+.tmp
+.sass-cache
+.bowerrc
+.editorconfig
+.gitattributes
+.travis.yml
+.jshintrc
+app/bower_components
+app/fonts
+docs
+SchoolMan.crx
+SchoolMan.xmi
+app.pem
+todo.txt
+questions.txt
