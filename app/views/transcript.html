@@ -1,0 +1,227 @@
+<style type="text/css">
+
+	body{
+		background-color: #fff;
+		padding-bottom: 0px;
+	}
+
+	.table-signature tr{
+		height:37px;
+	}
+
+	@media print{
+		body{
+			padding-top:0px;
+		}
+
+		.table-signature tr{
+			height:28px;
+		}
+
+		.letterhead tr td,
+		.summary tr td{
+			border-top:none;
+		}
+
+		.title-main{
+			font-size: 100%;
+		}
+
+		.title-flank{
+			font-size: 80%;
+			width:25%;
+		}
+
+		.table-transcript{
+			font-size: 60%;
+		}
+
+		hr{
+			margin:10px 0;
+		}
+
+		.student-details{
+			margin-bottom:10px;
+		}
+
+		.student-details,
+		.student-details h5,
+		.student-details h4 {
+			font-size: 80%;
+		}
+
+		.letterhead{
+			border:none;
+			background-color: #eee !important;
+			-webkit-print-color-adjust: exact;
+		}
+
+		.title-main{
+		font-size: 55%;
+		}
+
+		.title-flank{
+			font-size: 55%;
+			width:30%;
+	}
+
+	}
+</style>
+<div class="transcript" ng-init="mastersheet = getMastersheet()">
+
+  <!-- School Name Letterhead -->
+   <table class="table letterhead">
+  	<tr>
+  		<td class="text-center title-flank">
+  		  <h6>MINISTRY OF SECONDARY EDUCATION</h6>
+		  <h6>REPUBLIC OF CAMEROON</h6>
+		  <h6>Peace - Work - Fatherland</h6>
+  		</td>
+  		<td class="text-center title-main">
+  			<h4 class="english">GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN</h4>
+			  <h4 class="french">LYCEE BILINGUE D'ATIELA-NKWEN</h4>
+			  <h3 class="english" style="margin-top:10px;"><strong>ACADEMIC REPORT CARD</strong> - <strong class="french">BULLETIN DE NOTES</strong></h3>
+  		</td>
+  		<td class="text-center title-flank french">
+  			<h6>MINISTERE DES ENSEIGNEMENTS SECONDAIRRES</h6>
+			  <h6>REPUBLIQUE DU CAMEROON</h6>
+			  <h6>Paix - Travail - Patrie</h6>
+  		</td>
+	</table>
+	<hr>
+    <div class="row">
+          <div class="col-md-12">
+            <table class="table student-details" style="width:100%;margin-bottom:10px;">
+              <tr>
+                <td class="text-center" style="width:30%;border-top:0px;">
+                  <div class="text-left">
+                    <div>
+                      {{student.name}} | {{student.sex}}
+                    </div>
+                    <div>
+                      <h5>Date of Birth: {{student.birth | date:'MMMM dd, yyyy'}}</h5>
+                      <h5>Student ID: <strong>{{student.id}}</strong></h5>
+                      <h5>{{form.name}}, {{group.name}}</h5>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-center" style="width:30%;
+                                               padding-left:30px;
+                                               border-top:0px;">
+                  <div class="text-left">
+                    <div>
+                      {{term.name}}
+                    </div>
+                    <div>
+                      <h5 style="font-family:mono;">{{ mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</h5>
+                      <h5>{{getRemark(mastersheet.table["students"][student.id].acAverage).text | uppercase}}</h5>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-center" style="padding-left:30px; border-top:0px;">
+                  <div class="text-left">
+                    <h4 style="margin-top:0;text-decoration:underline">Parent Contact</h4>
+                    <h5>{{student.parentName}}</h5>
+                    <h5>{{student.parentPhone}}</h5>
+                    <h5>{{student.parentEmail}}</h5>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table  class="table table-striped table-bordered table-transcript" style="margin-bottom:10px;">
+        <thead>
+          <tr>
+            <th>Subject Discipline</th>
+            <th>S1</th>
+            <th>S2</th>
+            <th>Average</th>
+            <th>Coeff</th>
+            <th>A*C</th>
+            <th>Position</th>
+            <th>Remarks</th>
+            <th>Name and Signature</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(subjectKey,subject) in subjects | orderBy:'en'"
+              ng-init="marksheet = getMarksheet(subjectKey);
+                       average   = marksheet.getAverage(student.id, termIndex)">
+
+          <!-- Subject links back to Marksheet -->
+            <td>
+              <a ng-click="open({page:'marksheet', subjectKey:subjectKey})">{{subject.en}} / {{subject.fr}}</a>
+            </td>
+
+            <td ng-repeat="(markIndex, mark) in marksheet.getMarks(student.id, termIndex) track by markIndex"
+                class="{{getRemark(mark).css}}">
+                {{mark}}
+            </td>
+
+            <!-- Fix this string-number bug -->
+            <td class="{{getRemark(average).css}}">
+              {{average || ""}}
+            </td>
+
+            <td>{{subject.coeff}}</td>
+            <td>{{average * subject.coeff}}</td>
+            <!-- <td>{{getRankings(students, subject_index, term-1, data)[student].rank}}</td> -->
+            <td>{{getMarksheet(subjectKey).getRank(student.id, termIndex)}}</td>
+            <!-- <td>{{student}}</td> -->
+            <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
+            <td>
+              <div class="signature">{{getTeacher(subjectKey).fullname}}</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  <table class="table summary" style="margin-bottom:0px">
+	  <tr>
+	    <td style="width:40%;border-top:0px;padding-left:0px;">
+	      <table class="table table-bordered table-striped table-transcript" style="margin-bottom:0px;">
+	        <tr>
+	          <td>Total Mark:</td>
+	          <td>{{mastersheet.table["students"][student.id].acTotal}}</td>
+	        </tr>
+	        <tr>
+	          <td>Total Coeff:</td>
+	          <td>{{mastersheet.table['totalCoeff']}}</td>
+	        </tr>
+	        <tr>
+	          <td>{{data.terms[term]}} Average:</td>
+	          <td>{{ mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</td>
+	        </tr>
+	        <tr>
+	          <td>{{data.terms[term]}} Remark:</td>
+	          <td>{{getRemark(mastersheet.table["students"][student.id].acAverage).text}}</td>
+	        </tr>
+	        <tr>
+	          <td>Class Position:</td>
+	          <td>{{mastersheet.table["students"][student.id].rank}}</td>
+	        </tr>
+	      </table>
+	    </td>
+	    <td style="width:60%;border-top:0px;padding-right:0px;">
+	      <table class="table table-bordered table-signature" style="margin-bottom:0px;">
+	        <tr>
+	          <td rowspan="5" class="text-center" style="vertical-align:middle;">Principles Signature</td>
+	        </tr>
+	        <tr ></tr>
+	        <tr ></tr>
+	        <tr ></tr>
+	        <tr ></tr>
+	      </table>
+	    </td>
+    </tr>
+  </table>
+</div>
+
+<!-- <div class="footer">
+  <p><a href="http://luminlabs.com" target="_blank">LuminLabs.com</a> | &copy; 2014</p>
+</div> -->

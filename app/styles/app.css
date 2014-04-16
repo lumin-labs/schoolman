@@ -1,0 +1,426 @@
+@font-face {
+  font-family: 'Bad Script';
+  font-style: cursive;
+  font-weight: 400;
+  src: local('Bad Script Regular'), local('BadScript-Regular'), url(../styles/Bad_Script/BadScript-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family:'Satisfy';
+  src: local('Satisfy'), url(../styles/Satisfy.woff) format('woff');
+}
+@font-face {
+  font-family: 'Over the Rainbow';
+  font-style: cursive;
+  font-weight: 300;
+  src: local('Over the Rainbow'), local('Over-the-Rainbow'), url(../styles/Over_the_Rainbow/OvertheRainbow.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cedarville Cursive';
+  font-style: cursive;
+  font-weight: 400;
+  src: local('Cedarville Cursive'), local('Cedarville-Cursive'), url(../styles/Cedarville_Cursive/Cedarville-Cursive.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Permanent Marker';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Permanent Marker'), local('Permanent-Marker'), url(../fonts/Permanent_Marker/PermanentMarker.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Schoolbell';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Schoolbell'), local('Schoolbell'), url(../fonts/Schoolbell/Schoolbell.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Walter Turncoat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Walter Turncoat'), local('Walter-Turncoat'), url(../fonts/Walter_Turncoat/WalterTurncoat.ttf) format('truetype');
+}
+
+dt,dd{
+  margin-top: 5px;
+}
+
+.myclasses thead tr th{
+text-align: left;
+  }
+
+.myclasses tbody tr td{
+  padding-top:20px;
+  padding-bottom:20px;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.myclasses tbody tr td.remove{
+  text-align: right;
+}
+
+.remove i{
+  font-size: 1.5em;
+  color:#999;
+  }
+
+.remove i:hover{
+  /*font-size: 1.4em;*/
+  color:red;
+  }
+
+.myclasses tbody tr td .btn{
+  text-shadow: #36ADD1 1px 1px, #36ADD1 1px 1px;
+}
+
+td.column{
+  padding: 0px !important;
+  /*width:100px;*/
+  border:solid 1px #FCCD99 !important;
+}
+
+td.column-on-right{
+  border-right:solid 1px #FCCD99 !important;
+}
+
+th.column-on-bottom{
+  border-bottom:solid 2px #FCCD99 !important;
+}
+
+.no-border-bottom th{
+  border-bottom: 0px !important;
+}
+
+.cell{
+  border:none;
+  width:100%;
+  height: 37px;
+  font-family: 'serif';
+  font-size: 14px;
+  font-weight: bold;
+  padding:5px;
+  background-color: inherit;
+}
+
+.cell-md{
+  height: 51px;
+}
+
+
+.cell-normal{
+  font-weight: normal; 
+}
+
+
+.cell-mono{
+  font-family: monospace;
+  font-weight: normal; 
+}
+
+.cell-container{
+  width:100px;
+}
+
+.item-id{
+  width:50px;
+}
+
+.btn-group{
+  margin-right: 10px;
+}
+
+.list-button{
+  background-image: url(/images/list-icon.svg);
+}
+
+.list-button:hover{
+  background-image: url(/images/list-icon-blue.svg);
+}
+
+.number-invalid{
+  background-color: #FFACAC;
+}
+
+.input.input-error{
+  border-color:red;
+}
+
+.text-error{
+  color:red;
+}
+
+.signature{
+  font-family: 'Serif', cursive;
+  /*font-size: 1.3em;*/
+  font-weight: bold;
+  color: #444;
+}
+
+::-webkit-input-placeholder {
+  font-weight: normal;
+}
+
+#teacher-name{
+    /*border:solid 1px #ddd;*/
+    /*border-bottom:none; */
+    border:none;
+    padding: 0px 10px 0px 10px;
+    margin-bottom:0px;
+    font-size: 26px;
+    /*background-color: #eee;*/
+    background-color: transparent;
+    border-radius: 0;
+    height: 46px;
+    width:350px;
+    line-height: 1.5em;
+}
+
+.username{
+  font-size: 20px;
+  padding-top: 15px;
+}
+
+
+.mastersheet {
+    background-color:white;
+    border:solid 1px #ddd;
+    padding:10px;
+}
+
+th.small-column-header{
+  text-shadow: #f8f8f8 1px 1px, #f8f8f8 1px 1px;
+}
+
+.small-column-header{
+  width:55px; 
+  font-family:mono;
+  font-size:.8em;
+  text-align: center;
+}
+
+.symbol-column-header{
+  width:55px; 
+  font-family:mono;
+  text-align: center;
+}
+
+
+html{
+  overflow: auto;
+}
+
+body{
+  overflow: visible;
+  padding-top: 60px;
+}
+
+.navbar{
+  min-height: 0px;
+  margin-bottom: 10px;
+}
+
+.navbar-fixed-top{
+  border-bottom: solid 1px #e3e3e3;
+}
+
+.navbar-nav.navbar-sm > li > a{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.nav-stacked li{
+  border-top:solid 1px #e8e8e8;
+}
+
+tr.toolbar{
+  margin-bottom: 10px;
+}
+
+tr.toolbar th{
+  background-color: #f8f8f8 !important;
+  border:none !important;
+  padding: 3px !important;
+}
+
+th{
+  font-weight: bold;
+}
+
+
+.btn-light{
+background-color:#f8f8f8;
+}
+
+.btn-on-dark{
+  border-color: #e8e8e8;
+}
+
+
+.dash-line{
+    border-bottom: dotted 2px #000;
+}
+
+.english{
+    color:#AC130D;
+}
+
+.french{
+	font-style:italic;
+}
+
+.remark-poor,
+.remark-verypoor{
+	color: red;
+}
+
+.login-box{
+  width: 338px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+}
+
+.login-box input{
+  border:solid 1px #e8e8e8;
+}
+
+.form-signin-heading{
+  font-weight: bold;
+}
+
+.btn.disabled{
+  background-color: #E9E9E9;
+  color: #888;
+  border-color: #bbb;
+}
+
+.btn-lg{
+  margin-top: 0px;
+}
+
+
+/*Animations*/
+
+.animate-hide {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+  line-height:20px;
+  opacity:1;
+  padding:10px;
+  border:1px solid black;
+  background:white;
+}
+ 
+.animate-hide.ng-hide-add,
+.animate-hide.ng-hide-remove {
+  display:block!important;
+}
+ 
+.animate-hide.ng-hide {
+  line-height:0;
+  opacity:0;
+  padding:0 10px;
+}
+ 
+.check-element {
+  padding:10px;
+  border:1px solid black;
+  background:white;
+}
+
+.letterhead{
+  text-shadow: #e8e8e8 1px 1px, #e8e8e8 1px 1px;
+    font-weight: 700;
+    border:solid 1px #eee;
+    background-color: #fcfcfc;
+    margin-bottom: 10px;
+}
+
+.transcript .letterhead h6{
+  font-size: 1em;
+}
+
+.transcript .letterhead h4{
+  font-size: 1.2em;
+}
+
+.transcript .letterhead h3{
+  font-size: 1.3em;
+}
+
+
+.schoolname{
+  font-size: 18px;
+}
+
+/*D3 Bar Chart*/
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+.tip-subject{
+  color:#F7F2A0;
+}
+
+.tip-average{
+  color:#C6C8F6;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}

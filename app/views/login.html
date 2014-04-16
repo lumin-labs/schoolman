@@ -1,0 +1,54 @@
+<div class="login-box">
+	<form class="form-signin" ng=submit="">
+
+        <h2 class="form-signin-heading">Please sign in</h2>
+
+        <!-- Access Dropdown -->
+        <div class="btn-group" style="margin-top:5px; margin-bottom:20px;">
+          <button class="btn btn-lg btn-light dropdown-toggle" 
+                  data-toggle="dropdown">
+            {{access.name}} <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li ng-repeat="(accessCode, access) in accessLevels">
+              <a ng-click="open({page:'login', username:userData.fullname, accessCode:accessCode})">
+                {{access.name}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Login Username  -->
+        <div ng-if="page === 'login'">
+            <input type="text" 
+               class="input input-lg" 
+               placeholder="Name"
+               ng-model="userData.fullname"
+               tabindex="1">  
+        </div>
+        
+        <!-- 404 Username -->
+        <div ng-if="page === 'login404'">
+            <input type="text" 
+               class="input input-lg has-error input-error" 
+               placeholder="Name"
+               ng-model="userData.fullname">
+            <div style="height:30px">
+                <p class="text-error">This user does not have the requested access.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <span>
+	        <button class="btn btn-large btn-primary btn-justified" 
+	        		type="submit"
+	        		ng-click="login(fullname)">Sign in</button>
+	        <!-- <span style="font-size:18px;margin:0 3px;">or</span>
+	        <button class="btn btn-large btn-success" 
+        		type="submit"
+        		ng-click="createNewAccount()">Create a new Account</button> -->
+        </span>
+      </form>
+</div>
+

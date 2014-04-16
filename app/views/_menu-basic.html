@@ -1,0 +1,49 @@
+<!-- Subject Dropdown -->
+<div  ng-if="page !== 'mastersheet' && page !== 'registrar'"
+      class="btn-group">
+  <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+    {{subject.en}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="(subjectKey, subject) in subjects">
+      <a ng-click="open({subjectKey:subjectKey})">{{subject.en}}</a>
+    </li>
+  </ul>
+</div><!-- /btn-group -->
+
+<!-- Form Dropdown -->
+<div class="btn-group">
+  <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+    {{form.name}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="(formIndex, form) in forms">
+      <a ng-href="" ng-click="open({formIndex:formIndex})">{{form.name}}</a>
+    </li>
+  </ul>
+</div>
+
+<!-- Group Dropdown -->
+<div class="btn-group">
+  <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+    {{group.name}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="(groupIndex, group) in groups">
+      <a ng-click="open({groupIndex:groupIndex})">{{group.name}}</a>
+    </li>
+  </ul>
+</div>
+
+<!-- Group Dropdown -->
+<div  ng-if="page === 'mastersheet'"
+      class="btn-group">
+  <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+    {{term.name}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li ng-repeat="(termIndex, term) in terms">
+      <a ng-click="open({termIndex:termIndex})">{{term.name}}</a>
+    </li>
+  </ul>
+</div>

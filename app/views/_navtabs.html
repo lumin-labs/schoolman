@@ -1,0 +1,71 @@
+<div class="row">
+
+	<!-- Tab Navigation -->
+	<div class="col-md-12">
+		<div  class="btn-group pull-right" style="margin-right:0;">
+		  <button class="btn btn-lg btn-light btn-on-dark dropdown-toggle" data-toggle="dropdown">
+		    {{accessCode[0].toUpperCase()}}: {{teacher.fullname}} <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		  	<li ng-repeat="(accessKey, accessBool) in teacher.access" ng-if="accessBool === 1">
+			  	<a ng-click="login(accessKey)">{{accessKey}}</a>	
+		  	</li>
+		  	<li class="divider"></li>
+		    <li>
+		      <a ng-click="logout()">Logout</a>
+		    </li>
+		  </ul>
+		</div>
+		<ul class="nav nav-tabs">
+
+		<!-- ADMIN Tabs -->
+			<li ng-if="accessCode === 'admin'"
+				ng-class="activeIfPage('users')">
+				<a ng-click="open({page:'users'})">
+					<i class="glyphicon glyphicon-lock"></i> &nbsp;Users
+				</a>
+			</li>
+			<li ng-if="accessCode === 'admin'"
+				ng-class="activeIfPage('catalog')">
+				<a ng-click="open({page:'catalog'})"><i class="glyphicon glyphicon-book"></i> &nbsp;Course Catalog</a>
+			</li>
+			<li ng-if="accessCode === 'admin'"
+				ng-class="activeIfPage('students')">
+				<a ng-click="open({page:'students'})"><i class="glyphicon glyphicon-user"></i> &nbsp;Students</a>
+			</li>
+			<li ng-if="accessCode === 'admin'"
+				ng-class="activeIfPage('classes')">
+				<a ng-click="open({page:'classes'})"><i class="glyphicon glyphicon-calendar"></i> &nbsp;Classes</a>
+			</li>
+			
+
+
+		<!-- TEACHER Tabs -->
+
+			<!-- Simple & All Tabs -->
+			<li ng-if="accessCode === 'teacher'"
+				ng-class="activeIfPage('myclasses')">
+				<a ng-click="open({page:'myclasses'})">
+					<i class="glyphicon glyphicon-home"></i> &nbsp;My Classes
+				</a>
+			</li>
+			<li ng-if="accessCode === 'teacher' || accessCode === 'classmaster' || accessCode === 'admin'"
+				ng-class="activeIfPage('marksheet')">
+				<a ng-click="open({page:'marksheet'})">
+					<i class="glyphicon glyphicon-pencil"></i> &nbsp;Marksheet
+				</a>
+			</li>
+
+		<!-- CLASSMASTER Tabs only-->
+			<li ng-if="accessCode === 'classmaster'"
+				ng-class="activeIfPage('mastersheet')">
+				<a ng-click="open({page:'mastersheet'})"><i class="glyphicon glyphicon-th-large"></i> &nbsp;Mastersheet</a>
+			</li>
+			<li ng-if="accessCode === 'classmaster'"
+				ng-class="activeIfPage('reportcard')">
+				<a ng-click="open({page:'reportcard'})"><i class="glyphicon glyphicon-list-alt"></i> &nbsp;Report Card</a>
+			</li>
+		</ul>
+	</div>
+
+</div>
