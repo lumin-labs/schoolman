@@ -5,8 +5,6 @@ dist
 .bowerrc
 .editorconfig
 .gitattributes
-.travis.yml
-.jshintrc
 app/bower_components
 app/fonts
 docs
