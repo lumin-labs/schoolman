@@ -13,12 +13,13 @@ angular.module('SchoolMan')
         "marksheets":""
     }
 
-  	var nUpdates = 0;
+    // Change this to something that keeps track of the last time the data has changed
     // var lastUpdate = {
     //     saved = true;
     //     timestamp:341443141431;
     // }
-
+    var nUpdates = 0;
+ 
   	var fileWriter = null;
 
     var data = {};
@@ -90,6 +91,8 @@ angular.module('SchoolMan')
             textWidth = key.length > textWidth ? key.length : textWidth;
         });
 
+        var logLines = [];
+
         var humanReadable =function(n){
             var m = "";
             if(n < 1000){
@@ -108,8 +111,8 @@ angular.module('SchoolMan')
         // $log.debug("Estimated Data Size");
         // $log.debug("-------------------");
 
-        $log.debug("Estimated Data Size");
-        $log.debug("---------------------------");
+        logLines.push("Estimated Data Size");
+        logLines.push("---------------------------");
 
     	angular.forEach(data,function(obj, key){
             if(SCHEMA.hasOwnProperty(key)){
@@ -121,18 +124,17 @@ angular.module('SchoolMan')
                 }
                 
                 var readable = humanReadable(size);
-                $log.debug(msg + readable);
+                logLines.push(msg + readable);
 
                 total += size;
             }
             
     	});
 
-    	$log.debug(Array(textWidth - 5 + 1).join(" ") + "Total :", humanReadable(total));
+    	logLines.push(Array(textWidth - 5 + 1).join(" ") + "Total : " + humanReadable(total));
 
-        var test = "";
-
-        return undefined;
+        $log.debug(logLines.join("\n"));
+       
 
     }
 

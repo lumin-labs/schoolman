@@ -3,7 +3,7 @@
 angular.module('SchoolMan')
   .service('MockData', function MockData(CourseCatalog, Registrar, ClassMaster, modelTransformer, Student, Data, $log, Uid) {
 
-    var FORCE_CREATE_NEW = true;
+    var FORCE_CREATE_NEW = false;
   	var N_STUDENTS = 500;
     var marksheets;
 
