@@ -44,7 +44,8 @@ angular.module('SchoolMan')
       Registrar.getStudent($routeParams.studentId);
 
     $scope.marksheet= ClassMaster.getMarksheet($scope.courseId);
-    console.log("Marksheet", $scope.marksheet);
+    // console.log("Marksheet", $scope.marksheet);
+    // console.log("Listeners", $scope.marksheet.getListeners());
 
     // get all marksheets for all subjects in this class
     $scope.marksheets = {};
