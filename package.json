@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
+    "dateformat":"~1.0.7",
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
     "grunt-bower-install": "~0.7.0",
@@ -20,6 +21,7 @@
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-watch": "~0.5.2",
     "grunt-google-cdn": "~0.2.0",
+    "grunt-legacy-util": "~0.1.2",
     "grunt-newer": "~0.5.4",
     "grunt-ngmin": "~0.0.2",
     "grunt-rev": "~0.1.0",
@@ -40,7 +42,9 @@
     "karma-requirejs": "~0.2.1",
     "karma-phantomjs-launcher": "~0.1.2",
     "karma": "~0.10.9",
-    "karma-ng-html2js-preprocessor": "~0.1.0"
+    "karma-ng-html2js-preprocessor": "~0.1.0",
+    "coffee-script": "~1.7.1",
+
   },
   "engines": {
     "node": ">=0.8.0"
