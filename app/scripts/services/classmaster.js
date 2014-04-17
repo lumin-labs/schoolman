@@ -34,6 +34,13 @@ angular.module('SchoolMan')
     // }
 
 
+    var registerListener = function(marksheet){
+      marksheet.onChange(function(msg){
+          Data.saveLater({marksheets:marksheets});
+        });
+    }
+
+
     // This is the container for public methods of the ClassMaster Service
     var self = {};
   
@@ -80,7 +87,9 @@ angular.module('SchoolMan')
       var marksheet = modelTransformer.transform(marksheetData, Marksheet);
       marksheets[courseId] = marksheet;
 
-      console.log("Created Marksheet", marksheet);
+      registerListener(marksheet);
+
+      // console.log("Created Marksheet", marksheet);
 
       return marksheet;
     };
@@ -168,10 +177,7 @@ angular.module('SchoolMan')
         });
         var marksheet = modelTransformer.transform(marksheet, Marksheet);
         ms[courseId] = marksheet;
-        marksheet.onChange(function(msg){
-          console.log("Saving... " + msg);
-          Data.saveLater({marksheets:marksheets});
-        })
+        registerListener(marksheet);
       });
       marksheets = ms;
     });
