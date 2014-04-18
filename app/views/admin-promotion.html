@@ -1,0 +1,30 @@
+<div ng-include="'views/_navtabs.html'"></div>
+
+<div class="marksheet" ng-controller="PromotionCtrl">
+
+	<div ng-repeat="(formIndex, form) in forms">
+		 <!-- <h2>{{form.name}}</h2> -->
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>Class</td>
+					<td>Promotion Score
+						<i class="glyphicon glyphicon-lock"></i></td>
+					<td>Statistics</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(groupIndex, group) in groups">
+					<td>{{group.name}}</td>
+					<td class="column" style="width:150px;">
+						<input class='cell' 
+							   ng-model="form.advance"
+							   tabindex="{{groupIndex + 1}}"
+							   cell cell-nrow="{{groups.length}}">
+					</td>
+					<!-- <td>{{getStudentsPassing(formIndex, form.advance)}}</td> -->
+					<td>64% of students will advance</td>
+				</tr>
+			</tbody>
+		</table>
+</div>
