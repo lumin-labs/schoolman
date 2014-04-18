@@ -41,12 +41,12 @@
 				</td>
 				<td ng-repeat="(formIndex, form) in forms"
 					class="text-center">
-					<button ng-click="tempUser.toggleAccess('admin')"
+					<button ng-click="group.toggleForm(formIndex)"
 							class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-						<i ng-if="!true" 
-						   class="glyphicon glyphicon-minus" 
-						   style="color:red;"></i>
-						 <i ng-if="true" 
+						<i ng-if="!group.inForm(formIndex)" 
+						   class="glyphicon" 
+						   style="color:;"></i>
+						 <i ng-if="group.inForm(formIndex)" 
 					   class="glyphicon glyphicon-ok" 
 					   style="color:green;"></i>
 					</button>

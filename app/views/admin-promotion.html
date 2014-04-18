@@ -2,23 +2,22 @@
 
 <div class="marksheet" ng-controller="PromotionCtrl">
 
-	<div ng-repeat="(formIndex, form) in forms">
+	<div>
 		 <!-- <h2>{{form.name}}</h2> -->
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<td>Class</td>
-					<td>Promotion Score
-						<i class="glyphicon glyphicon-lock"></i></td>
+					<td>Passing</td>
 					<td>Statistics</td>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(groupIndex, group) in groups">
+				<tr ng-repeat="(groupIndex, group) in groups" ng-if="group.inForm(formIndex)">
 					<td>{{group.name}}</td>
-					<td class="column" style="width:150px;">
-						<input class='cell' 
-							   ng-model="form.advance"
+					<td class="column" style="width:100px;">
+						<input class='cell text-center' 
+							   ng-model="group.forms[formIndex].pass"
 							   tabindex="{{groupIndex + 1}}"
 							   cell cell-nrow="{{groups.length}}">
 					</td>

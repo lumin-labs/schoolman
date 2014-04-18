@@ -2,11 +2,10 @@
 
 angular.module('SchoolMan')
   .controller('PromotionCtrl', function ($scope, $routeParams, CourseCatalog) {
-    $scope.form  = $scope.forms[$routeParams.formIndex];
+    $scope.formIndex  = $routeParams.formIndex;
 
-    console.log("Form", $scope.form);
-
-    $scope.groups = CourseCatalog.getGroups();
-    console.log("Groups", $scope.groups);
-
+    var _groups = CourseCatalog.getGroups();
+    $scope.groups = _groups.map(function(group){
+    	return angular.copy(group);
+    });
   });
