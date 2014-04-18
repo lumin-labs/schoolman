@@ -35,9 +35,11 @@ angular.module('SchoolMan')
 
 
     var registerListener = function(marksheet){
-      marksheet.onChange(function(msg){
+      var callback = function(msg){
           Data.saveLater({marksheets:marksheets});
-        });
+      };
+      // console.log("Registering Callback", callback);
+      marksheet.onChange(callback);
     }
 
 

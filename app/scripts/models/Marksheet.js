@@ -29,20 +29,21 @@ angular.module('SchoolMan')
       this.updateRankings();
 
       // callback functions
-      this.listeners = [];
+      var listeners = [];
       this.notify =  function(msg){
-        console.log("Marksheet notifying listeners: ", this.listeners);
-        angular.forEach(this.listeners, function(callback, $index){
+        console.log("Marksheet notifying listeners: ", listeners);
+        angular.forEach(listeners, function(callback, $index){
+          console.log("callback", callback);
           callback(msg);  
         });
       };
       this.onChange = function(callback){
         // console.log("Register listener");
-        this.listeners.push(callback);
+        listeners.push(callback);
         // console.log("Listeners", listeners);
       };
       this.getListeners = function(){
-        return this.listeners;
+        return listeners;
       }
     };
 
