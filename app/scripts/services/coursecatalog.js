@@ -16,7 +16,7 @@
  * and for configuring which courses are available in which classes
  */
 angular.module('SchoolMan')
-  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer) {
+  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, Group) {
     
     var self = {};
     var courses = {};
@@ -43,6 +43,15 @@ angular.module('SchoolMan')
                   }
                 });
             });
+        });
+    });
+
+    // Load Groups into Model Layer
+    template.groups = modelTransformer.transform(template.groups, Group);
+    angular.forEach(template.groups,function(group, groupIndex){
+        group.onChange(function(msg){
+            console.log(msg);
+            Data.saveLater({coursecatalog:template});
         });
     });
     

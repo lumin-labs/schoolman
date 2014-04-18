@@ -144,8 +144,8 @@ angular.module('SchoolMan')
 
     // Load students from Data
     Data.get("students", function(students){
-        _students = students;
-        angular.forEach(_students, function(student, studentIndex){
+        var studentsCopy = angular.copy(students);
+        angular.forEach(studentsCopy, function(student, studentIndex){
             self.addStudent(student);
         });
     });

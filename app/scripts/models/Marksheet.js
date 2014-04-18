@@ -33,6 +33,7 @@ angular.module('SchoolMan')
       this.notify =  function(msg){
         console.log("Marksheet notifying listeners: ", listeners);
         angular.forEach(listeners, function(callback, $index){
+          console.log("callback", callback);
           callback(msg);  
         });
       };
@@ -41,6 +42,9 @@ angular.module('SchoolMan')
         listeners.push(callback);
         // console.log("Listeners", listeners);
       };
+      this.getListeners = function(){
+        return listeners;
+      }
     };
 
     Marksheet.sequences = {
@@ -107,7 +111,7 @@ angular.module('SchoolMan')
     Marksheet.prototype.getRank = function(studentId, termIndex){
         var rank = 0;
         // console.log("Course", this);
-        console.log("Student", studentId);
+        // console.log("Student", studentId);
         // console.log("Table", this.table);
         if(termIndex === undefined || termIndex === 3){
           rank = this.table[studentId].ranking[3];
@@ -245,10 +249,10 @@ angular.module('SchoolMan')
 
 
     Marksheet.prototype.onLoad = function(){
-      if(this.hasOwnProperty("listeners")){
-        console.log("Deleteing listeners");
-        delete this.listeners;
-      }
+      // if(this.hasOwnProperty("listeners")){
+      //   console.log("Deleteing listeners");
+      //   delete this.listeners;
+      // }
       var self = this;
       angular.forEach(this.table, function(row, studentId){
         row.onChange(function(msg){

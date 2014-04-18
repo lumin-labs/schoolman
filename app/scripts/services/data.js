@@ -1,10 +1,25 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Data', function Data($timeout) {
+  .service('Data', function Data($timeout, $log) {
 
-  	var nUpdates = 0;
+    var SCHEMA = {
+        "version":"",
+        "users":"",
+        "students":"",
+        "coursecatalog":"",
+        "timetable":"",
+        "uid":"",
+        "marksheets":""
+    }
 
+    // Change this to something that keeps track of the last time the data has changed
+    // var lastUpdate = {
+    //     saved = true;
+    //     timestamp:341443141431;
+    // }
+    var nUpdates = 0;
+ 
   	var fileWriter = null;
 
     var data = {};
@@ -56,10 +71,9 @@ angular.module('SchoolMan')
 			    } else {
 			        //file has been overwritten with blob
 			        //use callback or resolve promise
-			        console.log("Data", angular.fromJson(content));
+                    self.logEstimateSize();  
 			    }
-			    // nUpdates = 0;
-
+			    nUpdates = 0;
 			    callback("ok");
 			};
 
@@ -67,27 +81,61 @@ angular.module('SchoolMan')
 		        console.log('Write failed: ' + e.toString());
 		    };
 
-		    fileWriter.truncate(0);    
+		    fileWriter.truncate(0);  
 
     };
 
     self.logEstimateSize = function(){
-    	var total = 0;
-    	angular.forEach(data,function(obj, key){
-    		var msg = key + "\t\t\t\t";
-    		var size = 0;
-    		if(obj){
-    			size = angular.toJson(obj, true).length
-    		}
-    		total += size;
-    		var readable = (size / 1000000) + "M"
-    		console.log(msg + readable);
-    	});
-    	console.log("Total: \t\t\t\t", (total / 1000000) + "M")
+        var textWidth = 0;
+        angular.forEach(SCHEMA, function(obj, key){
+            textWidth = key.length > textWidth ? key.length : textWidth;
+        });
 
-    	var d = angular.toJson(data,true);
-    	console.log("Total: \t\t\t\t", (d.length / 1000000) + "M")
-    	// console.log(d);
+        var logLines = [];
+
+        var humanReadable =function(n){
+            var m = "";
+            if(n < 1000){
+                m = n + " B"
+            } else if(n < 1000000){
+                m = (n / 1000) + " K"
+            } else {
+                m = (n / 1000000) + " M"
+            }
+
+            return m;
+        }
+
+    	var total = 0;
+
+        // $log.debug("Estimated Data Size");
+        // $log.debug("-------------------");
+
+        logLines.push("Estimated Data Size");
+        logLines.push("---------------------------");
+
+    	angular.forEach(data,function(obj, key){
+            if(SCHEMA.hasOwnProperty(key)){
+                var length = textWidth - key.length + 1;
+                var msg = Array(length).join(" ") + key + " : ";
+                var size = 0;
+                if(obj){
+                    size = angular.toJson(obj).length
+                }
+                
+                var readable = humanReadable(size);
+                logLines.push(msg + readable);
+
+                total += size;
+            }
+            
+    	});
+
+    	logLines.push(Array(textWidth - 5 + 1).join(" ") + "Total : " + humanReadable(total));
+
+        $log.debug(logLines.join("\n"));
+       
+
     }
 
     self.saveLater = function(obj, callback){
@@ -100,8 +148,6 @@ angular.module('SchoolMan')
     	});
 
     	nUpdates += 1;
-
-    	self.logEstimateSize();
 
     };
 
@@ -121,13 +167,14 @@ angular.module('SchoolMan')
 				      var content = evt.target.result;
 				      data = angular.fromJson(content);
 				      callback(true);
-				      // data = newData;
-				      // if(content === ""){
-				      // 	var blob = new Blob([angular.toJson(data)]);
-				      // 	var header = {type:'application/json'};
-				      // 	dataWriter.write(blob, header);
-				      // 	console.log("using data template");
-				      // }
+
+                      // Delete any keys listed in DELETE_OLD_KEYS
+				      angular.forEach(data, function(obj, key){
+                        if(!SCHEMA.hasOwnProperty(key)){
+                            delete data[key];
+                        }
+                      });
+
 				    };
 
 				    reader.readAsText(file);
@@ -142,36 +189,13 @@ angular.module('SchoolMan')
     // We were having some problem with simulataneoues writes, so we are changing 
     // to a polling method
     var poll = function(){
-    	console.log("Poll");
     	$timeout(function() {
-    		console.log("nUpdates: ", nUpdates);
     		if(nUpdates > 0){
     			console.log("saving " + nUpdates + " updates");
-    		// 2. Write data to file
-	    	var content = angular.toJson(data);
-		    var header  = {type:'application/json'};
-		    var blob = new Blob([content]);
-
-	    	fileWriter.onwriteend = function() {
-			    if (fileWriter.length === 0) {
-			        //fileWriter has been reset, write file
-			        fileWriter.write(blob, header);
-			    } else {
-			        //file has been overwritten with blob
-			        //use callback or resolve promise
-			        console.log("Data", angular.fromJson(content));
-			    }
-			    nUpdates = 0;
-			    poll();
-			};
-
-	        fileWriter.onerror = function(e) {
-		        console.log('Write failed: ' + e.toString());
-		    };
-
-		    fileWriter.truncate(0);    
-		    
-		    console.log("Saved, ", data);	
+    		    self.save({}, function(){
+                   console.log("Data Saved, ", data); 
+                }); 
+                poll();
 	    	} else {
 	    		poll();
 	    	}

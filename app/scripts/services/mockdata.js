@@ -3,7 +3,7 @@
 angular.module('SchoolMan')
   .service('MockData', function MockData(CourseCatalog, Registrar, ClassMaster, modelTransformer, Student, Data, $log, Uid) {
 
-    var FORCE_CREATE_NEW = true;
+    var FORCE_CREATE_NEW = false;
   	var N_STUDENTS = 500;
     var marksheets;
 
@@ -32,6 +32,7 @@ angular.module('SchoolMan')
                     var lastUid = "U0000000";
                 };
 
+
                 var count = students.length;
                 $log.debug("Count", count);
                 while(count < N_STUDENTS){
@@ -39,9 +40,14 @@ angular.module('SchoolMan')
                     var group = getRandBetween(0, CourseCatalog.getGroups().length);
                     var subjects = CourseCatalog.getSubjects(form);
                     var uid = Uid.next(lastUid);
+                    var person = {
+                        first_name: Faker.Name.firstName(),
+                        last_name: Faker.Name.lastName(),
+                        gender:"female"
+                    }
                     var studentData = {
-                            name: Faker.Name.findName(),
-                            sex: Faker.Name.gender(),
+                            name: person.first_name + " " + person.last_name,
+                            sex: person.gender,
                             birth: Faker.Date.past(500),
                             parentName:Faker.Name.findName(),
                             parentPhone:Faker.PhoneNumber.phoneNumber(),
@@ -75,6 +81,7 @@ angular.module('SchoolMan')
             marksheets[marksheet.courseId] = marksheet;
         });
         console.log("Marksheets created", marksheets);
+        window.marksheets = marksheets;
 
         Data.saveLater({});
     }
