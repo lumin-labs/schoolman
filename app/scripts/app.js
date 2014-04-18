@@ -37,6 +37,7 @@ angular.module('SchoolMan', [
       catalog:  "admin-catalog.html",
       classes:  "admin-classes.html",
       transcript: "transcript.html",
+      promotion:"admin-promotion.html"
     };
 
     var getTemplate = function(p){
