@@ -16,54 +16,11 @@
 		    </li>
 		  </ul>
 		</div>
-		<ul class="nav nav-tabs">
-
-		<!-- ADMIN Tabs -->
-			<li ng-if="accessCode === 'admin'"
-				ng-class="activeIfPage('users')">
-				<a ng-click="open({page:'users'})">
-					<i class="glyphicon glyphicon-lock"></i> &nbsp;Users
-				</a>
-			</li>
-			<li ng-if="accessCode === 'admin'"
-				ng-class="activeIfPage('catalog')">
-				<a ng-click="open({page:'catalog'})"><i class="glyphicon glyphicon-book"></i> &nbsp;Course Catalog</a>
-			</li>
-			<li ng-if="accessCode === 'admin'"
-				ng-class="activeIfPage('students')">
-				<a ng-click="open({page:'students'})"><i class="glyphicon glyphicon-user"></i> &nbsp;Students</a>
-			</li>
-			<li ng-if="accessCode === 'admin'"
-				ng-class="activeIfPage('classes')">
-				<a ng-click="open({page:'classes'})"><i class="glyphicon glyphicon-calendar"></i> &nbsp;Classes</a>
-			</li>
-			
-
-
-		<!-- TEACHER Tabs -->
-
-			<!-- Simple & All Tabs -->
-			<li ng-if="accessCode === 'teacher'"
-				ng-class="activeIfPage('myclasses')">
-				<a ng-click="open({page:'myclasses'})">
-					<i class="glyphicon glyphicon-home"></i> &nbsp;My Classes
-				</a>
-			</li>
-			<li ng-if="accessCode === 'teacher' || accessCode === 'classmaster' || accessCode === 'admin'"
-				ng-class="activeIfPage('marksheet')">
-				<a ng-click="open({page:'marksheet'})">
-					<i class="glyphicon glyphicon-pencil"></i> &nbsp;Marksheet
-				</a>
-			</li>
-
-		<!-- CLASSMASTER Tabs only-->
-			<li ng-if="accessCode === 'classmaster'"
-				ng-class="activeIfPage('mastersheet')">
-				<a ng-click="open({page:'mastersheet'})"><i class="glyphicon glyphicon-th-large"></i> &nbsp;Mastersheet</a>
-			</li>
-			<li ng-if="accessCode === 'classmaster'"
-				ng-class="activeIfPage('reportcard')">
-				<a ng-click="open({page:'reportcard'})"><i class="glyphicon glyphicon-list-alt"></i> &nbsp;Report Card</a>
+		<ul class="nav nav-tabs" ng-controller="NavtabsCtrl">
+			<li ng-repeat="(tabIndex, tab) in TABS"
+				ng-if="userHasAccess(tab)"
+				ng-class="activeIfPage(tab.page)">
+				<a ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
 			</li>
 		</ul>
 	</div>
