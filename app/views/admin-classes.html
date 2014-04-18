@@ -1,93 +1,62 @@
 <div ng-include="'views/_navtabs.html'"></div>
 
 <div class="marksheet">
-
-<!-- Form View -->
-	
-		<table class="table table-striped table-bordered">
-			<thead>
-				<tr class="toolbar">
-					<th>
-        				<input style="width:400px;" type="text" class="form-control" placeholder="Class Name">
-        			</th>
-        			<th class="text-center"  ng-repeat="(formIndex, form) in forms">
-        				<button ng-click="tempUser.toggleAccess('admin')"
-								class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-							<i ng-if="!tempUser.hasAccess('admin')" 
-							   class="glyphicon glyphicon-minus" 
-							   style="color:red;"></i>
-							 <i ng-if="tempUser.hasAccess('admin')" 
-						   class="glyphicon glyphicon-ok" 
-						   style="color:green;"></i>
-						</button>
-        			</th>
-        			<th class="text-center">
-        				<button type="submit" class="btn btn-default" ng-click="addUser()">
-				        	Add Class
-				        </button>
-        			</th>
-        			
-				</tr>
-				<tr>
-					<th>Name</th>
-					<th class="text-center" ng-repeat="form in forms">{{form.name}}</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(groupIndex, group) in groups">
-					<td class="column" style="width:400px;">
-						<input class="cell" 
-							   ng-model='group.name' 
-							   style="font-weight:normal;height:51px;"
-							   tabindex="{{groupIndex + 1}}" 
-							   cell cell-nrow="{{groups.length}}">
-					</td>
-					<td ng-repeat="(formIndex, form) in forms"
-						class="text-center">
-						<button ng-click="tempUser.toggleAccess('admin')"
-								class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-							<i ng-if="!true" 
-							   class="glyphicon glyphicon-minus" 
-							   style="color:red;"></i>
-							 <i ng-if="true" 
-						   class="glyphicon glyphicon-ok" 
-						   style="color:green;"></i>
-						</button>
-					</td>
-					<td class="remove text-center" style="width:80px;">
-						<a ng-click="removeUser(user.username)">
-							<i class="glyphicon glyphicon-remove"></i>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<!-- Student View -->
-	<div ng-repeat="(formIndex, form) in forms">
-		 <h2>{{form.name}}</h2>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<td>Form</td>
-					<td>Promotion Score
-						<i class="glyphicon glyphicon-lock"></i></td>
-					<td>Statistics</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="(groupIndex, group) in groups">
-					<td>{{group.name}}</td>
-					<td class="column" style="width:150px;">
-						<input class='cell' 
-							   ng-model="form.advance"
-							   tabindex="{{groupIndex + 1}}"
-							   cell cell-nrow="{{groups.length}}">
-					</td>
-					<!-- <td>{{getStudentsPassing(formIndex, form.advance)}}</td> -->
-					<td>64% of students will advance</td>
-				</tr>
-			</tbody>
-		</table>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr class="toolbar">
+				<th>
+    				<input style="width:400px;" type="text" class="form-control" placeholder="Class Name">
+    			</th>
+    			<th class="text-center"  ng-repeat="(formIndex, form) in forms">
+    				<button class="btn btn-md btn-light" style="border:solid 1px #ddd;">
+						<i ng-if="!tempUser.hasAccess('admin')" 
+						   class="glyphicon glyphicon-minus" 
+						   style="color:red;"></i>
+						 <i ng-if="tempUser.hasAccess('admin')" 
+					   class="glyphicon glyphicon-ok" 
+					   style="color:green;"></i>
+					</button>
+    			</th>
+    			<th class="text-center">
+    				<button type="submit" class="btn btn-default" ng-click="addClass()">
+			        	Add Class
+			        </button>
+    			</th>
+    			
+			</tr>
+			<tr>
+				<th>Name</th>
+				<th class="text-center" ng-repeat="form in forms">{{form.name}}</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="(groupIndex, group) in groups">
+				<td class="column" style="width:400px;">
+					<input class="cell" 
+						   ng-model='group.name' 
+						   style="font-weight:normal;height:51px;"
+						   tabindex="{{groupIndex + 1}}" 
+						   cell cell-nrow="{{groups.length}}">
+				</td>
+				<td ng-repeat="(formIndex, form) in forms"
+					class="text-center">
+					<button ng-click="tempUser.toggleAccess('admin')"
+							class="btn btn-md btn-light" style="border:solid 1px #ddd;">
+						<i ng-if="!true" 
+						   class="glyphicon glyphicon-minus" 
+						   style="color:red;"></i>
+						 <i ng-if="true" 
+					   class="glyphicon glyphicon-ok" 
+					   style="color:green;"></i>
+					</button>
+				</td>
+				<td class="remove text-center" style="width:80px;">
+					<a ng-click="removeUser(user.username)">
+						<i class="glyphicon glyphicon-remove"></i>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
