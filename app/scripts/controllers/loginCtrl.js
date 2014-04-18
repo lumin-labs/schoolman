@@ -14,7 +14,7 @@ angular.module('SchoolMan')
 
     var DEFAULT_START_PAGE = {
         admin:{
-            page:"marksheet",
+            page:"users",
             view:"all"
         },
         teacher:{
