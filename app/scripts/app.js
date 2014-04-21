@@ -59,7 +59,7 @@ angular.module('SchoolMan', [
     $routeProvider
       .when('/:page/:view/:formIndex/:groupIndex/:subjectKey/:termIndex/:studentId/:username/:accessCode', {
         templateUrl:function(p){ return getTemplate(p);},
-        controller:'MainCtrl'
+        // controller:'MainCtrl'
       })
       // Login Pages
       .when('/:page/:fullname/:accessCode', {
