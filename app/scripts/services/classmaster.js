@@ -130,7 +130,6 @@ angular.module('SchoolMan')
       angular.forEach(courseIds, function(courseId, courseIdIndex){
         marksheets[courseId] = self.getMarksheet(courseId);
       });
-      Data.save({marksheets:marksheets});
       return marksheets;
     };
 
