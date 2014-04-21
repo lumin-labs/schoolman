@@ -12,7 +12,7 @@
  */
 
 angular.module('SchoolMan')
-  .controller('MainCtrl', 
+  .controller('_MainCtrl', 
     function ($scope, $location, $anchorScroll, $routeParams, User, Cache, Data, Location, Path, CourseCatalog, TimeTable, Registrar, ClassMaster) {
 
     $scope.page = $routeParams.page;
@@ -36,7 +36,7 @@ angular.module('SchoolMan')
 
     $scope.courseId = CourseCatalog.getCourseId($routeParams);
     $scope.username = $routeParams.username;
-    $scope.teacher = Cache.get('user');;
+    $scope.teacher = Cache.get('user');
 
     $scope.students = Registrar.getStudentsByCourse($scope.courseId);
     $scope.student = $routeParams.studentId === "0" ?
@@ -293,135 +293,7 @@ angular.module('SchoolMan')
     }
 
 
-    // for D3 Barchart
-
-    if($scope.page === "mastersheet"){
-        $scope.graphView = {};
-        $scope.graphView.view = Cache.get("graphView");
-        if($scope.graphView.view === undefined){
-          $scope.graphView.view = "mastersheet";
-        }
-
-        $scope.setGraphView = function(view){
-          $scope.graphView.view = view;
-          Cache.set({"graphView":view});
-        }
-
-
-        var margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = 1230 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
-
-        var x = d3.scale.ordinal()
-            .rangeRoundBands([0, width], .1);
-
-        var y = d3.scale.linear()
-            .range([height, 0]);
-
-        var xAxis = d3.svg.axis()
-            .scale(x)
-            .orient("bottom");
-
-        var yAxis = d3.svg.axis()
-            .scale(y)
-            .orient("left")
-            .ticks(10, "");
-
-        var tip = d3.tip()
-            .attr('class', 'd3-tip')
-            .offset([-10, 0])
-            .html(function(d) {
-              return "<table>"+
-                        "<tr>" +
-                          "<td style='text-align:right;'>Subject:</td>"+
-                          "<td class='tip-subject'>"+$scope.subjects[d.subject].en+"</td>"+
-                        "</tr>"+
-                        "<tr>"+
-                          "<td style='text-align:right;'>Average:</td>"+
-                          "<td class='tip-average'>"+d.average+"</td>"+
-                        "</tr>"+
-                      "</table>"
-              
-            })
-
-        var svg = d3.select(".d3-barchart").append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-          .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        svg.call(tip);
-
-        var data = [
-          {subject:    "a",
-           average: .08167    },
-           {subject:    "b",
-           average: .01492    },
-           {subject:    "c",
-           average: .02782    },
-           {subject:    "d",
-           average: .04253    },
-           {subject:    "e",
-           average: .12702    }
-        ];
-
-        var studentsData = [];
-        angular.forEach($scope.getMastersheet().table.students, function(student, studentId){
-          studentsData.push(student);
-        });
-
-        var subjectData = [];
-        angular.forEach($scope.subjects, function(subject, subjectKey){
-          subjectData.push(subjectKey);
-        });
-
-        console.log("subjects", $scope.subjects);
-        console.log("students", studentsData);
-
-        var data = subjectData.map(function(subject){
-          var dataItem = {};
-          dataItem.subject = subject;
-          dataItem.average = studentsData.reduce(function(score, student){
-            return score + student[subject].average;
-          },0) / studentsData.length;
-          return dataItem;
-        });
-
-        console.log("data", data);
-
-          x.domain(data.map(function(d) { return d.subject; }));
-          y.domain([0, 20]);
-
-          svg.append("g")
-              .attr("class", "x axis")
-              .attr("transform", "translate(0," + height + ")")
-              .call(xAxis);
-
-          svg.append("g")
-              .attr("class", "y axis")
-              .call(yAxis)
-            .append("text")
-              .attr("transform", "rotate(-90)")
-              .attr("y", 6)
-              .attr("dy", ".71em")
-              .style("text-anchor", "end")
-              .text("Class Average");
-
-          svg.selectAll(".bar")
-              .data(data)
-            .enter().append("rect")
-              .attr("class", "bar")
-              .attr("x", function(d) { return x(d.subject); })
-              .attr("width", x.rangeBand())
-              .attr("y", function(d) { return y(d.average); })
-              .attr("height", function(d) { return height - y(d.average); })
-              .on('mouseover', tip.show)
-              .on('mouseout', tip.hide);
-    }
-    function type(d) {
-          d.average = +d.average;
-          return d;
-        }
+    
     
 
   });
