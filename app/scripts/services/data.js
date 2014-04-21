@@ -48,7 +48,7 @@ angular.module('SchoolMan')
     	return data[key];
     };
 
-    self.save = function(obj, callback){
+    var save = function(obj, callback){
 
     	console.log("Saving, ", obj);
 
@@ -158,6 +158,7 @@ angular.module('SchoolMan')
     		if(fileEntry){
 				fileEntry.createWriter(function(writer){
 					fileWriter = writer;
+                    window.fileWriter = writer;
 				});	
 
 	    		fileEntry.file(function(file){
@@ -192,7 +193,7 @@ angular.module('SchoolMan')
     	$timeout(function() {
     		if(nUpdates > 0){
     			console.log("saving " + nUpdates + " updates");
-    		    self.save({}, function(){
+    		    save({}, function(){
                    console.log("Data Saved, ", data); 
                 }); 
                 poll();
