@@ -1,8 +1,14 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MastersheetCtrl', function ($scope, $routeParams, Cache, CourseCatalog, ClassMaster) {
+  .controller('MastersheetCtrl', function ($scope, $routeParams, Cache, Registrar, CourseCatalog, ClassMaster) {
   	
+    $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
+
+    var courseId = CourseCatalog.getCourseId($routeParams);
+    $scope.students = Registrar.getStudentsByCourse(courseId);
+
+
     $scope.open = Location.open;
 
     // Should probably put this somewhere else like in a service
@@ -11,7 +17,7 @@ angular.module('SchoolMan')
 
       self.table = {students:{}};
 
-      self.getAverage = function(studentId, subjectKey){
+      self.getStudentSubjectAverage = function(studentId, subjectKey){
         var courseId = CourseCatalog.getCourseId({
           formIndex : $routeParams.formIndex,
           groupIndex: $routeParams.groupIndex,
@@ -23,23 +29,35 @@ angular.module('SchoolMan')
       };
 
       self.getAc = function(studentId, subjectKey){
-        return self.getAverage(studentId, subjectKey) * $scope.subjects[subjectKey].coeff;
+        var ac = self.getStudentSubjectAverage(studentId, subjectKey) * 
+                 $scope.subjects[subjectKey].coeff;
+        return ac || null;
       };
 
       self.getTotalCoeff = function(){
         var coeff = 0;
         angular.forEach($scope.subjects, function(subject, subjectKey){
-          coeff += subject.coeff;
+          coeff += parseInt(subject.coeff);
         });
         return coeff;
       };
 
-      self.getAcTotal = function(studentId){
-        var totalAc = 0;
+      self.getAcTotals = function(studentId){
+        var coeffs = 0;  // Total coefficients corresponding to non-null scores
+        var totals = {
+          ac:0,
+          average:0
+        };
+        
         angular.forEach(self.table.students[studentId], function(scores, subjectKey){
-          totalAc += scores.ac;
+          totals.ac += (scores.ac || 0);
+          var coeff = parseInt($scope.subjects[subjectKey].coeff);
+          coeffs += scores.ac === null ? 0 : coeff;
         });
-        return totalAc;
+
+        totals.average = totals.ac / coeffs;
+
+        return totals;
       };
 
       // Compute Everything, store it in the "table"
@@ -49,13 +67,14 @@ angular.module('SchoolMan')
         angular.forEach(marksheets, function(marksheet, courseId){
           var subjectKey = CourseCatalog.getSubjectKey(courseId);
           self.table.students[student.id][subjectKey] = {
-            average:self.getAverage(student.id, subjectKey),
+            average:self.getStudentSubjectAverage(student.id, subjectKey),
             ac:self.getAc(student.id, subjectKey)
           };
         });
-        self.table.students[student.id].acTotal = self.getAcTotal(student.id);
-        self.table.students[student.id].acAverage = self.table.students[student.id].acTotal /
-                                           self.table.totalCoeff;
+
+        var totals = self.getAcTotals(student.id);
+        self.table.students[student.id].acTotal = totals.ac;
+        self.table.students[student.id].acAverage = totals.average;
       });
 
     // Rank and Cache
