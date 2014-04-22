@@ -25,4 +25,12 @@ angular.module('SchoolMan')
       var excluded = excludedOnThisPage(tab);
       return (hasAccess && (!excluded));
     };
+
+    $scope.logout = function(){
+      Location.open({page:"login", username:null, accessCode:'teacher'});
+    }
+
+    $scope.login = function(access){
+      Location.open({page:"default_"+access, accessCode:access});
+    }
   });
