@@ -263,7 +263,7 @@ angular.module('SchoolMan')
     };
 
     self.save = function(){
-        Data.save({'coursecatalog': template});
+        Data.saveLater({'coursecatalog': template});
     };
 
     self.removeSubject = function(subjectKey){
