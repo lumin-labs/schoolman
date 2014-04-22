@@ -30,7 +30,7 @@ angular.module('SchoolMan')
 
     // Private method for saving RAM data to chrome.storage.local
   	var save = function(){
-  		Data.save({"timetable":{
+  		Data.saveLater({"timetable":{
   				courses:courses,
   				teachers:teachers
   			}});
@@ -85,8 +85,6 @@ angular.module('SchoolMan')
 
         // Check if course already exists in teachers course-list
         var courseExists = courses[bookmark.teacherId].filter(function(courseRef){
-          console.log("courseId: ", courseRef.courseId);
-          console.log("args.courseId: ", bookmark.courseId);
           return courseRef.courseId === bookmark.courseId;
         }).length > 0;
 

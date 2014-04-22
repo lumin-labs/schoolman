@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ClassmenuCtrl', function ($scope, $routeParams, CourseCatalog) {
+  .controller('ClassmenuCtrl', function ($scope, $routeParams, CourseCatalog, Location) {
     
     $scope.page = $routeParams.page;
     
@@ -13,5 +13,11 @@ angular.module('SchoolMan')
 
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
     $scope.subject  = $scope.subjects[$routeParams.subjectKey];
+
+    $scope.terms = CourseCatalog.getTerms();
+    $scope.term  = $scope.terms[$routeParams.termIndex];
+
+    $scope.open = Location.open;
+
 
   });
