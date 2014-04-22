@@ -3,7 +3,7 @@
 describe('Controller: MarksheetCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('reportCardApp'));
+  beforeEach(module('schoolManApp'));
 
   var MarksheetCtrl,
     scope;

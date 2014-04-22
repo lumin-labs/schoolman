@@ -126,26 +126,15 @@ angular.module('SchoolMan')
         return Math.floor(Math.random() * (max - min) + min);
       }
 
-    Marksheet.prototype.addStudent = function(studentId){
-        // console.log("Adding Student");
-        var columns = [];
-        angular.forEach(this.sequences, function(sequence,sequenceKey){
-          var n = 0;
-          while(n < sequence){
-            var cell = Cell([{date:null,value:getRandBetween(0,21)}]);
-            // var cell = Cell([{date:null,value:""}]);
-            // onChange is a callback function defined in Cell
-            cell.onChange(function(c){
-              console.log("Cell Changed", c);
-              this.updateRankings();
-            });
-            columns.push(cell);
-            n += 1;
-          }
+    Marksheet.prototype.addRow = function(row){
+        this.table[row.studentId] = row;
+        row.onChange(function(msg){
+          var msg = "row " + studentId + " changed : " + msg;
+          console.log(msg);
+          self.updateRankings();
+          self.notify(msg);
         });
-        var row = Row({columns:columns, studentId:studentId});
-        console.log("Row", row);
-        table[studentId] = row;
+        this.notify("Added student: ", row.studentId);
       }
 
 

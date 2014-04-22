@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS) {
+  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, Cache) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
+    $scope.teacher = Cache.get('user');
 
     $scope.activeIfPage = function(page){
       var cssClass = "";
@@ -24,4 +25,12 @@ angular.module('SchoolMan')
       var excluded = excludedOnThisPage(tab);
       return (hasAccess && (!excluded));
     };
+
+    $scope.logout = function(){
+      Location.open({page:"login", username:null, accessCode:'teacher'});
+    }
+
+    $scope.login = function(access){
+      Location.open({page:"default_"+access, accessCode:access});
+    }
   });

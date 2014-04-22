@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Registrar, CourseCatalog, ClassMaster, Student, Uid, Data) {
+  .controller('StudentsCtrl', function ($scope, $routeParams, Registrar, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data) {
 
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
 
@@ -9,6 +9,8 @@ angular.module('SchoolMan')
 
     var form = $routeParams.formIndex;
     var group= $routeParams.groupIndex;
+    var _groups = CourseCatalog.getGroups();
+
 
     $scope.newStudent = new Student({
     	form:form,
@@ -21,17 +23,17 @@ angular.module('SchoolMan')
     });
 
     
-
+    // This is a mess
     $scope.addStudent = function(){
     	
         var student = $scope.newStudent;
     	
-        Registrar.addStudent(student, marksheets);
         
         var marksheets = ClassMaster.getMarksheets(CourseCatalog.getCourseIds(form, group));
         angular.forEach(marksheets, function(marksheet, $index){
-            marksheet.addStudent(student.id);
+            ClassMaster.addStudent(marksheet,student.id);
         });
+        Registrar.addStudent(student, marksheets);
 
     	$scope.newStudent = new Student({
 	    	form:form,
@@ -45,5 +47,45 @@ angular.module('SchoolMan')
     	});
     	
     };
+
+    $scope.mastersheets = {};
+
+    $scope.groupStats = {
+        0:{passing:0, failing:0, percentPassing:0},
+        1:{passing:0, failing:0, percentPassing:0}
+        // ... etc - populated during buildMastersheet
+    }
+    
+    var subjects = CourseCatalog.getSubjects($routeParams.formIndex);
+
+    var updateGroupStats = function(group, stats){
+        console.log("Updating ", group , stats);
+        $scope.groupStats[group] = stats;
+    };
+
+    // This is doing more work than it needs to because we dont need a mastersheet
+    // for every course
+    var passingScore = _groups[$routeParams.groupIndex].getPromoPass($routeParams.formIndex)
+
+    var buildMastersheet = function(groupIndex){
+        
+        var courses = CourseCatalog.getCourses($routeParams.formIndex, groupIndex);
+        var courseIds = courses.map(function(course){return course.id});
+
+        var marksheets = ClassMaster.getMarksheets(courseIds);
+        var mastersheet = new Mastersheet({
+            termIndex:0,
+            subjects:subjects,
+            marksheets:marksheets,
+            getSubjectKey:CourseCatalog.getSubjectKey
+        });
+        $scope.mastersheets[groupIndex] = mastersheet;
+
+        updateGroupStats(groupIndex, mastersheet.numstats(passingScore));
+    };
+
+    buildMastersheet($routeParams.groupIndex);
+    var mastersheet = $scope.mastersheets[$routeParams.groupIndex];
+    $scope.studentStatus = mastersheet.getStudentStatus(passingScore);
 
   });

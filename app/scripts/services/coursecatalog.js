@@ -32,6 +32,7 @@ angular.module('SchoolMan')
 
     // Load data into the object model
     Data.get('coursecatalog', function(d){
+        console.log("template groups before model", d);
         template = d;
         angular.forEach(template.forms, function(form, formIndex){
             angular.forEach(template.groups, function(group, groupIndex){
@@ -101,7 +102,7 @@ angular.module('SchoolMan')
     self.getSubjects = function(formIndex){
         var subjects = {};
         angular.forEach(template.forms[formIndex].subjects, function(isOffered, subjectKey){
-          if(isOffered){
+          if(isOffered && template.subjects[subjectKey]){
             subjects[subjectKey] = template.subjects[subjectKey];
           }
         });
@@ -263,7 +264,7 @@ angular.module('SchoolMan')
     };
 
     self.save = function(){
-        Data.save({'coursecatalog': template});
+        Data.saveLater({'coursecatalog': template});
     };
 
     self.removeSubject = function(subjectKey){

@@ -1,28 +1,46 @@
 <div ng-include="'views/_navtabs.html'"></div>
 
 <div class="marksheet" ng-controller="PromotionCtrl">
-
+	<!-- Form Dropdown -->
+	<div class="" style="padding-bottom:10px;">
+		<div class="btn-group">
+		  <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+		    {{form.name}} <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li ng-repeat="(formIndex, form) in forms">
+		      <a ng-href="" ng-click="open({formIndex:formIndex})">{{form.name}}</a>
+		    </li>
+		  </ul>
+		</div>
+	</div>
 	<div>
 		 <!-- <h2>{{form.name}}</h2> -->
-		<table class="table table-striped">
+		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<td>Class</td>
-					<td>Passing</td>
-					<td>Statistics</td>
+					<th>Class</th>
+					<th class="column-on-bottom">Passing</th>
+					<th>Number Failing</th>
+					<th>Number Passing</th>
+					<th>Percent Passing</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(groupIndex, group) in groups" ng-if="group.inForm(formIndex)">
-					<td>{{group.name}}</td>
+				<tr ng-repeat="(groupIndex, group) in groups" 
+					ng-if="group.inForm(formIndex)">
+					<td class="column-on-right">{{group.name}}</td>
 					<td class="column" style="width:100px;">
 						<input class='cell text-center' 
 							   ng-model="group.forms[formIndex].pass"
+							   ng-blur="save(groupIndex)"
 							   tabindex="{{groupIndex + 1}}"
 							   cell cell-nrow="{{groups.length}}">
 					</td>
 					<!-- <td>{{getStudentsPassing(formIndex, form.advance)}}</td> -->
-					<td>64% of students will advance</td>
+					<td>{{groupStats[groupIndex].failing || 0}}</td>
+					<td>{{groupStats[groupIndex].passing || 0}}</td>
+					<td>{{(groupStats[groupIndex].percentPassing * 100 || 0) | number:1}}%</td>
 				</tr>
 			</tbody>
 		</table>

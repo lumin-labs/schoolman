@@ -72,12 +72,11 @@ angular.module('SchoolMan')
     		angular.forEach(CourseCatalog.getCourses(form, group), function(course, courseIndex){
 				registerStudent(student.id, course.id);
 			});
-
             
     };
 
     self.save = function(callback){
-        Data.save({students:_students}, callback);
+        Data.saveLater({students:_students}, callback);
     };
 
 
@@ -108,10 +107,6 @@ angular.module('SchoolMan')
      */
     self.getStudentsByCourseUnsorted = function(courseId){
             var courseList = courses[courseId];
-            // $log.debug("Courses?", courseId, courses);
-            // $log.debug("CourseList", courseList);
-            // $log.debug("Num Student Keys", Object.keys(students).length, students);
-            // $log.debug("Num Students", _students.length, _students);
 
             var studentList = courseList.map(function(studentId){
                 return students[studentId];

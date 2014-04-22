@@ -1,6 +1,6 @@
 <div ng-include="'views/_navtabs.html'"></div>
 
-<div class="marksheet" ng-init="mastersheet = getMastersheet()">
+<div class="marksheet" ng-controller="MastersheetCtrl" ng-init="mastersheet = getMastersheet()">
 
   <!-- School Name Letterhead -->
   <div class="letterhead" ng-include="'views/_letterhead.html'"></div>
@@ -9,104 +9,6 @@
   <div class="row">
     <div class="col-md-10">
       <div class="well">
-        <!-- <div class="row">
-          <div class="col-md-5">
-
-            <dl class="dl-horizontal" style="margin:0;">
-
-              <dt>Term - <em>Trimestre</em></dt>
-              <dd>
-                <div class="btn-group" style="margin-left:-10px;margin-top:5px;">
-                  <button class="btn btn-sm dropdown-toggle" 
-                      data-toggle="dropdown">{{term.name}}
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li ng-repeat="(termIndex,term) in terms">
-                      <a  
-                        ng-click="open({termIndex:termIndex})">{{terms[termIndex].name}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </dd>
-
-              <dt>Form - <em>Classe</em></dt>
-              <dd>
-                <div class="btn-group" style="margin-left:-10px;margin-top:5px;">
-                  <button class="btn btn-sm dropdown-toggle" 
-                      data-toggle="dropdown">{{form.name}}
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li ng-repeat="(formIndex,form) in forms">
-                      <a  ng-click="open({formIndex:formIndex})">
-                        {{forms[formIndex].name}}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                {{form.name}}
-              </dd>
-
-              <dt>Class - <em>Classe</em></dt>
-              <dd>
-                <div class="btn-group" style="margin-left:-10px;margin-top:5px;">
-                  <button class="btn btn-sm dropdown-toggle" 
-                      data-toggle="dropdown">{{group.name}}
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li ng-repeat="(groupIndex,group) in groups">
-                      <a  ng-click="open({groupIndex:groupIndex})">
-                        {{groups[groupIndex].name}}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                {{group.name}}
-              </dd>
-
-              <br>
-
-              <dt>Roll No.</dt>
-              <dd>{{student.roll}}</dd>
-              <dt>Reg No.</dt>
-              <dd>{{student.id}}</dd>
-
-            </dl>
-          </div>
-          <div class="col-md-7">
-            <dl class="dl-horizontal" style="margin:0;">
-
-              <dt>Name - <em>Nom</em></dt>
-              <dd>
-                <div class="btn-group" style="margin-left:-10px;margin-top:5px;">
-                  <button class="btn btn-sm dropdown-toggle" 
-                      data-toggle="dropdown">{{student.name}}
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li ng-repeat="(studentIndex, student) in students">
-                      <a ng-click="open({studentId:student.id})">{{student.name}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </dd>
-          
-              <dt>Sex - <em>Sexe</em></dt>
-              <dd>{{student.sex}}</dd>
-
-              <dt>Date of Birth<br><em>Date de Naissance</em></dt>
-              <dd>{{student.birth | date:'EEE dd-MMM-yyyy'}}</dd>
-              <br>
-              <dt>Parent Name</dt>
-              <dd>{{student.parentName}}</dd>
-              <dt>Phone</dt>
-              <dd>{{student.parentPhone}}</dd>
-              <dt>Email</dt>
-              <dd>{{student.parentEmail}}</dd>
-            
-              <br>
-          </dl>
-
-          </div>
-        </div> -->
         <div class="row">
           <div class="col-md-12">
             <table class="table" style="width:100%;">
@@ -251,14 +153,14 @@
               {{average || ""}}
             </td>
 
-            <td>{{subject.coeff}}</td>
-            <td>{{average * subject.coeff}}</td>
+            <td>{{average ? subject.coeff : ""}}</td>
+            <td>{{(average * subject.coeff) || ""}}</td>
             <!-- <td>{{getRankings(students, subject_index, term-1, data)[student].rank}}</td> -->
-            <td>{{getMarksheet(subjectKey).getRank(student.id, termIndex)}}</td>
+            <td>{{getMarksheet(subjectKey).getRank(student.id, termIndex) || ""}}</td>
             <!-- <td>{{student}}</td> -->
             <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
             <td>
-              <div class="signature">{{getTeacher(subjectKey).fullname}}</div>
+              <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
             </td>
           </tr>
         </tbody>
@@ -269,18 +171,18 @@
   <br>
   <div class="row">
     <div class="col-md-5">
-      <table class="table table-bordered table-striped">
+      <table class="table table-bordered table-striped" ng-init="totals = mastersheet.getAcTotals(student.id)">
         <tr>
           <td>Total Mark:</td>
           <td>{{mastersheet.table["students"][student.id].acTotal}}</td>
         </tr>
         <tr>
           <td>Total Coeff:</td>
-          <td>{{mastersheet.table['totalCoeff']}}</td>
+          <td>{{totals.coeff}}</td>
         </tr>
         <tr>
           <td>{{data.terms[term]}} Average:</td>
-          <td>{{ mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</td>
+          <td>{{mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</td>
         </tr>
         <tr>
           <td>{{data.terms[term]}} Remark:</td>

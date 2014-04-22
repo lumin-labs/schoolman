@@ -1,9 +1,66 @@
-<!-- 
-There is no difference between this and myclasses-simple except for the 
-navtabs, and those are loaded dynamically on their own. This view exists solely
-for maintaining the convention that all views are dynamically loaded by
-combining the page name with the view name 
+<div ng-include="'views/_navtabs.html'"></div>
 
-TODO: I dont like this convention, get rid of it
--->
-<div ng-include="'views/myclasses-simple.html'"></div>
+<div class="marksheet" ng-controller="MyclassesCtrl">
+	<div class="row">
+		<div class="col-md-7">	
+			<div ng-include="'views/_menu-bookmark-course.html'" class="pull-left;"></div>
+	    </div>
+	    <div class="col-md-5">
+	    </div>
+  	</div>
+  	<div class="row" style="">
+		<div class="col-md-12">
+			<table class="table table-striped myclasses">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Subject</th>
+						<th>Form</th>
+						<th>Class</th>
+						<th># Students</th>
+						<th>Teacher</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="course in courses | orderBy:'-timestamp'">
+						<td style="width:50px;padding-left:10px;">
+							<button class="btn btn-info" 
+									ng-click="open({
+										page:'marksheet',
+										courseId:course.id
+									})">
+								<i class="glyphicon glyphicon-pencil"></i>
+							</button>
+						</td>
+						<td style="width:250px;">
+							<a ng-click="open({
+										page:'marksheet',
+										courseId:course.id
+									})">{{course.en}} / {{course.fr}}</a>
+						</td>
+						<td>{{course.form}}</td>
+						<td>{{course.group}}</td>
+						<td>
+							{{getStudentsByCourse(course.id).length}} students
+						</td>
+						<td>{{teacher.fullname}}</td>
+						<td class="remove">
+							<a ng-click="removeBookmark({teacherId:username,courseId:course.id})">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="jumbotron ng-hide" ng-show="courses.length < 1" 
+	     style="margin-top:20px;" >
+    	<h2 class="text-left">Welcome to the <b>My Classes</b> page!</h2>
+    	<p class="text-left">
+    		Select the <b>Form</b>, <b>Class</b>, and <b>Subject</b> from the menu above and then click 
+    		<b style="color:#5CB85C;font-size:1.1em;">Add Class</b>.
+    	</p>
+	</div>
+</div>	

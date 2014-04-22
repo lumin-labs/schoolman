@@ -158,6 +158,7 @@ angular.module('SchoolMan')
     		if(fileEntry){
 				fileEntry.createWriter(function(writer){
 					fileWriter = writer;
+                    window.fileWriter = writer;
 				});	
 
 	    		fileEntry.file(function(file){

@@ -35,7 +35,7 @@ angular.module('SchoolMan')
       page:"promotion",
       access:['admin'],
       exclude:[],
-      icon:'glyphicon-user'
+      icon:'glyphicon-thumbs-up'
     },
   	{
   		label:"My Classes",

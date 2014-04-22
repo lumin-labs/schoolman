@@ -46,6 +46,29 @@ angular.module('SchoolMan')
     // This is the container for public methods of the ClassMaster Service
     var self = {};
   
+    self.addStudent = function(marksheet, studentId){
+      var rowData = {
+          columns:[],
+          studentId:studentId
+        }
+
+        angular.forEach(Marksheet.sequences, function(sequence, sequenceIndex){
+          var count = 0;
+          while(count < sequence){
+            var mark = new Mark();
+            var cellData = {
+              history: [mark],
+              mark: mark.value
+            }
+            var cell = modelTransformer.transform(cellData, Cell);
+            rowData.columns.push(cell);
+            count += 1;
+          }
+        });
+
+        var row = modelTransformer.transform(rowData, Row);
+        marksheet.addRow(row); //This will auto-save
+    }
 
     /**
      * @ngdoc method
@@ -130,7 +153,6 @@ angular.module('SchoolMan')
       angular.forEach(courseIds, function(courseId, courseIdIndex){
         marksheets[courseId] = self.getMarksheet(courseId);
       });
-      Data.save({marksheets:marksheets});
       return marksheets;
     };
 
