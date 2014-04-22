@@ -44,7 +44,7 @@ angular.module('SchoolMan')
 
     self.removeUser = function(username){
       delete _users[username];
-      Data.save({'users':_users});
+      Data.saveLater({'users':_users});
     };
 
     self.setCurrentUser = function(user){
@@ -66,12 +66,12 @@ angular.module('SchoolMan')
       }
       
       _users[user.username] = user;
-      Data.save({'users':_users});
+      Data.saveLater({'users':_users});
     };
 
 
     self.save = function(){
-      Data.save({'users':_users});
+      Data.saveLater({'users':_users});
     };
 
     // Load users from Data
