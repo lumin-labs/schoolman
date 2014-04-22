@@ -160,7 +160,7 @@
             <!-- <td>{{student}}</td> -->
             <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
             <td>
-              <div class="signature">{{getTeacher(subjectKey).fullname}}</div>
+              <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
             </td>
           </tr>
         </tbody>
