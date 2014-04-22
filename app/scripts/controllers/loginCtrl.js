@@ -18,7 +18,7 @@ angular.module('SchoolMan')
             view:"all"
         },
         classmaster:{
-            page:"marksheet",
+            page:"reportcard",
             view:"all"
         },
         teacher:{
