@@ -107,10 +107,6 @@ angular.module('SchoolMan')
      */
     self.getStudentsByCourseUnsorted = function(courseId){
             var courseList = courses[courseId];
-            // $log.debug("Courses?", courseId, courses);
-            // $log.debug("CourseList", courseList);
-            // $log.debug("Num Student Keys", Object.keys(students).length, students);
-            // $log.debug("Num Students", _students.length, _students);
 
             var studentList = courseList.map(function(studentId){
                 return students[studentId];

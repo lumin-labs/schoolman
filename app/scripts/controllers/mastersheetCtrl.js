@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MastersheetCtrl', function ($scope, $routeParams, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location) {
+  .controller('MastersheetCtrl', function ($scope, $routeParams, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
   	
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
@@ -10,100 +10,6 @@ angular.module('SchoolMan')
 
 
     $scope.open = Location.open;
-
-    // Should probably put this somewhere else like in a service
-    var Mastersheet = function(marksheets){
-      var self = {};
-
-      self.table = {students:{}};
-
-      self.getStudentSubjectAverage = function(studentId, subjectKey){
-        var courseId = CourseCatalog.getCourseId({
-          formIndex : $routeParams.formIndex,
-          groupIndex: $routeParams.groupIndex,
-          subjectKey: subjectKey
-        });
-        var marksheet = marksheets[courseId];
-        var average = marksheet.getAverage(studentId, $routeParams.termIndex);
-        return average;
-      };
-
-      self.getAc = function(studentId, subjectKey){
-        var ac = self.getStudentSubjectAverage(studentId, subjectKey) * 
-                 $scope.subjects[subjectKey].coeff;
-        return ac || null;
-      };
-
-      self.getTotalCoeff = function(){
-        var coeff = 0;
-        angular.forEach($scope.subjects, function(subject, subjectKey){
-          coeff += parseInt(subject.coeff);
-        });
-        return coeff;
-      };
-
-      self.getAcTotals = function(studentId){
-        var totals = {
-          ac:0,
-          average:0,
-          coeff:0
-        };
-        
-        angular.forEach(self.table.students[studentId], function(scores, subjectKey){
-          if($scope.subjects.hasOwnProperty(subjectKey)){
-            totals.ac += (scores.ac || 0);
-            var coeff = parseInt($scope.subjects[subjectKey].coeff);
-            totals.coeff += scores.ac === null ? 0 : coeff;
-          }
-        });
-
-        totals.average = totals.ac / totals.coeff;
-        return totals;
-      };
-
-      // Compute Everything, store it in the "table"
-      angular.forEach($scope.students, function(student, studentIndex){
-        self.table.students[student.id] = {};
-        self.table.totalCoeff  = self.getTotalCoeff();
-        angular.forEach(marksheets, function(marksheet, courseId){
-          var subjectKey = CourseCatalog.getSubjectKey(courseId);
-          self.table.students[student.id][subjectKey] = {
-            average:self.getStudentSubjectAverage(student.id, subjectKey),
-            ac:self.getAc(student.id, subjectKey)
-          };
-        });
-
-        var totals = self.getAcTotals(student.id);
-        self.table.students[student.id].acTotal = totals.ac;
-        self.table.students[student.id].acAverage = totals.average;
-      });
-
-    // Rank and Cache
-      var students = [];
-      // 1. make a list from the table data
-      angular.forEach(self.table.students, function(student, studentId){
-        students.push({studentId:studentId, student:student});
-      });
-      // 2. sort the list by acAverage
-      students.sort(function(s1, s2){
-        return s2.student.acAverage - s1.student.acAverage;
-      });
-      // 3. store rankings in the student object 
-      //    (this should mutate the same student object in the table)
-      angular.forEach(students, function(d, dIndex){
-        if(dIndex === 0){
-          d.student.rank = 1;
-        }else{
-          if (d.student.acAverage === students[dIndex - 1].acAverage){
-            d.student.rank = students[dIndex - 1].rank;
-          }else{
-            d.student.rank = dIndex + 1;
-          }
-        }
-      });
-
-      return self;
-    }
 
     $scope.getMastersheet = function(m){
       var formIndex = $routeParams.formIndex;
@@ -115,7 +21,13 @@ angular.module('SchoolMan')
       var courses = CourseCatalog.getCourses(formIndex, groupIndex);
       var courseIds = courses.map(function(course){return course.id});
       var marksheets = ClassMaster.getMarksheets(courseIds);
-      var mastersheet = Mastersheet(marksheets);
+      var mastersheet = new Mastersheet({
+        termIndex:$routeParams.termIndex,
+        students:$scope.students,
+        subjects:$scope.subjects,
+        marksheets:marksheets,
+        getSubjectKey:CourseCatalog.getSubjectKey
+      });
       return mastersheet; 
     };
 

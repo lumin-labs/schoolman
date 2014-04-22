@@ -48,7 +48,7 @@ angular.module('SchoolMan')
     	return data[key];
     };
 
-    var save = function(obj, callback){
+    self.save = function(obj, callback){
 
     	console.log("Saving, ", obj);
 
@@ -193,7 +193,7 @@ angular.module('SchoolMan')
     	$timeout(function() {
     		if(nUpdates > 0){
     			console.log("saving " + nUpdates + " updates");
-    		    save({}, function(){
+    		    self.save({}, function(){
                    console.log("Data Saved, ", data); 
                 }); 
                 poll();
