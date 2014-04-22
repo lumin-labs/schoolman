@@ -21,17 +21,17 @@ angular.module('SchoolMan')
     });
 
     
-
+    // This is a mess
     $scope.addStudent = function(){
     	
         var student = $scope.newStudent;
     	
-        Registrar.addStudent(student, marksheets);
         
         var marksheets = ClassMaster.getMarksheets(CourseCatalog.getCourseIds(form, group));
         angular.forEach(marksheets, function(marksheet, $index){
-            marksheet.addStudent(student.id);
+            ClassMaster.addStudent(marksheet,student.id);
         });
+        Registrar.addStudent(student, marksheets);
 
     	$scope.newStudent = new Student({
 	    	form:form,

@@ -72,12 +72,11 @@ angular.module('SchoolMan')
     		angular.forEach(CourseCatalog.getCourses(form, group), function(course, courseIndex){
 				registerStudent(student.id, course.id);
 			});
-
             
     };
 
     self.save = function(callback){
-        Data.save({students:_students}, callback);
+        Data.saveLater({students:_students}, callback);
     };
 
 
