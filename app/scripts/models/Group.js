@@ -72,6 +72,11 @@ angular.module('SchoolMan')
       return this.forms[form].failBelow;
     }
 
+    Group.prototype.setPass = function(formIndex, score){
+      this.forms[formIndex].pass = parseInt(score);
+      this.notify("Form " + formIndex + " " + this.name + "has changed the passing score to " + score);
+    }
+
     return Group;
 
   })());

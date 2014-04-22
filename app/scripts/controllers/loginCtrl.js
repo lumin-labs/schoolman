@@ -9,16 +9,16 @@ angular.module('SchoolMan')
 
     // Auto login flag: 1 to auto login, 0 to not auto login
     var AUTO_LOGIN = 1;
-    var AUTO_LOGIN_USER = "Eric Adlam";
+    var AUTO_LOGIN_USER = "Yovla Bivir";
     var AUTO_LOGIN_ACCESS = "admin"
 
     var DEFAULT_START_PAGE = {
         admin:{
-            page:"promotion",
+            page:"students",
             view:"all"
         },
         classmaster:{
-            page:"reportcard",
+            page:"marksheet",
             view:"all"
         },
         teacher:{
