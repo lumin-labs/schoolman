@@ -3,6 +3,8 @@
 angular.module('SchoolMan')
   .controller('ClassmenuCtrl', function ($scope, $routeParams, CourseCatalog) {
     
+    $scope.page = $routeParams.page;
+    
     $scope.forms = CourseCatalog.getForms();
     $scope.form  = $scope.forms[$routeParams.formIndex];
 
