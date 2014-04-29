@@ -77,6 +77,10 @@ text-align: left;
   text-shadow: #36ADD1 1px 1px, #36ADD1 1px 1px;
 }
 
+td.promotion .btn-group .btn{
+  padding:5px;
+}
+
 td.column{
   padding: 0px !important;
   /*width:100px;*/

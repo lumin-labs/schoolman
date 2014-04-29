@@ -12,8 +12,9 @@
     "angular-sanitize": "1.2.6",
     "angular-route": "1.2.6",
     "angular-slugify": "1.0.0",
-    "Faker":"0.7.0", 
-    "d3-tip":"0.6.4"
+    "Faker": "0.7.0",
+    "d3-tip": "0.6.4",
+    "Font-Awesome": "~4.0.3"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
