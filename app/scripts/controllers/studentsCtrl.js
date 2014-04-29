@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Registrar, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data) {
+  .controller('StudentsCtrl', function ($scope, $routeParams, Registrar, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, PROMOTE_OPTIONS) {
 
+    $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
 
     $scope.students = Registrar.getStudentsByCourse($scope.courseId);
@@ -10,6 +11,7 @@ angular.module('SchoolMan')
     var form = $routeParams.formIndex;
     var group= $routeParams.groupIndex;
     var _groups = CourseCatalog.getGroups();
+
 
 
     $scope.newStudent = new Student({
@@ -86,6 +88,8 @@ angular.module('SchoolMan')
 
     buildMastersheet($routeParams.groupIndex);
     var mastersheet = $scope.mastersheets[$routeParams.groupIndex];
+    
     $scope.studentStatus = mastersheet.getStudentStatus(passingScore);
+    
 
   });

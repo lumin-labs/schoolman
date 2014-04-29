@@ -66,3 +66,23 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-list-alt'
   	},
  ]);
+
+
+angular.module('SchoolMan')
+  .constant('PROMOTE_OPTIONS', [
+    {name: "automatic",
+     icon: "fa fa-cog",
+     style:""},
+    {name: "promote",
+     icon: "fa fa-pencil",
+     style:"success"},
+    {name: "repeat",
+     icon: "fa fa-pencil",
+     style:"warning"},
+    {name: "withdrawal",
+     icon: "fa fa-pencil",
+     style:"default"},
+    {name: "dismiss",
+     icon: "fa fa-pencil",
+     style:"danger"}
+]);

@@ -23,6 +23,9 @@ angular.module('SchoolMan')
       this.courses = [];
       this.form = null;  //Integer
       this.group = null; //Integer
+      this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
+        2014:0
+      };     
 
       // Initialize object with spec properties, excluding any that aren't defined above
       var self = this;
@@ -31,6 +34,21 @@ angular.module('SchoolMan')
           self[key] = property;
         }
       });
+
+      // callback functions
+      var listeners = [];
+      this.notify =  function(msg){
+        console.log("Marksheet notifying listeners: ", listeners);
+        angular.forEach(listeners, function(callback, $index){
+          console.log("callback", callback);
+          callback(msg);  
+        });
+      };
+      this.onChange = function(callback){
+        // console.log("Register listener");
+        listeners.push(callback);
+        // console.log("Listeners", listeners);
+      };
           
     };
 
@@ -42,6 +60,13 @@ angular.module('SchoolMan')
 
     Student.prototype.onChange = function(callback){
       listeners.push(callback);
+    };
+
+    Student.prototype.setStatus = function(year, statusIndex){
+      console.log("Setting status to " + statusIndex);
+      this.status[year] = statusIndex;
+      console.log("Status set to ", this.status);
+      this.notify("Changed status to " + statusIndex);
     };
 
     return Student;
