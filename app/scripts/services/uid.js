@@ -28,7 +28,7 @@ angular.module('SchoolMan')
     };
 
     self.save = function(lastUid){
-        Data.save({uid:lastUid});
+        Data.saveLater({uid:lastUid});
     };
 
     return self;

@@ -26,27 +26,35 @@ angular.module('SchoolMan')
 
     
     // This is a mess
+    // TODO: make better
     $scope.addStudent = function(){
     	
         var student = $scope.newStudent;
     	
-        
+        // Register student with ClassMaster
         var marksheets = ClassMaster.getMarksheets(CourseCatalog.getCourseIds(form, group));
         angular.forEach(marksheets, function(marksheet, $index){
             ClassMaster.addStudent(marksheet,student.id);
         });
+
+        // Register student with the registrar
         Registrar.addStudent(student, marksheets);
 
-    	$scope.newStudent = new Student({
-	    	form:form,
-	    	group:group,
-	    	id: Uid.next(student.id)
-    	});
+        // Save registrar
     	Registrar.save(function(msg){
     		$scope.students = Registrar.getStudentsByCourse($scope.courseId);
     		$scope.$digest();
-    		Uid.save(student.id);
     	});
+
+        // save last used UID
+        Uid.save(student.id);
+
+        // Reset new student
+        $scope.newStudent = new Student({
+            form:form,
+            group:group,
+            id: Uid.next(student.id)
+        });
     	
     };
 

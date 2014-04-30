@@ -12,7 +12,7 @@
  * This service stores all student data and links students with classes and courses
  */
 angular.module('SchoolMan')
-  .service('Registrar', function Registrar(CourseCatalog, Data, $log, modelTransformer, Student) {
+  .service('Registrar', function Registrar(CourseCatalog, Data, $log, modelTransformer, Student, Uid) {
     
     var _students = [];
     var students = {};
@@ -52,7 +52,7 @@ angular.module('SchoolMan')
      *
      * This method adds a student to all courses in their class
      */
-    self.addStudent = function(student, marksheets){
+    self.addStudent = function(student, marksheets, Uid){
 
             student = modelTransformer.transform(student, Student);
 
