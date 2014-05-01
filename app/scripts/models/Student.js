@@ -52,6 +52,23 @@ angular.module('SchoolMan')
           
     };
 
+    // This function lets you ask if the object has all the required fields
+    // TODO: the config for which fields are required should probably be done 
+    // elsewhere
+    Student.prototype.isValid = function(){
+      var self = this;
+      var isOk = true;
+      var requiredFields = ["name"];
+      var invalidValues = ["", undefined, null];
+      angular.forEach(requiredFields, function(field, fieldIndex){
+        // if the current value of the field is some kind of null value
+        if(invalidValues.indexOf(self[field]) > -1){
+          isOk = false;
+        }
+      });
+      return isOk;
+    };
+
     Student.prototype.callback = function(msg){
       angular.forEach(listeners, function(callback, $index){
         callback(msg);  
