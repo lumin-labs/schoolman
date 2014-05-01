@@ -44,10 +44,17 @@ angular.module('SchoolMan')
       exclude:[],
   	 	icon:'glyphicon-home'
   	},
+    {
+      label:"Marksheet (cm)",
+      page:"classmasterMarksheet",
+      access:['classmaster'],
+      exclude:[],
+      icon:'glyphicon-pencil'
+    },
   	{
   		label:"Marksheet",
   	 	page:"marksheet",
-  	 	access:['classmaster', 'teacher'],
+  	 	access:['teacher'],
       exclude:['myclasses'],
   	 	icon:'glyphicon-pencil'
   	},
@@ -71,18 +78,18 @@ angular.module('SchoolMan')
 angular.module('SchoolMan')
   .constant('PROMOTE_OPTIONS', [
     {name: "automatic",
-     icon: "fa fa-cog",
+     icon: "glyphicon glyphicon-cog",
      style:""},
     {name: "promote",
-     icon: "fa fa-pencil",
+     icon: "glyphicon glyphicon-pencil",
      style:"success"},
     {name: "repeat",
-     icon: "fa fa-pencil",
+     icon: "glyphicon glyphicon-pencil",
      style:"warning"},
     {name: "withdrawal",
-     icon: "fa fa-pencil",
+     icon: "glyphicon glyphicon-pencil",
      style:"default"},
     {name: "dismiss",
-     icon: "fa fa-pencil",
+     icon: "glyphicon glyphicon-pencil",
      style:"danger"}
 ]);

@@ -6,7 +6,23 @@
   	<thead>
       <tr class="no-border-bottom">
         <th colspan="3" style="border:0px;padding:0px;padding-bottom:10px;">
-          <div ng-include="'views/_menu-basic.html'"></div>
+          <!-- class indicator -->
+          <div ng-controller="ClassmenuCtrl">
+           
+            <button class="btn btn-lg btn-light disabled ">
+              {{subject.en}} 
+            </button>
+        
+            
+            <button class="btn btn-lg btn-light disabled " >
+                {{form.name}} 
+              </button>
+            
+            
+              <button class="btn btn-lg btn-light disabled ">
+                {{group.name}} 
+              </button>
+          </div>
         </th>
         <th class="text-center"
             style="vertical-align:middle;border:solid 3px #fff;background-color:#f8f8f8;" 
