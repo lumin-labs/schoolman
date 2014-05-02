@@ -86,6 +86,9 @@ td.column{
   /*width:100px;*/
   border:solid 1px #FCCD99 !important;
 }
+td.column.readonly{
+  border: solid 1px #ddd !important;
+}
 
 td.column-on-right{
   border-right:solid 1px #FCCD99 !important;

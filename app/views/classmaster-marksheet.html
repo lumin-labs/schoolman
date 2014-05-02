@@ -20,7 +20,7 @@
   			<th style="width:40px;">No.</th>
   			<th style="width:380px;">Name</th>
         <th style="width:100px;text-align:right;">Rankings</th>
-        <th class="text-center column-on-bottom" ng-repeat="sequence in marksheet.getSequences()">
+        <th class="text-center" ng-repeat="sequence in marksheet.getSequences()">
           Sequence {{sequence}}
         </th>
   		</tr>
@@ -30,7 +30,7 @@
   			<td>{{studentIndex + 1}}</td>
   			<td>
           <a ng-click="open({page:'reportcard', studentId:student.id})">{{student.name}}</td>
-        <td class="column-on-right" style=" font-family:monotype;font-size:.9em;">
+        <td  style=" font-family:monotype;font-size:.9em;">
             <table>
               <tr>
                 <td style="width:25px;text-align:right;">{{marksheet.getRank(student.id,0)}}</td>
@@ -42,9 +42,13 @@
               </tr>
             </table>
         </td>
-  			<td class="column" ng-repeat="(cellIndex, cell) in marksheet.getCells(student.id)">
+  			<td class="column readonly" ng-repeat="(cellIndex, cell) in marksheet.getCells(student.id)">
   				
-          {{cell.mark}}
+        <div class="cell text-center 
+                    {{classMaster.getRemarkCode(cell.mark)}} 
+                    {{cell.getValidationStatus()}}">
+          {{cell.mark}} 
+        </div>
         </td>
   		</tr>	
   	</tbody>
