@@ -45,7 +45,7 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-home'
   	},
     {
-      label:"Marksheet (cm)",
+      label:"Marksheet",
       page:"classmasterMarksheet",
       access:['classmaster'],
       exclude:[],
