@@ -43,13 +43,8 @@
             </table>
         </td>
   			<td class="column" ng-repeat="(cellIndex, cell) in marksheet.getCells(student.id)">
-  				<input  ng-model="cell.mark"
-  					      ng-blur ="cell.save()" 
-                  tabindex="{{(studentIndex + 1) + (cellIndex * students.length)}}"
-                  cell cell-nrow="{{students.length}}"
-                  class="cell text-center 
-                         {{classMaster.getRemarkCode(cell.mark)}} 
-                         {{cell.getValidationStatus()}}">
+  				
+          {{cell.mark}}
         </td>
   		</tr>	
   	</tbody>
