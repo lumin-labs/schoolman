@@ -23,6 +23,13 @@ angular.module('SchoolMan')
       exclude:[],
   	 	icon:'glyphicon-user'
   	},
+    {
+      label:"Registration",
+      page:"registration",
+      access:['admin'],
+      exclude:[],
+      icon:'glyphicon-user'
+    },
   	{
   		label:"Classes",
   	 	page:"classes",

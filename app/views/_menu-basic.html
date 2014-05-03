@@ -1,6 +1,6 @@
 <div ng-controller="ClassmenuCtrl">
   <!-- Subject Dropdown -->
-  <div  ng-if="page !== 'mastersheet' && page !== 'students'"
+  <div  ng-if="['mastersheet', 'students', 'registration'].indexOf(page) === -1"
         class="btn-group">
     <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
       {{subject.en}} <span class="caret"></span>
