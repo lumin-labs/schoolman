@@ -7,6 +7,7 @@ dist
 .gitattributes
 app/bower_components
 app/fonts
+app/scripts/dev.js
 docs
 SchoolMan.crx
 SchoolMan.xmi
