@@ -51,9 +51,9 @@
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
-						<th class="text-center" style="width:105px;">Admin</th>
-						<th class="text-center" style="width:105px;">Class Master</th>
-						<th class="text-center" style="width:105px;">Teacher</th>
+						<th class="text-center" 
+						    style="width:105px;"
+						    ng-repeat="(roleKey, role) in User.roles">{{role.name}}</th>
 						<th style="padding-left:10px;">Name</th>
 						<th style="width:80px">Remove</th>
 					</tr>

@@ -16,17 +16,17 @@ angular.module('SchoolMan')
       exclude:[],
   	 	icon:'glyphicon-book'
   	},
-  	{
-  		label:"Students",
-  	 	page:"students",
-  	 	access:['admin'],
-      exclude:[],
-  	 	icon:'glyphicon-user'
-  	},
     {
       label:"Registration",
       page:"registration",
-      access:['admin'],
+      access:['registrar'],
+      exclude:[],
+      icon:'glyphicon-calendar'
+    },
+  	{
+      label:"Students",
+      page:"students",
+      access:['admin', 'registrar'],
       exclude:[],
       icon:'glyphicon-user'
     },

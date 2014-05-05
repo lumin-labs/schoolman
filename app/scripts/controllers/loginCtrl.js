@@ -8,17 +8,21 @@ angular.module('SchoolMan')
     $log.info("Path: ", $location.path());
 
     // Auto login flag: 1 to auto login, 0 to not auto login
-    var AUTO_LOGIN = 0;
-    var AUTO_LOGIN_USER = "Yovla Bivir";
-    var AUTO_LOGIN_ACCESS = "admin"
+    var AUTO_LOGIN = 1;
+    var AUTO_LOGIN_USER = "Eric Adlam";
+    var AUTO_LOGIN_ACCESS = "registrar"
 
     var DEFAULT_START_PAGE = {
         admin:{
-            page:"students",
+            page:"users",
             view:"all"
         },
         classmaster:{
             page:"classmasterMarksheet",
+            view:"all"
+        },
+        registrar:{
+            page:"registration",
             view:"all"
         },
         teacher:{
@@ -31,10 +35,7 @@ angular.module('SchoolMan')
 
     // This data is used for creating the access dropdown in the login view
     // It should be moved to a service
-    $scope.accessLevels = {
-        teacher: {name:"Teacher"},
-        admin:   {name:"Administrator"},
-        classmaster: {name:"Class Master"}};
+    $scope.accessLevels = User.roles;
 
     $scope.access = $scope.accessLevels[$routeParams.accessCode];
 

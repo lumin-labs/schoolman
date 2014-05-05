@@ -3,6 +3,7 @@
 angular.module('SchoolMan')
   .controller('UsersCtrl', function ($scope, $user, User) {
     
+    $scope.User = User;
     $scope.tempUser = new User();
 
     $scope.getUsers = function(){

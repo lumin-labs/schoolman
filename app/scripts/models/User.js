@@ -17,11 +17,19 @@ angular.module('SchoolMan')
       this.username = "";
       this.access = {
         admin:0,
+        registrar:0,
         classmaster:0,
         teacher:1
       };
       
     };
+
+    User.roles = {
+        teacher: {name:"Teacher"},
+        admin:   {name:"Administrator"},
+        classmaster: {name:"Class Master"},
+        registrar:{name:"Registrar"}
+    }
 
     User.prototype.hasAccess = function(accessCode){
       return this.access[accessCode];
