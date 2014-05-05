@@ -9,12 +9,7 @@ angular.module('SchoolMan')
     }
 
   	$scope.print = function(){
-  		if($routeParams.page === 'reportcard'){
-        $scope.show.backButton = true;
-  			$scope.open({page:"transcript"})
-  		}else{
   			window.print();
-  		}
     }
 
     $scope.back = function(){
