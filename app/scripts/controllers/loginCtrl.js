@@ -2,15 +2,15 @@
 
 angular.module('SchoolMan')
   .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $user, $log, User, Path, Cache, Location, TimeTable, MockData) {
+    function ($scope, $location, $routeParams, $user, $log, DEV, User, Path, Cache, Location, TimeTable, MockData) {
 
 
     $log.info("Path: ", $location.path());
 
     // Auto login flag: 1 to auto login, 0 to not auto login
-    var AUTO_LOGIN = 1;
-    var AUTO_LOGIN_USER = "Eric Adlam";
-    var AUTO_LOGIN_ACCESS = "registrar"
+    var AUTO_LOGIN = DEV.AUTO_LOGIN;
+    var AUTO_LOGIN_USER = DEV.AUTO_LOGIN_USER;
+    var AUTO_LOGIN_ACCESS = DEV.AUTO_LOGIN_ACCESS;
 
     var DEFAULT_START_PAGE = {
         admin:{
