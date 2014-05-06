@@ -7,5 +7,6 @@ Steps To Create a New Tab including data, service, controller, view, config
 	3a. rename file to [name]Ctrl.js
 	3b. update the filename where its imported in index.html
 4. create a model that represents the data being stored
-5. add the tab to the conf.js TABS value
-6. add the tab page/html config to app.js
+5. add model to schema map in Data
+6. add the tab to the conf.js TABS value
+7. add the tab page/html config to app.js

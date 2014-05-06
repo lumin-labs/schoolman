@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Registrar, Departments, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, PROMOTE_OPTIONS) {
+  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Registrar, Departments, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
@@ -13,13 +13,14 @@ angular.module('SchoolMan')
     var _groups = CourseCatalog.getGroups();
 
     $scope.departments = Departments.getAll();
-
+    $scope.fees = Fees.getAll();
     console.log("Dep", Object.keys($scope.departments)[0]);
     $scope.newStudent = new Student({
     	form:form,
     	group:group,
     	id: "",
-        department: Object.keys($scope.departments)[0]
+        department: Object.keys($scope.departments)[0],
+        feeGroup: Object.keys($scope.fees)[0]
     });
 
     Data.get("uid", function(uid){
