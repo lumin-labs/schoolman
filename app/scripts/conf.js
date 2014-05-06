@@ -30,6 +30,13 @@ angular.module('SchoolMan')
       exclude:[],
       icon:'glyphicon-calendar'
     },
+    {
+      label:"Fees",
+      page:"fees",
+      access:['registrar'],
+      exclude:[],
+      icon:'glyphicon-envelope'
+    },
   	{
       label:"Students",
       page:"students",

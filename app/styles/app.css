@@ -90,12 +90,20 @@ td.column.readonly{
   border: solid 1px #ddd !important;
 }
 
+td.column.readonly .cell{
+    font-weight: normal;
+}
+
 td.column-on-right{
   border-right:solid 1px #FCCD99 !important;
 }
 
 th.column-on-bottom{
   border-bottom:solid 2px #FCCD99 !important;
+}
+
+input.ng-dirty.ng-invalid{
+  border:solid 1px red;
 }
 
 .no-border-bottom th{

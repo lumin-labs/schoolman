@@ -40,7 +40,8 @@ angular.module('SchoolMan', [
       promotion:"admin-promotion.html",
       classmasterMarksheet:"classmaster-marksheet.html",
       registration:"admin-registration.html",
-      departments:"admin-departments.html"
+      departments:"admin-departments.html",
+      fees:"admin-fees.html"
     };
 
     var getTemplate = function(p){

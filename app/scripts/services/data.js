@@ -11,7 +11,8 @@ angular.module('SchoolMan')
         "timetable":"",
         "uid":"",
         "marksheets":"",
-        "departments":""
+        "departments":"",
+        "fees":""
     }
 
     // Change this to something that keeps track of the last time the data has changed
