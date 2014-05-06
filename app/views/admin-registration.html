@@ -23,6 +23,17 @@
 					      </li>
 					    </ul>
 					  </div>
+					  <!-- Department Dropdown -->
+					  <div class="btn-group">
+					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+					      {{departments[newStudent.department].name}} <span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu">
+					      <li ng-repeat="(depIndex, dep) in departments">
+					        <a ng-click="department = dep">{{dep.name}}</a>
+					      </li>
+					    </ul>
+					  </div>
 			      <!-- Group Dropdown -->
 					  <div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">

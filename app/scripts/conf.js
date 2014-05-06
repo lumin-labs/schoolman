@@ -17,6 +17,13 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-book'
   	},
     {
+      label:"Departments",
+      page:"departments",
+      access:['admin'],
+      exclude:[],
+      icon:'glyphicon-book'
+    },
+    {
       label:"Registration",
       page:"registration",
       access:['registrar'],
