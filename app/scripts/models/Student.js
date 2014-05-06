@@ -23,6 +23,7 @@ angular.module('SchoolMan')
       this.courses = [];
       this.form = null;  //Integer
       this.group = null; //Integer
+      this.department = null; //Integer
       this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
         2014:0
       };     
