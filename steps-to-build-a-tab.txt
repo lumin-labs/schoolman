@@ -1,0 +1,11 @@
+Steps To Create a New Tab including data, service, controller, view, config
+
+1. yo angular:view [name]
+2. yo angular:service [name]
+	2a. move the new script tab in index.html to be by the other services
+3. yo angular:controller [name]
+	3a. rename file to [name]Ctrl.js
+	3b. update the filename where its imported in index.html
+4. create a model that represents the data being stored
+5. add the tab to the conf.js TABS value
+6. add the tab page/html config to app.js
