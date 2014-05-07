@@ -1,6 +1,6 @@
 <div ng-include="'views/_navtabs.html'"></div>
 
-<div class="marksheet" ng-controller="CatalogCtrl">
+<div class="marksheet" ng-controller="SubjectsCtrl">
 
 	<nav class="navbar navbar-default" role="navigation">
 	  <div class="container-fluid">
@@ -17,10 +17,6 @@
 	        <div class="form-group">
 	          <input style="width:63px;" type="text" class="form-control" placeholder="code" 
 	          		 ng-model="newSubject.code">
-	        </div>
-	        <div class="form-group">
-	          <input style="width:66px;" type="text" class="form-control" placeholder="coeff"
-	          		 ng-model="newSubject.coeff">
 	        </div>
 	        <div class="form-group">
 	          <input style="width:275px;" type="text" class="form-control" placeholder="Subject Name (English)"
@@ -45,12 +41,8 @@
 				<thead>
 					<tr>
 						<th class="text-center">Code</th>
-						<th class="text-center column-on-bottom">Coeff</th>
 						<th class="column-on-bottom">Subject Name (English)</th>
 						<th class="column-on-bottom">Subject Name (French)</th>
-						<th ng-repeat="form in forms">
-							{{form.name}}
-						</th>
 						<th>Remove</th>
 					</tr>
 				</thead>
@@ -58,13 +50,6 @@
 					<tr ng-repeat="(subjectKey, subject) in allSubjects">
 						<td class="column-on-right" style="width:70px;">
 							{{subject.code}}
-						</td>
-						<td class="column" style="width:70px;">
-							<input class="cell cell-md cell-mono text-center" 
-									tabindex="{{$index + 1}}" 
-									cell cell-nrow="{{numSubjects}}"
-									ng-blur="save(subject)" 
-									ng-model="subject.coeff">
 						</td>
 						<td class="column">
 							<input class="cell cell-md cell-normal" 
@@ -79,17 +64,6 @@
 								   ng-blur="save(subject)"
 								   cell cell-nrow="{{numSubjects}}"
 								   ng-model="subject.fr">
-						</td>
-						<td  class="text-center" ng-repeat="(formIndex, form) in forms">
-							<button ng-click="toggleSubject(subjectKey, formIndex)"
-									class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-								<i ng-if="!form.subjects[subjectKey]" 
-								   class="glyphicon glyphicon-minus" 
-								   style="color:red;"></i>
-								 <i ng-if="form.subjects[subjectKey]" 
-							   class="glyphicon glyphicon-ok" 
-							   style="color:green;"></i>
-							</button>
 						</td>
 						<td class="remove text-center" style="width:80px;padding-top:15px;">
 							<a ng-click="removeSubject(subjectKey)">

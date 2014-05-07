@@ -19,6 +19,10 @@ angular.module('SchoolMan')
       var user = null; // Replace this with throwing error
       var username = createUsername(tempUser.fullname);
 
+      console.log("tempUser", tempUser);
+      console.log("username", username);
+      console.log("_users", _users);
+
       if(_users.hasOwnProperty(username)){
 
         var _user = _users[username];
@@ -79,7 +83,7 @@ angular.module('SchoolMan')
       angular.forEach(users, function(userData, username){
         var user = modelTransformer.transform(userData, User);
         // $log.debug("$user service:81, User", user);
-        _users[user.username] = user;
+        _users[username] = user;
         user.onChange(self.save);
       });
     });

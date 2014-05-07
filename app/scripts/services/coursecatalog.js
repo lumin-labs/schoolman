@@ -16,7 +16,7 @@
  * and for configuring which courses are available in which classes
  */
 angular.module('SchoolMan')
-  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups) {
+  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups, Forms) {
     
     var self = {};
     var courses = {};
@@ -25,7 +25,7 @@ angular.module('SchoolMan')
     function Course(form, group, subject){
       self = angular.copy(subject);
       self.id = form + "-" + group + "-" + self.code;
-      self.form = template.forms[form].name;
+      self.form = Forms.all()[form].name;
       self.group = Groups.get(group).name;
       return self;
     }
@@ -34,14 +34,14 @@ angular.module('SchoolMan')
     Data.get('coursecatalog', function(d){
         console.log("template groups before model", d);
         template = d;
-        angular.forEach(template.forms, function(form, formIndex){
+        angular.forEach(Forms.all(), function(form, formIndex){
             angular.forEach(Groups.getAll(), function(group, groupIndex){
                 angular.forEach(template.subjects, function(subject, subjectCode){
-                  if(form.subjects[subjectCode]){
+                  // if(form.subjects[subjectCode]){
                     subject.code = subjectCode;
                     var course = Course(formIndex,groupIndex, subject);
                     courses[course.id] = course;
-                  }
+                  // }
                 });
             });
         });
@@ -100,13 +100,13 @@ angular.module('SchoolMan')
      * which includes the courseId and a timestamp.
      */
     self.getSubjects = function(formIndex){
-        var subjects = {};
-        angular.forEach(template.forms[formIndex].subjects, function(isOffered, subjectKey){
-          if(isOffered && template.subjects[subjectKey]){
-            subjects[subjectKey] = template.subjects[subjectKey];
-          }
-        });
-        return subjects;
+        // var subjects = {};
+        // angular.forEach(Forms.all()[formIndex].subjects, function(isOffered, subjectKey){
+        //   if(isOffered && template.subjects[subjectKey]){
+        //     subjects[subjectKey] = template.subjects[subjectKey];
+        //   }
+        // });
+        return template.subjects;
     };
 
     self.getAllSubjects = function(){
@@ -213,7 +213,7 @@ angular.module('SchoolMan')
      * which includes the courseId and a timestamp.
      */
     self.getForms=function(){
-        return template.forms;
+        return Forms.all();
     };
 
 
@@ -274,7 +274,7 @@ angular.module('SchoolMan')
 
     self.post = function(newSubject){
         template.subjects[newSubject.code] = newSubject;
-        angular.forEach(template.forms, function(form, formIndex){
+        angular.forEach(Forms.all(), function(form, formIndex){
             form.subjects[newSubject.code] = 1;
         });
         self.save();
