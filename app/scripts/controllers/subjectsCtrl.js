@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('CatalogCtrl', function ($scope, $log, CourseCatalog, modelTransformer, Subject) {
+  .controller('SubjectsCtrl', function ($scope, $log, CourseCatalog, modelTransformer, Subject) {
 
   		$scope.forms = CourseCatalog.getForms();
         $scope.allSubjects = CourseCatalog.getAllSubjects();

@@ -12,7 +12,6 @@ angular.module('SchoolMan')
 		  }
 
       this.code = "";
-  		this.coeff = "";
       this.en = "";
       this.fr = "";
 

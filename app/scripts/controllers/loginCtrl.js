@@ -2,7 +2,7 @@
 
 angular.module('SchoolMan')
   .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $user, $log, Data, DEV, User, Path, Cache, Location, TimeTable, MockData, Groups) {
+    function ($scope, $location, $routeParams, $user, $log, DEV, User, Path, Cache, Location, TimeTable, MockData, Groups) {
 
 
     $log.info("Path: ", $location.path()); 
@@ -36,21 +36,17 @@ angular.module('SchoolMan')
 
     // Get a user object. 
     // Note: this user may not actually exist as a registered user
-    $scope.userData = {
-        fullname:$routeParams.fullname === 'null' ? '' : $routeParams.fullname, 
-        accessCode:$routeParams.accessCode
-    };
+    $scope.tempUser = new User();
 
     $scope.login = function(page){
-        var tempUser = $user.create($scope.userData);
-        var accessRequest = $scope.userData.accessCode;
 
-        $user.login(tempUser, accessRequest, function(user){
+        // var tempUser = $user.create($scope.userData);
+        var accessRequest = $routeParams.accessCode;
+
+        $user.login($scope.tempUser, accessRequest, function(user){
             if(user){
                 
                 Cache.set({user:user});
-
-                console.log("GROUP:",Groups.getAll());
 
                 Location.open({
                     page:page || DEFAULT_START_PAGE[accessRequest].page,
@@ -61,12 +57,12 @@ angular.module('SchoolMan')
                     studentId:0,
                     termIndex:0,
                     username:user.username,
-                    accessCode:$scope.userData.accessCode});
+                    accessCode:$routeParams.accessCode});
             } else {
                 Location.open({
                     page:"login404",
-                    username:$scope.userData.fullname,
-                    accessCode:$scope.userData.accessCode
+                    username:$scope.tempUser.fullname,
+                    accessCode:$routeParams.accessCode
                 });
             }
         });
@@ -81,8 +77,8 @@ angular.module('SchoolMan')
 
 
     if(DEV.AUTO_LOGIN){
-        $scope.userData.fullname = DEV.AUTO_LOGIN_USER;
-        $scope.userData.accessCode = DEV.AUTO_LOGIN_ACCESS;
+        $scope.tempUser.fullname = DEV.AUTO_LOGIN_USER;
+        $routeParams.accessCode = DEV.AUTO_LOGIN_ACCESS;
         var page = DEV.hasOwnProperty("AUTO_LOGIN_PAGE") ? DEV.AUTO_LOGIN_PAGE : undefined;
         $scope.login(page); 
     }

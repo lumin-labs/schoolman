@@ -10,8 +10,8 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-lock'
   	},
   	{
-  		label:"Course Catalog",
-  	 	page:"catalog",
+  		label:"Subjects",
+  	 	page:"subjects",
   	 	access:['admin'],
       exclude:[],
   	 	icon:'glyphicon-book'

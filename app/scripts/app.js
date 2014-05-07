@@ -34,7 +34,7 @@ angular.module('SchoolMan', [
       login404: "login.html",
       students: "admin-students.html",
       users:    "admin-users.html",
-      catalog:  "admin-catalog.html",
+      subjects:  "admin-subjects.html",
       classes:  "admin-classes.html",
       transcript: "transcript.html",
       promotion:"admin-promotion.html",
