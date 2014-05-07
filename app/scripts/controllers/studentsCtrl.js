@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Groups, Registrar, Departments, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, PROMOTE_OPTIONS) {
+  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Groups, Registrar, Departments, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
@@ -13,6 +13,8 @@ angular.module('SchoolMan')
     var _groups = Groups.getAll();
 
     $scope.groups = _groups;
+
+    $scope.open = Location.open;
 
     $scope.departments = Departments.getAll();
     $scope.fees = Fees.getAll();

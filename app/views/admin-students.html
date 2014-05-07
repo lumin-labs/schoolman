@@ -52,7 +52,9 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="(studentIndex, student) in students">
-				<td style="width:100px;">{{student.id}}</td>
+				<td style="width:100px;">
+					<a ng-click="open({studentId:student.id, page:'profile'})">{{student.id}}</a>
+				</td>
 				<td>{{student.name}}</td>
 				<td>{{student.sex}}</td>
 				<td>{{student.birth | date:'dd-mm-yyyy'}}</td>
