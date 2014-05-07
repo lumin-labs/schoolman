@@ -2,7 +2,7 @@
 
 angular.module('SchoolMan')
   .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $user, $log, DEV, User, Path, Cache, Location, TimeTable, MockData) {
+    function ($scope, $location, $routeParams, $user, $log, Data, DEV, User, Path, Cache, Location, TimeTable, MockData, Groups) {
 
 
     $log.info("Path: ", $location.path()); 
@@ -50,11 +50,13 @@ angular.module('SchoolMan')
                 
                 Cache.set({user:user});
 
+                console.log("GROUP:",Groups.getAll());
+
                 Location.open({
                     page:page || DEFAULT_START_PAGE[accessRequest].page,
                     view:DEFAULT_START_PAGE[accessRequest].view,
                     formIndex:0,
-                    groupIndex:0,
+                    groupIndex:Object.keys(Groups.getAll())[0],
                     subjectKey:'engl',
                     studentId:0,
                     termIndex:0,

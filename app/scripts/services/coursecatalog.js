@@ -16,7 +16,7 @@
  * and for configuring which courses are available in which classes
  */
 angular.module('SchoolMan')
-  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, Group) {
+  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups) {
     
     var self = {};
     var courses = {};
@@ -26,7 +26,7 @@ angular.module('SchoolMan')
       self = angular.copy(subject);
       self.id = form + "-" + group + "-" + self.code;
       self.form = template.forms[form].name;
-      self.group = template.groups[group].name;
+      self.group = Groups.get(group).name;
       return self;
     }
 
@@ -35,7 +35,7 @@ angular.module('SchoolMan')
         console.log("template groups before model", d);
         template = d;
         angular.forEach(template.forms, function(form, formIndex){
-            angular.forEach(template.groups, function(group, groupIndex){
+            angular.forEach(Groups.getAll(), function(group, groupIndex){
                 angular.forEach(template.subjects, function(subject, subjectCode){
                   if(form.subjects[subjectCode]){
                     subject.code = subjectCode;
@@ -48,13 +48,13 @@ angular.module('SchoolMan')
     });
 
     // Load Groups into Model Layer
-    template.groups = modelTransformer.transform(template.groups, Group);
-    angular.forEach(template.groups,function(group, groupIndex){
-        group.onChange(function(msg){
-            console.log(msg);
-            Data.saveLater({coursecatalog:template});
-        });
-    });
+    // template.groups = modelTransformer.transform(template.groups, model.Group);
+    // angular.forEach(template.groups,function(group, groupIndex){
+    //     group.onChange(function(msg){
+    //         console.log(msg);
+    //         Data.saveLater({coursecatalog:template});
+    //     });
+    // });
     
 
     /**
@@ -228,9 +228,9 @@ angular.module('SchoolMan')
      * This method returns a list of courses. It takes a course reference object 
      * which includes the courseId and a timestamp.
      */
-    self.getGroups = function(){
-        return template.groups;
-    };
+    // self.getGroups = function(){
+    //     return template.groups;
+    // };
 
 
     /**

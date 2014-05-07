@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MastersheetCtrl', function ($scope, $routeParams, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
+  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
   	
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
@@ -160,7 +160,7 @@ angular.module('SchoolMan')
       $scope.forms = CourseCatalog.getForms();
       $scope.form  = $scope.forms[$routeParams.formIndex];
 
-      $scope.groups = CourseCatalog.getGroups();
+      $scope.groups = Groups.getAll();
       $scope.group  = $scope.groups[$routeParams.groupIndex];
 
       $scope.terms = CourseCatalog.getTerms();

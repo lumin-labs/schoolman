@@ -1,23 +1,30 @@
 'use strict';
 
 angular.module('SchoolMan')
+  .service('model', function model(Slug) {
+    // AngularJS will instantiate a singleton by calling "new" on this function
 
- /**
-  * @ngdoc object
-  * @name SchoolMan.object:Group
-  * @property {int} Group this is actually just the value of the last Group in the history, it is not a Group object
-  * @param {array} Groups this takes as an argument a list of Group object literals e.g. as would be loaded from JSON
-  * @method {function} getValidationStatus
-  * @method {function} save
-  * @method {function} onChange
-  * @description
-  *
-  * A Group contains the history of Groups. It can save a new Group, validate an
-  * input and notify listeners onChange
-  */
-  .value('Group', (function(){
+    var model = {};
+    
+//==============================================================================
 
-    // Constructor
+    function Form(spec){
+
+    	// Protect global namespace if istantiated without 'new' keyword
+      if (!(this instanceof Form)) {
+        return new Form();
+      }
+
+      this.name = spec.name || ""; 
+    
+    };
+
+    model.Form = Form;
+
+
+//==============================================================================
+
+
     function Group(){
 
       this.name = "";         // String
@@ -56,11 +63,11 @@ angular.module('SchoolMan')
       return this.forms[form].active;
     };
 
-    Group.prototype.toggleForm = function(form){
-      var bool = (this.forms[form].active + 1) % 2
-      this.forms[form] = bool; 
+    Group.prototype.toggleForm = function(formIndex){
+      var bool = (this.forms[formIndex].active + 1) % 2
+      this.forms[formIndex].active = bool; 
 
-      var msg = this.name + " has changed: inForm(" + form + ") -> " + bool; 
+      var msg = this.name + " has changed: inForm(" + formIndex + ") -> " + bool; 
 
       this.notify(msg);
     };
@@ -95,6 +102,11 @@ angular.module('SchoolMan')
       return isOk;
     };
 
-    return Group;
+    model.Group = Group;
 
-  })());
+
+//==============================================================================
+
+
+    return model;
+  });

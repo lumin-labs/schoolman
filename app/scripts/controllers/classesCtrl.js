@@ -5,4 +5,9 @@ angular.module('SchoolMan')
     $scope.forms = CourseCatalog.getForms();
     $scope.groups = CourseCatalog.getGroups();
     
+    $scope.remove = function(group){
+    	CourseCatalog.removeGroup(group);
+    	CourseCatalog.save();
+    }
+
   });
