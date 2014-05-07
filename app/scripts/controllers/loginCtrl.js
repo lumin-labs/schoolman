@@ -5,12 +5,7 @@ angular.module('SchoolMan')
     function ($scope, $location, $routeParams, $user, $log, DEV, User, Path, Cache, Location, TimeTable, MockData) {
 
 
-    $log.info("Path: ", $location.path());
-
-    // Auto login flag: 1 to auto login, 0 to not auto login
-    var AUTO_LOGIN = DEV.AUTO_LOGIN;
-    var AUTO_LOGIN_USER = DEV.AUTO_LOGIN_USER;
-    var AUTO_LOGIN_ACCESS = DEV.AUTO_LOGIN_ACCESS;
+    $log.info("Path: ", $location.path()); 
 
     var DEFAULT_START_PAGE = {
         admin:{
@@ -46,7 +41,7 @@ angular.module('SchoolMan')
         accessCode:$routeParams.accessCode
     };
 
-    $scope.login = function(){
+    $scope.login = function(page){
         var tempUser = $user.create($scope.userData);
         var accessRequest = $scope.userData.accessCode;
 
@@ -56,7 +51,7 @@ angular.module('SchoolMan')
                 Cache.set({user:user});
 
                 Location.open({
-                    page:DEFAULT_START_PAGE[accessRequest].page,
+                    page:page || DEFAULT_START_PAGE[accessRequest].page,
                     view:DEFAULT_START_PAGE[accessRequest].view,
                     formIndex:0,
                     groupIndex:0,
@@ -83,10 +78,11 @@ angular.module('SchoolMan')
     }
 
 
-    if(AUTO_LOGIN){
-        $scope.userData.fullname = AUTO_LOGIN_USER;
-        $scope.userData.accessCode = AUTO_LOGIN_ACCESS;
-        $scope.login(); 
+    if(DEV.AUTO_LOGIN){
+        $scope.userData.fullname = DEV.AUTO_LOGIN_USER;
+        $scope.userData.accessCode = DEV.AUTO_LOGIN_ACCESS;
+        var page = DEV.hasOwnProperty("AUTO_LOGIN_PAGE") ? DEV.AUTO_LOGIN_PAGE : undefined;
+        $scope.login(page); 
     }
     
 
