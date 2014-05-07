@@ -31,6 +31,13 @@ angular.module('SchoolMan')
       icon:'glyphicon-calendar'
     },
     {
+      label:"Student Profile",
+      page:"profile",
+      access:['admin', 'registrar'],
+      exclude:[],
+      icon:'glyphicon-user'
+    },
+    {
       label:"Fees",
       page:"fees",
       access:['registrar'],
