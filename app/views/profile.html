@@ -1,0 +1,169 @@
+<div ng-include="'views/_navtabs.html'"></div>
+
+<div class="marksheet" ng-controller="ProfileCtrl">
+  <div class="row">
+  	<div class="col-md-8" style="border-right:solid 0px #ddd;">
+  		<form class="form-horizontal" role="form">
+			  <div class="form-group">
+			    <label for="uid" class="col-sm-2 control-label">Student ID</label>
+			    <div class="col-sm-10">
+			      <p class="form-control-static">{{student.id}}</p>
+			    </div>
+			  </div>
+			  <div class="form-group" ng-controller="ClassmenuCtrl">
+			    <label for="uid" class="col-sm-2 control-label">Class</label>
+			    <div class="col-sm-10">
+			      <div class="btn-group">
+					    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
+					      {{form.name}} 
+					      &nbsp;<span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu">
+					      <li ng-repeat="(formIndex, form) in forms">
+					        <a ng-href="" ng-click="open({formIndex:formIndex})">{{form.name}}</a>
+					      </li>
+					    </ul>
+					  </div>
+					  <!-- Department Dropdown -->
+					  <div class="btn-group">
+					    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
+					      {{departments[student.department].name}} 
+					      &nbsp;<span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu">
+					      <li ng-repeat="(depKey, dep) in departments">
+					        <a ng-click="student.department = depKey">{{dep.name}}</a>
+					      </li>
+					    </ul>
+					  </div>
+			      <!-- Group Dropdown -->
+					  <div class="btn-group">
+					    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
+					      {{group.name}} 
+					      &nbsp;<span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu">
+					      <li ng-repeat="(groupIndex, group) in groups">
+					        <a ng-click="open({groupIndex:groupIndex})">{{group.name}}</a>
+					      </li>
+					    </ul>
+					  </div>
+			    </div>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="feeGroup" class="col-sm-2 control-label">Fee Group</label>
+			    <div class="col-md-10">
+			    	<div class="btn-group">
+					    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
+					    	<span ng-if="student.feeGroup !== ''">
+					    		{{fees[student.feeGroup].name}} ({{fees[student.feeGroup].amount | currency:""}})
+					    	</span>
+					      &nbsp;<span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu">
+					      <li ng-repeat="(feeKey, fee) in fees">
+					        <a ng-click="student.feeGroup = feeKey">
+					        {{fee.name}} ({{fee.amount | currency:""}})</a>
+					      </li>
+					    </ul>
+						</div>
+			    </div>
+			  </div>
+			  <br>
+			  <div class="form-group">
+			    <label for="studentName" class="col-sm-2 control-label">Student Name</label>
+			    <div class="col-sm-10">
+			      <input id="studentName"
+			      		 class="form-control" 
+			      		 placeholder="Student Name" 
+			      		 ng-model="student.name"
+			      		 readonly>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="gender" class="col-sm-2 control-label">Gender</label>
+			    <div class="col-sm-10">
+			      <input id="gender"
+			      		 class="form-control" 
+			      		 placeholder="Gender" 
+			      		 ng-model="student.sex"
+			      		 readonly>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="birthdate" class="col-sm-2 control-label">Birthdate</label>
+			    <div class="col-sm-10">
+			      <input id="birthdate" 
+			       		 class="form-control" 
+			       		 placeholder="Birth Date" 
+			       		 ng-model="student.birth"
+			       		 type="text"
+			       		 readonly>
+			    </div>
+			  </div>
+			  <br>
+			  <div class="form-group">
+			    <label for="parentName" class="col-sm-2 control-label">Parent Name</label>
+			    <div class="col-sm-10">
+			      <input id="parentName" 
+			      		 class="form-control" 
+			      		 placeholder="Parent Name" 
+			      		 ng-model="student.parentName"
+			      		 readonly>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="parentPhone" class="col-sm-2 control-label">Parent Phone</label>
+			    <div class="col-sm-10">
+			      <input id="parentPhone"
+			      		 class="form-control" 
+			      		 placeholder="Parent Phone" 
+			      		 ng-model="student.parentPhone"
+			      		 readonly>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="parentEmail" class="col-sm-2 control-label">Parent Email</label>
+			    <div class="col-sm-10">
+			      <input id="parentEmail" 
+			             class="form-control pull-left" 
+					     placeholder="Parent EMail"
+					     ng-model="student.parentEmail"
+					     readonly>
+			    </div>
+			  </div>
+			  <br>
+			  <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <button type="submit" class="btn btn-warning" ng-click="edit()">
+			        Edit Student
+			      </button>
+			    </div>
+			  </div>
+			</form>
+  	</div>
+  	<div class="col-md-3">
+  		<form class="form-horizontal" role="form">
+  			<div class="form-group">
+			    <label class="col-sm-5 control-label">Fee Payments</label>
+			  </div>
+  			<div class="form-group">
+			    <div class="col-sm-10">
+			      <input id="feePayment" 
+			             class="form-control pull-left" 
+					     placeholder="New Payment"
+					     ng-model="newPayment">
+			    </div>
+			    <div class="col-sm-2">
+			      <button type="submit" class="btn btn-success" ng-click="addPayment()">
+			        Add Payment
+			      </button>
+			    </div>
+			  </div>
+  		</form>
+  	</div>
+  </div>
+	
+</div>	
+
