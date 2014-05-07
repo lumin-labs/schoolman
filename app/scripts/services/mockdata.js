@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('MockData', function MockData(CourseCatalog, Registrar, ClassMaster, modelTransformer, Student, Data, $log, Uid, Fees, Departments, Groups) {
+  .service('MockData', function MockData(CourseCatalog, Registrar, ClassMaster, modelTransformer, Student, Data, $log, Uid, Fees, Departments, Groups, Forms) {
 
     var FORCE_CREATE_NEW = false;
-  	var N_STUDENTS = 500;
+  	var N_STUDENTS = 1000;
     var marksheets;
 
     var departments = Departments.getAll();
@@ -38,10 +38,11 @@ angular.module('SchoolMan')
 
                 var count = students.length;
                 var groups= Object.keys(Groups.getAll());
+                var genders = ["female", "male"];
 
                 $log.debug("Count", count);
                 while(count < N_STUDENTS){
-                    var form = getRandBetween(0, CourseCatalog.getForms().length);
+                    var form = getRandBetween(0, Forms.all().length);
                     var group = groups[getRandBetween(0, groups.length)];
                     var fee = Object.keys(fees)[getRandBetween(0, Object.keys(fees).length)];
                     var department = Object.keys(departments)[getRandBetween(0, Object.keys(departments).length)];
@@ -50,7 +51,7 @@ angular.module('SchoolMan')
                     var person = {
                         first_name: Faker.Name.firstName(),
                         last_name: Faker.Name.lastName(),
-                        gender:"female"
+                        gender:genders[getRandBetween(0, 2)]
                     }
                     var studentData = {
                             name: person.first_name + " " + person.last_name,

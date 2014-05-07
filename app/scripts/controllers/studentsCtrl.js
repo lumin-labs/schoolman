@@ -12,6 +12,8 @@ angular.module('SchoolMan')
     var group= $routeParams.groupIndex;
     var _groups = Groups.getAll();
 
+    $scope.groups = _groups;
+
     $scope.departments = Departments.getAll();
     $scope.fees = Fees.getAll();
     console.log("Dep", Object.keys($scope.departments)[0]);
