@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('PromotionCtrl', function ($scope, $routeParams, Data, ClassMaster, CourseCatalog, Location, Registrar, Mastersheet) {
+  .controller('PromotionCtrl', function ($scope, $routeParams, Groups, Data, ClassMaster, CourseCatalog, Location, Registrar, Mastersheet) {
     $scope.formIndex  = $routeParams.formIndex;
 
     $scope.forms = CourseCatalog.getForms();
     $scope.form  = $scope.forms[$routeParams.formIndex];
 
-    var _groups = CourseCatalog.getGroups();
-    $scope.groups = _groups.map(function(group){
-    	return angular.copy(group);
+    var _groups = Object.keys(Groups.getAll());
+    $scope.groups = _groups.map(function(groupKey){
+    	return angular.copy(Groups.get(groupKey));
     });
 
     $scope.open = Location.open;
@@ -45,12 +45,12 @@ angular.module('SchoolMan')
         });
         $scope.mastersheets[groupIndex] = mastersheet;
 
-        var passingScore = _groups[groupIndex].getPromoPass($routeParams.formIndex)
+        var passingScore = $scope.groups[groupIndex].getPromoPass($routeParams.formIndex)
         updateGroupStats(groupIndex, mastersheet.numstats(passingScore));
         
     }
 
-    angular.forEach(_groups, function(group, groupIndex){
+    angular.forEach($scope.groups, function(group, groupIndex){
         if(group.forms[$scope.formIndex].active){
            buildMastersheet(groupIndex); 
         }

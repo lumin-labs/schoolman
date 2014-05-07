@@ -12,7 +12,8 @@ angular.module('SchoolMan')
         "uid":"",
         "marksheets":"",
         "departments":"",
-        "fees":""
+        "fees":"",
+        "groups":""
     }
 
     // Change this to something that keeps track of the last time the data has changed
@@ -205,6 +206,10 @@ angular.module('SchoolMan')
     	}, 5000);
     }
     poll();
+
+    window._SchoolMan = {
+        Data : self
+    }
 
     return self;
 

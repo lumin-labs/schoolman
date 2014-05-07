@@ -112,6 +112,8 @@ angular.module('SchoolMan')
      * This returns an unsorted list of students by courseId
      */
     self.getStudentsByCourseUnsorted = function(courseId){
+
+
             var courseList = courses[courseId];
 
             var studentList = courseList.map(function(studentId){

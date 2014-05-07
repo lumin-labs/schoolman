@@ -22,6 +22,7 @@ angular.module('SchoolMan')
 
   	// Load local storage data into RAM
   	Data.get("timetable", function(timetable){
+      console.log("timetable", timetable);
   		if(timetable.hasOwnProperty("courses")){
   			courses = timetable.courses;
   			teachers = timetable.teachers;
