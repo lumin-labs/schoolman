@@ -60,7 +60,9 @@ angular.module('SchoolMan')
                             id: uid,
                             courses:[],
                             form:form,
-                            group:group
+                            group:group,
+                            feeGroup:fee,
+                            department:department
                     }
                     var student = modelTransformer.transform(studentData, Student);
                     students.push(student);
