@@ -1,11 +1,14 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('MockData', function MockData(CourseCatalog, Registrar, ClassMaster, modelTransformer, Student, Data, $log, Uid) {
+  .service('MockData', function MockData(CourseCatalog, Registrar, ClassMaster, modelTransformer, Student, Data, $log, Uid, Fees, Departments) {
 
     var FORCE_CREATE_NEW = false;
   	var N_STUDENTS = 500;
     var marksheets;
+
+    var departments = Departments.getAll();
+    var fees = Fees.getAll();
 
     // Random number util
 	var getRandBetween = function(min, max) {
@@ -38,6 +41,8 @@ angular.module('SchoolMan')
                 while(count < N_STUDENTS){
                     var form = getRandBetween(0, CourseCatalog.getForms().length);
                     var group = getRandBetween(0, CourseCatalog.getGroups().length);
+                    var fee = Object.keys(fees)[getRandBetween(0, Object.keys(fees).length)];
+                    var department = Object.keys(departments)[getRandBetween(0, Object.keys(departments).length)];
                     var subjects = CourseCatalog.getSubjects(form);
                     var uid = Uid.next(lastUid);
                     var person = {
