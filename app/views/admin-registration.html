@@ -31,8 +31,8 @@
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li ng-repeat="(depIndex, dep) in departments">
-					        <a ng-click="department = dep">{{dep.name}}</a>
+					      <li ng-repeat="(depKey, dep) in departments">
+					        <a ng-click="newStudent.department = depKey">{{dep.name}}</a>
 					      </li>
 					    </ul>
 					  </div>
