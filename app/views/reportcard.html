@@ -140,7 +140,7 @@
 
           <!-- Subject links back to Marksheet -->
             <td>
-              <a ng-click="open({page:'marksheet', subjectKey:subjectKey})">{{subject.en}} / {{subject.fr}}</a>
+              <a ng-click="open({page:'classmasterMarksheet', subjectKey:subjectKey})">{{subject.en}} / {{subject.fr}}</a>
             </td>
 
             <td ng-repeat="(markIndex, mark) in marksheet.getMarks(student.id, termIndex) track by markIndex"
