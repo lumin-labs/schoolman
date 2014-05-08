@@ -56,12 +56,19 @@ angular.module('SchoolMan')
             // save last used UID
             Uid.save(student.id);
 
-            // Reset new student
-            $scope.newStudent = new Student({
-                form:form,
-                group:group,
-                id: Uid.next(student.id)
+            Location.open({
+                studentId:student.id,
+                page:"profile"
             });
+
+            // Reset new student
+            // $scope.newStudent = new Student({
+            //     form:form,
+            //     group:group,
+            //     id: Uid.next(student.id)
+            // });
+
+
         }
     };
 
