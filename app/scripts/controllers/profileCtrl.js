@@ -19,7 +19,10 @@ angular.module('SchoolMan')
 
     	$scope.student.addPayment($scope.newPayment);
     	Registrar.save();
+
     	$scope.newPayment = new model.Payment();
+      $scope.newPayment.registrar = $routeParams.username;
+
     };
 
   });

@@ -24,13 +24,6 @@ angular.module('SchoolMan')
       icon:'glyphicon-book'
     },
     {
-      label:"Registration",
-      page:"registration",
-      access:['registrar'],
-      exclude:[],
-      icon:'glyphicon-calendar'
-    },
-    {
       label:"Fees",
       page:"fees",
       access:['registrar'],
@@ -50,6 +43,13 @@ angular.module('SchoolMan')
       access:['admin', 'registrar'],
       exclude:['registration', 'fees', 'students'],
       icon:'glyphicon-user'
+    },
+    {
+      label:"Registration",
+      page:"registration",
+      access:['registrar'],
+      exclude:[],
+      icon:'glyphicon-calendar'
     },
   	{
   		label:"Classes",
