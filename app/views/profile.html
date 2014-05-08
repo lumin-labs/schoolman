@@ -169,15 +169,21 @@
 			    </div>
 			  </div>
   		</form>
-  		<br>
-  		<h5><strong>History</strong></h5>
-  		<table class="table table-bordered table-striped">
+  		<table class="table table-striped">
+  		  <tr class="row-spacer">
+  				<th>Payments</th>
+  				<th></th>
+  			</tr>
   			<tr ng-repeat="(paymentIndex, payment) in student.payments">
   				<td>{{payment.date | date:'MMM d, y h:mm a'}}</td>
   				<td>{{payment.amount | currency:""}}</td>
   			</tr>
+  			<tr class="row-spacer">
+  				<th>Summary</th>
+  				<th></th>
+  			</tr>
   			<tr>
-  				<td>Fee:</td>
+  				<td>Fee Amount:</td>
   				<td>{{fees[student.feeGroup].amount | currency:""}}</td>
   			</tr>
   			<tr>
@@ -185,7 +191,7 @@
   				<td style="font-weight:bold;">{{student.totalPaid() | currency:""}}</td>
   			</tr>
   			<tr>
-  				<td>Balance:</td>
+  				<td>Due:</td>
   				<td style="color:red;">{{fees[student.feeGroup].amount - student.totalPaid() | currency:""}}</td>
   			</tr>
   		</table>
