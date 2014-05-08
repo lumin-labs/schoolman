@@ -41,7 +41,8 @@ angular.module('SchoolMan', [
       classmasterMarksheet:"classmaster-marksheet.html",
       registration:"admin-registration.html",
       departments:"admin-departments.html",
-      fees:"admin-fees.html"
+      fees:"admin-fees.html",
+      finance:"registrar-finance.html"
     };
 
     var getTemplate = function(p){

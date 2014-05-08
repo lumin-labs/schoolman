@@ -1,16 +1,13 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('PromotionCtrl', function ($scope, $routeParams, Groups, Data, ClassMaster, CourseCatalog, Location, Registrar, Mastersheet) {
+  .controller('PromotionCtrl', function ($scope, $routeParams, Groups, Forms, Data, ClassMaster, CourseCatalog, Location, Registrar, Mastersheet) {
     $scope.formIndex  = $routeParams.formIndex;
 
-    $scope.forms = CourseCatalog.getForms();
+    $scope.forms = Forms.all();
     $scope.form  = $scope.forms[$routeParams.formIndex];
 
-    var _groups = Object.keys(Groups.getAll());
-    $scope.groups = _groups.map(function(groupKey){
-    	return angular.copy(Groups.get(groupKey));
-    });
+    $scope.groups = Groups.getAll();
 
     $scope.open = Location.open;
 
@@ -44,7 +41,6 @@ angular.module('SchoolMan')
             getSubjectKey:CourseCatalog.getSubjectKey
         });
         $scope.mastersheets[groupIndex] = mastersheet;
-
         var passingScore = $scope.groups[groupIndex].getPromoPass($routeParams.formIndex)
         updateGroupStats(groupIndex, mastersheet.numstats(passingScore));
         
@@ -59,9 +55,9 @@ angular.module('SchoolMan')
     $scope.save = function(groupIndex){
         var formIndex = $routeParams.formIndex;
         var newPass = parseFloat($scope.groups[groupIndex].forms[formIndex].pass);
-        var oldPass = parseFloat(_groups[groupIndex].getPromoPass(formIndex));
+        var oldPass = parseFloat($scope.groups[groupIndex].getPromoPass(formIndex));
         if(newPass !== oldPass){
-           _groups[groupIndex].setPass(formIndex, newPass); 
+           $scope.groups[groupIndex].setPass(formIndex, newPass); 
            buildMastersheet(groupIndex);
         }
     };
