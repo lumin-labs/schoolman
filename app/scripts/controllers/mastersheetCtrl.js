@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
+  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
   	
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
@@ -90,19 +90,6 @@ angular.module('SchoolMan')
 
       svg.call(tip);
 
-      var data = [
-        {subject:    "a",
-         average: .08167    },
-         {subject:    "b",
-         average: .01492    },
-         {subject:    "c",
-         average: .02782    },
-         {subject:    "d",
-         average: .04253    },
-         {subject:    "e",
-         average: .12702    }
-      ];
-
       var studentsData = [];
       angular.forEach($scope.getMastersheet().table.students, function(student, studentId){
         studentsData.push(student);
@@ -113,14 +100,33 @@ angular.module('SchoolMan')
         subjectData.push(subjectKey);
       });
 
+
+
       var data = subjectData.map(function(subject){
+
         var dataItem = {};
         dataItem.subject = subject;
-        dataItem.average = studentsData.reduce(function(score, student){
-          return score + student[subject].average;
-        },0) / studentsData.length;
+
+        var reduceRuns = 0;
+        var nanRuns = 0;
+        var normalRuns = 0;
+
+        var validScores = 0;
+        var total = studentsData.reduce(function(t, student){
+          if(isNaN(student[subject].average)){
+            return t;
+          } else {
+            validScores += 1;
+            return t + parseFloat(student[subject].average);
+          }
+        },0.0);
+
+        dataItem.average = validScores === 0 ? 0 : total / validScores;
+
         return dataItem;
       });
+
+      console.log("studentsData", data);
 
         x.domain(data.map(function(d) { return d.subject; }));
         y.domain([0, 20]);
@@ -157,7 +163,7 @@ angular.module('SchoolMan')
         Registrar.getStudent($scope.students[0].id) :
         Registrar.getStudent($routeParams.studentId);
 
-      $scope.forms = CourseCatalog.getForms();
+      $scope.forms = Forms.all();
       $scope.form  = $scope.forms[$routeParams.formIndex];
 
       $scope.groups = Groups.getAll();
