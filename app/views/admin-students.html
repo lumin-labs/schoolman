@@ -46,6 +46,7 @@
 				<th>Parent Name</th>
 				<th>Parent Phone</th>
 				<th>Parent Email</th>
+				<th>Fee Due</th>
 				<th>Promotion</th>
 			</tr>
 		</thead>
@@ -60,6 +61,9 @@
 				<td>{{student.parentName}}</td>
 				<td>{{student.parentPhone}}</td>
 				<td>{{student.parentEmail}}</td>
+				<td>
+					{{fees[student.feeGroup].amount - student.totalPaid() | currency:""}}
+				</td>
 				<td class="promotion">
 					<div  class="btn-group">
 					  <!-- If status is set to automatic -->
