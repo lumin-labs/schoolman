@@ -213,6 +213,8 @@ input.ng-dirty.ng-invalid{
 .mastersheet {
     background-color:white;
     padding:10px;
+    border:solid 1px #ddd;
+    border-top:none;
 }
 
 th.small-column-header{
@@ -458,6 +460,24 @@ background-color:#f8f8f8;
   text-decoration:underline;
 }
 
+.table-finance thead tr th{
+  width:20%;
+}
+
+.table-finance thead tr .title{
+  font-size: 1.4em;
+}
+
+
+.finance-summary td{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.finance-detail{
+  color:#555;
+}
+
 .term-summary{
   border-left :solid 1px #ddd;
   border-right:solid 1px #ddd;
@@ -506,6 +526,7 @@ td.profile-photo{
 
     .marksheet{
       padding:0px;
+      border:none;
     }
 
     .navtabs-container{

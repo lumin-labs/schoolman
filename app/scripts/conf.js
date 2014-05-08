@@ -24,24 +24,31 @@ angular.module('SchoolMan')
       icon:'glyphicon-book'
     },
     {
-      label:"Fees",
-      page:"fees",
+      label:"Balance Sheet",
+      page:"finance",
       access:['registrar'],
       exclude:[],
       icon:'glyphicon-envelope'
+    },
+    {
+      label:"Fee Settings",
+      page:"fees",
+      access:['registrar'],
+      exclude:[],
+      icon:'glyphicon-cog'
     },
   	{
       label:"Students",
       page:"students",
       access:['admin', 'registrar'],
       exclude:[],
-      icon:'glyphicon-user'
+      icon:'glyphicon-list-alt'
     },
     {
       label:"Student Profile",
       page:"profile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students'],
+      exclude:['registration', 'fees', 'students', "finance", "users", "subjects", "departments", "promotion", "classes"],
       icon:'glyphicon-user'
     },
     {

@@ -18,7 +18,7 @@ angular.module('SchoolMan')
     var self = {};
 
     self.all = function(){
-    	return forms;
+    	return angular.copy(forms);
     };
 
     return self;

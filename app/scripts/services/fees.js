@@ -7,6 +7,10 @@ angular.module('SchoolMan')
 
     var self = {};
 
+    self.get = function(feeKey){
+        return fees[feeKey];
+    };
+
     self.getAll = function(){
     	return fees;
     };

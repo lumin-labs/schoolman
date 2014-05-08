@@ -41,6 +41,10 @@ angular.module('SchoolMan')
 
     self = {};
 
+    self.getClasses = function(){
+        return classes;
+    }
+
     /**
      * @ngdoc method
      * @name Schoolman.service:Registrar#getAverage
