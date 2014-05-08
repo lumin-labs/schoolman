@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('SubjectsCtrl', function ($scope, $log, CourseCatalog, modelTransformer, Subject) {
+  .controller('SubjectsCtrl', function ($scope, $log, SubjectTypes, CourseCatalog, modelTransformer, Subject) {
 
   		$scope.forms = CourseCatalog.getForms();
         $scope.allSubjects = CourseCatalog.getAllSubjects();
@@ -14,6 +14,8 @@ angular.module('SchoolMan')
 	      $scope.forms[formIndex].subjects[subjectKey] = (current + 1) % 2;
 	      CourseCatalog.save();
 	    };
+
+	    $scope.types = SubjectTypes.all();
 
 	    $scope.newSubject = new Subject();
 	    $scope.addSubject = function(){

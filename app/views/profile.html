@@ -190,7 +190,7 @@
   				<td>Total Paid:</td>
   				<td style="font-weight:bold;">{{student.totalPaid() | currency:""}}</td>
   			</tr>
-  			<tr>
+  			<tr class="danger">
   				<td>Due:</td>
   				<td style="color:red;">{{fees[student.feeGroup].amount - student.totalPaid() | currency:""}}</td>
   			</tr>

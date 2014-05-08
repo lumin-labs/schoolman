@@ -14,8 +14,26 @@ angular.module('SchoolMan')
       this.code = "";
       this.en = "";
       this.fr = "";
+      this.type = 0;
+
+      // callback functions
+      var listeners = [];
+      this.notify =  function(msg){
+        angular.forEach(listeners, function(callback, $index){
+          callback(msg);  
+        });
+      };
+      this.onChange = function(callback){
+        listeners.push(callback);
+      };
 
   	};
+
+    Subject.prototype.setType = function(typeIndex){
+      this.type = typeIndex;
+      console.log("typeIndex", typeIndex);
+      this.notify("Type changed to: ", typeIndex);
+    };
 
   	return Subject;
 

@@ -18,6 +18,20 @@
 	          <input style="width:63px;" type="text" class="form-control" placeholder="code" 
 	          		 ng-model="newSubject.code">
 	        </div>
+	        <div class="form-group" style="width:130px;">
+	          <!-- Group Dropdown -->
+					  <div class="btn-group">
+					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+					      {{types[newSubject.type]}} 
+					      &nbsp;<span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu">
+					      <li ng-repeat="(typeIndex, type) in types">
+					        <a ng-click="newSubject.type = typeIndex">{{type}}</a>
+					      </li>
+					    </ul>
+					  </div>
+	        </div>
 	        <div class="form-group">
 	          <input style="width:275px;" type="text" class="form-control" placeholder="Subject Name (English)"
 	          		 ng-model="newSubject.en">
@@ -41,29 +55,36 @@
 				<thead>
 					<tr>
 						<th class="text-center">Code</th>
-						<th class="column-on-bottom">Subject Name (English)</th>
-						<th class="column-on-bottom">Subject Name (French)</th>
+						<th class="text-center">Type</th>
+						<th class="">Subject Name (English)</th>
+						<th class="">Subject Name (French)</th>
 						<th>Remove</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="(subjectKey, subject) in allSubjects">
-						<td class="column-on-right" style="width:70px;">
+						<td class="" style="width:70px;">
 							{{subject.code}}
 						</td>
-						<td class="column">
-							<input class="cell cell-md cell-normal" 
-								   tabindex="{{numSubjects + $index + 1}}" 
-								   ng-blur="save(subject)"
-								   cell cell-nrow="{{numSubjects}}" 
-								   ng-model="subject.en">
+						<td style="width:130px;">
+							<!-- Group Dropdown -->
+						  <div class="btn-group">
+						    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+						      {{types[subject.type]}} 
+						      &nbsp;<span class="caret"></span>
+						    </button>
+						    <ul class="dropdown-menu">
+						      <li ng-repeat="(typeIndex, type) in types">
+						        <a ng-click="subject.setType(typeIndex)">{{type}}</a>
+						      </li>
+						    </ul>
+						  </div>
 						</td>
-						<td class="column">
-							<input class="cell cell-md cell-normal" 
-								   tabindex="{{(numSubjects * 2) + $index + 1}}" 
-								   ng-blur="save(subject)"
-								   cell cell-nrow="{{numSubjects}}"
-								   ng-model="subject.fr">
+						<td class="column readonly">
+							<div class="cell cell-md cell-normal">{{subject.en}}</div>
+						</td>
+						<td class="column readonly">
+							<div class="cell cell-md cell-normal">{{subject.fr}}</div>
 						</td>
 						<td class="remove text-center" style="width:80px;padding-top:15px;">
 							<a ng-click="removeSubject(subjectKey)">
