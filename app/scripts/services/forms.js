@@ -11,8 +11,8 @@ angular.module('SchoolMan')
     	new model.Form({name:"Form 3"}),	
     	new model.Form({name:"Form 4"}),	
     	new model.Form({name:"Form 5"}),	
-    	new model.Form({name:"Lower 6"}),	
-    	new model.Form({name:"Upper 6"})	
+    	new model.Form({name:"Lower Sixth"}),	
+    	new model.Form({name:"Upper Sixth"})	
     ];
 
     var self = {};
