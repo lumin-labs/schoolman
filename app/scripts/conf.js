@@ -21,7 +21,7 @@ angular.module('SchoolMan')
       page:"departments",
       access:['admin'],
       exclude:[],
-      icon:'glyphicon-book'
+      icon:'glyphicon-bookmark'
     },
     {
       label:"Balance Sheet",
