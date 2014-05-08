@@ -5,6 +5,26 @@ angular.module('SchoolMan')
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var model = {};
+
+//==============================================================================
+
+    function Model(){};
+
+    // This function lets you ask if the object has all the required fields
+    // TODO: the config for which fields are required should probably be done 
+    // elsewhere
+    Model.prototype.isValid = function(){
+      var self = this;
+      var isOk = true;
+      angular.forEach(self.requiredFields, function(field, fieldIndex){
+        // if the current value of the field is some kind of null value
+        if(self.invalidValues.indexOf(self[field]) > -1){
+          isOk = false;
+        }
+      });
+      return isOk;
+    };
+
     
 //==============================================================================
 
@@ -108,5 +128,26 @@ angular.module('SchoolMan')
 //==============================================================================
 
 
+  function Payment(){
+
+    // Prevents global namespace clobbering if you istantiate this object
+    // without the 'new' keyword
+    if (!(this instanceof Payment)) {
+      return new Payment();
+    }
+
+    this.amount = 0.00;     // decimal
+    this.registrar = "";  // string
+    this.date = "";       // date
+  };
+
+  Payment.prototype.requiredFields = ['amount', 'registrar'];
+  Payment.prototype.invalidValues = [null, undefined, "", "0", "0.00", 0];
+  Payment.prototype.isValid = Model.prototype.isValid;
+
+  model.Payment = Payment;
+
+
+//==============================================================================
     return model;
   });
