@@ -46,6 +46,10 @@ angular.module('SchoolMan')
       return _users;
     };
 
+    self.get = function(username){
+      return _users[username];
+    };
+
     self.removeUser = function(username){
       delete _users[username];
       Data.saveLater({'users':_users});
