@@ -1,17 +1,27 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MyclassesCtrl', function ($scope, $routeParams, Location, Registrar, CourseCatalog, TimeTable) {
+  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, Location, Registrar, CourseCatalog, TimeTable) {
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
     $scope.courses = CourseCatalog.getCoursesByRef(
-      				TimeTable.getCourseRefs($routeParams.username));
+      TimeTable.getCourseRefs($routeParams.username)
+    );
 
-	$scope.courseId = CourseCatalog.getCourseId($routeParams);
+	  $scope.courseId = CourseCatalog.getCourseId($routeParams);
     $scope.username = $routeParams.username;
 
     $scope.open = Location.open;
     $scope.getStudentsByCourse = Registrar.getStudentsByCourse;
+
+    // Lookup if preexisting teacher
+    var getTeacher = function(courseId){
+        var bookmark = TimeTable.getTeacher(courseId);
+        return (bookmark && $user.get(bookmark.username)) ? $user.get(bookmark.username) : null;
+      };
+    var courseId = CourseCatalog.getCourseId($routeParams);
+    $scope.teacher = getTeacher(courseId);
+
 
     // private method
     var refreshCourseList = function(){
@@ -55,7 +65,7 @@ angular.module('SchoolMan')
     $scope.addBookmark = function(){
       TimeTable.addBookmark($scope.courseId, $scope.username);
       refreshCourseList();
-    }
+    };
 
     
   });
