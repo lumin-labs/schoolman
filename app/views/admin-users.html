@@ -1,99 +1,103 @@
-<div ng-include="'views/_navtabs.html'"></div>
+<div class="row" ng-include="'views/_roletabs.html'"></div>
 
-<div class="marksheet" ng-controller="UsersCtrl">
+<div class="row marksheet">
+	<div class="col-md-2 sidebar" ng-include="'views/_navstacked.html'"></div>
 
-	<nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	    </div>
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:0px;">
-	      <form class="navbar-form navbar-left" role="search" style="padding-left:0px;">
-	        <div class="form-group">
-	        	<table>
-	        		<tr>
-	        			<td style="width:105px;border-right:solid 1px #ddd;" 
-	        			    class="text-center" 
-	        			    ng-repeat="(accessKey, accessBool) in tempUser.access">
-							<button ng-click="tempUser.toggleAccess(accessKey)"
-									class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-								<i ng-if="!tempUser.hasAccess(accessKey)" 
-								   class="glyphicon glyphicon-minus" 
-								   style="color:red;"></i>
-								 <i ng-if="tempUser.hasAccess(accessKey)" 
-							   class="glyphicon glyphicon-ok" 
-							   style="color:green;"></i>
-							</button>
-						</td>
-	        			<td style="padding-left:10px;">
-	        				<input style="width:400px;" type="text" class="form-control" placeholder="Full Name" ng-model="tempUser.fullname">
-	        			</td>
-	        		</tr>
-	        	</table>
-	        </div>
+	<div class="col-md-10 push-right" ng-controller="UsersCtrl">
 
-	        <button type="submit" class="btn btn-default" ng-click="addUser()">
-	        	Add User
-	        </button>
-	      </form>
-	    </div>
-	  </div>
-	</nav>
+		<nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		    </div>
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:0px;">
+		      <form class="navbar-form navbar-left" role="search" style="padding-left:0px;">
+		        <div class="form-group">
+		        	<table>
+		        		<tr>
+		        			<td style="width:105px;border-right:solid 1px #ddd;" 
+		        			    class="text-center" 
+		        			    ng-repeat="(accessKey, accessBool) in tempUser.access">
+								<button ng-click="tempUser.toggleAccess(accessKey)"
+										class="btn btn-md btn-light" style="border:solid 1px #ddd;">
+									<i ng-if="!tempUser.hasAccess(accessKey)" 
+									   class="glyphicon glyphicon-minus" 
+									   style="color:red;"></i>
+									 <i ng-if="tempUser.hasAccess(accessKey)" 
+								   class="glyphicon glyphicon-ok" 
+								   style="color:green;"></i>
+								</button>
+							</td>
+		        			<td style="padding-left:10px;">
+		        				<input style="width:400px;" type="text" class="form-control" placeholder="Full Name" ng-model="tempUser.fullname">
+		        			</td>
+		        		</tr>
+		        	</table>
+		        </div>
 
-	<!-- Subject View -->
-  	<div class="row" style="">
-		<div class="col-md-12">
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						<th class="text-center" 
-						    style="width:105px;"
-						    ng-repeat="(roleKey, role) in User.roles">{{role.name}}</th>
-						<th style="padding-left:10px;">Name</th>
-						<th style="width:80px">Remove</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="(userIndex, user) in getUsers() track by $index | orderBy:'fullname'">
-						<td class="text-center" ng-repeat="(accessKey, accessBool) in user.access">
-							
-							<button ng-if="user.username !== username || accessKey !== 'admin'"
-									ng-click="user.toggleAccess(accessKey)"
-									class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-								<i ng-if="!user.hasAccess(accessKey)" 
-								   class="glyphicon glyphicon-minus" 
-								   style="color:red;"></i>
-								 <i ng-if="user.hasAccess(accessKey)" 
-							   class="glyphicon glyphicon-ok" 
-							   style="color:green;"></i>
-							</button>
+		        <button type="submit" class="btn btn-default" ng-click="addUser()">
+		        	Add User
+		        </button>
+		      </form>
+		    </div>
+		  </div>
+		</nav>
 
-							<button ng-if="user.username === username && accessKey ==='admin'"
-									class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;">
-								<i ng-if="!user.hasAccess(accessKey)" 
-								   class="glyphicon glyphicon-minus" 
-								   style="color:red;"></i>
-								 <i ng-if="user.hasAccess(accessKey)" 
-							   class="glyphicon glyphicon-ok" 
-							   style="color:#666;"></i>
-							</button>
-						</td>
-						<td style="padding-left:10px;">
-							{{user.fullname}}
-						</td>
-						<td class="remove text-center" style="width:80px;">
-							<a ng-click="removeUser(user.username)" ng-if="user.username !== username">
-								<i class="glyphicon glyphicon-remove"></i>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<!-- Subject View -->
+	  	<div class="row" style="">
+			<div class="col-md-12">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th class="text-center" 
+							    style="width:105px;"
+							    ng-repeat="(roleKey, role) in User.roles">{{role.name}}</th>
+							<th style="padding-left:10px;">Name</th>
+							<th style="width:80px">Remove</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(userIndex, user) in getUsers() track by $index | orderBy:'fullname'">
+							<td class="text-center" ng-repeat="(accessKey, accessBool) in user.access">
+								
+								<button ng-if="user.username !== username || accessKey !== 'admin'"
+										ng-click="user.toggleAccess(accessKey)"
+										class="btn btn-md btn-light" style="border:solid 1px #ddd;">
+									<i ng-if="!user.hasAccess(accessKey)" 
+									   class="glyphicon glyphicon-minus" 
+									   style="color:red;"></i>
+									 <i ng-if="user.hasAccess(accessKey)" 
+								   class="glyphicon glyphicon-ok" 
+								   style="color:green;"></i>
+								</button>
+
+								<button ng-if="user.username === username && accessKey ==='admin'"
+										class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;">
+									<i ng-if="!user.hasAccess(accessKey)" 
+									   class="glyphicon glyphicon-minus" 
+									   style="color:red;"></i>
+									 <i ng-if="user.hasAccess(accessKey)" 
+								   class="glyphicon glyphicon-ok" 
+								   style="color:#666;"></i>
+								</button>
+							</td>
+							<td style="padding-left:10px;">
+								{{user.fullname}}
+							</td>
+							<td class="remove text-center" style="width:80px;">
+								<a ng-click="removeUser(user.username)" ng-if="user.username !== username">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>	

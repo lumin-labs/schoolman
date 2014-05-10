@@ -259,8 +259,47 @@ body{
 }
 
 .nav-stacked li{
-  border-top:solid 1px #e8e8e8;
+  /*border-top:solid 1px #e8e8e8;*/
 }
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+
+@media (min-width: 768px) {
+  .sidebar {
+    /*padding: 0 15px 0 15px;*/
+    /*background-color: #f5f5f5;*/
+  }
+}
+
+/* Sidebar navigation */
+
+.nav-sidebar > li > a {
+  padding-right: 10px;
+  padding-left: 10px;
+  border-left: solid 5px #fff;
+}
+.nav-sidebar > .active > a {
+  background-color: #f7f7f7;
+  border-left: solid 5px #428bca;
+}
+
+.nav-sidebar > li > a:hover {
+  background-color: #f7f7f7;
+  border-left: solid 5px #ddd;
+}
+
+.nav-sidebar > .active > a:hover {
+  border-left: solid 5px #428bca;
+}
+
+.push-right{
+  padding-right: 0px;
+}
+
 
 tr.toolbar{
   margin-bottom: 10px;

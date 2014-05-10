@@ -1,0 +1,11 @@
+<div class="row" ng-controller="NavtabsCtrl">
+
+		<ul class="nav nav-sidebar">
+			<li ng-repeat="(tabIndex, tab) in TABS"
+				ng-if="userHasAccess(tab)"
+				ng-class="activeIfPage(tab.page)">
+				<a ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
+			</li>
+		</ul>
+
+</div>
