@@ -107,6 +107,13 @@ angular.module('SchoolMan')
       exclude:[],
   	 	icon:'glyphicon-list-alt'
   	},
+    {
+      label:"Report Card GTHS",
+      page:"reportcardGTHS",
+      access:['classmaster'],
+      exclude:[],
+      icon:'glyphicon-list-alt'
+    },
  ]);
 
 
