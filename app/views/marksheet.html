@@ -1,6 +1,7 @@
-<div ng-include="'views/_navtabs.html'"></div>
+<div class="row ">
+  <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-<div class="marksheet" ng-controller='MarksheetCtrl'>
+  <div class="col-md-10 marksheet" ng-controller="MarksheetCtrl">
   <table class="table table-bordered table-striped" style="border:0px;">
 
   	<thead>
@@ -70,4 +71,5 @@
   		</tr>	
   	</tbody>
   </table>
+  </div>
 </div>

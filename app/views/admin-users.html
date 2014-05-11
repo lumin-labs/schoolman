@@ -1,9 +1,7 @@
-<div class="row" ng-include="'views/_roletabs.html'"></div>
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-<div class="row marksheet">
-	<div class="col-md-2 sidebar" ng-include="'views/_navstacked.html'"></div>
-
-	<div class="col-md-10 push-right" ng-controller="UsersCtrl">
+	<div class="col-md-10 marksheet" ng-controller="UsersCtrl">
 
 		<nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
 		  <div class="container-fluid">

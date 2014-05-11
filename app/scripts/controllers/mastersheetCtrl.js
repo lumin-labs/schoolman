@@ -45,9 +45,8 @@ angular.module('SchoolMan')
         Cache.set({"graphView":view});
       }
 
-
-      var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 1230 - margin.left - margin.right,
+      var margin = {top: 20, right: 40, bottom: 30, left: 40},
+      width = 1100 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
       var x = d3.scale.ordinal()
