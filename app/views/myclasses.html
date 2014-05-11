@@ -1,7 +1,10 @@
-<div ng-include="'views/_navtabs.html'"></div>
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-<div class="marksheet" ng-controller="MyclassesCtrl">
-	<div class="row">
+	<div class="col-md-10 marksheet" ng-controller="MyclassesCtrl" >
+	
+
+	<div class="row " >
 		<div class="col-md-12">	
 			<div ng-include="'views/_menu-bookmark-course.html'" class="pull-left;"></div>
 	    </div>
@@ -60,5 +63,6 @@
     		Select the <b>Form</b>, <b>Class</b>, and <b>Subject</b> from the menu above and then click 
     		<b style="color:#5CB85C;font-size:1.1em;">Add Class</b>.
     	</p>
+	</div>
 	</div>
 </div>	

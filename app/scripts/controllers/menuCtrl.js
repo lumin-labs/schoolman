@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MenuCtrl', function ($scope, $location, $routeParams, Path) {
+  .controller('MenuCtrl', function ($scope, $location, $routeParams, Path, Cache) {
 
 
     $scope.show = {
@@ -16,6 +16,10 @@ angular.module('SchoolMan')
       $scope.show.backButton = false;
       $scope.open({page:'reportcard'});
     }
+
+    $scope.cache = Cache.cache;
+
+    
 
 
   	// chrome.storage.local.set({ReportCard:{initialized:true}},function(res){

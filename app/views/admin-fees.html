@@ -1,6 +1,7 @@
-<div ng-include="'views/_navtabs.html'"></div>
+<div class="row ">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-<div class="marksheet" ng-controller="FeesCtrl">
+	<div class="col-md-10 marksheet" ng-controller="FeesCtrl">
 <nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
@@ -74,4 +75,5 @@
 			</tr>
 		</tbody>
 	</table>
+	</div>
 </div>

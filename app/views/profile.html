@@ -1,18 +1,20 @@
-<div ng-include="'views/_navtabs.html'"></div>
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-<div class="marksheet" ng-controller="ProfileCtrl">
+	<div class="col-md-10 marksheet" ng-controller="ProfileCtrl">
+
   <div class="row">
-  	<div class="col-md-8" style="border-right:solid 1px #ddd;">
+  	<div class="col-md-7" style="border-right:solid 1px #ddd;">
   		<form class="form-horizontal" role="form">
 			  <div class="form-group">
-			    <label for="uid" class="col-sm-2 control-label">Student ID</label>
-			    <div class="col-sm-10">
+			    <label for="uid" class="col-sm-3 control-label">Student ID</label>
+			    <div class="col-sm-9">
 			      <p class="form-control-static">{{student.id}}</p>
 			    </div>
 			  </div>
 			  <div class="form-group" ng-controller="ClassmenuCtrl">
-			    <label for="uid" class="col-sm-2 control-label">Class</label>
-			    <div class="col-sm-10">
+			    <label for="uid" class="col-sm-3 control-label">Class</label>
+			    <div class="col-sm-9">
 			      <div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
 					      {{forms[student.form].name}} 
@@ -52,8 +54,8 @@
 			  </div>
 
 			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-2 control-label">Fee Group</label>
-			    <div class="col-md-10">
+			    <label for="feeGroup" class="col-sm-3 control-label">Fee Group</label>
+			    <div class="col-md-9">
 			    	<div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
 					    	<span ng-if="student.feeGroup !== ''">
@@ -72,8 +74,8 @@
 			  </div>
 			  <br>
 			  <div class="form-group">
-			    <label for="studentName" class="col-sm-2 control-label">Student Name</label>
-			    <div class="col-sm-10">
+			    <label for="studentName" class="col-sm-3 control-label">Student Name</label>
+			    <div class="col-sm-9">
 			      <input id="studentName"
 			      		 class="form-control" 
 			      		 placeholder="Student Name" 
@@ -82,8 +84,8 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="gender" class="col-sm-2 control-label">Gender</label>
-			    <div class="col-sm-10">
+			    <label for="gender" class="col-sm-3 control-label">Gender</label>
+			    <div class="col-sm-9">
 			      <input id="gender"
 			      		 class="form-control" 
 			      		 placeholder="Gender" 
@@ -92,8 +94,8 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="birthdate" class="col-sm-2 control-label">Birthdate</label>
-			    <div class="col-sm-10">
+			    <label for="birthdate" class="col-sm-3 control-label">Birthdate</label>
+			    <div class="col-sm-9">
 			      <input id="birthdate" 
 			       		 class="form-control" 
 			       		 placeholder="Birth Date" 
@@ -104,8 +106,8 @@
 			  </div>
 			  <br>
 			  <div class="form-group">
-			    <label for="parentName" class="col-sm-2 control-label">Parent Name</label>
-			    <div class="col-sm-10">
+			    <label for="parentName" class="col-sm-3 control-label">Parent Name</label>
+			    <div class="col-sm-9">
 			      <input id="parentName" 
 			      		 class="form-control" 
 			      		 placeholder="Parent Name" 
@@ -114,8 +116,8 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="parentPhone" class="col-sm-2 control-label">Parent Phone</label>
-			    <div class="col-sm-10">
+			    <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
+			    <div class="col-sm-9">
 			      <input id="parentPhone"
 			      		 class="form-control" 
 			      		 placeholder="Parent Phone" 
@@ -124,8 +126,8 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="parentEmail" class="col-sm-2 control-label">Parent Email</label>
-			    <div class="col-sm-10">
+			    <label for="parentEmail" class="col-sm-3 control-label">Parent Email</label>
+			    <div class="col-sm-9">
 			      <input id="parentEmail" 
 			             class="form-control pull-left" 
 					     placeholder="Parent EMail"
@@ -143,7 +145,7 @@
 			  </div>
 			</form>
   	</div>
-  	<div class="col-md-4">
+  	<div class="col-md-5">
   		<form class="form-horizontal" role="form">
   			<h5><strong>New Payment</strong></h5>
   			<div class="form-group">
@@ -196,6 +198,7 @@
   			</tr>
   		</table>
   	</div>
+  </div>
   </div>
 	
 </div>	

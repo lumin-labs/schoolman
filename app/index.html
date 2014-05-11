@@ -29,6 +29,20 @@
   
     <div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="MenuCtrl">
         <div class="navbar-collapse collapse">
+
+        <div  class="btn-group pull-right" style="margin-right:0;">
+          <button class="btn btn-lg btn-light btn-on-dark dropdown-toggle" 
+                  data-toggle="dropdown"
+                  style="border:none;">
+            {{cache.user["fullname"]}} <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a ng-click="logout()">Logout</a>
+            </li>
+          </ul>
+        </div>
+
           <ul class="nav navbar-nav navbar-sm">
             <li class="dropdown" >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">File</a>
@@ -55,6 +69,7 @@
               <i class="glyphicon glyphicon-arrow-left"></i>
             </button>
           </form>
+          
         </div><!--/.nav-collapse -->
   </div>
 
