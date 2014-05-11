@@ -42,7 +42,8 @@ angular.module('SchoolMan', [
       registration:"admin-registration.html",
       departments:"admin-departments.html",
       fees:"admin-fees.html",
-      finance:"registrar-finance.html"
+      finance:"registrar-finance.html",
+      reportcardGTHS:"reportcard-gths.html"
     };
 
     var getTemplate = function(p){

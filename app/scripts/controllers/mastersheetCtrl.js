@@ -1,9 +1,23 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
+  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
   	
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
+
+    $scope.getSubjectsByType = function(reqType){
+      
+      var subgroup = {};
+      var subtypes = SubjectTypes.all();
+
+      angular.forEach($scope.subjects, function(subject, subjectKey){
+        if(subject.type === reqType){
+          subgroup[subjectKey] = subject;
+        }
+      });
+
+      return subgroup;
+    };
 
     var courseId = CourseCatalog.getCourseId($routeParams);
     $scope.students = Registrar.getStudentsByCourse(courseId);
@@ -157,7 +171,8 @@ angular.module('SchoolMan')
             .on('mouseout', tip.hide);
     } 
 
-    if($routeParams.page === 'reportcard'){
+    var reportCards = ['reportcard', 'reportcardGTHS']
+    if(reportCards.indexOf($routeParams.page) > -1){
       $scope.student = $routeParams.studentId === "0" ?
         Registrar.getStudent($scope.students[0].id) :
         Registrar.getStudent($routeParams.studentId);
