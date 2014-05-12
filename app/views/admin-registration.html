@@ -4,17 +4,17 @@
 	<div class="col-md-10 marksheet" ng-controller="StudentsCtrl">
 
   <div class="row">
-  	<div class="col-md-8" style="border-right:solid 0px #ddd;">
+  	<div class="col-md-7" style="border-right:solid 0px #ddd;">
   		<form class="form-horizontal" role="form">
 			  <div class="form-group">
-			    <label for="uid" class="col-sm-2 control-label">Student ID</label>
-			    <div class="col-sm-10">
+			    <label for="uid" class="col-sm-3 control-label">Student ID</label>
+			    <div class="col-sm-9">
 			      <p class="form-control-static">{{newStudent.id}}</p>
 			    </div>
 			  </div>
 			  <div class="form-group" ng-controller="ClassmenuCtrl">
-			    <label for="uid" class="col-sm-2 control-label">Class</label>
-			    <div class="col-sm-10">
+			    <label for="uid" class="col-sm-3 control-label">Class</label>
+			    <div class="col-sm-9">
 			      <div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
 					      {{newStudent.form ? forms[newStudent.form].name : "Select Form"}} 
@@ -54,8 +54,8 @@
 			  </div>
 
 			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-2 control-label">Fee Group</label>
-			    <div class="col-md-10">
+			    <label for="feeGroup" class="col-sm-3 control-label">Fee Group</label>
+			    <div class="col-sm-9">
 			    	<div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
 					    	<span ng-if="newStudent.feeGroup !== ''">
@@ -74,8 +74,8 @@
 			  </div>
 			  <br>
 			  <div class="form-group">
-			    <label for="studentName" class="col-sm-2 control-label">Student Name</label>
-			    <div class="col-sm-10">
+			    <label for="studentName" class="col-sm-3 control-label">Student Name</label>
+			    <div class="col-sm-9">
 			      <input id="studentName"
 			      		 class="form-control" 
 			      		 placeholder="Student Name" 
@@ -83,8 +83,8 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="gender" class="col-sm-2 control-label">Gender</label>
-			    <div class="col-sm-10">
+			    <label for="gender" class="col-sm-3 control-label">Gender</label>
+			    <div class="col-sm-9">
 			      <input id="gender"
 			      		 class="form-control" 
 			      		 placeholder="Gender" 
@@ -92,8 +92,8 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="birthdate" class="col-sm-2 control-label">Birthdate</label>
-			    <div class="col-sm-10">
+			    <label for="birthdate" class="col-sm-3 control-label">Birthdate</label>
+			    <div class="col-sm-9">
 			      <input id="birthdate" 
 			       		 class="form-control" 
 			       		 placeholder="Birth Date" 
@@ -103,8 +103,8 @@
 			  </div>
 			  <br>
 			  <div class="form-group">
-			    <label for="parentName" class="col-sm-2 control-label">Parent Name</label>
-			    <div class="col-sm-10">
+			    <label for="parentName" class="col-sm-3 control-label">Parent Name</label>
+			    <div class="col-sm-9">
 			      <input id="parentName" 
 			      		 class="form-control" 
 			      		 placeholder="Parent Name" 
@@ -112,8 +112,8 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="parentPhone" class="col-sm-2 control-label">Parent Phone</label>
-			    <div class="col-sm-10">
+			    <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
+			    <div class="col-sm-9">
 			      <input id="parentPhone"
 			      		 class="form-control" 
 			      		 placeholder="Parent Phone" 
@@ -121,8 +121,8 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="parentEmail" class="col-sm-2 control-label">Parent Email</label>
-			    <div class="col-sm-10">
+			    <label for="parentEmail" class="col-sm-3 control-label">Parent Email</label>
+			    <div class="col-sm-9">
 			      <input id="parentEmail" 
 			             class="form-control pull-left" 
 					     placeholder="Parent EMail"
@@ -131,7 +131,7 @@
 			  </div>
 			  <br>
 			  <div class="form-group">
-			    <div class="col-sm-offset-2 col-sm-10">
+			    <div class="col-sm-offset-3 col-sm-9">
 			      <button type="submit" class="btn btn-info" ng-click="addStudent()">
 			        Add Student 
 			      </button>
@@ -139,25 +139,7 @@
 			  </div>
 			</form>
   	</div>
-  	<div class="col-md-3">
-  		<!-- <form class="form-horizontal" role="form">
-  			<div class="form-group">
-			    <label class="col-sm-5 control-label">Fee Payments</label>
-			  </div>
-  			<div class="form-group">
-			    <div class="col-sm-10">
-			      <input id="feePayment" 
-			             class="form-control pull-left" 
-					     placeholder="New Payment"
-					     ng-model="newPayment">
-			    </div>
-			    <div class="col-sm-2">
-			      <button type="submit" class="btn btn-success" ng-click="addPayment()">
-			        Add Payment
-			      </button>
-			    </div>
-			  </div>
-  		</form> -->
+  	<div class="col-md-5">
   	</div>
   </div>
   </div>
