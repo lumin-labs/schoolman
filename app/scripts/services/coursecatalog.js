@@ -136,14 +136,19 @@ angular.module('SchoolMan')
      * - timestamp.
      */
     self.getCoursesByRef = function(courseRefs){
-      return courseRefs.map(function(courseRef){
+      var courses = courseRefs.map(function(courseRef){
         // make a copy so the original course object is not mutated
         var course = angular.copy(self.getCourse(courseRef.courseId));
         if(course){
           course.timestamp = courseRef.timestamp;
           return course;  
-        } 
-      })
+        } else {
+            return undefined;
+        }
+      });
+      return courses.filter(function(course){
+        return course !== undefined;
+      });
     };
     
     /**
