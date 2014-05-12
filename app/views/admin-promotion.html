@@ -27,20 +27,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(groupIndex, group) in groups" 
+				<tr ng-repeat="(groupKey, group) in groups" 
 					ng-if="group.inForm(formIndex)">
 					<td class="column-on-right">{{group.name}}</td>
 					<td class="column" style="width:100px;">
 						<input class='cell text-center' 
 							   ng-model="group.forms[formIndex].pass"
-							   ng-blur="save(groupIndex)"
-							   tabindex="{{groupIndex + 1}}"
-							   cell cell-nrow="{{groups.length}}">
+							   ng-blur="save(groupKey)"
+							   tabindex="{{$index + 1}}"
+							   cell cell-nrow="{{Obj.keys(groups).length}}">
 					</td>
 					<!-- <td>{{getStudentsPassing(formIndex, form.advance)}}</td> -->
-					<td>{{groupStats[groupIndex].failing || 0}}</td>
-					<td>{{groupStats[groupIndex].passing || 0}}</td>
-					<td>{{(groupStats[groupIndex].percentPassing * 100 || 0) | number:1}}%</td>
+					<td>{{groupStats[groupKey].failing || 0}}</td>
+					<td>{{groupStats[groupKey].passing || 0}}</td>
+					<td>{{(groupStats[groupKey].percentPassing * 100 || 0) | number:1}}%</td>
 				</tr>
 			</tbody>
 		</table>
