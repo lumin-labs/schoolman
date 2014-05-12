@@ -514,6 +514,13 @@ background-color:#f8f8f8;
   text-decoration:underline;
 }
 
+.section-label-vertical{
+  transform:rotate(-90deg);
+  -webkit-transform:rotate(-90deg);
+  text-align: right;
+  background-color: #eee; 
+}
+
 .table-compact{
   font-size: 12px;
 }
