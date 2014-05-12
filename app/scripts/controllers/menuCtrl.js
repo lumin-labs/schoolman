@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MenuCtrl', function ($scope, $location, $routeParams, Path, Cache) {
+  .controller('MenuCtrl', function ($scope, $location, $routeParams, Location, Path, Cache) {
 
 
     $scope.show = {
@@ -15,6 +15,10 @@ angular.module('SchoolMan')
     $scope.back = function(){
       $scope.show.backButton = false;
       $scope.open({page:'reportcard'});
+    }
+
+    $scope.logout = function(){
+      Location.open({page:"login", username:null, accessCode:'teacher'});
     }
 
     $scope.cache = Cache.cache;

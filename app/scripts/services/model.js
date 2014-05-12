@@ -36,6 +36,7 @@ angular.module('SchoolMan')
       }
 
       this.name = spec.name || ""; 
+      
     
     };
 
