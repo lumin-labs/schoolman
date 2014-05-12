@@ -24,8 +24,8 @@ angular.module('SchoolMan')
         2:1,
         3:1,
         4:1,
-        // 5:1
-        // 6:1,
+        5:1,
+        6:1
       };
       if(spec.hasOwnProperty("forms")){
         angular.forEach(spec.forms, function(bool, formKey){
