@@ -19,13 +19,8 @@ angular.module('SchoolMan')
 
 	    $scope.newSubject = new Subject();
 	    $scope.addSubject = function(){
-	    	if($scope.allSubjects.hasOwnProperty($scope.newSubject.code)){
-	    		// set warning message, can't add subject with duplicate code
-	    	} else {
 	    		CourseCatalog.post($scope.newSubject);
 	    		$scope.newSubject = new Subject();
-	    	}
-	    	
 	    };
 
 	    $scope.removeSubject = CourseCatalog.removeSubject;

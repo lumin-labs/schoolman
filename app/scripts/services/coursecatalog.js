@@ -282,9 +282,6 @@ angular.module('SchoolMan')
 
     self.post = function(newSubject){
         template.subjects[newSubject.code] = newSubject;
-        angular.forEach(Forms.all(), function(form, formIndex){
-            form.subjects[newSubject.code] = 1;
-        });
         self.save();
     };
 
