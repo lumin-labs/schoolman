@@ -1,0 +1,29 @@
+<!-- Loading -->
+<div ng-if="status.hasWorkspace && status.workspaceAvailable">
+	<div style="width:100%;text-align:center;padding-top:20%">
+		<img src="/images/ajax-loader.gif"><br>
+		<h5>Loading...</h5>
+	</div>
+</div>
+
+<!-- 404 -->
+<div ng-if="status.hasWorkspace && !status.workspaceAvailable">
+	<div class="login-box">
+		<h5>It appears that your workspace has moved.</h5>
+		<p>Please select the location of your workspace.</p>
+		<br>
+		<button ng-click="openWorkspace()">Open</button>
+	</div>
+</div>
+
+<!-- Welcome -->
+<div ng-if="!status.hasWorkspace">
+	<div class="login-box">
+		<h3>Welcome to SchoolMan!</h3>
+		<p>To begin, please open the SchoolMan folder.</p>
+		<br>
+		<button class="btn btn-large btn-info" 
+						ng-click="openWorkspace()">Open</button>
+	</div>
+</div>
+
