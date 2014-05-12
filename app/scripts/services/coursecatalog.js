@@ -139,8 +139,10 @@ angular.module('SchoolMan')
       return courseRefs.map(function(courseRef){
         // make a copy so the original course object is not mutated
         var course = angular.copy(self.getCourse(courseRef.courseId));
-        course.timestamp = courseRef.timestamp;
-        return course;
+        if(course){
+          course.timestamp = courseRef.timestamp;
+          return course;  
+        } 
       })
     };
     
