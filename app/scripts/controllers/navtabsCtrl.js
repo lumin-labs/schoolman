@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, Cache, User) {
+  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, Cache, User) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
@@ -22,9 +22,10 @@ angular.module('SchoolMan')
     };
 
     $scope.userHasAccess = function(tab){
+      var isRightMode = tab.modes.indexOf(VERSION.mode) > -1;
     	var hasAccess = tab.access.indexOf($scope.userAccess) > -1;
       var excluded = excludedOnThisPage(tab);
-      return (hasAccess && (!excluded));
+      return (hasAccess && isRightMode && (!excluded));
     };
 
     $scope.logout = function(){
