@@ -7,15 +7,11 @@ angular.module('SchoolMan')
     $scope.forms = Forms.all();
     $scope.form  = $scope.forms[$routeParams.formIndex];
 
-    $scope.groups = Groups.getAll();
+    $scope.groups = angular.copy(Groups.getAll());
 
     $scope.open = Location.open;
 
-    $scope.groupStats = {
-        0:{passing:0, failing:0, percentPassing:0},
-        1:{passing:0, failing:0, percentPassing:0}
-        // ... etc - populated during buildMastersheet
-    }
+    $scope.groupStats = {}
 
     $scope.mastersheets = {};
     
@@ -28,9 +24,9 @@ angular.module('SchoolMan')
 
     // This is doing more work than it needs to because we dont need a mastersheet
     // for every course
-    var buildMastersheet = function(groupIndex){
+    var buildMastersheet = function(groupKey){
         
-        var courses = CourseCatalog.getCourses($routeParams.formIndex, groupIndex);
+        var courses = CourseCatalog.getCourses($routeParams.formIndex, groupKey);
         var courseIds = courses.map(function(course){return course.id});
 
         var marksheets = ClassMaster.getMarksheets(courseIds);
@@ -40,9 +36,9 @@ angular.module('SchoolMan')
             marksheets:marksheets,
             getSubjectKey:CourseCatalog.getSubjectKey
         });
-        $scope.mastersheets[groupIndex] = mastersheet;
-        var passingScore = $scope.groups[groupIndex].getPromoPass($routeParams.formIndex)
-        updateGroupStats(groupIndex, mastersheet.numstats(passingScore));
+        $scope.mastersheets[groupKey] = mastersheet;
+        var passingScore = $scope.groups[groupKey].getPromoPass($routeParams.formIndex)
+        updateGroupStats(groupKey, mastersheet.numstats(passingScore));
         
     }
 
@@ -52,13 +48,14 @@ angular.module('SchoolMan')
         }
     });
 
-    $scope.save = function(groupIndex){
+    $scope.save = function(groupKey){
         var formIndex = $routeParams.formIndex;
-        var newPass = parseFloat($scope.groups[groupIndex].forms[formIndex].pass);
-        var oldPass = parseFloat($scope.groups[groupIndex].getPromoPass(formIndex));
+        var groups = Groups.getAll();
+        var newPass = parseFloat($scope.groups[groupKey].getPromoPass(formIndex));
+        var oldPass = parseFloat(groups[groupKey].getPromoPass(formIndex));
         if(newPass !== oldPass){
-           $scope.groups[groupIndex].setPass(formIndex, newPass); 
-           buildMastersheet(groupIndex);
+           groups[groupKey].setPass(formIndex, newPass); 
+           buildMastersheet(groupKey);
         }
     };
   });
