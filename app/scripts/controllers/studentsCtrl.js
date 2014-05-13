@@ -58,7 +58,7 @@ angular.module('SchoolMan')
 
             Location.open({
                 studentId:student.id,
-                page:"profile"
+                page:"registrarProfile"
             });
 
             // Reset new student
