@@ -64,7 +64,7 @@
 				<tr ng-repeat="(studentIndex, student) in students | orderBy:'name'">
 					<td class="small-column-header">{{studentIndex + 1}}</td>
 					<td style="width:300px;">
-				        <a ng-click="open({page:'reportcard', studentId:student.id})"
+				        <a ng-click="open({page:'classmasterProfile', studentId:student.id})"
 				           style="font-size:.8em;" 
 				           data-toggle="tooltip" data-placement="right" title="{{student.name}}">{{student.name | limitTo:7}}.</a>
 			      	</td>

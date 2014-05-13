@@ -1,0 +1,139 @@
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+	<div class="col-md-10 marksheet" ng-controller="ProfileCtrl">
+
+  <div class="row">
+  	<div class="col-md-7" 
+  			 ng-include="'views/_profile-edit.html'"
+  			 style="border-right:solid 1px #ddd;">
+  	</div>
+  	<div class="col-md-5">
+  		<form class="form-horizontal" role="form">
+  			<h5 style="text-decoration:underline;"><strong>Disciplinary Record</strong></h5>
+        <div class="form-group">
+          <label for="absence" class="col-sm-7 control-label">
+            Hours of Absence
+          </label>
+          <div class="col-sm-5">
+            <input id="absence"
+                   type="number"
+                   class="form-control"  
+                   ng-model="student.absence"
+                   ng-change="save()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="council" class="col-sm-7 control-label">
+            Attended Disciplinary Council
+          </label>
+          <div class="col-sm-5">
+            <input id="council"
+                   type="number"
+                   class="form-control"  
+                   ng-model="student.council"
+                   ng-change="save()">
+          </div>
+        </div>
+  			<div class="form-group">
+          <label for="warned" class="col-sm-7 control-label">
+            Warned
+          </label>
+          <div class="col-sm-5">
+            <input id="warned"
+                   type="number"
+                   class="form-control"  
+                   ng-model="student.warned"
+                   ng-change="save()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="suspended" class="col-sm-7 control-label">
+            Suspended
+          </label>
+          <div class="col-sm-5">
+            <input id="suspended"
+                   type="number"
+                   class="form-control"  
+                   ng-model="student.suspended"
+                   ng-change="save()">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="expelled" class="col-sm-7 control-label">
+            Promotion Status
+          </label>
+          <div class="col-sm-5">
+            <div  class="btn-group">
+              <!-- If status is set to automatic -->
+              <button ng-if="student.status['2014'] === 0 && studentStatus[student.id]"
+                      class="btn btn-sm btn-success dropdown-toggle" 
+                      data-toggle="dropdown">
+                <i class="glyphicon" 
+                   ng-class="PROMOTE_OPTIONS[0].icon"></i>
+                &nbsp;{{PROMOTE_OPTIONS[1].name}}
+              </button>
+              
+              <button ng-if="student.status['2014'] === 0 && !studentStatus[student.id]"
+                    class="btn btn-sm btn-warning dropdown-toggle" 
+                    data-toggle="dropdown">
+                  <i class="glyphicon" 
+                   ng-class="PROMOTE_OPTIONS[0].icon"></i>
+                &nbsp;{{PROMOTE_OPTIONS[2].name}}
+              </button>
+                
+              <!-- Otherwise show whatever it's manually set to -->
+                <button ng-if="student.status['2014'] > 0"
+                        class="btn btn-sm dropdown-toggle" 
+                        ng-class="'btn-'+PROMOTE_OPTIONS[student.status['2014']].style"
+                        data-toggle="dropdown">
+                    <i ng-class="PROMOTE_OPTIONS[student.status['2014']].icon"></i>
+                  &nbsp;{{PROMOTE_OPTIONS[student.status['2014']].name}}
+                </button>
+              
+              <ul class="dropdown-menu">
+                <li>
+                  <a ng-click="student.setStatus('2014', 0)">
+                    <i ng-class="PROMOTE_OPTIONS[0].icon"></i>
+                    {{PROMOTE_OPTIONS[0].name}}
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li ng-repeat="(optionIndex, option) in PROMOTE_OPTIONS.slice(1)">
+                  <a ng-click="student.setStatus('2014', optionIndex + 1)">
+                    <i ng-class="PROMOTE_OPTIONS[optionIndex + 1].icon"></i>
+                    {{PROMOTE_OPTIONS[optionIndex + 1].name}}
+                  </a>
+                </li>
+              </ul>
+            </div><!-- /btn-group -->
+          </div>
+        </div>
+        <h5 style="text-decoration:underline;">
+          <strong>Comments</strong>
+        </h5>
+        <textarea class="form-control" 
+                  style="margin-bottom:10px;" 
+                  rows="3"
+                  ng-model="newComment.text"></textarea>
+        <button class="btn btn-default pull-right"
+                ng-class="!newComment.isValid() ? 'disabled' : 'tests'"
+                ng-click="addComment()">Add Comment</button>
+
+        <table class="table table-striped" style="margin-top:55px;">
+          <tr ng-repeat="(commentIndex, comment) in student.discipline['comments']">
+            <td>
+              <span style="color:green;">{{$user.get(comment.user).fullname}}</span> - 
+              <span style="color:#666">{{comment.date | date:'medium'}}</span>
+              <br>
+              <strong>{{comment.text}}</strong>
+            </td>
+          </tr>
+        </table>
+  		</form>
+  	</div>
+  </div>
+  </div>
+	
+</div>	
+

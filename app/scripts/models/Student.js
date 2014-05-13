@@ -28,6 +28,14 @@ angular.module('SchoolMan')
       this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
         2014:0
       }; 
+      this.discipline = {
+        absence:0,
+        council:0,
+        warned:0,
+        supended:0,
+        expelled:0,
+        comments:[]
+      }
 
       this.payments = [];    
 
