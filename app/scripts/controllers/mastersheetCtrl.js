@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
+  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
@@ -21,7 +21,6 @@ angular.module('SchoolMan')
 
     var courseId = CourseCatalog.getCourseId($routeParams);
     $scope.students = Registrar.getStudentsByCourse(courseId);
-
 
     $scope.open = Location.open;
 
@@ -174,8 +173,11 @@ angular.module('SchoolMan')
 
     var reportCards = ['reportcard', 'reportcardGTHS']
     if(reportCards.indexOf($routeParams.page) > -1){
+
+      $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
+
       $scope.student = $routeParams.studentId === "0" ?
-        Registrar.getStudent($scope.students[0].id) :
+        $scope.students[0] :
         Registrar.getStudent($routeParams.studentId);
 
       $scope.forms = Forms.all();
