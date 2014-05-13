@@ -150,5 +150,28 @@ angular.module('SchoolMan')
 
 
 //==============================================================================
+
+  function Comment(){
+    // Prevents global namespace clobbering if you istantiate this object
+    // without the 'new' keyword
+    if (!(this instanceof Comment)) {
+      return new Comment();
+    }
+
+    this.text = "";
+    this.date = "";
+    this.user = "";
+  }
+
+  Comment.prototype.requiredFields = ['text'];
+  Comment.prototype.invalidValues = [null, undefined, "", "0", "0.00", 0];
+  Comment.prototype.isValid = Model.prototype.isValid;
+
+  model.Comment = Comment;
+
+
+
+//==============================================================================
+
     return model;
   });
