@@ -32,7 +32,7 @@ angular.module('SchoolMan')
         absence:0,
         council:0,
         warned:0,
-        supended:0,
+        suspended:0,
         expelled:0,
         comments:[]
       }
