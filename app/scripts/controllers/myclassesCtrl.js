@@ -8,6 +8,8 @@ angular.module('SchoolMan')
       TimeTable.getCourseRefs($routeParams.username)
     );
 
+
+    console.log("MyClasses routeParams", $routeParams);
 	  $scope.courseId = CourseCatalog.getCourseId($routeParams);
     $scope.username = $routeParams.username;
 

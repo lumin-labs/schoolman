@@ -24,7 +24,7 @@ angular.module('SchoolMan')
 
     function Course(form, group, subject){
       self = angular.copy(subject);
-      self.id = form + "-" + group + "-" + self.code;
+      self.id = form + ":" + group + ":" + self.code;
       self.form = Forms.all()[form].name;
       self.group = Groups.get(group).name;
       return self;
@@ -77,7 +77,7 @@ angular.module('SchoolMan')
      * which includes the courseId and a timestamp.
      */
     self.getCourseId = function(params){
-      return params.formIndex + "-" + params.groupIndex + "-" + params.subjectKey;
+      return params.formIndex + ":" + params.groupIndex + ":" + params.subjectKey;
     }
 
 
@@ -275,7 +275,7 @@ angular.module('SchoolMan')
      * This method takes a courseId and returns the subject key
      */
     self.getSubjectKey = function(courseId){
-        return courseId.split("-")[2];
+        return courseId.split(":")[2];
     };
 
     self.save = function(){

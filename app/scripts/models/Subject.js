@@ -15,6 +15,7 @@ angular.module('SchoolMan')
       this.en = "";
       this.fr = "";
       this.type = 0;
+      this.coeff = 2;
 
       // callback functions
       var listeners = [];

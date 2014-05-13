@@ -35,6 +35,7 @@ angular.module('SchoolMan')
       var courses = CourseCatalog.getCourses(formIndex, groupIndex);
       var courseIds = courses.map(function(course){return course.id});
       var marksheets = ClassMaster.getMarksheets(courseIds);
+      console.log("MastersheetCtrl subjects", $scope.subjects)
       var mastersheet = new Mastersheet({
         termIndex:$routeParams.termIndex,
         students:$scope.students,

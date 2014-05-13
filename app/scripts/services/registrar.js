@@ -120,6 +120,8 @@ angular.module('SchoolMan')
 
             var courseList = courses[courseId];
 
+            console.log("CourseId", courseId, courseList);
+
             var studentList = courseList.map(function(studentId){
                 return students[studentId];
             });
