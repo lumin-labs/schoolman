@@ -1,0 +1,124 @@
+<div class="row ">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+	<div class="col-md-10 marksheet" ng-controller="ClasscouncilreportCtrl">
+
+	
+
+		<!-- Form Dropdown -->
+		<div class="" style="padding-bottom:10px;">
+			<div class="btn-group">
+			  <button class="btn btn-lg btn-light dropdown-toggle" 
+			  			  data-toggle="dropdown">
+			    {{form.name}} <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu">
+			    <li ng-repeat="(formIndex, form) in forms">
+			      <a ng-href="" ng-click="open({formIndex:formIndex})">{{form.name}}</a>
+			    </li>
+			  </ul>
+			</div>
+		</div>
+
+		<!-- School Name Letterhead -->
+	<div class="letterhead" ng-include="'views/_letterhead.html'"></div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<p><b>ACADEMIC YEAR:</b> <i>2014/2015</i></p>
+			<p><b>TERM:</b> <i>{{term.name}}</i></p>
+			</div>
+			<div class="col-md-6">
+			<p><b>CLASS:</b> <i>{{form.name}}</i></p>
+			<p><b>DATE:</b> <i>{{currentDate | date:"medium"}}</i></p>
+			</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<p><b>A) BASIC DATA</b></p>
+			<p>NUMBER ON ROLL: <u> </u></p>
+			<p>NUMBER ACTUALLY PRESENT: <u> </u></p>
+			<p>NUMBER WITH 10+ AVERAGE: <u> </u></p>
+			<p>NUMBER WITH 10- AVERAGE: <u> </u></p>
+			<p>PERCENTAGE PASS: <u> </u></p>
+			<p>PERCENTAGE FAIL: <u> </u></p>
+			<p>CLASS AVERAGE: <u> </u></p>
+			<p>CLASS RANGE: <u> </u></p>
+			
+		</div></div>
+	<div class = "row">
+		<div class="col-md-12">
+			<p><b>B) STUDENT PERFORMANCE</b></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10">
+			<p><b>THREE BEST STUDENTS</b></p>
+		</div>
+		<div class="col-md-2">
+			<p><b>AVERAGE</b></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8">
+			<p>1- <u>STUDENT NAME</u></p>
+			<p>2- <u>STUDENT NAME</u></p>
+			<p>3- <u>STUDENT NAME</u></p>
+		</div>
+		<div class="col-md-2">
+			<p><u>Average</u></p>
+			<p><u>Average</u></p>
+			<p><u>Average</u></p>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-10">
+			<p><b>THREE WORST STUDENTS</b></p>
+		</div>
+		<div class="col-md-2">
+			<p><b>AVERAGE</b></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8">
+			<p>1- <u>STUDENT NAME</u></p>
+			<p>2- <u>STUDENT NAME</u></p>
+			<p>3- <u>STUDENT NAME</u></p>
+		</div>
+		<div class="col-md-2">
+			<p><u>Average</u></p>
+			<p><u>Average</u></p>
+			<p><u>Average</u></p>
+		</div>
+	</div>
+	
+	<div class = "row">
+		<div class="col-md-12">
+			<p><b>C) GENERAL REMARKS</b></p>
+		</div>
+	</div>
+
+	<div class = "row">
+		<div class="col-md-12">
+			<p><b>D) POSSIBLE FACTORS/REASONS</b></p>
+		</div>
+	</div>
+
+	<div class = "row">
+		<div class="col-md-4"></div>
+		<div class="col-md-8">
+			<p><b>CLASS MASTER/MISTRESS</b></p>
+			<p>a)NAME:<u></u></p>
+			<p>b)SIGNATURE:</p>
+			<p>c)DATE:</p>
+		</div>
+	</div>
+		
+	</div>
+</div>

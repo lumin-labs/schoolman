@@ -21,6 +21,8 @@ angular.module('SchoolMan')
 
     var courseId = CourseCatalog.getCourseId($routeParams);
     $scope.students = Registrar.getStudentsByCourse(courseId);
+    $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
+    $scope.pageTitleFrench = "BULLETIN DE NOTES";
 
     $scope.open = Location.open;
 
