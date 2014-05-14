@@ -21,6 +21,7 @@
 					   style="color:green;"></i>
 					</button>
 	  			</th>
+	  			<th></th>
 	  			<th class="text-center">
 	  				<button type="submit" class="btn btn-default" ng-click="add(newDepartment)">
 			        	Add
@@ -31,6 +32,7 @@
 					<th>Code</th>
 					<th>Name</th>
 					<th class="text-center" ng-repeat="form in forms">{{form.name}}</th>
+					<th>Students</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -54,6 +56,7 @@
 						   style="color:green;"></i>
 						</button>
 					</td>
+					<td>20</td>
 					<td class="remove text-center" style="width:80px;">
 						<a ng-click="remove(department)">
 							<i class="glyphicon glyphicon-remove"></i>
