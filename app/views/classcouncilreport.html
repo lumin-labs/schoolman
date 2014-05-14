@@ -37,14 +37,14 @@
 	<div class="row">
 		<div class="col-md-12">
 			<p><b>A) BASIC DATA</b></p>
-			<p>NUMBER ON ROLL: <u> </u></p>
-			<p>NUMBER ACTUALLY PRESENT: <u> </u></p>
-			<p>NUMBER WITH 10+ AVERAGE: <u> </u></p>
-			<p>NUMBER WITH 10- AVERAGE: <u> </u></p>
-			<p>PERCENTAGE PASS: <u> </u></p>
-			<p>PERCENTAGE FAIL: <u> </u></p>
-			<p>CLASS AVERAGE: <u> </u></p>
-			<p>CLASS RANGE: <u> </u></p>
+			<p>NUMBER ON ROLL: <u>{{groupStats.numStudents}}</u></p>
+			<p>NUMBER ACTUALLY PRESENT: <u>{{groupStats.numPresent}}</u></p>
+			<p>NUMBER WITH 10+ AVERAGE: <u>{{groupStats.passing}}</u></p>
+			<p>NUMBER WITH 10- AVERAGE: <u>{{groupStats.failing}}</u></p>
+			<p>PERCENTAGE PASS: <u>{{(groupStats.percentPassing * 100 || 0) | number:1}}</u></p>
+			<p>PERCENTAGE FAIL: <u>{{(groupStats.percentFailing * 100 || 0) | number:1}}</u></p>
+			<p>CLASS AVERAGE: <u>{{groupStats.classAverage}}</u></p>
+			<p>CLASS RANGE: <u>{{groupStats.classRange}}</u></p>
 			
 		</div></div>
 	<div class = "row">
