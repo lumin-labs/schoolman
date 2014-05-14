@@ -34,89 +34,99 @@
 			</div>
 	</div>
 
+	<h3>Basic Data</h3>
 	<div class="row">
-		<div class="col-md-12">
-			<p><b>A) BASIC DATA</b></p>
-			<p>NUMBER ON ROLL: <u>{{groupStats.numStudents}}</u></p>
-			<p>NUMBER ACTUALLY PRESENT: <u>{{groupStats.numPresent}}</u></p>
-			<p>NUMBER WITH 10+ AVERAGE: <u>{{groupStats.passing}}</u></p>
-			<p>NUMBER WITH 10- AVERAGE: <u>{{groupStats.failing}}</u></p>
-			<p>PERCENTAGE PASS: <u>{{(groupStats.percentPassing * 100 || 0) | number:1}}</u></p>
-			<p>PERCENTAGE FAIL: <u>{{(groupStats.percentFailing * 100 || 0) | number:1}}</u></p>
-			<p>CLASS AVERAGE: <u>{{groupStats.classAverage}}</u></p>
-			<p>CLASS RANGE: <u>{{groupStats.classRange}}</u></p>
-			
-		</div></div>
-	<div class = "row">
-		<div class="col-md-12">
-			<p><b>B) STUDENT PERFORMANCE</b></p>
+		<div class="col-md-1"></div>
+		<div class="col-md-5">
+			<table>
+			<tr><td>Number on Roll: </td><td><u>{{groupStats.numStudents}}</u></td></tr>
+			<tr><td>Number Present: </td><td><u>{{groupStats.numPresent}}</u></td></tr>
+			<tr><td>Number With 10+ Average: </td><td><u>{{groupStats.passing}}</u></td></tr>
+			<tr><td>Number With 10- Average: </td><td><u>{{groupStats.failing}}</u></td></tr>
+			</table>
 		</div>
+		<div class="col-md-5">
+			<table padding="15px">
+			<tr><td>Percentage Pass: </td><td><u>{{(groupStats.percentPassing * 100 || 0) | number:1}}</u></td></tr>
+			<tr><td>Percentage Fail: </td><td><u>{{(groupStats.percentFailing * 100 || 0) | number:1}}</u></td></tr>
+			<tr><td>Class Average: </td><td><u>{{groupStats.classAverage}}</u></td></tr>
+			<tr><td>Class Range:</td><td><u>{{groupStats.classRange}}</u></td></tr>
+			</table>
+		</div>
+		<div class="col-md-1"></div>
 	</div>
+	<h3>Student Performance</h3>
 	<div class="row">
-		<div class="col-md-10">
-			<p><b>THREE BEST STUDENTS</b></p>
+		<div class="col-md-1"></div>
+		<div class="col-md-5">
+			<p><b>Three Best Students:</b></p>
 		</div>
-		<div class="col-md-2">
-			<p><b>AVERAGE</b></p>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2">
-		</div>
-		<div class="col-md-8">
-			<p>1- <u>STUDENT NAME</u></p>
-			<p>2- <u>STUDENT NAME</u></p>
-			<p>3- <u>STUDENT NAME</u></p>
-		</div>
-		<div class="col-md-2">
-			<p><u>Average</u></p>
-			<p><u>Average</u></p>
-			<p><u>Average</u></p>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="col-md-10">
-			<p><b>THREE WORST STUDENTS</b></p>
-		</div>
-		<div class="col-md-2">
-			<p><b>AVERAGE</b></p>
+		<div class="col-md-6">
+			<p><b>Average</b></p>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-2">
 		</div>
-		<div class="col-md-8">
-			<p>1- <u>STUDENT NAME</u></p>
-			<p>2- <u>STUDENT NAME</u></p>
-			<p>3- <u>STUDENT NAME</u></p>
+		<div class="col-md-4">
+			<p>1- <u>Student Name</u></p>
+			<p>2- <u>Student Name</u></p>
+			<p>3- <u>Student Name</u></p>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-6">
 			<p><u>Average</u></p>
 			<p><u>Average</u></p>
 			<p><u>Average</u></p>
 		</div>
 	</div>
 	
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-5">
+			<p><b>Three Worst Students:</b></p>
+		</div>
+		<div class="col-md-6">
+			<p><b>Average</b></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-4">
+			<p>1- <u>Student Name</u></p>
+			<p>2- <u>Student Name</u></p>
+			<p>3- <u>Student Name</u></p>
+		</div>
+		<div class="col-md-6">
+			<p><u>Average</u></p>
+			<p><u>Average</u></p>
+			<p><u>Average</u></p>
+		</div>
+	</div>
+	
 	<div class = "row">
 		<div class="col-md-12">
-			<p><b>C) GENERAL REMARKS</b></p>
+			<h3>General Remarks</h3>
 		</div>
 	</div>
 
 	<div class = "row">
 		<div class="col-md-12">
-			<p><b>D) POSSIBLE FACTORS/REASONS</b></p>
+			<h3>Possible Factors/Reasons</h3>
+			<table border="1" width="800" height="150">
+			<tr><td></td></tr>
+			</table>
 		</div>
 	</div>
+	<br><br>
 
 	<div class = "row">
 		<div class="col-md-4"></div>
 		<div class="col-md-8">
-			<p><b>CLASS MASTER/MISTRESS</b></p>
-			<p>a)NAME:<u></u></p>
-			<p>b)SIGNATURE:</p>
-			<p>c)DATE:</p>
+			<p><b>Class Master/Mistress</b></p>
+			<p>Name:</p>
+			<p>Signature:</p>
+			<p>Date:</p>
 		</div>
 	</div>
 		
