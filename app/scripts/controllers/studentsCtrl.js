@@ -17,6 +17,7 @@ angular.module('SchoolMan')
     $scope.open = Location.open;
 
     $scope.departments = Departments.getAll();
+    
     $scope.fees = Fees.getAll();
     console.log("Dep", Object.keys($scope.departments)[0]);
     $scope.newStudent = new Student({
