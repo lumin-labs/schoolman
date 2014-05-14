@@ -24,4 +24,11 @@ angular.module('SchoolMan')
  			Departments.save();
  		};
 
+ 		 var allStudents = Registrar.getAllStudents();
+	    $scope.getStudentsByGroup = function(deptKey){
+	        return allStudents.filter(function(student){
+	            return student.department === deptKey;
+	        });
+	    };
+
   });
