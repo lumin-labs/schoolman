@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+  .controller('MastersheetCtrl', function ($scope, $routeParams, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
+    $scope.departments = Departments.getAll();
 
     $scope.getSubjectsByType = function(reqType){
       
