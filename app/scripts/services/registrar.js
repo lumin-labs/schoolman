@@ -14,7 +14,7 @@
 angular.module('SchoolMan')
   .service('Registrar', function Registrar(CourseCatalog, Data, $log, modelTransformer, Student, Uid) {
     
-    var _students = [];
+    // var _students = [];
     var students = {};
     var courses = {};
     var classes = {};
@@ -69,7 +69,7 @@ angular.module('SchoolMan')
 
     		// Register the student
     		students[student.id] = student;
-            _students.push(student);
+            // _students.push(student);
 
     		// Register the student in their class
 			var classId = form + "-" + group;
@@ -86,7 +86,7 @@ angular.module('SchoolMan')
     };
 
     self.save = function(callback){
-        Data.saveLater({students:_students}, callback);
+        Data.saveLater({students:students}, callback);
     };
 
 
@@ -150,6 +150,11 @@ angular.module('SchoolMan')
         return studentList;
     };
 
+    self.getAllStudents = function(){
+        return Object.keys(students).map(function(studentId){
+            return students[studentId];
+        });
+    };
 
     // Load students from Data
     Data.get("students", function(students){

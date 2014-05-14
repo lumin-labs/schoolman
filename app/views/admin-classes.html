@@ -5,7 +5,7 @@
 			<thead>
 				<tr class="toolbar">
 					<th>
-	    				<input style="width:400px;" 
+	    				<input style="width:300px;" 
 	    							 type="text" 
 	    							 class="form-control" 
 	    							 placeholder="Class Name"
@@ -23,6 +23,7 @@
 						     	style="color:green;"></i>
 						</button>
 	    			</th>
+	    			<th></th>
 	    			<th class="text-center">
 	    				<button type="submit" class="btn btn-default" ng-click="add(newGroup)">
 				        	Add Class
@@ -33,12 +34,13 @@
 				<tr>
 					<th>Name</th>
 					<th class="text-center" ng-repeat="form in forms">{{form.name}}</th>
-					<th></th>
+					<th>Students</th>
+					<th>Remove</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="(groupKey, group) in groups">
-					<td class="column readonly" style="width:400px;vertical-align:middle;">
+					<td class="column readonly" style="width:300px;vertical-align:middle;">
 						<div style="padding-left:10px;font-weight:bold;font-size:1.2em;">{{group.name}}</div>
 					</td>
 					<td ng-repeat="(formIndex, form) in group.forms"
@@ -53,8 +55,14 @@
 						   style="color:green;"></i>
 						</button>
 					</td>
-					<td class="remove text-center" style="width:80px;">
-						<a ng-click="remove(groupKey)">
+					<td class="text-center"
+							ng-init="nStudents = getStudentsByGroup(groupKey).length">
+						{{nStudents}}
+					</td>
+					<td class="remove text-center" 
+							style="width:80px;">
+						<a ng-click="remove(groupKey)"
+							 ng-if="nStudents === 0">>
 							<i class="glyphicon glyphicon-remove"></i>
 						</a>
 					</td>

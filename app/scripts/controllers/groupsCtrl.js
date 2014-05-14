@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('GroupsCtrl', function ($scope, Groups, model, Forms) {
+  .controller('GroupsCtrl', function ($scope, Groups, model, Forms, Registrar) {
     
     $scope.newGroup = new model.Group();
     
@@ -25,5 +25,13 @@ angular.module('SchoolMan')
     $scope.remove = function(group){
     	Groups.remove(group);
     	Groups.save();
-    }
+    };
+
+    var allStudents = Registrar.getAllStudents();
+    $scope.getStudentsByGroup = function(groupKey){
+        return allStudents.filter(function(student){
+            return student.group === groupKey;
+        });
+    };
+
   });
