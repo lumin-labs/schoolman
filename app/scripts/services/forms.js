@@ -1,18 +1,39 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Forms', function Forms(model) {
+  .service('Forms', function Forms(model, VERSION) {
     
     // AngularJS will instantiate a singleton by calling "new" on this function
 
+    var modes = {
+        'gths':[
+            "Form 1",
+            "Form 2",
+            "Form 3",
+            "Form 4",
+            "Form 5",
+            "Form 6",
+            "Form 7"
+        ],
+        'ghs' :[
+            "Form 1",
+            "Form 2",
+            "Form 3",
+            "Form 4",
+            "Form 5",
+            "Lower Sixth",
+            "Upper Sixth"
+        ]
+    }
+
     var forms = [
-    	new model.Form({name:"Form 1"}),
-    	new model.Form({name:"Form 2"}),	
-    	new model.Form({name:"Form 3"}),	
-    	new model.Form({name:"Form 4"}),	
-    	new model.Form({name:"Form 5"}),	
-    	new model.Form({name:"Lower Sixth"}),	
-    	new model.Form({name:"Upper Sixth"})	
+    	new model.Form({name:modes[VERSION.mode][0]}),
+    	new model.Form({name:modes[VERSION.mode][1]}),	
+    	new model.Form({name:modes[VERSION.mode][2]}),	
+    	new model.Form({name:modes[VERSION.mode][3]}),	
+    	new model.Form({name:modes[VERSION.mode][4]}),	
+    	new model.Form({name:modes[VERSION.mode][5]}),	
+    	new model.Form({name:modes[VERSION.mode][6]})	
     ];
 
     var self = {};
