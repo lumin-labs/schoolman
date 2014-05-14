@@ -38,7 +38,7 @@
                         <h5>Gender: <strong>{{student.sex}}</strong></h5>
                         <h5>Born: <strong>{{student.birth | date:'MMM dd, yyyy'}}</strong></h5>
                         <h5>ID: <strong>{{student.id}}</strong></h5>
-                        <h5>Class: <strong>{{form.name}}, {{group.name}}</strong></h5>
+                        <h5>Class: <strong>{{form.name}}, {{departments[student.department].name}}, {{group.name}}</strong></h5>
                       </div>
                     </div>
                   </td>

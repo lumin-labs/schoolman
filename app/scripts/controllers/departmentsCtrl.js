@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('DepartmentsCtrl', function ($scope, $log, Department, Departments, CourseCatalog) {
+  .controller('DepartmentsCtrl', function ($scope, $log, Registrar, Department, Departments, CourseCatalog) {
 
     $scope.forms = CourseCatalog.getForms();
 
@@ -24,11 +24,12 @@ angular.module('SchoolMan')
  			Departments.save();
  		};
 
- 		 var allStudents = Registrar.getAllStudents();
-	    $scope.getStudentsByGroup = function(deptKey){
-	        return allStudents.filter(function(student){
-	            return student.department === deptKey;
-	        });
-	    };
+ 		var allStudents = Registrar.getAllStudents();
+    $scope.getStudentsByDept = function(deptKey){
+    	  console.log(deptKey);
+        return allStudents.filter(function(student){
+            return student.department === deptKey;
+        });
+    };
 
   });
