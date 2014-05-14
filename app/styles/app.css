@@ -90,12 +90,30 @@ td.column.readonly{
   border: solid 1px #ddd !important;
 }
 
+td.column.readonly .cell{
+    font-weight: normal;
+}
+
 td.column-on-right{
   border-right:solid 1px #FCCD99 !important;
 }
 
+tr.row-spacer th{
+  background-color: inherit !important;
+  border: none;
+  padding-top: 20px !important;
+}
+
+tr.row-spacer:nth-of-type(1) th{
+  border-top:0px; 
+}
+
 th.column-on-bottom{
   border-bottom:solid 2px #FCCD99 !important;
+}
+
+input.ng-dirty.ng-invalid{
+  border:solid 1px red;
 }
 
 .no-border-bottom th{
@@ -194,8 +212,9 @@ th.column-on-bottom{
 
 .mastersheet {
     background-color:white;
-    border:solid 1px #ddd;
     padding:10px;
+    border:solid 1px #ddd;
+    border-top:none;
 }
 
 th.small-column-header{
@@ -222,7 +241,7 @@ html{
 
 body{
   overflow: visible;
-  padding-top: 60px;
+  padding-top: 50px;
 }
 
 .navbar{
@@ -240,8 +259,58 @@ body{
 }
 
 .nav-stacked li{
-  border-top:solid 1px #e8e8e8;
+  /*border-top:solid 1px #e8e8e8;*/
 }
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+
+@media (min-width: 768px) {
+  .sidebar-container{
+    padding-right: 10px;
+  }
+
+  .sidebar-squeeze{
+    padding-right: 1px;
+  }
+
+  .sidebar {
+    /*padding: 0 15px 0 15px;*/
+    background-color: #fff;
+    /*min-height: 300px;*/
+  }
+}
+
+/* Sidebar navigation */
+
+.nav-sidebar > li > a {
+  padding-right: 10px;
+  padding-left: 10px;
+  border-left: solid 5px #fff;
+}
+.nav-sidebar > .active > a {
+  background-color: #f7f7f7;
+  border-left: solid 5px #428bca;
+}
+
+.nav-sidebar > li > a:hover {
+  background-color: #fcfcfc;
+  border-left: solid 5px #ddd;
+}
+
+.nav-sidebar > .active > a:hover {
+  border-left: solid 5px #428bca;
+  background-color: #f7f7f7;
+  color:#428bca;
+}
+
+.push-right{
+  padding-right: 0px;
+}
+
 
 tr.toolbar{
   margin-bottom: 10px;
@@ -264,6 +333,10 @@ background-color:#f8f8f8;
 
 .btn-on-dark{
   border-color: #e8e8e8;
+}
+
+.btn-role:hover{
+  background-color: #fff;
 }
 
 
@@ -431,3 +504,233 @@ background-color:#f8f8f8;
   top: 100%;
   left: 0;
 }
+
+.student-info-section{
+  padding-left:15px
+}
+
+.section-header{
+  margin-top:0;
+  text-decoration:underline;
+}
+
+.section-label-vertical{
+  transform:rotate(-90deg);
+  -webkit-transform:rotate(-90deg);
+  text-align: right;
+  background-color: #eee; 
+}
+
+.table-compact{
+  font-size: 12px;
+}
+
+.table-compact thead tr th,
+.table-compact tbody tr td{
+  padding: 5px;
+}
+
+
+.table-finance thead tr th{
+  width:20%;
+}
+
+.table-finance thead tr .title{
+  font-size: 1.4em;
+}
+
+.finance-summary td{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.finance-detail{
+  color:#555;
+}
+
+.term-summary{
+  border-left :solid 1px #ddd;
+  border-right:solid 1px #ddd;
+  width:20%;
+  padding-left:30px !important;
+  border-top:none !important;
+}
+
+td.profile-photo{
+  border-top:0px !important;
+  width:190px;
+}
+
+.profile-photo div img{
+  height:140px;
+}
+
+.printonly{
+  display:none;
+}
+
+.signature-padding{
+  height:37px;
+}
+
+
+
+/* Print CSS */
+@media print{
+
+    body{
+      padding-top:0px;
+    }
+
+    .container {
+        width:100%;
+    }
+
+    .printonly{
+      display:inline;
+    }
+
+    .noprint {
+      display:none;
+    }
+
+    .marksheet{
+      padding:0px;
+      border:none;
+    }
+
+    .navtabs-container{
+      display: none;
+    }
+
+    .table-signature tr{
+      height:28px;
+    }
+
+    .table.letterhead{
+      padding: 0px;
+      height:110px;
+    };
+
+    .table.letterhead tr td{
+      border: 0px !important;
+      padding: 0px;
+
+    }
+
+    .letterhead tr td,
+    .summary tr td{
+      border-top:none;
+    }
+
+    .title-flank{
+      width:30%;
+    }
+
+    .title-flank h6{
+      font-size: 8px;
+    }
+
+    .title-main h4{
+      font-size: 12px;
+    }
+
+    .headline{
+      position: absolute;
+      left:0;
+      font-size: 15px;
+      width:100%;
+      text-align: center;
+      margin-top: -30px;
+    }
+
+    .well.student-info{
+      padding:0px;
+      border:none;
+      margin-bottom: 0px;
+      background-color: #ddd !important;
+      border:solid #ddd !important;
+      border-width:1px 0px 1px 0 !important;
+    }
+
+    .well.student-info .row .col-md-12 .table tr td{
+      padding:0px;
+      padding-top: 10px;
+      border-top:solid 1px #ddd;
+    }
+
+    .student-info-section{
+      padding-left:0px; 
+    }
+
+    .student-info-section h4{
+      font-size: 11px;
+    }
+
+    .student-info-section h5{
+      font-size: 10px;
+    }
+
+    .term-summary{
+      padding-left: 0px;
+      border:none;
+
+    }
+
+    td.profile-photo{
+      width:140px !important;
+    }
+
+    .profile-photo div img{
+      height:100px;
+    }
+
+    .table-transcript thead tr th{
+      font-size: 11px;
+    }
+
+    .table-transcript tbody tr td{
+      font-size: 10px;
+      padding:5px;
+    }
+
+    .transcript-summary {
+      width:40%;
+      float:left;
+    }
+
+    .signature{
+      width:60%;
+      float:right;
+    }
+
+    .signature-padding{
+      height:25px;
+    }
+
+    hr{
+      margin:10px 0;
+    }
+
+    .student-details{
+      margin-bottom:10px;
+    }
+
+    .student-details,
+    .student-details h5,
+    .student-details h4 {
+      font-size: 80%;
+    }
+
+    .letterhead{
+      border:none;
+      background-color: #eee !important;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .footer{
+      display: none;
+    }
+    
+
+  }

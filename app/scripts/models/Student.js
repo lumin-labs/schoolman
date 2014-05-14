@@ -23,9 +23,21 @@ angular.module('SchoolMan')
       this.courses = [];
       this.form = null;  //Integer
       this.group = null; //Integer
+      this.department = null; //Integer
+      this.feeGroup = "";
       this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
         2014:0
-      };     
+      }; 
+      this.discipline = {
+        absence:0,
+        council:0,
+        warned:0,
+        suspended:0,
+        expelled:0,
+        comments:[]
+      }
+
+      this.payments = [];    
 
       // Initialize object with spec properties, excluding any that aren't defined above
       var self = this;
@@ -67,6 +79,19 @@ angular.module('SchoolMan')
         }
       });
       return isOk;
+    };
+
+    Student.prototype.addPayment = function(payment){
+      if(payment.isValid()){
+        payment.date = new Date();
+        this.payments.push(payment);
+      }
+    };
+
+    Student.prototype.totalPaid = function(){
+      return this.payments.reduce(function(total, payment){
+        return total + payment.amount;
+      },0)
     };
 
     Student.prototype.callback = function(msg){

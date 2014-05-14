@@ -13,7 +13,7 @@ angular.module('SchoolMan')
 	          self.extend(dst[key], value);
 	        } else {
 	          dst[key] = value;
-	        }     
+	        }  
 	      });   
 	    }
 	  });

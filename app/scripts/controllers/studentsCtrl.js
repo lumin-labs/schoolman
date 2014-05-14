@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Registrar, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, PROMOTE_OPTIONS) {
+  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Groups, Registrar, Departments, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
@@ -10,14 +10,21 @@ angular.module('SchoolMan')
 
     var form = $routeParams.formIndex;
     var group= $routeParams.groupIndex;
-    var _groups = CourseCatalog.getGroups();
+    var _groups = Groups.getAll();
 
+    $scope.groups = _groups;
 
+    $scope.open = Location.open;
 
+    $scope.departments = Departments.getAll();
+    $scope.fees = Fees.getAll();
+    console.log("Dep", Object.keys($scope.departments)[0]);
     $scope.newStudent = new Student({
     	form:form,
     	group:group,
-    	id: ""
+    	id: "",
+        department: Object.keys($scope.departments)[0],
+        feeGroup: Object.keys($scope.fees)[0]
     });
 
     Data.get("uid", function(uid){
@@ -49,12 +56,19 @@ angular.module('SchoolMan')
             // save last used UID
             Uid.save(student.id);
 
-            // Reset new student
-            $scope.newStudent = new Student({
-                form:form,
-                group:group,
-                id: Uid.next(student.id)
+            Location.open({
+                studentId:student.id,
+                page:"registrarProfile"
             });
+
+            // Reset new student
+            // $scope.newStudent = new Student({
+            //     form:form,
+            //     group:group,
+            //     id: Uid.next(student.id)
+            // });
+
+
         }
     };
 

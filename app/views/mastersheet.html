@@ -1,93 +1,97 @@
-<div ng-include="'views/_navtabs.html'"></div>
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-<div class="mastersheet" ng-controller="MastersheetCtrl">
-<div class="" style="padding-bottom:10px;">
-	<!-- Form Dropdown -->
-	<div class="btn-group pull-right" style="margin-right:0px;">
-	  <!-- <button type="button" class="active btn btn-default btn-lg">
-	    <i class="glyphicon glyphicon-th-large"></i>
-	  </button> -->
-	  <button type="button" 
-	  		  class="btn btn-default btn-lg" 
-	  		  ng-class="graphView.view === 'mastersheet' ? 'active' : ''"
-	  		  ng-click="setGraphView('mastersheet')">
-	    <i class="glyphicon glyphicon-th"></i>
-	  </button>
-	  <button type="button" 
-	  		  class="btn btn-default btn-lg" 
-	  		  ng-class="graphView.view === 'barchart' ? 'active' : ''"
-	  		  ng-click="setGraphView('barchart')">
-	    <i class="glyphicon glyphicon-stats"></i>
-	  </button>
-	  
-	  <!-- <button type="button" class="btn btn-default btn-lg">
-	    <i class="glyphicon glyphicon-list"></i>
-	  </button> -->
+	<div class="col-md-10 marksheet" ng-controller="MastersheetCtrl">
+		<div class="" style="padding-bottom:10px;">
+			<!-- Form Dropdown -->
+			<div class="btn-group pull-right" style="margin-right:0px;">
+			  <!-- <button type="button" class="active btn btn-default btn-lg">
+			    <i class="glyphicon glyphicon-th-large"></i>
+			  </button> -->
+			  <button type="button" 
+			  		  class="btn btn-default btn-lg" 
+			  		  ng-class="graphView.view === 'mastersheet' ? 'active' : ''"
+			  		  ng-click="setGraphView('mastersheet')">
+			    <i class="glyphicon glyphicon-th"></i>
+			  </button>
+			  <button type="button" 
+			  		  class="btn btn-default btn-lg" 
+			  		  ng-class="graphView.view === 'barchart' ? 'active' : ''"
+			  		  ng-click="setGraphView('barchart')">
+			    <i class="glyphicon glyphicon-stats"></i>
+			  </button>
+			  
+			  <!-- <button type="button" class="btn btn-default btn-lg">
+			    <i class="glyphicon glyphicon-list"></i>
+			  </button> -->
+			</div>
+		    <div ng-include="'views/_menu-basic.html'"></div>  
+		</div>
+		<table 	ng-if="graphView.view === 'mastersheet'"
+				ng-init="mastersheet = getMastersheet()"
+				class="table table-striped table-bordered table-compact">
+			<thead>
+				<tr>
+					<th colspan="2" class="text-right">
+						Coefficients:
+					</th>
+					<th class="small-column-header"
+			      		ng-repeat="(subjectKey, subject) in subjects">
+						{{subject.coeff}}
+					</th>
+					<th class="symbol-column-header">=</th>
+					<th class="small-column-header">{{mastersheet.getTotalCoeff()}}</th>
+					<th></th>
+					<!-- <th></th> -->
+				</tr>
+				<tr>
+					<th>No.</th>
+					<th>Name</th>
+					<th class="small-column-header" 
+		          		ng-repeat="(subjectKey, subject) in subjects"
+		          		 data-toggle="tooltip" data-placement="right" title="{{subject.en}}">
+		          		 <a ng-click="open({page:'classmasterMarksheet',subjectKey:subjectKey})">
+		          		 	{{subjectKey}}
+		          		 </a>
+					</th>
+					<th class="symbol-column-header">&sum;</th>
+					<th class="symbol-column-header">/</th>
+					<th class="small-column-header">Rank</th>
+					<!-- <th class="small-column-header">Remark</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(studentIndex, student) in students | orderBy:'name'">
+					<td class="small-column-header">{{studentIndex + 1}}</td>
+					<td style="width:300px;">
+				        <a ng-click="open({page:'classmasterProfile', studentId:student.id})"
+				           style="font-size:.8em;" 
+				           data-toggle="tooltip" data-placement="right" title="{{student.name}}">{{student.name | limitTo:7}}.</a>
+			      	</td>
+					<td class="small-column-header"
+						ng-repeat="(subjectKey, subject) in subjects">
+						{{ mastersheet.table["students"][student.id][subjectKey].ac }}
+					</td>
+					<td class="small-column-header">
+						{{mastersheet.table["students"][student.id].acTotal | number:1}}
+					</td>
+					<td class="small-column-header">
+						{{mastersheet.table["students"][student.id].acAverage | number:1}}
+					</td>
+					<td class="small-column-header">
+						{{mastersheet.table["students"][student.id].rank}}
+					</td>
+					<!-- <td class="text-left" style="font-family:mono;font-size:.7em;">
+						{{getRemark(mastersheet.table["students"][student.id].acAverage).text}}
+					</td> -->
+				</tr>
+			</tbody>
+		</table>
+		<div title="barchart"
+				ng-show="graphView.view === 'barchart'"
+				ng-hide="graphView.view !== 'barchart'"
+				class="ng-hide table-bordered">
+				<div class="d3-barchart"></div>
+		</div>
 	</div>
-    <div ng-include="'views/_menu-basic.html'"></div>
-    
-</div>
-<table 	ng-if="graphView.view === 'mastersheet'"
-		ng-init="mastersheet = getMastersheet()"
-		class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th colspan="2" class="text-right">
-				Coefficients:
-			</th>
-			<th class="small-column-header"
-	      		ng-repeat="(subjectKey, subject) in subjects">
-				{{subject.coeff}}
-			</th>
-			<th class="symbol-column-header">=</th>
-			<th class="small-column-header">{{mastersheet.getTotalCoeff()}}</th>
-			<th></th>
-			<!-- <th></th> -->
-		</tr>
-		<tr>
-			<th>No.</th>
-			<th>Name</th>
-			<th class="small-column-header" 
-          		ng-repeat="(subjectKey, subject) in subjects"
-          		 data-toggle="tooltip" data-placement="right" title="{{subject.en}}">
-          		 <a ng-click="open({page:'marksheet',subjectKey:subjectKey})">
-          		 	{{subjectKey}}
-          		 </a>
-			</th>
-			<th class="symbol-column-header">&sum;</th>
-			<th class="symbol-column-header">/</th>
-			<th class="small-column-header">Rank</th>
-			<!-- <th class="small-column-header">Remark</th> -->
-		</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="(studentIndex, student) in students | orderBy:'name'">
-			<td class="small-column-header">{{studentIndex + 1}}</td>
-			<td style="width:300px;">
-		        <a ng-click="open({page:'reportcard', studentId:student.id})"
-		           style="font-size:.8em;" 
-		           data-toggle="tooltip" data-placement="right" title="{{student.name}}">{{student.name | limitTo:7}}.</a>
-	      	</td>
-			<td class="small-column-header"
-				ng-repeat="(subjectKey, subject) in subjects">
-				{{ mastersheet.table["students"][student.id][subjectKey].ac }}
-			</td>
-			<td class="small-column-header">
-				{{mastersheet.table["students"][student.id].acTotal | number:1}}
-			</td>
-			<td class="small-column-header">
-				{{mastersheet.table["students"][student.id].acAverage | number:1}}
-			</td>
-			<td class="small-column-header">
-				{{mastersheet.table["students"][student.id].rank}}
-			</td>
-			<!-- <td class="text-left" style="font-family:mono;font-size:.7em;">
-				{{getRemark(mastersheet.table["students"][student.id].acAverage).text}}
-			</td> -->
-		</tr>
-	</tbody>
-</table>
-<div 	ng-show="graphView.view === 'barchart'"
-		ng-hide="graphView.view !== 'barchart'"
-		class="d3-barchart ng-hide table-bordered"></div>
 </div>

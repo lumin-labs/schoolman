@@ -14,7 +14,8 @@ angular.module('SchoolMan')
     var defaults = {
       default_admin:"users",
       default_classmaster:"classmasterMarksheet",
-      default_teacher:"myclasses"
+      default_teacher:"myclasses",
+      default_registrar:"registration"
     }
 
     var self = {};
@@ -47,7 +48,7 @@ angular.module('SchoolMan')
 
           // Parse CourseId if present and overwrite $routeParams 
           if(d.hasOwnProperty('courseId')){
-            var idData = d.courseId.split('-');
+            var idData = d.courseId.split(':');
             d.formIndex = idData[0];
             d.groupIndex = idData[1];
             d.subjectKey = idData[2];

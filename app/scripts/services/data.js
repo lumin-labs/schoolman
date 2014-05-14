@@ -10,7 +10,10 @@ angular.module('SchoolMan')
         "coursecatalog":"",
         "timetable":"",
         "uid":"",
-        "marksheets":""
+        "marksheets":"",
+        "departments":"",
+        "fees":"",
+        "groups":""
     }
 
     // Change this to something that keeps track of the last time the data has changed
@@ -140,7 +143,7 @@ angular.module('SchoolMan')
 
     self.saveLater = function(obj, callback){
 
-    	console.log("Save later. N updates: ", nUpdates);
+        nUpdates += 1;
 
     	// 1. Update data in RAM
     	angular.forEach(obj, function(d, key){
@@ -203,6 +206,10 @@ angular.module('SchoolMan')
     	}, 5000);
     }
     poll();
+
+    window._SchoolMan = {
+        Data : self
+    }
 
     return self;
 

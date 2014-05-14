@@ -41,6 +41,10 @@ angular.module('SchoolMan')
 
     self = {};
 
+    self.getClasses = function(){
+        return classes;
+    }
+
     /**
      * @ngdoc method
      * @name Schoolman.service:Registrar#getAverage
@@ -112,7 +116,11 @@ angular.module('SchoolMan')
      * This returns an unsorted list of students by courseId
      */
     self.getStudentsByCourseUnsorted = function(courseId){
+
+
             var courseList = courses[courseId];
+
+            console.log("CourseId", courseId, courseList);
 
             var studentList = courseList.map(function(studentId){
                 return students[studentId];

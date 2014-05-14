@@ -21,6 +21,7 @@ angular.module('SchoolMan')
     function Group(){
 
       this.name = "";         // String
+      this.code = "";
       this.forms= {           // 0 is false, 1 is true
         0:{active:1, pass:10, failBelow:10},
         1:{active:1, pass:10, failBelow:10},
@@ -76,6 +77,23 @@ angular.module('SchoolMan')
       this.forms[formIndex].pass = parseInt(score);
       this.notify("Form " + formIndex + " " + this.name + "has changed the passing score to " + score);
     }
+
+    // This function lets you ask if the object has all the required fields
+    // TODO: the config for which fields are required should probably be done 
+    // elsewhere
+    Group.prototype.isValid = function(){
+      var self = this;
+      var isOk = true;
+      var requiredFields = ["name"];
+      var invalidValues = ["", undefined, null];
+      angular.forEach(requiredFields, function(field, fieldIndex){
+        // if the current value of the field is some kind of null value
+        if(invalidValues.indexOf(self[field]) > -1){
+          isOk = false;
+        }
+      });
+      return isOk;
+    };
 
     return Group;
 

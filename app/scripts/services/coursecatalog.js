@@ -16,7 +16,7 @@
  * and for configuring which courses are available in which classes
  */
 angular.module('SchoolMan')
-  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, Group) {
+  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups, Forms, Subject) {
     
     var self = {};
     var courses = {};
@@ -24,9 +24,9 @@ angular.module('SchoolMan')
 
     function Course(form, group, subject){
       self = angular.copy(subject);
-      self.id = form + "-" + group + "-" + self.code;
-      self.form = template.forms[form].name;
-      self.group = template.groups[group].name;
+      self.id = form + ":" + group + ":" + self.code;
+      self.form = Forms.all()[form].name;
+      self.group = Groups.get(group).name;
       return self;
     }
 
@@ -34,27 +34,35 @@ angular.module('SchoolMan')
     Data.get('coursecatalog', function(d){
         console.log("template groups before model", d);
         template = d;
-        angular.forEach(template.forms, function(form, formIndex){
-            angular.forEach(template.groups, function(group, groupIndex){
+        angular.forEach(Forms.all(), function(form, formIndex){
+            angular.forEach(Groups.getAll(), function(group, groupIndex){
                 angular.forEach(template.subjects, function(subject, subjectCode){
-                  if(form.subjects[subjectCode]){
+                  // if(form.subjects[subjectCode]){
                     subject.code = subjectCode;
                     var course = Course(formIndex,groupIndex, subject);
                     courses[course.id] = course;
-                  }
+                  // }
                 });
             });
         });
     });
 
-    // Load Groups into Model Layer
-    template.groups = modelTransformer.transform(template.groups, Group);
-    angular.forEach(template.groups,function(group, groupIndex){
-        group.onChange(function(msg){
-            console.log(msg);
-            Data.saveLater({coursecatalog:template});
-        });
+    angular.forEach(template.subjects, function(subject, subjectKey){
+        var subject = modelTransformer.transform(subject, Subject);
+        template.subjects[subjectKey] = subject;
+        subject.onChange(function(msg){
+            self.save();
+        })
     });
+
+    // Load Groups into Model Layer
+    // template.groups = modelTransformer.transform(template.groups, model.Group);
+    // angular.forEach(template.groups,function(group, groupIndex){
+    //     group.onChange(function(msg){
+    //         console.log(msg);
+    //         Data.saveLater({coursecatalog:template});
+    //     });
+    // });
     
 
     /**
@@ -69,7 +77,7 @@ angular.module('SchoolMan')
      * which includes the courseId and a timestamp.
      */
     self.getCourseId = function(params){
-      return params.formIndex + "-" + params.groupIndex + "-" + params.subjectKey;
+      return params.formIndex + ":" + params.groupIndex + ":" + params.subjectKey;
     }
 
 
@@ -100,13 +108,13 @@ angular.module('SchoolMan')
      * which includes the courseId and a timestamp.
      */
     self.getSubjects = function(formIndex){
-        var subjects = {};
-        angular.forEach(template.forms[formIndex].subjects, function(isOffered, subjectKey){
-          if(isOffered && template.subjects[subjectKey]){
-            subjects[subjectKey] = template.subjects[subjectKey];
-          }
-        });
-        return subjects;
+        // var subjects = {};
+        // angular.forEach(Forms.all()[formIndex].subjects, function(isOffered, subjectKey){
+        //   if(isOffered && template.subjects[subjectKey]){
+        //     subjects[subjectKey] = template.subjects[subjectKey];
+        //   }
+        // });
+        return template.subjects;
     };
 
     self.getAllSubjects = function(){
@@ -128,12 +136,19 @@ angular.module('SchoolMan')
      * - timestamp.
      */
     self.getCoursesByRef = function(courseRefs){
-      return courseRefs.map(function(courseRef){
+      var courses = courseRefs.map(function(courseRef){
         // make a copy so the original course object is not mutated
         var course = angular.copy(self.getCourse(courseRef.courseId));
-        course.timestamp = courseRef.timestamp;
-        return course;
-      })
+        if(course){
+          course.timestamp = courseRef.timestamp;
+          return course;  
+        } else {
+            return undefined;
+        }
+      });
+      return courses.filter(function(course){
+        return course !== undefined;
+      });
     };
     
     /**
@@ -213,7 +228,7 @@ angular.module('SchoolMan')
      * which includes the courseId and a timestamp.
      */
     self.getForms=function(){
-        return template.forms;
+        return Forms.all();
     };
 
 
@@ -228,9 +243,9 @@ angular.module('SchoolMan')
      * This method returns a list of courses. It takes a course reference object 
      * which includes the courseId and a timestamp.
      */
-    self.getGroups = function(){
-        return template.groups;
-    };
+    // self.getGroups = function(){
+    //     return template.groups;
+    // };
 
 
     /**
@@ -260,7 +275,7 @@ angular.module('SchoolMan')
      * This method takes a courseId and returns the subject key
      */
     self.getSubjectKey = function(courseId){
-        return courseId.split("-")[2];
+        return courseId.split(":")[2];
     };
 
     self.save = function(){
@@ -274,9 +289,6 @@ angular.module('SchoolMan')
 
     self.post = function(newSubject){
         template.subjects[newSubject.code] = newSubject;
-        angular.forEach(template.forms, function(form, formIndex){
-            form.subjects[newSubject.code] = 1;
-        });
         self.save();
     };
 

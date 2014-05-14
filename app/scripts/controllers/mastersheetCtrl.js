@@ -1,13 +1,26 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MastersheetCtrl', function ($scope, $routeParams, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet) {
+  .controller('MastersheetCtrl', function ($scope, $routeParams, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
+    $scope.getSubjectsByType = function(reqType){
+      
+      var subgroup = {};
+      var subtypes = SubjectTypes.all();
+
+      angular.forEach($scope.subjects, function(subject, subjectKey){
+        if(subject.type === reqType){
+          subgroup[subjectKey] = subject;
+        }
+      });
+
+      return subgroup;
+    };
+
     var courseId = CourseCatalog.getCourseId($routeParams);
     $scope.students = Registrar.getStudentsByCourse(courseId);
-
 
     $scope.open = Location.open;
 
@@ -21,6 +34,7 @@ angular.module('SchoolMan')
       var courses = CourseCatalog.getCourses(formIndex, groupIndex);
       var courseIds = courses.map(function(course){return course.id});
       var marksheets = ClassMaster.getMarksheets(courseIds);
+      console.log("MastersheetCtrl subjects", $scope.subjects)
       var mastersheet = new Mastersheet({
         termIndex:$routeParams.termIndex,
         students:$scope.students,
@@ -45,9 +59,8 @@ angular.module('SchoolMan')
         Cache.set({"graphView":view});
       }
 
-
-      var margin = {top: 20, right: 20, bottom: 30, left: 40},
-      width = 1230 - margin.left - margin.right,
+      var margin = {top: 20, right: 40, bottom: 30, left: 40},
+      width = 1100 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
       var x = d3.scale.ordinal()
@@ -90,19 +103,6 @@ angular.module('SchoolMan')
 
       svg.call(tip);
 
-      var data = [
-        {subject:    "a",
-         average: .08167    },
-         {subject:    "b",
-         average: .01492    },
-         {subject:    "c",
-         average: .02782    },
-         {subject:    "d",
-         average: .04253    },
-         {subject:    "e",
-         average: .12702    }
-      ];
-
       var studentsData = [];
       angular.forEach($scope.getMastersheet().table.students, function(student, studentId){
         studentsData.push(student);
@@ -113,14 +113,33 @@ angular.module('SchoolMan')
         subjectData.push(subjectKey);
       });
 
+
+
       var data = subjectData.map(function(subject){
+
         var dataItem = {};
         dataItem.subject = subject;
-        dataItem.average = studentsData.reduce(function(score, student){
-          return score + student[subject].average;
-        },0) / studentsData.length;
+
+        var reduceRuns = 0;
+        var nanRuns = 0;
+        var normalRuns = 0;
+
+        var validScores = 0;
+        var total = studentsData.reduce(function(t, student){
+          if(isNaN(student[subject].average)){
+            return t;
+          } else {
+            validScores += 1;
+            return t + parseFloat(student[subject].average);
+          }
+        },0.0);
+
+        dataItem.average = validScores === 0 ? 0 : total / validScores;
+
         return dataItem;
       });
+
+      console.log("studentsData", data);
 
         x.domain(data.map(function(d) { return d.subject; }));
         y.domain([0, 20]);
@@ -152,15 +171,19 @@ angular.module('SchoolMan')
             .on('mouseout', tip.hide);
     } 
 
-    if($routeParams.page === 'reportcard'){
+    var reportCards = ['reportcard', 'reportcardGTHS']
+    if(reportCards.indexOf($routeParams.page) > -1){
+
+      $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
+
       $scope.student = $routeParams.studentId === "0" ?
-        Registrar.getStudent($scope.students[0].id) :
+        $scope.students[0] :
         Registrar.getStudent($routeParams.studentId);
 
-      $scope.forms = CourseCatalog.getForms();
+      $scope.forms = Forms.all();
       $scope.form  = $scope.forms[$routeParams.formIndex];
 
-      $scope.groups = CourseCatalog.getGroups();
+      $scope.groups = Groups.getAll();
       $scope.group  = $scope.groups[$routeParams.groupIndex];
 
       $scope.terms = CourseCatalog.getTerms();

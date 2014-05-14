@@ -2,15 +2,10 @@
 
 angular.module('SchoolMan')
   .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $user, $log, DEV, User, Path, Cache, Location, TimeTable, MockData) {
+    function ($scope, $location, $routeParams, $user, $log, DEV, User, Path, Cache, Location, TimeTable, MockData, Groups) {
 
 
-    $log.info("Path: ", $location.path());
-
-    // Auto login flag: 1 to auto login, 0 to not auto login
-    var AUTO_LOGIN = DEV.AUTO_LOGIN;
-    var AUTO_LOGIN_USER = DEV.AUTO_LOGIN_USER;
-    var AUTO_LOGIN_ACCESS = DEV.AUTO_LOGIN_ACCESS;
+    $log.info("Path: ", $location.path()); 
 
     var DEFAULT_START_PAGE = {
         admin:{
@@ -41,35 +36,33 @@ angular.module('SchoolMan')
 
     // Get a user object. 
     // Note: this user may not actually exist as a registered user
-    $scope.userData = {
-        fullname:$routeParams.fullname === 'null' ? '' : $routeParams.fullname, 
-        accessCode:$routeParams.accessCode
-    };
+    $scope.tempUser = new User();
 
-    $scope.login = function(){
-        var tempUser = $user.create($scope.userData);
-        var accessRequest = $scope.userData.accessCode;
+    $scope.login = function(page){
 
-        $user.login(tempUser, accessRequest, function(user){
+        // var tempUser = $user.create($scope.userData);
+        var accessRequest = $routeParams.accessCode;
+
+        $user.login($scope.tempUser, accessRequest, function(user){
             if(user){
                 
                 Cache.set({user:user});
 
                 Location.open({
-                    page:DEFAULT_START_PAGE[accessRequest].page,
+                    page:page || DEFAULT_START_PAGE[accessRequest].page,
                     view:DEFAULT_START_PAGE[accessRequest].view,
                     formIndex:0,
-                    groupIndex:0,
+                    groupIndex:Object.keys(Groups.getAll())[0],
                     subjectKey:'engl',
                     studentId:0,
                     termIndex:0,
                     username:user.username,
-                    accessCode:$scope.userData.accessCode});
+                    accessCode:$routeParams.accessCode});
             } else {
                 Location.open({
                     page:"login404",
-                    username:$scope.userData.fullname,
-                    accessCode:$scope.userData.accessCode
+                    username:$scope.tempUser.fullname,
+                    accessCode:$routeParams.accessCode
                 });
             }
         });
@@ -83,10 +76,11 @@ angular.module('SchoolMan')
     }
 
 
-    if(AUTO_LOGIN){
-        $scope.userData.fullname = AUTO_LOGIN_USER;
-        $scope.userData.accessCode = AUTO_LOGIN_ACCESS;
-        $scope.login(); 
+    if(DEV.AUTO_LOGIN){
+        $scope.tempUser.fullname = DEV.AUTO_LOGIN_USER;
+        $routeParams.accessCode = DEV.AUTO_LOGIN_ACCESS;
+        var page = DEV.hasOwnProperty("AUTO_LOGIN_PAGE") ? DEV.AUTO_LOGIN_PAGE : undefined;
+        $scope.login(page); 
     }
     
 

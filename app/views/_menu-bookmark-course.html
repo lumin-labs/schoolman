@@ -1,9 +1,19 @@
 <div class="btn-toolbar">
 	<div ng-include="'views/_menu-basic.html'"></div>
 	<div class="btn-group" style="margin-left:10px;">
-      <button class="btn btn-lg btn-success" 
-          	  data-toggle="dropdown"
-          	  ng-click="addBookmark({teacherId:username,courseId:courseId})">Add Class
-      </button>
-    </div><!-- /btn-group -->
+    <button class="btn btn-lg btn-success"
+    				ng-class="teacher ? 'disabled' : ''" 
+        	  data-toggle="dropdown"
+        	  ng-click="addBookmark({teacherId:username,courseId:courseId})">Add Class
+    </button>
+   </div><!-- /btn-group -->
+   <div class="btn-group pull-right" style="margin-left:10px;margin-right:0px;">
+   	<div class="alert alert-sm alert-warning" style="height:45px;padding-top:10px;" ng-if="teacher">
+   		<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
+   		<strong>{{teacher.fullname}}</strong> is scheduled to teach
+   		<strong ng-controller="ClassmenuCtrl">
+   			<em>{{subject.en}}, {{form.name}}, {{group.name}}</em>
+   		</strong>
+   	</div>
+   </div>
 </div>

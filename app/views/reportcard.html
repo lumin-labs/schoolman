@@ -1,211 +1,172 @@
-<div ng-include="'views/_navtabs.html'"></div>
+<div class="row">
+  <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-<div class="marksheet" ng-controller="MastersheetCtrl" ng-init="mastersheet = getMastersheet()">
+  <div class="col-md-10 marksheet" 
+       ng-controller="MastersheetCtrl" 
+       ng-init="mastersheet = getMastersheet()">
 
-  <!-- School Name Letterhead -->
-  <div class="letterhead" ng-include="'views/_letterhead.html'"></div>
+    <!-- School Name Letterhead -->
+    <div class="letterhead" ng-include="'views/_letterhead.html'"></div>
 
-
-  <div class="row">
-    <div class="col-md-10">
-      <div class="well">
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table" style="width:100%;">
-              <tr>
-                <td class="text-center" style="width:25%;border-top:0px;">
-                  <div class="text-left">
-                    <div class="btn-group" style="margin-top:5px;">
-                      <button class="btn btn-lg dropdown-toggle" 
-                          data-toggle="dropdown">{{student.name}}
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li ng-repeat="(studentIndex, student) in students">
-                          <a ng-click="open({studentId:student.id})">{{student.name}}</a>
-                        </li>
-                      </ul>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="well student-info">
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table" style="width:100%;">
+                <tr>
+                  <td class="profile-photo">
+                    <div class="img-thumbnail" >
+                      <img src="images/user.svg">
                     </div>
-                    <div style="padding-left:15px">
-                      <h5>{{student.sex}} &nbsp;|&nbsp; {{student.birth | date:'MMMM dd, yyyy'}}</h5>
-                      <h5>Student ID: <strong>{{student.id}}</strong></h5>
-                      <h5>{{form.name}}, {{group.name}}</h5>
+                  </td>
+                  <td class="text-center" style="width:20%;border-top:0px;">
+                    <div class="text-left">
+                      <div class="btn-group noprint">
+                        <button class="btn btn-lg dropdown-toggle" 
+                            data-toggle="dropdown">{{student.name}}
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li ng-repeat="(studentIndex, student) in students">
+                            <a ng-click="open({studentId:student.id})">{{student.name}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="student-info-section">
+                        <h4 class="section-header printonly">{{student.name}}</h4>
+                        <h5>Gender: <strong>{{student.sex}}</strong></h5>
+                        <h5>Born: <strong>{{student.birth | date:'MMM dd, yyyy'}}</strong></h5>
+                        <h5>ID: <strong>{{student.id}}</strong></h5>
+                        <h5>Class: <strong>{{form.name}}, {{group.name}}</strong></h5>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td class="text-center" style="border-left :solid 1px #ddd;
-                                               border-right:solid 1px #ddd;
-                                               width:20%;
-                                               padding-left:30px;
-                                               border-top:0px;">
-                  <div class="text-left">
-                    <div class="btn-group" style="margin-top:5px;">
-                      <button class="btn btn-lg dropdown-toggle" 
-                          data-toggle="dropdown">{{term.name}}
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li ng-repeat="(termIndex,term) in terms">
-                          <a  
-                            ng-click="open({termIndex:termIndex})">{{terms[termIndex].name}}</a>
-                        </li>
-                      </ul>
+                  </td>
+                  <td class="text-center term-summary">
+                    <div class="text-left">
+                      <div class="btn-group noprint">
+                        <button class="btn btn-lg dropdown-toggle" 
+                            data-toggle="dropdown">{{term.name}}
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li ng-repeat="(termIndex,term) in terms">
+                            <a  
+                              ng-click="open({termIndex:termIndex})">{{terms[termIndex].name}}</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="student-info-section">
+                        <h4 class="section-header printonly">{{term.name}}</h4>
+                        <h5 style="font-family:mono;">{{ mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</h5>
+                        <h5>{{getRemark(mastersheet.table["students"][student.id].acAverage).text | uppercase}}</h5>
+                      </div>
                     </div>
-                    <div style="padding-left:15px;">
-                      <h5 style="font-family:mono;">{{ mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</h5>
-                      <h5>{{getRemark(mastersheet.table["students"][student.id].acAverage).text | uppercase}}</h5>
+                  </td>
+                  <td class="text-center" style="border-top:0px;">
+                    <div class="text-left student-info-section">
+                      <h4 class="section-header">Parent Contact</h4>
+                      <h5>{{student.parentName}}</h5>
+                      <h5>{{student.parentPhone}}</h5>
+                      <h5>{{student.parentEmail}}</h5>
                     </div>
-                  </div>
-                </td>
-                <td class="text-center" style="padding-left:30px; border-top:0px;">
-                  <div class="text-left">
-                    <h4 style="margin-top:0;text-decoration:underline">Parent Contact</h4>
-                    <h5>{{student.parentName}}</h5>
-                    <h5>{{student.parentPhone}}</h5>
-                    <h5>{{student.parentEmail}}</h5>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </div>
-         <!--  <div class="col-md-3" style="border-right:solid 1px #ddd;">
-            <div class="btn-group" style="margin-top:5px;">
-              <button class="btn btn-lg dropdown-toggle" 
-                  data-toggle="dropdown">{{student.name}}
-              </button>
-              <ul class="dropdown-menu">
-                <li ng-repeat="(studentIndex, student) in students">
-                  <a ng-click="open({studentId:student.id})">{{student.name}}</a>
-                </li>
-              </ul>
-            </div>
-            <div style="padding-left:15px">
-              <h5>{{student.sex}} &nbsp;|&nbsp; {{student.birth | date:'MMMM dd, yyyy'}}</h5>
-              <h5>Student ID: <strong>{{student.id}}</strong></h5>
-              <h5>{{form.name}}, {{group.name}}</h5>
+                  </td>
+                </tr>
+              </table>
             </div>
           </div>
-          <div class="col-md-3" style="border-right:solid 1px #ddd;height:125px;">
-
-            <div class="btn-group" style="margin-top:5px;">
-              <button class="btn btn-lg dropdown-toggle" 
-                  data-toggle="dropdown">{{term.name}}
-              </button>
-              <ul class="dropdown-menu">
-                <li ng-repeat="(termIndex,term) in terms">
-                  <a  
-                    ng-click="open({termIndex:termIndex})">{{terms[termIndex].name}}</a>
-                </li>
-              </ul>
-            </div>
-            <div style="padding-left:15px;">
-              <h5 style="font-family:mono;">{{ mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</h5>
-              <h5>Remark: {{getRemark(mastersheet.table["students"][student.id].acAverage).text | uppercase}}</h5>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <h4 style="margin-top:0;text-decoration:underline">Parent Contact</h4>
-            <h5>{{student.parentName}}</h5>
-            <h5>{{student.parentPhone}}</h5>
-            <h5>{{student.parentEmail}}</h5>
-          </div> -->
-
         </div>
-      </div>
-    </div>
-    <div class="col-md-2 text-right">
-      <div class="img-thumbnail" style="width:206px;height:181px;">
-        <img src="images/user.svg" style="width:166px;height:171px;">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <table  class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Subject Discipline</th>
-            <th>S1</th>
-            <th>S2</th>
-            <th>Average</th>
-            <th>Coeff</th>
-            <th>A*C</th>
-            <th>Position</th>
-            <th>Remarks</th>
-            <th>Name and Signature</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="(subjectKey,subject) in subjects | orderBy:'en'"
-              ng-init="marksheet = getMarksheet(subjectKey);
-                       average   = marksheet.getAverage(student.id, termIndex)">
-
-          <!-- Subject links back to Marksheet -->
-            <td>
-              <a ng-click="open({page:'marksheet', subjectKey:subjectKey})">{{subject.en}} / {{subject.fr}}</a>
-            </td>
-
-            <td ng-repeat="(markIndex, mark) in marksheet.getMarks(student.id, termIndex) track by markIndex"
-                class="{{getRemark(mark).css}}">
-                {{mark}}
-            </td>
-
-            <!-- Fix this string-number bug -->
-            <td class="{{getRemark(average).css}}">
-              {{average || ""}}
-            </td>
-
-            <td>{{average ? subject.coeff : ""}}</td>
-            <td>{{(average * subject.coeff) || ""}}</td>
-            <!-- <td>{{getRankings(students, subject_index, term-1, data)[student].rank}}</td> -->
-            <td>{{getMarksheet(subjectKey).getRank(student.id, termIndex) || ""}}</td>
-            <!-- <td>{{student}}</td> -->
-            <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
-            <td>
-              <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-md-5">
-      <table class="table table-bordered table-striped" ng-init="totals = mastersheet.getAcTotals(student.id)">
-        <tr>
-          <td>Total Mark:</td>
-          <td>{{mastersheet.table["students"][student.id].acTotal}}</td>
-        </tr>
-        <tr>
-          <td>Total Coeff:</td>
-          <td>{{totals.coeff}}</td>
-        </tr>
-        <tr>
-          <td>{{data.terms[term]}} Average:</td>
-          <td>{{mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</td>
-        </tr>
-        <tr>
-          <td>{{data.terms[term]}} Remark:</td>
-          <td>{{getRemark(mastersheet.table["students"][student.id].acAverage).text}}</td>
-        </tr>
-        <tr>
-          <td>Class Position:</td>
-          <td>{{mastersheet.table["students"][student.id].rank}}</td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-md-7">
-      <table class="table table-bordered">
-        <tr style="height:37px">
-          <td rowspan="5" class="text-center" style="vertical-align:middle;">Principles Signature</td>
-        </tr>
-        <tr style="height:37px"></tr>
-        <tr style="height:37px"></tr>
-        <tr style="height:37px"></tr>
-        <tr style="height:37px"></tr>
-      </table>
+      </div>   
     </div>
     
+    <div class="row">
+      <div class="col-md-12">
+        <table  class="table table-striped table-bordered table-transcript">
+          <thead>
+            <tr>
+              <th>Subject Discipline</th>
+              <th>S1</th>
+              <th>S2</th>
+              <th>Average</th>
+              <th>Coeff</th>
+              <th>A*C</th>
+              <th>Position</th>
+              <th>Remarks</th>
+              <th>Name and Signature</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(subjectKey,subject) in subjects | orderBy:'en'"
+                ng-init="marksheet = getMarksheet(subjectKey);
+                         average   = marksheet.getAverage(student.id, termIndex)">
+
+            <!-- Subject links back to Marksheet -->
+              <td>
+                <a ng-click="open({page:'classmasterMarksheet', subjectKey:subjectKey})">{{subject.en}} / {{subject.fr}}</a>
+              </td>
+
+              <td ng-repeat="(markIndex, mark) in marksheet.getMarks(student.id, termIndex) track by markIndex"
+                  class="{{getRemark(mark).css}}">
+                  {{mark}}
+              </td>
+
+              <!-- Fix this string-number bug -->
+              <td class="{{getRemark(average).css}}">
+                {{average || ""}}
+              </td>
+
+              <td>{{average ? subject.coeff : ""}}</td>
+              <td>{{(average * subject.coeff) || ""}}</td>
+              <!-- <td>{{getRankings(students, subject_index, term-1, data)[student].rank}}</td> -->
+              <td>{{getMarksheet(subjectKey).getRank(student.id, termIndex) || ""}}</td>
+              <!-- <td>{{student}}</td> -->
+              <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
+              <td>
+                <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+    
+    <br>
+    <div class="row">
+      <div class="col-md-5 transcript-summary">
+        <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student.id)">
+          <tr>
+            <td>Total Mark:</td>
+            <td>{{mastersheet.table["students"][student.id].acTotal}}</td>
+          </tr>
+          <tr>
+            <td>Total Coeff:</td>
+            <td>{{totals.coeff}}</td>
+          </tr>
+          <tr>
+            <td>{{data.terms[term]}} Average:</td>
+            <td>{{mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</td>
+          </tr>
+          <tr>
+            <td>{{data.terms[term]}} Remark:</td>
+            <td>{{getRemark(mastersheet.table["students"][student.id].acAverage).text}}</td>
+          </tr>
+          <tr>
+            <td>Class Position:</td>
+            <td>{{mastersheet.table["students"][student.id].rank}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-7 signature">
+        <table class="table table-bordered">
+          <tr style="height:37px">
+            <td rowspan="5" class="text-center" style="vertical-align:middle;">Principles Signature</td>
+          </tr>
+          <tr class="signature-padding"></tr>
+          <tr class="signature-padding"></tr>
+          <tr class="signature-padding"></tr>
+          <tr class="signature-padding"></tr>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 

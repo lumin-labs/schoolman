@@ -1,0 +1,66 @@
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+	<div class="col-md-10 marksheet" ng-controller="DepartmentsCtrl">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr class="toolbar">
+				  <th style="width:80px;">
+	  				<input  type="text" class="form-control" placeholder="Code" ng-model="newDepartment.code">
+	  			</th>
+					<th>
+	  				<input  type="text" class="form-control" placeholder="Department Name" ng-model="newDepartment.name">
+	  			</th>
+	  			<th class="text-center"  ng-repeat="(formIndex, form) in newDepartment.forms">
+	  				<button class="btn btn-md btn-light" style="border:solid 1px #ddd;" ng-click="newDepartment.toggleForm(formIndex)">
+						<i ng-if="!newDepartment.forms[formIndex]" 
+						   class="glyphicon glyphicon-minus" 
+						   style="color:red;"></i>
+						 <i ng-if="newDepartment.forms[formIndex]" 
+					   class="glyphicon glyphicon-ok" 
+					   style="color:green;"></i>
+					</button>
+	  			</th>
+	  			<th class="text-center">
+	  				<button type="submit" class="btn btn-default" ng-click="add(newDepartment)">
+			        	Add
+			        </button>
+	  			</th>
+				</tr>
+				<tr>
+					<th>Code</th>
+					<th>Name</th>
+					<th class="text-center" ng-repeat="form in forms">{{form.name}}</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(departmentCode, department) in departments">
+					<td class="column readonly" style="width:80px;">
+						<div class="cell">{{departmentCode}}</div>
+					</td>
+					<td class="column readonly">
+						<div class="cell">{{department.name}}</div>
+					</td>
+					<td ng-repeat="(formIndex, form) in department.forms"
+						class="text-center">
+						<button ng-click="department.toggleForm(formIndex)"
+								class="btn btn-md btn-light" style="border:solid 1px #ddd;">
+							<i ng-if="department.forms[formIndex] === 0" 
+							   class="glyphicon" 
+							   style="color:;"></i>
+							 <i ng-if="department.forms[formIndex] === 1" 
+						   class="glyphicon glyphicon-ok" 
+						   style="color:green;"></i>
+						</button>
+					</td>
+					<td class="remove text-center" style="width:80px;">
+						<a ng-click="remove(department)">
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

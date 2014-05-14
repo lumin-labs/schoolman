@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MenuCtrl', function ($scope, $location, $routeParams, Path) {
+  .controller('MenuCtrl', function ($scope, $location, $routeParams, Location, Path, Cache) {
 
 
     $scope.show = {
@@ -9,18 +9,21 @@ angular.module('SchoolMan')
     }
 
   	$scope.print = function(){
-  		if($routeParams.page === 'reportcard'){
-        $scope.show.backButton = true;
-  			$scope.open({page:"transcript"})
-  		}else{
   			window.print();
-  		}
     }
 
     $scope.back = function(){
       $scope.show.backButton = false;
       $scope.open({page:'reportcard'});
     }
+
+    $scope.logout = function(){
+      Location.open({page:"login", username:null, accessCode:'teacher'});
+    }
+
+    $scope.cache = Cache.cache;
+
+    
 
 
   	// chrome.storage.local.set({ReportCard:{initialized:true}},function(res){

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('CatalogCtrl', function ($scope, $log, CourseCatalog, modelTransformer, Subject) {
+  .controller('SubjectsCtrl', function ($scope, $log, SubjectTypes, CourseCatalog, modelTransformer, Subject) {
 
   		$scope.forms = CourseCatalog.getForms();
         $scope.allSubjects = CourseCatalog.getAllSubjects();
@@ -15,15 +15,12 @@ angular.module('SchoolMan')
 	      CourseCatalog.save();
 	    };
 
+	    $scope.types = SubjectTypes.all();
+
 	    $scope.newSubject = new Subject();
 	    $scope.addSubject = function(){
-	    	if($scope.allSubjects.hasOwnProperty($scope.newSubject.code)){
-	    		// set warning message, can't add subject with duplicate code
-	    	} else {
 	    		CourseCatalog.post($scope.newSubject);
 	    		$scope.newSubject = new Subject();
-	    	}
-	    	
 	    };
 
 	    $scope.removeSubject = CourseCatalog.removeSubject;

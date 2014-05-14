@@ -1,11 +1,14 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('MockData', function MockData(CourseCatalog, Registrar, ClassMaster, modelTransformer, Student, Data, $log, Uid) {
+  .service('MockData', function MockData(CourseCatalog, Registrar, ClassMaster, modelTransformer, Student, Data, $log, Uid, Fees, Departments, Groups, Forms) {
 
     var FORCE_CREATE_NEW = false;
-  	var N_STUDENTS = 500;
+  	var N_STUDENTS = 1500;
     var marksheets;
+
+    var departments = Departments.getAll();
+    var fees = Fees.getAll();
 
     // Random number util
 	var getRandBetween = function(min, max) {
@@ -34,16 +37,21 @@ angular.module('SchoolMan')
 
 
                 var count = students.length;
+                var groups= Object.keys(Groups.getAll());
+                var genders = ["female", "male"];
+
                 $log.debug("Count", count);
                 while(count < N_STUDENTS){
-                    var form = getRandBetween(0, CourseCatalog.getForms().length);
-                    var group = getRandBetween(0, CourseCatalog.getGroups().length);
+                    var form = getRandBetween(0, Forms.all().length);
+                    var group = groups[getRandBetween(0, groups.length)];
+                    var fee = Object.keys(fees)[getRandBetween(0, Object.keys(fees).length)];
+                    var department = Object.keys(departments)[getRandBetween(0, Object.keys(departments).length)];
                     var subjects = CourseCatalog.getSubjects(form);
                     var uid = Uid.next(lastUid);
                     var person = {
                         first_name: Faker.Name.firstName(),
                         last_name: Faker.Name.lastName(),
-                        gender:"female"
+                        gender:genders[getRandBetween(0, 2)]
                     }
                     var studentData = {
                             name: person.first_name + " " + person.last_name,
@@ -55,7 +63,9 @@ angular.module('SchoolMan')
                             id: uid,
                             courses:[],
                             form:form,
-                            group:group
+                            group:group,
+                            feeGroup:fee,
+                            department:department
                     }
                     var student = modelTransformer.transform(studentData, Student);
                     students.push(student);

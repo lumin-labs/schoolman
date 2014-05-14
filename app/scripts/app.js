@@ -27,19 +27,25 @@ angular.module('SchoolMan', [
   'ngRoute',
   'slugifier'
 
-]).config(function ($routeProvider) {
+]).config(function ($routeProvider, TABS) {
 
     var TEMPLATE_DIRECTORY = {
       login:    "login.html",
       login404: "login.html",
       students: "admin-students.html",
       users:    "admin-users.html",
-      catalog:  "admin-catalog.html",
+      subjects:  "admin-subjects.html",
       classes:  "admin-classes.html",
       transcript: "transcript.html",
       promotion:"admin-promotion.html",
       classmasterMarksheet:"classmaster-marksheet.html",
-      registration:"admin-registration.html"
+      registration:"admin-registration.html",
+      departments:"admin-departments.html",
+      fees:"admin-fees.html",
+      finance:"registrar-finance.html",
+      reportcardGTHS:"reportcard-gths.html",
+      registrarProfile:"registrar-profile.html",
+      classmasterProfile:"classmaster-profile.html"
     };
 
     var getTemplate = function(p){
