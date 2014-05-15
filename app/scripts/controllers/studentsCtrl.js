@@ -54,7 +54,7 @@ angular.module('SchoolMan')
             });
 
             // Register student with the registrar
-            Registrar.addStudent(student, marksheets);
+            Registrar.addStudent(student);
 
             // Save registrar
         	Registrar.save(function(msg){

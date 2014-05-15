@@ -56,11 +56,12 @@ angular.module('SchoolMan')
      *
      * This method adds a student to all courses in their class
      */
-    self.addStudent = function(student, marksheets, Uid){
+    self.addStudent = function(student, Uid){
 
             student = modelTransformer.transform(student, Student);
 
             student.onChange(function(msg){
+                console.log("Student changed : ", msg, student);
                 self.save();
             });
 
@@ -86,6 +87,7 @@ angular.module('SchoolMan')
     };
 
     self.save = function(callback){
+        console.log("Registrar: saving students");
         Data.saveLater({students:students}, callback);
     };
 

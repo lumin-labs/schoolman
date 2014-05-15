@@ -21,7 +21,7 @@ angular.module('SchoolMan')
     //     saved = true;
     //     timestamp:341443141431;
     // }
-    var nUpdates = [];
+    var updates = {};
  
   	var fileWriters = {student:null, schoolman:null};
 
@@ -73,7 +73,6 @@ angular.module('SchoolMan')
                     //use callback or resolve promise
                     self.logEstimateSize();  
                 }
-                nUpdates = 0;
                 callback("ok");
             };
 
@@ -155,7 +154,16 @@ angular.module('SchoolMan')
     	// 1. Update data in RAM
     	angular.forEach(obj, function(d, key){
     		data[key] = d;
-            nUpdates.push(key);
+        if(!updates.hasOwnProperty(key)){
+          updates[key] = {};
+          updates[key]._id = key;
+          updates[key].n = 1;
+          updates[key].timeAdded = new Date();
+        } else {
+          updates[key].n += 1;
+          updates[key].timeAdded = new Date();
+        }
+        console.log("Updates saved for write:", updates);
     	});
 
     };
@@ -263,20 +271,37 @@ angular.module('SchoolMan')
     // to a polling method
     var poll = function(){
     	$timeout(function() {
-    		if(nUpdates.length > 0){
-    			console.log("saving " + nUpdates.length + " updates");
-    		    angular.forEach(nUpdates, function(updateKey, updateIndex){
-                    var d = {}
-                    d[updateKey] = data[updateKey];
-                    self.save(d, function(){
-                        console.log("Data Saved, ", updateKey, data[updateKey]); 
-                    });  
-                });
-                nUpdates = [];
-                poll();
-	    	} else {
-	    		poll();
-	    	}
+        
+        var tables = Object.keys(updates).map(function(key){
+          return updates[key];
+        });
+		    console.log("Tables before filter:", tables);
+
+
+        tables = tables.filter(function(table){
+          return table.n > 0;
+        });
+          
+        if(tables.length > 0){
+
+          tables.sort(function(a,b){return a.timeAdded - b.timeAdded});
+          console.log("Tables to save:", tables);
+
+
+          var table = tables[0];
+          var d = {};
+          d[table._id] = data[table._id];
+          self.save(d, function(msg){
+            console.log("Data Saved, ", updateKey, data[updateKey]); 
+          });
+
+          updates[table._id].n = 0;
+        } else {
+          console.log("No Tables", tables);
+        }
+
+        poll();
+
     	}, 5000);
     }
     poll();
