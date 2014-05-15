@@ -76,8 +76,8 @@ angular.module('SchoolMan', [
         controller:'LoginCtrl'
       })
       .when('/loading', {
-        templateUrl:'/views/loading.html',
-        controller:'LoadingCtrl'
+        templateUrl:'/views/loading2.html',
+        controller:'Loading2Ctrl'
       })
       .otherwise({
         redirectTo: '/loading'

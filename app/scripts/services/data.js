@@ -154,6 +154,59 @@ angular.module('SchoolMan')
 
     };
 
+    self.loadFile =  function(fileEntry, callback){
+        console.log("Data service loading entry: ", fileEntry);
+        if(fileEntry){
+            fileEntry.createWriter(function(writer){
+                fileWriter = writer;
+                window.fileWriter = writer;
+            }); 
+
+            fileEntry.file(function(file){
+                var reader = new FileReader();
+
+                reader.onload = function(evt) {
+                  var content = evt.target.result;
+                  data = angular.fromJson(content);
+                  callback(true);
+
+                  // Delete any keys listed in DELETE_OLD_KEYS
+                  angular.forEach(data, function(obj, key){
+                    if(!SCHEMA.hasOwnProperty(key)){
+                        delete data[key];
+                    }
+                  });
+
+                };
+
+                reader.readAsText(file);
+            });
+        } else {
+            callback(false);
+        }
+    };
+
+    self.loadWorkspace = function(entryId, callback){
+        console.log("Data service loading workspace: ", entryId);
+        chrome.fileSystem.restoreEntry(entryId, function(dirEntry){
+            console.log("restored entry", dirEntry);
+            var reader = dirEntry.createReader();
+            reader.readEntries(function(entries){
+                var files = entries.filter(function(entry){
+                    return entry.name === "schoolman.data";
+                });
+                if(files.length > 0){
+                    self.loadFile(files[0], function(success){
+                        callback(success);
+                    });
+                } else {
+                    callback("File failed to load");
+                }
+            });
+        });
+    };
+
+    // DEPRECATED: dont use, delete
     self.load = function(dataFileEntryId, callback){
     	console.log("Data service loading entry: ", dataFileEntryId);
     	chrome.fileSystem.restoreEntry(dataFileEntryId, function(fileEntry){
