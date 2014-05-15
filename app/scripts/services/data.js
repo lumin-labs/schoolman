@@ -21,7 +21,7 @@ angular.module('SchoolMan')
     //     saved = true;
     //     timestamp:341443141431;
     // }
-    var nUpdates = 0;
+    var nUpdates = [];
  
   	var fileWriters = {student:null, schoolman:null};
 
@@ -56,42 +56,45 @@ angular.module('SchoolMan')
 
     	console.log("Saving, ", obj);
 
-        if(obj){
-            console.log("Object:", obj);
-        }
-        else{
+        var write = function(dataTable, data){
+            // 2. Write data to file
+            var content = angular.toJson(data);
+            var header  = {type:'application/json'};
+            var blob = new Blob([content]);
 
-    	// 1. Update data in RAM
-    	angular.forEach(obj, function(d, key){
-    		data[key] = d;
-    	});
+            var fileWriter = fileWriters[dataTable];
 
-    	// nUpdates += 1;
-
-    	// 2. Write data to file
-	    	var content = angular.toJson(data);
-		    var header  = {type:'application/json'};
-		    var blob = new Blob([content]);
-
-	    	fileWriter.onwriteend = function() {
-			    if (fileWriter.length === 0) {
-			        //fileWriter has been reset, write file
-			        fileWriter.write(blob, header);
-			    } else {
-			        //file has been overwritten with blob
-			        //use callback or resolve promise
+            fileWriter.onwriteend = function() {
+                if (fileWriter.length === 0) {
+                    //fileWriter has been reset, write file
+                    fileWriter.write(blob, header);
+                } else {
+                    //file has been overwritten with blob
+                    //use callback or resolve promise
                     self.logEstimateSize();  
-			    }
-			    nUpdates = 0;
-			    callback("ok");
-			};
+                }
+                nUpdates = 0;
+                callback("ok");
+            };
 
-	        fileWriter.onerror = function(e) {
-		        console.log('Write failed: ' + e.toString());
-		    };
+            fileWriter.onerror = function(e) {
+                console.log('Write failed: ' + e.toString());
+            };
 
-		    fileWriter.truncate(0);  
+            fileWriter.truncate(0); 
         }
+
+        if(obj){
+            // 1. Update data in RAM
+            angular.forEach(obj, function(d, key){
+                data[key] = d;
+            });
+            if(obj.hasOwnProperty("students")){
+                write("students", obj.students);
+            }
+        }
+
+        write("schoolman", data)
     };
 
     self.logEstimateSize = function(){
@@ -149,14 +152,11 @@ angular.module('SchoolMan')
 
     self.saveLater = function(obj, callback){
 
-        nUpdates += 1;
-
     	// 1. Update data in RAM
     	angular.forEach(obj, function(d, key){
     		data[key] = d;
+            nUpdates.push(key);
     	});
-
-    	nUpdates += 1;
 
     };
 
@@ -189,7 +189,7 @@ angular.module('SchoolMan')
         }
     };
 
-    addWriter = function(name, fileEntry){    
+    var addWriter = function(name, fileEntry){    
         fileEntry.createWriter(function(writer){
             fileWriters[name]=writer;
         });
@@ -263,11 +263,16 @@ angular.module('SchoolMan')
     // to a polling method
     var poll = function(){
     	$timeout(function() {
-    		if(nUpdates > 0){
-    			console.log("saving " + nUpdates + " updates");
-    		    self.save({}, function(){
-                   console.log("Data Saved, ", data); 
-                }); 
+    		if(nUpdates.length > 0){
+    			console.log("saving " + nUpdates.length + " updates");
+    		    angular.forEach(nUpdates, function(updateKey, updateIndex){
+                    var d = {}
+                    d[updateKey] = data[updateKey];
+                    self.save(d, function(){
+                        console.log("Data Saved, ", updateKey, data[updateKey]); 
+                    });  
+                });
+                nUpdates = [];
                 poll();
 	    	} else {
 	    		poll();
