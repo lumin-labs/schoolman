@@ -21,8 +21,6 @@
 				<tr>
 					<th>Class</th>
 					<th class="column-on-bottom">Passing</th>
-					<th>Number of Students</th>
-					<th>Number Present</th>
 					<th>Students Failing</th>
 					<th>Students Passing</th>
 					<th>Percent Passing</th>
@@ -43,8 +41,6 @@
 							   cell cell-nrow="{{Obj.keys(groups).length}}">
 					</td>
 					<!-- <td>{{getStudentsPassing(formIndex, form.advance)}}</td> -->
-					<td>{{groupStats[groupKey].numStudents || 0}}</td>
-					<td>{{groupStats[groupKey].numPresent || 0}}</td>
 					<td>{{groupStats[groupKey].failing || 0}}</td>
 					<td>{{groupStats[groupKey].passing || 0}}</td>
 					<td>{{(groupStats[groupKey].percentPassing * 100 || 0) | number:1}}%</td>

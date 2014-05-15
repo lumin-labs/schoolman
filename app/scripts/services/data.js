@@ -23,7 +23,8 @@ angular.module('SchoolMan')
     // }
     var nUpdates = 0;
  
-  	var fileWriter = null;
+  	var fileWriters = {student:null, schoolman:null};
+
 
     var data = {};
 
@@ -55,6 +56,11 @@ angular.module('SchoolMan')
 
     	console.log("Saving, ", obj);
 
+        if(obj){
+            console.log("Object:", obj);
+        }
+        else{
+
     	// 1. Update data in RAM
     	angular.forEach(obj, function(d, key){
     		data[key] = d;
@@ -85,7 +91,7 @@ angular.module('SchoolMan')
 		    };
 
 		    fileWriter.truncate(0);  
-
+        }
     };
 
     self.logEstimateSize = function(){
@@ -157,10 +163,7 @@ angular.module('SchoolMan')
     self.loadFile =  function(fileEntry, callback){
         console.log("Data service loading entry: ", fileEntry);
         if(fileEntry){
-            fileEntry.createWriter(function(writer){
-                fileWriter = writer;
-                window.fileWriter = writer;
-            }); 
+             
 
             fileEntry.file(function(file){
                 var reader = new FileReader();
@@ -186,6 +189,12 @@ angular.module('SchoolMan')
         }
     };
 
+    addWriter = function(name, fileEntry){    
+        fileEntry.createWriter(function(writer){
+            fileWriters[name]=writer;
+        });
+    }
+
     self.loadWorkspace = function(entryId, callback){
         console.log("Data service loading workspace: ", entryId);
         chrome.fileSystem.restoreEntry(entryId, function(dirEntry){
@@ -195,13 +204,20 @@ angular.module('SchoolMan')
                 var files = entries.filter(function(entry){
                     return entry.name === "schoolman.data";
                 });
-                if(files.length > 0){
+                if(files.length > 0){                    
+                    addWriter("schoolman", files[0]);
                     self.loadFile(files[0], function(success){
                         callback(success);
                     });
                 } else {
                     callback("File failed to load");
                 }
+                console.log("read entry schoolman", files);
+            });
+            console.log("Reader:", reader);
+            dirEntry.getFile("students.data",{create:true},function(fileEntry){
+               addWriter("students",fileEntry);
+               console.log("File Entry for students:",fileEntry);
             });
         });
     };
