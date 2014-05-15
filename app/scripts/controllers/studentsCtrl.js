@@ -1,22 +1,30 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Groups, Registrar, Departments, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, Location, PROMOTE_OPTIONS) {
+  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Forms, Groups, Registrar, Departments, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
 
-    $scope.students = Registrar.getStudentsByCourse($scope.courseId);
+    // $scope.students = Registrar.getStudentsByCourse($scope.courseId);
+    $scope.students = Registrar.getAllStudents();
 
     var form = $routeParams.formIndex;
     var group= $routeParams.groupIndex;
     var _groups = Groups.getAll();
 
     $scope.groups = _groups;
+    $scope.forms = Forms.all();
+    $scope.departments = Departments.getAll();
+
+    $scope.search = {
+        form:form,
+        group:group,
+        department:Object.keys($scope.departments)[0],
+        $:""
+    }
 
     $scope.open = Location.open;
-
-    $scope.departments = Departments.getAll();
     
     $scope.fees = Fees.getAll();
     console.log("Dep", Object.keys($scope.departments)[0]);
