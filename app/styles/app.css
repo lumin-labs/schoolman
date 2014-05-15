@@ -158,6 +158,10 @@ input.ng-dirty.ng-invalid{
   margin-right: 10px;
 }
 
+.btn-group .btn-group{
+  margin-right: 0px;
+}
+
 .list-button{
   background-image: url(/images/list-icon.svg);
 }
