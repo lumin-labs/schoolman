@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('model', function model(Slug) {
+  .service('model', function model(Slug, Data2) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var model = {};
@@ -23,6 +23,23 @@ angular.module('SchoolMan')
         }
       });
       return isOk;
+    };
+
+    Model.prototype.asVector = function(){
+      var self = this;
+      var vectorData = [];
+      angular.forEach(self.vectorSchema, function(key, keyIndex){
+        vectorData.push(self[key]);
+      });
+      return {_id:self.id, d:vectorData};
+    };
+
+    Model.prototype.save = function(){
+      var self = this;
+      console.log(self.asVector());
+      // Data2.put(self.asVector()).then(function(response){
+      //   console.log("Data2 put:", response);
+      // });
     };
 
     
@@ -151,21 +168,28 @@ angular.module('SchoolMan')
 
 //==============================================================================
 
-  function Comment(){
+  function Comment(username, studentId){
     // Prevents global namespace clobbering if you istantiate this object
     // without the 'new' keyword
     if (!(this instanceof Comment)) {
       return new Comment();
     }
 
+    var date = new Date();
+
+    this._id  = username + "/" + date;
     this.text = "";
-    this.date = "";
-    this.user = "";
+    this.date = date;
+    this.username = username;
+    this.studentId = studentId;
   }
 
-  Comment.prototype.requiredFields = ['text'];
+  Comment.prototype = new Model();
+
+  Comment.prototype.requiredFields = ['_id', 'text'];
   Comment.prototype.invalidValues = [null, undefined, "", "0", "0.00", 0];
-  Comment.prototype.isValid = Model.prototype.isValid;
+
+  Comment.prototype.vectorSchema = ["text", "date", "username", "studentId"]; 
 
   model.Comment = Comment;
 

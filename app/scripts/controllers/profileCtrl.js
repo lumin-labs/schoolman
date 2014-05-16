@@ -11,7 +11,7 @@ angular.module('SchoolMan')
   	$scope.newPayment = new model.Payment();
   	$scope.newPayment.registrar = $routeParams.username;
 
-    $scope.newComment = new model.Comment();
+    $scope.newComment = new model.Comment($routeParams.username, $routeParams.studentId);
 
     $scope.student = $routeParams.studentId === "0" ?
       Registrar.getStudent("U0000001") :
@@ -31,13 +31,18 @@ angular.module('SchoolMan')
 
     };
 
+    // $scope.addComment = function(){
+    //   $scope.newComment.date = new Date();
+    //   $scope.newComment.user = $routeParams.username;
+    //   $scope.student.discipline.comments.push($scope.newComment);
+    //   Registrar.save();
+    //   $scope.newComment = new model.Comment();
+    // }
+
     $scope.addComment = function(){
-      $scope.newComment.date = new Date();
-      $scope.newComment.user = $routeParams.username;
-      $scope.student.discipline.comments.push($scope.newComment);
-      Registrar.save();
-      $scope.newComment = new model.Comment();
-    }
+      $scope.newComment.save();
+      $scope.newComment = new model.Comment($routeParams.username);
+    };
 
     $scope.save = Registrar.save;
     
