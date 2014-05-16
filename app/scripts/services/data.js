@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Data', function Data($timeout, $log) {
+  .service('Data', function Data($timeout, $log, VERSION) {
 
     var SCHEMA = {
         "version":"",
@@ -88,9 +88,9 @@ angular.module('SchoolMan')
             angular.forEach(obj, function(d, key){
                 data[key] = d;
             });
-            if(obj.hasOwnProperty("students")){
-                write("students", obj.students);
-            }
+            // if(obj.hasOwnProperty("students")){
+            //     write("students", obj.students);
+            // }
         }
 
         write("schoolman", data)
@@ -208,13 +208,19 @@ angular.module('SchoolMan')
         chrome.fileSystem.restoreEntry(entryId, function(dirEntry){
             console.log("restored entry", dirEntry);
             var reader = dirEntry.createReader();
+            var files = {};
             reader.readEntries(function(entries){
-                var files = entries.filter(function(entry){
-                    return entry.name === "schoolman.data";
+                angular.forEach(entries, function(entry, entryIndex){
+                    files[entry.name] = entry;
                 });
-                if(files.length > 0){                    
-                    addWriter("schoolman", files[0]);
-                    self.loadFile(files[0], function(success){
+                if(VERSION.mode.toLowerCase() === "gths"){                    
+                    addWriter("schoolman", files["gths.data"]);
+                    self.loadFile(files["gths.data"], function(success){
+                        callback(success);
+                    });
+                } else if (VERSION.mode.toLowerCase() === "ghs"){                    
+                    addWriter("schoolman", files["ghs.data"]);
+                    self.loadFile(files["ghs.data"], function(success){
                         callback(success);
                     });
                 } else {
@@ -222,11 +228,11 @@ angular.module('SchoolMan')
                 }
                 console.log("read entry schoolman", files);
             });
-            console.log("Reader:", reader);
-            dirEntry.getFile("students.data",{create:true},function(fileEntry){
-               addWriter("students",fileEntry);
-               console.log("File Entry for students:",fileEntry);
-            });
+            // console.log("Reader:", reader);
+            // dirEntry.getFile("students.data",{create:true},function(fileEntry){
+            //    addWriter("students",fileEntry);
+            //    console.log("File Entry for students:",fileEntry);
+            // });
         });
     };
 
@@ -305,10 +311,6 @@ angular.module('SchoolMan')
     	}, 5000);
     }
     poll();
-
-    window._SchoolMan = {
-        Data : self
-    }
 
     return self;
 
