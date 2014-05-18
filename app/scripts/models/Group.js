@@ -1,83 +1,40 @@
 var schoolman = angular.module('SchoolMan');
 
 schoolman.config(['modelProvider', function(model){
+
+  model.datatypes.group = {
+    v1:{
+      type:"schema",
+      _id:"datatype/group/v1",
+      fields:[{
+        key:"name",
+        type:"text",
+        required:true
+      },{
+        key:"code",
+        type:"text",
+        required:true
+      }],
+      fields_key:0
+    }
+  };
+
   function Group(){
 
-      this.name = "";         // String
-      this.code = "";
-      this.forms= {           // 0 is false, 1 is true
-        0:{active:1, pass:10, failBelow:10},
-        1:{active:1, pass:10, failBelow:10},
-        2:{active:1, pass:10, failBelow:10},
-        3:{active:1, pass:10, failBelow:10},
-        4:{active:1, pass:10, failBelow:10},
-        5:{active:1, pass:10, failBelow:10},
-        6:{active:1, pass:10, failBelow:10}
-      };
-      
       // Prevents global namespace clobbering if you istantiate this object
       // without the 'new' keyword
       if (!(this instanceof Group)) {
         return new Group();
       }
 
-      var listeners = [];
-
-      this.notify = function(msg){
-        angular.forEach(listeners, function(callback, $index){
-          callback(msg);
-        });
-      };
-      this.onChange = function(callback){
-        listeners.push(callback);
-      };
-
+      this.name = "";         // String
+      this.code = "";
+      
     };
 
-    // Returns 1 if this group is in the given form, else returns 0
-    Group.prototype.inForm = function(form){
-      return this.forms[form].active;
-    };
+  Group.prototype.datatype = Group.datatype = model.datatypes.fee.v1;
 
-    Group.prototype.toggleForm = function(formIndex){
-      var bool = (this.forms[formIndex].active + 1) % 2
-      this.forms[formIndex].active = bool; 
 
-      var msg = this.name + " has changed: inForm(" + formIndex + ") -> " + bool; 
-
-      this.notify(msg);
-    };
-
-    Group.prototype.getPromoPass = function(form){
-      return this.forms[form].pass;
-    };
-
-    Group.prototype.getPromoFail = function(form){
-      return this.forms[form].failBelow;
-    }
-
-    Group.prototype.setPass = function(formIndex, score){
-      this.forms[formIndex].pass = parseInt(score);
-      this.notify("Form " + formIndex + " " + this.name + "has changed the passing score to " + score);
-    }
-
-    // This function lets you ask if the object has all the required fields
-    // TODO: the config for which fields are required should probably be done 
-    // elsewhere
-    Group.prototype.isValid = function(){
-      var self = this;
-      var isOk = true;
-      var requiredFields = ["name"];
-      var invalidValues = ["", undefined, null];
-      angular.forEach(requiredFields, function(field, fieldIndex){
-        // if the current value of the field is some kind of null value
-        if(invalidValues.indexOf(self[field]) > -1){
-          isOk = false;
-        }
-      });
-      return isOk;
-    };
-
-    model.Group = Group;
+  model.Group = Group;
 }]);
  
