@@ -8,7 +8,15 @@ schoolman.config(['modelProvider', function(model){
     v1:{
       type:"schema",
       _id:"datatype/fee/v1",
-      fields:["name", "amount"],
+      fields:[{
+        key:"name",
+        type:"string",
+        required:true
+      },{
+        key:"amount",
+        type:"number",
+        required:true
+      }],
       fields_key:0
     }
   };
@@ -37,7 +45,7 @@ schoolman.config(['modelProvider', function(model){
     self.onChange = function(callback){
       listeners.push(callback);
     };   
-  };
+  }
 
   Fee.prototype = new model.Model();
   Fee.prototype.generateID = function(){
@@ -45,22 +53,8 @@ schoolman.config(['modelProvider', function(model){
     console.log("Slugified:", id);
     return id;
   }
-  Fee.prototype.requiredFields  = ["name", "amount"];
-  Fee.prototype.invalidValues  = ["", undefined, null];
-  Fee.prototype.datatype = model.datatypes.fee.v1;
 
-  Fee.datatype = Fee.prototype.datatype;
-  // Fee.parse = function(doc){
-  //   var data = {
-  //     _id:doc._id,
-  //     _rev:doc._rev
-  //   };
-  //   var spec = this.datatype;
-  //   angular.forEach(spec.fields, function(field, fieldIndex){
-  //     data[field] = doc[spec.fields_key][fieldIndex];
-  //   });
-  //   return data;
-  // }
+  Fee.prototype.datatype = Fee.datatype = model.datatypes.fee.v1;
 
 
   model.Fee = Fee;

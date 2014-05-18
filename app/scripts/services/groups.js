@@ -39,9 +39,9 @@ angular.module('SchoolMan')
     	angular.forEach(obj, function(groupData, groupKey){
     		var group = modelTransformer.transform(groupData, model.Group);
     		groups[group.code] = group;
-    		group.onChange(function(msg){
-    			self.save();
-    		});
+    		// group.onChange(function(msg){
+    		// 	self.save();
+    		// });
     	});
     });
 

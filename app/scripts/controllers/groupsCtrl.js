@@ -12,13 +12,12 @@ angular.module('SchoolMan')
 
     $scope.add = function(group){
     	if(group.isValid()){
-    		try{
-    			Groups.add(group);
-    			Groups.save();
-    			$scope.newGroup = new model.Group();
-    		} catch(e) {
-    			console.log("Could not add Group: ", e);
-    		}
+            group.save().then(function(success){
+                $scope.groups[group._id] = group;
+                $scope.newGroup = new model.Group();
+            }).catch(function(error){
+                console.log("Error: unable to save group", error);
+            });
     	}
     };
 

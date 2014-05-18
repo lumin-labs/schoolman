@@ -28,16 +28,38 @@ schoolman.provider('model', function modelProvider() {
     var self = this;
 
     var vectorData = [];
-    angular.forEach(self.datatype.fields, function(key, keyIndex){
-      vectorData.push(self[key] || "");
+    angular.forEach(self.datatype.fields, function(field, fieldIndex){
+      vectorData.push(self[field.key] || "");
     });
 
     var doc = {};
     doc._id = self._id;
+    if(self._rev){
+      doc._rev = self._rev;
+    }
+
     doc.type= this.datatype._id;
     doc[this.datatype.fields_key] = vectorData;
 
     return doc;
+  };
+
+  self.isValid = function(){
+    var valid = true;
+    var invalidValues = {
+      "string":[""],
+      "number":[0]
+    }
+    angular.forEach(self.datatype.fields, function(field, fieldIndex){
+      var value = self[field.key];
+      if(typeof value !== field.type){
+        valid = false;
+      } 
+      if(invalidValues[field.type] && invalidValues[field.type].indexOf(value) > -1){
+        valid = false;
+      }
+    });
+    return valid;
   };
 
   Model.prototype.save = function(){
@@ -45,17 +67,21 @@ schoolman.provider('model', function modelProvider() {
     var self = this;
     var deferred = self.$q.defer();
 
-    if(typeof self.generateID === 'function' && !self._id){
-      self._id = self.generateID();
+    if(self.isValid()){
+      if(typeof self.generateID === 'function' && !self._id){
+        self._id = self.generateID();
+      }
+      var doc = self.asDoc();
+      self.db.put(doc).then(function(response){
+        self._rev = response.rev;
+        deferred.resolve(response);
+      }, function(err, response){
+        deferred.reject(err, response);
+      });
+    } else {
+      deferred.reject("Model data is not valid");
     }
-
-    self.db.put(self.asDoc()).then(function(response){
-      self._rev = response.rev;
-      deferred.resolve(response);
-    }, function(err, response){
-      deferred.reject(err, response);
-    });
-
+    
     return deferred.promise;
   };
 
@@ -73,7 +99,7 @@ schoolman.provider('model', function modelProvider() {
       _rev:doc._rev
     };
     angular.forEach(spec.fields, function(field, fieldIndex){
-      data[field] = doc[spec.fields_key][fieldIndex];
+      data[field.key] = doc[spec.fields_key][fieldIndex];
     });
     return data;
   };
