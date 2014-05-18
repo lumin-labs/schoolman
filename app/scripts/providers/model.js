@@ -45,7 +45,12 @@ schoolman.provider('model', function modelProvider() {
     var self = this;
     var deferred = self.$q.defer();
 
+    if(typeof self.generateID === 'function' && !self._id){
+      self._id = self.generateID();
+    }
+
     self.db.put(self.asDoc()).then(function(response){
+      self._rev = response.rev;
       deferred.resolve(response);
     }, function(err, response){
       deferred.reject(err, response);
@@ -60,7 +65,18 @@ schoolman.provider('model', function modelProvider() {
       self[test] = doc.d[keyIndex];
     });
     return self;
-  }
+  };
+
+  self.parse = function(doc, spec){
+    var data = {
+      _id:doc._id,
+      _rev:doc._rev
+    };
+    angular.forEach(spec.fields, function(field, fieldIndex){
+      data[field] = doc[spec.fields_key][fieldIndex];
+    });
+    return data;
+  };
 
   self.Model = Model;
   
@@ -83,9 +99,10 @@ schoolman.provider('model', function modelProvider() {
   };
 
 
-  this.$get = ["Data2", "$q" , function ModelFactory(Data2, $q) {
+  this.$get = ["Data2", "$q" , "Slug", function ModelFactory(Data2, $q, Slug) {
     Model.prototype.db = Data2;
     Model.prototype.$q = $q;
+    self.slugify = Slug.slugify;
     self.updateDatatypes();
     return self;
   }];

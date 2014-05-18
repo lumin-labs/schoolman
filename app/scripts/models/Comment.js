@@ -24,11 +24,7 @@ schoolman.config(['modelProvider', function(model){
     this.text = "";
   }
 
-  console.log("model", model);
-
-
   Comment.prototype = new model.Model();
-
   Comment.prototype.requiredFields = ['_id', 'text'];
   Comment.prototype.invalidValues = [null, undefined, "", "0", "0.00", 0];
   Comment.prototype.datatype = model.datatypes.comment.v1;
