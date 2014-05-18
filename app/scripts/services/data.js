@@ -310,7 +310,7 @@ angular.module('SchoolMan')
 
     	}, 5000);
     }
-    poll();
+    // poll();
 
     return self;
 

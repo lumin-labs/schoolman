@@ -121,10 +121,10 @@
                 ng-click="addComment()">Add Comment</button>
 
         <table class="table table-striped" style="margin-top:55px;">
-          <tr ng-repeat="(commentIndex, comment) in student.discipline['comments']">
+          <tr ng-repeat="(commentIndex, comment) in data.comments">
             <td>
-              <span style="color:green;">{{$user.get(comment.user).fullname}}</span> - 
-              <span style="color:#666">{{comment.date | date:'medium'}}</span>
+              <span style="color:green;">{{$user.get(comment.userId).fullname}}</span> - 
+              <span style="color:#666">{{comment._id | date:'medium'}}</span>
               <br>
               <strong>{{comment.text}}</strong>
             </td>

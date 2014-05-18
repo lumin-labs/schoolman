@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ProfileCtrl', function ($scope, $routeParams, model, Registrar, Fees, Departments, PROMOTE_OPTIONS, $user) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Registrar, Fees, Departments, PROMOTE_OPTIONS, $user) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
+
+    $scope.accessCode = $routeParams.accessCode;
 
   	$scope.fees = Fees.getAll();
   	$scope.departments = Departments.getAll();
@@ -11,11 +13,18 @@ angular.module('SchoolMan')
   	$scope.newPayment = new model.Payment();
   	$scope.newPayment.registrar = $routeParams.username;
 
-    $scope.newComment = new model.Comment($routeParams.username, $routeParams.studentId);
-
     $scope.student = $routeParams.studentId === "0" ?
       Registrar.getStudent("U0000001") :
       Registrar.getStudent($routeParams.studentId);
+
+    $scope.newComment = new model.Comment($routeParams.username,  $scope.student.id);
+    
+    $scope.data = {};
+    $scope.data.comments = [];
+
+    profile.getComments($scope.student.id).then(function(comments){
+      $scope.data.comments = $scope.data.comments.concat(comments);
+    }); 
 
     $scope.$user = $user;
 
@@ -40,11 +49,13 @@ angular.module('SchoolMan')
     // }
 
     $scope.addComment = function(){
-      $scope.newComment.save();
-      $scope.newComment = new model.Comment($routeParams.username);
+      $scope.newComment.save().then(function(success){
+        console.log("Comment saved: ", success);
+        $scope.data.comments.push($scope.newComment);
+        $scope.newComment = new model.Comment($routeParams.username, $scope.student.id);
+      });     
     };
 
     $scope.save = Registrar.save;
-    
 
   });
