@@ -62,6 +62,9 @@ angular.module('SchoolMan')
     }
 
     Marksheet.prototype.getCells = function(studentId){
+      if(this.getRow(studentId) === undefined){
+        console.log("HERE IT IS:", this.courseId, studentId,this.table);
+      }
       return this.getRow(studentId).columns;
     }
 
