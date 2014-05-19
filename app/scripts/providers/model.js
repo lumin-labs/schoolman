@@ -44,19 +44,23 @@ schoolman.provider('model', function modelProvider() {
     return doc;
   };
 
-  self.isValid = function(){
+  self.isValid = function(model){
     var valid = true;
     var invalidValues = {
       "string":[""],
       "number":[0]
     }
-    angular.forEach(self.datatype.fields, function(field, fieldIndex){
-      var value = self[field.key];
-      if(typeof value !== field.type){
-        valid = false;
-      } 
-      if(invalidValues[field.type] && invalidValues[field.type].indexOf(value) > -1){
-        valid = false;
+
+    angular.forEach(model.datatype.fields, function(field, fieldIndex){
+      if(field.required){
+        var value = model[field.key];
+        if(typeof value !== field.type){
+          console.log("Error typeof", value, field.type);
+          valid = false;
+        } 
+        if(invalidValues[field.type] && invalidValues[field.type].indexOf(value) > -1){
+          valid = false;
+        }
       }
     });
     return valid;
@@ -67,7 +71,7 @@ schoolman.provider('model', function modelProvider() {
     var self = this;
     var deferred = self.$q.defer();
 
-    if(self.isValid()){
+    if(self.isValid(self)){
       if(typeof self.generateID === 'function' && !self._id){
         self._id = self.generateID();
       }

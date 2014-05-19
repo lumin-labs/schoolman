@@ -8,11 +8,7 @@ schoolman.config(['modelProvider', function(model){
       _id:"datatype/group/v1",
       fields:[{
         key:"name",
-        type:"text",
-        required:true
-      },{
-        key:"code",
-        type:"text",
+        type:"string",
         required:true
       }],
       fields_key:0
@@ -28,11 +24,15 @@ schoolman.config(['modelProvider', function(model){
       }
 
       this.name = "";         // String
-      this.code = "";
       
     };
 
-  Group.prototype.datatype = Group.datatype = model.datatypes.fee.v1;
+  Group.prototype = new model.Model();
+  Group.prototype.generateID = function(){
+    var id = model.slugify(this.name);
+    return id;
+  }
+  Group.prototype.datatype = Group.datatype = model.datatypes.group.v1;
 
 
   model.Group = Group;
