@@ -98,8 +98,8 @@ angular.module('SchoolMan')
 
     // This is doing more work than it needs to because we dont need a mastersheet
     // for every course
-    var passingScore = _groups[$routeParams.groupIndex].getPromoPass($routeParams.formIndex)
-
+    // var passingScore = _groups[$routeParams.groupIndex].getPromoPass($routeParams.formIndex)
+    var passingScore = 10;
     var buildMastersheet = function(groupIndex){
         
         var courses = CourseCatalog.getCourses($routeParams.formIndex, groupIndex);

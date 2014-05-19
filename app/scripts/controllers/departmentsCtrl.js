@@ -26,7 +26,6 @@ angular.module('SchoolMan')
 
  		var allStudents = Registrar.getAllStudents();
     $scope.getStudentsByDept = function(deptKey){
-    	  console.log(deptKey);
         return allStudents.filter(function(student){
             return student.department === deptKey;
         });
