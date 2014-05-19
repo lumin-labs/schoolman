@@ -310,11 +310,8 @@ angular.module('SchoolMan')
 
     	}, 5000);
     }
-<<<<<<< HEAD
+
     // poll();
-=======
-    poll();
->>>>>>> use-two-db
 
     return self;
 

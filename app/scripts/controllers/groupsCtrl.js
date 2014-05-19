@@ -23,8 +23,7 @@ angular.module('SchoolMan')
     };
 
     $scope.remove = function(group){
-        console.log("remove group", group);
-    	// Groups.remove(group);
+    	Groups.remove(group);
     };
 
     var allStudents = Registrar.getAllStudents();

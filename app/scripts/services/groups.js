@@ -20,13 +20,13 @@ angular.module('SchoolMan')
     	Data.saveLater({"groups": groups})
     };
 
-    self.remove = function(groupKey){
-    	var obj = group;
-    	if(typeof obj === "Group"){
-    		delete groups[group.code];
-    	} else if(groups.hasOwnProperty(group)){
-    		delete groups[group];
-    	}
+    self.remove = function(group){
+    	Data2.remove(group).then(function(success){
+            console.log("Group removed: ", success);
+            delete groups[group._id];
+        }).catch(function(error){
+            $log.error("groups.js : remove :", error);
+        });
     };
 
     self.add = function(group){
