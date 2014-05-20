@@ -2,27 +2,23 @@
 
 angular.module('SchoolMan')
   .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $user, $log, DEV, User, Path, Cache, Location, TimeTable, MockData, Groups) {
-
+    function ($scope, $location, $routeParams, $user, $log, DEV, CourseCatalog, Departments, User, Path, Cache, Location, TimeTable, MockData, Groups) {
 
     $log.info("Path: ", $location.path()); 
 
     var DEFAULT_START_PAGE = {
         admin:{
-            page:"users",
-            view:"all"
+            page:"users"
         },
         classmaster:{
-            page:"classmasterMarksheet",
-            view:"all"
+            page:"classmasterMarksheet"
         },
         registrar:{
-            page:"registration",
-            view:"all"
+            page:"registration"
         },
         teacher:{
-            page:"myclasses",
-            view:"simple"}
+            page:"myclasses"
+        }
     }
 
     $scope.open = Location.open;
@@ -45,15 +41,17 @@ angular.module('SchoolMan')
 
         $user.login($scope.tempUser, accessRequest, function(user){
             if(user){
+
+                console.log("Group Keys: ", Object.keys(Groups.getAll()))
                 
                 Cache.set({user:user});
-
                 Location.open({
                     page:page || DEFAULT_START_PAGE[accessRequest].page,
-                    view:DEFAULT_START_PAGE[accessRequest].view,
+                    subpage:"null",
                     formIndex:0,
-                    groupIndex:Object.keys(Groups.getAll())[0],
-                    subjectKey:'engl',
+                    deptKey:Object.keys(Departments.getAll())[0],
+                    groupKey:Object.keys(Groups.getAll())[0],
+                    subjectKey:Object.keys(CourseCatalog.getAllSubjects())[0],
                     studentId:0,
                     termIndex:0,
                     username:user.username,

@@ -42,17 +42,15 @@ angular.module('SchoolMan')
       } 
     };
     Data2.query(map, {include_docs : true}).then(function(success){
-        console.log("Test join datatype", success);
         angular.forEach(success.rows, function(data, rowIndex){
             var spec = data.doc;
             var obj = model.parse(data.value.data, spec);
             var group = modelTransformer.transform(obj, model.Group);
-            console.log("Froup model: ", group);
             groups[group._id] = group;
         });
-        console.log("Fees: Query succeeded", success);
+        console.log("Groups: Query succeeded", success);
     }).catch(function(error){
-        console.log("Fees: Query failed", error);
+        console.log("Groups: Query failed", error);
     });
 
     // // Load Data
