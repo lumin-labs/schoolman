@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Uid', function Uid($log, Data) {
+  .service('Uid', function Uid($q, $log, Data2) {
     
     var N_DIGITS = 7;
 
@@ -9,7 +9,10 @@ angular.module('SchoolMan')
 
     self.next = function(lastUid){
     	
-    	var n = parseInt(lastUid.substr(1)) + 1;
+        var nextUid = lastUid;
+        var value = lastUid.value;
+
+    	var n = parseInt(value.substr(1)) + 1;
     	var s = n.toString();
 
     	while(s.length < N_DIGITS){
@@ -24,12 +27,35 @@ angular.module('SchoolMan')
     		$log.error("u", u);
     	}
 
-    	return u;
+        nextUid.value = u;
+    	return nextUid;
     };
 
     self.save = function(lastUid){
-        Data.saveLater({uid:lastUid});
+       Data2.put(lastUid).then(function(success){
+        console.log("saved lastUid", success);
+       }).catch(function(error){
+        console.log("error: save lastUid", error);
+       });
     };
+
+    self.get = function(){
+        var deferred = $q.defer();
+
+        Data2.get("UID").then(function(uid){
+            deferred.resolve(self.next(uid));
+        }).catch(function(error){
+            console.log("UID Error", error);
+            if(error.status === 404){
+                var uid = {
+                    _id:"UID",
+                    value:"U0000000"}
+                deferred.resolve(self.next(uid));
+            };
+        });
+
+        return deferred.promise;
+    }
 
     return self;
 

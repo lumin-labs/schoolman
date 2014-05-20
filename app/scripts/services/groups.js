@@ -48,21 +48,6 @@ angular.module('SchoolMan')
             var group = modelTransformer.transform(obj, model.Group);
             groups[group._id] = group;
         });
-        console.log("Groups: Query succeeded", success);
-    }).catch(function(error){
-        console.log("Groups: Query failed", error);
     });
-
-    // // Load Data
-    // Data.get("groups", function(obj){
-    // 	angular.forEach(obj, function(groupData, groupKey){
-    // 		var group = modelTransformer.transform(groupData, model.Group);
-    // 		groups[group.code] = group;
-    // 		// group.onChange(function(msg){
-    // 		// 	self.save();
-    // 		// });
-    // 	});
-    // });
-
     return self;
   });
