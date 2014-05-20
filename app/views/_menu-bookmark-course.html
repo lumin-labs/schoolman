@@ -2,17 +2,17 @@
 	<div ng-include="'views/_menu-basic.html'"></div>
 	<div class="btn-group" style="margin-left:10px;">
     <button class="btn btn-lg btn-success"
-    				ng-class="teacher ? 'disabled' : ''" 
+    				ng-class="teacher || !allSelected ? 'disabled' : ''" 
         	  data-toggle="dropdown"
         	  ng-click="addBookmark({teacherId:username,courseId:courseId})">Add Class
     </button>
    </div><!-- /btn-group -->
    <div class="btn-group pull-right" style="margin-left:10px;margin-right:0px;">
-   	<div class="alert alert-sm alert-warning" style="height:45px;padding-top:10px;" ng-if="teacher">
+   	<div class="alert alert-sm alert-warning" style="height:45px;padding-top:10px;"  ng-if="data.assignedTeacher">
    		<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
-   		<strong>{{teacher.fullname}}</strong> is scheduled to teach
+   		<strong>{{data.assignedTeacher.fullname}}</strong> is scheduled to teach
    		<strong ng-controller="ClassmenuCtrl">
-   			<em>{{subject.en}}, {{form.name}}, {{group.name}}</em>
+   			<em>{{form.name}}, {{department.name}}, {{group.name}}, {{subject.en}}</em>
    		</strong>
    	</div>
    </div>

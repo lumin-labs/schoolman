@@ -55,7 +55,7 @@ angular.module('SchoolMan', [
       var template = "";
       if(TEMPLATE_DIRECTORY.hasOwnProperty(p.page)){
         template = TEMPLATE_DIRECTORY[p.page];
-      } else if(p.hasOwnProperty('page') && p.hasOwnProperty('view')){
+      } else if(p.hasOwnProperty('page') && p.hasOwnProperty('subpage')){
         template = p.page + '.html';
       } else {
         console.log("404 Page Not Found");
@@ -67,7 +67,7 @@ angular.module('SchoolMan', [
     };
 
     $routeProvider
-      .when('/:page/:view/:formIndex/:groupIndex/:subjectKey/:termIndex/:studentId/:username/:accessCode', {
+      .when('/:page/:subpage/:formIndex/:deptKey/:groupKey/:subjectKey/:termIndex/:studentId/:username/:accessCode', {
         templateUrl:function(p){ return getTemplate(p);},
         // controller:'MainCtrl'
       })

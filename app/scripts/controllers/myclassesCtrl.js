@@ -1,19 +1,39 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, Location, Registrar, CourseCatalog, TimeTable) {
+  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, model, Marksheets, Location, Registrar, CourseCatalog, TimeTable) {
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
-    $scope.courses = CourseCatalog.getCoursesByRef(
-      TimeTable.getCourseRefs($routeParams.username)
-    );
+    $scope.open = Location.open;
+    $scope.allSelected = [$routeParams.formIndex,
+                          $routeParams.deptKey,
+                          $routeParams.groupKey,
+                          $routeParams.subjectKey].indexOf("undefined") === -1;
+    
+    $scope.data = {
+      marksheets:[],
+      assignedTeacher:null
+    };
 
+    // Load all classes assigned to the logged in user
+    Marksheets.get({teacherId:$routeParams.username}).then(function(marksheets){
+      console.log("myclasses Marksheets", marksheets);
+      $scope.data.marksheets = marksheets;
+    }).catch(function(error){
+      console.log("Error:", error);
+    });
+
+    // If a teacher is already assigned to the selected class, load the teacher
+    var marksheetId = model.Marksheet.generateID($routeParams);
+    Marksheets.get({_id:marksheetId}).then(function(marksheets){
+      var marksheet = marksheets[0];
+      $scope.data.assignedTeacher = $user.get(marksheet.teacherId);
+    });
 
     console.log("MyClasses routeParams", $routeParams);
-	  $scope.courseId = CourseCatalog.getCourseId($routeParams);
+    $scope.courseId = model.Marksheet.generateID($routeParams);
     $scope.username = $routeParams.username;
 
-    $scope.open = Location.open;
     $scope.getStudentsByCourse = Registrar.getStudentsByCourse;
 
     // Lookup if preexisting teacher
@@ -65,8 +85,11 @@ angular.module('SchoolMan')
      * and the @name with the module id, then this page won't exist!!
      */
     $scope.addBookmark = function(){
-      TimeTable.addBookmark($scope.courseId, $scope.username);
-      refreshCourseList();
+      Marksheets.createOrUpdate($scope.courseId, $routeParams.username)
+      .then(function(marksheet){
+        $scope.data.marksheets.push(marksheet);
+        $scope.data.assignedTeacher = $user.get($routeParams.username);
+      });
     };
 
     

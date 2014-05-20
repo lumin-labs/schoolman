@@ -46,20 +46,13 @@ angular.module('SchoolMan')
           return self.get(d);
         } else {
 
-          // Parse CourseId if present and overwrite $routeParams 
-          if(d.hasOwnProperty('courseId')){
-            var idData = d.courseId.split(':');
-            d.formIndex = idData[0];
-            d.groupIndex = idData[1];
-            d.subjectKey = idData[2];
-          }
-
           // Any params not explicitly passed are provided via the $routParams
           // thus all of these variables should be present one way or another
           var path =  d.page       + '/' + 
-                      d.view       + '/' + 
+                      d.subpage    + '/' + 
                       d.formIndex  + '/' + 
-                      d.groupIndex + '/' + 
+                      d.deptKey    + '/' + 
+                      d.groupKey   + '/' + 
                       d.subjectKey + '/' +
                       d.termIndex  + '/' +
                       d.studentId  + '/' + 

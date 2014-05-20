@@ -1,16 +1,4 @@
 <div ng-controller="ClassmenuCtrl">
-  <!-- Subject Dropdown -->
-  <div  ng-if="['mastersheet', 'students', 'registration'].indexOf(page) === -1"
-        class="btn-group">
-    <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
-      {{subject.en}} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li ng-repeat="(subjectKey, subject) in subjects">
-        <a ng-click="open({subjectKey:subjectKey})">{{subject.en}}</a>
-      </li>
-    </ul>
-  </div><!-- /btn-group -->
 
   <!-- Form Dropdown -->
   <div class="btn-group">
@@ -24,19 +12,44 @@
     </ul>
   </div>
 
-  <!-- Group Dropdown -->
+  <!-- Department Dropdown -->
   <div class="btn-group">
     <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
-      {{group.name}} <span class="caret"></span>
+      {{department.name}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li ng-repeat="(groupIndex, group) in groups">
-        <a ng-click="open({groupIndex:groupIndex})">{{group.name}}</a>
+      <li ng-repeat="(deptKey, dept) in departments">
+        <a ng-href="" ng-click="open({deptKey:deptKey})">{{dept.name}}</a>
       </li>
     </ul>
   </div>
 
   <!-- Group Dropdown -->
+  <div class="btn-group">
+    <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+      {{group ? group.name : "Select Group"}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="(groupKey, group) in groups">
+        <a ng-click="open({groupKey:groupKey})">{{group.name}}</a>
+      </li>
+    </ul>
+  </div>
+
+   <!-- Subject Dropdown -->
+  <div  ng-if="['mastersheet', 'students', 'registration'].indexOf(page) === -1"
+        class="btn-group">
+    <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+      {{subject.en}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="(subjectKey, subject) in subjects">
+        <a ng-click="open({subjectKey:subjectKey})">{{subject.en}}</a>
+      </li>
+    </ul>
+  </div><!-- /btn-group -->
+
+  <!-- Term Dropdown -->
   <div  ng-if="page === 'mastersheet'"
         class="btn-group">
     <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
