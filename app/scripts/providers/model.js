@@ -118,8 +118,11 @@ schoolman.provider('model', function modelProvider() {
     var m = new Model();
     angular.forEach(self.datatypes, function(versions, type){
       angular.forEach(versions, function(version, key){
-        m.db.get(version._id).catch(function(error){
-          m.db.put(version)
+        m.db.get(version._id).then(function(datatype){
+          datatype.fields = version.fields;
+          m.db.put(version);
+        }).catch(function(error){
+          m.db.put(version);
         })
       });
     });

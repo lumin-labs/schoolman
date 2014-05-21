@@ -29,6 +29,10 @@ schoolman.config(['modelProvider', function(model){
         type:"string",
         required:true
       },{
+        key:"coeff",
+        type:"number",
+        required:true
+      },{
         key:"table",
         type:"object",
         required:true
@@ -55,6 +59,7 @@ schoolman.config(['modelProvider', function(model){
     self.groupId;
     self.subjectId;
     self.teacherId;
+    self.coeff = 2;
     self.table = [];
 
     // Construct

@@ -7,7 +7,8 @@ angular.module('SchoolMan')
     
     $scope.data = {
     	marksheet:{},
-    	students:[]
+    	students:[],
+    	rankings:{}
     };
 
     var marksheetCopy = {};
@@ -15,6 +16,7 @@ angular.module('SchoolMan')
     Marksheets.get(marksheetId).then(function(bundle){
     	$scope.data.marksheet = bundle.marksheet;
     	$scope.data.students = bundle.students;
+    	$scope.data.rankings = Marksheets.rank($scope.data.marksheet);
     }).catch(function(error){
     	console.log("Failed to get marksheet: ", error);
     }); 
@@ -29,6 +31,7 @@ angular.module('SchoolMan')
     	if(hasChanged){
     		$scope.data.marksheet.save().then(function(success){
     			hasChanged = false;
+    			$scope.data.rankings = Marksheets.rank($scope.data.marksheet);    			
     		}).catch(function(error){
     			console.log("Save error: ", error);
     		});
