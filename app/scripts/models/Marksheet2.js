@@ -82,10 +82,10 @@ schoolman.config(['modelProvider', function(model){
 
   Marksheet.prototype = new model.Model();
   Marksheet.generateID = function(p){
-      var id = p.formIndex + "_" + 
-               p.deptKey   + "_" +
-               p.groupKey  + "_" +
-               p.subjectKey    
+      var id = p.formIndex + ":" + 
+               p.deptId   + ":" +
+               p.groupId  + ":" +
+               p.subjectId    
       return id;
   };
   Marksheet.prototype.generateID = function(){

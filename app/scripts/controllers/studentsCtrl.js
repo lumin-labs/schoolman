@@ -23,7 +23,7 @@ angular.module('SchoolMan')
         groupId:$scope.groupId,
         deptId:$scope.deptId
     }
-    Students.get(queryParams).then(function(students){
+    Students.query(queryParams).then(function(students){
         console.log("Success loading students", students);
         $scope.data.students = students;
     }).catch(function(error){

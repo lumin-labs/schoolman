@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Marksheets', function Marksheets($q, model, modelTransformer, Data2, Slug) {
+  .service('Marksheets', function Marksheets($q, model, modelTransformer, Students, Data2, Slug) {
    
     var self = {};
 
@@ -48,7 +48,39 @@ angular.module('SchoolMan')
     	return deferred.promise;
     };
 
-    self.get = function(params){
+    self.get = function(marksheetId){
+
+      var deferred = $q.defer();
+
+      Data2.get(marksheetId).then(function(marksheet){
+        var copy = angular.copy(marksheet);
+        var searchParams = {
+          formIndex:marksheet.formIndex,
+          deptId:marksheet.deptId,
+          groupId:marksheet.groupId
+        }
+        var students = Students.query(searchParams).then(function(students){
+          angular.forEach(students, function(student, studentIndex){
+            if(!marksheet.table.hasOwnProperty(student._id)){
+              marksheet.table[student._id] = [];
+            }
+          });
+        });
+        if(!angular.equals(marksheet, copy)){
+          Data2.put(marksheet).then(function(success){
+            deferred.resolve(marksheet);
+          }).catch(function(error){
+            console.log("There was a problem adding new students to the marksheet", error);     
+          });
+        } else {
+            deferred.resolve(marksheet);
+        }
+      });
+
+      return deferred.promise;
+    };
+
+    self.query = function(params){
     	
     	var deferred = $q.defer();
 

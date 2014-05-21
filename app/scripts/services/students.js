@@ -6,7 +6,7 @@ angular.module('SchoolMan')
 
   	self = {};
 
-  	self.get = function(params){
+  	self.query = function(params){
     	
     	var deferred = $q.defer();
 
