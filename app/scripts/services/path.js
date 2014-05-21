@@ -51,9 +51,9 @@ angular.module('SchoolMan')
           var path =  d.page       + '/' + 
                       d.subpage    + '/' + 
                       d.formIndex  + '/' + 
-                      d.deptKey    + '/' + 
-                      d.groupKey   + '/' + 
-                      d.subjectKey + '/' +
+                      d.deptId    + '/' + 
+                      d.groupId   + '/' + 
+                      d.subjectId + '/' +
                       d.termIndex  + '/' +
                       d.studentId  + '/' + 
                       d.username   + '/' +

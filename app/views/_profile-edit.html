@@ -2,7 +2,7 @@
   <div class="form-group">
     <label for="uid" class="col-sm-3 control-label">Student ID</label>
     <div class="col-sm-9">
-      <p class="form-control-static">{{student.id}}</p>
+      <p class="form-control-static">{{data.student._id}}</p>
     </div>
   </div>
   <div class="form-group" ng-controller="ClassmenuCtrl">
@@ -10,11 +10,11 @@
     <div class="col-sm-9">
       <div class="btn-group">
 		    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
-		      {{forms[student.form].name}} 
+		      {{data.forms[data.student.formIndex].name}} 
 		      &nbsp;<span class="caret"></span>
 		    </button>
 		    <ul class="dropdown-menu">
-		      <li ng-repeat="(formIndex, form) in forms">
+		      <li ng-repeat="(formIndex, form) in data.forms">
 		        <a ng-href="" ng-click="open({formIndex:formIndex})">{{form.name}}</a>
 		      </li>
 		    </ul>
@@ -22,24 +22,24 @@
 		  <!-- Department Dropdown -->
 		  <div class="btn-group">
 		    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
-		      {{departments[student.department].name}} 
+		      {{data.departments[data.student.deptId].name}} 
 		      &nbsp;<span class="caret"></span>
 		    </button>
 		    <ul class="dropdown-menu">
-		      <li ng-repeat="(depKey, dep) in departments">
-		        <a ng-click="student.department = depKey">{{dep.name}}</a>
+		      <li ng-repeat="(depKey, dep) in data.departments">
+		        <a ng-click="data.student.department = depKey">{{dep.name}}</a>
 		      </li>
 		    </ul>
 		  </div>
       <!-- Group Dropdown -->
 		  <div class="btn-group">
 		    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
-		      {{groups[student.group].name}} 
+		      {{data.groups[data.student.groupId].name}} 
 		      &nbsp;<span class="caret"></span>
 		    </button>
 		    <ul class="dropdown-menu">
-		      <li ng-repeat="(groupIndex, group) in groups">
-		        <a ng-click="open({groupIndex:groupIndex})">{{group.name}}</a>
+		      <li ng-repeat="(groupId, group) in data.groups">
+		        <a ng-click="open({groupId:groupId})">{{group.name}}</a>
 		      </li>
 		    </ul>
 		  </div>
@@ -51,14 +51,14 @@
     <div class="col-md-9">
     	<div class="btn-group">
 		    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
-		    	<span ng-if="student.feeGroup !== ''">
-		    		{{fees[student.feeGroup].name}} ({{fees[student.feeGroup].amount | currency:""}})
+		    	<span ng-if="student.feeId !== ''">
+		    		{{data.fees[data.student.feeId].name}} ({{data.fees[data.student.feeId].amount | currency:""}})
 		    	</span>
 		      &nbsp;<span class="caret"></span>
 		    </button>
 		    <ul class="dropdown-menu">
-		      <li ng-repeat="(feeKey, fee) in fees">
-		        <a ng-click="student.feeGroup = feeKey">
+		      <li ng-repeat="(feeId, fee) in data.fees">
+		        <a ng-click="data.student.feeId = feeId">
 		        {{fee.name}} ({{fee.amount | currency:""}})</a>
 		      </li>
 		    </ul>
@@ -72,7 +72,7 @@
       <input id="studentName"
       		 class="form-control" 
       		 placeholder="Student Name" 
-      		 ng-model="student.name"
+      		 ng-model="data.student.name"
       		 readonly>
     </div>
   </div>
@@ -82,7 +82,7 @@
       <input id="gender"
       		 class="form-control" 
       		 placeholder="Gender" 
-      		 ng-model="student.sex"
+      		 ng-model="data.student.sex"
       		 readonly>
     </div>
   </div>
@@ -92,7 +92,7 @@
       <input id="birthdate" 
        		 class="form-control" 
        		 placeholder="Birth Date" 
-       		 ng-model="student.birth"
+       		 ng-model="data.student.birth"
        		 type="text"
        		 readonly>
     </div>
@@ -104,7 +104,7 @@
       <input id="parentName" 
       		 class="form-control" 
       		 placeholder="Parent Name" 
-      		 ng-model="student.parentName"
+      		 ng-model="data.student.parentName"
       		 readonly>
     </div>
   </div>
@@ -114,7 +114,7 @@
       <input id="parentPhone"
       		 class="form-control" 
       		 placeholder="Parent Phone" 
-      		 ng-model="student.parentPhone"
+      		 ng-model="data.student.parentPhone"
       		 readonly>
     </div>
   </div>
@@ -124,7 +124,7 @@
       <input id="parentEmail" 
              class="form-control pull-left" 
 		     placeholder="Parent EMail"
-		     ng-model="student.parentEmail"
+		     ng-model="data.student.parentEmail"
 		     readonly>
     </div>
   </div>

@@ -1,85 +1,40 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Forms, Groups, Registrar, Departments, CourseCatalog, Mastersheet, ClassMaster, Student, Uid, Data, Location, PROMOTE_OPTIONS) {
+  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Forms, Groups, Registrar, Students, Departments, CourseCatalog, Mastersheet, ClassMaster, model, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
 
-    // $scope.students = Registrar.getStudentsByCourse($scope.courseId);
-    $scope.students = Registrar.getAllStudents();
+    $scope.formIndex = $routeParams.formIndex;
+    $scope.groupId = $routeParams.groupId;
+    $scope.deptId = $routeParams.deptId;
 
-    var form = $routeParams.formIndex;
-    var group= $routeParams.groupIndex;
-    var _groups = Groups.getAll();
+    var data = $scope.data = {
+        forms:Forms.all(),
+        departments:Departments.getAll(),
+        groups:Groups.getAll(),
+        fees:Fees.getAll(),
+        students:[]
+    };
 
-    $scope.groups = _groups;
-    $scope.forms = Forms.all();
-    $scope.departments = Departments.getAll();
-
-    $scope.search = {
-        form:form,
-        group:group,
-        department:Object.keys($scope.departments)[0],
-        $:""
+    var queryParams = {
+        formIndex:parseInt($scope.formIndex),
+        groupId:$scope.groupId,
+        deptId:$scope.deptId
     }
+    Students.get(queryParams).then(function(students){
+        console.log("Success loading students", students);
+        $scope.data.students = students;
+    }).catch(function(error){
+        console.log("Error loading students", error);
+    });
+
+    
 
     $scope.open = Location.open;
     
     $scope.fees = Fees.getAll();
-    console.log("Dep", Object.keys($scope.departments)[0]);
-    $scope.newStudent = new Student({
-    	form:form,
-    	group:group,
-    	id: "",
-        department: Object.keys($scope.departments)[0],
-        feeGroup: Object.keys($scope.fees)[0]
-    });
-
-    Data.get("uid", function(uid){
-    	$scope.newStudent.id = Uid.next(uid);
-    });
-
-    
-    // This is a mess
-    // TODO: make better
-    $scope.addStudent = function(){
-        if($scope.newStudent.isValid()){
-            var student = $scope.newStudent;
-        	
-            // Register student with ClassMaster
-            var marksheets = ClassMaster.getMarksheets(CourseCatalog.getCourseIds(form, group));
-            angular.forEach(marksheets, function(marksheet, $index){
-                ClassMaster.addStudent(marksheet,student.id);
-            });
-
-            // Register student with the registrar
-            Registrar.addStudent(student);
-
-            // Save registrar
-        	Registrar.save(function(msg){
-        		$scope.students = Registrar.getStudentsByCourse($scope.courseId);
-        		$scope.$digest();
-        	});
-
-            // save last used UID
-            Uid.save(student.id);
-
-            Location.open({
-                studentId:student.id,
-                page:"registrarProfile"
-            });
-
-            // Reset new student
-            // $scope.newStudent = new Student({
-            //     form:form,
-            //     group:group,
-            //     id: Uid.next(student.id)
-            // });
-
-
-        }
-    };
 
     $scope.mastersheets = {};
 

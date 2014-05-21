@@ -30,16 +30,16 @@
 				          	<!-- Form Dropdown -->
 									  <div class="btn-group">
 									    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-									      {{forms[search.form].name || "All Forms"}} <span class="caret"></span>
+									      {{data.forms[formIndex].name}} <span class="caret"></span>
 									    </button>
 									    <ul class="dropdown-menu">
-									    	<li>
+									    	<!-- <li>
 									    		<a ng-click="search.form = ''">All Forms</a>
 									    	</li>
-									    	<li class="divider"></li>
-									      <li ng-repeat="(formIndex, form) in forms">
-									        <a ng-click="search.form = formIndex">
-									        	{{forms[formIndex].name}}
+									    	<li class="divider"></li> -->
+									      <li ng-repeat="(formIndex, form) in data.forms">
+									        <a ng-click="open({formIndex:formIndex})">
+									        	{{data.forms[formIndex].name}}
 									        </a>
 									      </li>
 									    </ul>
@@ -47,16 +47,16 @@
 									  <!-- Department Dropdown -->
 									  <div  class="btn-group">
 									    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-									      {{departments[search.department].name || "All Departments"}} <span class="caret"></span>
+									      {{data.departments[deptId].name}} <span class="caret"></span>
 									    </button>
 									    <ul class="dropdown-menu">
-									    	<li>
+									    	<!-- <li>
 									    		<a ng-click="search.department = ''">All Departments</a>
-									    	</li>
-									    	<li class="divider"></li>
-									      <li ng-repeat="(deptKey, dept) in departments">
-									        <a ng-click="search.department = deptKey">
-									        	{{departments[deptKey].name}}
+									    	</li> -->
+									    	<!-- <li class="divider"></li> -->
+									      <li ng-repeat="(deptId, dept) in data.departments">
+									        <a ng-click="open({deptId:deptId})">
+									        	{{data.departments[deptId].name}}
 									        </a>
 									      </li>
 									    </ul>
@@ -64,16 +64,16 @@
 					          <!-- Group Dropdown -->
 									  <div  class="btn-group">
 									    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-									      {{groups[search.group].name || "All Groups"}} <span class="caret"></span>
+									      {{data.groups[groupId].name}} <span class="caret"></span>
 									    </button>
 									    <ul class="dropdown-menu">
-									    	<li>
+									    	<!-- <li>
 									    		<a ng-click="search.group = ''">All Groups</a>
 									    	</li>
-									    	<li class="divider"></li>
-									      <li ng-repeat="(groupKey, group) in groups">
-									        <a ng-click="search.group = groupKey">
-									        	{{groups[groupKey].name}}
+									    	<li class="divider"></li> -->
+									      <li ng-repeat="(groupId, group) in data.groups">
+									        <a ng-click="open({groupId:groupId})">
+									        	{{data.groups[groupId].name}}
 									        </a>
 									      </li>
 									    </ul>
@@ -116,12 +116,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(studentIndex, student) in students | filter:search">
+				<tr ng-repeat="(studentIndex, student) in data.students | filter:search">
 					<td class="text-center" style="vertical-align:middle;">
 						<input type="checkbox">
 					</td>
 					<td style="width:100px;">
-						<a ng-click="open({studentId:student.id, page:'registrarProfile'})">{{student.id}}</a>
+						<a ng-click="open({studentId:student._id, page:'registrarProfile'})">{{student._id}}</a>
 					</td>
 					<td>{{student.name}}</td>
 					<td>{{student.sex}}</td>
@@ -129,11 +129,11 @@
 					<td>{{student.parentName}}</td>
 					<td>{{student.parentPhone}}</td>
 					<td>{{student.parentEmail}}</td>
-					<td>{{forms[student.form].name}}</td>
-					<td>{{departments[student.department].name}}</td>
-					<td>{{groups[student.group].name}}</td>
+					<td>{{data.forms[student.formIndex].name}}</td>
+					<td>{{data.departments[student.deptId].name}}</td>
+					<td>{{data.groups[student.groupId].name}}</td>
 					<td>
-						{{fees[student.feeGroup].amount - student.totalPaid() | currency:""}}
+						{{data.fees[student.feeId].amount - student.totalPaid() | currency:""}}
 					</td>
 					<td class="promotion">
 						<div  class="btn-group">
