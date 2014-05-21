@@ -6,9 +6,9 @@ angular.module('SchoolMan')
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
     $scope.open = Location.open;
     $scope.allSelected = [$routeParams.formIndex,
-                          $routeParams.deptKey,
-                          $routeParams.groupKey,
-                          $routeParams.subjectKey].indexOf("undefined") === -1;
+                          $routeParams.deptId,
+                          $routeParams.groupId,
+                          $routeParams.subjectId].indexOf("undefined") === -1;
     
     $scope.data = {
       marksheets:[],
@@ -16,7 +16,7 @@ angular.module('SchoolMan')
     };
 
     // Load all classes assigned to the logged in user
-    Marksheets.get({teacherId:$routeParams.username}).then(function(marksheets){
+    Marksheets.query({teacherId:$routeParams.username}).then(function(marksheets){
       console.log("myclasses Marksheets", marksheets);
       $scope.data.marksheets = marksheets;
     }).catch(function(error){
@@ -25,7 +25,7 @@ angular.module('SchoolMan')
 
     // If a teacher is already assigned to the selected class, load the teacher
     var marksheetId = model.Marksheet.generateID($routeParams);
-    Marksheets.get({_id:marksheetId}).then(function(marksheets){
+    Marksheets.query({_id:marksheetId}).then(function(marksheets){
       var marksheet = marksheets[0];
       $scope.data.assignedTeacher = $user.get(marksheet.teacherId);
     });

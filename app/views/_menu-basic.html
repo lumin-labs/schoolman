@@ -15,11 +15,11 @@
   <!-- Department Dropdown -->
   <div class="btn-group">
     <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
-      {{department.name}} <span class="caret"></span>
+      {{department.name || "Select Department"}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li ng-repeat="(deptId, dept) in departments">
-        <a ng-href="" ng-click="open({deptId:deptId})">{{deptId}}</a>
+        <a ng-href="" ng-click="open({deptId:deptId})">{{departments[deptId].name}}</a>
       </li>
     </ul>
   </div>
