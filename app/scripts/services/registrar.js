@@ -12,7 +12,7 @@
  * This service stores all student data and links students with classes and courses
  */
 angular.module('SchoolMan')
-  .service('Registrar', function Registrar(CourseCatalog, Data, $log, modelTransformer, Student, Uid) {
+  .service('Registrar', function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model, Uid) {
     
     // var _students = [];
     var students = {};
@@ -58,7 +58,7 @@ angular.module('SchoolMan')
      */
     self.addStudent = function(student, Uid){
 
-            student = modelTransformer.transform(student, Student);
+            student = modelTransformer.transform(student, model.Student);
 
             student.onChange(function(msg){
                 console.log("Student changed : ", msg, student);
@@ -103,7 +103,20 @@ angular.module('SchoolMan')
      * This method looks up a student object by the studentId and returns the student
      */
     self.getStudent = function(studentId){
-        return students[studentId];
+        var deferred = $q.defer();
+        Data2.get(studentId).then(function(data){
+            var datatype = data.type;
+            Data2.get(datatype).then(function(datatype){
+                var studentData = model.parse(data, datatype);
+                var student = modelTransformer.transform(studentData, model.Student);
+                deferred.resolve(student);
+            }).catch(function(error){
+                console.log("Could not find datatype", error);
+            });
+        }).catch(function(error){
+            deferred.reject(error);
+        });
+        return deferred.promise;
     };
 
 

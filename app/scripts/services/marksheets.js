@@ -60,7 +60,7 @@ angular.module('SchoolMan')
 	      	var obj = model.parse(doc, dataModel.datatype);
 	      	var isok= true;
 	      	angular.forEach(params, function(param, paramKey){
-	      		isok = obj[paramKey] === param ? true : false;
+	      		isok = obj[paramKey] === param ? isok : false;
 	      	});
 	      	if(isok){
 	      		emit(doc._id, {_id:doc.type, data:doc});

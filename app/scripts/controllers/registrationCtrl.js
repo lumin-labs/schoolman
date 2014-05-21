@@ -2,6 +2,7 @@
 
 angular.module('SchoolMan')
   .controller('RegistrationCtrl', function ($scope, Uid, Forms, Departments, Groups, Fees, Location, model) {
+
     var data = $scope.data = {
     	forms:Forms.all(),
     	departments:Departments.getAll(),
