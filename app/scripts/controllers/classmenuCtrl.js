@@ -9,13 +9,13 @@ angular.module('SchoolMan')
     $scope.form  = $scope.forms[$routeParams.formIndex];
 
     $scope.departments = Departments.getAll();
-    $scope.department = $scope.departments[$routeParams.deptKey];
+    $scope.department = $scope.departments[$routeParams.deptId];
 
     $scope.groups = Groups.getAll();
-    $scope.group  = $scope.groups[$routeParams.groupKey];
+    $scope.group  = $scope.groups[$routeParams.groupId];
 
     $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
-    $scope.subject  = $scope.subjects[$routeParams.subjectKey];
+    $scope.subject  = $scope.subjects[$routeParams.subjectId];
 
     $scope.terms = CourseCatalog.getTerms();
     $scope.term  = $scope.terms[$routeParams.termIndex];

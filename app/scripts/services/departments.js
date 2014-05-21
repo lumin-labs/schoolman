@@ -52,6 +52,7 @@ angular.module('SchoolMan')
         var department = modelTransformer.transform(obj, model.Department);
         departments[department._id] = department;
         });
+        console.log("Departments:Query success", departments);
       }).catch(function(error){
         console.log("Departments: Query failed", error);
     });

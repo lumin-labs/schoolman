@@ -13,6 +13,7 @@ angular.module('SchoolMan')
  			department.save().then(function(success){
                 console.log("Department saved", success);
                 $scope.departments[success.id] = department;
+                $scope.newDepartment = new model.Department();
             }).catch(function(error){
                 console.log("Department save error ", error);
             });

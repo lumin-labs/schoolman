@@ -62,7 +62,7 @@ schoolman.config(['modelProvider', function(model){
       self[propKey] = prop;
     });
     if(self._id && !(self.formIndex && self.deptId && self.groupId && self.subjectId)){
-      var props = self._id.split("/");
+      var props = self._id.split("_");
       self.formIndex = props[0];
       self.deptId = props[1];
       self.groupId = props[2];
@@ -82,9 +82,9 @@ schoolman.config(['modelProvider', function(model){
 
   Marksheet.prototype = new model.Model();
   Marksheet.generateID = function(p){
-      var id = p.formIndex + "/" + 
-               p.deptKey   + "/" +
-               p.groupKey  + "/" +
+      var id = p.formIndex + "_" + 
+               p.deptKey   + "_" +
+               p.groupKey  + "_" +
                p.subjectKey    
       return id;
   };

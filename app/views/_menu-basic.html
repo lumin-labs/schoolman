@@ -18,8 +18,8 @@
       {{department.name}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li ng-repeat="(deptKey, dept) in departments">
-        <a ng-href="" ng-click="open({deptKey:deptKey})">{{dept.name}}</a>
+      <li ng-repeat="(deptId, dept) in departments">
+        <a ng-href="" ng-click="open({deptId:deptId})">{{deptId}}</a>
       </li>
     </ul>
   </div>
@@ -30,8 +30,8 @@
       {{group ? group.name : "Select Group"}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li ng-repeat="(groupKey, group) in groups">
-        <a ng-click="open({groupKey:groupKey})">{{group.name}}</a>
+      <li ng-repeat="(groupId, group) in groups">
+        <a ng-click="open({groupId:groupId})">{{group.name}}</a>
       </li>
     </ul>
   </div>
@@ -43,8 +43,8 @@
       {{subject.en}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li ng-repeat="(subjectKey, subject) in subjects">
-        <a ng-click="open({subjectKey:subjectKey})">{{subject.en}}</a>
+      <li ng-repeat="(subjectId, subject) in subjects">
+        <a ng-click="open({subjectId:subjectId})">{{subject.en}}</a>
       </li>
     </ul>
   </div><!-- /btn-group -->
