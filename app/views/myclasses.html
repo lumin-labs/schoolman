@@ -30,7 +30,11 @@
 							<button class="btn btn-info" 
 									ng-click="open({
 										page:'marksheet',
-										courseId:marksheet._id
+										courseId:marksheet._id,
+										formIndex:marksheet.formIndex,
+										deptId:marksheet.deptId,
+										groupId:marksheet.groupId,
+										subjectId:marksheet.subjectId
 									})">
 								<i class="glyphicon glyphicon-pencil"></i>
 							</button>
@@ -38,16 +42,20 @@
 						<td style="width:250px;">
 							<a ng-click="open({
 										page:'marksheet',
-										courseId:marksheet._id
-									})">{{marksheet.subjectId}}</a>
+										courseId:marksheet._id,
+										formIndex:marksheet.formIndex,
+										deptId:marksheet.deptId,
+										groupId:marksheet.groupId,
+										subjectId:marksheet.subjectId
+									})">{{data.subjects[marksheet.subjectId].en}}</a>
 						</td>
-						<td>{{marksheet.formIndex}}</td>
-						<td>{{marksheet.deptId}}</td>
-						<td>{{marksheet.groupId}}</td>
+						<td>{{data.forms[marksheet.formIndex].name}}</td>
+						<td>{{data.departments[marksheet.deptId].name}}</td>
+						<td>{{data.groups[marksheet.groupId].name}}</td>
 						<td>
 							<!-- {{getStudentsByCourse(course.id).length}} students -->
 						</td>
-						<td>{{marksheet.teacherId}}</td>
+						<td>{{user.get(marksheet.teacherId).fullname}}</td>
 						<td class="remove">
 							<a ng-click="removeBookmark({teacherId:username,courseId:course.id})">
 								<i class="glyphicon glyphicon-remove"></i>
@@ -58,7 +66,6 @@
 			</table>
 		</div>
 	</div>
-	{{data.marksheets}}
 	<div class="jumbotron" ng-if="data.marksheets.length < 1" 
 	     style="margin-top:20px;" >
     	<h2 class="text-left">Welcome to the <b>My Classes</b> page!</h2>

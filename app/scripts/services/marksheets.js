@@ -7,6 +7,93 @@ angular.module('SchoolMan')
 
     self.getID = model.Marksheet.getId; 
 
+    self.rank = function(marksheet){
+      
+      var list = Object.keys(marksheet.table).map(function(studentId){
+        var row = angular.copy(marksheet.table[studentId]);
+        angular.forEach(row, function(mark, i){
+          row[i] = parseFloat(mark);
+        });
+        row[6] = studentId;
+        return row;
+      });
+
+
+      var ave = function(sequences){
+        var newList = list.map(function(row){
+          var newRow = [row[6],0];
+          var total = 0;
+          var count = 0;
+          angular.forEach(sequences, function(i, sIndex){
+            var n = parseFloat(row[i]);
+            if(typeof n === "number"){
+              total += n;
+              count += 1;
+            }
+          });
+          newRow[1] = total / count;
+          return newRow;
+        }); 
+
+
+
+        return newList;
+      }
+
+      var sort = function(aveList){
+        var sortList = angular.copy(aveList); 
+
+        sortList.sort(function(a,b){
+          return parseFloat(b[1]) - parseFloat(a[1]);
+        });
+
+        return sortList;
+      };
+
+      var number = function(sortedRows){
+        var rows = [];
+        angular.forEach(sortedRows, function(row, i){
+          rows[i]    = [row[0]];
+          if(i === 0){
+            rows[i][1] = 1;
+          } else {
+            rows[i][1] = row[1] === rows[i - 1][1] ? rows[i - 1][1] : i + 1;  
+          }
+        });
+        return rows;
+      };
+
+      var dict = function(listWithKeysAtHead){
+        var d = {};
+        angular.forEach(listWithKeysAtHead, function(row, i){
+          d[row[0]] = row[1];
+        });
+        return d;
+      }
+
+      var merge = function(dicts){
+        var d = {}
+        angular.forEach(dicts, function(dict, i){
+          angular.forEach(dict, function(value, key){
+            if(!d.hasOwnProperty(key)){
+              d[key] = [];
+            }
+            d[key][i] = value;
+          });
+        });
+        return d;
+      };
+
+      var t1 = dict(number(sort(ave([0,1]))));
+      var t2 = dict(number(sort(ave([2,3]))));
+      var t3 = dict(number(sort(ave([4,5]))));
+      var t4 = dict(number(sort(ave([0,1,2,3,4,5])))); 
+
+      var rankings = merge([t1,t2,t3,t4]);
+      return rankings;
+
+    }
+
     self.create = function(params){
     	var deferred = $q.defer();
 
@@ -51,30 +138,36 @@ angular.module('SchoolMan')
     self.get = function(marksheetId){
 
       var deferred = $q.defer();
+      var bundle = {};
 
-      Data2.get(marksheetId).then(function(marksheet){
+      Data2.get(marksheetId).then(function(data){
+        var marksheetData = model.parse(data, model.Marksheet.datatype);
+        var marksheet = bundle.marksheet = modelTransformer.transform(marksheetData, model.Marksheet); 
         var copy = angular.copy(marksheet);
+        
         var searchParams = {
           formIndex:marksheet.formIndex,
           deptId:marksheet.deptId,
           groupId:marksheet.groupId
         }
-        var students = Students.query(searchParams).then(function(students){
+        Students.query(searchParams).then(function(students){
           angular.forEach(students, function(student, studentIndex){
             if(!marksheet.table.hasOwnProperty(student._id)){
-              marksheet.table[student._id] = [];
+              marksheet.table[student._id] = ["","","","","",""];
             }
           });
+          bundle.students = students;
+          if(!angular.equals(marksheet, copy)){
+            Data2.put(marksheet).then(function(success){
+              deferred.resolve(bundle);
+            }).catch(function(error){
+              console.log("There was a problem adding new students to the marksheet", error);     
+            });
+          } else {
+              deferred.resolve(bundle);
+          }
         });
-        if(!angular.equals(marksheet, copy)){
-          Data2.put(marksheet).then(function(success){
-            deferred.resolve(marksheet);
-          }).catch(function(error){
-            console.log("There was a problem adding new students to the marksheet", error);     
-          });
-        } else {
-            deferred.resolve(marksheet);
-        }
+        
       });
 
       return deferred.promise;

@@ -72,10 +72,6 @@ angular.module('SchoolMan')
         updateGroupStats(groupIndex, mastersheet.numstats(passingScore));
     };
 
-    //buildMastersheet($routeParams.groupIndex);
-    //var mastersheet = $scope.mastersheets[$routeParams.groupIndex];
-    
-    //$scope.studentStatus = mastersheet.getStudentStatus(passingScore);
-    
+
 
   });

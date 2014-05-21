@@ -47,7 +47,7 @@
 									  <!-- Department Dropdown -->
 									  <div  class="btn-group">
 									    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-									      {{data.departments[deptId].name}} <span class="caret"></span>
+									      {{data.departments[deptId].name || "Select Department"}} <span class="caret"></span>
 									    </button>
 									    <ul class="dropdown-menu">
 									    	<!-- <li>
@@ -64,7 +64,7 @@
 					          <!-- Group Dropdown -->
 									  <div  class="btn-group">
 									    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-									      {{data.groups[groupId].name}} <span class="caret"></span>
+									      {{data.groups[groupId].name || "Select Group"}} <span class="caret"></span>
 									    </button>
 									    <ul class="dropdown-menu">
 									    	<!-- <li>

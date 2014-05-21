@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, model, Marksheets, Location, Registrar, CourseCatalog, TimeTable) {
+  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, model,Forms, Groups, Departments,  Marksheets, Location, Registrar, CourseCatalog, TimeTable) {
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
     $scope.open = Location.open;
@@ -11,9 +11,15 @@ angular.module('SchoolMan')
                           $routeParams.subjectId].indexOf("undefined") === -1;
     
     $scope.data = {
+      forms:Forms.all(),
+      departments:Departments.getAll(),
+      groups:Groups.getAll(),
+      subjects : CourseCatalog.getAllSubjects(),
       marksheets:[],
       assignedTeacher:null
     };
+
+    $scope.user = $user;
 
     // Load all classes assigned to the logged in user
     Marksheets.query({teacherId:$routeParams.username}).then(function(marksheets){
@@ -27,22 +33,24 @@ angular.module('SchoolMan')
     var marksheetId = model.Marksheet.generateID($routeParams);
     Marksheets.query({_id:marksheetId}).then(function(marksheets){
       var marksheet = marksheets[0];
-      $scope.data.assignedTeacher = $user.get(marksheet.teacherId);
+      if(marksheet){
+        $scope.data.assignedTeacher = $user.get(marksheet.teacherId); 
+      } else {
+        $scope.data.assignedTeacher = null;
+      }
     });
 
     console.log("MyClasses routeParams", $routeParams);
-    $scope.courseId = model.Marksheet.generateID($routeParams);
     $scope.username = $routeParams.username;
 
     $scope.getStudentsByCourse = Registrar.getStudentsByCourse;
 
     // Lookup if preexisting teacher
-    var getTeacher = function(courseId){
-        var bookmark = TimeTable.getTeacher(courseId);
+    var getTeacher = function(marksheetId){
+        var bookmark = TimeTable.getTeacher(marksheetId);
         return (bookmark && $user.get(bookmark.username)) ? $user.get(bookmark.username) : null;
       };
-    var courseId = CourseCatalog.getCourseId($routeParams);
-    $scope.teacher = getTeacher(courseId);
+    $scope.teacher = getTeacher(marksheetId);
 
 
     // private method
@@ -57,7 +65,7 @@ angular.module('SchoolMan')
 
     // Expects
     // { teacherId:username,
-    //   courseId:courseId }
+    //   marksheetId:marksheetId }
     $scope.removeBookmark = function(args){
       TimeTable.removeBookmark(args);
       refreshCourseList();
@@ -85,7 +93,7 @@ angular.module('SchoolMan')
      * and the @name with the module id, then this page won't exist!!
      */
     $scope.addBookmark = function(){
-      Marksheets.createOrUpdate($scope.courseId, $routeParams.username)
+      Marksheets.createOrUpdate(marksheetId, $routeParams.username)
       .then(function(marksheet){
         $scope.data.marksheets.push(marksheet);
         $scope.data.assignedTeacher = $user.get($routeParams.username);
