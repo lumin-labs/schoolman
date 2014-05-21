@@ -51,30 +51,36 @@ angular.module('SchoolMan')
     self.get = function(marksheetId){
 
       var deferred = $q.defer();
+      var bundle = {};
 
-      Data2.get(marksheetId).then(function(marksheet){
+      Data2.get(marksheetId).then(function(data){
+        var marksheetData = model.parse(data, model.Marksheet.datatype);
+        var marksheet = bundle.marksheet = modelTransformer.transform(marksheetData, model.Marksheet); 
         var copy = angular.copy(marksheet);
+        
         var searchParams = {
           formIndex:marksheet.formIndex,
           deptId:marksheet.deptId,
           groupId:marksheet.groupId
         }
-        var students = Students.query(searchParams).then(function(students){
+        Students.query(searchParams).then(function(students){
           angular.forEach(students, function(student, studentIndex){
             if(!marksheet.table.hasOwnProperty(student._id)){
-              marksheet.table[student._id] = [];
+              marksheet.table[student._id] = ["","","","","",""];
             }
           });
+          bundle.students = students;
+          if(!angular.equals(marksheet, copy)){
+            Data2.put(marksheet).then(function(success){
+              deferred.resolve(bundle);
+            }).catch(function(error){
+              console.log("There was a problem adding new students to the marksheet", error);     
+            });
+          } else {
+              deferred.resolve(bundle);
+          }
         });
-        if(!angular.equals(marksheet, copy)){
-          Data2.put(marksheet).then(function(success){
-            deferred.resolve(marksheet);
-          }).catch(function(error){
-            console.log("There was a problem adding new students to the marksheet", error);     
-          });
-        } else {
-            deferred.resolve(marksheet);
-        }
+        
       });
 
       return deferred.promise;
