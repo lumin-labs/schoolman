@@ -3,22 +3,24 @@
 angular.module('SchoolMan')
   .controller('ClassmenuCtrl', function ($scope, $routeParams, Departments, Groups, CourseCatalog, Location) {
     
-    $scope.page = $routeParams.page;
+    var r = $scope.route = {};
+
+    r.page = $scope.page = $routeParams.page;
     
-    $scope.forms = CourseCatalog.getForms();
-    $scope.form  = $scope.forms[$routeParams.formIndex];
+    r.forms = $scope.forms = CourseCatalog.getForms();
+    r.form = $scope.form  = $scope.forms[$routeParams.formIndex];
 
-    $scope.departments = Departments.getAll();
-    $scope.department = $scope.departments[$routeParams.deptId];
+    r.departments = $scope.departments = Departments.getAll();
+    r.department = $scope.department = $scope.departments[$routeParams.deptId];
 
-    $scope.groups = Groups.getAll();
-    $scope.group  = $scope.groups[$routeParams.groupId];
+    r.groups = $scope.groups = Groups.getAll();
+    r.group = $scope.group  = $scope.groups[$routeParams.groupId];
 
-    $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
-    $scope.subject  = $scope.subjects[$routeParams.subjectId];
+    r.subjects = $scope.subjects = CourseCatalog.getSubjects($routeParams.formIndex);
+    r.subject = $scope.subject  = $scope.subjects[$routeParams.subjectId];
 
-    $scope.terms = CourseCatalog.getTerms();
-    $scope.term  = $scope.terms[$routeParams.termIndex];
+    r.terms = $scope.terms = CourseCatalog.getTerms();
+    r.term = $scope.term  = $scope.terms[$routeParams.termIndex];
 
     $scope.open = Location.open;
 
