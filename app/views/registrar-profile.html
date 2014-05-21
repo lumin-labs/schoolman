@@ -26,7 +26,7 @@
 			    <div class="col-sm-4">
 			      <button type="submit" 
 			      			  class="btn btn-success" 
-			      			  ng-click="addPayment()"
+			      			  ng-click="addPayment(newPayment)"
 			      			  ng-class="newPayment.isValid() ? '' : 'disabled'">
 			        Add Payment
 			      </button>
@@ -39,8 +39,8 @@
   				<th>Payments</th>
   				<th></th>
   			</tr>
-  			<tr ng-repeat="(paymentIndex, payment) in student.payments">
-  				<td>{{payment.date | date:'MMM d, y h:mm a'}}</td>
+  			<tr ng-repeat="(paymentIndex, payment) in data.payments">
+  				<td>{{payment.date | date:'MMM d, yy h:mm a'}}</td>
   				<td>{{payment.amount | currency:""}}</td>
   			</tr>
   			<tr class="row-spacer">
@@ -49,15 +49,15 @@
   			</tr>
   			<tr>
   				<td>Fee Amount:</td>
-  				<td>{{fees[student.feeGroup].amount | currency:""}}</td>
-  			</tr>
+  				<td>{{data.fees[data.student.feeId].amount | currency:""}}</td>
+        </tr>
   			<tr>
   				<td>Total Paid:</td>
-  				<td style="font-weight:bold;">{{student.totalPaid() | currency:""}}</td>
+  				<td style="font-weight:bold;">{{getTotalPayments() | currency:""}}</td>
   			</tr>
   			<tr class="danger">
   				<td>Due:</td>
-  				<td style="color:red;">{{fees[student.feeGroup].amount - student.totalPaid() | currency:""}}</td>
+  				<td style="color:red;">{{data.fees[data.student.feeId].amount-getTotalPayments()  | currency:""}}</td>
   			</tr>
   		</table>
   	</div>

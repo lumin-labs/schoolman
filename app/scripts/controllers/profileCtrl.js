@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Registrar, Fees, Forms, Groups, Departments, PROMOTE_OPTIONS, $user) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Registrar, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS, $user) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -9,6 +9,7 @@ angular.module('SchoolMan')
 
   	$scope.newPayment = new model.Payment();
   	$scope.newPayment.registrar = $routeParams.username;
+    $scope.newPayment.studentId = $routeParams.studentId;
 
     var studentId = $routeParams.studentId === "0" ? "U0000001" : $routeParams.studentId;
     console.log("routeParams", $routeParams);
@@ -19,7 +20,8 @@ angular.module('SchoolMan')
       forms:Forms.all(),
       departments:Departments.getAll(),
       groups:Groups.getAll(),
-      fees:Fees.getAll()
+      fees:Fees.getAll(),
+      payments:[]
     };
 
     Registrar.getStudent(studentId).then(function(student){
@@ -33,19 +35,29 @@ angular.module('SchoolMan')
     profile.getComments(studentId).then(function(comments){
       $scope.data.comments = $scope.data.comments.concat(comments);
     }); 
+    
+    Payments.query({studentId:studentId}).then(function(payments){
+      console.log("payments query: ", payments);
+      $scope.data.payments = payments;
+    }).catch(function(error){
+      console.log("payment error: ", error);
+    });
 
     $scope.$user = $user;
 
-    $scope.addPayment = function(){
+    $scope.addPayment = function(payment){
     	// Reformat the input from string to number
-    	$scope.newPayment.amount = Number($scope.newPayment.amount.replace(/[^0-9\.]+/g,""));
+    	//if(typeof $scope.data.payments.amount = "string"){
+      //  $scope.data.payments.amount = $scope.stringToNumber($scope.data.payments.amount);
+      //}
+      payment.save().then(function(success){
+        console.log("payment saved", success);
+        $scope.data.payments.push(payment);
+        $scope.newPayment = new model.Payment();
 
-    	$scope.student.addPayment($scope.newPayment);
-    	Registrar.save();
-
-    	$scope.newPayment = new model.Payment();
-      $scope.newPayment.registrar = $routeParams.username;
-
+      }).catch(function(error){
+        console.log("Payment save error ", error);
+      });
     };
 
     // $scope.addComment = function(){
@@ -62,6 +74,23 @@ angular.module('SchoolMan')
         $scope.data.comments.push($scope.newComment);
         $scope.newComment = new model.Comment($routeParams.username, $scope.student.id);
       });     
+    };
+
+    $scope.stringToNumber = function(amount){
+      amount = Number(amount.replace(/[^0-9\.]+/g,""));
+      return amount;
+    };
+
+    $scope.getTotalPayments = function(){
+      var total = 0;
+      total = $scope.data.payments.reduce(function(total, payment){
+        if(typeof payment.amount === "string"){
+         payment.amount = $scope.stringToNumber(payment.amount);
+        }
+        console.log("inside reduce function:", total);
+        return payment.amount + total;
+      }, 0);
+      return total;
     };
 
     $scope.save = Registrar.save;
