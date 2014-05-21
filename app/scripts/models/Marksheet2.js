@@ -62,7 +62,7 @@ schoolman.config(['modelProvider', function(model){
       self[propKey] = prop;
     });
     if(self._id && !(self.formIndex && self.deptId && self.groupId && self.subjectId)){
-      var props = self._id.split("_");
+      var props = self._id.split(":");
       self.formIndex = props[0];
       self.deptId = props[1];
       self.groupId = props[2];

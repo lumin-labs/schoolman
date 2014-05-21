@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, model, Marksheets, Location, Registrar, CourseCatalog, TimeTable) {
+  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, model,Forms, Groups, Departments,  Marksheets, Location, Registrar, CourseCatalog, TimeTable) {
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
     $scope.open = Location.open;
@@ -11,9 +11,15 @@ angular.module('SchoolMan')
                           $routeParams.subjectId].indexOf("undefined") === -1;
     
     $scope.data = {
+      forms:Forms.all(),
+      departments:Departments.getAll(),
+      groups:Groups.getAll(),
+      subjects : CourseCatalog.getAllSubjects(),
       marksheets:[],
       assignedTeacher:null
     };
+
+    $scope.user = $user;
 
     // Load all classes assigned to the logged in user
     Marksheets.query({teacherId:$routeParams.username}).then(function(marksheets){
@@ -27,7 +33,11 @@ angular.module('SchoolMan')
     var marksheetId = model.Marksheet.generateID($routeParams);
     Marksheets.query({_id:marksheetId}).then(function(marksheets){
       var marksheet = marksheets[0];
-      $scope.data.assignedTeacher = $user.get(marksheet.teacherId);
+      if(marksheet){
+        $scope.data.assignedTeacher = $user.get(marksheet.teacherId); 
+      } else {
+        $scope.data.assignedTeacher = null;
+      }
     });
 
     console.log("MyClasses routeParams", $routeParams);
