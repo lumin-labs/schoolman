@@ -104,15 +104,53 @@
 	<div class = "row">
 		<div class="col-md-12">
 			<h3>General Remarks</h3>
+			
+
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-1"><p><b>Academics:</b></p></div>
+				<div class="col-md-10">
+					<div class="btn-group">
+			  			<button class="btn btn-sm btn-default dropdown-toggle" 
+			  			  data-toggle="dropdown">{{getRemark(groupStats.classAverage).text}}
+			  			</button>
+			  			<ul class="dropdown-menu">
+			    			<li ng-repeat="(remarkIndex, remark) in remarks">
+                            	<a ng-click="">{{remark}}</a>
+                          	</li>
+			  			</ul>
+					</div>
+				</div>
+
+				<!--<div class="col-md-1">
+					<table class="table table-bordered"><tr><td>{{getRemark(groupStats.classAverage).text}}</td></tr></table>
+				</div>
+				<div class="col-md-9"></div>-->
+			</div>
+			
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-1"><p><b>Conduct:</b></p></div>
+				<div class="col-md-10">
+					<div class="btn-group">
+			  			<button class="btn btn-sm btn-default dropdown-toggle" 
+			  			  data-toggle="dropdown"><span class="caret"></span>
+			  			</button>
+			  			<ul class="dropdown-menu">
+			    			<li ng-repeat="(remarkIndex, remark) in remarks">
+                            	<a ng-click="">{{remark}}</a>
+                          	</li>
+			  			</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<div class = "row">
 		<div class="col-md-12">
 			<h3>Possible Factors/Reasons</h3>
-			<table border="1" width="800" height="150">
-			<tr><td></td></tr>
-			</table>
+			<textarea rows="4" cols="120"></textarea>
 		</div>
 	</div>
 	<br><br>

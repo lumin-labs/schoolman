@@ -3,7 +3,7 @@
 angular.module('SchoolMan')
   .controller('LoginCtrl', 
     function ($scope, $location, $routeParams, $user, $log, DEV, CourseCatalog, Departments, User, Path, Cache, Location, TimeTable, MockData, Groups) {
-
+        console.log("Departments: ", Departments)
     $log.info("Path: ", $location.path()); 
 
     var DEFAULT_START_PAGE = {

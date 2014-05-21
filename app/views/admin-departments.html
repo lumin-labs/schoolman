@@ -39,7 +39,7 @@
 			<tbody>
 				<tr ng-repeat="(departmentCode, department) in departments">
 					<td class="column readonly" style="width:80px;">
-						<div class="cell">{{departmentCode}}</div>
+						<div class="cell">{{department.code}}</div>
 					</td>
 					<td class="column readonly">
 						<div class="cell">{{department.name}}</div>
@@ -60,7 +60,7 @@
 						{{nStudents}}
 					</td>
 					<td class="remove text-center" style="width:80px;">
-						<a ng-click="remove(department)" ng-if="nStudent === 0">
+						<a ng-click="remove(department)" ng-if="nStudents === 0">
 							<i class="glyphicon glyphicon-remove"></i>
 						</a>
 					</td>

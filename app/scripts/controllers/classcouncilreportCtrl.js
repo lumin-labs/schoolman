@@ -18,6 +18,8 @@ angular.module('SchoolMan')
 
     $scope.currentDate = new Date();
 
+    $scope.open = Location.open;
+
     $scope.groupStats = {};
     var subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
@@ -45,6 +47,24 @@ angular.module('SchoolMan')
     }
     console.log("routeParams",$routeParams);
     buildMastersheet($routeParams.groupIndex);
+
+
+
+    $scope.getRemark = function(average){
+        return ClassMaster.getRemark(average);
+      };
+
+    
+
+    $scope.remarks = [
+    	"Excellent",
+    	"Very Good",
+    	"Good",
+    	"Fair",
+    	"Average",
+    	"Poor",
+    	"Very Poor"
+    ];
 
 
   });

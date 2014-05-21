@@ -1,22 +1,21 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('DepartmentsCtrl', function ($scope, $log, Registrar, Department, Departments, CourseCatalog) {
+  .controller('DepartmentsCtrl', function ($scope, $log, Registrar, model, Departments, CourseCatalog) {
 
     $scope.forms = CourseCatalog.getForms();
 
     $scope.departments = Departments.getAll();
 
-    $scope.newDepartment = new Department();
+    $scope.newDepartment = new model.Department();
 
  		$scope.add = function(department){
- 			try{
- 				Departments.add($scope.newDepartment);
- 				Departments.save();
- 				$scope.newDepartment = new Department();
- 			} catch(e){
- 				console.log(e);
- 			}
+ 			department.save().then(function(success){
+                console.log("Department saved", success);
+                $scope.departments[success.id] = department;
+            }).catch(function(error){
+                console.log("Department save error ", error);
+            });
  		};
 
  		$scope.remove = function(department){
@@ -26,8 +25,8 @@ angular.module('SchoolMan')
 
  		var allStudents = Registrar.getAllStudents();
     $scope.getStudentsByDept = function(deptKey){
-        return allStudents.filter(function(student){
-            return student.department === deptKey;
+            return allStudents.filter(function(student){
+          return student.department === deptKey;
         });
     };
 
