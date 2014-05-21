@@ -41,18 +41,16 @@ angular.module('SchoolMan')
     });
 
     console.log("MyClasses routeParams", $routeParams);
-    $scope.courseId = model.Marksheet.generateID($routeParams);
     $scope.username = $routeParams.username;
 
     $scope.getStudentsByCourse = Registrar.getStudentsByCourse;
 
     // Lookup if preexisting teacher
-    var getTeacher = function(courseId){
-        var bookmark = TimeTable.getTeacher(courseId);
+    var getTeacher = function(marksheetId){
+        var bookmark = TimeTable.getTeacher(marksheetId);
         return (bookmark && $user.get(bookmark.username)) ? $user.get(bookmark.username) : null;
       };
-    var courseId = CourseCatalog.getCourseId($routeParams);
-    $scope.teacher = getTeacher(courseId);
+    $scope.teacher = getTeacher(marksheetId);
 
 
     // private method
@@ -67,7 +65,7 @@ angular.module('SchoolMan')
 
     // Expects
     // { teacherId:username,
-    //   courseId:courseId }
+    //   marksheetId:marksheetId }
     $scope.removeBookmark = function(args){
       TimeTable.removeBookmark(args);
       refreshCourseList();
@@ -95,7 +93,7 @@ angular.module('SchoolMan')
      * and the @name with the module id, then this page won't exist!!
      */
     $scope.addBookmark = function(){
-      Marksheets.createOrUpdate($scope.courseId, $routeParams.username)
+      Marksheets.createOrUpdate(marksheetId, $routeParams.username)
       .then(function(marksheet){
         $scope.data.marksheets.push(marksheet);
         $scope.data.assignedTeacher = $user.get($routeParams.username);

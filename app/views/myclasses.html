@@ -30,7 +30,11 @@
 							<button class="btn btn-info" 
 									ng-click="open({
 										page:'marksheet',
-										courseId:marksheet._id
+										courseId:marksheet._id,
+										formIndex:marksheet.formIndex,
+										deptId:marksheet.deptId,
+										groupId:marksheet.groupId,
+										subjectId:marksheet.subjectId
 									})">
 								<i class="glyphicon glyphicon-pencil"></i>
 							</button>
@@ -38,7 +42,11 @@
 						<td style="width:250px;">
 							<a ng-click="open({
 										page:'marksheet',
-										courseId:marksheet._id
+										courseId:marksheet._id,
+										formIndex:marksheet.formIndex,
+										deptId:marksheet.deptId,
+										groupId:marksheet.groupId,
+										subjectId:marksheet.subjectId
 									})">{{data.subjects[marksheet.subjectId].en}}</a>
 						</td>
 						<td>{{data.forms[marksheet.formIndex].name}}</td>
