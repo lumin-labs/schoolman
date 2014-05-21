@@ -73,7 +73,9 @@ schoolman.provider('model', function modelProvider() {
 
     if(self.isValid(self)){
       if(typeof self.generateID === 'function' && !self._id){
-        self._id = self.generateID();
+        var id = self.generateID();
+        console.log("Type of id", (typeof id));
+        self._id = id;
       }
       var doc = self.asDoc();
       self.db.put(doc).then(function(response){
@@ -116,13 +118,8 @@ schoolman.provider('model', function modelProvider() {
     var m = new Model();
     angular.forEach(self.datatypes, function(versions, type){
       angular.forEach(versions, function(version, key){
-        m.db.get(version._id).then(function(success){
-          console.log("-- Found datatype " + version._id, success);
-        }).catch(function(error){
-          console.log("-- Did not find datatype " + version._id, error);
-          m.db.put(version).then(function(success){
-            console.log("Added new datatype version to db: ", version._id, success);
-          });
+        m.db.get(version._id).catch(function(error){
+          m.db.put(version)
         })
       });
     });

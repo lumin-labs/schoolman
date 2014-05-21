@@ -1,116 +1,116 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .value('Student', (function(){
+var schoolman = angular.module('SchoolMan');
 
+schoolman.config(['modelProvider', function(model){
+
+  model.datatypes.student = {
+    v1:{
+      type:"schema",
+      _id:"datatype/student/v1",
+      fields:[{
+        key:"name",
+        type:"string",
+        required:true
+      },{
+        key:"sex",
+        type:"string",
+        required:true
+      },{
+        key:"birth",
+        type:"string",
+        required:true
+      },{
+        key:"parentName",
+        type:"string",
+        required:true
+      },{
+        key:"parentPhone",
+        type:"string",
+        required:true
+      },{
+        key:"parentEmail",
+        type:"string",
+        required:true
+      },{
+        key:"formIndex",
+        type:"string",
+        required:true
+      },{
+        key:"deptId",
+        type:"string",
+        required:true
+      },{
+        key:"groupId",
+        type:"string",
+        required:true
+      },{
+        key:"feeId",
+        type:"string",
+        required:true
+      },{
+        key:"status",
+        type:"object",
+        required:true
+      }],
+      fields_key:0
+    }
+  };
+  var schema = model.datatypes.student.v1.fields;
+  
+  function Student(spec){
+
+    var spec = spec || {};
+
+    // Prevents global namespace clobbering if you istantiate this object
+    // without the 'new' keyword
+    if (!(this instanceof Student)) {
+      return new Student();
+    }
+
+    this.name = ""; 
+    this.sex = "";     // String
+    this.birth = null; // Datetime integer
+    this.parentName = "";
+    this.parentPhone = "";
+    this.parentEmail = "";
+    this.formIndex = spec.formIndex || null;  //Integer
+    this.deptId = spec.deptId || null; //Integer
+    this.groupId = spec.groupId || null; //Integer
+    this.feeId = spec.feeId || null;
+    this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
+      2014:0
+    }; 
+
+    // Initialize object with spec properties, excluding any that aren't defined above
+    var self = this;
+    angular.forEach(spec, function(property, key){
+      if(self.hasOwnProperty(key)){
+        self[key] = property;
+      }
+    });
+
+    // callback functions
     var listeners = [];
-    
-    function Student(spec){
-
-      // Prevents global namespace clobbering if you istantiate this object
-      // without the 'new' keyword
-      if (!(this instanceof Student)) {
-        return new Student();
-      }
-      
-      this.name = "";    // String
-      this.sex = "";     // String
-      this.birth = null; // Datetime integer
-      this.parentName = "";
-      this.parentPhone = "";
-      this.parentEmail = "";
-      this.id = null; //Replace this with something scalable
-      this.courses = [];
-      this.form = null;  //Integer
-      this.group = null; //Integer
-      this.department = null; //Integer
-      this.feeGroup = "";
-      this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
-        2014:0
-      }; 
-      this.discipline = {
-        absence:0,
-        council:0,
-        warned:0,
-        suspended:0,
-        expelled:0,
-        comments:[]
-      }
-
-      this.payments = [];    
-
-      // Initialize object with spec properties, excluding any that aren't defined above
-      var self = this;
-      angular.forEach(spec, function(property, key){
-        if(self.hasOwnProperty(key)){
-          self[key] = property;
-        }
-      });
-
-      // callback functions
-      var listeners = [];
-      this.notify =  function(msg){
-        console.log("Marksheet notifying listeners: ", listeners);
-        angular.forEach(listeners, function(callback, $index){
-          console.log("callback", callback);
-          callback(msg);  
-        });
-      };
-      this.onChange = function(callback){
-        // console.log("Register listener");
-        listeners.push(callback);
-        // console.log("Listeners", listeners);
-      };
-          
-    };
-
-    // This function lets you ask if the object has all the required fields
-    // TODO: the config for which fields are required should probably be done 
-    // elsewhere
-    Student.prototype.isValid = function(){
-      var self = this;
-      var isOk = true;
-      var requiredFields = ["name"];
-      var invalidValues = ["", undefined, null];
-      angular.forEach(requiredFields, function(field, fieldIndex){
-        // if the current value of the field is some kind of null value
-        if(invalidValues.indexOf(self[field]) > -1){
-          isOk = false;
-        }
-      });
-      return isOk;
-    };
-
-    Student.prototype.addPayment = function(payment){
-      if(payment.isValid()){
-        payment.date = new Date();
-        this.payments.push(payment);
-      }
-    };
-
-    Student.prototype.totalPaid = function(){
-      return this.payments.reduce(function(total, payment){
-        return total + payment.amount;
-      },0)
-    };
-
-    Student.prototype.callback = function(msg){
+    this.notify =  function(msg){
+      console.log("Marksheet notifying listeners: ", listeners);
       angular.forEach(listeners, function(callback, $index){
+        console.log("callback", callback);
         callback(msg);  
       });
     };
-
-    Student.prototype.onChange = function(callback){
+    this.onChange = function(callback){
+      // console.log("Register listener");
       listeners.push(callback);
+      // console.log("Listeners", listeners);
     };
+        
+  };
 
-    Student.prototype.setStatus = function(year, statusIndex){
-      console.log("Setting status to " + statusIndex);
-      this.status[year] = statusIndex;
-      console.log("Status set to ", this.status);
-      this.notify("Changed status to " + statusIndex);
-    };
 
-    return Student;
+  Student.prototype = new model.Model();
+  Student.prototype.datatype = Student.datatype = model.datatypes.student.v1;
 
-  })());
+  model.Student = Student;
+
+}]);

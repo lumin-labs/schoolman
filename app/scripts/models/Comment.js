@@ -1,3 +1,5 @@
+'use strict';
+
 var schoolman = angular.module('SchoolMan');
 
 schoolman.config(['modelProvider', function(model){

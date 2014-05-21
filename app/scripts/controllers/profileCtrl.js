@@ -1,28 +1,36 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Registrar, Fees, Departments, PROMOTE_OPTIONS, $user) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Registrar, Fees, Forms, Groups, Departments, PROMOTE_OPTIONS, $user) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
     $scope.accessCode = $routeParams.accessCode;
 
-  	$scope.fees = Fees.getAll();
-  	$scope.departments = Departments.getAll();
-
   	$scope.newPayment = new model.Payment();
   	$scope.newPayment.registrar = $routeParams.username;
 
-    $scope.student = $routeParams.studentId === "0" ?
-      Registrar.getStudent("U0000001") :
-      Registrar.getStudent($routeParams.studentId);
+    var studentId = $routeParams.studentId === "0" ? "U0000001" : $routeParams.studentId;
+    console.log("routeParams", $routeParams);
 
-    $scope.newComment = new model.Comment($routeParams.username,  $scope.student.id);
-    
-    $scope.data = {};
-    $scope.data.comments = [];
+    $scope.data = {
+      comments:[],
+      student:undefined,
+      forms:Forms.all(),
+      departments:Departments.getAll(),
+      groups:Groups.getAll(),
+      fees:Fees.getAll()
+    };
 
-    profile.getComments($scope.student.id).then(function(comments){
+    Registrar.getStudent(studentId).then(function(student){
+      console.log("Found student:", student);
+      $scope.data.student = student;
+      $scope.newComment = new model.Comment($routeParams.username,  $scope.data.student._id);
+    }).catch(function(error){
+      console.log("profileCtrl Error: ",error);
+    })
+
+    profile.getComments(studentId).then(function(comments){
       $scope.data.comments = $scope.data.comments.concat(comments);
     }); 
 

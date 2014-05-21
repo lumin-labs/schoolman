@@ -10,7 +10,7 @@
  * This service handles marksheets and all calculations
  */
 angular.module('SchoolMan')
-  .service('ClassMaster', function ClassMaster(modelTransformer, Registrar, Data, Mark, Cell, Row, Marksheet) {
+  .service('ClassMaster', function ClassMaster(modelTransformer, Registrar, Data, model) {
 
     var debug_once = 0;
 
