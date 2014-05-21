@@ -19,7 +19,7 @@ angular.module('SchoolMan')
     };
 
     var queryParams = {
-        formIndex:parseInt($scope.formIndex),
+        formIndex:$scope.formIndex,
         groupId:$scope.groupId,
         deptId:$scope.deptId
     }

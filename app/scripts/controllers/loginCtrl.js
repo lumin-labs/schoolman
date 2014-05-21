@@ -48,7 +48,7 @@ angular.module('SchoolMan')
                 Location.open({
                     page:page || DEFAULT_START_PAGE[accessRequest].page,
                     subpage:"null",
-                    formIndex:0,
+                    formIndex:"0",
                     deptId:Object.keys(Departments.getAll())[0],
                     groupId:Object.keys(Groups.getAll())[0],
                     subjectId:Object.keys(CourseCatalog.getAllSubjects())[0],

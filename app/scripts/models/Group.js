@@ -29,7 +29,7 @@ schoolman.config(['modelProvider', function(model){
 
   Group.prototype = new model.Model();
   Group.prototype.generateID = function(){
-    var id = model.slugify(this.name);
+    var id = "group_" + this.name.toLowerCase();
     return id;
   }
   Group.prototype.datatype = Group.datatype = model.datatypes.group.v1;
