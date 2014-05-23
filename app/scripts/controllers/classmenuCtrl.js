@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ClassmenuCtrl', function ($scope, $routeParams, Departments, Groups, CourseCatalog, Location) {
+  .controller('ClassmenuCtrl', function ($scope, $routeParams, Departments, Subjects, Groups, Forms, CourseCatalog, Location) {
     
     var r = $scope.route = {};
 
     r.page = $scope.page = $routeParams.page;
     
-    r.forms = $scope.forms = CourseCatalog.getForms();
+    r.forms = $scope.forms = Forms.all();
     r.form = $scope.form  = $scope.forms[$routeParams.formIndex];
 
     r.departments = $scope.departments = Departments.getAll();
@@ -16,13 +16,16 @@ angular.module('SchoolMan')
     r.groups = $scope.groups = Groups.getAll();
     r.group = $scope.group  = $scope.groups[$routeParams.groupId];
 
-    r.subjects = $scope.subjects = CourseCatalog.getAllSubjects();
+    r.subjects = $scope.subjects = Subjects.getAll();
     r.subject = $scope.subject  = $scope.subjects[$routeParams.subjectId];
 
-    r.terms = $scope.terms = CourseCatalog.getTerms();
+    r.terms = $scope.terms = [
+      {name:"Term 1"},
+      {name:"Term 2"},
+      {name:"Term 3"}
+    ];
     r.term = $scope.term  = $scope.terms[$routeParams.termIndex];
 
     $scope.open = Location.open;
-
 
   });

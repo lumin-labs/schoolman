@@ -26,7 +26,7 @@
                         <!-- Form Dropdown -->
                         <div class="btn-group">
                           <button class="disabled btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.form.name}} 
+                            {{route.form["name"]}} 
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -43,7 +43,7 @@
                         <!-- Department Dropdown -->
                         <div  class="btn-group">
                           <button class="disabled btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.department.name || "Select Department"}} 
+                            {{route.department["name"] || "Select Department"}} 
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -60,7 +60,7 @@
                         <!-- Group Dropdown -->
                         <div  class="btn-group">
                           <button class="disabled btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.group.name || "Select Group"}} 
+                            {{route.group["name"] || "Select Group"}} 
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -77,7 +77,7 @@
                         <!-- Subject Dropdown -->
                         <div  class="btn-group">
                           <button class="disabled btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.subject.code || "Select Group"}} 
+                            {{route.subject["code"]}} 
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -101,7 +101,7 @@
                            type="text" 
                            class="form-control" 
                            placeholder="coeff"
-                           ng-model="data.marksheet.coeff"
+                           ng-model="data.marksheet['coeff']"
                            >
                       </div>
                     </div>
@@ -162,11 +162,11 @@
         </td>
   			<td class="column" 
             ng-repeat="(cellIndex, cell) in [0,1,2,3,4,5]">
-  				<input  ng-model="data.marksheet.table[student._id][cellIndex]"
+  				<input  ng-model="data.marksheet['table'][student._id][cellIndex]"
   					      ng-blur ="save()" 
                   ng-change="noteChange()"
-                  tabindex="{{(studentIndex + 1) + (cellIndex * data.students.length)}}"
-                  cell cell-nrow="{{data.students.length}}"
+                  tabindex="{{(studentIndex + 1) + (cellIndex * data.students['length'])}}"
+                  cell cell-nrow="{{data.students['length']}}"
                   class="cell text-center 
                          {{classMaster.getRemarkCode(cell.mark)}} 
                          {{cell.getValidationStatus()}}">

@@ -14,7 +14,7 @@ angular.module('SchoolMan')
     	var dataModel = model.Payment;
 
 	    var map = function(doc, emit){
-	      if(doc.type === dataModel.datatype._id){
+	      if(doc.datatype === dataModel.datatype._id){
 	      	var obj = model.parse(doc, dataModel.datatype);
 	      	var isok= true;
 	      	angular.forEach(params, function(param, paramKey){
@@ -22,7 +22,7 @@ angular.module('SchoolMan')
 	      	});
 	      	console.log("Mapping payment: ", obj, isok, params);
 	      	if(isok){
-	      		emit(doc._id, {_id:doc.type, data:doc});
+	      		emit(doc._id, {_id:doc.datatype, data:doc});
 	      	}
 	      } 
 	    };

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MarksheetCtrl', function ($scope, $routeParams, model, Location, Marksheets) {
+  .controller('MarksheetCtrl', function ($scope, $routeParams, Data2, model, Location, Marksheets) {
     
     var marksheetId = model.Marksheet.generateID($routeParams);
     
@@ -29,7 +29,8 @@ angular.module('SchoolMan')
 
     $scope.save = function(){
     	if(hasChanged){
-    		$scope.data.marksheet.save().then(function(success){
+            console.log("Saving: ", $scope.data.marksheet);
+            $scope.data.marksheet.save().then(function(success){
     			hasChanged = false;
     			$scope.data.rankings = Marksheets.rank($scope.data.marksheet);    			
     		}).catch(function(error){

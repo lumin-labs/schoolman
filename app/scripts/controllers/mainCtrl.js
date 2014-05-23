@@ -13,7 +13,7 @@
 
 angular.module('SchoolMan')
   .controller('_MainCtrl', 
-    function ($scope, $location, $anchorScroll, $routeParams, User, Cache, Data, Location, Path, CourseCatalog, TimeTable, Registrar, ClassMaster) {
+    function ($scope, $location, $anchorScroll, $routeParams, Cache, Data, Location, Path, CourseCatalog, TimeTable, Registrar, ClassMaster) {
 
     $scope.page = $routeParams.page;
     $scope.view = $routeParams.view;

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Departments', function Departments(Data2, modelTransformer, model, InsertionError) {
+  .service('Departments', function Departments($q, Data2, modelTransformer, model, InsertionError) {
 
 		var departments = {};  	
 
@@ -38,24 +38,30 @@ angular.module('SchoolMan')
   		Data.saveLater({departments: departments});
   	};
 
+    self.load = function(){
+      var deferred = $q.defer();
+      // Load Data
+      var map = function(doc, emit){
+        if(doc.datatype === model.Department.datatype._id){
+          emit(doc._id, {_id:doc.datatype, data:doc});
+        } 
+      };
+      Data2.query(map, {include_docs : true}).then(function(success){
+        angular.forEach(success.rows, function(data, rowIndex){
+          var spec = data.doc;
+          var obj = model.parse(data.value.data, spec);
+          var department = modelTransformer.transform(obj, model.Department);
+          departments[department._id] = department;
+          });
+          console.log("Departments:Query success", departments);
+          deferred.resolve(departments);
+        }).catch(function(error){
+          console.log("Departments: Query failed", error);
+          deferred.reject(error);
+      });
 
-    // Load Data
-    var map = function(doc, emit){
-      if(doc.type === model.Department.datatype._id){
-        emit(doc._id, {_id:doc.type, data:doc});
-      } 
-    };
-    Data2.query(map, {include_docs : true}).then(function(success){
-      angular.forEach(success.rows, function(data, rowIndex){
-        var spec = data.doc;
-        var obj = model.parse(data.value.data, spec);
-        var department = modelTransformer.transform(obj, model.Department);
-        departments[department._id] = department;
-        });
-        console.log("Departments:Query success", departments);
-      }).catch(function(error){
-        console.log("Departments: Query failed", error);
-    });
+      return deferred.promise;
+    }
 
     return self;
 

@@ -38,7 +38,7 @@ schoolman.provider('model', function modelProvider() {
       doc._rev = self._rev;
     }
 
-    doc.type= this.datatype._id;
+    doc.datatype= this.datatype._id;
     doc[this.datatype.fields_key] = vectorData;
 
     return doc;
@@ -80,6 +80,7 @@ schoolman.provider('model', function modelProvider() {
       var doc = self.asDoc();
       self.db.put(doc).then(function(response){
         self._rev = response.rev;
+        self._id = response.id;
         deferred.resolve(response);
       }, function(err, response){
         deferred.reject(err, response);

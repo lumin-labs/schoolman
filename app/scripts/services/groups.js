@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Groups', function Groups(Slug, Data2, model, modelTransformer) {
+  .service('Groups', function Groups($q, Slug, Data2, model, modelTransformer) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var groups = {};
@@ -35,19 +35,28 @@ angular.module('SchoolMan')
     };
 
 
-    // Load Data
-    var map = function(doc, emit){
-      if(doc.type === model.Group.datatype._id){
-        emit(doc._id, {_id:doc.type, data:doc});
-      } 
+    self.load = function(){
+      var deferred = $q.defer();
+      // Load Data
+      var map = function(doc, emit){
+        if(doc.datatype === model.Group.datatype._id){
+          emit(doc._id, {_id:doc.datatype, data:doc});
+        } 
+      };
+      Data2.query(map, {include_docs : true}).then(function(success){
+          angular.forEach(success.rows, function(data, rowIndex){
+              var spec = data.doc;
+              var obj = model.parse(data.value.data, spec);
+              var group = modelTransformer.transform(obj, model.Group);
+              groups[group._id] = group;
+          });
+          deferred.resolve(groups);
+      }).catch(function(error){
+          deferred.reject(error);
+      });
+
+      return deferred.promise;
     };
-    Data2.query(map, {include_docs : true}).then(function(success){
-        angular.forEach(success.rows, function(data, rowIndex){
-            var spec = data.doc;
-            var obj = model.parse(data.value.data, spec);
-            var group = modelTransformer.transform(obj, model.Group);
-            groups[group._id] = group;
-        });
-    });
+
     return self;
   });

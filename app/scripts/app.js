@@ -31,7 +31,7 @@ angular.module('SchoolMan', [
 ]).config(function ($routeProvider, TABS) {
 
     var TEMPLATE_DIRECTORY = {
-      login:    "login.html",
+      login:    "login2.html",
       login404: "login.html",
       students: "admin-students.html",
       users:    "admin-users.html",
@@ -77,8 +77,8 @@ angular.module('SchoolMan', [
         controller:'LoginCtrl'
       })
       .when('/loading', {
-        templateUrl:'/views/loading2.html',
-        controller:'Loading2Ctrl'
+        templateUrl:'/views/loading3.html',
+        controller:'Loading3Ctrl'
       })
       .otherwise({
         redirectTo: '/loading'
