@@ -21,7 +21,6 @@ angular.module('SchoolMan')
 
  		$scope.remove = function(department){
  			Departments.remove(department);
- 			Departments.save();
  		};
 
  		var allStudents = Registrar.getAllStudents();
