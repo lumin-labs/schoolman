@@ -105,7 +105,7 @@ angular.module('SchoolMan')
     self.getStudent = function(studentId){
         var deferred = $q.defer();
         Data2.get(studentId).then(function(data){
-            var datatype = data.type;
+            var datatype = data.datatype;
             Data2.get(datatype).then(function(datatype){
                 var studentData = model.parse(data, datatype);
                 var student = modelTransformer.transform(studentData, model.Student);

@@ -22,9 +22,10 @@ angular.module('SchoolMan')
     }
     
     this.$get = ["pouchdb", function Data2Factory(pouchdb) {
-        var db = pouchdb.create('schoolman');
+        var db = pouchdb.create('gths');
         window._db = db;
         estimateSize(db);
+
         return db
     }];
 

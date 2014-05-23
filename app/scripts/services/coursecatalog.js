@@ -16,7 +16,7 @@
  * and for configuring which courses are available in which classes
  */
 angular.module('SchoolMan')
-  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups, Forms, Subject) {
+  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups, Forms) {
     
     var self = {};
     var courses = {};
@@ -48,7 +48,7 @@ angular.module('SchoolMan')
     });
 
     angular.forEach(template.subjects, function(subject, subjectKey){
-        var subject = modelTransformer.transform(subject, Subject);
+        var subject = modelTransformer.transform(subject, model.Subject);
         template.subjects[subjectKey] = subject;
         subject.onChange(function(msg){
             self.save();

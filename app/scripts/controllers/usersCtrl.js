@@ -1,25 +1,25 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('UsersCtrl', function ($scope, $user, User) {
+  .controller('UsersCtrl', function ($scope, Users, model) {
     
-    $scope.User = User;
-    $scope.tempUser = new User();
+    $scope.User = model.User;
+    $scope.tempUser = new model.User();
 
     $scope.getUsers = function(){
     	var users = [];
-    	angular.forEach($user.getUsers(), function(user, username){
+    	angular.forEach(Users.getAll(), function(user, username){
     		users.push(user);
     	});
     	return users;
     }
 
     $scope.addUser = function(){
-    	$user.post($scope.tempUser);
-    	$scope.tempUser = new User();
+    	Users.post($scope.tempUser);
+    	$scope.tempUser = new model.User();
     };
 
-    $scope.removeUser = $user.removeUser;
+    $scope.removeUser = Users.removeUser;
 
   });
 

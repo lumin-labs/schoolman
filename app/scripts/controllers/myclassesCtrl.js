@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, model,Forms, Groups, Departments,  Marksheets, Location, Registrar, CourseCatalog, TimeTable) {
+  .controller('MyclassesCtrl', function ($scope, $routeParams, Users, model,Forms, Groups, Departments,  Marksheets, Location, Subjects, TimeTable) {
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
     $scope.open = Location.open;
@@ -14,12 +14,10 @@ angular.module('SchoolMan')
       forms:Forms.all(),
       departments:Departments.getAll(),
       groups:Groups.getAll(),
-      subjects : CourseCatalog.getAllSubjects(),
+      subjects : Subjects.getAll(),
       marksheets:[],
       assignedTeacher:null
     };
-
-    $scope.user = $user;
 
     // Load all classes assigned to the logged in user
     Marksheets.query({teacherId:$routeParams.username}).then(function(marksheets){
@@ -34,7 +32,7 @@ angular.module('SchoolMan')
     Marksheets.query({_id:marksheetId}).then(function(marksheets){
       var marksheet = marksheets[0];
       if(marksheet){
-        $scope.data.assignedTeacher = $user.get(marksheet.teacherId); 
+        $scope.data.assignedTeacher = Users.get(marksheet.teacherId); 
       } else {
         $scope.data.assignedTeacher = null;
       }
@@ -43,12 +41,12 @@ angular.module('SchoolMan')
     console.log("MyClasses routeParams", $routeParams);
     $scope.username = $routeParams.username;
 
-    $scope.getStudentsByCourse = Registrar.getStudentsByCourse;
+    // $scope.getStudentsByCourse = Registrar.getStudentsByCourse;
 
     // Lookup if preexisting teacher
     var getTeacher = function(marksheetId){
         var bookmark = TimeTable.getTeacher(marksheetId);
-        return (bookmark && $user.get(bookmark.username)) ? $user.get(bookmark.username) : null;
+        return (bookmark && Users.get(bookmark.username)) ? Users.get(bookmark.username) : null;
       };
     $scope.teacher = getTeacher(marksheetId);
 
@@ -96,7 +94,7 @@ angular.module('SchoolMan')
       Marksheets.createOrUpdate(marksheetId, $routeParams.username)
       .then(function(marksheet){
         $scope.data.marksheets.push(marksheet);
-        $scope.data.assignedTeacher = $user.get($routeParams.username);
+        $scope.data.assignedTeacher = Users.get($routeParams.username);
       });
     };
 

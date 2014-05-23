@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, Cache, User) {
+  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, Cache, model) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
     $scope.teacher = Cache.get('user');
-    $scope.User = User;
+    $scope.User = model.User;
 
     $scope.activeIfPage = function(page){
       var cssClass = "";

@@ -6,6 +6,7 @@ angular.module('SchoolMan')
  	var transformObject = function(jsonResult, constructor) {
         var model = new constructor();
         $model.extend(model, jsonResult);
+        // console.log("transformation", model, jsonResult);
         if(typeof model.onLoad === 'function'){
             model.onLoad();
         }

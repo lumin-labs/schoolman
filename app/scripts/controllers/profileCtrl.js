@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Registrar, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS, $user) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Users, Registrar, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
 
+    console.log("ITS OK")
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
     $scope.accessCode = $routeParams.accessCode;
@@ -42,8 +43,6 @@ angular.module('SchoolMan')
     }).catch(function(error){
       console.log("payment error: ", error);
     });
-
-    $scope.$user = $user;
 
     $scope.addPayment = function(payment){
     	// Reformat the input from string to number
