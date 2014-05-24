@@ -90,7 +90,7 @@ angular.module('SchoolMan')
             if(!d.hasOwnProperty(key)){
               d[key] = [];
             }
-            d[key][i] = value;
+            d[key][i] = value[0];
           });
         });
         return d;
@@ -135,9 +135,7 @@ angular.module('SchoolMan')
           } else {
             angular.forEach(row, function(y, i){
               var x = t1[studentId][i];
-              console.log("What is x?", x);
               if(ignore.indexOf(x) > -1){
-                console.log("Setting row to y")
                 t1[studentId][i] = y;
               } else if(!ignore.indexOf(y) > -1){
                 var xc = x * prevM.coeff;

@@ -44,7 +44,6 @@ schoolman.config(['modelProvider', function(model){
   // Constructor
   function Marksheet(spec){
     spec = spec || {};
-    console.log("Received spec", spec);
 
     var self = this;
 
@@ -66,9 +65,7 @@ schoolman.config(['modelProvider', function(model){
     // Construct
     angular.forEach(spec, function(prop, propKey){
       self[propKey] = prop;
-      console.log("Setting " + propKey + " to ", prop);
     });
-    console.log("I am now like this ", self);
     if(self._id && !(self.formIndex && self.deptId && self.groupId && self.subjectId)){
       var props = self._id.split(":");
       self.formIndex = props[0];

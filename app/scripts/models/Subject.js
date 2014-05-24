@@ -43,7 +43,7 @@ schoolman.config(['modelProvider', function(model){
     this.code = "";
     this.en = "";
     this.fr = "";
-    this.type = 0;
+    this.type = "0";
 
     angular.forEach(specs, function(prop, key){
       self[key] = prop;
