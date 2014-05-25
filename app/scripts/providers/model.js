@@ -100,6 +100,44 @@ schoolman.provider('model', function modelProvider() {
     return self;
   };
 
+  Model.prototype.is = function(datatype){
+    var part = datatype.split(".");
+    var type = part[0];
+    var version = part[1];
+    self.datatypes[type] = {};
+    self.datatypes[type][version] = {
+      type:"schema",
+      _id:"datatype/" + type + "/" + version,
+      fields:[],
+      fields_key:0
+    };
+    this.datatype = self.datatypes[type][version];
+  };
+
+  Model.prototype.val = function(prop, required){
+    var data = prop.split(":");
+    var key = data[0].trim();
+    var type = data.length > 1  ? data[1].trim() : undefined;
+
+    this.datatype.fields.push({
+      key:key,
+      type:type,
+      required: required ? true : false
+    });
+
+    return key;
+  };
+
+  Model.prototype.__init__ = function(spec){
+    var self = this;
+    spec = spec || {};
+    angular.forEach(spec, function(prop, key){
+      if(spec[key]){
+        self[key] = spec[key];
+      }
+    })
+  };
+
   self.parse = function(doc, spec){
     var data = {
       _id:doc._id,
@@ -110,6 +148,12 @@ schoolman.provider('model', function modelProvider() {
     });
     return data;
   };
+
+  self.parse2 = function(doc, datatypeId){
+    var params = datatypeId.split("/");
+    var spec = self.datatypes[params[1]][params[2]];
+    return self.parse(doc, spec);
+  }
 
   self.Model = Model;
   
