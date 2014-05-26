@@ -1,14 +1,19 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('reportcardCtrl', function ($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+  .controller('reportcardCtrl', function ($scope, $routeParams, Dcards, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	 
-      var termIndex = $routeParams.termIndex;
+      var termIndex = $scope.termIndex = $routeParams.termIndex;
       
       $scope.open = Location.open;
 
       $scope.data = {};
+      $scope.data.forms = Forms.all();
+      $scope.data.departments = Departments.getAll();
+      $scope.data.groups = Groups.getAll();
       $scope.data.subjects = Subjects.getAll();
+      $scope.data.terms = Terms.getAll();
+      $scope.data.term = $scope.data.terms[$routeParams.termIndex];
       $scope.data.marksheets = [];
       $scope.data.summaries = {};
       $scope.data.rankings = {};
@@ -33,18 +38,23 @@ angular.module('SchoolMan')
           return marksheets[marksheetId];
         });
 
+        console.log("Marksheets", $scope.data.marksheets);
+
         // generate summarySheets
         $scope.data.msheet = Marksheets.combine($scope.data.marksheets);
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.summaryMarksheet, termIndex);
-        $scope.data.rankings = Marksheets.rank($scope.data.summaryMarksheet);
+        $scope.data.summarysheet = Marksheets.summarize($scope.data.msheet, termIndex);
+        console.log("summarysheet", $scope.data.summarysheet);
+        $scope.data.rankings = Marksheets.rank($scope.data.msheet);
 
         var sets = $scope.data.sets = {};
         angular.forEach($scope.data.marksheets, function(marksheet, i){
           var type = $scope.data.subjects[marksheet.subjectId].type;
           if(!sets.hasOwnProperty(type)){
-            sets[type] = {marksheets:[]};
+            sets[type] = {marksheets:[],
+                          summsheets:{}};
           }
           sets[type].marksheets.push(marksheet);
+          sets[type].summsheets[marksheet._id] = Marksheets.summarize(marksheet, termIndex);
         });
         angular.forEach(sets, function(set, i){
           sets[i].msheet = Marksheets.combine(set.marksheets);
@@ -64,6 +74,13 @@ angular.module('SchoolMan')
             return students[studentId];
           });
           $scope.data.student = students[$routeParams.studentId];
+          Dcards.get($scope.data.student._id).then(function(dcard){
+            $scope.data.dcard = dcard;
+            console.log("Dcard", dcard);
+          }).catch(function(error){
+            console.log("Failed to get dcard", error);
+          })
+
 
         // Catch errors
         }).catch(function(error){
@@ -73,5 +90,13 @@ angular.module('SchoolMan')
       .catch(function(error){
         console.log("Failed to find marksheets", error);
       });
+
+
+      $scope.getMark = function(d){
+        console.log($scope.termIndex);
+        var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
+        console.log("getMark", d, i)
+        return d.row[i];
+      }
 
   });

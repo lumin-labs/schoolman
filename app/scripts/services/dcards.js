@@ -7,7 +7,8 @@ angular.module('SchoolMan')
 
   	var modelFrom = function(data){
   			var spec = model.parse2(data, data.datatype);
-  			return new model.Dcard(spec);
+  			var dcard = new model.Dcard(spec);
+        return dcard
   	};
 
   	var getOrCreate = function(tempDcard){

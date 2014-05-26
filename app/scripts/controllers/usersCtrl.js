@@ -5,18 +5,19 @@ angular.module('SchoolMan')
     
     $scope.User = model.User;
     $scope.tempUser = new model.User();
+    $scope.users = Users.getAll();
 
     $scope.getUsers = function(){
-    	var users = [];
-    	angular.forEach(Users.getAll(), function(user, username){
-    		users.push(user);
-    	});
-    	return users;
-    }
+    	return $scope.users;
+    };
 
     $scope.addUser = function(){
-    	Users.post($scope.tempUser);
-    	$scope.tempUser = new model.User();
+    	$scope.tempUser.save().then(function(success){
+        $scope.users[success.id] = $scope.tempUser;
+    	  $scope.tempUser = new model.User();
+      }).catch(function(error){
+        console.log("Could not save user:", error);
+      });
     };
 
     $scope.removeUser = Users.removeUser;

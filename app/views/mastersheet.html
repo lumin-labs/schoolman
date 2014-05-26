@@ -142,7 +142,7 @@
           		data-placement="right" 
           		title="{{data.subjects[marksheet.subjectId].en}}">
         		 <a ng-click="open({page:'classmasterMarksheet',subjectId:marksheet.subjectId})">
-        		 	{{marksheet.subjectId}}
+        		 	{{data.subjects[marksheet.subjectId].code}}
         		 </a>
 					</th>
 					<th class="symbol-column-header">&sum;</th>
@@ -167,7 +167,7 @@
 						{{data.summarysheet[student._id] * data.summaryMarksheet['coeff'] | number:1}}
 					</td>
 					<td class="small-column-header">
-						{{data.summarysheet[student._id] | number:1}}
+						{{data.summarysheet[student._id][0]| number:2 }}
 					</td>
 					<td class="small-column-header">
 						{{data.rankings[student._id][0]}}

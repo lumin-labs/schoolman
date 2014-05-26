@@ -15,7 +15,7 @@
   <!-- Department Dropdown -->
   <div class="btn-group">
     <button class="btn btn-md btn-light dropdown-toggle" data-toggle="dropdown">
-      {{department.name || "Select Department"}} <span class="caret"></span>
+      {{department.code || "Select Department"}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li ng-repeat="(deptId, dept) in departments">

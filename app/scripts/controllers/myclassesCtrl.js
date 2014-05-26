@@ -5,10 +5,11 @@ angular.module('SchoolMan')
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
     $scope.open = Location.open;
-    $scope.allSelected = [$routeParams.formIndex,
-                          $routeParams.deptId,
-                          $routeParams.groupId,
-                          $routeParams.subjectId].indexOf("undefined") === -1;
+    var allParams = [$routeParams.formIndex,
+                    $routeParams.deptId,
+                    $routeParams.groupId,
+                    $routeParams.subjectId];
+    $scope.allSelected = allParams.indexOf("undefined") === -1;
     
     $scope.data = {
       forms:Forms.all(),

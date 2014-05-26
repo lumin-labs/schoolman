@@ -2,7 +2,7 @@
 	<div ng-include="'views/_menu-basic.html'"></div>
 	<div class="btn-group" style="margin-left:10px;">
     <button class="btn btn-md btn-success"
-    				ng-class="teacher || !allSelected ? 'disabled' : ''" 
+    				ng-class="!data.assignedTeacher && allSelected ? '' : 'disabled'" 
         	  data-toggle="dropdown"
         	  ng-click="addBookmark({teacherId:username,courseId:courseId})">Add Class
     </button>
@@ -12,7 +12,7 @@
    		<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
    		<strong>{{data.assignedTeacher.fullname}}</strong> is scheduled to teach
    		<strong ng-controller="ClassmenuCtrl">
-   			<em>{{form.name}}, {{department.name}}, {{group.name}}, {{subject.en}}</em>
+   			<em>{{form.name}}, {{department.code}}, {{group.name}}, {{subject.en}}</em>
    		</strong>
    	</div>
    </div>
