@@ -12,6 +12,7 @@ angular.module('SchoolMan')
       $scope.data.departments = Departments.getAll();
       $scope.data.groups = Groups.getAll();
       $scope.data.subjects = Subjects.getAll();
+      $scope.data.subjectTypes = SubjectTypes.all();
       $scope.data.terms = Terms.getAll();
       $scope.data.term = $scope.data.terms[$routeParams.termIndex];
       $scope.data.marksheets = [];
@@ -76,7 +77,6 @@ angular.module('SchoolMan')
           $scope.data.student = students[$routeParams.studentId];
           Dcards.get($scope.data.student._id).then(function(dcard){
             $scope.data.dcard = dcard;
-            console.log("Dcard", dcard);
           }).catch(function(error){
             console.log("Failed to get dcard", error);
           })
@@ -93,10 +93,8 @@ angular.module('SchoolMan')
 
 
       $scope.getMark = function(d){
-        console.log($scope.termIndex);
         var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
-        console.log("getMark", d, i)
-        return d.row[i];
+        return d.row ? d.row[i] : undefined;
       }
 
   });

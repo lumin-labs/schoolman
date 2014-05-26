@@ -91,8 +91,8 @@ schoolman.config(['modelProvider', function(model){
   };
 
   User.prototype.generateID = function(){
-    var id = this.username || model.slugify(this.fullname);
-    console.log("Creating user._id", this, id);
+    var id = model.slugify(this.fullname);
+    this.username = id;
     return id;
   }
   User.prototype.datatype = User.datatype = model.datatypes.user.v1;

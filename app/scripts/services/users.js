@@ -56,10 +56,10 @@ angular.module('SchoolMan')
 
     self.remove = function(user){
       Data2.remove(user).then(function(success){
-        console.log("Department removed: ", success);
+        console.log("User removed: ", success);
         delete users[user._id];
       }).catch(function(error){
-        $log.error("users.js : remove :", error);
+        $log.error("users.js : remove error:", error);
       });
     };
 
