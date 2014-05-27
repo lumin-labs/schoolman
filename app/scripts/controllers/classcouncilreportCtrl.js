@@ -23,6 +23,21 @@ angular.module('SchoolMan')
     $scope.groupStats = {};
     var subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
+    /**
+    var studentIds = Object.keys($scope.data.rankings);
+    var rankingsList = _.map(studentIds, function(studentId){
+        var obj = {};
+        obj,rabjubgs = $scope.data.rankings[studentId];
+        obj.studentId = studentId;
+        return obj;
+    })
+    var sortedList = rankingsList.sort(function(a,b){
+        return a.rankings[3] - b.rankings[3];
+    })
+
+    // top3 = [rankings[0],rankings[1],rankings[2]]
+    // worst3 = rankings.slice(-3);
+    */
        // This is doing more work than it needs to because we dont need a mastersheet
     // for every course
     var buildMastersheet = function(groupKey){
