@@ -108,6 +108,9 @@ angular.module('SchoolMan')
       .then(function(marksheet){
         $scope.data.marksheets.push(marksheet);
         $scope.data.assignedTeacher = Users.get($routeParams.username);
+        console.log("Saved myclass: ", marksheet, $scope.data);
+      }).catch(function(error){
+        console.log("Failed to save myclass: ", error);
       });
     };
 

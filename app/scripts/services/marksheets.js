@@ -271,6 +271,9 @@ angular.module('SchoolMan')
           }
         });
         
+      }).catch(function(error){
+        console.log("Failed to get marksheet", error);
+        deferred.reject(error);
       });
 
       return deferred.promise;
