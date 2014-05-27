@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ClasscouncilreportCtrl', function ($scope, $routeParams, Groups, Forms, Data, ClassMaster, CourseCatalog, Location, Registrar, Mastersheet) {
+  .controller('ClasscouncilCtrl', function ($scope, $routeParams, Groups, Forms, Data, ClassMaster, CourseCatalog, Location, Registrar, Mastersheet) {
     
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";

@@ -143,7 +143,7 @@ angular.module('SchoolMan')
     },
     {
       label:"Class Council",
-      page:"classcouncilreport",
+      page:"classcouncil",
       access:['classmaster','admin'],
       exclude:[],
       modes:["gths", "ghs"],
