@@ -7,8 +7,6 @@ angular.module('SchoolMan')
       
       $scope.open = Location.open;
 
-      $scope.test = "Test";
-
       $scope.data = {};
       $scope.data.marksheets = [];
       $scope.data.subjects = Subjects.getAll();
@@ -21,25 +19,29 @@ angular.module('SchoolMan')
         formIndex:$routeParams.formIndex,
         deptId:$routeParams.deptId,
         groupId:$routeParams.groupId
-      })
-      .then(function(marksheets){
+      }).then(function(marksheets){
 
-        // Create marksheet summaries 
-        $scope.data.summaries = marksheets.map(function(marksheet){
-          return Marksheets.summarize(marksheet, termIndex);
-        });
-
-        // Convert marksheets to a list
-        $scope.data.marksheets= _.map(Object.keys(marksheets), function(marksheetId){
+        // Convert marksheets to a list and store in $scope.data.marksheets
+        $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){
           return marksheets[marksheetId];
         });
 
-        // generate summarySheet
-        console.log("Combining Marksheets", marksheets);
-        $scope.data.summaryMarksheet = Marksheets.combine($scope.data.marksheets);
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.summaryMarksheet, termIndex);;
-        console.log("SummarySheet: ", $scope.data.summarysheet);
-        $scope.data.rankings = Marksheets.rank($scope.data.summaryMarksheet);
+        // Create marksheet summaries 
+        $scope.data.summaries = marksheets.map(function(marksheet){
+          var summary = Marksheets.summarize(marksheet, termIndex);
+          console.log("Marksheet has been summarized: ", marksheet, summary);
+          return summary;
+        });
+
+        // combine all marksheets
+        $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
+
+        // summarize combined marksheet to get grand totals
+        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, termIndex);;
+        
+        // get rankings from combined marksheet
+        $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);
+        console.log("Rankings:", $scope.data.rankings);
 
         // Create a list of student from the union of marksheet studentIds
         var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){

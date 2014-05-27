@@ -129,7 +129,7 @@
 						{{marksheet.coeff}}
 					</th>
 					<th class="symbol-column-header">=</th>
-					<th class="small-column-header">{{data.summaryMarksheet['coeff']}}</th>
+					<th class="small-column-header">{{data.combinedMarksheet['coeff']}}</th>
 					<th></th>
 					<!-- <th></th> -->
 				</tr>
@@ -164,7 +164,7 @@
 						{{ (data.summaries[marksheetId][student._id] * marksheet.coeff) || ""}}
 					</td>
 					<td class="small-column-header">
-						{{data.summarysheet[student._id] * data.summaryMarksheet['coeff'] | number:1}}
+						{{data.summarysheet[student._id] * data.combinedMarksheet['coeff'] | number:1}}
 					</td>
 					<td class="small-column-header">
 						{{data.summarysheet[student._id][0]| number:2 }}
