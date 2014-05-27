@@ -19,8 +19,8 @@
             <input id="absence"
                    type="number"
                    class="form-control"  
-                   ng-model="student.discipline['absence']"
-                   ng-change="save()">
+                   ng-model="data.dcard['absence']"
+                   ng-change="save(data.dcard)">
           </div>
         </div>
         <div class="form-group">
@@ -31,8 +31,8 @@
             <input id="council"
                    type="number"
                    class="form-control"  
-                   ng-model="student.discipline['council']"
-                   ng-change="save()">
+                   ng-model="data.dcard['council']"
+                   ng-change="save(data.dcard)">
           </div>
         </div>
   			<div class="form-group">
@@ -43,8 +43,8 @@
             <input id="warned"
                    type="number"
                    class="form-control"  
-                   ng-model="student.discipline['warned']"
-                   ng-change="save()">
+                   ng-model="data.dcard['warned']"
+                   ng-change="save(data.dcard)">
           </div>
         </div>
         <div class="form-group">
@@ -55,8 +55,8 @@
             <input id="suspended"
                    type="number"
                    class="form-control"  
-                   ng-model="student.discipline['suspended']"
-                   ng-change="save()">
+                   ng-model="data.dcard['suspended']"
+                   ng-change="save(data.dcard)">
           </div>
         </div>
         <div class="form-group">
@@ -66,7 +66,7 @@
           <div class="col-sm-5">
             <div  class="btn-group">
               <!-- If status is set to automatic -->
-              <button ng-if="student.status['2014'] === 0 && studentStatus[student.id]"
+              <button ng-if="data.student.status['2014'] === 0 && studentStatus[data.student._id]"
                       class="btn btn-sm btn-success dropdown-toggle" 
                       data-toggle="dropdown">
                 <i class="glyphicon" 
@@ -74,7 +74,7 @@
                 &nbsp;{{PROMOTE_OPTIONS[1].name}}
               </button>
               
-              <button ng-if="student.status['2014'] === 0 && !studentStatus[student.id]"
+              <button ng-if="data.student.status['2014'] === 0 && !studentStatus[data.student._id]"
                     class="btn btn-sm btn-warning dropdown-toggle" 
                     data-toggle="dropdown">
                   <i class="glyphicon" 
@@ -83,24 +83,24 @@
               </button>
                 
               <!-- Otherwise show whatever it's manually set to -->
-                <button ng-if="student.status['2014'] > 0"
+                <button ng-if="data.student.status['2014'] > 0"
                         class="btn btn-sm dropdown-toggle" 
-                        ng-class="'btn-'+PROMOTE_OPTIONS[student.status['2014']].style"
+                        ng-class="'btn-'+PROMOTE_OPTIONS[data.student.status['2014']].style"
                         data-toggle="dropdown">
-                    <i ng-class="PROMOTE_OPTIONS[student.status['2014']].icon"></i>
-                  &nbsp;{{PROMOTE_OPTIONS[student.status['2014']].name}}
+                    <i ng-class="PROMOTE_OPTIONS[data.student.status['2014']].icon"></i>
+                  &nbsp;{{PROMOTE_OPTIONS[data.student.status['2014']].name}}
                 </button>
               
               <ul class="dropdown-menu">
                 <li>
-                  <a ng-click="student.setStatus('2014', 0)">
+                  <a ng-click="data.student.setStatus('2014', 0)">
                     <i ng-class="PROMOTE_OPTIONS[0].icon"></i>
                     {{PROMOTE_OPTIONS[0].name}}
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li ng-repeat="(optionIndex, option) in PROMOTE_OPTIONS.slice(1)">
-                  <a ng-click="student.setStatus('2014', optionIndex + 1)">
+                  <a ng-click="data.student.setStatus('2014', optionIndex + 1)">
                     <i ng-class="PROMOTE_OPTIONS[optionIndex + 1].icon"></i>
                     {{PROMOTE_OPTIONS[optionIndex + 1].name}}
                   </a>
@@ -123,7 +123,7 @@
         <table class="table table-striped" style="margin-top:55px;">
           <tr ng-repeat="(commentIndex, comment) in data.comments">
             <td>
-              <span style="color:green;">{{$user.get(comment.userId).fullname}}</span> - 
+              <span style="color:green;">{{Users.get(comment.userId).fullname}}</span> - 
               <span style="color:#666">{{comment._id | date:'medium'}}</span>
               <br>
               <strong>{{comment.text}}</strong>

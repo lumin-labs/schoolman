@@ -60,7 +60,7 @@ schoolman.config(['modelProvider', function(model){
     self.subjectId;
     self.teacherId;
     self.coeff = 2;
-    self.table = [];
+    self.table = {};
 
     // Construct
     angular.forEach(spec, function(prop, propKey){

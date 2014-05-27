@@ -26,7 +26,7 @@
                         <!-- Form Dropdown -->
                         <div class="btn-group">
                           <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.form.name}}  <span class="caret"></span>
+                            {{route.form['name']}}  <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -35,7 +35,7 @@
                             <li class="divider"></li> -->
                             <li ng-repeat="(formIndex, form) in route.forms">
                               <a ng-click="open({formIndex:formIndex})">
-                                {{route.forms[formIndex].name}}
+                                {{route.forms[formIndex]['name']}}
                               </a>
                             </li>
                           </ul>
@@ -43,7 +43,7 @@
                         <!-- Department Dropdown -->
                         <div  class="btn-group">
                           <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.department.name || "Dept"}} <span class="caret"></span> 
+                            {{route.department['code'] || "Dept"}} <span class="caret"></span> 
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -52,7 +52,7 @@
                             <!-- <li class="divider"></li> -->
                             <li ng-repeat="(deptId, dept) in route.departments">
                               <a ng-click="open({deptId:deptId})">
-                                {{route.departments[deptId].name}}
+                                {{route.departments[deptId]['name']}}
                               </a>
                             </li>
                           </ul>
@@ -60,7 +60,7 @@
                         <!-- Group Dropdown -->
                         <div  class="btn-group">
                           <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.group.name || "Group"}} <span class="caret"></span>
+                            {{route.group['name'] || "Group"}} <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -77,16 +77,12 @@
                         <!-- Subject Dropdown -->
                         <div  class="btn-group">
                           <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.subject.code || "Group"}} <span class="caret"></span>
+                            {{route.subject['code'] || "Group"}} <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
-                            <!-- <li>
-                              <a ng-click="search.group = ''">All Groups</a>
-                            </li>
-                            <li class="divider"></li> -->
                             <li ng-repeat="(subjectId, subject) in route.subjects">
                               <a ng-click="open({subjectId:subjectId})">
-                                {{route.subjects[subjectId].name}}
+                                {{route.subjects[subjectId].en}}
                               </a>
                             </li>
                           </ul>
@@ -167,7 +163,7 @@
           <div class="cell text-center 
                          {{classMaster.getRemarkCode(cell.mark)}} 
                          {{cell.getValidationStatus()}}">
-          {{data.marksheet.table[student._id][cellIndex]}}
+          {{data.marksheet['table'][student._id][cellIndex]}}
           </div>
         </td>
       </tr> 

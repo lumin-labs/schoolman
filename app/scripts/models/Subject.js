@@ -1,41 +1,77 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .value('Subject', (function(){
-  	
-  	function Subject(){
+var schoolman = angular.module('SchoolMan');
 
-  		// Prevents global namespace clobbering if you istantiate this object
-  		// without the 'new' keyword
-  		if(!(this instanceof Subject)) {
-			    return new Subject();
-		  }
+schoolman.config(['modelProvider', function(model){
 
-      this.code = "";
-      this.en = "";
-      this.fr = "";
-      this.type = 0;
-      this.coeff = 2;
+  model.datatypes.subject = {
+    v1:{
+      type:"schema",
+      _id:"datatype/subject/v1",
+      fields:[{
+        key:"code",
+        type:"string",
+        required:true
+      },{
+        key:"en",
+        type:"string",
+        required:true
+      },{
+        key:"fr",
+        type:"string",
+        required:true
+      },{
+        key:"type",
+        type:"number",
+        required:true
+      }],
+      fields_key:0
+    }
+  };
 
-      // callback functions
-      var listeners = [];
-      this.notify =  function(msg){
-        angular.forEach(listeners, function(callback, $index){
-          callback(msg);  
-        });
-      };
-      this.onChange = function(callback){
-        listeners.push(callback);
-      };
+	function Subject(specs){
 
-  	};
+    var self = this;
+    var specs = specs || {};
 
-    Subject.prototype.setType = function(typeIndex){
-      this.type = typeIndex;
-      console.log("typeIndex", typeIndex);
-      this.notify("Type changed to: ", typeIndex);
-    };
+		// Prevents global namespace clobbering if you istantiate this object
+		// without the 'new' keyword
+		if(!(this instanceof Subject)) {
+		    return new Subject();
+	  }
 
-  	return Subject;
+    this.code = "";
+    this.en = "";
+    this.fr = "";
+    this.type = "0";
 
-  })());
+    angular.forEach(specs, function(prop, key){
+      self[key] = prop;
+    });
+
+	};
+
+  Subject.types = [
+      "General",
+      "Specialized",
+      "Other"
+  ]
+  Subject.prototype = new model.Model();
+  Subject.prototype.setType = function(typeIndex){
+    this.type = typeIndex.toString();
+    if(this.hasOwnProperty("_rev")){
+      this.save().then(function(success){
+        console.log("Saved type: ", success);
+      });
+    }
+  }
+  Subject.prototype.generateID = function(){
+    var id = "subject_" + this.code.toLowerCase();
+    return id;
+  }
+  Subject.prototype.datatype = Subject.datatype = model.datatypes.subject.v1;
+
+  model.Subject = Subject;
+
+}]);
+ 

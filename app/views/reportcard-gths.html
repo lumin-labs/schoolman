@@ -3,7 +3,7 @@
   <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
   <div class="col-md-10 marksheet" 
-       ng-controller="MastersheetCtrl" 
+       ng-controller="reportcardCtrl" 
        ng-init="mastersheet = getMastersheet()">
 
     <!-- School Name Letterhead -->
@@ -25,20 +25,20 @@
                     <div class="text-left">
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
-                            data-toggle="dropdown">{{student.name}}
+                            data-toggle="dropdown">{{data.student.name}}
                         </button>
                         <ul class="dropdown-menu">
-                          <li ng-repeat="(studentIndex, student) in students">
-                            <a ng-click="open({studentId:student.id})">{{student.name}}</a>
+                          <li ng-repeat="(studentIndex, student) in data.students">
+                            <a ng-click="open({studentId:student._id})">{{student.name}}</a>
                           </li>
                         </ul>
                       </div>
                       <div class="student-info-section">
-                        <h4 class="section-header printonly">{{student.name}}</h4>
-                        <h5>Gender: <strong>{{student.sex}}</strong></h5>
-                        <h5>Born: <strong>{{student.birth | date:'MMM dd, yyyy'}}</strong></h5>
-                        <h5>ID: <strong>{{student.id}}</strong></h5>
-                        <h5>Class: <strong>{{form.name}}, {{departments[student.department].name}}, {{group.name}}</strong></h5>
+                        <h4 class="section-header printonly">{{data.student.name}}</h4>
+                        <h5>Gender: <strong>{{data.student.sex}}</strong></h5>
+                        <h5>Born: <strong>{{data.student.birth | date:'MMM dd, yyyy'}}</strong></h5>
+                        <h5>ID: <strong>{{data.student._id}}</strong></h5>
+                        <h5>Class: <strong>{{data.forms[data.student.formIndex].name}}, {{data.departments[data.student.deptId].code}}, {{data.groups[data.student.groupId].name}}</strong></h5>
                       </div>
                     </div>
                   </td>
@@ -46,18 +46,18 @@
                     <div class="text-left">
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
-                            data-toggle="dropdown">{{term.name}}
+                            data-toggle="dropdown">{{data.term.name}}
                         </button>
                         <ul class="dropdown-menu">
-                          <li ng-repeat="(termIndex,term) in terms">
+                          <li ng-repeat="(termIndex,term) in data.terms">
                             <a  
-                              ng-click="open({termIndex:termIndex})">{{terms[termIndex].name}}</a>
+                              ng-click="open({termIndex:termIndex})">{{data.terms[termIndex].name}}</a>
                           </li>
                         </ul>
                       </div>
                       <div class="student-info-section">
-                        <h4 class="section-header printonly">{{term.name}}</h4>
-                        <h5 style="font-family:mono;">{{ mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</h5>
+                        <h4 class="section-header printonly">{{data.term.name}}</h4>
+                        <h5 style="font-family:mono;">{{ data.summarysheet[data.student._id][0] | number:2 }} / 20</h5>
                         <h5>{{getRemark(mastersheet.table["students"][student.id].acAverage).text | uppercase}}</h5>
                       </div>
                     </div>
@@ -65,9 +65,9 @@
                   <td class="text-center" style="border-top:0px;">
                     <div class="text-left student-info-section">
                       <h4 class="section-header">Parent Contact</h4>
-                      <h5>{{student.parentName}}</h5>
-                      <h5>{{student.parentPhone}}</h5>
-                      <h5>{{student.parentEmail}}</h5>
+                      <h5>{{data.student.parentName}}</h5>
+                      <h5>{{data.student.parentPhone}}</h5>
+                      <h5>{{data.student.parentEmail}}</h5>
                     </div>
                   </td>
                 </tr>
@@ -80,176 +80,63 @@
     
     <div class="row">
       <div class="col-md-12">
+        <div  ng-repeat="(setIndex, set) in data.sets">
+          <h3>{{data.subjectTypes[setIndex]}}</h3>    
+          <table  class="table table-striped table-bordered table-transcript">
+            <thead>
+              <tr>
+                <th>Subject Discipline</th>
+                <th>S1</th>
+                <th>S2</th>
+                <th>Average</th>
+                <th>Coeff</th>
+                <th>A*C</th>
+                <th>Position</th>
+                <th>Remarks</th>
+                <th>Name and Signature</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(mId, marksheet) in set.marksheets">
+                <td>
+                  <a ng-click="open({page:'classmasterMarksheet', subjectId:marksheet.subjectId})">{{data.subjects[marksheet.subjectId].en}} / {{data.subjects[marksheet.subjectId].fr}}</a>
+                </td>
 
-        <h3>General</h3>
-        
-        <table  class="table table-striped table-bordered table-transcript">
-          <thead>
-            <tr>
-              <th>Subject Discipline</th>
-              <th>S1</th>
-              <th>S2</th>
-              <th>Average</th>
-              <th>Coeff</th>
-              <th>A*C</th>
-              <th>Position</th>
-              <th>Remarks</th>
-              <th>Name and Signature</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="(subjectKey,subject) in getSubjectsByType(0) | orderBy:'en'"
-                ng-init="marksheet = getMarksheet(subjectKey);
-                         average   = marksheet.getAverage(student.id, termIndex)">
+                <td ng-repeat="sequence in [0,1]"
+                    class="{{getRemark(mark).css}}">
+                    {{getMark({
+                      row:marksheet.table[data.student._id],
+                      t:termIndex,
+                      s:sequence})}}
+                </td>
 
-            <!-- Subject links back to Marksheet -->
-              <td>
-                <a ng-click="open({page:'classmasterMarksheet', subjectKey:subjectKey})">{{subject.en}} / {{subject.fr}}</a>
-              </td>
+                <td class="{{getRemark(average).css}}">
+                  {{set.summsheets[marksheet._id][data.student._id][0] | number:2}}
+                </td>
 
-              <td ng-repeat="(markIndex, mark) in marksheet.getMarks(student.id, termIndex) track by markIndex"
-                  class="{{getRemark(mark).css}}">
-                  {{mark}}
-              </td>
-
-              <!-- Fix this string-number bug -->
-              <td class="{{getRemark(average).css}}">
-                {{average || ""}}
-              </td>
-
-              <td>{{average ? subject.coeff : ""}}</td>
-              <td>{{(average * subject.coeff) || ""}}</td>
-              <!-- <td>{{getRankings(students, subject_index, term-1, data)[student].rank}}</td> -->
-              <td>{{getMarksheet(subjectKey).getRank(student.id, termIndex) || ""}}</td>
-              <!-- <td>{{student}}</td> -->
-              <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
-              <td>
-                <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
-              </td>
-            </tr>
-            <tr class="danger">
-              <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="text-right"><strong>Average:</strong></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Specialized</h3>
-        <table  class="table table-striped table-bordered table-transcript">
-          <thead>
-            <tr>
-              <th>Subject Discipline</th>
-              <th>S1</th>
-              <th>S2</th>
-              <th>Average</th>
-              <th>Coeff</th>
-              <th>A*C</th>
-              <th>Position</th>
-              <th>Remarks</th>
-              <th>Name and Signature</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="(subjectKey,subject) in getSubjectsByType(1) | orderBy:'en'"
-                ng-init="marksheet = getMarksheet(subjectKey);
-                         average   = marksheet.getAverage(student.id, termIndex)">
-
-            <!-- Subject links back to Marksheet -->
-              <td>
-                <a ng-click="open({page:'classmasterMarksheet', subjectKey:subjectKey})">{{subject.en}} / {{subject.fr}}</a>
-              </td>
-
-              <td ng-repeat="(markIndex, mark) in marksheet.getMarks(student.id, termIndex) track by markIndex"
-                  class="{{getRemark(mark).css}}">
-                  {{mark}}
-              </td>
-
-              <!-- Fix this string-number bug -->
-              <td class="{{getRemark(average).css}}">
-                {{average || ""}}
-              </td>
-
-              <td>{{average ? subject.coeff : ""}}</td>
-              <td>{{(average * subject.coeff) || ""}}</td>
-              <!-- <td>{{getRankings(students, subject_index, term-1, data)[student].rank}}</td> -->
-              <td>{{getMarksheet(subjectKey).getRank(student.id, termIndex) || ""}}</td>
-              <!-- <td>{{student}}</td> -->
-              <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
-              <td>
-                <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
-              </td>
-            </tr>
-            <tr class="danger">
-              <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="text-right"><strong>Average:</strong></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h3>Other</h3>
-        <table  class="table table-striped table-bordered table-transcript">
-          <thead>
-            <tr>
-              <th>Subject Discipline</th>
-              <th>S1</th>
-              <th>S2</th>
-              <th>Average</th>
-              <th>Coeff</th>
-              <th>A*C</th>
-              <th>Position</th>
-              <th>Remarks</th>
-              <th>Name and Signature</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="(subjectKey,subject) in getSubjectsByType(2) | orderBy:'en'"
-                ng-init="marksheet = getMarksheet(subjectKey);
-                         average   = marksheet.getAverage(student.id, termIndex)">
-
-            <!-- Subject links back to Marksheet -->
-              <td>
-                <a ng-click="open({page:'classmasterMarksheet', subjectKey:subjectKey})">{{subject.en}} / {{subject.fr}}</a>
-              </td>
-
-              <td ng-repeat="(markIndex, mark) in marksheet.getMarks(student.id, termIndex) track by markIndex"
-                  class="{{getRemark(mark).css}}">
-                  {{mark}}
-              </td>
-
-              <!-- Fix this string-number bug -->
-              <td class="{{getRemark(average).css}}">
-                {{average || ""}}
-              </td>
-
-              <td>{{average ? subject.coeff : ""}}</td>
-              <td>{{(average * subject.coeff) || ""}}</td>
-              <!-- <td>{{getRankings(students, subject_index, term-1, data)[student].rank}}</td> -->
-              <td>{{getMarksheet(subjectKey).getRank(student.id, termIndex) || ""}}</td>
-              <!-- <td>{{student}}</td> -->
-              <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
-              <td>
-                <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
-              </td>
-            </tr>
-            <tr class="danger">
-              <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td class="text-right"><strong>Average:</strong></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-
+                <td>
+                  {{set.summsheets[marksheet._id][data.student._id][0] ? marksheet.coeff : ""}}
+                </td>
+                <td>
+                  {{set.summsheets[marksheet._id][data.student._id][0] * marksheet.coeff || ""}}
+                </td>
+                <td></td>
+                <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
+                <td>
+                  <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
+                </td>
+              </tr>
+              <tr class="danger">
+                <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
+                <td>{{set.msheet.coeff}}</td>
+                <td>{{set.ssheet[data.student._id][0] * set.msheet.coeff}}</td>
+                <td>{{set.rankings[data.student._id][termIndex]}}</td>
+                <td class="text-right"><strong>Average:</strong></td>
+                <td>{{set.ssheet[data.student._id][0] | number:2}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     
@@ -259,15 +146,15 @@
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student.id)">
           <tr>
             <td>Total Mark:</td>
-            <td>{{mastersheet.table["students"][student.id].acTotal}}</td>
+            <td>{{data.summarysheet[data.student._id][0] * data.msheet.coeff}}</td>
           </tr>
           <tr>
             <td>Total Coeff:</td>
-            <td>{{totals.coeff}}</td>
+            <td>{{data.msheet.coeff}}</td>
           </tr>
           <tr>
             <td>{{data.terms[term]}} Average:</td>
-            <td>{{mastersheet.table["students"][student.id].acAverage | number:2 }} / 20</td>
+            <td>{{data.summarysheet[data.student._id][0]}} / 20</td>
           </tr>
           <tr>
             <td>{{data.terms[term]}} Remark:</td>
@@ -275,7 +162,7 @@
           </tr>
           <tr>
             <td>Class Position:</td>
-            <td>{{mastersheet.table["students"][student.id].rank}}</td>
+            <td>{{data.rankings[data.student._id][termIndex]}}</td>
           </tr>
         </table>
       </div>
@@ -283,19 +170,19 @@
         <table class="table table-bordered table-striped table-transcript">
           <tr>
             <td>Hours of Absence:</td>
-            <td>{{student.discipline["absence"]}}</td>
+            <td>{{data.dcard.absence}}</td>
           </tr>
           <tr>
             <td>Attended Disciplinary Council:</td>
-            <td>{{student.discipline["council"]}}</td>
+            <td>{{data.dcard.council}}</td>
           </tr>
           <tr>
             <td>Warned</td>
-            <td>{{student.discipline["warned"]}}</td>
+            <td>{{data.dcard.warned}}</td>
           </tr>
           <tr>
             <td>Suspended</td>
-            <td>{{student.discipline["suspended"]}}</td>
+            <td>{{data.dcard.suspended}}</td>
           </tr>
           <tr>
             <td>Promotion Status</td>

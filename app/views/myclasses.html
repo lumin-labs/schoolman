@@ -53,11 +53,11 @@
 						<td>{{data.departments[marksheet.deptId].name}}</td>
 						<td>{{data.groups[marksheet.groupId].name}}</td>
 						<td>
-							<!-- {{getStudentsByCourse(course.id).length}} students -->
+							{{getNumberOfStudents(marksheet)}} students
 						</td>
-						<td>{{user.get(marksheet.teacherId).fullname}}</td>
+						<td>{{Users.get(marksheet.teacherId).fullname}}</td>
 						<td class="remove">
-							<a ng-click="removeBookmark({teacherId:username,courseId:course.id})">
+							<a ng-click="removeBookmark(marksheet)">
 								<i class="glyphicon glyphicon-remove"></i>
 							</a>
 						</td>
@@ -66,7 +66,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="jumbotron" ng-if="data.marksheets.length < 1" 
+	<div class="jumbotron" ng-if="data['marksheets'].length < 1" 
 	     style="margin-top:20px;" >
     	<h2 class="text-left">Welcome to the <b>My Classes</b> page!</h2>
     	<p class="text-left">

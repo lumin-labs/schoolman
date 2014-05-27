@@ -30,8 +30,8 @@ angular.module('SchoolMan')
 
     // Load Data
     var map = function(doc, emit){
-      if(doc.type === model.Fee.datatype._id){
-        emit(doc._id, {_id:doc.type, data:doc});
+      if(doc.datatype === model.Fee.datatype._id){
+        emit(doc._id, {_id:doc.datatype, data:doc});
       } 
     };
     Data2.query(map, {include_docs : true}).then(function(success){

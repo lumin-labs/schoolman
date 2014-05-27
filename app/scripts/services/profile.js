@@ -11,9 +11,9 @@ angular.module('SchoolMan')
 
     	// Load Data
 	    var map = function(doc, emit){
-	      if(doc.type === model.Comment.datatype._id){
+	      if(doc.datatype === model.Comment.datatype._id){
 	      	if(model.parse(doc, model.Comment.datatype).studentId === studentId){
-	      		emit(doc._id, {_id:doc.type, data:doc});
+	      		emit(doc._id, {_id:doc.datatype, data:doc});
 	      	}
 	      } 
 	    };

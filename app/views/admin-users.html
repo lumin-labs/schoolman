@@ -61,7 +61,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(userIndex, user) in getUsers() track by $index | orderBy:'fullname'">
+						<tr ng-repeat="(userId, user) in  data.users">
 							<td style="padding-left:10px;width:300px;">
 								{{user.fullname}}
 							</td>
@@ -89,7 +89,7 @@
 								</button>
 							</td>
 							<td class="remove text-center" style="width:80px;">
-								<a ng-click="removeUser(user.username)" ng-if="user.username !== username">
+								<a ng-click="remove(user)" ng-if="user.username !== username">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>

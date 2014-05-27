@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Registrar, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS, $user) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Dcards, Users, Registrar, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
 
+    console.log("ITS OK")
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
     $scope.accessCode = $routeParams.accessCode;
@@ -11,12 +12,15 @@ angular.module('SchoolMan')
   	$scope.newPayment.registrar = $routeParams.username;
     $scope.newPayment.studentId = $routeParams.studentId;
 
+    $scope.Users = Users;
+
     var studentId = $routeParams.studentId === "0" ? "U0000001" : $routeParams.studentId;
     console.log("routeParams", $routeParams);
 
     $scope.data = {
       comments:[],
       student:undefined,
+      dcard:undefined,
       forms:Forms.all(),
       departments:Departments.getAll(),
       groups:Groups.getAll(),
@@ -24,6 +28,7 @@ angular.module('SchoolMan')
       payments:[]
     };
 
+    console.log("studentId", studentId);
     Registrar.getStudent(studentId).then(function(student){
       console.log("Found student:", student);
       $scope.data.student = student;
@@ -31,6 +36,12 @@ angular.module('SchoolMan')
     }).catch(function(error){
       console.log("profileCtrl Error: ",error);
     })
+
+    Dcards.get(studentId).then(function(dcard){
+      $scope.data.dcard = dcard;
+    }).catch(function(error){
+      console.log("Failed to get dcard", error);
+    });
 
     profile.getComments(studentId).then(function(comments){
       $scope.data.comments = $scope.data.comments.concat(comments);
@@ -42,8 +53,6 @@ angular.module('SchoolMan')
     }).catch(function(error){
       console.log("payment error: ", error);
     });
-
-    $scope.$user = $user;
 
     $scope.addPayment = function(payment){
     	// Reformat the input from string to number
@@ -72,7 +81,7 @@ angular.module('SchoolMan')
       $scope.newComment.save().then(function(success){
         console.log("Comment saved: ", success);
         $scope.data.comments.push($scope.newComment);
-        $scope.newComment = new model.Comment($routeParams.username, $scope.student.id);
+        $scope.newComment = new model.Comment($routeParams.username, $scope.data.student._id);
       });     
     };
 
@@ -93,6 +102,11 @@ angular.module('SchoolMan')
       return total;
     };
 
-    $scope.save = Registrar.save;
-
+    $scope.save = function(model){
+      model.save().then(function(success){
+        console.log("Model saved", success);
+      }).catch(function(error){
+        console.log("Failed to save model", error);
+      });
+    };
   });
