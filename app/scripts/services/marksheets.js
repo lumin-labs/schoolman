@@ -145,13 +145,6 @@ angular.module('SchoolMan')
                 var sum = (xc + yc) / nc;
                 t1[studentId][i] = sum;
 
-                // console.log("Adding rows:", x, y);
-                // console.log("Mult x * coeff", x, prevM.coeff, xc);
-                // console.log("Mult y * coeff", y, nextM.coeff, yc);
-                // console.log("new coeff", nc);
-                // console.log("Sum: ", sum);
-                // console.log("---------------");
-
               }
             });
           }
