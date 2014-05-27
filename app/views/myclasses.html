@@ -53,11 +53,11 @@
 						<td>{{data.departments[marksheet.deptId].name}}</td>
 						<td>{{data.groups[marksheet.groupId].name}}</td>
 						<td>
-							<!-- {{getStudentsByCourse(course.id).length}} students -->
+							{{getNumberOfStudents(marksheet)}} students
 						</td>
-						<td>{{user.get(marksheet.teacherId).fullname}}</td>
+						<td>{{Users.get(marksheet.teacherId).fullname}}</td>
 						<td class="remove">
-							<a ng-click="removeBookmark({teacherId:username,courseId:course.id})">
+							<a ng-click="removeBookmark(marksheet)">
 								<i class="glyphicon glyphicon-remove"></i>
 							</a>
 						</td>

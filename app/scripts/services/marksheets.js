@@ -189,11 +189,12 @@ angular.module('SchoolMan')
     self.createOrUpdate = function(_id, teacherId){
     	var deferred = $q.defer();
   		console.log("Searching by _id", _id);
-  		Data2.get(_id).then(function(marksheet){
+  		self.get(_id).then(function(obj){
   			// Update
+        var marksheet = obj.marksheet;
   			console.log("Found marksheet, updating", marksheet);
   			marksheet.teacherId = teacherId;
-  			Data2.put(marksheet).then(function(success){
+  			marksheet.save().then(function(success){
   				deferred.resolve(marksheet);
   			}).catch(function(error){
   				deferred.resolve(error);

@@ -20,6 +20,8 @@ angular.module('SchoolMan')
       assignedTeacher:null
     };
 
+    $scope.Users = Users;
+
     // Load all classes assigned to the logged in user
     Marksheets.query({teacherId:$routeParams.username}).then(function(marksheets){
       console.log("myclasses Marksheets", marksheets);
@@ -65,9 +67,19 @@ angular.module('SchoolMan')
     // Expects
     // { teacherId:username,
     //   marksheetId:marksheetId }
-    $scope.removeBookmark = function(args){
-      TimeTable.removeBookmark(args);
-      refreshCourseList();
+    $scope.removeBookmark = function(marksheet){
+      console.log("removing marksheet", marksheet);
+      marksheet.teacherId = null;
+      marksheet.save().then(function(success){
+        $scope.data.marksheets = $scope.data.marksheets.filter(function(m){
+          return m._id !== marksheet._id;
+        });
+        console.log("Removed marksheet", $scope.data.marksheets);
+      });
+    }
+
+    $scope.getNumberOfStudents = function(marksheet){
+      return Object.keys(marksheet.table).length;
     }
 
      
