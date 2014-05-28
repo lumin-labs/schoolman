@@ -260,6 +260,7 @@ angular.module('SchoolMan')
      * which includes the courseId and a timestamp.
      */
     self.getTerms = function(){
+        console.log("inside course catalog get terms: ", template);
         return template.terms;
     };
 

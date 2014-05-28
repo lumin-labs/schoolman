@@ -1,43 +1,31 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ClasscouncilCtrl', function ($scope, $routeParams, Groups, Forms, Data, ClassMaster, CourseCatalog, Location, Registrar, Mastersheet) {
+  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, ClassCouncils, Groups, Forms, Terms, ClassMaster, CourseCatalog, Location, Mastersheet) {
     
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
 
-    $scope.formIndex  = $routeParams.formIndex;
+    $scope.data = {};
+    $scope.data.formIndex  = $routeParams.formIndex;
+    $scope.data.groups = angular.copy(Groups.getAll());
+    $scope.data.forms = Forms.all();
+    $scope.data.form  = $scope.data.forms[$routeParams.formIndex];
+    $scope.data.terms = Terms.getAll();
+    $scope.data.term  = $scope.data.terms[$routeParams.termIndex];
+    $scope.data.currentDate = new Date();
+    $scope.data.open = Location.open;
+    $scope.data.groupStats = {};
+    $scope.data.classcouncils = ClassCouncils.getAll();
 
-    $scope.groups = angular.copy(Groups.getAll());
 
-    $scope.forms = Forms.all();
-    $scope.form  = $scope.forms[$routeParams.formIndex];
+    $scope.data.newClassCouncil = new model.ClassCouncil();
 
-    $scope.terms = CourseCatalog.getTerms();
-    $scope.term  = $scope.terms[$routeParams.termIndex];
-
-    $scope.currentDate = new Date();
-
-    $scope.open = Location.open;
-
-    $scope.groupStats = {};
     var subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
-    /**
-    var studentIds = Object.keys($scope.data.rankings);
-    var rankingsList = _.map(studentIds, function(studentId){
-        var obj = {};
-        obj,rabjubgs = $scope.data.rankings[studentId];
-        obj.studentId = studentId;
-        return obj;
-    })
-    var sortedList = rankingsList.sort(function(a,b){
-        return a.rankings[3] - b.rankings[3];
-    })
-
-    // top3 = [rankings[0],rankings[1],rankings[2]]
-    // worst3 = rankings.slice(-3);
-    */
+    
+    
+    
        // This is doing more work than it needs to because we dont need a mastersheet
     // for every course
     var buildMastersheet = function(groupKey){
@@ -52,18 +40,35 @@ angular.module('SchoolMan')
             marksheets:marksheets,
             getSubjectKey:CourseCatalog.getSubjectKey
         });
-        $scope.mastersheet = mastersheet;
+        $scope.data.mastersheet = mastersheet;
         console.log("groupKey",groupKey);
-        console.log("scope.groups",$scope.groups);
-        var passingScore = $scope.groups[groupKey].getPromoPass($routeParams.formIndex)
+        console.log("scope.groups",$scope.data.groups);
+        var passingScore = 10;
+        //var passingScore = $scope.data.groups[groupKey].getPromoPass($routeParams.formIndex);
 
-        $scope.groupStats = mastersheet.numstats(passingScore);
+        var summaryMarksheet = Marksheets.combine(marksheets);
+        $scope.data.rankings = Marksheets.rank(summaryMarksheet);
+
+        $scope.data.groupStats = mastersheet.numstats(passingScore);
         
     }
     console.log("routeParams",$routeParams);
-    buildMastersheet($routeParams.groupIndex);
+    buildMastersheet($routeParams.groupId);
 
 
+    var studentIds = Object.keys($scope.data.rankings);
+    var rankingsList = _.map(studentIds, function(studentId){
+        var obj = {};
+        obj.rankings = $scope.data.rankings[studentId];
+        obj.studentId = studentId;
+        return obj;
+    })
+    var sortedList = rankingsList.sort(function(a,b){
+        return a.rankings[3] - b.rankings[3];
+    })
+
+    $scope.data.top3 = [rankings[0],rankings[1],rankings[2]]
+    $scope.data.worst3 = rankings.slice(-3);
 
     $scope.getRemark = function(average){
         return ClassMaster.getRemark(average);
@@ -71,7 +76,7 @@ angular.module('SchoolMan')
 
     
 
-    $scope.remarks = [
+    $scope.data.remarks = [
     	"Excellent",
     	"Very Good",
     	"Good",
