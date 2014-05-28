@@ -63,6 +63,8 @@ angular.module('SchoolMan')
         console.log("payment saved", success);
         $scope.data.payments.push(payment);
         $scope.newPayment = new model.Payment();
+        $scope.newPayment.registrar = $routeParams.username;
+        $scope.newPayment.studentId = $routeParams.studentId;
 
       }).catch(function(error){
         console.log("Payment save error ", error);

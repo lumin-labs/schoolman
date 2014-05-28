@@ -1,84 +1,88 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees) {
+  .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees, Payments) {
   	
-  	var forms = Forms.all().map(function(form){
-  		form.students = [];
-  		return form;
-  	});
+  	// var forms = Forms.all().map(function(form){
+  	// 	form.students = [];
+  	// 	return form;
+  	// });
 
-    var classes = Registrar.getClasses()
+   //  var classes = Registrar.getClasses()
+
+    Payments.getAll().then(function(success){
+      console.log(success);
+    });
 
     // fill each form with its list of students
-    angular.forEach(classes, function(c, cKey){
-    	var formIndex = cKey.split("-")[0];
-    	forms[formIndex].students = forms[formIndex].students.concat(c);
-    });
+    // angular.forEach(classes, function(c, cKey){
+    // 	var formIndex = cKey.split("-")[0];
+    // 	forms[formIndex].students = forms[formIndex].students.concat(c);
+    // });
 
 
     // each form should contain a fees object that contains
     // the total amount owed and total amount paid for each feeGroup
-    forms = forms.map(function(form){
+  //   forms = forms.map(function(form){
 
-    	// replace each student id with a student object 
-    	form.students = form.students.map(function(studentId){
-    		return Registrar.getStudent(studentId);
-    	});
+  //   	// replace each student id with a student object 
+  //   	form.students = form.students.map(function(studentId){
+  //   		return Registrar.getStudent(studentId);
+  //   	});
 
-    	// instantiate the fees object
-    	form.fees = {};
+  //   	// instantiate the fees object
+  //   	form.fees = {};
 
-    	// copy and instatiate each Fee object with owed and paid
-    	angular.forEach(Fees.getAll(), function(fee, feeKey){
-    		var feeCopy = angular.copy(fee); //copy, otherwise the next form will clobber this fee object 
-    		feeCopy.owed = 0;
-    		feeCopy.paid = 0;
-    		feeCopy.students = 0;
-    		form.fees[feeKey] = feeCopy;
-    	});
-
-
-    	// reduce students into fee totals
-    	console.log(form.name);
-    	form.fees = form.students.reduce(function(feeGroups, student){
-    		feeGroups[student.feeGroup].students += 1;
-    		feeGroups[student.feeGroup].owed += Fees.get(student.feeGroup).amount;
-    		feeGroups[student.feeGroup].paid = feeGroups[student.feeGroup].paid +
-    			student.payments.reduce(function(totalPaid, payment){
-    				return totalPaid + payment.amount;
-    		},0);
-    		if(student.id === "U0000792"){
-    			console.log("I know they paid: ", feeGroups[student.feeGroup].paid);
-    		}
-    		return feeGroups;
-    	}, form.fees);
-
-    	return form;
-    });
-
-		$scope.forms = forms;
+  //   	// copy and instatiate each Fee object with owed and paid
+  //   	angular.forEach(Fees.getAll(), function(fee, feeKey){
+  //   		var feeCopy = angular.copy(fee); //copy, otherwise the next form will clobber this fee object 
+  //   		feeCopy.owed = 0;
+  //   		feeCopy.paid = 0;
+  //   		feeCopy.students = 0;
+  //   		form.fees[feeKey] = feeCopy;
+  //   	});
 
 
+  //   	// reduce students into fee totals
+  //   	console.log(form.name);
+  //   	form.fees = form.students.reduce(function(feeGroups, student){
+  //   		feeGroups[student.feeGroup].students += 1;
+  //   		feeGroups[student.feeGroup].owed += Fees.get(student.feeGroup).amount;
+  //   		feeGroups[student.feeGroup].paid = feeGroups[student.feeGroup].paid +
+  //   			student.payments.reduce(function(totalPaid, payment){
+  //   				return totalPaid + payment.amount;
+  //   		},0);
+  //   		if(student.id === "U0000792"){
+  //   			console.log("I know they paid: ", feeGroups[student.feeGroup].paid);
+  //   		}
+  //   		return feeGroups;
+  //   	}, form.fees);
 
-		var summary = {fees:{}};
+  //   	return form;
+  //   });
+
+		// $scope.forms = forms;
+
+
+
+		// var summary = {fees:{}};
   	// copy and instatiate each Fee object with owed and paid
-  	angular.forEach(Fees.getAll(), function(fee, feeKey){
-  		var feeCopy = angular.copy(fee); //copy, otherwise the next form will clobber this fee object 
-  		feeCopy.owed = 0;
-  		feeCopy.students = 0;
-  		feeCopy.paid = 0;
-  		summary.fees[feeKey] = feeCopy;
-  	});
+  	// angular.forEach(Fees.getAll(), function(fee, feeKey){
+  	// 	var feeCopy = angular.copy(fee); //copy, otherwise the next form will clobber this fee object 
+  	// 	feeCopy.owed = 0;
+  	// 	feeCopy.students = 0;
+  	// 	feeCopy.paid = 0;
+  	// 	summary.fees[feeKey] = feeCopy;
+  	// });
 
-		$scope.summary = forms.reduce(function(s, form){
-			angular.forEach(form.fees, function(fee, feeKey){
-				summary.fees[feeKey].students = summary.fees[feeKey].students + fee.students; 
-				summary.fees[feeKey].owed = summary.fees[feeKey].owed + fee.owed; 
-				summary.fees[feeKey].paid = summary.fees[feeKey].paid + fee.paid; 
-			});	
-			return summary;
-		}, summary);
+		// $scope.summary = forms.reduce(function(s, form){
+		// 	angular.forEach(form.fees, function(fee, feeKey){
+		// 		summary.fees[feeKey].students = summary.fees[feeKey].students + fee.students; 
+		// 		summary.fees[feeKey].owed = summary.fees[feeKey].owed + fee.owed; 
+		// 		summary.fees[feeKey].paid = summary.fees[feeKey].paid + fee.paid; 
+		// 	});	
+		// 	return summary;
+		// }, summary);
 
 		var reduce = function(fees){
 			var self = {};

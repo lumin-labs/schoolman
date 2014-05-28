@@ -98,10 +98,11 @@
                       <div class="input-group">
                         <span class="input-group-addon">coeff</span>
                           <input style="width:80px;" 
-                           type="text" 
-                           class="form-control" 
-                           placeholder="coeff"
+                           type="number" 
+                           class="form-control"
                            ng-model="data.marksheet['coeff']"
+                           ng-blur ="save()" 
+                           ng-change="noteChange()"
                            >
                       </div>
                     </div>
