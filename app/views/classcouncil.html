@@ -2,7 +2,7 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="ClasscouncilCtrl">
-		<!-- Form Dropdown -->
+		<!-- Form Dropdown 
 		<div class="" style="padding-bottom:10px;">
 			<div class="btn-group">
 			  <button class="btn btn-lg btn-light dropdown-toggle" 
@@ -10,12 +10,65 @@
 			    {{form.name}} <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu">
-			    <li ng-repeat="(formIndex, form) in forms">
+			    <li ng-repeat="(formIndex, form) in data.forms">
 			      <a ng-href="" ng-click="open({formIndex:formIndex})">{{form.name}}</a>
 			    </li>
 			  </ul>
 			</div>
+		</div> -->
+
+		<!-- Form Dropdown -->
+		<div class="btn-group">
+		    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+		      {{data.forms[formIndex].name}} <span class="caret"></span>
+		    </button>
+		    <ul class="dropdown-menu">
+			   	<!-- <li>
+			   		<a ng-click="search.form = ''">All Forms</a>
+			   	</li>
+			   	<li class="divider"></li> -->
+			    <li ng-repeat="(formIndex, form) in data.forms">
+			        <a ng-click="open({formIndex:formIndex})">
+				       	{{data.forms[formIndex].name}}
+				     </a>
+				</li>
+			</ul>
 		</div>
+		<!-- Department Dropdown -->
+		<div  class="btn-group">
+		    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+		      {{data.departments[deptId].name || "Select Department"}} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<!-- <li>
+					<a ng-click="search.department = ''">All Departments</a>
+				</li> -->
+				<!-- <li class="divider"></li> -->
+				<li ng-repeat="(deptId, dept) in data.departments">
+				    <a ng-click="open({deptId:deptId})">
+				       	{{data.departments[deptId].name}}
+				    </a>
+				</li>
+			</ul>
+		</div>
+		<!-- Group Dropdown -->
+		<div  class="btn-group">
+		    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+		      {{data.groups[groupId].name || "Select Group"}} <span class="caret"></span>
+		    </button>
+		    <ul class="dropdown-menu">
+			   	<!-- <li>
+			   		<a ng-click="search.group = ''">All Groups</a>
+			   	</li>
+			  	<li class="divider"></li> -->
+			    <li ng-repeat="(groupId, group) in data.groups">
+			        <a ng-click="open({groupId:groupId})">
+			      	{{data.groups[groupId].name}}
+				    </a>
+				</li>
+			</ul>
+		</div>
+									
 
 		<!-- School Name Letterhead -->
 	<div class="letterhead" ng-include="'views/_letterhead.html'"></div>
@@ -23,10 +76,10 @@
 	<div class="row">
 		<div class="col-md-6">
 			<p><b>ACADEMIC YEAR:</b> <i>2014/2015</i></p>
-			<p><b>TERM:</b> <i>{{data.term.name}}</i></p>
+			<p><b>TERM:</b> <i>{{data.terms[termIndex].name}}</i></p>
 			</div>
 			<div class="col-md-6">
-			<p><b>CLASS:</b> <i>{{data.form.name}}</i></p>
+			<p><b>CLASS:</b> <i>{{data.forms[formIndex].name}}</i></p>
 			<p><b>DATE:</b> <i>{{data.currentDate | date:"medium"}}</i></p>
 			</div>
 	</div>
@@ -36,18 +89,18 @@
 		<div class="col-md-1"></div>
 		<div class="col-md-5">
 			<table>
-			<tr><td>Number on Roll: </td><td><u>{{data.groupStats.numStudents}}</u></td></tr>
-			<tr><td>Number Present: </td><td><u>{{data.groupStats.numPresent}}</u></td></tr>
-			<tr><td>Number With 10+ Average: </td><td><u>{{data.groupStats.passing}}</u></td></tr>
-			<tr><td>Number With 10- Average: </td><td><u>{{data.groupStats.failing}}</u></td></tr>
+			<tr><td>Number on Roll: </td><td><u>{{groupStats.numStudents}}</u></td></tr>
+			<tr><td>Number Present: </td><td><u>{{groupStats.numPresent}}</u></td></tr>
+			<tr><td>Number With 10+ Average: </td><td><u>{{groupStats.passing}}</u></td></tr>
+			<tr><td>Number With 10- Average: </td><td><u>{{groupStats.failing}}</u></td></tr>
 			</table>
 		</div>
 		<div class="col-md-5">
 			<table padding="15px">
-			<tr><td>Percentage Pass: </td><td><u>{{(data.groupStats.percentPassing * 100 || 0) | number:1}}</u></td></tr>
-			<tr><td>Percentage Fail: </td><td><u>{{(data.groupStats.percentFailing * 100 || 0) | number:1}}</u></td></tr>
-			<tr><td>Class Average: </td><td><u>{{(data.groupStats.classAverage || 0)}}</u></td></tr>
-			<tr><td>Class Range:</td><td><u>{{data.groupStats.classRange}}</u></td></tr>
+			<tr><td>Percentage Pass: </td><td><u>{{(groupStats.percentPassing * 100 || 0) | number:1}}</u></td></tr>
+			<tr><td>Percentage Fail: </td><td><u>{{(groupStats.percentFailing * 100 || 0) | number:1}}</u></td></tr>
+			<tr><td>Class Average: </td><td><u>{{(groupStats.classAverage || 0)}}</u></td></tr>
+			<tr><td>Class Range:</td><td><u>{{groupStats.classRange}}</u></td></tr>
 			</table>
 		</div>
 		<div class="col-md-1"></div>

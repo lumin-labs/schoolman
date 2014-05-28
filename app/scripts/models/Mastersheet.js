@@ -175,6 +175,7 @@ angular.module('SchoolMan')
           stats.classRange = 0;
         }
 
+        console.log("mastersheet numstats: ", stats);
         return stats;
       };
 

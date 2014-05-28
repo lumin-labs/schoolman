@@ -1,61 +1,135 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, ClassCouncils, Groups, Forms, Terms, ClassMaster, CourseCatalog, Location, Mastersheet) {
+  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet) {
     
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
 
+    $scope.formIndex = $routeParams.formIndex;
+    $scope.groupId = $routeParams.groupId;
+    $scope.deptId = $routeParams.deptId;
+    $scope.termIndex = $routeParams.termIndex;
+
     $scope.data = {};
-    $scope.data.formIndex  = $routeParams.formIndex;
-    $scope.data.groups = angular.copy(Groups.getAll());
     $scope.data.forms = Forms.all();
-    $scope.data.form  = $scope.data.forms[$routeParams.formIndex];
+    $scope.data.departments = Departments.getAll();
+    $scope.data.groups = Groups.getAll();
     $scope.data.terms = Terms.getAll();
-    $scope.data.term  = $scope.data.terms[$routeParams.termIndex];
     $scope.data.currentDate = new Date();
-    $scope.data.open = Location.open;
-    $scope.data.groupStats = {};
     $scope.data.classcouncils = ClassCouncils.getAll();
+    $scope.data.groupStats = {};
+
+    $scope.groupStats = {};
+    $scope.open = Location.open;
 
 
     $scope.data.newClassCouncil = new model.ClassCouncil();
 
-    var subjects = CourseCatalog.getSubjects($routeParams.formIndex);
+     Marksheets.query({
+        formIndex:$routeParams.formIndex,
+        deptId:$routeParams.deptId,
+        groupId:$routeParams.groupId
+      }).then(function(marksheets){
 
-    
-    
-    
-       // This is doing more work than it needs to because we dont need a mastersheet
-    // for every course
-    var buildMastersheet = function(groupKey){
+        // Convert marksheets to a list and store in $scope.data.marksheets
+
+        var stats = {
+            numStudents:0,
+            numPresent:0,
+            passing:0,
+            failing:0,
+            percentPassing:0,
+            percentFailing:0,
+            classAverage:0,
+            classRange:0
+        };
         
-        var courses = CourseCatalog.getCourses($routeParams.formIndex, groupKey);
-        var courseIds = courses.map(function(course){return course.id});
-
-        var marksheets = ClassMaster.getMarksheets(courseIds);
-        var mastersheet = new Mastersheet({
-            termIndex:0,
-            subjects:subjects,
-            marksheets:marksheets,
-            getSubjectKey:CourseCatalog.getSubjectKey
+        $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){
+          return marksheets[marksheetId];
         });
-        $scope.data.mastersheet = mastersheet;
-        console.log("groupKey",groupKey);
-        console.log("scope.groups",$scope.data.groups);
+        /**
+        // Create marksheet summaries 
+        $scope.data.summaries = marksheets.map(function(marksheet){
+          var summary = Marksheets.summarize(marksheet, $scope.termIndex);
+          console.log("Marksheet has been summarized: ", marksheet, summary);
+          return summary;
+        });*/
+
+        // combine all marksheets
+        $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
+        console.log("combined marksheet created", $scope.data.combinedMarksheet);
+
+        // summarize combined marksheet to get grand totals
+        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;
+        console.log("summary marksheet created", $scope.data.summarysheet);
+
         var passingScore = 10;
-        //var passingScore = $scope.data.groups[groupKey].getPromoPass($routeParams.formIndex);
 
-        var summaryMarksheet = Marksheets.combine(marksheets);
-        $scope.data.rankings = Marksheets.rank(summaryMarksheet);
-
-        $scope.data.groupStats = mastersheet.numstats(passingScore);
+        var minStudent = 20;
+        var maxStudent = 0;
+        var studentAvg = 0;
+        var classTotal = 0;
         
-    }
-    console.log("routeParams",$routeParams);
-    buildMastersheet($routeParams.groupId);
+        angular.forEach($scope.data.combinedMarksheet.table, function(student, studentId){
+            console.log("student:",studentId, getTermAvg(student, $scope.termIndex));
+            stats.numStudents = stats.numStudents +1;
+            studentAvg = getTermAvg(student, $scope.termIndex);
+            classTotal = studentAvg + classTotal;
 
+            if(studentAvg >= passingScore){
+                stats.passing = stats.passing +1;
+            }
+            if(!isNan(studentAvg)){
+                if(studentAvg < minStudent){
+                    minStudent = studentAvg;
+                }
+                if(studentAvg > maxStudent){
+                    maxStudent = studentAvg;
+                }
+            }
+        });
 
+        stats.failing = stats.numStudents - stats.passing;
+        stats.percentPassing = stats.passing / stats.numStudents;
+        stats.percentFailing = 1 - stats.percentPassing;
+        stats.classAverage = classTotal / stats.numStudents;
+        stats.classRange = maxStudent - minStudent;
+        console.log("stats: ", stats);
+        $scope.groupStats = stats;
+        
+        // get rankings from combined marksheet
+        $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);
+        console.log("Rankings:", $scope.data.rankings);
+
+        // Create a list of student from the union of marksheet studentIds
+        var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){
+          return result.concat(Object.keys(summary));
+        },[]));
+
+        Students.getBatch(studentIds).then(function(students){
+          $scope.data.students = _.map(Object.keys(students), function(studentId){
+            return students[studentId];
+          });
+
+        // Catch errors
+        }).catch(function(error){
+          console.log("Failed to find students: ", error);
+        });
+      })
+      .catch(function(error){
+        console.log("Failed to find marksheets", error);
+      });
+
+      var getTermAvg = function(student, termIndex){
+        return (student[termIndex*2] + student[termIndex*2+1])/2;
+      }
+
+    
+    
+    
+
+/**
     var studentIds = Object.keys($scope.data.rankings);
     var rankingsList = _.map(studentIds, function(studentId){
         var obj = {};
@@ -69,7 +143,8 @@ angular.module('SchoolMan')
 
     $scope.data.top3 = [rankings[0],rankings[1],rankings[2]]
     $scope.data.worst3 = rankings.slice(-3);
-
+*/
+    
     $scope.getRemark = function(average){
         return ClassMaster.getRemark(average);
       };

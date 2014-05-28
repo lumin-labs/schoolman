@@ -4,34 +4,7 @@ var schoolman = angular.module('SchoolMan');
 
 schoolman.config(['modelProvider', function(model){
 
-  model.datatypes.classcouncil = {
-    v1:{
-      type:"schema",
-      _id:"datatype/classcouncil/v1",
-      fields:[{
-        key:"classId",
-        type:"string",
-        required:true
-      },{
-        key:"academicRemark",
-        type:"string",
-        required:true
-      },{
-        key:"conductRemark",
-        type:"string",
-        required:true
-      },{
-        key:"possibleFactors",
-        type:"string",
-        required:false
-      },{
-        key:"classMaster",
-        type:"string",
-        required:false
-      }],
-      fields_key:0
-    }
-  };
+
 
   function ClassCouncil(){
     
@@ -42,15 +15,34 @@ schoolman.config(['modelProvider', function(model){
       return new ClassCouncil();
     }
 
-    this.classId = "";
+    this.is("classcouncil.v1");
+
+    var val = this.val.bind(this); var required = true;
+
+    this[ val ('formIndex : number', required)] = 0;
+    this[ val ('deptId : string', required)] = "";
+    this[ val ('groupId : string', required)] = "";
+    this[ val ('academicRemark : string')] = "";
+    this[ val ('conductRemark : string')] = "";
+    this[ val ('classMaster : string')] = "";
+    
+
+    this.formIndex = 0;
+    this.deptId = "";
+    this.groupId = "";
     this.academicRemark = "";
     this.conductRemark = "";
     this.possibleFactors = "";
     this.classMaster = "";
   }
 
+  ClassCouncil.prototype.generateID = function(){
+        var id = "council_" + this.formIndex + "_" + this.deptId + "_" + this.groupId;
+        return id;
+  }
+
   ClassCouncil.prototype = new model.Model();
-  ClassCouncil.prototype.datatype = ClassCouncil.datatype = model.datatypes.classcouncil.v1;
+  //ClassCouncil.prototype.datatype = ClassCouncil.datatype = model.datatypes.classcouncil.v1;
 
   model.ClassCouncil = ClassCouncil;
 
