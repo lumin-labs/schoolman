@@ -6,6 +6,8 @@ angular.module('SchoolMan')
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
       $scope.open = Location.open;
+      $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
+      $scope.pageTitleFrench = "BULLETIN DE NOTES";
 
       $scope.data = {};
       $scope.data.forms = Forms.all();
@@ -69,6 +71,7 @@ angular.module('SchoolMan')
         var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){
           return result.concat(Object.keys(summary));
         },[]));
+        console.log("student ids", studentIds);
 
         Students.getBatch(studentIds).then(function(students){
           $scope.data.students = _.map(Object.keys(students), function(studentId){

@@ -10,6 +10,18 @@ angular.module('SchoolMan')
   		return classcouncils;
   	};
 
+  	self.get = function(classcouncilId){
+  		var deferred = $q.defer();
+  		Data2.get(classcouncilId).then(function(data){
+  			var spec = model.parse2(data, data.datatype);
+  			var classcouncil = new model.ClassCouncil(spec);
+  			deferred.resolve(classcouncil);
+  		}).catch(function(error){
+  			deferred.reject(error);
+  		});
+  		return deferred.promise;
+  	}
+
     self.query = function(classId){
 
     	var deferred = $q.defer();

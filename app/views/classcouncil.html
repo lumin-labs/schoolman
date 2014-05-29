@@ -2,31 +2,12 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="ClasscouncilCtrl">
-		<!-- Form Dropdown 
-		<div class="" style="padding-bottom:10px;">
-			<div class="btn-group">
-			  <button class="btn btn-lg btn-light dropdown-toggle" 
-			  			  data-toggle="dropdown">
-			    {{form.name}} <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu">
-			    <li ng-repeat="(formIndex, form) in data.forms">
-			      <a ng-href="" ng-click="open({formIndex:formIndex})">{{form.name}}</a>
-			    </li>
-			  </ul>
-			</div>
-		</div> -->
-
 		<!-- Form Dropdown -->
 		<div class="btn-group">
 		    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
 		      {{data.forms[formIndex].name}} <span class="caret"></span>
 		    </button>
 		    <ul class="dropdown-menu">
-			   	<!-- <li>
-			   		<a ng-click="search.form = ''">All Forms</a>
-			   	</li>
-			   	<li class="divider"></li> -->
 			    <li ng-repeat="(formIndex, form) in data.forms">
 			        <a ng-click="open({formIndex:formIndex})">
 				       	{{data.forms[formIndex].name}}
@@ -40,10 +21,6 @@
 		      {{data.departments[deptId].name || "Select Department"}} <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">
-				<!-- <li>
-					<a ng-click="search.department = ''">All Departments</a>
-				</li> -->
-				<!-- <li class="divider"></li> -->
 				<li ng-repeat="(deptId, dept) in data.departments">
 				    <a ng-click="open({deptId:deptId})">
 				       	{{data.departments[deptId].name}}
@@ -57,10 +34,6 @@
 		      {{data.groups[groupId].name || "Select Group"}} <span class="caret"></span>
 		    </button>
 		    <ul class="dropdown-menu">
-			   	<!-- <li>
-			   		<a ng-click="search.group = ''">All Groups</a>
-			   	</li>
-			  	<li class="divider"></li> -->
 			    <li ng-repeat="(groupId, group) in data.groups">
 			        <a ng-click="open({groupId:groupId})">
 			      	{{data.groups[groupId].name}}
@@ -68,19 +41,38 @@
 				</li>
 			</ul>
 		</div>
+		<!-- Term Dropdown -->
+        <div  class="btn-group">
+            <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                {{data.terms[termIndex].name}}   <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="(termIndex, term) in [1, 2, 3]">
+                    <a ng-click="open({termIndex:termIndex})">
+                        Term {{term}}
+                    </a>
+                </li>
+            </ul>
+        </div>
 									
 
 		<!-- School Name Letterhead -->
 	<div class="letterhead" ng-include="'views/_letterhead.html'"></div>
 
 	<div class="row">
-		<div class="col-md-6">
-			<p><b>ACADEMIC YEAR:</b> <i>2014/2015</i></p>
-			<p><b>TERM:</b> <i>{{data.terms[termIndex].name}}</i></p>
+		<div class="col-md-4">
+			<p><b>Academic Year:</b> <i>2014/2015</i></p>
+			<p><b>Term:</b> <i>{{data.terms[termIndex].name}}</i></p>
 			</div>
-			<div class="col-md-6">
-			<p><b>CLASS:</b> <i>{{data.forms[formIndex].name}}</i></p>
-			<p><b>DATE:</b> <i>{{data.currentDate | date:"medium"}}</i></p>
+			<div class="col-md-4">
+			<p><b>Class:</b> <i>{{data.forms[formIndex].name + data.groups[groupId].name}}</i></p>
+			<p><b>Department:</b> <i>{{data.departments[deptId].name}}</i></p>
+			</div>
+			<div class="col-md-4">
+			<table><tr><th>Passing Score:</th><td width="50px">
+				<input type="text" class="form-control" ng-model="score" ng-blur="updatePassingScore()"></input></td>
+			</tr></table>
+			<p><b>Date:</b> <i>{{data.currentDate | date:"medium"}}</i></p>
 			</div>
 	</div>
 
@@ -91,16 +83,16 @@
 			<table>
 			<tr><td>Number on Roll: </td><td><u>{{groupStats.numStudents}}</u></td></tr>
 			<tr><td>Number Present: </td><td><u>{{groupStats.numPresent}}</u></td></tr>
-			<tr><td>Number With 10+ Average: </td><td><u>{{groupStats.passing}}</u></td></tr>
-			<tr><td>Number With 10- Average: </td><td><u>{{groupStats.failing}}</u></td></tr>
+			<tr><td>Number With {{data.classcouncil.passingScore}}+ Average: </td><td><u>{{groupStats.passing}}</u></td></tr>
+			<tr><td>Number With {{data.classcouncil.passingScore}}- Average: </td><td><u>{{groupStats.failing}}</u></td></tr>
 			</table>
 		</div>
 		<div class="col-md-5">
 			<table padding="15px">
 			<tr><td>Percentage Pass: </td><td><u>{{(groupStats.percentPassing * 100 || 0) | number:1}}</u></td></tr>
 			<tr><td>Percentage Fail: </td><td><u>{{(groupStats.percentFailing * 100 || 0) | number:1}}</u></td></tr>
-			<tr><td>Class Average: </td><td><u>{{(groupStats.classAverage || 0)}}</u></td></tr>
-			<tr><td>Class Range:</td><td><u>{{groupStats.classRange}}</u></td></tr>
+			<tr><td>Class Average: </td><td><u>{{(groupStats.classAverage || 0) | number: 2}}</u></td></tr>
+			<tr><td>Class Range:</td><td><u>{{groupStats.classRange | number: 2}}</u></td></tr>
 			</table>
 		</div>
 		<div class="col-md-1"></div>
@@ -119,14 +111,14 @@
 		<div class="col-md-2">
 		</div>
 		<div class="col-md-4">
-			<p>1- <u>Student Name</u></p>
-			<p>2- <u>Student Name</u></p>
-			<p>3- <u>Student Name</u></p>
+			<p>1- <u>{{data.bestStudents[0].name}}</u></p>
+			<p>2- <u>{{data.bestStudents[1].name}}</u></p>
+			<p>3- <u>{{data.bestStudents[2].name}}</u></p>
 		</div>
 		<div class="col-md-6">
-			<p><u>Average</u></p>
-			<p><u>Average</u></p>
-			<p><u>Average</u></p>
+			<p><u>{{data.bestStudents[0].average || 0 | number:2}}</u></p>
+			<p><u>{{data.bestStudents[1].average || 0 | number:2}}</u></p>
+			<p><u>{{data.bestStudents[2].average || 0 | number:2}}</u></p>
 		</div>
 	</div>
 	
@@ -143,14 +135,14 @@
 		<div class="col-md-2">
 		</div>
 		<div class="col-md-4">
-			<p>1- <u>Student Name</u></p>
-			<p>2- <u>Student Name</u></p>
-			<p>3- <u>Student Name</u></p>
+			<p>1- <u>{{data.worstStudents[0].name}}</u></p>
+			<p>2- <u>{{data.worstStudents[1].name}}</u></p>
+			<p>3- <u>{{data.worstStudents[2].name}}</u></p>
 		</div>
 		<div class="col-md-6">
-			<p><u>Average</u></p>
-			<p><u>Average</u></p>
-			<p><u>Average</u></p>
+			<p><u>{{data.worstStudents[0].average || 0 | number:2}}</u></p>
+			<p><u>{{data.worstStudents[1].average || 0 | number:2}}</u></p>
+			<p><u>{{data.worstStudents[2].average || 0 | number:2}}</u></p>
 		</div>
 	</div>
 	
@@ -165,20 +157,16 @@
 				<div class="col-md-10">
 					<div class="btn-group">
 			  			<button class="btn btn-sm btn-default dropdown-toggle" 
-			  			  data-toggle="dropdown">{{getRemark(groupStats.classAverage).text}}
+			  			  data-toggle="dropdown">{{data.classcouncil.academicRemark[termIndex].text || "Select Remark"}}
+			  			  <span class="caret"></span>
 			  			</button>
 			  			<ul class="dropdown-menu">
-			    			<li ng-repeat="(remarkIndex, remark) in remarks">
-                            	<a ng-click="">{{remark}}</a>
+			    			<li ng-repeat="(remarkIndex, remark) in data.remarks">
+                            	<a ng-click="changeAcRemark(remark)">{{remark.text}}</a>
                           	</li>
 			  			</ul>
 					</div>
 				</div>
-
-				<!--<div class="col-md-1">
-					<table class="table table-bordered"><tr><td>{{getRemark(groupStats.classAverage).text}}</td></tr></table>
-				</div>
-				<div class="col-md-9"></div>-->
 			</div>
 			
 			<div class="row">
@@ -187,11 +175,11 @@
 				<div class="col-md-10">
 					<div class="btn-group">
 			  			<button class="btn btn-sm btn-default dropdown-toggle" 
-			  			  data-toggle="dropdown"><span class="caret"></span>
+			  			  data-toggle="dropdown">{{data.classcouncil.conductRemark.text || "Select Remark"}}<span class="caret"></span>
 			  			</button>
 			  			<ul class="dropdown-menu">
-			    			<li ng-repeat="(remarkIndex, remark) in remarks">
-                            	<a ng-click="">{{remark}}</a>
+			    			<li ng-repeat="(remarkIndex, remark) in data.remarks">
+                            	<a ng-click="changeConRemark(remark)">{{remark.text}}</a>
                           	</li>
 			  			</ul>
 					</div>
@@ -203,7 +191,7 @@
 	<div class = "row">
 		<div class="col-md-12">
 			<h3>Possible Factors/Reasons</h3>
-			<textarea rows="4" cols="120"></textarea>
+			<textarea class="form-control" placeholder="Possible Factors/Reasons" ng-model="data.classcouncil.factors[termIndex]" ng-blur="save()"></textarea>
 		</div>
 	</div>
 	<br><br>
@@ -211,10 +199,14 @@
 	<div class = "row">
 		<div class="col-md-4"></div>
 		<div class="col-md-8">
-			<p><b>Class Master/Mistress</b></p>
-			<p>Name:</p>
-			<p>Signature:</p>
-			<p>Date:</p>
+			
+				<p><b>Class Master/Mistress</b></p>
+				<table>
+				<tr height="50px"><td style="text-align:right">Name:</td><td width="300px">
+					<input type="text" class="form-control" placeholder="Class Master" ng-model="data.classcouncil.classMaster" ng-blur="save()">
+					</input></td></tr>
+			<tr height="50px"><td style="text-align:right">Signature:</td><td></td></tr>
+			<tr height="50px"><td style="text-align:right">Date:</td><td></td></tr>
 		</div>
 	</div>
 		

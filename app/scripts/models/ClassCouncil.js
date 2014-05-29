@@ -6,13 +6,13 @@ schoolman.config(['modelProvider', function(model){
 
 
 
-  function ClassCouncil(){
-    
+  function ClassCouncil(spec){
+    spec = spec || {};
 
     // Prevents global namespace clobbering if you istantiate this object
     // without the 'new' keyword
     if (!(this instanceof ClassCouncil)) {
-      return new ClassCouncil();
+      return new ClassCouncil(spec);
     }
 
     this.is("classcouncil.v1");
@@ -22,28 +22,27 @@ schoolman.config(['modelProvider', function(model){
     this[ val ('formIndex : number', required)] = 0;
     this[ val ('deptId : string', required)] = "";
     this[ val ('groupId : string', required)] = "";
-    this[ val ('academicRemark : string')] = "";
+    this[ val ('passingScore : number')] = 10;
+    this[ val ('academicRemark : object')] = [];
     this[ val ('conductRemark : string')] = "";
+    this[ val ('factors : object')] = [];
     this[ val ('classMaster : string')] = "";
-    
 
-    this.formIndex = 0;
-    this.deptId = "";
-    this.groupId = "";
-    this.academicRemark = "";
-    this.conductRemark = "";
-    this.possibleFactors = "";
-    this.classMaster = "";
-  }
-
-  ClassCouncil.prototype.generateID = function(){
-        var id = "council_" + this.formIndex + "_" + this.deptId + "_" + this.groupId;
-        return id;
+    this.__init__(spec);
   }
 
   ClassCouncil.prototype = new model.Model();
-  //ClassCouncil.prototype.datatype = ClassCouncil.datatype = model.datatypes.classcouncil.v1;
 
+  ClassCouncil.generateID = function(p){
+        var id = "council_" + p.formIndex + "_" + p.deptId + "_" + p.groupId;
+        return id;
+  }
+  ClassCouncil.prototype.generateID = function(){
+    return ClassCouncil.generateID(this);
+  }
+
+  
+  
   model.ClassCouncil = ClassCouncil;
 
 }]);
