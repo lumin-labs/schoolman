@@ -3,7 +3,7 @@
 angular.module('SchoolMan')
   .controller('MastersheetCtrl2', function ($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	 
-      var termIndex = $routeParams.termIndex;
+      var termIndex = parseInt($routeParams.termIndex);
       
       $scope.open = Location.open;
 

@@ -59,17 +59,19 @@ angular.module('SchoolMan')
     self.rank = function(marksheet){
       
       var list = self.listify(marksheet);
+      
 
       var sort = function(aveList){
         var sortList = angular.copy(aveList); 
+        
 
         sortList.sort(function(a,b){
           return parseFloat(b[1]) - parseFloat(a[1]);
         });
-
+        
         return sortList;
       };
-
+      
       var number = function(sortedRows){
         var rows = [];
         angular.forEach(sortedRows, function(row, i){
@@ -110,6 +112,7 @@ angular.module('SchoolMan')
     }
 
     self.combine = function(marksheets){
+      console.log("combine function marksheets: ", marksheets);
 
       // Create new Marksheet
       var head = marksheets[0];

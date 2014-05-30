@@ -116,6 +116,8 @@ schoolman.provider('model', function modelProvider() {
       fields_key:0
     };
     this.datatype = self.datatypes[type][version];
+    console.log("datatype", datatype);
+    console.log("self.datatypes", self.datatypes);
   };
 
   Model.prototype.val = function(prop, required){
@@ -155,6 +157,8 @@ schoolman.provider('model', function modelProvider() {
 
   self.parse2 = function(doc, datatypeId){
     var params = datatypeId.split("/");
+    console.log("datatypeId",datatypeId);
+    console.log("self.datatypes",self.datatypes);
     var spec = self.datatypes[params[1]][params[2]];
     return self.parse(doc, spec);
   }
