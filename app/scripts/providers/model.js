@@ -11,17 +11,18 @@ schoolman.provider('model', function modelProvider() {
   // This function lets you ask if the object has all the required fields
   // TODO: the config for which fields are required should probably be done 
   // elsewhere
-  Model.prototype.isValid = function(){
-    var self = this;
-    var isOk = true;
-    angular.forEach(self.requiredFields, function(field, fieldIndex){
-      // if the current value of the field is some kind of null value
-      if(self.invalidValues.indexOf(self[field]) > -1){
-        isOk = false;
-      }
-    });
-    return isOk;
-  };
+  // Model.prototype.isValid = function(){
+  //   console.log("RUNNING: Model.prototype.isValid");
+  //   var self = this;
+  //   var isOk = true;
+  //   angular.forEach(self.requiredFields, function(field, fieldIndex){
+  //     console.log("isValid field", field);
+  //     if(self.invalidValues.indexOf(self[field]) > -1){
+  //       isOk = false;
+  //     }
+  //   });
+  //   return isOk;
+  // };
 
   Model.prototype.asDoc = function(){
 
@@ -44,16 +45,20 @@ schoolman.provider('model', function modelProvider() {
     return doc;
   };
 
-  self.isValid = function(model){
+  Model.prototype.isValid = function(){
+    var self = this;
+
+    console.log("RUNNING: self.isValid", self);
     var valid = true;
     var invalidValues = {
       "string":[""],
       "number":[0]
     }
 
-    angular.forEach(model.datatype.fields, function(field, fieldIndex){
+    angular.forEach(self.datatype.fields, function(field, fieldIndex){
       if(field.required){
-        var value = model[field.key];
+        var value = self[field.key];
+        console.log("What is value", value, field.type);
         if(typeof value !== field.type){
           console.log("Error typeof", value, field.type);
           valid = false;
@@ -71,10 +76,9 @@ schoolman.provider('model', function modelProvider() {
     var self = this;
     var deferred = self.$q.defer();
 
-    if(self.isValid(self)){
+    if(self.isValid()){
       if(typeof self.generateID === 'function' && !self._id){
         var id = self.generateID();
-        console.log("Type of id", (typeof id));
         self._id = id;
       }
       var doc = self.asDoc();
