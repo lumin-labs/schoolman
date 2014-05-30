@@ -41,7 +41,6 @@ angular.module('SchoolMan')
         
         // get rankings from combined marksheet
         $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);
-        console.log("Rankings:", $scope.data.rankings);
 
         // Create a list of student from the union of marksheet studentIds
         var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){

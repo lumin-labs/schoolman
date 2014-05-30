@@ -52,8 +52,6 @@ angular.module('SchoolMan')
           }
           return newRow;
         }); 
-        console.log("new list:",newList);
-        console.log("list:", list);
         return newList;
       }
 
@@ -72,7 +70,6 @@ angular.module('SchoolMan')
 
       var sort = function(aveList){
         var sortList = angular.copy(aveList);  
-        console.log("sortList: ", sortList);
         /**
         angular.forEach(sortList, function(student, id){
           if(isNaN(student[1])){
@@ -85,15 +82,13 @@ angular.module('SchoolMan')
         sortList.sort(function(a,b){
           return parseFloat(b[1]) - parseFloat(a[1]);
         });
-
-        console.log("sortList after sort", sortList);
         
         return sortList;
       };
       
       var number = function(sortedRows){
         var rows = [];
-        console.log("sorted Rows: ", sortedRows);
+
         angular.forEach(sortedRows, function(row, i){
           if(row[1] >= 0){
             rows[i]    = [row[0]];
@@ -102,11 +97,9 @@ angular.module('SchoolMan')
               rows[i][1] = 1;
             } else {
                 rows[i][1] = row[1] === sortedRows[i - 1][1] ? rows[i - 1][1] : i + 1;  
-                console.log("student", rows[i][0], sortedRows[i][1],rows[i][1]);
             }
           }
         });
-        console.log("Rows: ", rows);
         return rows;
       };
 
@@ -137,7 +130,6 @@ angular.module('SchoolMan')
     }
 
     self.combine = function(marksheets){
-      console.log("combine function marksheets: ", marksheets);
 
       // Create new Marksheet
       var head = marksheets[0];
@@ -196,7 +188,6 @@ angular.module('SchoolMan')
     	var deferred = $q.defer();
 
     	var marksheet = new model.Marksheet(params);
-    	console.log("Marksheet object created: ", marksheet);
     	marksheet.save().then(function(success){
     		console.log("Marksheet saved", success, marksheet);
     		deferred.resolve(marksheet);
@@ -209,7 +200,6 @@ angular.module('SchoolMan')
 
     self.createOrUpdate = function(_id, teacherId){
     	var deferred = $q.defer();
-  		console.log("Searching by _id", _id);
   		self.get(_id).then(function(obj){
   			// Update
         var marksheet = obj.marksheet;

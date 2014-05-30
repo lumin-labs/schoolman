@@ -53,11 +53,9 @@ angular.module('SchoolMan')
         
         // combine all marksheets
         $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
-        console.log("combined marksheet created:", $scope.data.combinedMarksheet);
         
         // summarize combined marksheet to get grand totals
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);; 
-         console.log("summary marksheet created:", $scope.data.summarysheet);       
+        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;      
         
         $scope.groupStats = performanceStats();
         $scope.score = $scope.data.classcouncil.passingScore;
@@ -129,18 +127,15 @@ angular.module('SchoolMan')
             obj.studentId = studentId;
             return obj;
         })
-        console.log("rankingsList", rankingsList);
         var sortedList = rankingsList.sort(function(a,b){
             return a.rankings[$scope.termIndex] - b.rankings[$scope.termIndex];
         })
-        console.log("sortedList:", sortedList);
         var n = 0;
         angular.forEach(sortedList, function(student, objId){
                 if(isNaN(student.rankings[$scope.termIndex])){
                     n += 1;
                 }
             })
-        console.log("null values:", n);
         var top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
         var sortedListEnd = sortedList.slice(-3-n);
         var worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
