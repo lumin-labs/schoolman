@@ -12,17 +12,10 @@ angular.module('SchoolMan')
       var user = null; // Replace this with throwing error
       var username = Slug.slugify(tempUser.fullname);
 
-      console.log("tempUser", tempUser);
-      console.log("username", username);
-      console.log("users", users);
-
       if(users.hasOwnProperty(username)){
 
         var user = users[username];
-        console.log("user", user);
-        
-        $log.debug("Who am i?", user, user.access['admin'], user.hasAccess('admin'));
-        
+                
         var accessCode =  accessCode && accessCode !== "undefined" ? accessCode : user.getHighestAccess();
         if(user.hasAccess(accessCode)){
           user = user;

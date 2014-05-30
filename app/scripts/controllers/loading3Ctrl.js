@@ -2,15 +2,15 @@
 
 angular.module('SchoolMan')
   .controller('Loading3Ctrl', function ($scope, Location, $q, 
-    Subjects, Forms, Departments, Groups, Users) {
+    Subjects, Forms, Departments, Groups, Fees, Users) {
 
     var userP = Users.load();
-    // var formP = Forms.getAll();
+    var feesP = Fees.load();
     var deptP = Departments.load();
     var subjP = Subjects.load();
     var groupP= Groups.load();
 
-    var promises = [deptP, groupP, subjP, userP];
+    var promises = [deptP, groupP, subjP, feesP, userP];
 
     var load = function(promises){
 

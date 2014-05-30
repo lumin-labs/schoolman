@@ -10,8 +10,29 @@ angular.module('SchoolMan')
 
    //  var classes = Registrar.getClasses()
 
-    Payments.getAll().then(function(success){
-      console.log(success);
+   $scope.data = {};
+   $scope.data.payments = {};
+
+   var stringToNumber = function(amount){
+      amount = Number(amount.replace(/[^0-9\.]+/g,""));
+      return amount;
+    };
+
+    Payments.getAll().then(function(paymentsByStudent){
+      angular.forEach(paymentsByStudent, function(data, studentId){
+        if(!$scope.data.payments.hasOwnProperty(data.formIndex)){
+          $scope.data.payments[data.formIndex] = [];
+        };
+        $scope.data.payments[data.formIndex] = $scope.data.payments[data.formIndex].concat(data.payments);
+      });
+      console.log("Collection", paymentsByStudent);
+      angular.forEach($scope.data.payments, function(payments, formIndex){
+        $scope.data.payments[formIndex] = _.map(payments, function(payment){
+          payment.amout = stringToNumber(payment.amount);
+          return payment;
+        });
+      });
+      console.log("Payments", $scope.data.payments);
     });
 
     // fill each form with its list of students
