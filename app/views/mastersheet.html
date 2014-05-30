@@ -160,14 +160,14 @@
 	      	</td>
 			    
 					<td class="small-column-header"
-						ng-repeat="(marksheetId, marksheet) in data.marksheets">
-						{{ (data.summaries[marksheetId][student._id] * marksheet.coeff) || ""}}
+						ng-repeat="(marksheetId, marksheet) in data.marksheets" ng-init="average = data.summaries[marksheetId][student._id]">
+						{{ average >= 0 ? average * marksheet.coeff : ""}}
 					</td>
-					<td class="small-column-header">
-						{{data.summarysheet[student._id] * data.combinedMarksheet['coeff'] | number:1}}
+					<td class="small-column-header" ng-init="totalAverage = data.summarysheet[student._id]">
+						{{totalAverage >= 0 ? totalAverage * data.combinedMarksheet['coeff'] : 0 | number:1}}
 					</td>
-					<td class="small-column-header">
-						{{data.summarysheet[student._id][0]| number:2 }}
+					<td class="small-column-header" ng-init="averageFinal = data.summarysheet[student._id][0]">
+						{{averageFinal >= 0 ? averageFinal : 0 | number:2 }}
 					</td>
 					<td class="small-column-header">
 						{{data.rankings[student._id][0]}}

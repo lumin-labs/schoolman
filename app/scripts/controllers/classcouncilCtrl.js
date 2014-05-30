@@ -56,10 +56,8 @@ angular.module('SchoolMan')
         console.log("combined marksheet created:", $scope.data.combinedMarksheet);
         
         // summarize combined marksheet to get grand totals
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;
-        console.log("summary marksheet created:", $scope.data.summarysheet);
-
-        
+        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);; 
+         console.log("summary marksheet created:", $scope.data.summarysheet);       
         
         $scope.groupStats = performanceStats();
         $scope.score = $scope.data.classcouncil.passingScore;
@@ -131,23 +129,25 @@ angular.module('SchoolMan')
             obj.studentId = studentId;
             return obj;
         })
-        console.log("rankingsList",rankingsList);
+        console.log("rankingsList", rankingsList);
         var sortedList = rankingsList.sort(function(a,b){
             return a.rankings[$scope.termIndex] - b.rankings[$scope.termIndex];
         })
         console.log("sortedList:", sortedList);
+        var n = 0;
         angular.forEach(sortedList, function(student, objId){
-            console.log("object in sortedlist", student.rankings);
-        })
-
+                if(isNaN(student.rankings[$scope.termIndex])){
+                    n += 1;
+                }
+            })
+        console.log("null values:", n);
         var top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
-        var sortedListEnd = sortedList.slice(-3);
+        var sortedListEnd = sortedList.slice(-3-n);
         var worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
 
         Students.getBatch(top3).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){
                 student.average = $scope.data.summarysheet[student._id][0];
-                console.log("best students:", student);
                 return student;
             });
         }).catch(function(error){
@@ -156,7 +156,6 @@ angular.module('SchoolMan')
         Students.getBatch(worst3).then(function(students){
             $scope.data.worstStudents = _.map(students, function(student){
                 student.average = $scope.data.summarysheet[student._id][0];
-                console.log("worst students:", student);
                 return student;
             });
         }).catch(function(error){

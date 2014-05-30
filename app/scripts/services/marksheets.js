@@ -34,17 +34,26 @@ angular.module('SchoolMan')
         var newList = list.map(function(row){
           var newRow = [row[0],0];
           var total = 0;
+          var test = false;
           var count = 0;
           angular.forEach(sequences, function(i, sIndex){
             var n = parseFloat(row[i + 1]);
-            if(typeof n === "number"){
+            if(typeof n === "number" && !isNaN(n)){
               total += n;
-              count += 1;
+              test = true;
             }
+            count += 1;
           });
-          newRow[1] = total / count;
+          if(test === true){
+            newRow[1] = total / count;
+          }
+          else{
+            newRow[1] = -1;
+          }
           return newRow;
         }); 
+        console.log("new list:",newList);
+        console.log("list:", list);
         return newList;
       }
 
@@ -62,26 +71,42 @@ angular.module('SchoolMan')
       
 
       var sort = function(aveList){
-        var sortList = angular.copy(aveList); 
+        var sortList = angular.copy(aveList);  
+        console.log("sortList: ", sortList);
+        /**
+        angular.forEach(sortList, function(student, id){
+          if(isNaN(student[1])){
+            student[1] = 0;
+            console.log("average is NaN", student);
+          }
+        });*/
         
 
         sortList.sort(function(a,b){
           return parseFloat(b[1]) - parseFloat(a[1]);
         });
+
+        console.log("sortList after sort", sortList);
         
         return sortList;
       };
       
       var number = function(sortedRows){
         var rows = [];
+        console.log("sorted Rows: ", sortedRows);
         angular.forEach(sortedRows, function(row, i){
-          rows[i]    = [row[0]];
-          if(i === 0){
-            rows[i][1] = 1;
-          } else {
-            rows[i][1] = row[1] === rows[i - 1][1] ? rows[i - 1][1] : i + 1;  
+          if(row[1] >= 0){
+            rows[i]    = [row[0]];
+          
+            if(i === 0){
+              rows[i][1] = 1;
+            } else {
+                rows[i][1] = row[1] === sortedRows[i - 1][1] ? rows[i - 1][1] : i + 1;  
+                console.log("student", rows[i][0], sortedRows[i][1],rows[i][1]);
+            }
           }
         });
+        console.log("Rows: ", rows);
         return rows;
       };
 
