@@ -27,7 +27,7 @@
 			      <button type="submit" 
 			      			  class="btn btn-success" 
 			      			  ng-click="addPayment(newPayment)"
-			      			  ng-class="newPayment.isValid() ? '' : 'disabled'">
+			      			  ng-class="newPayment.validates() ? '' : 'disabled'">
 			        Add Payment
 			      </button>
 			      

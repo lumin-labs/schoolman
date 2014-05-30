@@ -8,7 +8,7 @@ schoolman.config(['modelProvider', function(model){
       _id:"datatype/payment/v1",
       fields:[{
         key:"amount",
-        type:"string",
+        type:"number",
         required:true
       },{
         key:"registrar",
@@ -35,7 +35,7 @@ schoolman.config(['modelProvider', function(model){
       return new Payment();
     }
 
-    this.amount = "0.00"; // string
+    this.amount = 0.00; // number
     this.registrar = "";  // string
     this.studentId = "";  // string
     this.date = "";       // date
@@ -44,6 +44,16 @@ schoolman.config(['modelProvider', function(model){
   Payment.prototype = new model.Model();
   
   Payment.prototype.datatype = Payment.datatype = model.datatypes.payment.v1;
+  
+  Payment.prototype.normalize = function(){
+    // convert amount from string to number
+    if(typeof this.amount === "string"){
+      this.amount = Number(this.amount.replace(/[^0-9\.]+/g,""));
+    } 
+    this.date = new Date();
+    console.log("Payment cleaned", this);
+  };
+
   Payment.prototype.generateID = function(){
     this.date = new Date();
     var id = "payment_" + this.date.toISOString();

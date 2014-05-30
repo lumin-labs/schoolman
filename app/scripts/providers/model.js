@@ -11,43 +11,21 @@ schoolman.provider('model', function modelProvider() {
   // This function lets you ask if the object has all the required fields
   // TODO: the config for which fields are required should probably be done 
   // elsewhere
-  // Model.prototype.isValid = function(){
-  //   console.log("RUNNING: Model.prototype.isValid");
-  //   var self = this;
-  //   var isOk = true;
-  //   angular.forEach(self.requiredFields, function(field, fieldIndex){
-  //     console.log("isValid field", field);
-  //     if(self.invalidValues.indexOf(self[field]) > -1){
-  //       isOk = false;
-  //     }
-  //   });
-  //   return isOk;
-  // };
-
-  Model.prototype.asDoc = function(){
-
+  Model.prototype.isValid = function(){
+    console.log("RUNNING: Model.prototype.isValid");
     var self = this;
-
-    var vectorData = [];
-    angular.forEach(self.datatype.fields, function(field, fieldIndex){
-      vectorData.push(self[field.key] || "");
+    var isOk = true;
+    angular.forEach(self.requiredFields, function(field, fieldIndex){
+      console.log("isValid field", field);
+      if(self.invalidValues.indexOf(self[field]) > -1){
+        isOk = false;
+      }
     });
-
-    var doc = {};
-    doc._id = self._id;
-    if(self._rev){
-      doc._rev = self._rev;
-    }
-
-    doc.datatype= this.datatype._id;
-    doc[this.datatype.fields_key] = vectorData;
-
-    return doc;
+    return isOk;
   };
 
-  Model.prototype.isValid = function(){
-    var self = this;
-
+  self.isValid = function(self){
+    // var self = selfthis;
     console.log("RUNNING: self.isValid", self);
     var valid = true;
     var invalidValues = {
@@ -70,6 +48,62 @@ schoolman.provider('model', function modelProvider() {
     });
     return valid;
   };
+
+  // This is intended to replace the isValid functions, which do not work properly
+  Model.prototype.validates = function(){
+
+    var tester = this;
+    if(typeof this.normalize === "function"){
+      tester = angular.copy(this);
+      tester.normalize();
+      console.log("made tester", tester);
+    }
+
+    var valid = true;
+    var invalidValues = {
+      "string":["", "0.00", null, undefined],
+      "number":[0, NaN, null, undefined]
+    };   
+
+    angular.forEach(tester.datatype.fields, function(field, fieldIndex){
+      if(field.required){
+        var value = tester[field.key];
+        console.log("Field: ", field.key, field.type, "Value:", value);
+        if(typeof value !== field.type){
+          console.log("Error typeof", value, field.type);
+          valid = false;
+        } 
+        if(invalidValues[field.type] && invalidValues[field.type].indexOf(value) > -1){
+          valid = false;
+        }
+      }
+    });
+    return valid;
+
+  };
+
+
+  Model.prototype.asDoc = function(){
+
+    var self = this;
+
+    var vectorData = [];
+    angular.forEach(self.datatype.fields, function(field, fieldIndex){
+      vectorData.push(self[field.key] || "");
+    });
+
+    var doc = {};
+    doc._id = self._id;
+    if(self._rev){
+      doc._rev = self._rev;
+    }
+
+    doc.datatype= this.datatype._id;
+    doc[this.datatype.fields_key] = vectorData;
+
+    return doc;
+  };
+
 
   Model.prototype.save = function(){
 
@@ -116,8 +150,6 @@ schoolman.provider('model', function modelProvider() {
       fields_key:0
     };
     this.datatype = self.datatypes[type][version];
-    console.log("datatype", datatype);
-    console.log("self.datatypes", self.datatypes);
   };
 
   Model.prototype.val = function(prop, required){
@@ -157,8 +189,6 @@ schoolman.provider('model', function modelProvider() {
 
   self.parse2 = function(doc, datatypeId){
     var params = datatypeId.split("/");
-    console.log("datatypeId",datatypeId);
-    console.log("self.datatypes",self.datatypes);
     var spec = self.datatypes[params[1]][params[2]];
     return self.parse(doc, spec);
   }

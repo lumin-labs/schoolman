@@ -140,6 +140,8 @@ angular.module('SchoolMan')
         var sortedListEnd = sortedList.slice(-3-n);
         var worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
 
+        // console.log("Top3", top3);
+
         Students.getBatch(top3).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){
                 student.average = $scope.data.summarysheet[student._id][0];
