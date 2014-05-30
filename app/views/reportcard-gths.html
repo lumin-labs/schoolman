@@ -57,7 +57,7 @@
                       </div>
                       <div class="student-info-section">
                         <h4 class="section-header printonly">{{data.term.name}}</h4>
-                        <h5 style="font-family:mono;">{{ data.summarysheet[data.student._id][0] | number:2 }} / 20</h5>
+                        <h5 style="font-family:mono;">{{ data.summarysheet[data.student._id][0] >= 0 ? data.summarysheet[data.student._id][0] : 0 | number:2 }} / 20</h5>
                         <h5>{{getRemark(mastersheet.table["students"][student.id].acAverage).text | uppercase}}</h5>
                       </div>
                     </div>
@@ -111,14 +111,14 @@
                 </td>
 
                 <td class="{{getRemark(average).css}}">
-                  {{set.summsheets[marksheet._id][data.student._id][0] | number:2}}
+                  {{set.summsheets[marksheet._id][data.student._id][0] >= 0 ? set.summsheets[marksheet._id][data.student._id][0] : 0 | number:2}}
                 </td>
 
                 <td>
                   {{set.summsheets[marksheet._id][data.student._id][0] ? marksheet.coeff : ""}}
                 </td>
                 <td>
-                  {{set.summsheets[marksheet._id][data.student._id][0] * marksheet.coeff || ""}}
+                  {{set.summsheets[marksheet._id][data.student._id][0] >= 0 ? set.summsheets[marksheet._id][data.student._id][0] * marksheet.coeff : 0 | number:2}}
                 </td>
                 <td></td>
                 <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
@@ -129,10 +129,10 @@
               <tr class="danger">
                 <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
                 <td>{{set.msheet.coeff}}</td>
-                <td>{{set.ssheet[data.student._id][0] * set.msheet.coeff}}</td>
+                <td>{{set.ssheet[data.student._id][0] >= 0 ? set.ssheet[data.student._id][0] * set.msheet.coeff : 0 | number:2}}</td>
                 <td>{{set.rankings[data.student._id][termIndex]}}</td>
                 <td class="text-right"><strong>Average:</strong></td>
-                <td>{{set.ssheet[data.student._id][0] | number:2}}</td>
+                <td>{{set.ssheet[data.student._id][0] >= 0 ? set.ssheet[data.student._id][0] : 0| number:2}}</td>
               </tr>
             </tbody>
           </table>
@@ -146,7 +146,7 @@
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student.id)">
           <tr>
             <td>Total Mark:</td>
-            <td>{{data.summarysheet[data.student._id][0] * data.msheet.coeff}}</td>
+            <td>{{data.summarysheet[data.student._id][0] >= 0 ? data.summarysheet[data.student._id][0] * data.msheet.coeff : 0 | number:2}}</td>
           </tr>
           <tr>
             <td>Total Coeff:</td>
@@ -154,7 +154,7 @@
           </tr>
           <tr>
             <td>{{data.terms[term]}} Average:</td>
-            <td>{{data.summarysheet[data.student._id][0]}} / 20</td>
+            <td>{{data.summarysheet[data.student._id][0] >= 0 ? data.summarysheet[data.student._id][0] : 0 | number:1}} / 20</td>
           </tr>
           <tr>
             <td>{{data.terms[term]}} Remark:</td>
