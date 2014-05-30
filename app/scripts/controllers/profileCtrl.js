@@ -3,7 +3,6 @@
 angular.module('SchoolMan')
   .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Dcards, Users, Registrar, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
 
-    console.log("ITS OK")
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
     $scope.accessCode = $routeParams.accessCode;
@@ -98,7 +97,6 @@ angular.module('SchoolMan')
         if(typeof payment.amount === "string"){
          payment.amount = $scope.stringToNumber(payment.amount);
         }
-        console.log("inside reduce function:", total);
         return payment.amount + total;
       }, 0);
       return total;

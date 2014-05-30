@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Fees', function Fees(Slug, model, Data2, modelTransformer, InsertionError, $log) {
+  .service('Fees', function Fees($q, Slug, model, Data2, modelTransformer, InsertionError, $log) {
     
     var fees = {};
 
@@ -24,24 +24,31 @@ angular.module('SchoolMan')
         });
     };
 
-    self.save = function(){
-    	Data.saveLater({fees:fees});
-    };
+    self.load = function(){
+      
+      var deferred = $q.defer();
 
-    // Load Data
-    var map = function(doc, emit){
-      if(doc.datatype === model.Fee.datatype._id){
-        emit(doc._id, {_id:doc.datatype, data:doc});
-      } 
+      // Load Data
+      var map = function(doc, emit){
+        if(doc.datatype === model.Fee.datatype._id){
+          emit(doc._id, {_id:doc.datatype, data:doc});
+        } 
+      };
+      Data2.query(map, {include_docs : true}).then(function(success){
+          angular.forEach(success.rows, function(data, rowIndex){
+              var spec = data.doc;
+              var obj = model.parse(data.value.data, spec);
+              var fee = modelTransformer.transform(obj, model.Fee);
+              fees[fee._id] = fee;
+          });
+          deferred.resolve(fees);
+      }).catch(function(error){
+        console.log("Failed to load Fees: ", error);
+        deferred.reject(error);
+      });
+
+      return deferred.promise;
     };
-    Data2.query(map, {include_docs : true}).then(function(success){
-        angular.forEach(success.rows, function(data, rowIndex){
-            var spec = data.doc;
-            var obj = model.parse(data.value.data, spec);
-            var fee = modelTransformer.transform(obj, model.Fee);
-            fees[fee._id] = fee;
-        });
-    })
 
 
     return self;

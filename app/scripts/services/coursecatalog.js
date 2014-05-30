@@ -32,7 +32,6 @@ angular.module('SchoolMan')
 
     // Load data into the object model
     Data.get('coursecatalog', function(d){
-        console.log("template groups before model", d);
         template = d;
         angular.forEach(Forms.all(), function(form, formIndex){
             angular.forEach(Groups.getAll(), function(group, groupIndex){

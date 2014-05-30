@@ -40,8 +40,6 @@ angular.module('SchoolMan')
 
         Users.login($scope.tempUser, accessRequest, function(user){
           if(user){
-
-            console.log("Group Keys: ", Object.keys(Groups.getAll()))
             
             accessRequest = accessRequest === "undefined" ? user.getHighestAccess() : accessRequest;
             console.log("accessRequest", accessRequest);

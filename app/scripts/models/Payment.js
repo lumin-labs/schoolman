@@ -8,7 +8,7 @@ schoolman.config(['modelProvider', function(model){
       _id:"datatype/payment/v1",
       fields:[{
         key:"amount",
-        type:"number",
+        type:"string",
         required:true
       },{
         key:"registrar",
@@ -35,7 +35,7 @@ schoolman.config(['modelProvider', function(model){
       return new Payment();
     }
 
-    this.amount = 0.00;     // decimal
+    this.amount = "0.00"; // string
     this.registrar = "";  // string
     this.studentId = "";  // string
     this.date = "";       // date
