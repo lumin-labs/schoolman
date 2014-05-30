@@ -141,7 +141,7 @@
   	</thead>
   	<tbody>
   		<tr  ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
-  			<td>{{student._id}}</td>
+  			<td>{{$index + 1}}</td>
   			<td>{{student.name}}</td>
         <td class="column-on-right" style=" font-family:monotype;font-size:.9em;">
             <table>

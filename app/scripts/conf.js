@@ -85,14 +85,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
   	 	icon:'glyphicon-calendar'
   	},
-    {
-      label:"Promotion",
-      page:"promotion",
-      access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-thumbs-up'
-    },
+    // {
+    //   label:"Promotion",
+    //   page:"promotion",
+    //   access:['admin'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-thumbs-up'
+    // },
   	{
   		label:"My Classes",
   	 	page:"myclasses",
