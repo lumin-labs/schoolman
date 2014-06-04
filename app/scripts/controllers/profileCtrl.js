@@ -13,6 +13,7 @@ angular.module('SchoolMan')
 
     $scope.Users = Users;
 
+
     var studentId = $routeParams.studentId === "0" ? "U0000001" : $routeParams.studentId;
     console.log("routeParams", $routeParams);
 
@@ -32,6 +33,18 @@ angular.module('SchoolMan')
       console.log("Found student:", student);
       $scope.data.student = student;
       $scope.newComment = new model.Comment($routeParams.username,  $scope.data.student._id);
+
+      // This is for reverting data.student if user starts to edit and chooses to cancel
+      var studentCopy = angular.copy($scope.data.student);
+      $scope.editing = false;
+      $scope.edit = function(){
+        $scope.editing = true;
+      }
+      $scope.cancel = function(){
+        $scope.data.student = angular.copy(studentCopy);
+        $scope.editing = false;
+      }
+
     }).catch(function(error){
       console.log("profileCtrl Error: ",error);
     })
@@ -105,6 +118,7 @@ angular.module('SchoolMan')
     $scope.save = function(model){
       model.save().then(function(success){
         console.log("Model saved", success);
+        $scope.editing = false;
       }).catch(function(error){
         console.log("Failed to save model", error);
       });

@@ -46,9 +46,9 @@
 		          		 ng-model="newSubject.fr">
 		        </div>
 		        <button type="submit" 
-		        			  class="btn btn-default" 
-		        			  ng-click="addSubject()"
-		        			  ng-class="allSubjects.hasOwnProperty(newSubject.code) ? 'disabled' : ''">
+		        			  class="btn btn-default 
+		        			  {{newSubject.validates() && !allSubjects.hasOwnProperty(newSubject.code) ? '' : 'disabled'}}" 
+		        			  ng-click="addSubject()">
 		        	Add
 		        </button>
 		      </form>
@@ -95,7 +95,7 @@
 								<div class="cell cell-md cell-normal">{{subject.fr}}</div>
 							</td>
 							<td class="remove text-center" style="width:80px;padding-top:15px;">
-								<a ng-click="removeSubject(subjectKey)">
+								<a ng-click="remove(subject)">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>

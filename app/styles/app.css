@@ -385,7 +385,7 @@ background-color:#f8f8f8;
 
 .btn.disabled{
   background-color: #E9E9E9;
-  color: #888;
+  color: #000;
   border-color: #bbb;
 }
 

@@ -52,7 +52,7 @@ angular.module('SchoolMan')
               deptId:Object.keys(Departments.getAll())[0],
               groupId:Object.keys(Groups.getAll())[0],
               subjectId:Object.keys(Subjects.getAll())[0],
-              studentId:0,
+              studentId:"U0000001",
               termIndex:0,
               username:user.username,
               accessCode:accessRequest

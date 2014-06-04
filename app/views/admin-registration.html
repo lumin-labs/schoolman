@@ -86,15 +86,6 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="gender" class="col-sm-3 control-label">Gender</label>
-			    <div class="col-sm-9">
-			      <input id="gender"
-			      		 class="form-control" 
-			      		 placeholder="Gender" 
-			      		 ng-model="newStudent.sex">
-			    </div>
-			  </div>
-			  <div class="form-group">
 			    <label for="birthdate" class="col-sm-3 control-label">Birthdate</label>
 			    <div class="col-sm-9">
 			      <input id="birthdate" 
@@ -102,6 +93,23 @@
 			       		 placeholder="Birth Date" 
 			       		 ng-model="newStudent.birth"
 			       		 type="date">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="feeGroup" class="col-sm-3 control-label">Gender</label>
+			    <div class="col-sm-9">
+			      <div class="btn-group">
+			        <button class=" btn btn-sm btn-default dropdown-toggle" 
+			                data-toggle="dropdown">
+			          <span>{{newStudent.sex || "Select Gender"}}</span>
+			          &nbsp;<span class="caret"></span>
+			        </button>
+			        <ul class="dropdown-menu">
+			          <li ng-repeat="gender in ['Female', 'Male']">
+			            <a ng-click="newStudent.sex = gender">{{gender}}</a>
+			          </li>
+			        </ul>
+			      </div>
 			    </div>
 			  </div>
 			  <br>

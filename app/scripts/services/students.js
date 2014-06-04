@@ -61,5 +61,7 @@ angular.module('SchoolMan')
     	return deferred.promise;
     };
 
+    self.getAll = self.query;
+
     return self;
   });

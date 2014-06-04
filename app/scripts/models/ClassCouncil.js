@@ -33,6 +33,9 @@ schoolman.config(['modelProvider', function(model){
 
   ClassCouncil.prototype = new model.Model();
 
+  ClassCouncil.prototype.normalize = function(){
+    this.formIndex = parseInt(this.formIndex);
+  }
   ClassCouncil.generateID = function(p){
         var id = "council_" + p.formIndex + "_" + p.deptId + "_" + p.groupId;
         return id;

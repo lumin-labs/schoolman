@@ -51,7 +51,6 @@ schoolman.config(['modelProvider', function(model){
       this.amount = Number(this.amount.replace(/[^0-9\.]+/g,""));
     } 
     this.date = new Date();
-    console.log("Payment cleaned", this);
   };
 
   Payment.prototype.generateID = function(){

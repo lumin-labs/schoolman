@@ -25,4 +25,10 @@ angular.module('SchoolMan')
 	    	});
 	    };
 
+	    $scope.remove = function(subject){
+	    	Subjects.remove(subject).then(function(success){
+	    		delete $scope.allSubjects[subject._id];
+	    	});
+	    };
+
   });

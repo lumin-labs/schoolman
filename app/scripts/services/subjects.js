@@ -33,6 +33,7 @@ angular.module('SchoolMan')
         } 
       };
       Data2.query(map, {include_docs : true}).then(function(success){
+          console.log("Subjects:Data success", success);
         angular.forEach(success.rows, function(data, rowIndex){
           var spec = data.doc;
           var obj = model.parse(data.value.data, spec);

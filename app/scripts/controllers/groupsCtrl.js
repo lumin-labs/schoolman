@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('GroupsCtrl', function ($scope, Groups, model, Forms, Registrar) {
+  .controller('GroupsCtrl', function ($scope, Groups, Students, model, Forms, Registrar) {
     
     $scope.newGroup = new model.Group();
     
@@ -26,11 +26,17 @@ angular.module('SchoolMan')
     	Groups.remove(group);
     };
 
-    var allStudents = Registrar.getAllStudents();
-    $scope.getStudentsByGroup = function(groupKey){
-        return allStudents.filter(function(student){
-            return student.group === groupKey;
+    $scope.allStudents = {};
+    Students.getAll().then(function(students){
+        angular.forEach($scope.groups, function(group, groupId){
+          $scope.allStudents[groupId] = [];
         });
-    };
+        angular.forEach(students, function(student, studentId){
+          $scope.allStudents[student.groupId].push(student);
+        });
+      console.log("Got all students: ", $scope.allStudents);
+    }).catch(function(error){
+      console.log("Failed to get all students, ", error);
+    });
 
   });

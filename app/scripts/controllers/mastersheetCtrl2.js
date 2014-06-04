@@ -15,11 +15,14 @@ angular.module('SchoolMan')
       $scope.data.rankings = {};
 
       // Load marksheet and student data
-      Marksheets.query({
+      var params = {
         formIndex:$routeParams.formIndex,
         deptId:$routeParams.deptId,
         groupId:$routeParams.groupId
-      }).then(function(marksheets){
+      };
+      console.log("Querying marksheet params: ", params);
+      Marksheets.query(params).then(function(marksheets){
+        console.log("Got marksheets: ", marksheets);
 
         // Convert marksheets to a list and store in $scope.data.marksheets
         $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){

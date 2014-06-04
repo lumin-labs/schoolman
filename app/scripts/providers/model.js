@@ -53,25 +53,26 @@ schoolman.provider('model', function modelProvider() {
   Model.prototype.validates = function(){
 
     var tester = this;
+
     if(typeof this.normalize === "function"){
       tester = angular.copy(this);
       tester.normalize();
-      console.log("made tester", tester);
     }
 
     var valid = true;
     var invalidValues = {
       "string":["", "0.00", null, undefined],
-      "number":[0, NaN, null, undefined]
+      "number":[NaN, null, undefined]
     };   
 
     angular.forEach(tester.datatype.fields, function(field, fieldIndex){
       if(field.required){
         var value = tester[field.key];
-        console.log("Field: ", field.key, field.type, "Value:", value);
         if(typeof value !== field.type){
-          console.log("Error typeof", value, field.type);
           valid = false;
+          console.log("Failed to validate:" + tester.constructor, 
+                      "typeof " + field.key + " should equal " + field.type + " got: " + 
+                      value + " : " + (typeof value));
         } 
         if(invalidValues[field.type] && invalidValues[field.type].indexOf(value) > -1){
           valid = false;
@@ -89,7 +90,7 @@ schoolman.provider('model', function modelProvider() {
 
     var vectorData = [];
     angular.forEach(self.datatype.fields, function(field, fieldIndex){
-      vectorData.push(self[field.key] || "");
+      vectorData.push(self[field.key]);
     });
 
     var doc = {};
@@ -110,10 +111,13 @@ schoolman.provider('model', function modelProvider() {
     var self = this;
     var deferred = self.$q.defer();
 
-    if(self.isValid()){
+    if(self.validates()){
       if(typeof self.generateID === 'function' && !self._id){
         var id = self.generateID();
         self._id = id;
+      }
+      if(typeof self.normalize === 'function'){
+        self.normalize();
       }
       var doc = self.asDoc();
       self.db.put(doc).then(function(response){
@@ -124,7 +128,7 @@ schoolman.provider('model', function modelProvider() {
         deferred.reject(err, response);
       });
     } else {
-      deferred.reject("Model data is not valid");
+      deferred.reject(this.constructor + " is not valid");
     }
     
     return deferred.promise;

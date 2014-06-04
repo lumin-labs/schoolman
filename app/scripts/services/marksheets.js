@@ -131,14 +131,14 @@ angular.module('SchoolMan')
 
     self.combine = function(marksheets){
 
+      console.log("Combining Marksheets", marksheets);
+
       // Create new Marksheet
       var head = marksheets[0];
       var tail = marksheets.slice(1);
       var newMarksheet = new model.Marksheet();
           newMarksheet.coeff = head.coeff;
           newMarksheet.table = angular.copy(head.table);
-
-
 
       // Reduce marksheets into the new marksheet
       return _.reduce(tail, function(prevM, nextM){
@@ -192,6 +192,7 @@ angular.module('SchoolMan')
     		console.log("Marksheet saved", success, marksheet);
     		deferred.resolve(marksheet);
     	}).catch(function(error){
+        console.log("Failed to create marksheet", error, marksheet);
     		deferred.reject(error);
     	});
 
@@ -302,6 +303,9 @@ angular.module('SchoolMan')
 	      	var obj = model.parse(doc, dataModel.datatype);
 	      	var isok= true;
 	      	angular.forEach(params, function(param, paramKey){
+            if(paramKey === "formIndex"){
+              param = parseInt(param);
+            }
 	      		isok = obj[paramKey] === param ? isok : false;
 	      	});
 	      	if(isok){
@@ -310,6 +314,7 @@ angular.module('SchoolMan')
 	      } 
 	    };
 	    Data2.query(map, {include_docs : true}).then(function(success){
+          console.log("Marksheets Query", success);
 	    		var collection = [];
 	        angular.forEach(success.rows, function(data, rowIndex){
 	            var spec = data.doc;

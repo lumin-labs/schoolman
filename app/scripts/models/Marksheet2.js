@@ -27,7 +27,7 @@ schoolman.config(['modelProvider', function(model){
       },{
         key:"teacherId",
         type:"string",
-        required:true
+        required:false
       },{
         key:"coeff",
         type:"number",
@@ -86,6 +86,9 @@ schoolman.config(['modelProvider', function(model){
   }
 
   Marksheet.prototype = new model.Model();
+  Marksheet.prototype.normalize = function(){
+    this.formIndex = parseInt(this.formIndex);
+  }
   Marksheet.generateID = function(p){
       var id = p.formIndex + ":" + 
                p.deptId   + ":" +

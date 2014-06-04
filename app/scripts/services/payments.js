@@ -21,19 +21,13 @@ angular.module('SchoolMan')
   			  var collection = {};
   			  var dataModelStudent = model.Student;
   			  var dataModelPayment = model.Payment;
-          var fees = Fees.getAll();
-          console.log("Fees", fees);
+          console.log("Payments Success: ", success);
   			  angular.forEach(success.rows, function(data, $index){
   			  	var studentId = data.doc._id;
   			  	if(!collection.hasOwnProperty(studentId)){
   			  		var student = model.parse(data.doc, dataModelStudent.datatype);
-  			  		collection[studentId] = {
-  			  			formIndex:student.formIndex,
-  			  			deptId:student.deptId,
-  			  			groupId:student.groupId,
-                feeAmount:fees[student.feeId].amount, 
-  			  			payments:[]
-  			  		};
+                  student.payments = [];
+  			  		collection[studentId] = student;
   			  	};
   			  	var payment = model.parse(data.value.data, dataModelPayment.datatype);
   			  	collection[studentId].payments.push(payment);

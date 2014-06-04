@@ -74,10 +74,12 @@ angular.module('SchoolMan')
         console.log("student ids", studentIds);
 
         Students.getBatch(studentIds).then(function(students){
-          $scope.data.students = _.map(Object.keys(students), function(studentId){
-            return students[studentId];
-          });
-          $scope.data.student = students[$routeParams.studentId];
+          $scope.data.students = students;
+          $scope.data.student = _.reduce(students, function(dict, student){
+            dict[student._id] = student;
+            return dict
+          },{})[$routeParams.studentId];
+          console.log("Student: ", $scope.data.student);
           Dcards.get($scope.data.student._id).then(function(dcard){
             $scope.data.dcard = dcard;
           }).catch(function(error){

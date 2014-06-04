@@ -95,6 +95,22 @@ schoolman.config(['modelProvider', function(model){
     this.username = id;
     return id;
   }
+
+  User.prototype.normalize = function(){
+    // convert amount from string to number
+    if(this._id){
+      this.username = this._id;
+    } else {
+      this.username = this.generateID();
+    }
+  };
+
+  User.prototype.generateID = function(){
+    var id = model.slugify(this.fullname);
+    this.username = id;
+    return id;
+  }
+
   User.prototype.datatype = User.datatype = model.datatypes.user.v1;
 
 

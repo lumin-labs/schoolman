@@ -11,4 +11,17 @@ angular.module('SchoolMan')
     	CourseCatalog.save();
     };
 
+    $scope.allStudents = {};
+    Students.getAll().then(function(students){
+        angular.forEach($scope.groups, function(group, groupId){
+          $scope.allStudents[groupId] = [];
+        });
+        angular.forEach(students, function(student, studentId){
+          $scope.allStudents[student.groupId].push(student);
+        });
+      console.log("Got all students: ", $scope.allStudents);
+    }).catch(function(error){
+      console.log("Failed to get all students, ", error);
+    });
+
   });

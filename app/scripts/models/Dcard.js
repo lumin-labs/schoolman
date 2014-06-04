@@ -19,6 +19,8 @@ schoolman.config(['modelProvider', function(model){
     // data. this could be fixed by making the user specify the index, or by 
     // automating the creation of sub-version datatype/parse specifications.
     
+    //this[ val['?'] ('year', String) ] = "2014";
+
     this[ val ('year : string', required)] = "2014";
     this[ val ('warned : number')] = 0;
     this[ val ('absence : number')] = 0;

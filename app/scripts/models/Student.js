@@ -110,6 +110,10 @@ schoolman.config(['modelProvider', function(model){
 
   Student.prototype = new model.Model();
   Student.prototype.datatype = Student.datatype = model.datatypes.student.v1;
+  Student.prototype.setStatus = function(year, status){
+    this.status[year] = status;
+    this.save();
+  }
 
   model.Student = Student;
 

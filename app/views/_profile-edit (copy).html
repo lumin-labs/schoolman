@@ -1,0 +1,139 @@
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="uid" class="col-sm-3 control-label">Student ID</label>
+    <div class="col-sm-9">
+      <p class="form-control-static">{{data.student["_id"]}}</p>
+    </div>
+  </div>
+  <div class="form-group" ng-controller="ClassmenuCtrl">
+    <label for="uid" class="col-sm-3 control-label">Class</label>
+    <div class="col-sm-9">
+      <div class="btn-group">
+		    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
+		      {{data.forms[data.student["formIndex"]].name}} 
+		      &nbsp;<span class="caret"></span>
+		    </button>
+		    <ul class="dropdown-menu">
+		      <li ng-repeat="(formIndex, form) in data.forms">
+		        <a ng-href="" ng-click="open({formIndex:formIndex})">{{form.name}}</a>
+		      </li>
+		    </ul>
+		  </div>
+		  <!-- Department Dropdown -->
+		  <div class="btn-group">
+		    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
+		      {{data.departments[data.student['deptId']].name}} 
+		      &nbsp;<span class="caret"></span>
+		    </button>
+		    <ul class="dropdown-menu">
+		      <li ng-repeat="(depKey, dep) in data.departments">
+		        <a ng-click="data.student.department = depKey">{{dep.name}}</a>
+		      </li>
+		    </ul>
+		  </div>
+      <!-- Group Dropdown -->
+		  <div class="btn-group">
+		    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
+		      {{data.groups[data.student['groupId']].name}} 
+		      &nbsp;<span class="caret"></span>
+		    </button>
+		    <ul class="dropdown-menu">
+		      <li ng-repeat="(groupId, group) in data.groups">
+		        <a ng-click="open({groupId:groupId})">{{group.name}}</a>
+		      </li>
+		    </ul>
+		  </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="feeGroup" class="col-sm-3 control-label">Fee Group</label>
+    <div class="col-md-9">
+    	<div class="btn-group">
+		    <button class="btn btn-sm btn-default dropdown-toggle disabled" data-toggle="dropdown">
+		    	<span ng-if="student.feeId !== ''">
+		    		{{data.fees[data.student['feeId']].name}} ({{data.fees[data.student['feeId']].amount | currency:""}})
+		    	</span>
+		      &nbsp;<span class="caret"></span>
+		    </button>
+		    <ul class="dropdown-menu">
+		      <li ng-repeat="(feeId, fee) in data.fees">
+		        <a ng-click="data.student.feeId = feeId">
+		        {{fee.name}} ({{fee.amount | currency:""}})</a>
+		      </li>
+		    </ul>
+			</div>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="studentName" class="col-sm-3 control-label">Student Name</label>
+    <div class="col-sm-9">
+      <input id="studentName"
+      		 class="form-control" 
+      		 placeholder="Student Name" 
+      		 ng-model="data.student['name']"
+      		 readonly>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="gender" class="col-sm-3 control-label">Gender</label>
+    <div class="col-sm-9">
+      <input id="gender"
+      		 class="form-control" 
+      		 placeholder="Gender" 
+      		 ng-model="data.student['sex']"
+      		 readonly>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="birthdate" class="col-sm-3 control-label">Birthdate</label>
+    <div class="col-sm-9">
+      <input id="birthdate" 
+       		 class="form-control" 
+       		 placeholder="Birth Date" 
+       		 ng-model="data.student['birth']"
+       		 type="text"
+       		 readonly>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="parentName" class="col-sm-3 control-label">Parent Name</label>
+    <div class="col-sm-9">
+      <input id="parentName" 
+      		 class="form-control" 
+      		 placeholder="Parent Name" 
+      		 ng-model="data.student['parentName']"
+      		 readonly>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
+    <div class="col-sm-9">
+      <input id="parentPhone"
+      		 class="form-control" 
+      		 placeholder="Parent Phone" 
+      		 ng-model="data.student['parentPhone']"
+      		 readonly>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="parentEmail" class="col-sm-3 control-label">Parent Email</label>
+    <div class="col-sm-9">
+      <input id="parentEmail" 
+             class="form-control pull-left" 
+		     placeholder="Parent EMail"
+		     ng-model="data.student['parentEmail']"
+		     readonly>
+    </div>
+  </div>
+  <br>
+  <div class="form-group" ng-if="accessCode === 'registrar' ">
+    <div class="col-sm-offset-3 col-sm-10">
+      <button type="submit" class="btn btn-warning" ng-click="edit()">
+        Edit Student
+      </button>
+    </div>
+  </div>
+</form>

@@ -138,7 +138,7 @@
 					<td class="promotion">
 						<div  class="btn-group">
 						  <!-- If status is set to automatic -->
-							<button ng-if="student.status['2014'] === 0 && studentStatus[student.id]"
+							<button ng-if="student.status['2014'] === 0 && studentStatus[student._id]"
 							      	class="btn btn-sm btn-success dropdown-toggle" 
 							      	data-toggle="dropdown">
 								<i class="glyphicon" 
@@ -146,7 +146,7 @@
 								&nbsp;{{PROMOTE_OPTIONS[1].name}}
 							</button>
 					    
-							<button ng-if="student.status['2014'] === 0 && !studentStatus[student.id]"
+							<button ng-if="student.status['2014'] === 0 && !studentStatus[student._id]"
 							      class="btn btn-sm btn-warning dropdown-toggle" 
 							      data-toggle="dropdown">
 							    <i class="glyphicon" 

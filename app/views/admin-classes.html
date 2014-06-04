@@ -43,14 +43,13 @@
 						</button>
 					</td> -->
 					<td class="text-center"
-							style="width:100px;"
-							ng-init="nStudents = getStudentsByGroup(groupKey).length">
-						{{nStudents}}
+							style="width:100px;">
+						{{allStudents[groupKey].length}}
 					</td>
 					<td class="remove text-center" 
 							style="width:80px;">
 						<a ng-click="remove(group)"
-							 ng-if="nStudents === 0">
+							 ng-if="allStudents[groupKey].length === 0">
 							<i class="glyphicon glyphicon-remove"></i>
 						</a>
 					</td>

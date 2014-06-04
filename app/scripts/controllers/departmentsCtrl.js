@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('DepartmentsCtrl', function ($scope, $log, Registrar, model, Departments, CourseCatalog) {
+  .controller('DepartmentsCtrl', function ($scope, $log, Registrar, model, Students, Departments, CourseCatalog) {
 
     $scope.forms = CourseCatalog.getForms();
 
     $scope.departments = Departments.getAll();
+    console.log($scope.departments);
 
     $scope.newDepartment = new model.Department();
 
@@ -23,11 +24,17 @@ angular.module('SchoolMan')
  			Departments.remove(department);
  		};
 
- 		var allStudents = Registrar.getAllStudents();
-    $scope.getStudentsByDept = function(deptKey){
-            return allStudents.filter(function(student){
-          return student.department === deptKey;
+ 		$scope.allStudents = {};
+    Students.getAll().then(function(students){
+        angular.forEach($scope.departments, function(dept, deptId){
+          $scope.allStudents[deptId] = [];
         });
-    };
+        angular.forEach(students, function(student, studentId){
+          $scope.allStudents[student.deptId].push(student);
+        });
+      console.log("Got all students: ", $scope.allStudents);
+    }).catch(function(error){
+      console.log("Failed to get all students, ", error);
+    });
 
   });

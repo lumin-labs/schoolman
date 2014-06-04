@@ -15,15 +15,15 @@ schoolman.config(['modelProvider', function(model){
       },{
         key:"en",
         type:"string",
-        required:true
+        required:false
       },{
         key:"fr",
         type:"string",
-        required:true
+        required:false
       },{
         key:"type",
         type:"number",
-        required:true
+        required:false
       }],
       fields_key:0
     }
@@ -43,7 +43,7 @@ schoolman.config(['modelProvider', function(model){
     this.code = "";
     this.en = "";
     this.fr = "";
-    this.type = "0";
+    this.type = 0;
 
     angular.forEach(specs, function(prop, key){
       self[key] = prop;
@@ -65,6 +65,13 @@ schoolman.config(['modelProvider', function(model){
       });
     }
   }
+
+  Subject.prototype.normalize = function(){
+    if(typeof this.type === "string"){
+      this.type = parseInt(this.type);
+    }
+  };
+
   Subject.prototype.generateID = function(){
     var id = "subject_" + this.code.toLowerCase();
     return id;

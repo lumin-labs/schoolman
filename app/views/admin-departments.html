@@ -56,11 +56,12 @@
 						   style="color:green;"></i>
 						</button>
 					</td>
-					<td ng-init="nStudents = getStudentsByDept(departmentCode).length">
-						{{nStudents}}
+					<td>
+						{{allStudents[departmentCode].length || 0}}
 					</td>
 					<td class="remove text-center" style="width:80px;">
-						<a ng-click="remove(department)" ng-if="nStudents === 0">
+						<a ng-click="remove(department)" 
+						   ng-if="allStudents[departmentCode].length === 0">
 							<i class="glyphicon glyphicon-remove"></i>
 						</a>
 					</td>
