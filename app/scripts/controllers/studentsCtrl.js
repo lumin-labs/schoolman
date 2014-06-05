@@ -15,7 +15,9 @@ angular.module('SchoolMan')
         departments:Departments.getAll(),
         groups:Groups.getAll(),
         fees:Fees.getAll(),
-        students:[]
+        students:[],
+        selected:{},
+        globalSelect:0
     };
 
     var queryParams = {
@@ -26,11 +28,38 @@ angular.module('SchoolMan')
     Students.query(queryParams).then(function(students){
         console.log("Success loading students", students);
         $scope.data.students = students;
+        angular.forEach(students, function(student, studentIndex){
+          $scope.data.selected[student._id] = 0;
+        }); 
     }).catch(function(error){
         console.log("Error loading students", error);
     });
 
-    
+    $scope.moveTab = "form";
+
+    $scope.toggleAll = function(){
+        console.log("toggling");
+        // $scope.data.globalSelect = (parseInt($scope.data.globalSelect) + 1) % 2;
+        angular.forEach($scope.data.selected, function(selection, studentId){
+          $scope.data.selected[studentId] = $scope.data.globalSelect;
+        });
+        console.log("Selected", $scope.data.selected);
+    };
+
+    $scope.moveSelected = function(params){
+        var selected = [];
+        angular.forEach(data.students, function(student, $index){
+            if(data.selected[student._id]){
+                angular.forEach(params, function(value, key){
+                    student[key] = value;
+                });
+                selected.push(student);
+            }
+        });
+        Students.saveBatch(selected).catch(function(error){
+            console.log("failed to save batch", error);
+        });
+    };
 
     $scope.open = Location.open;
     

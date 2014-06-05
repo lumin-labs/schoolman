@@ -29,6 +29,20 @@ angular.module('SchoolMan')
   		return deferred.promise;
   	}
 
+  	self.saveBatch = function(students){
+  		var deferred = $q.defer();
+  		var batch = {docs:_.map(students, function(student){
+  			return student.saveable();
+  		})};
+  		console.log("Saving batch: ", batch);
+  		Data2.bulkDocs(batch).then(function(success){
+  			deferred.resolve(success);
+  		}).catch(function(error){
+  			deferred.reject(error);
+  		});
+  		return deferred.promise;
+  	};
+
   	self.query = function(params){
     	
     	var deferred = $q.defer();

@@ -105,6 +105,17 @@ schoolman.provider('model', function modelProvider() {
     return doc;
   };
 
+  Model.prototype.saveable = function(){
+    var self = this;
+    if(typeof self.generateID === 'function' && !self._id){
+        var id = self.generateID();
+        self._id = id;
+      }
+    if(typeof self.normalize === 'function'){
+      self.normalize();
+    }
+    return self.asDoc();
+  };
 
   Model.prototype.save = function(){
 
@@ -112,15 +123,7 @@ schoolman.provider('model', function modelProvider() {
     var deferred = self.$q.defer();
 
     if(self.validates()){
-      if(typeof self.generateID === 'function' && !self._id){
-        var id = self.generateID();
-        self._id = id;
-      }
-      if(typeof self.normalize === 'function'){
-        self.normalize();
-      }
-      var doc = self.asDoc();
-      self.db.put(doc).then(function(response){
+      self.db.put(self.saveable()).then(function(response){
         self._rev = response.rev;
         self._id = response.id;
         deferred.resolve(response);
