@@ -56,6 +56,7 @@
 			<tr>
 				<th>Name</th>
 				<th>Amount</th>
+				<th>Students</th>
 				<th style="width:80px;">Remove</th>
 			</tr>
 		</thead>
@@ -67,8 +68,11 @@
 				<td class="column readonly" style="vertical-align:middle;">
 					<div class="cell">{{fee.amount | currency:""}}</div>
 				</td>
+				<td>
+					{{fee.students.length}}
+				</td>
 				<td class="remove text-center" style="width:80px;">
-					<a ng-click="remove(fee)">
+					<a ng-click="remove(fee)" ng-if="fee.students && fee.students.length === 0">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>
