@@ -5,6 +5,8 @@ angular.module('SchoolMan')
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
+      $scope.Marksheets = Marksheets;
+
       $scope.open = Location.open;
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
       $scope.pageTitleFrench = "BULLETIN DE NOTES";
@@ -41,20 +43,25 @@ angular.module('SchoolMan')
         });
 
         // Convert marksheets to a list
-        $scope.data.marksheets= _.map(Object.keys(marksheets), function(marksheetId){
+        $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){
           return marksheets[marksheetId];
         });
-
+        angular.forEach($scope.data.marksheets, function(marksheet, $index){
+          $scope.data.rankings[marksheet._id] = Marksheets.rank(marksheet);
+        });
         console.log("Marksheets", $scope.data.marksheets);
+        console.log("Rankings", $scope.data.rankings);
 
         // generate summarySheets
         $scope.data.msheet = Marksheets.combine($scope.data.marksheets);
         $scope.data.summarysheet = Marksheets.summarize($scope.data.msheet, termIndex);
         console.log("summarysheet", $scope.data.summarysheet);
-        $scope.data.rankings = Marksheets.rank($scope.data.msheet);
+        $scope.data.rankings.master = Marksheets.rank($scope.data.msheet);
 
         var sets = $scope.data.sets = {};
         angular.forEach($scope.data.marksheets, function(marksheet, i){
+
+          // Types are: General, Specialized, and Other
           var type = $scope.data.subjects[marksheet.subjectId].type;
           if(!sets.hasOwnProperty(type)){
             sets[type] = {marksheets:[],
@@ -63,6 +70,7 @@ angular.module('SchoolMan')
           sets[type].marksheets.push(marksheet);
           sets[type].summsheets[marksheet._id] = Marksheets.summarize(marksheet, termIndex);
         });
+        
         angular.forEach(sets, function(set, i){
           sets[i].msheet = Marksheets.combine(set.marksheets);
           sets[i].ssheet = Marksheets.summarize(sets[i].msheet, termIndex);

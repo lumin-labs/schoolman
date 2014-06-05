@@ -120,7 +120,7 @@
                 <td>
                   {{set.summsheets[marksheet._id][data.student._id][0] >= 0 ? set.summsheets[marksheet._id][data.student._id][0] * marksheet.coeff : 0 | number:2}}
                 </td>
-                <td></td>
+                <td>{{data.rankings[marksheet._id][data.student._id][termIndex]}}</td>
                 <td class="{{getRemark(average).css}}">{{getRemark(set.summsheets[marksheet._id][data.student._id][0]).text}}</td>
                 <td>
                   <div class="signature">
@@ -164,7 +164,7 @@
           </tr>
           <tr>
             <td>Class Position:</td>
-            <td>{{data.rankings[data.student._id][termIndex]}}</td>
+            <td>{{data.rankings.master[data.student._id][termIndex]}}</td>
           </tr>
         </table>
       </div>
