@@ -1,10 +1,19 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('FeesCtrl', function ($scope, Fees, model) {
+  .controller('FeesCtrl', function ($scope, Fees, Students, model) {
       
       $scope.data = {};
       $scope.data.fees = Fees.getAll();
+
+      // Join students to fees
+      Students.getAll().then(function(students){
+        angular.forEach($scope.data.fees, function(fee, key){
+          fee.students = _.filter(students, function(student){
+            return student.feeId === key;
+          });
+        });
+      });
       
       $scope.newFee = new model.Fee();
 

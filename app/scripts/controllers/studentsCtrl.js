@@ -6,9 +6,6 @@ angular.module('SchoolMan')
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
 
-    $scope.formIndex = $routeParams.formIndex;
-    $scope.groupId = $routeParams.groupId;
-    $scope.deptId = $routeParams.deptId;
 
     var data = $scope.data = {
         forms:Forms.all(),
@@ -20,20 +17,44 @@ angular.module('SchoolMan')
         globalSelect:0
     };
 
-    var queryParams = {
+    $scope.formIndex = $routeParams.formIndex;
+    $scope.groupId = $routeParams.groupId;
+    $scope.deptId = $routeParams.deptId;
+
+    $scope.queryParams = {
         formIndex:$scope.formIndex,
         groupId:$scope.groupId,
-        deptId:$scope.deptId
+        deptId:$scope.deptId,
+        feeId:"all"
     }
-    Students.query(queryParams).then(function(students){
+
+    var updateStudents = function(){
+      var query = {};
+      angular.forEach($scope.queryParams, function(value, key){
+        var all = ['all', undefined, 'undefined'];
+        if(all.indexOf(value) === -1){
+            query[key] = value;
+        }
+      });   
+      Students.query(query).then(function(students){
         console.log("Success loading students", students);
         $scope.data.students = students;
         angular.forEach(students, function(student, studentIndex){
           $scope.data.selected[student._id] = 0;
         }); 
-    }).catch(function(error){
+      }).catch(function(error){
         console.log("Error loading students", error);
-    });
+      });  
+    };
+    updateStudents();
+
+    $scope.setQuery = function(params){
+        angular.forEach(params, function(value, key){
+            $scope.queryParams[key] = value;
+        });
+        console.log("Query Params", $scope.queryParams);
+        updateStudents();
+    };
 
     $scope.moveTab = "form";
 
