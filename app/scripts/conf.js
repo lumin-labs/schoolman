@@ -32,7 +32,7 @@ angular.module('SchoolMan')
     {
       label:"Balance Sheet",
       page:"finance",
-      access:['registrar'],
+      access:['registrar', 'admin'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-envelope'

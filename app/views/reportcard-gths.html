@@ -58,7 +58,7 @@
                       <div class="student-info-section">
                         <h4 class="section-header printonly">{{data.term.name}}</h4>
                         <h5 style="font-family:mono;">{{ data.summarysheet[data.student._id][0] >= 0 ? data.summarysheet[data.student._id][0] : 0 | number:2 }} / 20</h5>
-                        <h5>{{getRemark(mastersheet.table["students"][student.id].acAverage).text | uppercase}}</h5>
+                        <h5>{{getRemark(mastersheet.table["students"][student._id].acAverage).text | uppercase}}</h5>
                       </div>
                     </div>
                   </td>
@@ -121,9 +121,11 @@
                   {{set.summsheets[marksheet._id][data.student._id][0] >= 0 ? set.summsheets[marksheet._id][data.student._id][0] * marksheet.coeff : 0 | number:2}}
                 </td>
                 <td></td>
-                <td class="{{getRemark(average).css}}">{{getRemark(average).text}}</td>
+                <td class="{{getRemark(average).css}}">{{getRemark(set.summsheets[marksheet._id][data.student._id][0]).text}}</td>
                 <td>
-                  <div class="signature" ng-if="average">{{getTeacher(subjectKey).fullname}}</div>
+                  <div class="signature">
+                    {{Users.get(marksheet.teacherId).fullname}}
+                  </div>
                 </td>
               </tr>
               <tr class="danger">
@@ -143,7 +145,7 @@
     <br>
     <div class="row">
       <div class="col-md-4 transcript-summary">
-        <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student.id)">
+        <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
           <tr>
             <td>Total Mark:</td>
             <td>{{data.summarysheet[data.student._id][0] >= 0 ? data.summarysheet[data.student._id][0] * data.msheet.coeff : 0 | number:2}}</td>
@@ -158,7 +160,7 @@
           </tr>
           <tr>
             <td>{{data.terms[term]}} Remark:</td>
-            <td>{{getRemark(mastersheet.table["students"][student.id].acAverage).text}}</td>
+            <td>{{getRemark(data.summarysheet[data.student._id][0]).text}}</td>
           </tr>
           <tr>
             <td>Class Position:</td>
@@ -189,7 +191,7 @@
             <td>
                 <div  class="btn-group">
                   <!-- If status is set to automatic -->
-                  <button ng-if="student.status['2014'] === 0 && studentStatus[student.id]"
+                  <button ng-if="student.status['2014'] === 0 && studentStatus[student._id]"
                           class="btn btn-sm btn-success dropdown-toggle" 
                           data-toggle="dropdown">
                     <i class="glyphicon" 
@@ -197,7 +199,7 @@
                     &nbsp;{{PROMOTE_OPTIONS[1].name}}
                   </button>
                   
-                  <button ng-if="student.status['2014'] === 0 && !studentStatus[student.id]"
+                  <button ng-if="student.status['2014'] === 0 && !studentStatus[student._id]"
                         class="btn btn-sm btn-warning dropdown-toggle" 
                         data-toggle="dropdown">
                       <i class="glyphicon" 
@@ -237,7 +239,7 @@
       <div class="col-md-4 signature">
         <table class="table table-bordered">
           <tr style="height:37px">
-            <td rowspan="5" class="text-center" style="vertical-align:middle;">Principles Signature</td>
+            <td rowspan="5" class="text-center" style="vertical-align:middle;">Principal's Signature</td>
           </tr>
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>

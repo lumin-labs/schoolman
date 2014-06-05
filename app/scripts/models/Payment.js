@@ -44,11 +44,17 @@ schoolman.config(['modelProvider', function(model){
   Payment.prototype = new model.Model();
   
   Payment.prototype.datatype = Payment.datatype = model.datatypes.payment.v1;
-  
+  Payment.prototype.getAmount = function(){
+    var amount = this.amount;
+    if(typeof this.amount === 'string'){
+      amount = Number(this.amount.replace(/[^0-9\.]+/g,""));
+    }
+    return amount;
+  }
   Payment.prototype.normalize = function(){
     // convert amount from string to number
     if(typeof this.amount === "string"){
-      this.amount = Number(this.amount.replace(/[^0-9\.]+/g,""));
+      this.amount = this.getAmount();
     } 
     this.date = new Date();
   };

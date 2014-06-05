@@ -10,6 +10,7 @@ angular.module('SchoolMan')
   	$scope.newPayment = new model.Payment();
   	$scope.newPayment.registrar = $routeParams.username;
     $scope.newPayment.studentId = $routeParams.studentId;
+    $scope.multiplier = 1; // -1 implies that this payment is a correction
 
     $scope.Users = Users;
 
@@ -66,11 +67,13 @@ angular.module('SchoolMan')
       console.log("payment error: ", error);
     });
 
-    $scope.addPayment = function(payment){
+    $scope.addPayment = function(payment, multiplier){
     	// Reformat the input from string to number
     	//if(typeof $scope.data.payments.amount = "string"){
       //  $scope.data.payments.amount = $scope.stringToNumber($scope.data.payments.amount);
       //}
+      payment.amount = payment.getAmount() * multiplier;
+      console.log("Saving payment: ", payment, multiplier);
       payment.save().then(function(success){
         console.log("payment saved", success);
         $scope.data.payments.push(payment);

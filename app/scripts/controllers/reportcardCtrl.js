@@ -1,13 +1,17 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('reportcardCtrl', function ($scope, $routeParams, Dcards, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+  .controller('reportcardCtrl', function ($scope, $routeParams, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
       $scope.open = Location.open;
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
       $scope.pageTitleFrench = "BULLETIN DE NOTES";
+
+      $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
+      $scope.Users = Users;
+      $scope.getRemark = ClassMaster.getRemark;
 
       $scope.data = {};
       $scope.data.forms = Forms.all();
