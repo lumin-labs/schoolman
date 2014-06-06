@@ -189,49 +189,12 @@
           <tr>
             <td>Promotion Status</td>
             <td>
-                <div  class="btn-group">
-                  <!-- If status is set to automatic -->
-                  <button ng-if="student.status['2014'] === 0 && studentStatus[student._id]"
-                          class="btn btn-sm btn-success dropdown-toggle" 
-                          data-toggle="dropdown">
-                    <i class="glyphicon" 
-                       ng-class="PROMOTE_OPTIONS[0].icon"></i>
-                    &nbsp;{{PROMOTE_OPTIONS[1].name}}
-                  </button>
-                  
-                  <button ng-if="student.status['2014'] === 0 && !studentStatus[student._id]"
-                        class="btn btn-sm btn-warning dropdown-toggle" 
-                        data-toggle="dropdown">
-                      <i class="glyphicon" 
-                       ng-class="PROMOTE_OPTIONS[0].icon"></i>
-                    &nbsp;{{PROMOTE_OPTIONS[2].name}}
-                  </button>
-                    
-                  <!-- Otherwise show whatever it's manually set to -->
-                    <button ng-if="student.status['2014'] > 0"
-                            class="btn btn-sm dropdown-toggle" 
-                            ng-class="'btn-'+PROMOTE_OPTIONS[student.status['2014']].style"
-                            data-toggle="dropdown">
-                        <i ng-class="PROMOTE_OPTIONS[student.status['2014']].icon"></i>
-                      &nbsp;{{PROMOTE_OPTIONS[student.status['2014']].name}}
-                    </button>
-                  
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a ng-click="student.setStatus('2014', 0)">
-                        <i ng-class="PROMOTE_OPTIONS[0].icon"></i>
-                        {{PROMOTE_OPTIONS[0].name}}
-                      </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li ng-repeat="(optionIndex, option) in PROMOTE_OPTIONS.slice(1)">
-                      <a ng-click="student.setStatus('2014', optionIndex + 1)">
-                        <i ng-class="PROMOTE_OPTIONS[optionIndex + 1].icon"></i>
-                        {{PROMOTE_OPTIONS[optionIndex + 1].name}}
-                      </a>
-                    </li>
-                  </ul>
-                </div><!-- /btn-group -->
+                <span ng-if="data.student.status[2014] === 0">
+                  {{ data.summarysheet[data.student._id][0] < passingScore ? "Failing" : "Passing"}}
+                </span>
+                <span ng-if="data.student.status[2014] !== 0">
+                  {{PROMOTE_OPTIONS[data.student.status[2014]].name}}
+                </span>
             </td>
           </tr>
         </table>
