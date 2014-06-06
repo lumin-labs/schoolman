@@ -19,6 +19,11 @@ schoolman.config(['modelProvider', function(model){
         required:true
       },
       {
+        key:"password",
+        type:"string",
+        required:true
+      },
+      {
         key:"access",
         type:"object",
         required:true
@@ -39,6 +44,7 @@ schoolman.config(['modelProvider', function(model){
 
     this.fullname = "";
     this.username = "";
+    this.password = "default";
     this.access = {
       admin:0,
       registrar:0,
