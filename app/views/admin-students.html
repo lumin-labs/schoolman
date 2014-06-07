@@ -224,7 +224,7 @@
 					<td>{{data.departments[student.deptId].name}}</td>
 					<td>{{data.groups[student.groupId].name}}</td>
 					<td>
-						{{data.fees[student.feeId].amount - student.totalPaid() | currency:""}}
+						{{data.fees[student.feeId].amount - student.totalPaid | currency:""}}
 					</td>
 					<td class="promotion">
 						<div  class="btn-group">

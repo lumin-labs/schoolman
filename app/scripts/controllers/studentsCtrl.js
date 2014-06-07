@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Forms, Groups, Registrar, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
+  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Forms, Groups, Registrar, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
@@ -41,6 +41,15 @@ angular.module('SchoolMan')
         $scope.data.students = students;
         angular.forEach(students, function(student, studentIndex){
           $scope.data.selected[student._id] = 0;
+          // Add payment data to student
+          student.totalPaid = 0;
+          Payments.query({studentId:student._id}).then(function(payments){
+            student.totalPaid = _.reduce(payments, function(total, payment){
+                return total + payment.amount;
+            },student.totalPaid);
+          }).catch(function(error){
+            console.log("Failed to load payments for ", student.name, error);
+          });
         }); 
       }).catch(function(error){
         console.log("Error loading students", error);
