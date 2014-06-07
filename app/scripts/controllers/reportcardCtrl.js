@@ -78,6 +78,7 @@ angular.module('SchoolMan')
         });
 
         console.log("sets", sets);
+        $scope.nsets = Object.keys(sets).length;
 
         // Create a list of student from the union of marksheet studentIds
         var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){

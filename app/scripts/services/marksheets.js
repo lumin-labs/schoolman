@@ -332,22 +332,22 @@ angular.module('SchoolMan')
     };
 
 
-    self.getReports(p){
-      var deferred = $.defer();
+    // self.getReports(p){
+    //   var deferred = $.defer();
 
-      self.query({formIndex:p.formIndex, deptId:p.deptId,groupId:p.groupId})
-          .then(function(marksheets){
-            var report = {};
-            angular.forEach(marksheets, function(marksheet, id){
+    //   self.query({formIndex:p.formIndex, deptId:p.deptId,groupId:p.groupId})
+    //       .then(function(marksheets){
+    //         var report = {};
+    //         angular.forEach(marksheets, function(marksheet, id){
               
-            });
-          }).catch(function(error){
-            console.log("Failed to get Marksheets", error);
-            deferred.reject(error);
-          });
+    //         });
+    //       }).catch(function(error){
+    //         console.log("Failed to get Marksheets", error);
+    //         deferred.reject(error);
+    //       });
 
-      return deferred.promise;
-    };
+    //   return deferred.promise;
+    // };
 
     return self;
 

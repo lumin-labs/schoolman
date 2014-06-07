@@ -2,13 +2,14 @@
 
 angular.module('SchoolMan')
   .controller('Loading3Ctrl', function ($scope, Location, $q, 
-    Subjects, Forms, Departments, Groups, Fees, Users) {
+    Subjects, Forms, Departments, Groups, Fees, Users, model) {
 
     var userP = Users.load();
     var feesP = Fees.load();
     var deptP = Departments.load();
     var subjP = Subjects.load();
     var groupP= Groups.load();
+    var instClassCouncil = new model.ClassCouncil();
 
     var promises = [deptP, groupP, subjP, feesP, userP];
 
