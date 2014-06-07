@@ -18,7 +18,8 @@
       {{department.code || "Select Department"}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li ng-repeat="(deptId, dept) in departments">
+      <li ng-if="page==='myclasses'" 
+          ng-repeat="(deptId, dept) in departments">
         <a ng-href="" ng-click="open({deptId:deptId})">{{departments[deptId].name}}</a>
       </li>
     </ul>

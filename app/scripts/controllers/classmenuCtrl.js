@@ -11,7 +11,21 @@ angular.module('SchoolMan')
     r.form = $scope.form  = $scope.forms[$routeParams.formIndex];
 
     r.departments = $scope.departments = Departments.getAll();
-    r.department = $scope.department = $scope.departments[$routeParams.deptId];
+    if(r.page === 'myclasses'){
+      angular.forEach(r.departments, function(dept, key){
+        if(!dept.forms[$routeParams.formIndex]){
+          console.log("Deleting: ", key, dept);
+          delete r.departments[key];
+        }
+      });
+    }
+    console.log("Departments", r.departments);
+    r.department = 
+    $scope.department = 
+      r.departments.hasOwnProperty($routeParams.deptId) ? 
+                            $scope.departments[$routeParams.deptId] : 
+                            $scope.open({deptId:Object.keys(r.departments)[0]});
+
 
     r.groups = $scope.groups = Groups.getAll();
     r.group = $scope.group  = $scope.groups[$routeParams.groupId];

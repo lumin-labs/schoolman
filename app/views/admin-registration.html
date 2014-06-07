@@ -28,19 +28,21 @@
 					  </div>
 					  <!-- Department Dropdown -->
 					  <div class="btn-group">
-					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+					    <button class="{{newStudent.formIndex === null ? 'disabled' : ''}} btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
 					      {{newStudent.deptId ? data.departments[newStudent.deptId].name : "Select Department"}} 
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li ng-repeat="(deptId, dept) in data.departments">
+					      <li ng-repeat="(deptId, dept) in data.departments"
+					          ng-if="dept.forms[newStudent.formIndex] === 1">
 					        <a ng-click="newStudent.deptId = deptId">{{dept.name}}</a>
 					      </li>
 					    </ul>
 					  </div>
 			      <!-- Group Dropdown -->
 					  <div class="btn-group">
-					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+					    <button class="{{newStudent.deptId === null ? 'disabled' : ''}} btn btn-sm btn-default dropdown-toggle" 
+					            data-toggle="dropdown">
 					      {{newStudent.groupId ? data.groups[newStudent.groupId].name : "Select Group"}} 
 					      &nbsp;<span class="caret"></span>
 					    </button>

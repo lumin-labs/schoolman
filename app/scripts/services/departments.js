@@ -8,12 +8,16 @@ angular.module('SchoolMan')
   	var self = {};
 
   	self.getAll = function(){
-  		return departments;
+  		return angular.copy(departments);
   	};
 
   	self.get = function(departmentKey){
   		return departments[departmentKey];
   	};
+
+    self.set = function(dept, key){
+      departments[key] = dept;
+    }
 
   	self.add = function(department){
   		console.log("inside department add function");
