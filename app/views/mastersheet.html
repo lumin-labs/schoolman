@@ -146,7 +146,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
-					<td class="small-column-header">{{student._id}}</td>
+					<td style="width:10px;"class="small-column-header">{{$index}}</td>
 					<td style="width:300px;">
 		        <a ng-click="open({page:'classmasterProfile', studentId:student._id})"
 		           style="font-size:.8em;" 

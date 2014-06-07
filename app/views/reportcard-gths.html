@@ -42,8 +42,46 @@
                       </div>
                     </div>
                   </td>
-                  <td class="text-center term-summary">
+                  <td class="text-center term-summary" style="width:35%;">
                     <div class="text-left">
+                      <div class="btn-group" style="margin-bottom:10px;">
+                        <div class="btn-group noprint">
+                          <button class="btn btn-lg dropdown-toggle" 
+                                  data-toggle="dropdown">
+                              {{data.forms[data.student.formIndex].name}}
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li ng-repeat="(formIndex,form) in data.forms">
+                              <a  
+                                ng-click="open({formIndex:formIndex})">
+                                {{data.forms[formIndex].name}}
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="btn-group noprint">
+                          <button class="btn btn-lg dropdown-toggle" 
+                              data-toggle="dropdown">{{data.term.name}}
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li ng-repeat="(termIndex,term) in data.terms">
+                              <a  
+                                ng-click="open({termIndex:termIndex})">{{data.terms[termIndex].name}}</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="btn-group noprint">
+                          <button class="btn btn-lg dropdown-toggle" 
+                              data-toggle="dropdown">{{data.term.name}}
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li ng-repeat="(termIndex,term) in data.terms">
+                              <a  
+                                ng-click="open({termIndex:termIndex})">{{data.terms[termIndex].name}}</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
                             data-toggle="dropdown">{{data.term.name}}

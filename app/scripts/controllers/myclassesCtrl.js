@@ -10,7 +10,10 @@ angular.module('SchoolMan')
                     $routeParams.groupId,
                     $routeParams.subjectId];
     $scope.allSelected = allParams.indexOf("undefined") === -1;
-    
+
+    $scope.page = $routeParams.page;
+    $scope.formIndex = $routeParams.formIndex;
+
     $scope.data = {
       forms:Forms.all(),
       departments:Departments.getAll(),

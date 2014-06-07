@@ -72,7 +72,7 @@ angular.module('SchoolMan')
     }
     Department.prototype.toggleForm = function(formIndex){
       this.forms[formIndex] = (this.forms[formIndex] + 1) % 2;
-      this.notify();
+      return this;
     };
 
     

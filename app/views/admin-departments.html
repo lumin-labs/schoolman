@@ -46,7 +46,7 @@
 					</td>
 					<td ng-repeat="(formIndex, form) in department.forms"
 						class="text-center">
-						<button ng-click="department.toggleForm(formIndex)"
+						<button ng-click="toggleForm(department, formIndex)"
 								class="btn btn-md btn-light" style="border:solid 1px #ddd;">
 							<i ng-if="department.forms[formIndex] === 0" 
 							   class="glyphicon" 

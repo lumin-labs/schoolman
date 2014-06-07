@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('DepartmentsCtrl', function ($scope, $log, Registrar, model, Students, Departments, CourseCatalog) {
+  .controller('DepartmentsCtrl', function ($scope, $log,Registrar, model, Students, Departments, CourseCatalog) {
 
     $scope.forms = CourseCatalog.getForms();
 
@@ -23,6 +23,12 @@ angular.module('SchoolMan')
  		$scope.remove = function(department){
  			Departments.remove(department);
  		};
+
+    $scope.toggleForm = function(department, formIndex){
+      department.toggleForm(formIndex).save().then(function(success){
+        Departments.set(department, department._id);
+      });
+    };
 
  		$scope.allStudents = {};
     Students.getAll().then(function(students){

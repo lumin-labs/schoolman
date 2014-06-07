@@ -23,6 +23,8 @@ angular.module('SchoolMan')
 
     var hasChanged = false;
 
+    $scope.open = Location.open;
+
     $scope.noteChange = function(){
     	hasChanged = true;
     }

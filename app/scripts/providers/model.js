@@ -126,6 +126,7 @@ schoolman.provider('model', function modelProvider() {
       self.db.put(self.saveable()).then(function(response){
         self._rev = response.rev;
         self._id = response.id;
+        console.log("Saved: ", self);
         deferred.resolve(response);
       }, function(err, response){
         deferred.reject(err, response);
@@ -196,6 +197,7 @@ schoolman.provider('model', function modelProvider() {
 
   self.parse2 = function(doc, datatypeId){
     var params = datatypeId.split("/");
+    console.log("Datatypes", self.datatypes);
     var spec = self.datatypes[params[1]][params[2]];
     return self.parse(doc, spec);
   }

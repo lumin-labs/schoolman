@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('RegistrationCtrl', function ($scope, Uid, Forms, Departments, Groups, Fees, Location, model) {
+  .controller('RegistrationCtrl', function ($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model) {
+
+    $scope.formIndex = $routeParams.formIndex;
 
     var data = $scope.data = {
     	forms:Forms.all(),
@@ -10,8 +12,10 @@ angular.module('SchoolMan')
     	fees:Fees.getAll(),
         uid:null
     };
+    angular.forEach()
 
     $scope.newStudent = new model.Student();
+    console.log("NewStudent", $scope.newStudent);
     Uid.get().then(function(uid){
         data.uid = uid;
         console.log("Got Uid", uid);
