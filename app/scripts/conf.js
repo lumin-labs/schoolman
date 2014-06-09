@@ -57,7 +57,7 @@ angular.module('SchoolMan')
       label:"Student Profile",
       page:"registrarProfile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', "finance", "users", "subjects", "departments", "promotion", "classes"],
+      exclude:['registration', 'fees', 'students', "finance", "users", "subjects", "user", "departments", "promotion", "classes"],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -148,6 +148,14 @@ angular.module('SchoolMan')
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-folder-open'
+    },
+    {
+      label:"User Settings",
+      page:"user",
+      access:['classmaster','admin','teacher', 'registrar'],
+      exclude:'all',
+      modes:["gths", "ghs"],
+      icon:'glyphicon-cog'
     },
  ]);
 

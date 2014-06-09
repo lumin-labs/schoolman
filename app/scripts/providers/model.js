@@ -24,6 +24,10 @@ schoolman.provider('model', function modelProvider() {
     return isOk;
   };
 
+  self.encrypt = Model.prototype.encrypt = function(string){
+    return CryptoJS.SHA3(string).toString(CryptoJS.enc.Hex);
+  }
+
   self.isValid = function(self){
     // var self = selfthis;
     console.log("RUNNING: self.isValid", self);

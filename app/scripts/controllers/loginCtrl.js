@@ -23,6 +23,7 @@ angular.module('SchoolMan')
 
       $scope.open = Location.open;
       $scope.page = $routeParams.page;
+      $scope.status = 200;
 
       // This data is used for creating the access dropdown in the login view
       // It should be moved to a service
@@ -32,15 +33,16 @@ angular.module('SchoolMan')
 
       // Get a user object. 
       // Note: this user may not actually exist as a registered user
-      $scope.tempUser = new model.User();
+      $scope.tempUser = new model.User({password:''});
 
       $scope.login = function(page){
 
         var accessRequest = $routeParams.accessCode;
 
-        Users.login($scope.tempUser, accessRequest, function(user){
-          if(user){
-            
+        Users.login($scope.tempUser, accessRequest, function(data){
+          console.log("Login Data", data);
+          if(data.status === 200){
+            var user = data.user;
             accessRequest = accessRequest === "undefined" ? user.getHighestAccess() : accessRequest;
             console.log("accessRequest", accessRequest);
 
@@ -58,25 +60,22 @@ angular.module('SchoolMan')
               accessCode:accessRequest
             });
           } else {
-            Location.open({
-              page:"login404",
-              username:$scope.tempUser.fullname,
-              accessCode:$routeParams.accessCode
-            });
+            $scope.status = data.status;
           }
         });
       };
 
-      $scope.createNewAccount = function(){
-          Location.open({
-              page:"register",
-              username:$scope.username||null
-          });
-      }
+      // $scope.createNewAccount = function(){
+      //     Location.open({
+      //         page:"register",
+      //         username:$scope.username||null
+      //     });
+      // }
 
 
       if(DEV.AUTO_LOGIN){
           $scope.tempUser.fullname = DEV.AUTO_LOGIN_USER;
+          $scope.tempUser.password = DEV.AUTO_LOGIN_PASS;
           $routeParams.accessCode = DEV.AUTO_LOGIN_ACCESS;
           var page = DEV.hasOwnProperty("AUTO_LOGIN_PAGE") ? DEV.AUTO_LOGIN_PAGE : undefined;
           $scope.login(page); 

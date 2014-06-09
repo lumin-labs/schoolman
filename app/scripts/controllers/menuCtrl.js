@@ -23,6 +23,8 @@ angular.module('SchoolMan')
 
     $scope.cache = Cache.cache;
 
+    $scope.username = $routeParams.username;
+
     
 
 

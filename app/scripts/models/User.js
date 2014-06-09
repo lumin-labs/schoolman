@@ -44,7 +44,7 @@ schoolman.config(['modelProvider', function(model){
 
     this.fullname = "";
     this.username = "";
-    this.password = "default";
+    this.password = "";
     this.access = {
       admin:0,
       registrar:0,
@@ -109,6 +109,11 @@ schoolman.config(['modelProvider', function(model){
     } else {
       this.username = this.generateID();
     }
+
+    if(this.password === ""){
+      this.password = this.encrypt("user123");
+    }
+    
   };
 
   User.prototype.generateID = function(){

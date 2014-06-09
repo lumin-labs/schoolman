@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Marksheets', function Marksheets($q, model, modelTransformer, Students, Data2, Slug) {
+  .service('Marksheets', function Marksheets($q, model, modelTransformer, Subjects, Students, Data2, Slug) {
    
     var self = {};
 
@@ -184,6 +184,11 @@ angular.module('SchoolMan')
       return self.dict(ave);
     };
 
+    // self.summarize2 = function(marksheet){
+    //   var summaries = 
+    //   angular.forEach([0,1,2,3], function())
+    // };
+
     self.create = function(params){
     	var deferred = $q.defer();
 
@@ -332,22 +337,68 @@ angular.module('SchoolMan')
     };
 
 
-    // self.getReports(p){
-    //   var deferred = $.defer();
+    self.getReports = function(p){
 
-    //   self.query({formIndex:p.formIndex, deptId:p.deptId,groupId:p.groupId})
-    //       .then(function(marksheets){
-    //         var report = {};
-    //         angular.forEach(marksheets, function(marksheet, id){
-              
-    //         });
-    //       }).catch(function(error){
-    //         console.log("Failed to get Marksheets", error);
-    //         deferred.reject(error);
-    //       });
+      console.log("Getting reports", p);
+      var deferred = $q.defer();
 
-    //   return deferred.promise;
-    // };
+      self.query({formIndex:p.formIndex, deptId:p.deptId,groupId:p.groupId})
+          .then(function(marksheets){
+            if(marksheets.length > 0){
+
+              var report = {};
+                  report.subjects = {};
+              var subjects = Subjects.getAll();
+
+
+              // Add each marksheet and its summary and ranking to report
+              angular.forEach(marksheets, function(marksheet, $index){
+                var subjectType = model.Subject.types[subjects[marksheet.subjectId].type]; 
+                if(!report.subjects.hasOwnProperty(subjectType)){
+                  report.subjects[subjectType] = {};
+                }
+                report.subjects[subjectType][marksheet._id] = {
+                  marksheet:marksheet,
+                  summary:self.summarize(marksheet,3),
+                  ranking:self.rank(marksheet)
+                }
+              });
+
+              var combinedMarksheets = [];
+
+              // Create combined marksheet for each marksheet type
+              angular.forEach(report.subjects, function(set, type){
+                var total = {};
+                var marksheets = _.map(Object.keys(set), function(marksheetId){
+                  return set[marksheetId].marksheet;
+                });
+
+                total.marksheet = self.combine(marksheets);
+                
+
+                combinedMarksheets.push(total.marksheet);
+                total.summary = self.summarize(total.marksheet,0);
+                total.rankings = self.rank(total.marksheet);
+                set.total = total;
+              });
+
+              report.total = {};
+              report.total.marksheet = self.combine(combinedMarksheets);
+              report.total.summary = self.summarize(report.total.marksheet,3);
+              report.total.rankings = self.rank(report.total.marksheet);
+
+              deferred.resolve(report);
+            } else {
+              deferred.reject("no marksheets found");
+            }
+
+          }).catch(function(error){
+            console.log("Failed to get Marksheets", error);
+            deferred.reject(error);
+          });
+
+      return deferred.promise;
+    };
 
     return self;
 

@@ -11,20 +11,35 @@ angular.module('SchoolMan')
       
       var user = null; // Replace this with throwing error
       var username = Slug.slugify(tempUser.fullname);
+      var password = model.encrypt(tempUser.password);
 
       if(users.hasOwnProperty(username)){
 
         var user = users[username];
-                
-        var accessCode =  accessCode && accessCode !== "undefined" ? accessCode : user.getHighestAccess();
-        if(user.hasAccess(accessCode)){
-          user = user;
+
+        if(user.password === password){
+          callback({
+            status:200,
+            user:user,
+            message:"ok"
+          });
         } else {
-          $log.warn("No Access", accessCode, user.hasAccess(accessCode), user);
+          console.log("Password doesnt match:",user.password, password);
+          callback({
+            status:401,
+            user:undefined,
+            message:"The password is incorrect: " + password
+          })
         }
+                
+      } else {
+        callback({
+          status:404,
+          user:undefined,
+          message:"Username not found: " + username
+        })
       }
 
-      callback(user);
 
       return undefined; // This should make the function asynchronous
     }
@@ -64,6 +79,7 @@ angular.module('SchoolMan')
         var superuser = new model.User({
           fullname:"Admin",
           username:"admin",
+          password:model.encrypt("admin123"),
           _id:"user_admin"
         });
         superuser.access.admin = 1;

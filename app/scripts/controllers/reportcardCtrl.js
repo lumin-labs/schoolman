@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('reportcardCtrl', function ($scope, $routeParams, model, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+  .controller('reportcardCtrl', function ($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
@@ -109,11 +109,16 @@ angular.module('SchoolMan')
         console.log("Failed to find marksheets", error);
       });
 
-      Data2.get(model.ClassCouncil.generateID($routeParams)).then(function(data){
-        var spec = model.parse2(data, data.datatype);
-        var classcouncil = new model.ClassCouncil(spec);
-        $scope.passingScore = classcouncil.passingScore; 
-      })
+      ClassCouncils.get(model.ClassCouncil.generateID($routeParams))
+        .then(function(classcouncil){
+          $scope.passingScore = classcouncil.passingScore; 
+        });
+
+      // Data2.get(model.ClassCouncil.generateID($routeParams)).then(function(data){
+      //   var spec = model.parse2(data, data.datatype);
+      //   var classcouncil = new model.ClassCouncil(spec);
+      //   $scope.passingScore = classcouncil.passingScore; 
+      // })
 
       $scope.getMark = function(d){
         var i = (parseInt(d.t) + 1) * 2 + d.s - 2;

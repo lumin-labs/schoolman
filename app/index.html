@@ -38,6 +38,10 @@
           </button>
           <ul class="dropdown-menu">
             <li>
+              <a ng-click="open({page:'user',subpage:'current'})">Settings</a>
+            </li>
+            <li class="divider"></li>
+            <li>
               <a ng-click="logout()">Logout</a>
             </li>
           </ul>
@@ -126,6 +130,7 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/conf.js"></script>
         <script src="scripts/dev.js"></script>
+        <script src="scripts/sha3.js"></script>
 
         <script src="scripts/directives/cellDirective.js"></script>
         <script src="scripts/directives/currency.js"></script>
@@ -205,6 +210,7 @@
         <script src="scripts/controllers/classcouncilCtrl.js"></script>
         <script src="scripts/controllers/registrationCtrl.js"></script>
         <script src="scripts/controllers/reportcardCtrl.js"></script>
+        <script src="scripts/controllers/userCtrl.js"></script>
         <script src="scripts/controllers/test.js"></script>
         <!-- endbuild -->
 </body>

@@ -18,7 +18,15 @@ angular.module('SchoolMan')
     };
 
     var excludedOnThisPage = function(tab){
-      return tab.exclude.indexOf($routeParams.page) > -1;
+      var excluded = false;
+      if(tab.page !== $routeParams.page){ // no tab is excluded from it's own 
+        if(tab.exclude === 'all'){
+          excluded = true;
+        } else {
+          excluded = tab.exclude.indexOf($routeParams.page) > -1;
+        }
+      } 
+      return excluded;
     };
 
     $scope.userHasAccess = function(tab){

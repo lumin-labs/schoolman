@@ -2,18 +2,27 @@
 	<form role="form form-signin"
         ng-submit="login()">
     <div class="form-group">
-      <label for="exampleInputEmail1">Name</label>
+      <label for="InputEmail">Name</label>
       <input type="text" 
              class="form-control" 
-             id="exampleInputEmail1" 
+             id="InputEmail" 
              placeholder="Enter name"
              tabindex="1"
              ng-model="tempUser.fullname">
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <label for="InputPassword">Password</label>
+      <input type="password" 
+             class="form-control" 
+             id="InputPassword" 
+             placeholder="Password"
+             tabindex="2"
+             ng-model="tempUser.password">
     </div>
+    <div ng-if="status === 200">&nbsp;</div>
+    <div ng-if="status === 404" style="color:red;">User not found</div>
+    <div ng-if="status === 401" style="color:red;">Incorrect Password</div>
+    <br>
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
 </div>

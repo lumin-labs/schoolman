@@ -65,11 +65,11 @@
 					<tbody>
 						<tr ng-repeat="(userId, user) in  data.users">
 							<td style="padding-left:10px;width:300px;">
-								{{user.fullname}}
+								<a ng-click="open({page:'user', subpage:user.username})">{{user.fullname}}</a>
 							</td>
 							<td class="text-center" ng-repeat="(accessKey, accessBool) in user.access">
 								
-								<button ng-if="user.username !== username || accessKey !== 'admin'"
+								<button ng-if="user.username !== username"
 										ng-click="user.toggleAccess(accessKey)"
 										class="btn btn-md btn-light" style="border:solid 1px #ddd;">
 									<i ng-if="!user.hasAccess(accessKey)" 
@@ -80,7 +80,7 @@
 								   style="color:green;"></i>
 								</button>
 
-								<button ng-if="user.username === username && accessKey ==='admin'"
+								<button ng-if="user.username === username"
 										class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;">
 									<i ng-if="!user.hasAccess(accessKey)" 
 									   class="glyphicon glyphicon-minus" 

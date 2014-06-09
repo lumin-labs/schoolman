@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $routeParams, Fees, Forms, Groups, Registrar, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
+  .controller('StudentsCtrl', function ($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
+
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
 
 
@@ -28,6 +29,9 @@ angular.module('SchoolMan')
         feeId:"all"
     }
 
+    var reports = {};
+    var classCouncils = {};
+
     var updateStudents = function(){
       var query = {};
       angular.forEach($scope.queryParams, function(value, key){
@@ -36,11 +40,29 @@ angular.module('SchoolMan')
             query[key] = value;
         }
       });   
+
+      var setPassing = function(student, studentsClass){
+        var studentAverage = 0;
+        if(reports[studentsClass].total.summary){
+          studentAverage = reports[studentsClass].total.summary[student._id][0];
+        }
+        student.passing = studentAverage >= classCouncils[studentsClass].passingScore;      
+      };
+
       Students.query(query).then(function(students){
+        
         console.log("Success loading students", students);
         $scope.data.students = students;
+
         angular.forEach(students, function(student, studentIndex){
+
+          // create a temporary 'passing' property for student
+          // default to false
+          student.passing = false;
+
+          // set default selection state
           $scope.data.selected[student._id] = 0;
+          
           // Add payment data to student
           student.totalPaid = 0;
           Payments.query({studentId:student._id}).then(function(payments){
@@ -50,6 +72,42 @@ angular.module('SchoolMan')
           }).catch(function(error){
             console.log("Failed to load payments for ", student.name, error);
           });
+
+          // add students class to reports
+          var studentsClass = [student.formIndex, student.deptId, student.groupId];
+          
+          if(reports.hasOwnProperty(studentsClass) &&  
+             classCouncils.hasOwnProperty(studentsClass)){
+
+            setPassing(student, studentsClass);
+
+          } else {
+
+            // get report and classCOuncil promises
+            var queries = {
+              reports: Marksheets.getReports({
+                formIndex:student.formIndex,
+                deptId:student.deptId,
+                groupId:student.groupId
+            }),
+              classcouncil: ClassCouncils.get(model.ClassCouncil.generateID({
+                    formIndex:student.formIndex,
+                    deptId:student.deptId,
+                    groupId:student.groupId
+                }))
+            }
+
+            // Get reports and classCouncils
+            $q.all(queries).then(function(data){
+              console.log("all promises: ", data);
+              reports[studentsClass] = data.reports;
+              classCouncils[studentsClass] = data.classcouncil;
+              setPassing(student, studentsClass);
+            }).catch(function(error){
+                console.log("Failed to load reports or classCouncils:", error);
+            });
+          }
+
         }); 
       }).catch(function(error){
         console.log("Error loading students", error);
@@ -95,41 +153,40 @@ angular.module('SchoolMan')
     
     $scope.fees = Fees.getAll();
 
-    $scope.mastersheets = {};
+    // $scope.mastersheets = {};
 
-    $scope.groupStats = {
-        0:{passing:0, failing:0, percentPassing:0},
-        1:{passing:0, failing:0, percentPassing:0}
-        // ... etc - populated during buildMastersheet
-    }
+    // $scope.groupStats = {
+    //     0:{passing:0, failing:0, percentPassing:0},
+    //     1:{passing:0, failing:0, percentPassing:0}
+    // }
     
-    var subjects = CourseCatalog.getSubjects($routeParams.formIndex);
+    // var subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
-    var updateGroupStats = function(group, stats){
-        console.log("Updating ", group , stats);
-        $scope.groupStats[group] = stats;
-    };
+    // var updateGroupStats = function(group, stats){
+    //     console.log("Updating ", group , stats);
+    //     $scope.groupStats[group] = stats;
+    // };
 
     // This is doing more work than it needs to because we dont need a mastersheet
     // for every course
     // var passingScore = _groups[$routeParams.groupIndex].getPromoPass($routeParams.formIndex)
-    var passingScore = 10;
-    var buildMastersheet = function(groupIndex){
+    // var passingScore = 10;
+    // var buildMastersheet = function(groupIndex){
         
-        var courses = CourseCatalog.getCourses($routeParams.formIndex, groupIndex);
-        var courseIds = courses.map(function(course){return course.id});
+    //     var courses = CourseCatalog.getCourses($routeParams.formIndex, groupIndex);
+    //     var courseIds = courses.map(function(course){return course.id});
 
-        var marksheets = ClassMaster.getMarksheets(courseIds);
-        var mastersheet = new Mastersheet({
-            termIndex:0,
-            subjects:subjects,
-            marksheets:marksheets,
-            getSubjectKey:CourseCatalog.getSubjectKey
-        });
-        $scope.mastersheets[groupIndex] = mastersheet;
+    //     var marksheets = ClassMaster.getMarksheets(courseIds);
+    //     var mastersheet = new Mastersheet({
+    //         termIndex:0,
+    //         subjects:subjects,
+    //         marksheets:marksheets,
+    //         getSubjectKey:CourseCatalog.getSubjectKey
+    //     });
+    //     $scope.mastersheets[groupIndex] = mastersheet;
 
-        updateGroupStats(groupIndex, mastersheet.numstats(passingScore));
-    };
+    //     updateGroupStats(groupIndex, mastersheet.numstats(passingScore));
+    // };
 
 
 
