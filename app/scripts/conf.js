@@ -13,14 +13,6 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
   	 	icon:'glyphicon-lock'
   	},
-  	{
-  		label:"Subjects",
-  	 	page:"subjects",
-  	 	access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-book'
-  	},
     {
       label:"Departments",
       page:"departments",
@@ -29,13 +21,21 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-bookmark'
     },
-    {
-      label:"Balance Sheet",
-      page:"finance",
-      access:['registrar', 'admin'],
+  	{
+  		label:"Classes",
+  	 	page:"classes",
+  	 	access:['admin'],
       exclude:[],
       modes:["gths", "ghs"],
-      icon:'glyphicon-envelope'
+  	 	icon:'glyphicon-calendar'
+  	},
+    {
+      label:"Subjects",
+      page:"subjects",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-book'
     },
     {
       label:"Fee Settings",
@@ -45,13 +45,21 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
-  	{
+    {
       label:"Students",
       page:"students",
       access:['admin', 'registrar'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-list-alt'
+    },
+    {
+      label:"Balance Sheet",
+      page:"finance",
+      access:['registrar', 'admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-envelope'
     },
     {
       label:"Student Profile",
@@ -77,14 +85,6 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-calendar'
     },
-  	{
-  		label:"Classes",
-  	 	page:"classes",
-  	 	access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-calendar'
-  	},
     // {
     //   label:"Promotion",
     //   page:"promotion",
