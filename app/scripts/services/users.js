@@ -83,6 +83,7 @@ angular.module('SchoolMan')
           _id:"user_admin"
         });
         superuser.access.admin = 1;
+        superuser.access.teacher = 0;
         superuser.save().then(function(success){
           users[superuser.username] = superuser;
           deferred.resolve(users);

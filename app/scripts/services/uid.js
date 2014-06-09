@@ -7,7 +7,7 @@ angular.module('SchoolMan')
 
     var self = {};
 
-    self.next = function(lastUid){
+    var next = function(lastUid){
     	
         var nextUid = lastUid;
         var value = lastUid.value;
@@ -32,6 +32,7 @@ angular.module('SchoolMan')
     };
 
     self.save = function(lastUid){
+        console.log("saving uid", lastUid);
        Data2.put(lastUid).then(function(success){
         console.log("saved lastUid", success);
        }).catch(function(error){
@@ -50,8 +51,27 @@ angular.module('SchoolMan')
                 var uid = {
                     _id:"UID",
                     value:"U0000000"}
-                deferred.resolve(self.next(uid));
+                deferred.resolve(next(uid));
             };
+        });
+
+        return deferred.promise;
+    }
+
+    self.getBatch = function(n){
+        var deferred = $q.defer();
+        var uids = [];
+        self.get().then(function(uid){
+            uids.push(uid.value);
+            angular.forEach(_.range(n-1), function(i, $index){
+                uid = next(uid);
+                uids.push(uid.value)
+            });
+            console.log("Created uids", uids);
+            deferred.resolve(uids);
+        }).catch(function(error){
+            console.log("Failed to get batch UIDs", error);
+            deferred.reject(error);
         });
 
         return deferred.promise;
