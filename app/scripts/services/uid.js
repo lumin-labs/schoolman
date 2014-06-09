@@ -44,7 +44,7 @@ angular.module('SchoolMan')
         var deferred = $q.defer();
 
         Data2.get("UID").then(function(uid){
-            deferred.resolve(self.next(uid));
+            deferred.resolve(next(uid));
         }).catch(function(error){
             console.log("UID Error", error);
             if(error.status === 404){
