@@ -11,7 +11,7 @@
 					<th>
 	  				<input  type="text" class="form-control" placeholder="Department Name" ng-model="newDepartment.name">
 	  			</th>
-	  			<th class="text-center"  ng-repeat="(formIndex, form) in newDepartment.forms">
+	  			<!-- <th class="text-center"  ng-repeat="(formIndex, form) in newDepartment.forms">
 	  				<button class="btn btn-md btn-light" style="border:solid 1px #ddd;" ng-click="newDepartment.toggleForm(formIndex)">
 						<i ng-if="!newDepartment.forms[formIndex]" 
 						   class="glyphicon glyphicon-minus" 
@@ -20,13 +20,13 @@
 					   class="glyphicon glyphicon-ok" 
 					   style="color:green;"></i>
 					</button>
-	  			</th>
-	  			<th></th>
+	  			</th> -->
 	  			<th class="text-center">
 	  				<button type="submit" class="btn btn-default" ng-click="add(newDepartment)">
 			        	Add
 			        </button>
 	  			</th>
+	  			<th colspan="8"></th>
 				</tr>
 				<tr>
 					<th>Code</th>
