@@ -8,6 +8,27 @@
   	  <h3>{{editingUser.fullname}}</h3>
   	  <br>
   	  <form class="form-horizontal" role="form" ng-submit="save()">
+			  <div class="form-group" ng-if="editingUser.username !== currentUser.username">
+			    <label for="repeatpassword" class="col-sm-3 control-label">Your Password</label>
+			    <div class="col-sm-9">
+			      <input id="repeatpassword"
+			           class="form-control"
+			           type="password"
+			           placeholder="Your Password" 
+			           ng-model="data.currentPassword">
+			    </div>
+			  </div>
+			  <div class="form-group" ng-if="editingUser.username === currentUser.username">
+			    <label for="repeatpassword" class="col-sm-3 control-label">Current Password</label>
+			    <div class="col-sm-9">
+			      <input id="repeatpassword"
+			           class="form-control"
+			           type="password"
+			           placeholder="Current Password" 
+			           ng-model="data.currentPassword">
+			    </div>
+			  </div>
+			  <br>
 			  <div class="form-group {{data.newPassword.length > 5 ? 'has-success' : ''}}">
 			    <label for="userFullname" class="col-sm-3 control-label">New Password</label>
 			    <div class="col-sm-9">
@@ -28,27 +49,6 @@
 			           ng-model="data.repeatPassword"
 			           ng-change="verifyStatus()"
 			           ng-blur="verifyMatch()">
-			    </div>
-			  </div>
-			  <br>
-			  <div class="form-group" ng-if="editingUser.username === currentUser.username">
-			    <label for="repeatpassword" class="col-sm-3 control-label">Old Password</label>
-			    <div class="col-sm-9">
-			      <input id="repeatpassword"
-			           class="form-control"
-			           type="password"
-			           placeholder="Old Password" 
-			           ng-model="data.currentPassword">
-			    </div>
-			  </div>
-			  <div class="form-group" ng-if="editingUser.username !== currentUser.username">
-			    <label for="repeatpassword" class="col-sm-3 control-label">Your Password</label>
-			    <div class="col-sm-9">
-			      <input id="repeatpassword"
-			           class="form-control"
-			           type="password"
-			           placeholder="Your Password" 
-			           ng-model="data.currentPassword">
 			    </div>
 			  </div>
 			  <div class="form-group">

@@ -30,12 +30,16 @@ angular.module('SchoolMan')
   	};
 
     self.remove = function(department){
+      var deferred = $q.defer();
       Data2.remove(department).then(function(success){
         console.log("Department removed: ", success);
         delete departments[department._id];
+        deferred.resolve(success);
       }).catch(function(error){
         $log.error("departments.js : remove :", error);
+        deferred.reject(error);
       });
+      return deferred.promise;
     };
 
   	self.save = function(){

@@ -56,8 +56,8 @@ angular.module('SchoolMan')
       var START_QUERY = new Date();
       Students.query(query).then(function(students){
         var END_QUERY = new Date();
-        
         console.log("TIME DIFF: ", getSeconds(START_QUERY, END_QUERY));
+
         console.log("Success loading students", students);
         $scope.data.students = students;
 

@@ -10,19 +10,25 @@ angular.module('SchoolMan')
 
     $scope.newDepartment = new model.Department();
 
- 		$scope.add = function(department){
- 			department.save().then(function(success){
+ 		$scope.allStudents = {};
+
+    $scope.add = function(department){
+      department.save().then(function(success){
                 console.log("Department saved", success);
                 $scope.departments[success.id] = department;
+                Departments.set($scope.newDepartment, success.id);
+                $scope.allStudents[$scope.newDepartment._id]  = [];
                 $scope.newDepartment = new model.Department();
             }).catch(function(error){
                 console.log("Department save error ", error);
             });
- 		};
+    };
 
- 		$scope.remove = function(department){
- 			Departments.remove(department);
- 		};
+    $scope.remove = function(department){
+      Departments.remove(department).then(function(success){
+        delete $scope.departments[department._id];
+      });
+    };
 
     $scope.toggleForm = function(department, formIndex){
       department.toggleForm(formIndex).save().then(function(success){
@@ -30,7 +36,6 @@ angular.module('SchoolMan')
       });
     };
 
- 		$scope.allStudents = {};
     Students.getAll().then(function(students){
         angular.forEach($scope.departments, function(dept, deptId){
           $scope.allStudents[deptId] = [];
