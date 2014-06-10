@@ -62,10 +62,10 @@ angular.module('SchoolMan')
         var deferred = $q.defer();
         var uids = [];
         self.get().then(function(uid){
-            uids.push(uid.value);
+            uids.push(angular.copy(uid));
             angular.forEach(_.range(n-1), function(i, $index){
                 uid = next(uid);
-                uids.push(uid.value)
+                uids.push(angular.copy(uid));
             });
             console.log("Created uids", uids);
             deferred.resolve(uids);

@@ -319,7 +319,7 @@ angular.module('SchoolMan')
 	      } 
 	    };
 	    Data2.query(map, {include_docs : true}).then(function(success){
-          console.log("Marksheets Query", success);
+          // console.log("Marksheets Query", success);
 	    		var collection = [];
 	        angular.forEach(success.rows, function(data, rowIndex){
 	            var spec = data.doc;
@@ -327,19 +327,27 @@ angular.module('SchoolMan')
 	            var item = modelTransformer.transform(obj, dataModel);
 	            collection.push(item);
 	        });
-	        console.log("Query: success", success, collection);
+	        // console.log("Query: success", success, collection);
 	        deferred.resolve(collection);
 	    }).catch(function(error){
-	        deferred.reject("Query: failed", error);
+	        // deferred.reject("Query: failed", error);
 	    });
 
     	return deferred.promise;
     };
 
+    self.validateCell = function(n){
+      var status = 'number-valid';
+      if(n > 20){
+        status = "number-invalid"
+      }
+      return status;
+    }
+
 
     self.getReports = function(p){
 
-      console.log("Getting reports", p);
+      // console.log("Getting reports", p);
       var deferred = $q.defer();
 
       self.query({formIndex:p.formIndex, deptId:p.deptId,groupId:p.groupId})

@@ -46,18 +46,21 @@ angular.module('SchoolMan')
             deptId:depts[getRandBetween(0, depts.length)]
           }
 
-          console.log("Mocking batch students: ", students);
           var student = new model.Student(studentData);
-          student._id = uid;
+          student._id = uid.value;
           return student;
         });
-        Data2.allDocs(students).then(function(success){
+        console.log("Mocking batch students: ", students);
+        students.docs = _.map(students.docs, function(student){
+          return student.saveable();
+        });
+        Data2.bulkDocs(students).then(function(success){
             console.log("saved " + n + " students", success);
-            Uid.save(students.docs[students.docs.length - 1]._id);
+            Uid.save(uids[uids.length - 1]);
+        }).catch(function(error){
+          console.log("Failed to save bacth students", error);
         });
       });
-
-      //Uid.save(data.uid);
     }
 
 

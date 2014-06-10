@@ -8,6 +8,7 @@ angular.module('SchoolMan')
       // Note: I imagine allDocs does not return revisions, which may be consuming
       // orders of magnitude of allDocs
       db.allDocs({include_docs: true}, function(err, response) {
+        console.log("All Docs", response);
         var dbSize = angular.toJson(response).length;
         var hrSize = "";
         if(dbSize > 1000000){

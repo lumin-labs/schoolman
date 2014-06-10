@@ -165,8 +165,8 @@
             ng-repeat="(cellIndex, cell) in [0,1,2,3,4,5]">
 
           <div class="cell text-center 
-                         {{classMaster.getRemarkCode(cell.mark)}} 
-                         {{cell.getValidationStatus()}}">
+                      {{classMaster.getRemark(data.marksheet['table'][student._id][cellIndex]).css}} 
+                         {{marksheets.validateCell(data.marksheet['table'][student._id][cellIndex])}}">
           {{data.marksheet['table'][student._id][cellIndex]}}
           </div>
         </td>

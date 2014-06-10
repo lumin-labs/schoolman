@@ -49,8 +49,15 @@ angular.module('SchoolMan')
         student.passing = studentAverage >= classCouncils[studentsClass].passingScore;      
       };
 
+      var getSeconds = function(_initial, _final){
+        return (_final.getTime() - _initial.getTime())/1000;
+      }
+
+      var START_QUERY = new Date();
       Students.query(query).then(function(students){
+        var END_QUERY = new Date();
         
+        console.log("TIME DIFF: ", getSeconds(START_QUERY, END_QUERY));
         console.log("Success loading students", students);
         $scope.data.students = students;
 
@@ -104,13 +111,13 @@ angular.module('SchoolMan')
               classCouncils[studentsClass] = data.classcouncil;
               setPassing(student, studentsClass);
             }).catch(function(error){
-                console.log("Failed to load reports or classCouncils:", error);
+                // console.log("Failed to load reports or classCouncils:", error);
             });
           }
 
         }); 
       }).catch(function(error){
-        console.log("Error loading students", error);
+        // console.log("Error loading students", error);
       });  
     };
     updateStudents();
@@ -119,19 +126,19 @@ angular.module('SchoolMan')
         angular.forEach(params, function(value, key){
             $scope.queryParams[key] = value;
         });
-        console.log("Query Params", $scope.queryParams);
+        // console.log("Query Params", $scope.queryParams);
         updateStudents();
     };
 
     $scope.moveTab = "form";
 
     $scope.toggleAll = function(){
-        console.log("toggling");
+        // console.log("toggling");
         // $scope.data.globalSelect = (parseInt($scope.data.globalSelect) + 1) % 2;
         angular.forEach($scope.data.selected, function(selection, studentId){
           $scope.data.selected[studentId] = $scope.data.globalSelect;
         });
-        console.log("Selected", $scope.data.selected);
+        // console.log("Selected", $scope.data.selected);
     };
 
     $scope.moveSelected = function(params){
@@ -145,7 +152,7 @@ angular.module('SchoolMan')
             }
         });
         Students.saveBatch(selected).catch(function(error){
-            console.log("failed to save batch", error);
+            // console.log("failed to save batch", error);
         });
     };
 

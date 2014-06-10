@@ -1,8 +1,8 @@
-<div ng-controller="ClassmenuCtrl">
+<div ng-controller="ClassmenuCtrl" class="btn-group">
 
   <!-- Form Dropdown -->
   <div class="btn-group">
-    <button class="btn btn-md btn-light dropdown-toggle" data-toggle="dropdown">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
       {{form.name}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -14,7 +14,7 @@
 
   <!-- Department Dropdown -->
   <div class="btn-group">
-    <button class="btn btn-md btn-light dropdown-toggle" data-toggle="dropdown">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
       {{department.code || "Select Department"}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -27,7 +27,7 @@
 
   <!-- Group Dropdown -->
   <div class="btn-group">
-    <button class="btn btn-md btn-light dropdown-toggle" data-toggle="dropdown">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
       {{group ? group.name : "Select Group"}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -40,7 +40,7 @@
    <!-- Subject Dropdown -->
   <div  ng-if="['mastersheet', 'students', 'registration'].indexOf(page) === -1"
         class="btn-group">
-    <button class="btn btn-md btn-light dropdown-toggle" data-toggle="dropdown">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
       {{subject.en}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -53,7 +53,7 @@
   <!-- Term Dropdown -->
   <div  ng-if="page === 'mastersheet'"
         class="btn-group">
-    <button class="btn btn-md btn-light dropdown-toggle" data-toggle="dropdown">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
       {{term.name}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">

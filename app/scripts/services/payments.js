@@ -68,7 +68,7 @@ angular.module('SchoolMan')
 	            var item = modelTransformer.transform(obj, dataModel);
 	            collection.push(item);
 	        });
-	        console.log("Query: success", success, collection);
+	        // console.log("Query: success", success, collection);
 	        deferred.resolve(collection);
 	    }).catch(function(error){
 	        deferred.reject("Query: failed", error);

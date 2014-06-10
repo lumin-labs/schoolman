@@ -6,7 +6,7 @@
 
   	<thead>
       <tr class="no-border-bottom">
-        <th colspan="3" style="border:0px;padding:0px;padding-bottom:10px;">
+        <th colspan="3" style="border:0px;padding:0px;padding-bottom:3px;">
           <!-- class indicator -->
           <div ng-controller="ClassmenuCtrl">
             <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px;">
@@ -169,8 +169,8 @@
                   tabindex="{{(studentIndex + 1) + (cellIndex * data.students['length'])}}"
                   cell cell-nrow="{{data.students['length']}}"
                   class="cell text-center 
-                         {{classMaster.getRemarkCode(cell.mark)}} 
-                         {{cell.getValidationStatus()}}">
+                         {{classMaster.getRemark(data.marksheet['table'][student._id][cellIndex]).css}} 
+                         {{marksheets.validateCell(data.marksheet['table'][student._id][cellIndex])}}">
         </td>
   		</tr>	
   	</tbody>
