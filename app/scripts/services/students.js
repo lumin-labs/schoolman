@@ -48,14 +48,14 @@ angular.module('SchoolMan')
     	
     	var deferred = $q.defer();
 
-    	var paramDict = {};
-    	angular.forEach(dataModel.datatype.fields, function(field, index){
-    		if(params.hasOwnProperty(field.key)){
-    			return paramDict[index] = params[field.key];
-    		}
-    	});
+    	// var paramDict = {};
+    	// angular.forEach(dataModel.datatype.fields, function(field, index){
+    	// 	if(params.hasOwnProperty(field.key)){
+    	// 		return paramDict[index] = params[field.key];
+    	// 	}
+    	// });
 
-    	console.log("Students Param Dict", paramDict);
+    	// console.log("Students Param Dict", paramDict);
 
 	    var map = function(doc, emit){
 	      if(doc.datatype === dataModel.datatype._id){
