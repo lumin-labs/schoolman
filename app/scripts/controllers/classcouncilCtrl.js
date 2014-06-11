@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet) {
+  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, SCHOOLYEAR, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet) {
     
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
+    $scope.schoolYear = SCHOOLYEAR.year;
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
