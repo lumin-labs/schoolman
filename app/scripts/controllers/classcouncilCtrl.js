@@ -5,6 +5,7 @@ angular.module('SchoolMan')
     
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
+    $scope.userAccess = $routeParams.accessCode;
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
@@ -65,6 +66,7 @@ angular.module('SchoolMan')
         console.log("rankings:", $scope.data.rankings);
         
         updatePerformanceRanks();
+        console.log("User access", $scope.userAccess);
 
        
 
