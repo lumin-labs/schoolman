@@ -22,8 +22,8 @@ angular.module('SchoolMan')
       });
     }
     
-    this.$get = ["pouchdb", function Data2Factory(pouchdb) {
-        var db = pouchdb.create('gths');
+    this.$get = [function Data2Factory() {
+        var db = new PouchDB('gths');
         window._db = db;
         estimateSize(db);
 

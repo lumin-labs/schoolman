@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('MockData', function MockData(model, Forms, Departments, Groups, Fees, Uid, Data2){
+  .service('MockData', function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Data2){
 
     
     var forms = Forms.all();
@@ -15,11 +15,13 @@ angular.module('SchoolMan')
     };
 
     window._mock = {} 
-    window._mock.students = function(n){
+    window._mock.students = {};
+    window._mock.students.destroy = Students.destroy;
+    window._mock.students.create = function(n){
       var students = {docs:[]};
       Uid.getBatch(n).then(function(uids){
         console.log("Got batch uids", uids);
-        students.docs = _.map(uids, function(uid){
+        students = _.map(uids, function(uid){
           
           var forms =  Object.keys(Forms.all())
           var depts =  Object.keys(Departments.getAll())
@@ -47,18 +49,18 @@ angular.module('SchoolMan')
           }
 
           var student = new model.Student(studentData);
-          student._id = uid.value;
+          student.id = uid.value;
           return student;
         });
         console.log("Mocking batch students: ", students);
-        students.docs = _.map(students.docs, function(student){
-          return student.saveable();
-        });
-        Data2.bulkDocs(students).then(function(success){
+        // students.docs = _.map(students.docs, function(student){
+        //   return student.saveable();
+        // });
+        Students.saveBatch(students).then(function(success){
             console.log("saved " + n + " students", success);
             Uid.save(uids[uids.length - 1]);
         }).catch(function(error){
-          console.log("Failed to save bacth students", error);
+          console.log("Failed to save batch students", error);
         });
       });
     }

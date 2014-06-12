@@ -204,7 +204,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(studentIndex, student) in data.students | filter:search">
+				<tr ng-repeat="(studentIndex, student) in data.students.slice(data.page * 10, (data.page + 1) * 10) | filter:search">
 					<td class="text-center" style="vertical-align:middle;">
 						<input type="checkbox"
 						       ng-model="data.selected[student._id]"
@@ -212,7 +212,7 @@
 									 ng-false-value="0">
 					</td>
 					<td style="width:100px;">
-						<a ng-click="open({studentId:student._id, page:'registrarProfile'})">{{student._id}}</a>
+						<a ng-click="open({studentId:student._id, page:'registrarProfile'})">{{student.id}}</a>
 					</td>
 					<td>{{student.name}}</td>
 					<td>{{student.sex}}</td>
@@ -274,6 +274,17 @@
 				</tr>
 			</tbody>
 		</table>
+		<ul class="pagination">
+		  <li class="{{data.page === 0 ? 'disabled' : ''}}">
+		  	<a ng-click="data.page = data.page === 0 ? data.page : data.page - 1">&laquo;</a>
+		  </li>
+		  <li class="disabled">
+		    <a ng-if="data.page !== data.pages.length - 1">{{(data.page * 10) + 1}} - {{(data.page + 1) * 10}} of {{data.students.length}}</a>
+		    <a ng-if="data.page === data.pages.length - 1">{{(data.page * 10) + 1}} - {{data.students.length}} of {{data.students.length}}</a>
+		  </li>
+		  <li class="{{data.page === data.pages.length - 1 ? 'disabled' : ''}}">
+		    <a ng-click="data.page = data.page === data.pages.length - 1 ? data.page : data.page + 1">&raquo;</a></li>
+		</ul>
 	</div>
 </div>	
 

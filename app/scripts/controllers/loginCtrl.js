@@ -2,7 +2,8 @@
 
 angular.module('SchoolMan')
   .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, model, Path, Cache, Location, TimeTable, MockData, Groups) {
+    function ($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, model, Path, Cache, Location, Groups) {
+      console.log("Hows the call stack?")
       console.log("Departments: ", Departments)
       $log.info("Path: ", $location.path()); 
 
@@ -20,6 +21,7 @@ angular.module('SchoolMan')
               page:"myclasses"
           }
       }
+
 
       $scope.open = Location.open;
       $scope.page = $routeParams.page;
@@ -47,13 +49,20 @@ angular.module('SchoolMan')
             console.log("accessRequest", accessRequest);
 
             Cache.set({user:user});
+
+            var depts = Departments.getAll();
+            console.log("Still ok", depts);
+            var groups= Object.keys(Groups.getAll());
+            var subjects= Object.keys(Subjects.getAll());
+            
+
             Location.open({
               page:page || DEFAULT_START_PAGE[accessRequest].page,
               subpage:"null",
               formIndex:"0",
-              deptId:Object.keys(Departments.getAll())[0],
-              groupId:Object.keys(Groups.getAll())[0],
-              subjectId:Object.keys(Subjects.getAll())[0],
+              deptId:depts[0],
+              groupId:groups[0],
+              subjectId:subjects[0],
               studentId:"U0000001",
               termIndex:0,
               username:user.username,
@@ -65,12 +74,12 @@ angular.module('SchoolMan')
         });
       };
 
-      // $scope.createNewAccount = function(){
-      //     Location.open({
-      //         page:"register",
-      //         username:$scope.username||null
-      //     });
-      // }
+      $scope.createNewAccount = function(){
+          Location.open({
+              page:"register",
+              username:$scope.username||null
+          });
+      }
 
 
       if(DEV.AUTO_LOGIN){

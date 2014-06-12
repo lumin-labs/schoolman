@@ -19,7 +19,7 @@ angular.module('SchoolMan')
     Uid.get().then(function(uid){
         data.uid = uid;
         console.log("Got Uid", uid);
-        $scope.newStudent._id = uid.value;
+        $scope.newStudent.id = uid.value;
     })
 
     $scope.add = function(student){
