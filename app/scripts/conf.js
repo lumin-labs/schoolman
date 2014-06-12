@@ -4,6 +4,9 @@ angular.module('SchoolMan')
   .constant('VERSION',{
     mode:"gths"
   })
+  .constant('SCHOOLYEAR',{
+    year:"2014/2015"
+  })
   .constant('TABS', [
   	{
   		label:"Users",

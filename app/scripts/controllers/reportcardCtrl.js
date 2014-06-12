@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('reportcardCtrl', function ($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+  .controller('reportcardCtrl', function ($scope, $routeParams, model, ClassCouncils, SCHOOLYEAR, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
@@ -10,6 +10,7 @@ angular.module('SchoolMan')
       $scope.open = Location.open;
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
       $scope.pageTitleFrench = "BULLETIN DE NOTES";
+      $scope.schoolYear = SCHOOLYEAR.year;
 
       $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
       $scope.Users = Users;
