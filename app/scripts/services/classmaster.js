@@ -176,8 +176,10 @@ angular.module('SchoolMan')
                 return {text:"Good", css:"remark-good"}
             }else if(average>10){
                 return {text:"Fair", css:"remark-fair"}
-            }else if(average>9){
+            }else if(average === "10" || average === 10){
                 return {text:"Average", css:"remark-average"}
+            }else if(average>9){
+                return {text:"Poor", css:"remark-poor"}
             }else if(average>7){
                 return {text:"Poor", css:"remark-poor"}
             }else{

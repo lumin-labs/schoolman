@@ -6,6 +6,7 @@ angular.module('SchoolMan')
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
       $scope.Marksheets = Marksheets;
+      $scope.ClassMaster = ClassMaster;
 
       $scope.open = Location.open;
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";

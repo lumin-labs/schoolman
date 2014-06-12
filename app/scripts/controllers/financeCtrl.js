@@ -4,7 +4,8 @@ angular.module('SchoolMan')
   .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees, Payments, SCHOOLYEAR) {
   	
   	var forms = _.map(Forms.all(), function(form){
-  		form.students = [];
+  		console.log("forms1", form);
+      form.students = [];
   		return form;
   	});
 
@@ -32,10 +33,11 @@ angular.module('SchoolMan')
       // the total amount owed and total amount paid for each feeGroup
       forms = _.map(forms, function(form){
 
-        console.log("Form", form);
+        //console.log("Form", form);
 
       	// instantiate the fees object
       	form.fees = {};
+
 
       	// copy and instatiate each Fee object with owed and paid
       	angular.forEach(Fees.getAll(), function(fee, feeKey){
@@ -46,10 +48,9 @@ angular.module('SchoolMan')
       		form.fees[feeKey] = feeCopy;
       	});
 
-        console.log("form.fees", form.fees);
 
       	// reduce students into fee totals
-      	console.log(form.name);
+      	//console.log(form.name);
       	form.fees = _.reduce(form.students, function(fees, student){
       		fees[student.feeId].students += 1;
       		fees[student.feeId].owed += Fees.get(student.feeId).amount;
@@ -77,6 +78,7 @@ angular.module('SchoolMan')
     		summary.fees[feeKey] = feeCopy;
     	});
 
+      console.log("forms", forms);
   		$scope.summary = forms.reduce(function(s, form){
   			angular.forEach(form.fees, function(fee, feeKey){
   				summary.fees[feeKey].students = summary.fees[feeKey].students + fee.students; 
