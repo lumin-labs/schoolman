@@ -25,7 +25,8 @@ angular.module('SchoolMan', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'slugifier'
+  'slugifier',
+  'pouchdb'
 
 ]).config(function ($routeProvider, TABS) {
 

@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Students', function Students($q, model, modelTransformer) {
+  .service('Students', function Students($q, model, modelTransformer, pouchdb) {
 
-  	var db = new PouchDB("db_students");
-
-  	window._sdb = db;
+  	var db = pouchdb.create("db_students");
 
   	var _students = {};
 
@@ -148,51 +146,67 @@ angular.module('SchoolMan')
     	var students = _.map(Object.keys(_students), function(studentId){
     		return _students[studentId];
     	});
-    	var filtered = _.filter(students, function(student){
-    		var isOk = true;
-    		angular.forEach(params, function(param, key){
-    			if(student[key] !== param){
-    				isOk = false;
-    			}
-    		});
-    		return isOk;
-    	});
+      var filtered = [];
+      if(Object.keys(params).length > 0){
+      	filtered = _.filter(students, function(student){
+      		var isOk = true;
+      		angular.forEach(params, function(param, key){
+      			if(student[key] !== param){
+      				isOk = false;
+      			}
+      		});
+      		return isOk;
+      	})
+      } else {
+        filtered = students;
+      };
     	console.log("Filtered students", params, filtered);
     	deferred.resolve(filtered);
     	return deferred.promise;
     };
 
 
+    self.get = function(studentId){
+      var deferred = $q.defer();
+      db.get(studentId).then(function(data){
+        var student = model.parse(data, dataModel.datatype);
+        deferred.resolve(student);
+      }).catch(function(error){
+        console.log("Failed to get student", error);
+      });
+      return deferred.promise;
+    };
+
     self.load = function(){
     	var deferred = $q.defer();
 
     	db.allDocs({starKey:'student_', endKey:'student__'})
+
     	.then(function(collection){
         var keys = _.map(collection.rows, function(obj){
           return obj.key;
         });
         console.log("Got keys", keys);
-    		db.allDocs({keys:keys, include_docs:true}).then(function(collection){
-          console.log("got students", collection);
-      		_students = _.reduce(collection.rows,function(students, obj){
-      			var student = model.parse(obj.doc, dataModel.datatype);
-      			_students[student._id] = student;
-      			return _students;
-      		}, _students);
-      		console.log("Students Reduced", _students);
-      		deferred.resolve(_students);
-        }).catch(function(error){
-          console.log("Failed to get students by keys", error);
-          deferred.reject(error);
-        })
-        console.log("Students collection", collection);
+        deferred.resolve(_students);
+        return keys
+      })
 
-    	}).catch(function(error){
+      .then(function(keys){
 
+        angular.forEach(keys, function(key, index){
+          self.get(key).then(function(student){
+            _students[student._id] = student;
+          });
+        });
+
+      })
+
+      .catch(function(error){
     		deferred.reject(error);
     	});
 
     	return deferred.promise;
+
     };
 
     self.destroy = function(){
