@@ -580,7 +580,7 @@ td.profile-photo{
 
 
 /* Print CSS */
-@media print{
+@media print {
 
     body{
       padding-top:0px;
@@ -592,6 +592,16 @@ td.profile-photo{
 
     .container {
         width:100%;
+    }
+
+    .fitpage{
+      max-height: 10.5in;
+      overflow: hidden;
+      padding-left: 15px;
+    }
+    .shrinktofit{
+      max-height: 50px;
+      overflow: hidden;
     }
 
     .printonly{
@@ -664,7 +674,7 @@ td.profile-photo{
     .well.student-info .row .col-md-12 .table tr td{
       padding:0px;
       padding-top: 10px;
-      border-top:solid 1px #ddd;
+      border-top:solid 1px #ddd !important;
     }
 
     .student-info-section{

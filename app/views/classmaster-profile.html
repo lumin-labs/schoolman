@@ -2,20 +2,22 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="ProfileCtrl">
+  <div class="printonly"><h3>Student Profile</h3></div>
 
-  <div class="row">
-  	<div class="col-md-7" 
+  <table class="table"><tr>
+  	<td class="col-md-7" 
   			 ng-include="'views/_profile-edit.html'"
-  			 style="border-right:solid 1px #ddd;">
-  	</div>
-  	<div class="col-md-5">
+  			 style="border-right:solid 1px #ddd !important;">
+  	</td>
+  	<td class="col-md-5">
   		<form class="form-horizontal" role="form">
   			<h5 style="text-decoration:underline;"><strong>Disciplinary Record</strong></h5>
         <div class="form-group">
           <label for="absence" class="col-sm-7 control-label">
             Hours of Absence
           </label>
-          <div class="col-sm-5">
+          <i class="printonly">{{data.dcard['absence']}}</i>
+          <div class="col-sm-5 noprint">
             <input id="absence"
                    type="number"
                    class="form-control"  
@@ -27,7 +29,8 @@
           <label for="council" class="col-sm-7 control-label">
             Attended Disciplinary Council
           </label>
-          <div class="col-sm-5">
+          <i class="printonly">{{data.dcard['council']}}</i>
+          <div class="col-sm-5 noprint">
             <input id="council"
                    type="number"
                    class="form-control"  
@@ -39,7 +42,8 @@
           <label for="warned" class="col-sm-7 control-label">
             Warned
           </label>
-          <div class="col-sm-5">
+          <i class="printonly">{{data.dcard['warned']}}</i>
+          <div class="col-sm-5 noprint">
             <input id="warned"
                    type="number"
                    class="form-control"  
@@ -51,7 +55,8 @@
           <label for="suspended" class="col-sm-7 control-label">
             Suspended
           </label>
-          <div class="col-sm-5">
+          <i class="printonly">{{data.dcard['suspended']}}</i>
+          <div class="col-sm-5 noprint">
             <input id="suspended"
                    type="number"
                    class="form-control"  
@@ -112,11 +117,11 @@
         <h5 style="text-decoration:underline;">
           <strong>Comments</strong>
         </h5>
-        <textarea class="form-control" 
+        <textarea class="form-control noprint" 
                   style="margin-bottom:10px;" 
                   rows="3"
                   ng-model="newComment.text"></textarea>
-        <button class="btn btn-default pull-right"
+        <button class="btn btn-default pull-right noprint"
                 ng-class="!newComment.isValid() ? 'disabled' : 'tests'"
                 ng-click="addComment()">Add Comment</button>
 
@@ -131,8 +136,8 @@
           </tr>
         </table>
   		</form>
-  	</div>
-  </div>
+  	</td>
+  </tr></table>
   </div>
 	
 </div>	

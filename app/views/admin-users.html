@@ -2,6 +2,7 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="UsersCtrl">
+		<div class="printonly"><h3>User List</h3></div>
 
 		<nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
 		  <div class="container-fluid">
@@ -59,7 +60,7 @@
 							    style="width:105px;"
 							    ng-repeat="(roleKey, role) in User.roles">{{role.name}}</th>
 							
-							<th style="width:80px">Remove</th>
+							<th class="noprint" style="width:80px">Remove</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -90,7 +91,7 @@
 								   style="color:#666;"></i>
 								</button>
 							</td>
-							<td class="remove text-center" style="width:80px;">
+							<td class="remove text-center noprint" style="width:80px;">
 								<a ng-click="remove(user)" ng-if="user.username !== username">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>

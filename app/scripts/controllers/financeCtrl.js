@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees, Payments) {
+  .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees, Payments, SCHOOLYEAR) {
   	
   	var forms = _.map(Forms.all(), function(form){
   		form.students = [];
   		return form;
   	});
 
+    $scope.schoolYear = SCHOOLYEAR;
    //  var classes = Registrar.getClasses()
 
    // $scope.data = {};

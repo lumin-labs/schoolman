@@ -1,9 +1,10 @@
-<div class="row ">
+<div class="fitpage">
+<div class="row">
 	<div class="col-md-2 side-nav" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="ClasscouncilCtrl">
 		<!-- Form Dropdown -->
-		<div class="btn-group">
+		<div class="btn-group noprint">
 		    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
 		      {{data.forms[formIndex].name}} <span class="caret"></span>
 		    </button>
@@ -16,7 +17,7 @@
 			</ul>
 		</div>
 		<!-- Department Dropdown -->
-		<div  class="btn-group">
+		<div  class="btn-group noprint">
 		    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
 		      {{data.departments[deptId].name || "Select Department"}} <span class="caret"></span>
 			</button>
@@ -29,7 +30,7 @@
 			</ul>
 		</div>
 		<!-- Group Dropdown -->
-		<div  class="btn-group">
+		<div  class="btn-group noprint">
 		    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
 		      {{data.groups[groupId].name || "Select Group"}} <span class="caret"></span>
 		    </button>
@@ -42,7 +43,7 @@
 			</ul>
 		</div>
 		<!-- Term Dropdown -->
-        <div  class="btn-group">
+        <div  class="btn-group noprint">
             <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
                 {{data.terms[termIndex].name}}   <span class="caret"></span>
             </button>
@@ -59,163 +60,145 @@
 		<!-- School Name Letterhead -->
 	<div class="letterhead" ng-include="'views/_letterhead.html'"></div>
 
-	<div class="row">
-		<div class="col-md-4">
+	<table class="table"><tr>
+		<td>
 			<p><b>Academic Year:</b> <i>{{schoolYear}}</i></p>
 			<p><b>Term:</b> <i>{{data.terms[termIndex].name}}</i></p>
-			</div>
-			<div class="col-md-4">
+		</td>
+		<td>
 			<p><b>Class:</b> <i>{{data.forms[formIndex].name + data.groups[groupId].name}}</i></p>
 			<p><b>Department:</b> <i>{{data.departments[deptId].name}}</i></p>
-			</div>
-			<div class="col-md-4">
-			<table><tr><td><b>Passing Score:</b></td><td ng-if="userAccess !== 'classmaster'">{{score}}</td>
+		</td>
+		<td>
+			<table ng-if="userAccess === 'classmaster'"><tr class="noprint"><td><b>Passing Score:</b></td>
 			<td width="50px" ng-if="userAccess === 'classmaster'">
-				<input type="text" class="form-control"  ng-model="score" ng-blur="updatePassingScore()"></input></td>				
-			</tr></table><p ng-if="userAccess !== 'classmaster'"></p>
+				<input type="text" class="form-control noprint" ng-model="score" ng-blur="updatePassingScore()"></input></td>	
+			</tr><tr class="printonly"><td><p><b>Passing Score:</b><i>{{score}}</i></p></td></tr>
+			</table>
+			<p ng-if="userAccess !== 'classmaster'"><b>Passing Score:</b><i>{{score}}</i></p>
 			<p><b>Date:</b> <i>{{data.currentDate | date:"medium"}}</i></p>
-			<p></p>
-			</div>
-	</div>
+		</td>
+	</tr></table>
 
 	<h3>Basic Data</h3>
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-5">
+	<table class="table"><tr>
+		<td width="50px"></td>
+		<td>
 			<table>
 			<tr><td>Number on Roll: </td><td><u>{{groupStats.numStudents}}</u></td></tr>
 			<tr><td>Number Present: </td><td><u>{{groupStats.numPresent}}</u></td></tr>
 			<tr><td>Number With {{data.classcouncil.passingScore}}+ Average: </td><td><u>{{groupStats.passing}}</u></td></tr>
 			<tr><td>Number With {{data.classcouncil.passingScore}}- Average: </td><td><u>{{groupStats.failing}}</u></td></tr>
 			</table>
-		</div>
-		<div class="col-md-5">
+		</td>
+		<td>
 			<table padding="15px">
 			<tr><td>Percentage Pass: </td><td><u>{{(groupStats.percentPassing * 100 || 0) | number:1}}</u></td></tr>
 			<tr><td>Percentage Fail: </td><td><u>{{(groupStats.percentFailing * 100 || 0) | number:1}}</u></td></tr>
 			<tr><td>Class Average: </td><td><u>{{(groupStats.classAverage || 0) | number: 2}}</u></td></tr>
 			<tr><td>Class Range:</td><td><u>{{groupStats.classRange | number: 2}}</u></td></tr>
 			</table>
-		</div>
-		<div class="col-md-1"></div>
-	</div>
+		</td>
+		<td width="50px"></td>
+	</tr></table>
+
 	<h3>Student Performance</h3>
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-5">
-			<p><b>Three Best Students:</b></p>
-		</div>
-		<div class="col-md-6">
-			<p><b>Average</b></p>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2">
-		</div>
-		<div class="col-md-4">
-			<p>1- <u>{{data.bestStudents[0].name}}</u></p>
-			<p>2- <u>{{data.bestStudents[1].name}}</u></p>
-			<p>3- <u>{{data.bestStudents[2].name}}</u></p>
-		</div>
-		<div class="col-md-6">
-			<p><u>{{data.bestStudents[0].average || 0 | number:2}}</u></p>
-			<p><u>{{data.bestStudents[1].average || 0 | number:2}}</u></p>
-			<p><u>{{data.bestStudents[2].average || 0 | number:2}}</u></p>
-		</div>
-	</div>
+	<table class="table"><tr>
+		<td width="50px"></td>
+		<td>
+			<b>Three Best Students:</b>
+			<table>
+			<tr><td width="50px"></td><td>1- <u>{{data.bestStudents[0].name}}</u></td></tr>
+			<tr><td width="50px"></td><td>2- <u>{{data.bestStudents[1].name}}</u></td></tr>
+			<tr><td width="50px"></td><td>3- <u>{{data.bestStudents[2].name}}</u></td></tr>
+			</table>
+			<br>
+			<b>Three Worst Students:</b>
+			<table>
+			<tr><td width="50px"></td><td>1- <u>{{data.worstStudents[0].name}}</u></td></tr>
+			<tr><td width="50px"></td><td>2- <u>{{data.worstStudents[1].name}}</u></td></tr>
+			<tr><td width="50px"></td><td>3- <u>{{data.worstStudents[2].name}}</u></td></tr>
+			</table>
+		</td>
+		<td>
+			<b>Average</b>
+			<table>
+			<tr><td><u>{{data.bestStudents[0].average || 0 | number:2}}</u></td></tr>
+			<tr><td><u>{{data.bestStudents[1].average || 0 | number:2}}</u></td></tr>
+			<tr><td><u>{{data.bestStudents[2].average || 0 | number:2}}</u></td></tr>
+			</table>
+			<br>
+			<b>Average</b>
+			<table>
+			<tr><td><u>{{data.worstStudents[0].average || 0 | number:2}}</u></td></tr>
+			<tr><td><u>{{data.worstStudents[1].average || 0 | number:2}}</u></td></tr>
+			<tr><td><u>{{data.worstStudents[2].average || 0 | number:2}}</u></td></tr>
+			</table>
+		</td>
+		<td width="50px"></td>
+	</tr>
+	</table>
 	
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-5">
-			<p><b>Three Worst Students:</b></p>
-		</div>
-		<div class="col-md-6">
-			<p><b>Average</b></p>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2">
-		</div>
-		<div class="col-md-4">
-			<p>1- <u>{{data.worstStudents[0].name}}</u></p>
-			<p>2- <u>{{data.worstStudents[1].name}}</u></p>
-			<p>3- <u>{{data.worstStudents[2].name}}</u></p>
-		</div>
-		<div class="col-md-6">
-			<p><u>{{data.worstStudents[0].average || 0 | number:2}}</u></p>
-			<p><u>{{data.worstStudents[1].average || 0 | number:2}}</u></p>
-			<p><u>{{data.worstStudents[2].average || 0 | number:2}}</u></p>
-		</div>
-	</div>
-	
-	<div class = "row">
-		<div class="col-md-12">
-			<h3>General Remarks</h3>
+	<h3>General Remarks</h3>
 			
-
-			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-1"><p><b>Academics:</b></p></div>
-				<div class="col-md-10">
-					<div class="btn-group" ng-if="userAccess === 'classmaster'">
-			  			<button class="btn btn-sm btn-default dropdown-toggle" 
-			  			  data-toggle="dropdown">{{data.classcouncil.academicRemark[termIndex].text || "Select Remark"}}
-			  			  <span class="caret"></span>
-			  			</button>
-			  			<ul class="dropdown-menu">
-			    			<li ng-repeat="(remarkIndex, remark) in data.remarks">
-                            	<a ng-click="changeAcRemark(remark)">{{remark.text}}</a>
-                          	</li>
-			  			</ul>
-					</div>
-					<p ng-if="userAccess !== 'classmaster'">{{data.classcouncil.academicRemark[termIndex].text || "No Remark"}}</p>
-				</div>
+	<table class="table"><tr><td width="50px"></td><td>
+	<table><tr>
+		
+		<th>Academics:</th>
+		<td ng-if="userAccess === 'classmaster'">
+			<div class="btn-group noprint">
+			  	<button class="btn btn-sm btn-default dropdown-toggle" 
+			  		data-toggle="dropdown">{{data.classcouncil.academicRemark[termIndex].text || "Select Remark"}}
+			  		<span class="caret"></span>
+			  	</button>
+			  	<ul class="dropdown-menu">
+			    	<li ng-repeat="(remarkIndex, remark) in data.remarks">
+                        <a ng-click="changeAcRemark(remark)">{{remark.text}}</a>
+                    </li>
+			  	</ul>
 			</div>
-			
-			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-1"><p><b>Conduct:</b></p></div>
-				<div class="col-md-10">
-					<div class="btn-group" ng-if="userAccess === 'classmaster'">
-			  			<button class="btn btn-sm btn-default dropdown-toggle" 
-			  			  data-toggle="dropdown">{{data.classcouncil.conductRemark.text || "Select Remark"}}<span class="caret"></span>
-			  			</button>
-			  			<ul class="dropdown-menu">
-			    			<li ng-repeat="(remarkIndex, remark) in data.remarks">
-                            	<a ng-click="changeConRemark(remark)">{{remark.text}}</a>
-                          	</li>
-			  			</ul>
-					</div>
-					<p ng-if="userAccess !== 'classmaster'">{{data.classcouncil.conductRemark.text || "No Remark"}}</p>
-				</div>
+			<div class="printonly">{{data.classcouncil.academicRemark[termIndex].text}}</div>
+		</td>
+		<td ng-if="userAccess !== 'classmaster'">{{data.classcouncil.academicRemark[termIndex].text || "No Remark"}}</td>
+	</tr><tr>
+		<th>Conduct:</th>
+		<td ng-if="userAccess === 'classmaster'">
+			<div class="btn-group noprint">
+			  	<button class="btn btn-sm btn-default dropdown-toggle" 
+			  		data-toggle="dropdown">{{data.classcouncil.conductRemark.text || "Select Remark"}}
+			  		<span class="caret"></span>
+			  	</button>
+			  	<ul class="dropdown-menu">
+			    	<li ng-repeat="(remarkIndex, remark) in data.remarks">
+                       	<a ng-click="changeConRemark(remark)">{{remark.text}}</a>
+                   	</li>
+			  	</ul>
 			</div>
-		</div>
-	</div>
+			<div class="printonly">{{data.classcouncil.conductRemark.text}}</div>
+		</td>
+		<td ng-if="userAccess !== 'classmaster'">{{data.classcouncil.conductRemark.text || "No Remark"}}</td>
+	</tr></table></td></tr></table>
 
-	<div class = "row">
-		<div class="col-md-12">
-			<h3>Possible Factors/Reasons</h3>
-			<textarea class="form-control" placeholder="Possible Factors/Reasons" ng-if="userAccess === 'classmaster'" ng-model="data.classcouncil.factors[termIndex]" ng-blur="save()"></textarea>
-			<p ng-if="userAccess !== 'classmaster'">{{data.classcouncil.factors[termIndex]}}</p>
-		</div>
-	</div>
-	<br><br>
+	<h3>Possible Factors/Reasons</h3>
+	<table class="table"><tr class="noprint" ng-if="userAccess === 'classmaster'"><td>
+		<textarea class="form-control noprint" placeholder="Possible Factors/Reasons" ng-model="data.classcouncil.factors[termIndex]" ng-blur="save()"></textarea></td></tr>
+		<tr class="printonly"><td>{{data.classcouncil.factors[termIndex] | limitTo:150}}</td></tr>
+		<tr class="noprint" ng-if="userAccess !== 'classmaster'"><td>{{data.classcouncil.factors[termIndex]}}</td>
+	</tr></table>
 
-	<div class = "row">
-		<div class="col-md-4"></div>
-		<div class="col-md-8">
-			
-				<p><b>Class Master/Mistress</b></p>
-				<table>
-				<tr height="50px"><td style="text-align:right">Name:</td><td width="300px" ng-if="userAccess === 'classmaster'">
-					<input type="text" class="form-control" placeholder="Class Master" ng-model="data.classcouncil.classMaster" ng-blur="save()">
-					</input></td>
-					<td ng-if="userAccess !== 'classmaster'">{{data.classcouncil.classMaster}}</td>
-					</tr>
-			<tr height="50px"><td style="text-align:right">Signature:</td><td></td></tr>
-			<tr height="50px"><td style="text-align:right">Date:</td><td></td></tr>
-		</div>
-	</div>
+	<table><tr>
+		<td width="400px"></td>
+		<th colspan="2">Class Master/Mistress</th></tr>
+	<tr height="30px"><td></td><td style="text-align:right">Name:</td><td width="300px" ng-if="userAccess === 'classmaster'">
+		<input type="text" class="form-control noprint" placeholder="Class Master" ng-model="data.classcouncil.classMaster" ng-blur="save()">
+		</input>
+		<i class="printonly">{{data.classcouncil.classMaster}}</i></td>
+		<td ng-if="userAccess !== 'classmaster'">{{data.classcouncil.classMaster}}</td>
+	</tr>
+	<tr height="30px"><td></td><td style="text-align:right">Signature:</td><td></td></tr>
+	<tr height="30px"><td></td><td style="text-align:right">Date:</td><td></td></tr>
+	</table>
 		
 	</div>
+</div>
 </div>

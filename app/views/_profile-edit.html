@@ -1,13 +1,16 @@
 <form class="form-horizontal" role="form">
   <div class="form-group">
     <label for="uid" class="col-sm-3 control-label">Student ID</label>
-    <div class="col-sm-9">
-      <p class="form-control-static">{{data.student._id}}</p>
+    <div class="col-sm-9 printonly">{{data.student._id}}</div>
+    <div class="col-sm-9 noprint">
+      <div class="form-control-static">{{data.student._id}}</div>
     </div>
   </div>
   <div class="form-group">
     <label for="uid" class="col-sm-3 control-label">Class</label>
-    <div class="col-sm-9">
+    <div class="col-sm-9 printonly">{{data.forms[data.student.formIndex].name}} {{data.departments[data.student.deptId].name}} 
+      {{data.groups[data.student.groupId].name}}</div>
+    <div class="col-sm-9 noprint">
       <div class="btn-group">
         <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
                 data-toggle="dropdown">
@@ -49,7 +52,9 @@
 
   <div class="form-group">
     <label for="feeGroup" class="col-sm-3 control-label">Fee Group</label>
-    <div class="col-sm-9">
+    <div class="col-sm-9 printonly">{{data.fees[data.student.feeId].name || ""}}
+      ({{data.fees[data.student.feeId].amount | currency:"" || ""}})</div>
+    <div class="col-sm-9 noprint">
       <div class="btn-group">
         <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
                 data-toggle="dropdown">
@@ -73,7 +78,8 @@
   <br>
   <div class="form-group">
     <label for="studentName" class="col-sm-3 control-label">Student Name</label>
-    <div class="col-sm-9">
+    <div class="col-sm-9 printonly">{{data.student.name}}</div>
+    <div class="col-sm-9 noprint">
       <input id="studentName"
            class="form-control" 
            placeholder="Student Name"
@@ -83,7 +89,8 @@
   </div>
   <div class="form-group">
     <label for="birthdate" class="col-sm-3 control-label">Birthdate</label>
-    <div class="col-sm-9">
+    <div class="col-sm-9 printonly">{{data.student.birth}}</div>
+    <div class="col-sm-9 noprint">
       <input id="birthdate" 
            class="form-control" 
            placeholder="Birth Date" 
@@ -94,7 +101,8 @@
   </div>
   <div class="form-group">
     <label for="feeGroup" class="col-sm-3 control-label">Gender</label>
-    <div class="col-sm-9">
+    <div class="col-sm-9 printonly">{{data.student.sex}}</div>
+    <div class="col-sm-9 noprint">
       <div class="btn-group">
         <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
                 data-toggle="dropdown">
@@ -112,7 +120,8 @@
   <br>
   <div class="form-group">
     <label for="parentName" class="col-sm-3 control-label">Parent Name</label>
-    <div class="col-sm-9">
+    <div class="col-sm-9 printonly">{{data.student.parentName}}</div>
+    <div class="col-sm-9 noprint">
       <input id="parentName" 
            class="form-control" 
            placeholder="Parent Name" 
@@ -122,7 +131,8 @@
   </div>
   <div class="form-group">
     <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
-    <div class="col-sm-9">
+    <div class="col-sm-9 printonly">{{data.student.parentPhone}}</div>
+    <div class="col-sm-9 noprint">
       <input id="parentPhone"
            class="form-control" 
            placeholder="Parent Phone" 
@@ -132,7 +142,8 @@
   </div>
   <div class="form-group">
     <label for="parentEmail" class="col-sm-3 control-label">Parent Email</label>
-    <div class="col-sm-9">
+    <div class="col-sm-9 printonly">{{data.student.parentEmail}}</div>
+    <div class="col-sm-9 noprint">
       <input id="parentEmail" 
              class="form-control pull-left" 
          placeholder="Parent EMail"
@@ -141,14 +152,14 @@
     </div>
   </div>
   <br>
-  <div class="form-group" ng-if="accessCode === 'registrar' && !editing">
+  <div class="form-group noprint" ng-if="accessCode === 'registrar' && !editing">
     <div class="col-sm-offset-3 col-sm-10">
       <button type="submit" class="btn btn-info" ng-click="edit()">
         Edit Student
       </button>
     </div>
   </div>
-  <div class="form-group" ng-if="accessCode === 'registrar' && editing">
+  <div class="form-group noprint" ng-if="accessCode === 'registrar' && editing">
     <div class="col-sm-offset-3 col-sm-10">
       <button type="submit" class="btn btn-success" ng-click="save(data.student)">
         Save Changes

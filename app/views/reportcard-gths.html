@@ -82,7 +82,7 @@
                           </ul>
                         </div>
                       </div> -->
-                      <h4>{{schoolYear}} School Year</h4>
+                      <h4 class="section-header noprint">{{schoolYear}} School Year</h4>
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
                             data-toggle="dropdown">{{data.term.name}}
@@ -95,7 +95,8 @@
                         </ul>
                       </div>
                       <div class="student-info-section">
-                        <h4 class="section-header printonly">{{data.term.name}}</h4>
+                        <h4 class="section-header printonly">{{schoolYear}} School Year</h4><br>
+                        <h4 class="printonly">{{data.term.name}}</h4>
                         <h5 style="font-family:mono;">{{ data.summarysheet[data.student._id][0] >= 0 ? data.summarysheet[data.student._id][0] : 0 | number:2 }} / 20</h5>
                         <h5>{{getRemark(mastersheet.table["students"][student._id].acAverage).text | uppercase}}</h5>
                       </div>

@@ -3,6 +3,10 @@
 	<div class="col-md-10 marksheet" ng-controller="StudentsCtrl">
 		<div style="margin-bottom:10px;">
 			<div ng-controller="ClassmenuCtrl">
+				<div class="printonly">
+					<h3>Students</h3>
+					<h5>{{form.name}}{{group.name}} {{department.name}}, {{data.fees[queryParams.feeId].name  || "All"}} Fees</h5>
+				</div>
 			  <nav class="navbar navbar-default" role="navigation">
 				  <div class="container-fluid">
 				    <div class="navbar-header">
@@ -18,8 +22,8 @@
 						        
 
 						    <div class="form-group" style="width:120px;">
-				          <div class="input-group" >
-				            <div class="input-group-addon">
+				          		<div class="input-group" >
+				            		<div class="input-group-addon">
 										  	<input type="checkbox"
 										  	       ng-model="data.globalSelect"
 										  				 ng-true-value="1" 
@@ -188,7 +192,7 @@
 			<thead>
 				
 				<tr>
-					<th>select</th>
+					<th class="noprint">select</th>
 					<th style="width:100px;">ID</th>
 					<th>Name</th>
 					<th>Gender</th>
@@ -205,7 +209,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="(studentIndex, student) in data.students | filter:search">
-					<td class="text-center" style="vertical-align:middle;">
+					<td class="text-center noprint" style="vertical-align:middle;">
 						<input type="checkbox"
 						       ng-model="data.selected[student._id]"
 									 ng-true-value="1" 
