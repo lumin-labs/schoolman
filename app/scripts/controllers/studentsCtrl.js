@@ -7,7 +7,6 @@ angular.module('SchoolMan')
 
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
 
-
     var data = $scope.data = {
         forms:Forms.all(),
         departments:Departments.getAll(),
@@ -15,7 +14,9 @@ angular.module('SchoolMan')
         fees:Fees.getAll(),
         students:[],
         selected:{},
-        globalSelect:0
+        globalSelect:0,
+        page:0,
+        pages:[]
     };
 
     $scope.formIndex = $routeParams.formIndex;
@@ -60,6 +61,8 @@ angular.module('SchoolMan')
 
         console.log("Success loading students", students);
         $scope.data.students = students;
+
+        $scope.data.pages = _.range(students.length / 10);
 
         angular.forEach(students, function(student, studentIndex){
 
@@ -117,7 +120,7 @@ angular.module('SchoolMan')
 
         }); 
       }).catch(function(error){
-        // console.log("Error loading students", error);
+        console.log("Error loading students", error);
       });  
     };
     updateStudents();
@@ -126,6 +129,7 @@ angular.module('SchoolMan')
         angular.forEach(params, function(value, key){
             $scope.queryParams[key] = value;
         });
+        $scope.data.page = 0;
         // console.log("Query Params", $scope.queryParams);
         updateStudents();
     };
