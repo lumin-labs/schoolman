@@ -14,9 +14,7 @@ angular.module('SchoolMan')
           sequences = [0,1,2,3,4,5];
         } else {
           var i = 0;
-          console.log("in getsequences, termIndex", termIndex)
           i = (parseInt(termIndex) + 1) * 2;
-          console.log("in getsequences, i", i);
           sequences = [i-2, i-1];
         }
         return sequences;
@@ -183,13 +181,8 @@ angular.module('SchoolMan')
     }
 
     self.summarize = function(marksheet, termIndex){
-      console.log("in summarize, termIndex", termIndex);
-      console.log("in summarize, marksheet", marksheet);
       var list = self.listify(marksheet.table);
-      console.log("in summarize, list", list);
-      console.log("in summarize, get sequence", self.getSequences(termIndex));
       var ave  = self.ave(list, self.getSequences(termIndex));
-      console.log("in summarize, ave", ave);
       return self.dict(ave);
     };
 

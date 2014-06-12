@@ -79,14 +79,12 @@ angular.module('SchoolMan')
           sets[i].rankings = Marksheets.rank(sets[i].msheet);
         });
 
-        console.log("sets", sets);
         $scope.nsets = Object.keys(sets).length;
 
         // Create a list of student from the union of marksheet studentIds
         var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){
           return result.concat(Object.keys(summary));
         },[]));
-        console.log("student ids", studentIds);
 
         Students.getBatch(studentIds).then(function(students){
           $scope.data.students = students;
