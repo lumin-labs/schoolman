@@ -142,11 +142,14 @@ angular.module('SchoolMan')
     // };
 
     self.query = function(params){
+      params = params || {};
+
     	var deferred = $q.defer();
     	var students = _.map(Object.keys(_students), function(studentId){
     		return _students[studentId];
     	});
       var filtered = [];
+
       if(Object.keys(params).length > 0){
       	filtered = _.filter(students, function(student){
       		var isOk = true;
