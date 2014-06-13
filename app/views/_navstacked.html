@@ -8,6 +8,9 @@
 	          {{User.roles[userAccess].name}} <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu" role="menu">
+	          <li>
+					  	<a ng-click="login('sales')">Sales</a>	
+				  	</li>
 	          <li ng-repeat="(accessKey, accessBool) in teacher.access" 
 				  	    ng-if="accessBool === 1"
 				  	    ng-class="accessKey === userAccess ? 'active' : ''">
