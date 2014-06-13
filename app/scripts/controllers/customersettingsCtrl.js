@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('CustomerCtrl', function ($scope, Data2, model, Settings, $routeParams) {
+  .controller('CustomerCtrl', function ($scope, Data2, model, settings, $routeParams) {
   	
   	$scope.roles = model.User.roles;
-    $scope.settings = Settings.get();
+    $scope.settings = settings.get();
     $scope.accessCode = $routeParams.accessCode;
 
   	$scope.toggle = function(role){
