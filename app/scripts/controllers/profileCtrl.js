@@ -69,9 +69,6 @@ angular.module('SchoolMan')
 
     $scope.addPayment = function(payment, multiplier){
     	// Reformat the input from string to number
-    	//if(typeof $scope.data.payments.amount = "string"){
-      //  $scope.data.payments.amount = $scope.stringToNumber($scope.data.payments.amount);
-      //}
       payment.amount = payment.getAmount() * multiplier;
       console.log("Saving payment: ", payment, multiplier);
       payment.save().then(function(success){
@@ -80,6 +77,11 @@ angular.module('SchoolMan')
         $scope.newPayment = new model.Payment();
         $scope.newPayment.registrar = $routeParams.username;
         $scope.newPayment.studentId = $routeParams.studentId;
+
+        // This is a crappy hack to compensate for the fact that pouchdb seems
+        // to be too slow to calculate this on the fly for a list of students
+        $scope.data.student.totalPaid += payment.amount;
+        $scope.data.student.save();
 
       }).catch(function(error){
         console.log("Payment save error ", error);
