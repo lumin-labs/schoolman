@@ -84,13 +84,11 @@ angular.module('SchoolMan')
       $scope.checkCapsLock = function(e){
         var keyCode = e.keyCode ? e.keyCode : e.which;
         var shiftKey = e.shiftKey ? e.shiftKey : ((keyCode === 16) ? true : false);
-        console.log("key code is", keyCode, shiftKey);
         if((keyCode >= 65 && keyCode <= 90 && !shiftKey) || (keyCode >= 97 && keyCode <= 122 && shiftKey)){
           $scope.capsLock = true;
         } else {
           $scope.capsLock = false;
         }
-        console.log("capsLock is", $scope.capsLock);
       }
 
 
