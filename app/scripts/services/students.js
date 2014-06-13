@@ -215,9 +215,7 @@ angular.module('SchoolMan')
         angular.forEach(keys, function(key, index){
           db.get(key).then(function(data){
             var student = model.parse(data, dataModel.datatype);
-            console.log("student Data", student);
             student = new model.Student(student);
-            console.log("Student", student);
             _students[student._id] = student;
           }).catch(function(error){
             console.log("Failed to get student", error);

@@ -3,7 +3,7 @@
 		<div class="col-md-12">
 			<div class="btn-group btn-group-justified" style="margin-right:0px;">
 				<div class="btn-group" style="margin-right:0px;">
-	        <a class="btn btn-lg btn-default btn-role dropdown-toggle" 
+	        <a class="btn btn-lg dropdown-toggle {{userAccess === 'sales' ? 'btn-warning' : 'btn-default'}}" 
 	           data-toggle="dropdown">
 	          {{User.roles[userAccess].name}} <span class="caret"></span>
 	        </a>
@@ -29,7 +29,7 @@
 					<li ng-repeat="(tabIndex, tab) in TABS"
 						ng-if="userHasAccess(tab)"
 						ng-class="activeIfPage(tab.page)">
-						<a ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
+						<a ng-if="settings.access[userAccess]" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
 					</li>
 				</ul>
 			</div>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('schoolManApp')
+angular.module('SchoolMan')
   .service('Customer', function Customer() {
     // AngularJS will instantiate a singleton by calling "new" on this function
   });

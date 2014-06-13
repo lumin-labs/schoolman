@@ -49,7 +49,8 @@ angular.module('SchoolMan', [
       registrarProfile:"registrar-profile.html",
       classmasterProfile:"classmaster-profile.html",
       classcouncil:"classcouncil.html",
-      customerSettings:"sales.html"
+      customerSettings:"sales.html",
+      notactive:"notactive.html"
     };
 
     var getTemplate = function(p){
