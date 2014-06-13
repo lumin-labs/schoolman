@@ -5,7 +5,7 @@ angular.module('SchoolMan')
       
       $scope.data = {};
       $scope.data.fees = Fees.getAll();
-
+      console.log("scope.data.fees1", $scope.data.fees);
       // Join students to fees
       Students.getAll().then(function(students){
         angular.forEach($scope.data.fees, function(fee, key){
@@ -22,8 +22,10 @@ angular.module('SchoolMan')
             try{
                fee.amount = Number(fee.amount.replace(/[^0-9\.]+/g,""));
                fee.save().then(function(success){
+                  $scope.newFee.students = [];
                   $scope.data.fees[$scope.newFee._id] = $scope.newFee;
                   $scope.newFee = new model.Fee(); 
+                  console.log("scope.data.fees2", $scope.data.fees);
                }).catch(function(error, result){
                   console.log("Error: Fee not added", error);
                });
@@ -32,6 +34,7 @@ angular.module('SchoolMan')
            }
          }  
       }
+      console.log("scope.data.fees3", $scope.data.fees);
 
       $scope.remove = function(fee){
          Fees.remove(fee); 
