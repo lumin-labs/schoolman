@@ -4,7 +4,6 @@ angular.module('SchoolMan')
   .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees, Students, Payments, SCHOOLYEAR) {
   	
   	var forms = _.map(Forms.all(), function(form){
-  		console.log("forms1", form);
       form.students = [];
   		return form;
   	});
@@ -28,7 +27,6 @@ angular.module('SchoolMan')
       //var deferred = $q.defer();
 
     Students.query().then(function(students){
-      console.log("students retrieved");
       allStudents = students;
     }).catch(function(error){
       console.log("Failed to get students", error);
@@ -36,7 +34,6 @@ angular.module('SchoolMan')
 
 
     Payments.getAll().then(function(paymentsByStudent){
-      console.log("Collection", paymentsByStudent);
 
       
       angular.forEach(allStudents, function(student, key){
@@ -44,14 +41,12 @@ angular.module('SchoolMan')
 
         if(paymentsByStudent[studentId]){
           student.payments = paymentsByStudent[studentId].payments;
-          console.log("payment student", paymentsByStudent[studentId], studentId);
         }
         else{
           student.payments = [];
         }
         
       });
-      console.log("all students", allStudents);
 
       forms = _.reduce(allStudents, function(forms, student){
         //console.log("in reduce function, forms", forms);
@@ -59,7 +54,6 @@ angular.module('SchoolMan')
         forms[student.formIndex].students.push(student);
         return forms;
       },forms)
-      console.log("forms2.5", forms);
 
       
     
@@ -82,8 +76,6 @@ angular.module('SchoolMan')
       		form.fees[feeKey] = feeCopy;
       	});
 
-        console.log("forms3", forms);
-
       	// reduce students into fee totals
       	//console.log(form.name);
       	form.fees = _.reduce(form.students, function(fees, student){
@@ -98,7 +90,6 @@ angular.module('SchoolMan')
 
       	return form;
       });
-      console.log("scope.forms", forms);
 
   		$scope.forms = forms;
 
@@ -114,7 +105,6 @@ angular.module('SchoolMan')
     		summary.fees[feeKey] = feeCopy;
     	});
 
-      console.log("forms", forms);
   		$scope.summary = forms.reduce(function(s, form){
   			angular.forEach(form.fees, function(fee, feeKey){
   				summary.fees[feeKey].students = summary.fees[feeKey].students + fee.students; 
