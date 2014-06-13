@@ -59,7 +59,7 @@ schoolman.provider('model', function modelProvider() {
     var tester = this;
 
     if(typeof this.normalize === "function"){
-      tester = angular.copy(this);
+      tester = Object.create(this);
       tester.normalize();
     }
 

@@ -8,7 +8,13 @@ angular.module('SchoolMan')
   	var self = {};
 
   	self.getAll = function(){
-  		return angular.copy(departments);
+      // angular.copy exceeds call stack and I don't think we need to copy each 
+      // dept, so instead we just create a new dict
+      var copy = {};
+      angular.forEach(departments, function(dept, deptKey){
+        copy[deptKey] = dept;
+      });
+      return copy;
   	};
 
   	self.get = function(departmentKey){

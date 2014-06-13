@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Dcards, Users, Registrar, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Dcards, Users, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -30,7 +30,7 @@ angular.module('SchoolMan')
     };
 
     console.log("studentId", studentId);
-    Registrar.getStudent(studentId).then(function(student){
+    Students.get(studentId).then(function(student){
       console.log("Found student:", student);
       $scope.data.student = student;
       $scope.newComment = new model.Comment($routeParams.username,  $scope.data.student._id);

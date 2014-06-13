@@ -35,7 +35,7 @@ angular.module('SchoolMan')
         });
 
         // Create marksheet summaries 
-        $scope.data.summaries = marksheets.map(function(marksheet){
+        $scope.data.summaries = _.map(marksheets , function(marksheet){
           var summary = Marksheets.summarize(marksheet, termIndex);
           console.log("Marksheet has been summarized: ", marksheet, summary);
           return summary;
@@ -55,7 +55,9 @@ angular.module('SchoolMan')
           return result.concat(Object.keys(summary));
         },[]));
 
+
         Students.getBatch(studentIds).then(function(students){
+          console.log("students", students);
           $scope.data.students = _.map(Object.keys(students), function(studentId){
             return students[studentId];
           });
@@ -97,7 +99,7 @@ angular.module('SchoolMan')
               return "<table>"+
                         "<tr>" +
                           "<td style='text-align:right;'>Subject:</td>"+
-                          "<td class='tip-subject'>"+$scope.data.subjects['subject_'+d.subject].en+"</td>"+
+                          "<td class='tip-subject'>"+d.name+"</td>"+
                         "</tr>"+
                         "<tr>"+
                           "<td style='text-align:right;'>Average:</td>"+
@@ -119,7 +121,9 @@ angular.module('SchoolMan')
 
           var dataItem = {};
           dataItem.subject = $scope.data.subjects[marksheet.subjectId].code;
+          dataItem.name=$scope.data.subjects[marksheet.subjectId].en;
           var summary = Marksheets.summarize(marksheet, $routeParams.termIndex);
+          console.log("Summary ok", summary);
           var total = _.reduce(summary, function(total, value){
             return total + value[0];
           },0);

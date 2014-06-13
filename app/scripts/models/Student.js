@@ -9,6 +9,10 @@ schoolman.config(['modelProvider', function(model){
       type:"schema",
       _id:"datatype/student/v1",
       fields:[{
+        key:"id",
+        type:"string",
+        required:true
+      },{
         key:"name",
         type:"string",
         required:true
@@ -68,6 +72,7 @@ schoolman.config(['modelProvider', function(model){
       return new Student();
     }
 
+    this.id = "";
     this.name = ""; 
     this.sex = "";     // String
     this.birth = null; // Datetime integer
@@ -109,6 +114,13 @@ schoolman.config(['modelProvider', function(model){
 
 
   Student.prototype = new model.Model();
+  Student.prototype.generateID = function(){
+    var id = 'student_' + this.id;
+    return id;
+  }
+  Student.prototype.normalize = function(){
+    this._id = this.generateID();
+  };
   Student.prototype.datatype = Student.datatype = model.datatypes.student.v1;
   Student.prototype.setStatus = function(year, status){
     this.status[year] = status;
