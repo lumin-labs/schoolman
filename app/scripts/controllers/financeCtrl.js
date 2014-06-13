@@ -1,13 +1,16 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees, Payments, SCHOOLYEAR) {
+  .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees, Students, Payments, SCHOOLYEAR) {
   	
   	var forms = _.map(Forms.all(), function(form){
   		console.log("forms1", form);
       form.students = [];
   		return form;
   	});
+
+    
+
 
     $scope.schoolYear = SCHOOLYEAR;
    //  var classes = Registrar.getClasses()
@@ -20,13 +23,45 @@ angular.module('SchoolMan')
       return amount;
     };
 
+    var allStudents = [];
+
+      //var deferred = $q.defer();
+
+    Students.query().then(function(students){
+      console.log("students retrieved");
+      allStudents = students;
+    }).catch(function(error){
+      console.log("Failed to get students", error);
+    });
+
+
     Payments.getAll().then(function(paymentsByStudent){
       console.log("Collection", paymentsByStudent);
 
-      forms = _.reduce(paymentsByStudent, function(forms, student){
+      
+      angular.forEach(allStudents, function(student, key){
+        var studentId = student._id;
+
+        if(paymentsByStudent[studentId]){
+          student.payments = paymentsByStudent[studentId].payments;
+          console.log("payment student", paymentsByStudent[studentId], studentId);
+        }
+        else{
+          student.payments = [];
+        }
+        
+      });
+      console.log("all students", allStudents);
+
+      forms = _.reduce(allStudents, function(forms, student){
+        //console.log("in reduce function, forms", forms);
+        //console.log("in reduce function, student", student);
         forms[student.formIndex].students.push(student);
         return forms;
       },forms)
+      console.log("forms2.5", forms);
+
+      
     
 
       // each form should contain a fees object that contains
@@ -38,7 +73,6 @@ angular.module('SchoolMan')
       	// instantiate the fees object
       	form.fees = {};
 
-
       	// copy and instatiate each Fee object with owed and paid
       	angular.forEach(Fees.getAll(), function(fee, feeKey){
       		var feeCopy = angular.copy(fee); //copy, otherwise the next form will clobber this fee object 
@@ -48,6 +82,7 @@ angular.module('SchoolMan')
       		form.fees[feeKey] = feeCopy;
       	});
 
+        console.log("forms3", forms);
 
       	// reduce students into fee totals
       	//console.log(form.name);
@@ -63,6 +98,7 @@ angular.module('SchoolMan')
 
       	return form;
       });
+      console.log("scope.forms", forms);
 
   		$scope.forms = forms;
 
