@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, Cache, model) {
+  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, Settings, Cache, model) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
     $scope.teacher = Cache.get('user');
     $scope.User = model.User;
+    $scope.settings = Settings.get();
+    console.log("Settings", $scope.settings);
 
     $scope.activeIfPage = function(page){
       var cssClass = "";
@@ -41,6 +43,11 @@ angular.module('SchoolMan')
     }
 
     $scope.login = function(access){
-      Location.open({page:"default_"+access, accessCode:access});
+      console.log(access, $scope.settings);
+      if(!$scope.settings.access[access]){
+        Location.open({page:"notactive", accessCode:access});
+      }else {
+        Location.open({page:"default_"+access, accessCode:access});
+      }
     }
   });

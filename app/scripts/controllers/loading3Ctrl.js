@@ -2,8 +2,9 @@
 
 angular.module('SchoolMan')
   .controller('Loading3Ctrl', function ($scope, Location, $q, 
-    Students, Subjects, Forms, Departments, Groups, Fees, Users, model, MockData) {
+    Students, Subjects, Forms, Departments, Groups, Fees, Users, Settings, model, MockData) {
 
+    var settingsP = Settings.load();
     var userP = Users.load();
     var feesP = Fees.load();
     var deptP = Departments.load();
@@ -14,7 +15,7 @@ angular.module('SchoolMan')
     // Initialize/Register ClassCouncil datatype
     var instClassCouncil = new model.ClassCouncil();
 
-    var promises = [deptP, groupP, subjP, feesP, userP, studentsP];
+    var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 
     $q.all(promises).then(function(success){
       console.log("Successes", success);
