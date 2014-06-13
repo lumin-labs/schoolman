@@ -23,9 +23,10 @@ angular.module('SchoolMan')
   			  var dataModelPayment = model.Payment;
           console.log("Payments Success: ", success);
   			  angular.forEach(success.rows, function(data, $index){
-  			  	var studentId = data.doc._id;
+  			  	
+  			  	var studentId = data.value._id;
   			  	if(!collection.hasOwnProperty(studentId)){
-  			  		var student = model.parse(data.doc, dataModelStudent.datatype);
+  			  		var student = model.parse(data.value.data, dataModelStudent.datatype);
                   student.payments = [];
   			  		collection[studentId] = student;
   			  	};
@@ -63,6 +64,7 @@ angular.module('SchoolMan')
 	    Data2.query(map, {include_docs : true}).then(function(success){
 	    		var collection = [];
 	        angular.forEach(success.rows, function(data, rowIndex){
+	            console.logt("data value 2", data);
 	            var spec = data.doc;
 	            var obj = model.parse(data.value.data, spec);
 	            var item = modelTransformer.transform(obj, dataModel);
