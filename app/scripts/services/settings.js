@@ -1,11 +1,10 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Settings', function Settings($q, model, Data2) {
+  .service('settings', function settings($q, model, Data2) {
 
+    console.log("model service", model);
   	var settings = new model.Settings();
-
-  	var dataModel = model.Settings;
 
   	var self = {};
   	self.get = function(){
@@ -16,9 +15,10 @@ angular.module('SchoolMan')
   		var deferred = $q.defer();
 
   		Data2.get('customer_settings').then(function(data){
-        var spec = model.parse2(data, data.datatype);
-        settings = new model.Settings(spec);
-  			console.log("Got settings", settings);
+
+  			var spec = model.parse(data, data.datatype);
+  			settings = new model.Settings(spec);
+        
   			deferred.resolve(settings);
   		}).catch(function(error){
   			if(error.status === 404){

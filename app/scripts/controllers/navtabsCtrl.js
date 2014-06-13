@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, Settings, Cache, model) {
+  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, settings, Cache, model) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
     $scope.teacher = Cache.get('user');
     $scope.User = model.User;
-    $scope.settings = Settings.get();
+    $scope.settings = settings.get();
     console.log("Settings", $scope.settings);
 
     $scope.activeIfPage = function(page){
