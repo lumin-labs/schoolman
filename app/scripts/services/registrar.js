@@ -102,22 +102,22 @@ angular.module('SchoolMan')
      *
      * This method looks up a student object by the studentId and returns the student
      */
-    self.getStudent = function(studentId){
-        var deferred = $q.defer();
-        Data2.get(studentId).then(function(data){
-            var datatype = data.datatype;
-            Data2.get(datatype).then(function(datatype){
-                var studentData = model.parse(data, datatype);
-                var student = modelTransformer.transform(studentData, model.Student);
-                deferred.resolve(student);
-            }).catch(function(error){
-                console.log("Could not find datatype", error);
-            });
-        }).catch(function(error){
-            deferred.reject(error);
-        });
-        return deferred.promise;
-    };
+    // self.getStudent = function(studentId){
+    //     var deferred = $q.defer();
+    //     Data2.get(studentId).then(function(data){
+    //         var datatype = data.datatype;
+    //         Data2.get(datatype).then(function(datatype){
+    //             var studentData = model.parse(data, datatype);
+    //             var student = modelTransformer.transform(studentData, model.Student);
+    //             deferred.resolve(student);
+    //         }).catch(function(error){
+    //             console.log("Could not find datatype", error);
+    //         });
+    //     }).catch(function(error){
+    //         deferred.reject(error);
+    //     });
+    //     return deferred.promise;
+    // };
 
 
     /**

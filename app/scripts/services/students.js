@@ -17,28 +17,44 @@ angular.module('SchoolMan')
   		_students[student._id] = student;
   	};
 
-  	self.getBatch = function(studentIds){
+  	// self.getBatch = function(studentIds){
 
-  		var deferred = $q.defer();
+  	// 	var deferred = $q.defer();
 
-  		db.get(dataModel.datatype._id).then(function(spec){
-  			db.allDocs({keys:studentIds, include_docs: true})
-	  			.then(function(docs){
-	  				var students = _.map(docs.rows, function(data){
-	            var obj = model.parse(data.doc, spec);
-	            var item = modelTransformer.transform(obj, dataModel);
-	  					return item
-	  				});
-		        deferred.resolve(students);
-		    }).catch(function(error){
-		        deferred.reject(error);
-		    });
-  		}).catch(function(error){
-  			deferred.reject(error);
-  		})
+  	// 	db.get(dataModel.datatype._id).then(function(spec){
+  	// 		db.allDocs({keys:studentIds, include_docs: true})
+	  // 			.then(function(docs){
+	  // 				var students = _.map(docs.rows, function(data){
+	  //           var obj = model.parse(data.doc, spec);
+	  //           var item = modelTransformer.transform(obj, dataModel);
+	  // 					return item
+	  // 				});
+		 //        deferred.resolve(students);
+		 //    }).catch(function(error){
+		 //        deferred.reject(error);
+		 //    });
+  	// 	}).catch(function(error){
+  	// 		deferred.reject(error);
+  	// 	})
   		
-  		return deferred.promise;
-  	}
+  	// 	return deferred.promise;
+  	// }
+
+    self.getBatch = function(studentIds){
+
+      var deferred = $q.defer();
+
+      var students = [];
+      angular.forEach(studentIds, function(id, index){
+        if(_students[id]){
+          students.push(_students[id]);
+        }
+      });
+
+      deferred.resolve(students);
+      
+      return deferred.promise;
+    }
 
   	self.saveBatch = function(students){
   		var deferred = $q.defer();
