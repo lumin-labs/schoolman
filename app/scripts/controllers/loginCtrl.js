@@ -8,6 +8,9 @@ angular.module('SchoolMan')
       $log.info("Path: ", $location.path()); 
 
       var DEFAULT_START_PAGE = {
+          sales:{
+              page:"settings"
+          },
           admin:{
               page:"users"
           },
