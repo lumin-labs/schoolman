@@ -2,7 +2,7 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="SubjectsCtrl">
-
+		<div class="printonly"><h3>Subjects</h3></div>
 		<nav class="navbar navbar-default" role="navigation">
 		  <div class="container-fluid">
 		    <div class="navbar-header">
@@ -46,9 +46,9 @@
 		          		 ng-model="newSubject.fr">
 		        </div>
 		        <button type="submit" 
-		        			  class="btn btn-default" 
-		        			  ng-click="addSubject()"
-		        			  ng-class="allSubjects.hasOwnProperty(newSubject.code) ? 'disabled' : ''">
+		        			  class="btn btn-default 
+		        			  {{newSubject.validates() && !allSubjects.hasOwnProperty(newSubject.code) ? '' : 'disabled'}}" 
+		        			  ng-click="addSubject()">
 		        	Add
 		        </button>
 		      </form>
@@ -66,7 +66,7 @@
 							<th class="text-center">Type</th>
 							<th class="">Subject Name (English)</th>
 							<th class="">Subject Name (French)</th>
-							<th>Remove</th>
+							<th class="noprint">Remove</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -94,8 +94,8 @@
 							<td class="column readonly">
 								<div class="cell cell-md cell-normal">{{subject.fr}}</div>
 							</td>
-							<td class="remove text-center" style="width:80px;padding-top:15px;">
-								<a ng-click="removeSubject(subjectKey)">
+							<td class="remove text-center noprint" style="width:80px;padding-top:15px;">
+								<a ng-click="remove(subject)">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>

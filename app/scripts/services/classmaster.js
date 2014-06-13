@@ -10,7 +10,7 @@
  * This service handles marksheets and all calculations
  */
 angular.module('SchoolMan')
-  .service('ClassMaster', function ClassMaster(modelTransformer, Registrar, Data, Mark, Cell, Row, Marksheet) {
+  .service('ClassMaster', function ClassMaster(modelTransformer, Registrar, Data, model) {
 
     var debug_once = 0;
 
@@ -175,9 +175,11 @@ angular.module('SchoolMan')
             }else if(average>11){
                 return {text:"Good", css:"remark-good"}
             }else if(average>10){
-                return {text:"fair", css:"remark-fair"}
-            }else if(average>9){
+                return {text:"Fair", css:"remark-fair"}
+            }else if(average === "10" || average === 10){
                 return {text:"Average", css:"remark-average"}
+            }else if(average>9){
+                return {text:"Poor", css:"remark-poor"}
             }else if(average>7){
                 return {text:"Poor", css:"remark-poor"}
             }else{

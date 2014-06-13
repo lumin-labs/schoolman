@@ -1,28 +1,60 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MyclassesCtrl', function ($scope, $routeParams, $user, Location, Registrar, CourseCatalog, TimeTable) {
+  .controller('MyclassesCtrl', function ($scope, $routeParams, Users, model,Forms, Groups, Departments,  Marksheets, Location, Subjects, TimeTable) {
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
-    $scope.courses = CourseCatalog.getCoursesByRef(
-      TimeTable.getCourseRefs($routeParams.username)
-    );
+    $scope.open = Location.open;
+    var allParams = [$routeParams.formIndex,
+                    $routeParams.deptId,
+                    $routeParams.groupId,
+                    $routeParams.subjectId];
+    $scope.allSelected = allParams.indexOf("undefined") === -1;
 
+    $scope.page = $routeParams.page;
+    $scope.formIndex = $routeParams.formIndex;
+
+    $scope.data = {
+      forms:Forms.all(),
+      departments:Departments.getAll(),
+      groups:Groups.getAll(),
+      subjects : Subjects.getAll(),
+      marksheets:[],
+      assignedTeacher:null
+    };
+
+    $scope.Users = Users;
+
+    // Load all classes assigned to the logged in user
+    Marksheets.query({teacherId:$routeParams.username}).then(function(marksheets){
+      console.log("myclasses Marksheets", marksheets);
+      $scope.data.marksheets = marksheets;
+    }).catch(function(error){
+      console.log("Error:", error);
+    });
+
+    // If a teacher is already assigned to the selected class, load the teacher
+    var marksheetId = model.Marksheet.generateID($routeParams);
+    Marksheets.query({_id:marksheetId}).then(function(marksheets){
+      var marksheet = marksheets[0];
+      if(marksheet){
+        $scope.data.assignedTeacher = Users.get(marksheet.teacherId); 
+      } else {
+        $scope.data.assignedTeacher = null;
+      }
+    });
 
     console.log("MyClasses routeParams", $routeParams);
-	  $scope.courseId = CourseCatalog.getCourseId($routeParams);
     $scope.username = $routeParams.username;
 
-    $scope.open = Location.open;
-    $scope.getStudentsByCourse = Registrar.getStudentsByCourse;
+    // $scope.getStudentsByCourse = Registrar.getStudentsByCourse;
 
     // Lookup if preexisting teacher
-    var getTeacher = function(courseId){
-        var bookmark = TimeTable.getTeacher(courseId);
-        return (bookmark && $user.get(bookmark.username)) ? $user.get(bookmark.username) : null;
+    var getTeacher = function(marksheetId){
+        var bookmark = TimeTable.getTeacher(marksheetId);
+        return (bookmark && Users.get(bookmark.username)) ? Users.get(bookmark.username) : null;
       };
-    var courseId = CourseCatalog.getCourseId($routeParams);
-    $scope.teacher = getTeacher(courseId);
+    $scope.teacher = getTeacher(marksheetId);
 
 
     // private method
@@ -37,10 +69,20 @@ angular.module('SchoolMan')
 
     // Expects
     // { teacherId:username,
-    //   courseId:courseId }
-    $scope.removeBookmark = function(args){
-      TimeTable.removeBookmark(args);
-      refreshCourseList();
+    //   marksheetId:marksheetId }
+    $scope.removeBookmark = function(marksheet){
+      console.log("removing marksheet", marksheet);
+      marksheet.teacherId = null;
+      marksheet.save().then(function(success){
+        $scope.data.marksheets = $scope.data.marksheets.filter(function(m){
+          return m._id !== marksheet._id;
+        });
+        console.log("Removed marksheet", $scope.data.marksheets);
+      });
+    }
+
+    $scope.getNumberOfStudents = function(marksheet){
+      return Object.keys(marksheet.table).length;
     }
 
      
@@ -65,8 +107,14 @@ angular.module('SchoolMan')
      * and the @name with the module id, then this page won't exist!!
      */
     $scope.addBookmark = function(){
-      TimeTable.addBookmark($scope.courseId, $scope.username);
-      refreshCourseList();
+      Marksheets.createOrUpdate(marksheetId, $routeParams.username)
+      .then(function(marksheet){
+        $scope.data.marksheets.push(marksheet);
+        $scope.data.assignedTeacher = Users.get($routeParams.username);
+        console.log("Saved myclass: ", marksheet, $scope.data);
+      }).catch(function(error){
+        console.log("Failed to save myclass: ", error);
+      });
     };
 
     

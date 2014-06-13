@@ -6,7 +6,8 @@
 
 	<div class="row " >
 		<div class="col-md-12">	
-			<div ng-include="'views/_menu-bookmark-course.html'" class="pull-left;"></div>
+			<div class="noprint" ng-include="'views/_menu-bookmark-course.html'" class="pull-left;"></div>
+			<div class="printonly"><h3>{{data.assignedTeacher.fullname}}'s Classes</h3></div>
 	    </div>
   	</div>
   	<div class="row" style="">
@@ -17,6 +18,7 @@
 						<th></th>
 						<th>Subject</th>
 						<th>Form</th>
+						<th>Department</th>
 						<th>Class</th>
 						<th># Students</th>
 						<th>Teacher</th>
@@ -24,12 +26,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="course in courses | orderBy:'-timestamp'">
+					<tr ng-repeat="marksheet in data.marksheets | orderBy:'subjectId'">
 						<td style="width:50px;padding-left:10px;">
 							<button class="btn btn-info" 
 									ng-click="open({
 										page:'marksheet',
-										courseId:course.id
+										courseId:marksheet._id,
+										formIndex:marksheet.formIndex,
+										deptId:marksheet.deptId,
+										groupId:marksheet.groupId,
+										subjectId:marksheet.subjectId
 									})">
 								<i class="glyphicon glyphicon-pencil"></i>
 							</button>
@@ -37,17 +43,22 @@
 						<td style="width:250px;">
 							<a ng-click="open({
 										page:'marksheet',
-										courseId:course.id
-									})">{{course.en}} / {{course.fr}}</a>
+										courseId:marksheet._id,
+										formIndex:marksheet.formIndex,
+										deptId:marksheet.deptId,
+										groupId:marksheet.groupId,
+										subjectId:marksheet.subjectId
+									})">{{data.subjects[marksheet.subjectId].en}}</a>
 						</td>
-						<td>{{course.form}}</td>
-						<td>{{course.group}}</td>
+						<td>{{data.forms[marksheet.formIndex].name}}</td>
+						<td>{{data.departments[marksheet.deptId].name}}</td>
+						<td>{{data.groups[marksheet.groupId].name}}</td>
 						<td>
-							{{getStudentsByCourse(course.id).length}} students
+							{{getNumberOfStudents(marksheet)}} students
 						</td>
-						<td>{{teacher.fullname}}</td>
+						<td>{{Users.get(marksheet.teacherId).fullname}}</td>
 						<td class="remove">
-							<a ng-click="removeBookmark({teacherId:username,courseId:course.id})">
+							<a ng-click="removeBookmark(marksheet)">
 								<i class="glyphicon glyphicon-remove"></i>
 							</a>
 						</td>
@@ -56,7 +67,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="jumbotron ng-hide" ng-show="courses.length < 1" 
+	<div class="jumbotron" ng-if="data['marksheets'].length < 1" 
 	     style="margin-top:20px;" >
     	<h2 class="text-left">Welcome to the <b>My Classes</b> page!</h2>
     	<p class="text-left">

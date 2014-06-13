@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('Loading2Ctrl', function ($scope) {
+  .controller('Loading2Ctrl', function ($scope, $location, Data) {
     
     // Assume the user has a workspace and that it's available
     $scope.status = {
@@ -26,7 +26,14 @@ angular.module('SchoolMan')
   			$scope.$apply($scope.status.hasWorkspace = false);
   			console.log($scope.status);
   		} else {
-  			console.log("Great, here it is: ", obj);
+  			Data.loadWorkspace(obj.workspace, function(success){
+          if(success){
+              $scope.$apply($location.path("/login/null/teacher"));
+            } else {
+              $scope.status.hasWorkspace = false;
+              console.log("Loading Failed");
+            }
+        });
   		}
   	});
 

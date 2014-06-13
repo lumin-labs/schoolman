@@ -2,7 +2,28 @@
 
 angular.module('SchoolMan')
 
- .value('Department', (function(){
+ schoolman.config(['modelProvider', function(model){
+
+  model.datatypes.department = {
+    v1:{
+      type:"schema",
+      _id:"datatype/department/v1",
+      fields:[{
+        key:"code",
+        type:"string",
+        required:true
+      },{
+        key:"name",
+        type:"string",
+        required:true
+      },{
+        key:"forms",
+        type:"object",
+        required:true
+      }],
+      fields_key:0
+    }
+  };
 
     // Constructor
     function Department(spec){
@@ -44,12 +65,18 @@ angular.module('SchoolMan')
       };
       
     };
-
+    Department.prototype = new model.Model();
+    Department.prototype.generateID = function(){
+      var id = "dept_" + this.code;
+      return id;
+    }
     Department.prototype.toggleForm = function(formIndex){
       this.forms[formIndex] = (this.forms[formIndex] + 1) % 2;
-      this.notify();
+      return this;
     };
 
-    return Department;
+    
+    Department.prototype.datatype = Department.datatype = model.datatypes.department.v1;
 
-  })());
+    model.Department = Department;
+  }]);

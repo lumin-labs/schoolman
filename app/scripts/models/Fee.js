@@ -1,53 +1,62 @@
 'use strict';
 
-angular.module('SchoolMan')
+var schoolman = angular.module('SchoolMan');
 
- .value('Fee', (function(){
+schoolman.config(['modelProvider', function(model){
 
-    // Constructor
-    function Fee(spec){
-      spec = spec || {};
+  model.datatypes.fee = {
+    v1:{
+      type:"schema",
+      _id:"datatype/fee/v1",
+      fields:[{
+        key:"name",
+        type:"string",
+        required:true
+      },{
+        key:"amount",
+        type:"number",
+        required:true
+      }],
+      fields_key:0
+    }
+  };
 
-      var self = this;
+  // Constructor
+  function Fee(spec){
+    spec = spec || {};
 
-      // Prevents global namespace clobbering if you istantiate this object
-      // without the 'new' keyword
-      if (!(this instanceof Fee)) {
-        return new Fee();
-      }
+    var self = this;
 
-      self.amount = spec.amount || "";        // string
-      self.name = spec.name || ""; 
+    // Prevents global namespace clobbering if you istantiate this object
+    // without the 'new' keyword
+    if (!(this instanceof Fee)) {
+      return new Fee();
+    }
 
-      var listeners = [];
-      self.notify = function(){
-        angular.forEach(listeners, function(callback, $index){
-          callback();
-        });
-      };
-      self.onChange = function(callback){
-        listeners.push(callback);
-      };
-      
-    };
+    self.amount = spec.amount || "";        // string
+    self.name = spec.name || ""; 
 
-    // This function lets you ask if the object has all the required fields
-    // TODO: the config for which fields are required should probably be done 
-    // elsewhere
-    Fee.prototype.isValid = function(){
-      var self = this;
-      var isOk = true;
-      var requiredFields = ["name", "amount"];
-      var invalidValues = ["", undefined, null];
-      angular.forEach(requiredFields, function(field, fieldIndex){
-        // if the current value of the field is some kind of null value
-        if(invalidValues.indexOf(self[field]) > -1){
-          isOk = false;
-        }
+    var listeners = [];
+    self.notify = function(){
+      angular.forEach(listeners, function(callback, $index){
+        callback();
       });
-      return isOk;
     };
+    self.onChange = function(callback){
+      listeners.push(callback);
+    };   
+  }
 
-    return Fee;
+  Fee.prototype = new model.Model();
+  Fee.prototype.generateID = function(){
+    var id = model.slugify(this.name);
+    console.log("Slugified:", id);
+    return id;
+  }
 
-  })());
+  Fee.prototype.datatype = Fee.datatype = model.datatypes.fee.v1;
+
+
+  model.Fee = Fee;
+
+}]);

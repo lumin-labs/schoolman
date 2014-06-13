@@ -24,6 +24,9 @@
 					<th>Students Failing</th>
 					<th>Students Passing</th>
 					<th>Percent Passing</th>
+					<th>Percent Failing</th>
+					<th>Class Average</th>
+					<th>Class Range</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -41,6 +44,10 @@
 					<td>{{groupStats[groupKey].failing || 0}}</td>
 					<td>{{groupStats[groupKey].passing || 0}}</td>
 					<td>{{(groupStats[groupKey].percentPassing * 100 || 0) | number:1}}%</td>
+					<td>{{(groupStats[groupKey].percentFailing * 100 || 0) | number:1}}%</td>
+					<td>{{(groupStats[groupKey].classAverage || 0) | number:1}}</td>
+					<td>{{(groupStats[groupKey].classRange || 0) | number:1}}</td>
+
 				</tr>
 			</tbody>
 		</table>

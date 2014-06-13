@@ -1,7 +1,7 @@
 {
 	"name": "School Man Tech",
 	"description":"A Grading System for Cameroon Schools",
-	"version":"0.1",
+	"version":"1.0",
 	"manifest_version":2,
 	"app" : {
 		"background":{

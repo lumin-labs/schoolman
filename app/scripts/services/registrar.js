@@ -12,9 +12,9 @@
  * This service stores all student data and links students with classes and courses
  */
 angular.module('SchoolMan')
-  .service('Registrar', function Registrar(CourseCatalog, Data, $log, modelTransformer, Student, Uid) {
+  .service('Registrar', function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model, Uid) {
     
-    var _students = [];
+    // var _students = [];
     var students = {};
     var courses = {};
     var classes = {};
@@ -56,11 +56,12 @@ angular.module('SchoolMan')
      *
      * This method adds a student to all courses in their class
      */
-    self.addStudent = function(student, marksheets, Uid){
+    self.addStudent = function(student, Uid){
 
-            student = modelTransformer.transform(student, Student);
+            student = modelTransformer.transform(student, model.Student);
 
             student.onChange(function(msg){
+                console.log("Student changed : ", msg, student);
                 self.save();
             });
 
@@ -69,7 +70,7 @@ angular.module('SchoolMan')
 
     		// Register the student
     		students[student.id] = student;
-            _students.push(student);
+            // _students.push(student);
 
     		// Register the student in their class
 			var classId = form + "-" + group;
@@ -86,7 +87,8 @@ angular.module('SchoolMan')
     };
 
     self.save = function(callback){
-        Data.saveLater({students:_students}, callback);
+        console.log("Registrar: saving students");
+        Data.saveLater({students:students}, callback);
     };
 
 
@@ -100,9 +102,22 @@ angular.module('SchoolMan')
      *
      * This method looks up a student object by the studentId and returns the student
      */
-    self.getStudent = function(studentId){
-        return students[studentId];
-    };
+    // self.getStudent = function(studentId){
+    //     var deferred = $q.defer();
+    //     Data2.get(studentId).then(function(data){
+    //         var datatype = data.datatype;
+    //         Data2.get(datatype).then(function(datatype){
+    //             var studentData = model.parse(data, datatype);
+    //             var student = modelTransformer.transform(studentData, model.Student);
+    //             deferred.resolve(student);
+    //         }).catch(function(error){
+    //             console.log("Could not find datatype", error);
+    //         });
+    //     }).catch(function(error){
+    //         deferred.reject(error);
+    //     });
+    //     return deferred.promise;
+    // };
 
 
     /**
@@ -120,7 +135,7 @@ angular.module('SchoolMan')
 
             var courseList = courses[courseId];
 
-            console.log("CourseId", courseId, courseList);
+            //console.log("CourseId", courseId, courseList);
 
             var studentList = courseList.map(function(studentId){
                 return students[studentId];
@@ -150,6 +165,11 @@ angular.module('SchoolMan')
         return studentList;
     };
 
+    self.getAllStudents = function(){
+        return Object.keys(students).map(function(studentId){
+            return students[studentId];
+        });
+    };
 
     // Load students from Data
     Data.get("students", function(students){

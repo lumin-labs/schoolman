@@ -17,7 +17,7 @@ angular.module('SchoolMan').directive('format', ['$filter', function ($filter) {
             ctrl.$parsers.unshift(function (viewValue) {
                               
           elem.priceFormat({
-            prefix: '',
+            prefix: attrs.prefix || '',
             centsSeparator: '.',
             thousandsSeparator: ','
         });                

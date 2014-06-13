@@ -158,6 +158,10 @@ input.ng-dirty.ng-invalid{
   margin-right: 10px;
 }
 
+.btn-group .btn-group{
+  margin-right: 0px;
+}
+
 .list-button{
   background-image: url(/images/list-icon.svg);
 }
@@ -381,7 +385,7 @@ background-color:#f8f8f8;
 
 .btn.disabled{
   background-color: #E9E9E9;
-  color: #888;
+  color: #000;
   border-color: #bbb;
 }
 
@@ -576,14 +580,28 @@ td.profile-photo{
 
 
 /* Print CSS */
-@media print{
+@media print {
 
     body{
       padding-top:0px;
     }
 
+    .side-nav{
+      display: none;
+    }
+
     .container {
         width:100%;
+    }
+
+    .fitpage{
+      max-height: 10.5in;
+      overflow: hidden;
+      padding-left: 15px;
+    }
+    .shrinktofit{
+      max-height: 50px;
+      overflow: hidden;
     }
 
     .printonly{
@@ -656,7 +674,7 @@ td.profile-photo{
     .well.student-info .row .col-md-12 .table tr td{
       padding:0px;
       padding-top: 10px;
-      border-top:solid 1px #ddd;
+      border-top:solid 1px #ddd !important;
     }
 
     .student-info-section{

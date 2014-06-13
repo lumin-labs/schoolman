@@ -1,72 +1,245 @@
 <div class="row ">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="StudentsCtrl">
-		<div ng-include="'views/_menu-basic.html'" 
-				 style="margin-bottom:10px;"></div>
+		<div style="margin-bottom:10px;">
+			<div ng-controller="ClassmenuCtrl">
+				<div class="printonly">
+					<h3>Students</h3>
+					<h5>{{form.name}}{{group.name}} {{department.name}}, {{data.fees[queryParams.feeId].name  || "All"}} Fees</h5>
+				</div>
+			  <nav class="navbar navbar-default" role="navigation">
+				  <div class="container-fluid">
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				    </div>
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:5px;">
+				      <form class="navbar-form navbar-left" role="search" style="padding-left:0px;">
+						        
+
+						    <div class="form-group" style="width:120px;">
+				          		<div class="input-group" >
+				            		<div class="input-group-addon">
+										  	<input type="checkbox"
+										  	       ng-model="data.globalSelect"
+										  				 ng-true-value="1" 
+										  				 ng-false-value="0"
+										  	       ng-change="toggleAll()"
+										  	       style="margin-top:0px;">
+										</div>
+				          	<!-- Form Dropdown -->
+									  <div class="input-group-btn">
+									    <button class="btn btn-md btn-default dropdown-toggle" 
+									            data-toggle="dropdown">
+									      Move <span class="caret"></span>
+									    </button>
+									    <div class="dropdown-menu" style="padding:10px;">
+									      <ul class="nav nav-tabs">
+												  <li class="{{moveTab === 'form' ? 'active' : ''}}">
+												    <a ng-mouseover="moveTab = 'form'">Form</a>
+												  </li>
+												  <li class="{{moveTab === 'dept' ? 'active' : ''}}">
+												    <a ng-mouseover="moveTab = 'dept'">Dept</a>
+												  </li>
+												  <li class="{{moveTab === 'group' ? 'active' : ''}}">
+												    <a ng-mouseover="moveTab = 'group'">Class</a>
+												  </li>
+												  <li class="{{moveTab === 'fee' ? 'active' : ''}}">
+												    <a style="margin-right:0px;" ng-mouseover="moveTab = 'fee'">Fee</a>
+												  </li>
+												</ul>
+										    <ul class="nav nav-stacked" 
+										        style="border:solid 1px #ddd;border-top:0px;width:258px;" 
+										        ng-if="moveTab==='form'">
+										      <li ng-repeat="(formIndex, form) in data.forms">
+										        <a ng-click="moveSelected({formIndex:formIndex})">
+										        	{{data.forms[formIndex].name}}
+										        </a>
+										      </li>
+										    </ul>
+										    <ul class="nav nav-stacked" 
+										        style="border:solid 1px #ddd;border-top:0px;width:258px;" 
+										        ng-if="moveTab==='dept'">
+										      <li ng-repeat="(deptId, dept) in data.departments">
+										        <a ng-click="moveSelected({deptId:deptId})">
+										        	{{data.departments[deptId].name}}
+										        </a>
+										      </li>
+										    </ul>
+										    <ul class="nav nav-stacked" 
+										        style="border:solid 1px #ddd;border-top:0px;width:258px;" 
+										        ng-if="moveTab==='group'">
+										      <li ng-repeat="(groupId, group) in data.groups">
+										        <a ng-click="moveSelected({groupId:groupId})">
+										        	{{data.groups[groupId].name}}
+										        </a>
+										      </li>
+										    </ul>
+										    <ul class="nav nav-stacked" 
+										        style="border:solid 1px #ddd;border-top:0px;width:258px;" 
+										        ng-if="moveTab==='fee'">
+										      <li ng-repeat="(feeId, fee) in data.fees">
+										        <a ng-click="moveSelected({feeId:feeId})">
+										        	{{data.fees[feeId].name}}
+										        </a>
+										      </li>
+										    </ul>
+									    </div>
+									  </div>
+									</div>
+								</div>
+
+								<div class="form-group" style="width:380px;margin-left:20px;">
+									<div class="input-group">
+					            <span class="input-group-addon" style="width:50px;">
+								        Filter:
+								      </span>
+						          <!-- <input style="" 
+						          			 type="text" 
+						          			 class="form-control" 
+						          			 placeholder="Search"
+						          		 	 ng-model="search.$"> -->
+						          <!-- Form Dropdown -->
+										  <div class="input-group-btn">
+										    <button style="border-radius:0px;"
+										    			  class="btn btn-md btn-default dropdown-toggle" 
+										            data-toggle="dropdown">
+										      {{data.forms[queryParams.formIndex].name || "All Forms"}} <span class="caret"></span>
+										    </button>
+										    <ul class="dropdown-menu">
+										      <li>
+										    		<a ng-click="setQuery({formIndex:'all'})">All Forms</a>
+										    	</li>
+										    	<li class="divider"></li>
+										      <li ng-repeat="(formIndex, form) in data.forms">
+										        <a ng-click="setQuery({formIndex:formIndex})">
+										        	{{data.forms[formIndex].name}}
+										        </a>
+										      </li>
+										    </ul>
+										  </div>
+										  <!-- Department Dropdown -->
+										  <div  class="input-group-btn">
+										    <button style="border-radius:0px;border-left:0px;"
+										            class="btn btn-md btn-default dropdown-toggle" 
+										            data-toggle="dropdown">
+										      {{data.departments[queryParams.deptId].name|| "All Departments"}} <span class="caret"></span>
+										    </button>
+										    <ul class="dropdown-menu">
+										      <li>
+										    		<a ng-click="setQuery({deptId:'all'})">All Departments</a>
+										    	</li>
+										    	<li class="divider"></li>
+										      <li ng-repeat="(deptId, dept) in data.departments">
+										        <a ng-click="setQuery({deptId:deptId})">
+										        	{{data.departments[deptId].name}}
+										        </a>
+										      </li>
+										    </ul>
+										  </div>
+
+						          <!-- Group Dropdown -->
+										  <div  class="input-group-btn" >
+										    <button style="border-radius:0px;border-left:0px;"
+										            class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+										      {{data.groups[queryParams.groupId].name || "All Groups"}} <span class="caret"></span>
+										    </button>
+										    <ul class="dropdown-menu">
+										      <li>
+										    		<a ng-click="setQuery({groupId:'all'})">All Groups</a>
+										    	</li>
+										    	<li class="divider"></li>
+										      <li ng-repeat="(groupId, group) in data.groups">
+										        <a ng-click="setQuery({groupId:groupId})">
+										        	{{data.groups[groupId].name}}
+										        </a>
+										      </li>
+										    </ul>
+										  </div>
+
+										  <!-- Fee Dropdown -->
+										  <div  class="input-group-btn" >
+										    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+										      {{data.fees[queryParams.feeId].name || "All Fees"}} <span class="caret"></span>
+										    </button>
+										    <ul class="dropdown-menu">
+										    	<li>
+										    		<a ng-click="setQuery({feeId:'all'})">All Fees</a>
+										    	</li>
+										    	<li class="divider"></li>
+										      <li ng-repeat="(feeId, fee) in data.fees">
+										        <a ng-click="setQuery({feeId:feeId})">
+										        	{{data.fees[feeId].name}} ({{data.fees[feeId].amount | currency:""}})
+										        </a>
+										      </li>
+										    </ul>
+										  </div>
+						      </div>
+								</div>
+
+				      </form>
+				    </div>
+				  </div>
+				</nav>
+			</div>
+		</div>
 		<!-- Student View -->
 		<table class="table table-striped table-bordered table-compact">
 			<thead>
-				<!-- <tr class="toolbar">
-					<th style="width:100px;padding:8px !important;">
-						{{newStudent.id}}
-					</th>
-					<th>
-						<input class="form-control" placeholder="Name" ng-model="newStudent.name">
-					</th>
-					<th style="width:90px;">
-						<input class="form-control" placeholder="Gender" ng-model="newStudent.sex">
-					</th>
-					<th style="width:100px;">
-						<input class="form-control" placeholder="Birth Date" ng-model="newStudent.birth">
-					</th>
-					<th>
-						<input class="form-control" placeholder="Parent Name" ng-model="newStudent.parentName">
-					</th>
-					<th>
-						<input class="form-control" placeholder="Parent Phone" ng-model="newStudent.parentPhone">
-					</th>
-					<th colspan="2">
-						<input class="form-control pull-left" 
-							   placeholder="Parent EMail" 
-							   style="width:70%;margin-right:5px;"
-							   ng-model="newStudent.parentEmail"
-							>
-						<button type="submit" 
-								style="width:28%;"
-							 	class="btn btn-default btn-info pull-right"
-							 	ng-click="addStudent()">Add</button>
-					</th>
-				</tr> -->
+				
 				<tr>
-					<th style="width:100px;">ID</th>
+					<th class="noprint">select</th>
+					<!-- <th style="width:100px;">ID</th> -->
 					<th>Name</th>
 					<th>Gender</th>
 					<th>Birth Date</th>
 					<th>Parent Name</th>
 					<th>Parent Phone</th>
 					<th>Parent Email</th>
+					<th>Form</th>
+					<th>Dept.</th>
+					<th>Class</th>
 					<th>Fee Due</th>
 					<th>Promotion</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(studentIndex, student) in students">
-					<td style="width:100px;">
-						<a ng-click="open({studentId:student.id, page:'registrarProfile'})">{{student.id}}</a>
+
+				<tr ng-repeat="(studentIndex, student) in data.students.slice(data.page * 10, (data.page + 1) * 10) | filter:search">
+					<td class="text-center" style="vertical-align:middle;">
+
+						<input type="checkbox"
+						       ng-model="data.selected[student._id]"
+									 ng-true-value="1" 
+									 ng-false-value="0">
 					</td>
-					<td>{{student.name}}</td>
+					<!-- <td style="width:100px;">
+						<a ng-click="open({studentId:student._id, page:'registrarProfile'})">{{student.id}}</a>
+					</td> -->
+					<td>
+					  <a ng-click="open({studentId:student._id, page:'registrarProfile'})">
+					  {{student.name}}
+					  </a>
+					</td>
 					<td>{{student.sex}}</td>
 					<td>{{student.birth | date:'dd-mm-yyyy'}}</td>
 					<td>{{student.parentName}}</td>
 					<td>{{student.parentPhone}}</td>
 					<td>{{student.parentEmail}}</td>
+					<td>{{data.forms[student.formIndex].name}}</td>
+					<td>{{data.departments[student.deptId].name}}</td>
+					<td>{{data.groups[student.groupId].name}}</td>
 					<td>
-						{{fees[student.feeGroup].amount - student.totalPaid() | currency:""}}
+						{{data.fees[student.feeId].amount - student.totalPaid | currency:""}}
 					</td>
 					<td class="promotion">
 						<div  class="btn-group">
 						  <!-- If status is set to automatic -->
-							<button ng-if="student.status['2014'] === 0 && studentStatus[student.id]"
+							<button ng-if="student.status['2014'] === 0 && student.passing"
 							      	class="btn btn-sm btn-success dropdown-toggle" 
 							      	data-toggle="dropdown">
 								<i class="glyphicon" 
@@ -74,7 +247,7 @@
 								&nbsp;{{PROMOTE_OPTIONS[1].name}}
 							</button>
 					    
-							<button ng-if="student.status['2014'] === 0 && !studentStatus[student.id]"
+							<button ng-if="student.status['2014'] === 0 && !student.passing"
 							      class="btn btn-sm btn-warning dropdown-toggle" 
 							      data-toggle="dropdown">
 							    <i class="glyphicon" 
@@ -111,6 +284,17 @@
 				</tr>
 			</tbody>
 		</table>
+		<ul class="pagination">
+		  <li class="{{data.page === 0 ? 'disabled' : ''}}">
+		  	<a ng-click="data.page = data.page === 0 ? data.page : data.page - 1">&laquo;</a>
+		  </li>
+		  <li class="disabled">
+		    <a ng-if="data.page !== data.pages.length - 1">{{(data.page * 10) + 1}} - {{(data.page + 1) * 10}} of {{data.students.length}}</a>
+		    <a ng-if="data.page === data.pages.length - 1">{{(data.page * 10) + 1}} - {{data.students.length}} of {{data.students.length}}</a>
+		  </li>
+		  <li class="{{data.page === data.pages.length - 1 ? 'disabled' : ''}}">
+		    <a ng-click="data.page = data.page === data.pages.length - 1 ? data.page : data.page + 1">&raquo;</a></li>
+		</ul>
 	</div>
 </div>	
 

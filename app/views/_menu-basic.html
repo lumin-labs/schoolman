@@ -1,20 +1,8 @@
-<div ng-controller="ClassmenuCtrl">
-  <!-- Subject Dropdown -->
-  <div  ng-if="['mastersheet', 'students', 'registration'].indexOf(page) === -1"
-        class="btn-group">
-    <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
-      {{subject.en}} <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li ng-repeat="(subjectKey, subject) in subjects">
-        <a ng-click="open({subjectKey:subjectKey})">{{subject.en}}</a>
-      </li>
-    </ul>
-  </div><!-- /btn-group -->
+<div ng-controller="ClassmenuCtrl" class="btn-group">
 
   <!-- Form Dropdown -->
   <div class="btn-group">
-    <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
       {{form.name}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
@@ -24,22 +12,48 @@
     </ul>
   </div>
 
-  <!-- Group Dropdown -->
+  <!-- Department Dropdown -->
   <div class="btn-group">
-    <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
-      {{group.name}} <span class="caret"></span>
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+      {{department.code || "Select Department"}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
-      <li ng-repeat="(groupIndex, group) in groups">
-        <a ng-click="open({groupIndex:groupIndex})">{{group.name}}</a>
+      <li ng-if="page==='myclasses'" 
+          ng-repeat="(deptId, dept) in departments">
+        <a ng-href="" ng-click="open({deptId:deptId})">{{departments[deptId].name}}</a>
       </li>
     </ul>
   </div>
 
   <!-- Group Dropdown -->
+  <div class="btn-group">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+      {{group ? group.name : "Select Group"}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="(groupId, group) in groups">
+        <a ng-click="open({groupId:groupId})">{{group.name}}</a>
+      </li>
+    </ul>
+  </div>
+
+   <!-- Subject Dropdown -->
+  <div  ng-if="['mastersheet', 'students', 'registration'].indexOf(page) === -1"
+        class="btn-group">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+      {{subject.en}} <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li ng-repeat="(subjectId, subject) in subjects">
+        <a ng-click="open({subjectId:subjectId})">{{subject.en}}</a>
+      </li>
+    </ul>
+  </div><!-- /btn-group -->
+
+  <!-- Term Dropdown -->
   <div  ng-if="page === 'mastersheet'"
         class="btn-group">
-    <button class="btn btn-lg btn-light dropdown-toggle" data-toggle="dropdown">
+    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
       {{term.name}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">

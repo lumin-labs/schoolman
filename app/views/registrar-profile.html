@@ -1,47 +1,90 @@
 <div class="row">
-	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+  <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-	<div class="col-md-10 marksheet" ng-controller="ProfileCtrl">
+  <div class="col-md-10 marksheet" ng-controller="ProfileCtrl">
+  <div class="printonly"><h3>Student Profile</h3></div>
 
-  <div class="row">
-  	<div class="col-md-7" 
+  <table class="table"><tr>
+  	<td class="col-md-7" 
   			 ng-include="'views/_profile-edit.html'"
-  			 style="border-right:solid 1px #ddd;">
-  	</div>
-  	<div class="col-md-5">
-  		<form class="form-horizontal" role="form">
-  			<h5><strong>New Payment</strong></h5>
-  			<div class="form-group">
+  			 style="border-right:solid 1px #ddd !important;">
+  	</td>
+  	<td class="col-md-5">
+  		<form ng-if="accessCode === 'registrar'" class="form-horizontal noprint" role="form">
+        <ul class="nav nav-tabs" style="margin-bottom:10px;">
+          <li class="{{multiplier === 1 ? 'active' : ''}}">
+            <a ng-click="multiplier = 1; newPayment.amount = 0">New Payment</a>
+          </li>
+          <li class="{{multiplier === -1 ? 'active' : ''}}">
+            <a ng-click="multiplier = -1; newPayment.amount = 0">New Correction</a>
+          </li>
+        </ul>
+  			<div ng-if="multiplier === 1" class="form-group" style="margin-bottom:0px;">
 			    <div class="col-sm-8">
-			    	<div class="input-group">
+			    	<div class="input-group" >
 				      <span class="input-group-addon">CFA</span>
 	  					<input type="text"
 	  								 format="number"
+                     prefix="{{multiplier < 0 ? '-' : ''}}"
 	  								 name="amount"
 	  								 ng-model="newPayment.amount"
 	  								 required
 	  							   class="form-control">
   					</div>
+              <span style="color:red;font-size:12px;"
+              ng-if="getTotalPayments() + newPayment.getAmount() > 
+                     data.fees[data.student.feeId].amount">
+                Payment can't be greater than amount due
+              </span>
 			    </div>
 			    <div class="col-sm-4">
 			      <button type="submit" 
 			      			  class="btn btn-success" 
-			      			  ng-click="addPayment()"
-			      			  ng-class="newPayment.isValid() ? '' : 'disabled'">
+			      			  ng-click="addPayment(newPayment, 1)"
+			      			  ng-class="[0,'0.00'].indexOf(newPayment.amount) > -1 || 
+                              getTotalPayments() + newPayment.getAmount() > 
+                              data.fees[data.student.feeId].amount ? 'disabled' : ''">
 			        Add Payment
 			      </button>
-			      
 			    </div>
 			  </div>
+        <div ng-if="multiplier === -1" class="form-group" style="margin-bottom:0px;">
+          <div class="col-sm-8">
+            <div class="input-group" >
+              <span class="input-group-addon">CFA</span>
+              <input type="text"
+                     style="color:red;"
+                     format="number"
+                     prefix="-"
+                     name="amount"
+                     ng-model="newPayment.amount"
+                     required
+                     class="form-control">
+            </div>
+              <span style="color:red;font-size:12px;" ng-if="newPayment.getAmount() > getTotalPayments()">
+                Correction can't be greater than total payments
+              </span>
+          </div>
+          <div class="col-sm-4">
+            <button type="submit" 
+                    class="btn btn-warning" 
+                    ng-click="addPayment(newPayment, -1)"
+                    ng-class="[0,'0.00'].indexOf(newPayment.amount) > -1 || 
+                              newPayment.getAmount() > getTotalPayments() ? 'disabled' : ''">
+              Add Correction
+            </button>
+          </div>
+        </div>
+
   		</form>
   		<table class="table table-striped">
   		  <tr class="row-spacer">
   				<th>Payments</th>
   				<th></th>
   			</tr>
-  			<tr ng-repeat="(paymentIndex, payment) in student.payments">
-  				<td>{{payment.date | date:'MMM d, y h:mm a'}}</td>
-  				<td>{{payment.amount | currency:""}}</td>
+  			<tr ng-repeat="(paymentIndex, payment) in data.payments">
+  				<td>{{payment.date | date:'MMM d, yy h:mm a'}}</td>
+  				<td style="color:{{payment.amount < 0 ? 'red' : 'black'}};">{{payment.amount | currency:""}}</td>
   			</tr>
   			<tr class="row-spacer">
   				<th>Summary</th>
@@ -49,19 +92,154 @@
   			</tr>
   			<tr>
   				<td>Fee Amount:</td>
-  				<td>{{fees[student.feeGroup].amount | currency:""}}</td>
-  			</tr>
+  				<td>{{data.fees[data.student.feeId].amount | currency:""}}</td>
+        </tr>
   			<tr>
   				<td>Total Paid:</td>
-  				<td style="font-weight:bold;">{{student.totalPaid() | currency:""}}</td>
+  				<td style="font-weight:bold;">{{getTotalPayments() | currency:""}}</td>
   			</tr>
   			<tr class="danger">
   				<td>Due:</td>
-  				<td style="color:red;">{{fees[student.feeGroup].amount - student.totalPaid() | currency:""}}</td>
+  				<td style="color:red;">{{data.fees[data.student.feeId].amount-getTotalPayments()  | currency:""}}</td>
   			</tr>
   		</table>
-  	</div>
-  </div>
+
+
+      <form ng-if="accessCode === 'admin'" class="form-horizontal" role="form" style="margin-top:20px;">
+        <h5 style="text-decoration:underline;"><strong>Disciplinary Record</strong></h5>
+        <div class="form-group">
+          <label for="absence" class="col-sm-7 control-label">
+            Hours of Absence
+          </label>
+          <div class="col-sm-5">
+            <input id="absence"
+                   type="number"
+                   class="form-control"  
+                   ng-model="data.dcard['absence']"
+                   ng-change="save(data.dcard)"
+                   ng-readonly="accessCode === 'admin'">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="council" class="col-sm-7 control-label">
+            Attended Disciplinary Council
+          </label>
+          <div class="col-sm-5">
+            <input id="council"
+                   type="number"
+                   class="form-control"  
+                   ng-model="data.dcard['council']"
+                   ng-change="save(data.dcard)"
+                   ng-readonly="accessCode === 'admin'">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="warned" class="col-sm-7 control-label">
+            Warned
+          </label>
+          <div class="col-sm-5">
+            <input id="warned"
+                   type="number"
+                   class="form-control"  
+                   ng-model="data.dcard['warned']"
+                   ng-change="save(data.dcard)"
+                   ng-readonly="accessCode === 'admin'">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="suspended" class="col-sm-7 control-label">
+            Suspended
+          </label>
+          <div class="col-sm-5">
+            <input id="suspended"
+                   type="number"
+                   class="form-control"  
+                   ng-model="data.dcard['suspended']"
+                   ng-change="save(data.dcard)"
+                   ng-readonly="accessCode === 'admin'">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="expelled" class="col-sm-7 control-label">
+            Promotion Status
+          </label>
+          <div class="col-sm-5">
+            <div  class="btn-group">
+              <!-- If status is set to automatic -->
+              <button ng-if="data.student.status['2014'] === 0 && studentStatus[data.student._id]"
+                      class="btn btn-sm btn-success dropdown-toggle 
+                             {{accessCode==='admin' ? 'disabled' : ''}}" 
+                      data-toggle="dropdown">
+                <i class="glyphicon" 
+                   ng-class="PROMOTE_OPTIONS[0].icon"></i>
+                &nbsp;{{PROMOTE_OPTIONS[1].name}}
+              </button>
+              
+              <button ng-if="data.student.status['2014'] === 0 && !studentStatus[data.student._id]"
+                    class="btn btn-sm btn-warning dropdown-toggle
+                           {{accessCode==='admin' ? 'disabled' : ''}}" 
+                    data-toggle="dropdown">
+                  <i class="glyphicon" 
+                   ng-class="PROMOTE_OPTIONS[0].icon"></i>
+                &nbsp;{{PROMOTE_OPTIONS[2].name}}
+              </button>
+                
+              <!-- Otherwise show whatever it's manually set to -->
+                <button ng-if="data.student.status['2014'] > 0"
+                        class="btn btn-sm dropdown-toggle" 
+                        ng-class="'btn-'+PROMOTE_OPTIONS[data.student.status['2014']].style
+                                  {{accessCode==='admin' ? 'disabled' : ''}}"
+                        data-toggle="dropdown">
+                    <i ng-class="PROMOTE_OPTIONS[data.student.status['2014']].icon"></i>
+                  &nbsp;{{PROMOTE_OPTIONS[data.student.status['2014']].name}}
+                </button>
+              
+              <ul class="dropdown-menu">
+                <li>
+                  <a ng-click="data.student.setStatus('2014', 0)">
+                    <i ng-class="PROMOTE_OPTIONS[0].icon"></i>
+                    {{PROMOTE_OPTIONS[0].name}}
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li ng-repeat="(optionIndex, option) in PROMOTE_OPTIONS.slice(1)">
+                  <a ng-click="data.student.setStatus('2014', optionIndex + 1)">
+                    <i ng-class="PROMOTE_OPTIONS[optionIndex + 1].icon"></i>
+                    {{PROMOTE_OPTIONS[optionIndex + 1].name}}
+                  </a>
+                </li>
+              </ul>
+            </div><!-- /btn-group -->
+          </div>
+        </div>
+        <h5 style="text-decoration:underline;margin-top:20px;">
+          <strong>Comments</strong>
+        </h5>
+        <div ng-if="accessCode === 'classmaster'"
+             style="margin-bottom:55px;">
+        <textarea class="form-control" 
+                  style="margin-bottom:10px;" 
+                  rows="3"
+                  ng-model="newComment.text"></textarea>
+        <button class="btn btn-default pull-right"
+                ng-class="!newComment.isValid() ? 'disabled' : 'tests'"
+                ng-click="addComment()">Add Comment</button>
+        </div>
+        <table class="table table-striped" >
+          <tr ng-repeat="(commentIndex, comment) in data.comments">
+            <td>
+              <span style="color:green;">{{Users.get(comment.userId).fullname}}</span> - 
+              <span style="color:#666">{{comment._id | date:'medium'}}</span>
+              <br>
+              <strong>{{comment.text}}</strong>
+            </td>
+          </tr>
+        </table>
+      </form>
+
+
+  	</td>
+  </tr></table>
   </div>
 	
 </div>	

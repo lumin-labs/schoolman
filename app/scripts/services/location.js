@@ -6,7 +6,7 @@ angular.module('SchoolMan')
     var self = {};
     
     self.open = function(params){
-      console.log("Open ", params)
+      console.log("Ok so far: ", params);
       var newParams = angular.copy($routeParams);
       angular.forEach(params, function(param, paramKey){
         newParams[paramKey] = param;

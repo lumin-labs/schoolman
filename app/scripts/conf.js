@@ -4,6 +4,9 @@ angular.module('SchoolMan')
   .constant('VERSION',{
     mode:"gths"
   })
+  .constant('SCHOOLYEAR',{
+    year:"2014/2015"
+  })
   .constant('TABS', [
   	{
   		label:"Users",
@@ -13,14 +16,6 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
   	 	icon:'glyphicon-lock'
   	},
-  	{
-  		label:"Subjects",
-  	 	page:"subjects",
-  	 	access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-book'
-  	},
     {
       label:"Departments",
       page:"departments",
@@ -29,13 +24,21 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-bookmark'
     },
-    {
-      label:"Balance Sheet",
-      page:"finance",
-      access:['registrar'],
+  	{
+  		label:"Classes",
+  	 	page:"classes",
+  	 	access:['admin'],
       exclude:[],
       modes:["gths", "ghs"],
-      icon:'glyphicon-envelope'
+  	 	icon:'glyphicon-calendar'
+  	},
+    {
+      label:"Subjects",
+      page:"subjects",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-book'
     },
     {
       label:"Fee Settings",
@@ -45,7 +48,7 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
-  	{
+    {
       label:"Students",
       page:"students",
       access:['admin', 'registrar'],
@@ -54,10 +57,18 @@ angular.module('SchoolMan')
       icon:'glyphicon-list-alt'
     },
     {
+      label:"Balance Sheet",
+      page:"finance",
+      access:['registrar', 'admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-envelope'
+    },
+    {
       label:"Student Profile",
       page:"registrarProfile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', "finance", "users", "subjects", "departments", "promotion", "classes"],
+      exclude:['registration', 'fees', 'students', "finance", "users", "subjects", "user", "departments", "promotion", "classes"],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -77,22 +88,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-calendar'
     },
-  	{
-  		label:"Classes",
-  	 	page:"classes",
-  	 	access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-calendar'
-  	},
-    {
-      label:"Promotion",
-      page:"promotion",
-      access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-thumbs-up'
-    },
+    // {
+    //   label:"Promotion",
+    //   page:"promotion",
+    //   access:['admin'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-thumbs-up'
+    // },
   	{
   		label:"My Classes",
   	 	page:"myclasses",
@@ -140,6 +143,22 @@ angular.module('SchoolMan')
       exclude:[],
       modes:["gths"],
       icon:'glyphicon-list-alt'
+    },
+    {
+      label:"Class Council",
+      page:"classcouncil",
+      access:['classmaster','admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-folder-open'
+    },
+    {
+      label:"User Settings",
+      page:"user",
+      access:['classmaster','admin','teacher', 'registrar'],
+      exclude:'all',
+      modes:["gths", "ghs"],
+      icon:'glyphicon-cog'
     },
  ]);
 

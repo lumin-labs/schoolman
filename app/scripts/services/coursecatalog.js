@@ -16,7 +16,7 @@
  * and for configuring which courses are available in which classes
  */
 angular.module('SchoolMan')
-  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups, Forms, Subject) {
+  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups, Forms) {
     
     var self = {};
     var courses = {};
@@ -32,7 +32,6 @@ angular.module('SchoolMan')
 
     // Load data into the object model
     Data.get('coursecatalog', function(d){
-        console.log("template groups before model", d);
         template = d;
         angular.forEach(Forms.all(), function(form, formIndex){
             angular.forEach(Groups.getAll(), function(group, groupIndex){
@@ -48,7 +47,7 @@ angular.module('SchoolMan')
     });
 
     angular.forEach(template.subjects, function(subject, subjectKey){
-        var subject = modelTransformer.transform(subject, Subject);
+        var subject = modelTransformer.transform(subject, model.Subject);
         template.subjects[subjectKey] = subject;
         subject.onChange(function(msg){
             self.save();
@@ -260,6 +259,7 @@ angular.module('SchoolMan')
      * which includes the courseId and a timestamp.
      */
     self.getTerms = function(){
+        console.log("inside course catalog get terms: ", template);
         return template.terms;
     };
 

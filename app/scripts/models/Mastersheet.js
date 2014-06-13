@@ -136,20 +136,46 @@ angular.module('SchoolMan')
 
         var stats = {
           numStudents:Object.keys(this.table.students).length,
+          numPresent:0,
           passing:0,
           failing:0,
-          percentPassing:0
+          percentPassing:0,
+          percentFailing:0,
+          classAverage:0,
+          classRange:0
         }
+
+        var classTotal = 0;
+        var maxStudent = 0;
+        var minStudent = 20;
+        var countPresent = 0;
 
         angular.forEach(self.table.students, function(student, studentId){
           if(self.getAcTotals(studentId).average >= score){
             stats.passing += 1;
           }
+          if(!isNaN(student.acAverage)){
+            classTotal=student.acAverage + classTotal;
+            stats.numPresent += 1;
+          }
+          if(student.acAverage < minStudent){
+            minStudent = student.acAverage;
+          }
+          if(student.acAverage > maxStudent){
+            maxStudent = student.acAverage;
+          }
         });
         
         stats.failing = stats.numStudents - stats.passing;
         stats.percentPassing = stats.passing / stats.numStudents;
+        stats.percentFailing = 1 - stats.percentPassing;
+        stats.classAverage = classTotal / stats.numStudents;
+        stats.classRange = maxStudent - minStudent;
+        if(stats.classRange < 0){
+          stats.classRange = 0;
+        }
 
+        console.log("mastersheet numstats: ", stats);
         return stats;
       };
 

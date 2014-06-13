@@ -2,6 +2,7 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="FeesCtrl">
+		<div class="printonly"><h3>Fee List</h3></div>
 <nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
@@ -56,19 +57,23 @@
 			<tr>
 				<th>Name</th>
 				<th>Amount</th>
+				<th>Students</th>
 				<th style="width:80px;">Remove</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="(feeKey, fee) in fees">
+			<tr ng-repeat="(feeIndex, fee) in data.fees">
 				<td class="column readonly" style="width:400px;vertical-align:middle;">
 					<div class="cell">{{fee.name}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
 					<div class="cell">{{fee.amount | currency:""}}</div>
 				</td>
+				<td>
+					{{fee.students.length}}
+				</td>
 				<td class="remove text-center" style="width:80px;">
-					<a ng-click="remove(fee)">
+					<a ng-click="remove(fee)" ng-if="fee.students && fee.students.length === 0">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>

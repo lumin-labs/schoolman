@@ -18,7 +18,7 @@ angular.module('SchoolMan')
     var subjects = CourseCatalog.getSubjects($routeParams.formIndex);
 
     var updateGroupStats = function(group, stats){
-        console.log("Updating ", group , stats);
+        //console.log("Updating ", group , stats);
         $scope.groupStats[group] = stats;
     };
 

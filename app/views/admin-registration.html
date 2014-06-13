@@ -1,7 +1,7 @@
 <div class="row ">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-	<div class="col-md-10 marksheet" ng-controller="StudentsCtrl">
+	<div class="col-md-10 marksheet" ng-controller="RegistrationCtrl">
 
   <div class="row">
   	<div class="col-md-7" style="border-right:solid 0px #ddd;">
@@ -9,44 +9,46 @@
 			  <div class="form-group">
 			    <label for="uid" class="col-sm-3 control-label">Student ID</label>
 			    <div class="col-sm-9">
-			      <p class="form-control-static">{{newStudent.id}}</p>
+			      <p class="form-control-static">{{newStudent._id}}</p>
 			    </div>
 			  </div>
-			  <div class="form-group" ng-controller="ClassmenuCtrl">
+			  <div class="form-group">
 			    <label for="uid" class="col-sm-3 control-label">Class</label>
 			    <div class="col-sm-9">
 			      <div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
-					      {{newStudent.form ? forms[newStudent.form].name : "Select Form"}} 
+					      {{newStudent.formIndex || newStudent.formIndex === 0 ? data.forms[newStudent.formIndex].name : "Select Form"}}  
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li ng-repeat="(formIndex, form) in forms">
-					        <a ng-href="" ng-click="newStudent.form=formIndex">{{form.name}}</a>
+					      <li ng-repeat="(formIndex, form) in data.forms">
+					        <a ng-href="" ng-click="newStudent.formIndex=formIndex">{{form.name}}</a>
 					      </li>
 					    </ul>
 					  </div>
 					  <!-- Department Dropdown -->
 					  <div class="btn-group">
-					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
-					      {{departments[newStudent.department].name}} 
+					    <button class="{{newStudent.formIndex === null ? 'disabled' : ''}} btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+					      {{newStudent.deptId ? data.departments[newStudent.deptId].name : "Select Department"}} 
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li ng-repeat="(depKey, dep) in departments">
-					        <a ng-click="newStudent.department = depKey">{{dep.name}}</a>
+					      <li ng-repeat="(deptId, dept) in data.departments"
+					          ng-if="dept.forms[newStudent.formIndex] === 1">
+					        <a ng-click="newStudent.deptId = deptId">{{dept.name}}</a>
 					      </li>
 					    </ul>
 					  </div>
 			      <!-- Group Dropdown -->
 					  <div class="btn-group">
-					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
-					      {{groups[newStudent.group].name}} 
+					    <button class="{{newStudent.deptId === null ? 'disabled' : ''}} btn btn-sm btn-default dropdown-toggle" 
+					            data-toggle="dropdown">
+					      {{newStudent.groupId ? data.groups[newStudent.groupId].name : "Select Group"}} 
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li ng-repeat="(groupKey, group) in groups">
-					        <a ng-click="newStudent.group = groupKey">{{group.name}}</a>
+					      <li ng-repeat="(groupId, group) in data.groups">
+					        <a ng-click="newStudent.groupId = groupId">{{group.name}}</a>
 					      </li>
 					    </ul>
 					  </div>
@@ -59,13 +61,16 @@
 			    	<div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
 					    	<span ng-if="newStudent.feeGroup !== ''">
-					    		{{fees[newStudent.feeGroup].name}} ({{fees[newStudent.feeGroup].amount | currency:""}})
+					    		{{newStudent.feeId ? data.fees[newStudent.feeId].name : "Select Fee"}} 
+					    		<span ng-if="newStudent.feeId">
+						    		({{data.fees[newStudent.feeId].amount | currency:""}})
+					    		</span>
 					    	</span>
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li ng-repeat="(feeKey, fee) in fees">
-					        <a ng-click="newStudent.feeGroup = feeKey">
+					      <li ng-repeat="(feeKey, fee) in data.fees">
+					        <a ng-click="newStudent.feeId = feeKey">
 					        {{fee.name}} ({{fee.amount | currency:""}})</a>
 					      </li>
 					    </ul>
@@ -83,15 +88,6 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="gender" class="col-sm-3 control-label">Gender</label>
-			    <div class="col-sm-9">
-			      <input id="gender"
-			      		 class="form-control" 
-			      		 placeholder="Gender" 
-			      		 ng-model="newStudent.sex">
-			    </div>
-			  </div>
-			  <div class="form-group">
 			    <label for="birthdate" class="col-sm-3 control-label">Birthdate</label>
 			    <div class="col-sm-9">
 			      <input id="birthdate" 
@@ -99,6 +95,23 @@
 			       		 placeholder="Birth Date" 
 			       		 ng-model="newStudent.birth"
 			       		 type="date">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="feeGroup" class="col-sm-3 control-label">Gender</label>
+			    <div class="col-sm-9">
+			      <div class="btn-group">
+			        <button class=" btn btn-sm btn-default dropdown-toggle" 
+			                data-toggle="dropdown">
+			          <span>{{newStudent.sex || "Select Gender"}}</span>
+			          &nbsp;<span class="caret"></span>
+			        </button>
+			        <ul class="dropdown-menu">
+			          <li ng-repeat="gender in ['Female', 'Male']">
+			            <a ng-click="newStudent.sex = gender">{{gender}}</a>
+			          </li>
+			        </ul>
+			      </div>
 			    </div>
 			  </div>
 			  <br>
@@ -132,7 +145,7 @@
 			  <br>
 			  <div class="form-group">
 			    <div class="col-sm-offset-3 col-sm-9">
-			      <button type="submit" class="btn btn-info" ng-click="addStudent()">
+			      <button type="submit" class="btn btn-info" ng-click="add(newStudent)">
 			        Add Student 
 			      </button>
 			    </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Groups', function Groups(Slug, Data, model, modelTransformer) {
+  .service('Groups', function Groups($q, Slug, Data2, model, modelTransformer) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var groups = {};
@@ -21,12 +21,12 @@ angular.module('SchoolMan')
     };
 
     self.remove = function(group){
-    	var obj = group;
-    	if(typeof obj === "Group"){
-    		delete groups[group.code];
-    	} else if(groups.hasOwnProperty(group)){
-    		delete groups[group];
-    	}
+    	Data2.remove(group).then(function(success){
+            console.log("Group removed: ", success);
+            delete groups[group._id];
+        }).catch(function(error){
+            $log.error("groups.js : remove :", error);
+        });
     };
 
     self.add = function(group){
@@ -34,16 +34,29 @@ angular.module('SchoolMan')
     	groups[group.code] = group;
     };
 
-    // Load Data
-    Data.get("groups", function(obj){
-    	angular.forEach(obj, function(groupData, groupKey){
-    		var group = modelTransformer.transform(groupData, model.Group);
-    		groups[group.code] = group;
-    		group.onChange(function(msg){
-    			self.save();
-    		});
-    	});
-    });
+
+    self.load = function(){
+      var deferred = $q.defer();
+      // Load Data
+      var map = function(doc, emit){
+        if(doc.datatype === model.Group.datatype._id){
+          emit(doc._id, {_id:doc.datatype, data:doc});
+        } 
+      };
+      Data2.query(map, {include_docs : true}).then(function(success){
+          angular.forEach(success.rows, function(data, rowIndex){
+              var spec = data.doc;
+              var obj = model.parse(data.value.data, spec);
+              var group = modelTransformer.transform(obj, model.Group);
+              groups[group._id] = group;
+          });
+          deferred.resolve(groups);
+      }).catch(function(error){
+          deferred.reject(error);
+      });
+
+      return deferred.promise;
+    };
 
     return self;
   });

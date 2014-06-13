@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Data', function Data($timeout, $log) {
+  .service('Data', function Data($timeout, $log, VERSION) {
 
     var SCHEMA = {
         "version":"",
@@ -21,9 +21,10 @@ angular.module('SchoolMan')
     //     saved = true;
     //     timestamp:341443141431;
     // }
-    var nUpdates = 0;
+    var updates = {};
  
-  	var fileWriter = null;
+  	var fileWriters = {student:null, schoolman:null};
+
 
     var data = {};
 
@@ -55,37 +56,44 @@ angular.module('SchoolMan')
 
     	console.log("Saving, ", obj);
 
-    	// 1. Update data in RAM
-    	angular.forEach(obj, function(d, key){
-    		data[key] = d;
-    	});
+        var write = function(dataTable, data){
+            // 2. Write data to file
+            var content = angular.toJson(data);
+            var header  = {type:'application/json'};
+            var blob = new Blob([content]);
 
-    	// nUpdates += 1;
+            var fileWriter = fileWriters[dataTable];
 
-    	// 2. Write data to file
-	    	var content = angular.toJson(data);
-		    var header  = {type:'application/json'};
-		    var blob = new Blob([content]);
-
-	    	fileWriter.onwriteend = function() {
-			    if (fileWriter.length === 0) {
-			        //fileWriter has been reset, write file
-			        fileWriter.write(blob, header);
-			    } else {
-			        //file has been overwritten with blob
-			        //use callback or resolve promise
+            fileWriter.onwriteend = function() {
+                if (fileWriter.length === 0) {
+                    //fileWriter has been reset, write file
+                    fileWriter.write(blob, header);
+                } else {
+                    //file has been overwritten with blob
+                    //use callback or resolve promise
                     self.logEstimateSize();  
-			    }
-			    nUpdates = 0;
-			    callback("ok");
-			};
+                }
+                callback("ok");
+            };
 
-	        fileWriter.onerror = function(e) {
-		        console.log('Write failed: ' + e.toString());
-		    };
+            fileWriter.onerror = function(e) {
+                console.log('Write failed: ' + e.toString());
+            };
 
-		    fileWriter.truncate(0);  
+            fileWriter.truncate(0); 
+        }
 
+        if(obj){
+            // 1. Update data in RAM
+            angular.forEach(obj, function(d, key){
+                data[key] = d;
+            });
+            // if(obj.hasOwnProperty("students")){
+            //     write("students", obj.students);
+            // }
+        }
+
+        write("schoolman", data)
     };
 
     self.logEstimateSize = function(){
@@ -143,17 +151,92 @@ angular.module('SchoolMan')
 
     self.saveLater = function(obj, callback){
 
-        nUpdates += 1;
-
     	// 1. Update data in RAM
     	angular.forEach(obj, function(d, key){
     		data[key] = d;
+        if(!updates.hasOwnProperty(key)){
+          updates[key] = {};
+          updates[key]._id = key;
+          updates[key].n = 1;
+          updates[key].timeAdded = new Date();
+        } else {
+          updates[key].n += 1;
+          updates[key].timeAdded = new Date();
+        }
+        console.log("Updates saved for write:", updates);
     	});
-
-    	nUpdates += 1;
 
     };
 
+    self.loadFile =  function(fileEntry, callback){
+        console.log("Data service loading entry: ", fileEntry);
+        if(fileEntry){
+             
+
+            fileEntry.file(function(file){
+                var reader = new FileReader();
+
+                reader.onload = function(evt) {
+                  var content = evt.target.result;
+                  data = angular.fromJson(content);
+                  callback(true);
+
+                  // Delete any keys listed in DELETE_OLD_KEYS
+                  angular.forEach(data, function(obj, key){
+                    if(!SCHEMA.hasOwnProperty(key)){
+                        delete data[key];
+                    }
+                  });
+
+                };
+
+                reader.readAsText(file);
+            });
+        } else {
+            callback(false);
+        }
+    };
+
+    var addWriter = function(name, fileEntry){    
+        fileEntry.createWriter(function(writer){
+            fileWriters[name]=writer;
+        });
+    }
+
+    self.loadWorkspace = function(entryId, callback){
+        console.log("Data service loading workspace: ", entryId);
+        chrome.fileSystem.restoreEntry(entryId, function(dirEntry){
+            console.log("restored entry", dirEntry);
+            var reader = dirEntry.createReader();
+            var files = {};
+            reader.readEntries(function(entries){
+                angular.forEach(entries, function(entry, entryIndex){
+                    files[entry.name] = entry;
+                });
+                if(VERSION.mode.toLowerCase() === "gths"){                    
+                    addWriter("schoolman", files["gths.data"]);
+                    self.loadFile(files["gths.data"], function(success){
+                        callback(success);
+                    });
+                } else if (VERSION.mode.toLowerCase() === "ghs"){                    
+                    addWriter("schoolman", files["ghs.data"]);
+                    self.loadFile(files["ghs.data"], function(success){
+                        callback(success);
+                    });
+                } else {
+                    callback("File failed to load");
+                }
+                console.log("read entry schoolman", files);
+            });
+            // console.log("Reader:", reader);
+            // dirEntry.getFile("students.data",{create:true},function(fileEntry){
+            //    addWriter("students",fileEntry);
+            //    console.log("File Entry for students:",fileEntry);
+            // });
+        });
+    };
+
+    // DEPRECATED: dont use, delete
     self.load = function(dataFileEntryId, callback){
     	console.log("Data service loading entry: ", dataFileEntryId);
     	chrome.fileSystem.restoreEntry(dataFileEntryId, function(fileEntry){
@@ -194,22 +277,41 @@ angular.module('SchoolMan')
     // to a polling method
     var poll = function(){
     	$timeout(function() {
-    		if(nUpdates > 0){
-    			console.log("saving " + nUpdates + " updates");
-    		    self.save({}, function(){
-                   console.log("Data Saved, ", data); 
-                }); 
-                poll();
-	    	} else {
-	    		poll();
-	    	}
+        
+        var tables = Object.keys(updates).map(function(key){
+          return updates[key];
+        });
+		    console.log("Tables before filter:", tables);
+
+
+        tables = tables.filter(function(table){
+          return table.n > 0;
+        });
+          
+        if(tables.length > 0){
+
+          tables.sort(function(a,b){return a.timeAdded - b.timeAdded});
+          console.log("Tables to save:", tables);
+
+
+          var table = tables[0];
+          var d = {};
+          d[table._id] = data[table._id];
+          self.save(d, function(msg){
+            console.log("Data Saved, ", updateKey, data[updateKey]); 
+          });
+
+          updates[table._id].n = 0;
+        } else {
+          console.log("No Tables", tables);
+        }
+
+        poll();
+
     	}, 5000);
     }
-    poll();
 
-    window._SchoolMan = {
-        Data : self
-    }
+    // poll();
 
     return self;
 

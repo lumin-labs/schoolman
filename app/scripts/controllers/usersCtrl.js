@@ -1,25 +1,25 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('UsersCtrl', function ($scope, $user, User) {
+  .controller('UsersCtrl', function ($scope, Users, model, Location) {
     
-    $scope.User = User;
-    $scope.tempUser = new User();
+    $scope.data = {};
+    $scope.data.users = Users.getAll();
+    $scope.User = model.User;
+    $scope.tempUser = new model.User();
 
-    $scope.getUsers = function(){
-    	var users = [];
-    	angular.forEach($user.getUsers(), function(user, username){
-    		users.push(user);
-    	});
-    	return users;
-    }
+    $scope.open = Location.open;
 
     $scope.addUser = function(){
-    	$user.post($scope.tempUser);
-    	$scope.tempUser = new User();
+    	$scope.tempUser.save().then(function(success){
+        $scope.data.users[success.id] = $scope.tempUser;
+    	  $scope.tempUser = new model.User();
+      }).catch(function(error){
+        console.log("Could not save user:", error);
+      });
     };
 
-    $scope.removeUser = $user.removeUser;
+    $scope.remove = Users.remove;
 
   });
 

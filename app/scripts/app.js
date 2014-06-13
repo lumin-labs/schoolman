@@ -25,15 +25,17 @@ angular.module('SchoolMan', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'slugifier'
+  'slugifier',
+  'pouchdb'
 
 ]).config(function ($routeProvider, TABS) {
 
     var TEMPLATE_DIRECTORY = {
-      login:    "login.html",
+      login:    "login2.html",
       login404: "login.html",
       students: "admin-students.html",
       users:    "admin-users.html",
+      user:    "user.html",
       subjects:  "admin-subjects.html",
       classes:  "admin-classes.html",
       transcript: "transcript.html",
@@ -45,7 +47,8 @@ angular.module('SchoolMan', [
       finance:"registrar-finance.html",
       reportcardGTHS:"reportcard-gths.html",
       registrarProfile:"registrar-profile.html",
-      classmasterProfile:"classmaster-profile.html"
+      classmasterProfile:"classmaster-profile.html",
+      classcouncil:"classcouncil.html"
     };
 
     var getTemplate = function(p){
@@ -53,7 +56,7 @@ angular.module('SchoolMan', [
       var template = "";
       if(TEMPLATE_DIRECTORY.hasOwnProperty(p.page)){
         template = TEMPLATE_DIRECTORY[p.page];
-      } else if(p.hasOwnProperty('page') && p.hasOwnProperty('view')){
+      } else if(p.hasOwnProperty('page') && p.hasOwnProperty('subpage')){
         template = p.page + '.html';
       } else {
         console.log("404 Page Not Found");
@@ -65,7 +68,7 @@ angular.module('SchoolMan', [
     };
 
     $routeProvider
-      .when('/:page/:view/:formIndex/:groupIndex/:subjectKey/:termIndex/:studentId/:username/:accessCode', {
+      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:username/:accessCode', {
         templateUrl:function(p){ return getTemplate(p);},
         // controller:'MainCtrl'
       })
@@ -75,8 +78,8 @@ angular.module('SchoolMan', [
         controller:'LoginCtrl'
       })
       .when('/loading', {
-        templateUrl:'/views/loading.html',
-        controller:'LoadingCtrl'
+        templateUrl:'/views/loading3.html',
+        controller:'Loading3Ctrl'
       })
       .otherwise({
         redirectTo: '/loading'
