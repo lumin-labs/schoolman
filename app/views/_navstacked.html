@@ -11,7 +11,11 @@
 	          <li ng-repeat="(accessKey, accessBool) in teacher.access" 
 				  	    ng-if="accessBool === 1"
 				  	    ng-class="accessKey === userAccess ? 'active' : ''">
-					  	<a ng-click="login(accessKey)">{{User.roles[accessKey].name}}</a>	
+					  	<a ng-click="login(accessKey)" 
+					  	   ng-if="settings.access[accessKey] === 1">{{User.roles[accessKey].name}}</a>	
+					  	<a ng-click="login(accessKey)" 
+					  	   ng-if="settings.access[accessKey] === 0"
+					  	   style="color:#999;">{{User.roles[accessKey].name}}</a>
 				  	</li>
 	        </ul>
 	      </div>
