@@ -12,12 +12,17 @@
     </div>
     <div class="form-group">
       <label for="InputPassword">Password</label>
-      <input type="password" 
+      <input type="password"
              class="form-control" 
              id="InputPassword" 
              placeholder="Password"
              tabindex="2"
-             ng-model="tempUser.password">
+             ng-model="tempUser.password"
+             ng-keypress="checkCapsLock($event)">
+    </div>
+    <div class="alert alert-sm alert-warning" style="height:22px;padding-top:1px;position:absolute;"  ng-if="capsLock">
+        <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
+        <strong>Warning: </strong>Caps Lock is on.
     </div>
     <div ng-if="status === 200">&nbsp;</div>
     <div ng-if="status === 404" style="color:red;">User not found</div>
