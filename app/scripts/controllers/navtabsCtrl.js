@@ -44,7 +44,7 @@ angular.module('SchoolMan')
 
     $scope.login = function(access){
       console.log(access, $scope.settings);
-      if(!$scope.settings.access[access]){
+      if(!access === 'sales' && !$scope.settings.access[access]){
         Location.open({page:"notactive", accessCode:access});
       }else {
         Location.open({page:"default_"+access, accessCode:access});
