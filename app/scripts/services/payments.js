@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Payments', function Payments($q, Data2, model, modelTransformer, Fees) {
+  .service('Payments', function Payments($q, Data2, model, modelTransformer, Fees, Students) {
 
 
   	self = {};
@@ -26,7 +26,7 @@ angular.module('SchoolMan')
   			  	
   			  	var studentId = data.value._id;
   			  	if(!collection.hasOwnProperty(studentId)){
-  			  		var student = model.parse(data.value.data, dataModelStudent.datatype);
+  			  		var student = Students.get(studentId);
                   student.payments = [];
   			  		collection[studentId] = student;
   			  	};
