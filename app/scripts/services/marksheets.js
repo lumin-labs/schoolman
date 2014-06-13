@@ -133,7 +133,7 @@ angular.module('SchoolMan')
 
     self.combine = function(marksheets){
 
-      console.log("Combining Marksheets", marksheets);
+      // console.log("Combining Marksheets", marksheets);
 
       // Create new Marksheet
       var head = marksheets[0];
