@@ -193,7 +193,6 @@ schoolman.provider('model', function modelProvider() {
       _id:doc._id,
       _rev:doc._rev
     };
-    console.log("Parsing", doc, spec);
     angular.forEach(spec.fields, function(field, fieldIndex){
       data[field.key] = doc[spec.fields_key][fieldIndex];
     });
