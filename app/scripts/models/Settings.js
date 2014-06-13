@@ -41,5 +41,7 @@ schoolman.config(['modelProvider', function(model){
   // };
   model.Settings = Settings;
 
+  console.log("Settings added to model", model);
+
 }]);
  
