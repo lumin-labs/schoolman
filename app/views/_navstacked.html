@@ -11,7 +11,11 @@
 	          <li ng-repeat="(accessKey, accessBool) in teacher.access" 
 				  	    ng-if="accessBool === 1"
 				  	    ng-class="accessKey === userAccess ? 'active' : ''">
-					  	<a ng-click="login(accessKey)">{{User.roles[accessKey].name}}</a>	
+					  	<a ng-click="login(accessKey)" 
+					  	   ng-if="settings.access[accessKey] === 1">{{User.roles[accessKey].name}}</a>	
+					  	<a ng-click="login(accessKey)" 
+					  	   ng-if="settings.access[accessKey] === 0"
+					  	   style="color:#999;">{{User.roles[accessKey].name}}</a>
 				  	</li>
 	        </ul>
 	      </div>
@@ -26,7 +30,7 @@
 					<li ng-repeat="(tabIndex, tab) in TABS"
 						ng-if="userHasAccess(tab)"
 						ng-class="activeIfPage(tab.page)">
-						<a ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
+						<a ng-if="settings.access[userAccess]" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
 					</li>
 				</ul>
 			</div>

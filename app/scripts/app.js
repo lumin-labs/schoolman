@@ -48,7 +48,8 @@ angular.module('SchoolMan', [
       reportcardGTHS:"reportcard-gths.html",
       registrarProfile:"registrar-profile.html",
       classmasterProfile:"classmaster-profile.html",
-      classcouncil:"classcouncil.html"
+      classcouncil:"classcouncil.html",
+      notactive:"notactive.html"
     };
 
     var getTemplate = function(p){

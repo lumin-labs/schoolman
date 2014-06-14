@@ -179,6 +179,7 @@ angular.module('SchoolMan')
       } else {
         filtered = students;
       };
+      console.log("Filtering students", params, _students);
     	console.log("Filtered students", params, filtered);
     	deferred.resolve(filtered);
     	return deferred.promise;
@@ -187,12 +188,11 @@ angular.module('SchoolMan')
 
     self.get = function(studentId){
       var deferred = $q.defer();
-      db.get(studentId).then(function(data){
-        var student = model.parse(data, dataModel.datatype);
-        deferred.resolve(student);
-      }).catch(function(error){
-        console.log("Failed to get student", error);
-      });
+      if(_students.hasOwnProperty(studentId)){
+        deferred.resolve(_students[studentId]);
+      }else{
+        deferred.reject("Student does not exist");
+      }
       return deferred.promise;
     };
 
@@ -213,10 +213,16 @@ angular.module('SchoolMan')
       .then(function(keys){
 
         angular.forEach(keys, function(key, index){
-          self.get(key).then(function(student){
+          db.get(key).then(function(data){
+            var student = model.parse(data, dataModel.datatype);
+            student = new model.Student(student);
             _students[student._id] = student;
+          }).catch(function(error){
+            console.log("Failed to get student", error);
           });
         });
+
+        deferred.resolve(_students);
 
       })
 

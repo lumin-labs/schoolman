@@ -56,6 +56,10 @@ schoolman.config(['modelProvider', function(model){
         key:"status",
         type:"object",
         required:true
+      },{
+        key:"totalPaid",
+        type:"number",
+        required:false
       }],
       fields_key:0
     }
@@ -86,13 +90,12 @@ schoolman.config(['modelProvider', function(model){
     this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
       2014:0
     }; 
+    this.totalPaid = 0; // payment aggregator because pouchdb is too slow to compute a list of student payments
 
     // Initialize object with spec properties, excluding any that aren't defined above
     var self = this;
     angular.forEach(spec, function(property, key){
-      if(self.hasOwnProperty(key)){
-        self[key] = property;
-      }
+      self[key] = property;
     });
 
     // callback functions
