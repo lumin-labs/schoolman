@@ -3,11 +3,15 @@
 		<div class="col-md-12">
 			<div class="btn-group btn-group-justified" style="margin-right:0px;">
 				<div class="btn-group" style="margin-right:0px;">
-	        <a class="btn btn-lg btn-default btn-role dropdown-toggle" 
+	        <a class="btn btn-lg dropdown-toggle {{userAccess === 'sales' ? 'btn-warning' : 'btn-default'}}" 
 	           data-toggle="dropdown">
 	          {{User.roles[userAccess].name}} <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu" role="menu">
+	          <li>
+					  	<a ng-click="login('sales')"
+					  	   style="color:orange;">Sales</a>	
+				  	</li>
 	          <li ng-repeat="(accessKey, accessBool) in teacher.access" 
 				  	    ng-if="accessBool === 1"
 				  	    ng-class="accessKey === userAccess ? 'active' : ''">

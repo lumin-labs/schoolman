@@ -13,6 +13,7 @@ angular.module('SchoolMan')
 
     var defaults = {
       default_admin:"users",
+      default_sales:"customerSettings",
       default_classmaster:"classmasterMarksheet",
       default_teacher:"myclasses",
       default_registrar:"registration"

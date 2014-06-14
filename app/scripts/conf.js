@@ -160,6 +160,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
+    {
+      label:"Customer Settings",
+      page:"customerSettings",
+      access:['sales'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-cog'
+    },
  ]);
 
 
