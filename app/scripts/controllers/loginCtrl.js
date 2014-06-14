@@ -45,7 +45,7 @@ angular.module('SchoolMan')
           console.log("Login Data", data);
           if(data.status === 200){
             var user = data.user;
-            accessRequest = accessRequest === "undefined" ? user.getHighestAccess() : accessRequest;
+            accessRequest = accessRequest === "undefined" || !user.hasAccess(accessRequest) ? user.getHighestAccess() : accessRequest;
             console.log("accessRequest", accessRequest);
 
             Cache.set({user:user});
