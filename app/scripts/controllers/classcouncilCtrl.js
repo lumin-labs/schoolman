@@ -61,10 +61,7 @@ angular.module('SchoolMan')
         
         $scope.groupStats = performanceStats();
 
-        if($scope.score === 'undefined' || isNaN($scope.score)){
-            $scope.score = $scope.data.classcouncil.passingScore;
-        }
-        
+        $scope.score = $scope.data.classcouncil.passingScore;
         
         // get rankings from combined marksheet
         $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);

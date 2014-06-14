@@ -14,6 +14,8 @@ angular.module('SchoolMan')
       $scope.data.students = [];
       $scope.data.rankings = {};
 
+      $scope.round = Math.round;
+
       $scope.data.view = 'mastersheet';
       $scope.setGraphView = function(view){
         $scope.data.view = view;
