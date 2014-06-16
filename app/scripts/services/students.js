@@ -3,7 +3,10 @@
 angular.module('SchoolMan')
   .service('Students', function Students($q, model, modelTransformer, pouchdb) {
 
-  	var db = pouchdb.create("db_students");
+  	var db = model.Student.db;
+    if(typeof db === "string"){
+      db = pouchdb.create(model.Student.db);
+    }
 
   	var _students = {};
 
