@@ -60,6 +60,7 @@ angular.module('SchoolMan')
         $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;      
         
         $scope.groupStats = performanceStats();
+
         $scope.score = $scope.data.classcouncil.passingScore;
         
         // get rankings from combined marksheet
@@ -172,13 +173,13 @@ angular.module('SchoolMan')
         $scope.save();
     }
 
-    $scope.updatePassingScore = function(){
-        if(isNaN(Number($scope.score))){
+    $scope.updatePassingScore = function(score){
+        if(isNaN(Number(score))){
             $scope.score = $scope.data.classcouncil.passingScore;
         }
         else{
-            
-            $scope.data.classcouncil.passingScore = Number($scope.score);
+            $scope.score = score;
+            $scope.data.classcouncil.passingScore = Number(score);
             $scope.groupStats = performanceStats();
             $scope.save();
         }

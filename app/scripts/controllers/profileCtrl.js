@@ -15,7 +15,7 @@ angular.module('SchoolMan')
     $scope.Users = Users;
 
 
-    var studentId = $routeParams.studentId === "0" ? "U0000001" : $routeParams.studentId;
+    var studentId = $routeParams.studentId === "0" ? "student_U0000001" : $routeParams.studentId;
     console.log("routeParams", $routeParams);
 
     $scope.data = {

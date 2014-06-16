@@ -94,13 +94,18 @@
                     <!-- Term Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                         {{term.name}}   <span class="caret"></span>
+                         {{term.name || "All Terms"}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
                           <a ng-click="search.group = ''">All Groups</a>
                         </li>
                         <li class="divider"></li> -->
+                        <li>
+                          <a ng-click="open({termIndex:3})">All Terms
+                          </a>
+                        </li>
+                        <li class="divider"></li>
                         <li ng-repeat="(termIndex, term) in [1, 2, 3]">
                           <a ng-click="open({termIndex:termIndex})">
                             Term {{term}}
@@ -159,8 +164,9 @@
 			    
 					<td class="small-column-header"
 						ng-repeat="(marksheetId, marksheet) in data.marksheets" ng-init="average = data.summaries[marksheetId][student._id]">
-						{{ average >= 0 ? average * marksheet.coeff : ""}}
-					</td>
+						<span ng-if="round(average * marksheet.coeff) === average * marksheet.coeff">{{ average >= 0 ? round(average * marksheet.coeff) : ""}}</span>
+            <span ng-if="round(average * marksheet.coeff) !== average * marksheet.coeff">{{ average >= 0 ? average * marksheet.coeff : "" | number:1}}</span></td>
+
 					<td class="small-column-header" ng-init="totalAverage = data.summarysheet[student._id]">
 						{{totalAverage >= 0 ? totalAverage * data.combinedMarksheet['coeff'] : 0 | number:1}}
 					</td>

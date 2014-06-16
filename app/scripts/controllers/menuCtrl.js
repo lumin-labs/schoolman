@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MenuCtrl', function ($scope, $location, $routeParams, Location, Path, Cache, File) {
+  .controller('MenuCtrl', function ($scope, $location, $routeParams, Location, Path, Cache, File, ClassMaster) {
 
-
+    //$scope.ClassMaster = ClassMaster;
     $scope.show = {
       backButton:false
     }
@@ -11,6 +11,17 @@ angular.module('SchoolMan')
   	$scope.print = function(){
   			window.print();
     }
+
+    $scope.printAll = function(){
+      ClassMaster.printVariable = true;
+      ClassMaster.printIfReady = function(){
+        window.print();
+        ClassMaster.printIfReady = function(){
+          return '';
+        };
+        return '';
+      }
+    };
 
     $scope.export = File.export;
 
