@@ -45,9 +45,13 @@
 		<!-- Term Dropdown -->
         <div  class="btn-group noprint">
             <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                {{data.terms[termIndex].name}}   <span class="caret"></span>
+                {{data.terms[termIndex].name || "All Terms"}}   <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
+            	<li>
+            		<a ng-click="open({termIndex:3})">All Terms</a>
+            	</li>
+            	<li class="divider"></li>
                 <li ng-repeat="(termIndex, term) in [1, 2, 3]">
                     <a ng-click="open({termIndex:termIndex})">
                         Term {{term}}
@@ -63,7 +67,7 @@
 	<table class="table"><tr>
 		<td>
 			<p><b>Academic Year:</b> <i>{{schoolYear}}</i></p>
-			<p><b>Term:</b> <i>{{data.terms[termIndex].name}}</i></p>
+			<p><b>Term:</b> <i>{{data.terms[termIndex].name || "All Terms"}}</i></p>
 		</td>
 		<td>
 			<p><b>Class:</b> <i>{{data.forms[formIndex].name + data.groups[groupId].name}}</i></p>
@@ -72,7 +76,7 @@
 		<td>
 			<table ng-if="userAccess === 'classmaster'"><tr class="noprint"><td><b>Passing Score:</b></td>
 			<td width="50px" ng-if="userAccess === 'classmaster'">
-				<input type="text" class="form-control noprint" ng-model="score" ng-blur="updatePassingScore()"></input></td>	
+				<input type="text" class="form-control noprint" ng-model="score" ng-blur="updatePassingScore(score)"></input></td>	
 			</tr><tr class="printonly"><td><p><b>Passing Score:</b><i>{{score}}</i></p></td></tr>
 			</table>
 			<p ng-if="userAccess !== 'classmaster'"><b>Passing Score:</b><i>{{score}}</i></p>
