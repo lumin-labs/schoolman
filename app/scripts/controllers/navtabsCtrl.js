@@ -9,6 +9,7 @@ angular.module('SchoolMan')
     $scope.teacher = Cache.get('user');
     $scope.User = model.User;
     $scope.settings = settings.get();
+    $scope.activePage = $routeParams.page;
     console.log("Settings", $scope.settings);
 
     $scope.activeIfPage = function(page){
