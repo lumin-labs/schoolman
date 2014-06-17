@@ -270,6 +270,13 @@ body{
   /*border-top:solid 1px #e8e8e8;*/
 }
 
+input[type=radio] {
+  display:none; 
+  margin:10px;
+}
+
+
+
 /*
  * Sidebar
  */
@@ -759,5 +766,5 @@ td.profile-photo{
       display: none;
     }
     
-
+    
   }

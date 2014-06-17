@@ -1,33 +1,24 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MenuCtrl', function ($scope, $location, $routeParams, Location, Path, Cache, File, ClassMaster) {
+  .controller('MenuCtrl', function ($scope, $location, $routeParams, $modal, Location, Path, Cache, File, ClassMaster) {
 
     //$scope.ClassMaster = ClassMaster;
     $scope.show = {
       backButton:false
     }
 
+    $scope.ClassMaster = ClassMaster;
+
   	$scope.print = function(){
-  		ClassMaster.printIfReady = function(){
+  		ClassMaster.printVariable = false;
+      if($routeParams.page === "reportcardGTHS"){
+        $scope.openModal();
+      }
+      else{
         window.print();
-        ClassMaster.printIfReady = function(){
-          return '';
-        };
-        return '';
       }
     }
-
-    $scope.printAll = function(){
-      ClassMaster.printVariable = true;
-      /**ClassMaster.printIfReady = function(){
-        window.print();
-        ClassMaster.printIfReady = function(){
-          return 'print-show';
-        };
-        return 'ng-hide';
-      }*/
-    };
 
     $scope.export = File.export;
 
@@ -69,27 +60,34 @@ angular.module('SchoolMan')
       console.log("Open: ", path);
       $location.path(path);
     };
-/**
+
     $scope.openModal = function ( ) {
 
     var modalInstance = $modal.open({
       templateUrl: 'printModal.html',
-      controller: ModalInstanceCtrl,
-      //size: size,
-      //resolve: {
-        //items: function () {
-          //return $scope.items;
-        //}
-      //}
+      controller: ModalInstanceFunction,
       });
 
-      modalInstance.result.then(function (selectedItem) {
-        //$scope.selected = selectedItem;
+      modalInstance.result.then(function () {
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
-*/
+
+    var ModalInstanceFunction = function ($scope, $modalInstance, ClassMaster) {
+
+      $scope.ClassMaster = ClassMaster;
+
+      $scope.ok = function () {
+        $modalInstance.close();
+        window.print();
+
+      };
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    };
     
 
   	// $scope.importFile = function(){

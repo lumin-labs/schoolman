@@ -16,7 +16,6 @@ angular.module('SchoolMan')
     var self = {};
     
     self.printVariable = false;
-    self.printIfReady;
 
     self.setPrint = function() {
       var deferred = $q.defer();

@@ -7,8 +7,9 @@
        ng-controller="reportcardCtrl" 
        ng-init="mastersheet = getMastersheet()"
        >
-<div ng-repeat="(studentIndex, student) in data.students" ng-show="student._id === data.student._id" class="ng-hide {{ClassMaster.printVariable === true ? 'print-show' : ''}}">
-  <div class="pagebreak" ng-if="studentIndex !== 0"></div>
+<div ng-repeat="(studentIndex, student) in data.students" ng-show="student._id === data.student._id" 
+  class="ng-hide {{ClassMaster.printVariable === true || ClassMaster.printVariable === 'true' ? 'print-show' : ''}}">
+  <div class="pagebreak" ng-if="studentIndex !== 0 && (ClassMaster.printVariable === true || ClassMaster.printVariable === 'true')"></div>
 
     <!-- School Name Letterhead -->
     <div class="letterhead" ng-include="'views/_letterhead.html'"></div>
