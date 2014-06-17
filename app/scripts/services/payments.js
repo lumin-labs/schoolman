@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Payments', function Payments($q, Data2, model, modelTransformer, Fees, Students, pouchdb) {
+  .service('Payments', function Payments($q, model, modelTransformer, Fees, Students, pouchdb) {
 
   	var db = model.Payment.db;
     if(typeof db === "string"){
@@ -21,7 +21,7 @@ angular.module('SchoolMan')
 	      } 
 	    };
 
-  		Data2.query(map, {include_docs : true}).then(function(success){
+  		db.query(map, {include_docs : true}).then(function(success){
   			  var collection = {};
   			  var dataModelStudent = model.Student;
   			  var dataModelPayment = model.Payment;
@@ -65,7 +65,7 @@ angular.module('SchoolMan')
 	      	}
 	      } 
 	    };
-	    Data2.query(map, {include_docs : true}).then(function(success){
+	    db.query(map, {include_docs : true}).then(function(success){
 	    		var collection = [];
 	        angular.forEach(success.rows, function(data, rowIndex){
 	            var spec = data.doc;
@@ -81,6 +81,14 @@ angular.module('SchoolMan')
 
     	return deferred.promise;
     };
+
+    self.destroy = function(){
+    	db.destroy().then(function(success){
+    		console.log("Destroyed paymentss db");
+    	}).catch(function(error){
+    		console.log("failed to destroy payments db", error)
+    	});
+    }
 
     return self;
   });
