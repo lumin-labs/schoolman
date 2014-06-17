@@ -1,8 +1,12 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Payments', function Payments($q, Data2, model, modelTransformer, Fees, Students) {
+  .service('Payments', function Payments($q, Data2, model, modelTransformer, Fees, Students, pouchdb) {
 
+  	var db = model.Payment.db;
+    if(typeof db === "string"){
+      db = pouchdb.create(model.Payment.db);
+    }
 
   	self = {};
 

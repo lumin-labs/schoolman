@@ -9,18 +9,24 @@ angular.module('SchoolMan')
     }
 
   	$scope.print = function(){
-  			window.print();
-    }
-
-    $scope.printAll = function(){
-      ClassMaster.printVariable = true;
-      ClassMaster.printIfReady = function(){
+  		ClassMaster.printIfReady = function(){
         window.print();
         ClassMaster.printIfReady = function(){
           return '';
         };
         return '';
       }
+    }
+
+    $scope.printAll = function(){
+      ClassMaster.printVariable = true;
+      /**ClassMaster.printIfReady = function(){
+        window.print();
+        ClassMaster.printIfReady = function(){
+          return 'print-show';
+        };
+        return 'ng-hide';
+      }*/
     };
 
     $scope.export = File.export;
@@ -63,6 +69,28 @@ angular.module('SchoolMan')
       console.log("Open: ", path);
       $location.path(path);
     };
+/**
+    $scope.openModal = function ( ) {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'printModal.html',
+      controller: ModalInstanceCtrl,
+      //size: size,
+      //resolve: {
+        //items: function () {
+          //return $scope.items;
+        //}
+      //}
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        //$scope.selected = selectedItem;
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
+*/
+    
 
   	// $scope.importFile = function(){
   	// 	chrome.fileSystem.chooseEntry({

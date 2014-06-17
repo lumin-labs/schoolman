@@ -65,6 +65,8 @@ schoolman.config(['modelProvider', function(model){
     return id;
   }
 
+  Payment.prototype.db = Payment.db = "db_payments";
+
   model.Payment = Payment;
     
 }]);
