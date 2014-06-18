@@ -47,6 +47,32 @@
           </ul>
         </div>
 
+        <script type="text/ng-template" id="printModal.html">
+            <div class="modal-header" style="background-color:#eee;">
+                <h3 class="modal-title"><b>Print all report cards?</b></h3>
+            </div>
+            <div class="modal-body">
+                
+                <h4><input type="radio" id="printradio1" ng-model="ClassMaster.printVariable" value="false">
+                <label for="printradio1">
+                    <button class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;height:30px;width:40px;">
+                    <i ng-if="ClassMaster.printVariable === 'false'" class="glyphicon glyphicon-ok" style="color:green;"></i></button>
+                    Print Current Report Card Only
+                </label></input></h4>
+                
+                <h4><input type="radio" id="printradio2" ng-model="ClassMaster.printVariable" value="true">
+                <label for="printradio2">
+                    <button class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;height:30px;width:40px;">
+                    <i ng-if="ClassMaster.printVariable === 'true'" class="glyphicon glyphicon-ok" style="color:green;"></i></button>
+                    Print All Report Cards
+                </label></input></h4>
+            </div>
+            <div class="modal-footer" style="background-color:#eee;">
+                <button class = "btn btn-default" ng-click="ok()">Print</button>
+                <button class = "btn" ng-click="cancel()">Cancel</button>
+                </div>
+        </script>
+
           <ul class="nav navbar-nav navbar-sm">
             <li class="dropdown" >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">File</a>
@@ -56,10 +82,6 @@
                 <li><a href="">Save As ...</a></li>
                 <li class="divider"></li> -->
                 <li><a ng-click="print()">Print</a></li>
-                <li><a ng-click="printAll()">Print All</a></li>
-                <li>
-                    <a ng-click="">Select Data File</a>
-                </li>
                 <li class="divider"></li>
                 <li><a id="close">Quit</a></li>
               </ul>
@@ -77,6 +99,7 @@
               <i class="glyphicon glyphicon-arrow-left"></i>
             </button>
           </form>
+          
           
         </div><!--/.nav-collapse -->
   </div>
@@ -127,6 +150,8 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/lib/ui-bootstrap-0.9.0.min.js"></script>
+        <script src="scripts/lib/ui-bootstrap-tpls-0.9.0.min.js"></script>
 
         <script src="scripts/app.js"></script>
         <script src="scripts/conf.js"></script>
@@ -215,6 +240,7 @@
         <script src="scripts/services/file.js"></script>
         <script src="scripts/controllers/customersettingsCtrl.js"></script>
         <script src="scripts/services/customer.js"></script>
+        <script src="scripts/controllers/modalInstanceCtrl.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -32,7 +32,9 @@ angular.module('SchoolMan')
       $scope.data.students = [];
       $scope.data.student;
       $scope.ClassMaster = ClassMaster;
-      $scope.data.printAll = ClassMaster.printVariable;
+      //$scope.data.printAll = ClassMaster.printVariable;
+
+      //console.log("classMaster.printVariable", $scope.ClassMaster.printVariable);
 
 
 

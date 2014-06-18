@@ -1,27 +1,24 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('MenuCtrl', function ($scope, $location, $routeParams, Location, Path, Cache, File, ClassMaster) {
+  .controller('MenuCtrl', function ($scope, $location, $routeParams, $modal, Location, Path, Cache, File, ClassMaster) {
 
     //$scope.ClassMaster = ClassMaster;
     $scope.show = {
       backButton:false
     }
 
-  	$scope.print = function(){
-  			window.print();
-    }
+    $scope.ClassMaster = ClassMaster;
 
-    $scope.printAll = function(){
-      ClassMaster.printVariable = true;
-      ClassMaster.printIfReady = function(){
-        window.print();
-        ClassMaster.printIfReady = function(){
-          return '';
-        };
-        return '';
+  	$scope.print = function(){
+  		ClassMaster.printVariable = false;
+      if($routeParams.page === "reportcardGTHS"){
+        $scope.openModal();
       }
-    };
+      else{
+        window.print();
+      }
+    }
 
     $scope.export = File.export;
 
@@ -63,6 +60,35 @@ angular.module('SchoolMan')
       console.log("Open: ", path);
       $location.path(path);
     };
+
+    $scope.openModal = function ( ) {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'printModal.html',
+      controller: ModalInstanceFunction,
+      });
+
+      modalInstance.result.then(function () {
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
+
+    var ModalInstanceFunction = function ($scope, $modalInstance, ClassMaster) {
+
+      $scope.ClassMaster = ClassMaster;
+
+      $scope.ok = function () {
+        $modalInstance.close();
+        window.print();
+
+      };
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    };
+    
 
   	// $scope.importFile = function(){
   	// 	chrome.fileSystem.chooseEntry({
