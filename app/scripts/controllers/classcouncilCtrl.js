@@ -101,7 +101,7 @@ angular.module('SchoolMan')
             if(studentAvg >= $scope.data.classcouncil.passingScore){
                 stats.passing = stats.passing +1;
             }
-            if(!isNaN(studentAvg)){
+            if(!isNaN(studentAvg) && studentAvg !== -1){
                 classTotal = classTotal + studentAvg;
                 stats.numPresent = stats.numPresent + 1;
                 if(studentAvg < minStudent){
@@ -134,17 +134,34 @@ angular.module('SchoolMan')
         var sortedList = rankingsList.sort(function(a,b){
             return a.rankings[$scope.termIndex] - b.rankings[$scope.termIndex];
         })
+        console.log("sorted list", sortedList, sortedList.length);
         var n = 0;
         angular.forEach(sortedList, function(student, objId){
                 if(isNaN(student.rankings[$scope.termIndex])){
                     n += 1;
                 }
             })
-        var top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
-        var sortedListEnd = sortedList.slice(-3-n);
-        var worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
+        console.log("n", n);
 
-        // console.log("Top3", top3);
+        var top3 = [];
+        var worst3 = [];
+
+        if(sortedList.length > 2){        
+            top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
+            var sortedListEnd = sortedList.slice(-3-n);
+            worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
+        }
+        else if(sortedList.length > 1){
+            top3 = [sortedList[0].studentId,sortedList[1].studentId];
+            worst3 = [sortedList[0].studentId,sortedList[1].studentId];
+        }
+        else if(sortedList.length > 0){
+            top3 = [sortedList[0].studentId];
+            worst3 = [sortedList[0].studentId];
+        }
+
+
+        console.log("Top3", top3);
 
         Students.getBatch(top3).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){
