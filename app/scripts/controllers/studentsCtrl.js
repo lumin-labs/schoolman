@@ -94,7 +94,7 @@ angular.module('SchoolMan')
           } else {
 
             // get report and classCOuncil promises
-            var queries = {
+            /*var queries = {
               reports: Marksheets.getReports({
                 formIndex:student.formIndex,
                 deptId:student.deptId,
@@ -105,17 +105,41 @@ angular.module('SchoolMan')
                     deptId:student.deptId,
                     groupId:student.groupId
                 }))
+            }*/
+            var reportquery = {
+              reports: Marksheets.getReports({
+                formIndex:student.formIndex,
+                deptId:student.deptId,
+                groupId:student.groupId
+            })
+            }
+            var councilquery = {
+              classcouncil: ClassCouncils.get(model.ClassCouncil.generateID({
+                    formIndex:student.formIndex,
+                    deptId:student.deptId,
+                    groupId:student.groupId
+                }))
             }
 
             // Get reports and classCouncils
-            $q.all(queries).then(function(data){
+            $q.all(councilquery).then(function(data){
+              console.log("all promises: ", data);
+              classCouncils[studentsClass] = data.classcouncil;
+            }).catch(function(error){
+              if(!classCouncils[studentsClass]){
+                classCouncils[studentsClass] = new model.ClassCouncil();
+              }
+              // console.log("Failed to load classCouncils:", error);
+            });
+            $q.all(reportquery).then(function(data){
               console.log("all promises: ", data);
               reports[studentsClass] = data.reports;
-              classCouncils[studentsClass] = data.classcouncil;
               setPassing(student, studentsClass);
             }).catch(function(error){
-                // console.log("Failed to load reports or classCouncils:", error);
+                // console.log("Failed to load reports", error);
             });
+            
+              
           }
 
         }); 
