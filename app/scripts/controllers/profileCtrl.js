@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Dcards, Users, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
+  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Dcards, Users, Marksheets, ClassCouncils, $q, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -14,8 +14,11 @@ angular.module('SchoolMan')
 
     $scope.Users = Users;
 
+    var reports = {};
+    var classCouncils = {};
 
-    var studentId = $routeParams.studentId === "0" ? "U0000001" : $routeParams.studentId;
+
+    var studentId = $routeParams.studentId === "0" ? "student_U0000001" : $routeParams.studentId;
     console.log("routeParams", $routeParams);
 
     $scope.data = {
@@ -27,6 +30,14 @@ angular.module('SchoolMan')
       groups:Groups.getAll(),
       fees:Fees.getAll(),
       payments:[]
+    };
+
+    var setPassing = function(student, studentsClass){
+      var studentAverage = 0;
+      if(reports[studentsClass].total.summary){
+        studentAverage = reports[studentsClass].total.summary[student._id][0];
+      }
+      student.passing = studentAverage >= classCouncils[studentsClass].passingScore;      
     };
 
     console.log("studentId", studentId);
@@ -44,6 +55,49 @@ angular.module('SchoolMan')
       $scope.cancel = function(){
         $scope.data.student = angular.copy(studentCopy);
         $scope.editing = false;
+      }
+
+      $scope.data.student.passing = false;
+      var studentsClass = [student.formIndex, student.deptId, student.groupId];
+          
+      if(reports.hasOwnProperty(studentsClass) &&  
+        classCouncils.hasOwnProperty(studentsClass)){
+
+        setPassing($scope.data.student, studentsClass);
+
+      } else {
+        var reportquery = {
+          reports: Marksheets.getReports({
+            formIndex:student.formIndex,
+            deptId:student.deptId,
+            groupId:student.groupId
+          })
+        }
+        var councilquery = {
+          classcouncil: ClassCouncils.get(model.ClassCouncil.generateID({
+            formIndex:student.formIndex,
+            deptId:student.deptId,
+            groupId:student.groupId
+          }))
+        }
+
+        // Get reports and classCouncils
+        $q.all(councilquery).then(function(data){
+          console.log("all promises: ", data);
+          classCouncils[studentsClass] = data.classcouncil;
+        }).catch(function(error){
+          if(!classCouncils[studentsClass]){
+            classCouncils[studentsClass] = new model.ClassCouncil();
+          }
+          // console.log("Failed to load classCouncils:", error);
+        });
+        $q.all(reportquery).then(function(data){
+          console.log("all promises: ", data);
+          reports[studentsClass] = data.reports;
+          setPassing($scope.data.student, studentsClass);
+        }).catch(function(error){
+            // console.log("Failed to load reports", error);
+        });
       }
 
     }).catch(function(error){

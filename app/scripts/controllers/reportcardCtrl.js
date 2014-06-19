@@ -16,6 +16,7 @@ angular.module('SchoolMan')
       $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
       $scope.Users = Users;
       $scope.getRemark = ClassMaster.getRemark;
+      $scope.studentId = $routeParams.studentId;
 
       $scope.data = {};
       $scope.data.forms = Forms.all();
@@ -30,6 +31,12 @@ angular.module('SchoolMan')
       $scope.data.rankings = {};
       $scope.data.students = [];
       $scope.data.student;
+      $scope.ClassMaster = ClassMaster;
+      //$scope.data.printAll = ClassMaster.printVariable;
+
+      //console.log("classMaster.printVariable", $scope.ClassMaster.printVariable);
+
+
 
       // Load marksheet and student data
       Marksheets.query({
@@ -93,8 +100,8 @@ angular.module('SchoolMan')
             return dict
           },{});
 
-          $scope.data.student = Object.keys(studentDict).indexOf($routeParams.studentId) > -1 ? 
-                                studentDict[$routeParams.studentId] :
+          $scope.data.student = studentIds.indexOf($scope.studentId) > -1 ? 
+                                studentDict[$scope.studentId] :
                                 students[0];
           console.log("Student: ", $scope.data.student);
           Dcards.get($scope.data.student._id).then(function(dcard){

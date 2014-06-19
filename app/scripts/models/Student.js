@@ -115,7 +115,6 @@ schoolman.config(['modelProvider', function(model){
         
   };
 
-
   Student.prototype = new model.Model();
   Student.prototype.generateID = function(){
     var id = 'student_' + this.id;
@@ -129,6 +128,8 @@ schoolman.config(['modelProvider', function(model){
     this.status[year] = status;
     this.save();
   }
+
+  Student.prototype.db = Student.db = "db_students";
 
   model.Student = Student;
 

@@ -72,7 +72,7 @@
 							<td class="text-center" 
 							    ng-repeat="(accessKey, accessBool) in user.access">
 								
-								<button ng-if="user.username !== username"
+								<button ng-if="user.username !== username && !(user.username === 'admin' && accessKey === 'admin')"
 										ng-click="user.toggleAccess(accessKey)"
 										class="btn btn-md btn-light" style="border:solid 1px #ddd;">
 									<i ng-if="!user.hasAccess(accessKey)" 
@@ -83,7 +83,7 @@
 								   style="color:green;"></i>
 								</button>
 
-								<button ng-if="user.username === username"
+								<button ng-if="user.username === username || (user.username === 'admin' && accessKey === 'admin')"
 										class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;">
 									<i ng-if="!user.hasAccess(accessKey)" 
 									   class="glyphicon glyphicon-minus" 
@@ -94,7 +94,7 @@
 								</button>
 							</td>
 							<td class="remove text-center noprint" style="width:80px;">
-								<a ng-click="remove(user)" ng-if="user.username !== username">
+								<a ng-click="remove(user)" ng-if="user.username !== username && user.username != 'admin'">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>
