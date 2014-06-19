@@ -138,8 +138,6 @@ angular.module('SchoolMan')
             }).catch(function(error){
                 // console.log("Failed to load reports", error);
             });
-            
-              
           }
 
         }); 
