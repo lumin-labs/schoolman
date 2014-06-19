@@ -134,14 +134,12 @@ angular.module('SchoolMan')
         var sortedList = rankingsList.sort(function(a,b){
             return a.rankings[$scope.termIndex] - b.rankings[$scope.termIndex];
         })
-        console.log("sorted list", sortedList, sortedList.length);
         var n = 0;
         angular.forEach(sortedList, function(student, objId){
                 if(isNaN(student.rankings[$scope.termIndex])){
                     n += 1;
                 }
             })
-        console.log("n", n);
 
         var top3 = [];
         var worst3 = [];
@@ -160,8 +158,6 @@ angular.module('SchoolMan')
             worst3 = [sortedList[0].studentId];
         }
 
-
-        console.log("Top3", top3);
 
         Students.getBatch(top3).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){
