@@ -2,7 +2,7 @@
 
 angular.module('SchoolMan')
   .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, model, Path, Cache, Location, Groups) {
+    function ($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups) {
       console.log("Hows the call stack?")
       console.log("Departments: ", Departments)
       $log.info("Path: ", $location.path()); 
@@ -32,6 +32,7 @@ angular.module('SchoolMan')
       $scope.accessLevels = model.User.roles;
 
       $scope.access = $scope.accessLevels[$routeParams.accessCode];
+      $scope.settings = settings.get();
 
       // Get a user object. 
       // Note: this user may not actually exist as a registered user
@@ -46,7 +47,17 @@ angular.module('SchoolMan')
           if(data.status === 200){
             var user = data.user;
             accessRequest = accessRequest === "undefined" || !user.hasAccess(accessRequest) ? user.getHighestAccess() : accessRequest;
-            console.log("accessRequest", accessRequest);
+            
+            console.log("accessRequest, settings", accessRequest, $scope.settings.access[accessRequest]);
+
+            if($scope.settings.access[accessRequest] === 0){
+              accessRequest = user.getHighestAccess();
+              console.log("accessRequest2, settings", accessRequest, $scope.settings.access[accessRequest]);
+            }
+            if($scope.settings.access[accessRequest] === 0){
+              console.log("Error!");
+            }
+            
 
             Cache.set({user:user});
 
