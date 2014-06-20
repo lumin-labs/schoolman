@@ -112,31 +112,43 @@
 		<td>
 			<b>Three Best Students:</b>
 			<table>
-			<tr><td width="50px"></td><td>1- <u>{{data.bestStudents[0].name}}</u></td></tr>
-			<tr><td width="50px"></td><td>2- <u>{{data.bestStudents[1].name}}</u></td></tr>
-			<tr><td width="50px"></td><td>3- <u>{{data.bestStudents[2].name}}</u></td></tr>
+			<tr ng-if="data.bestStudents[0] && data.bestStudents[0].average !== -1">
+				<td width="50px"></td><td>1- <u>{{data.bestStudents[0].name}}</u></td></tr>
+			<tr ng-if="data.bestStudents[1] && data.bestStudents[1].average !== -1">
+				<td width="50px"></td><td>2- <u>{{data.bestStudents[1].name}}</u></td></tr>
+			<tr ng-if="data.bestStudents[2] && data.bestStudents[2].average !== -1">
+				<td width="50px"></td><td>3- <u>{{data.bestStudents[2].name}}</u></td></tr>
 			</table>
 			<br>
 			<b>Three Worst Students:</b>
 			<table>
-			<tr><td width="50px"></td><td>1- <u>{{data.worstStudents[0].name}}</u></td></tr>
-			<tr><td width="50px"></td><td>2- <u>{{data.worstStudents[1].name}}</u></td></tr>
-			<tr><td width="50px"></td><td>3- <u>{{data.worstStudents[2].name}}</u></td></tr>
+			<tr ng-if="data.worstStudents[0] && data.worstStudents[0].average !== -1">
+				<td width="50px"></td><td>1- <u>{{data.worstStudents[0].name}}</u></td></tr>
+			<tr ng-if="data.worstStudents[1] && data.worstStudents[1].average !== -1">
+				<td width="50px"></td><td>2- <u>{{data.worstStudents[1].name}}</u></td></tr>
+			<tr ng-if="data.worstStudents[2] && data.worstStudents[2].average !== -1">
+				<td width="50px"></td><td>3- <u>{{data.worstStudents[2].name}}</u></td></tr>
 			</table>
 		</td>
 		<td>
 			<b>Average</b>
 			<table>
-			<tr><td><u>{{data.bestStudents[0].average || 0 | number:2}}</u></td></tr>
-			<tr><td><u>{{data.bestStudents[1].average || 0 | number:2}}</u></td></tr>
-			<tr><td><u>{{data.bestStudents[2].average || 0 | number:2}}</u></td></tr>
+			<tr ng-if="data.bestStudents[0] && data.bestStudents[0].average !== -1">
+				<td><u>{{data.bestStudents[0].average || "" | number:2}}</u></td></tr>
+			<tr ng-if="data.bestStudents[1] && data.bestStudents[1].average !== -1">
+				<td><u>{{data.bestStudents[1].average || "" | number:2}}</u></td></tr>
+			<tr ng-if="data.bestStudents[2] && data.bestStudents[2].average !== -1">
+				<td><u>{{data.bestStudents[2].average || "" | number:2}}</u></td></tr>
 			</table>
 			<br>
 			<b>Average</b>
 			<table>
-			<tr><td><u>{{data.worstStudents[0].average || 0 | number:2}}</u></td></tr>
-			<tr><td><u>{{data.worstStudents[1].average || 0 | number:2}}</u></td></tr>
-			<tr><td><u>{{data.worstStudents[2].average || 0 | number:2}}</u></td></tr>
+			<tr ng-if="data.worstStudents[0] && data.worstStudents[0].average !== -1">
+				<td><u>{{data.worstStudents[0].average || "" | number:2}}</u></td></tr>
+			<tr ng-if="data.worstStudents[1] && data.worstStudents[1].average !== -1">
+				<td><u>{{data.worstStudents[1].average || "" | number:2}}</u></td></tr>
+			<tr ng-if="data.worstStudents[2] && data.worstStudents[2].average !== -1">
+				<td><u>{{data.worstStudents[2].average || "" | number:2}}</u></td></tr>
 			</table>
 		</td>
 		<td width="50px"></td>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('UsersCtrl', function ($scope, Users, model, Location) {
+  .controller('UsersCtrl', function ($scope, $routeParams, Users, model, Location) {
     
     $scope.data = {};
     $scope.data.users = Users.getAll();
@@ -9,6 +9,7 @@ angular.module('SchoolMan')
     $scope.tempUser = new model.User();
 
     $scope.open = Location.open;
+    $scope.username = $routeParams.username;
 
     $scope.addUser = function(){
     	$scope.tempUser.save().then(function(success){
