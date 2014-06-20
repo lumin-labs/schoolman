@@ -173,7 +173,7 @@ angular.module('SchoolMan')
       	filtered = _.filter(students, function(student){
       		var isOk = true;
       		angular.forEach(params, function(param, key){
-      			if(student[key] !== param){
+      			if(student[key] !== String(param)){
       				isOk = false;
       			}
       		});
