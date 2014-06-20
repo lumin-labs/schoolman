@@ -27,6 +27,7 @@
     <div ng-if="status === 200">&nbsp;</div>
     <div ng-if="status === 404" style="color:red;">User not found</div>
     <div ng-if="status === 401" style="color:red;">Incorrect Password</div>
+    <div ng-if="status === 403" style="color:red;">User Access Denied</div>
     <br>
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
