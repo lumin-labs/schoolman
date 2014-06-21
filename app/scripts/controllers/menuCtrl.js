@@ -81,6 +81,7 @@ angular.module('SchoolMan')
       $scope.ok = function () {
         $modalInstance.close();
         window.print();
+        ClassMaster.printVariable = false;
 
       };
 
