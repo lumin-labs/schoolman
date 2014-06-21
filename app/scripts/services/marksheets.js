@@ -262,7 +262,6 @@ angular.module('SchoolMan')
             return student._id;
           });
 
-          console.log("Students: ", allStudents, existingStudents);
 
           // get the list of any new students
           var newStudents = _.difference(allStudents, existingStudents);

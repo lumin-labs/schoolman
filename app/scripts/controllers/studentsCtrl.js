@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
+  .controller('StudentsCtrl', function ($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -12,6 +12,7 @@ angular.module('SchoolMan')
         departments:Departments.getAll(),
         groups:Groups.getAll(),
         fees:Fees.getAll(),
+        subjects:Subjects.getAll(),
         students:[],
         selected:{},
         globalSelect:0,
@@ -32,6 +33,8 @@ angular.module('SchoolMan')
 
     var reports = {};
     var classCouncils = {};
+    var marksheetId;
+    var marksheet;
 
     var updateStudents = function(){
       var query = {};
@@ -123,7 +126,7 @@ angular.module('SchoolMan')
 
             // Get reports and classCouncils
             $q.all(councilquery).then(function(data){
-              console.log("all promises: ", data);
+              //console.log("all promises: ", data);
               classCouncils[studentsClass] = data.classcouncil;
             }).catch(function(error){
               if(!classCouncils[studentsClass]){
@@ -132,7 +135,7 @@ angular.module('SchoolMan')
               // console.log("Failed to load classCouncils:", error);
             });
             $q.all(reportquery).then(function(data){
-              console.log("all promises: ", data);
+              //console.log("all promises: ", data);
               reports[studentsClass] = data.reports;
               setPassing(student, studentsClass);
             }).catch(function(error){
@@ -169,9 +172,30 @@ angular.module('SchoolMan')
 
     $scope.moveSelected = function(params){
         var selected = [];
+        
         angular.forEach(data.students, function(student, $index){
-            if(data.selected[student._id]){
+            if(data.selected[student._id] === "1"){
                 angular.forEach(params, function(value, key){
+                    if(key === 'formIndex' || key === 'groupId' || key === 'deptId'){
+                      angular.forEach(data.subjects, function(subject, subjectKey){
+                        marksheetId =  student['formIndex'] + ":" + student['deptId'] + ":" + student['groupId'] + ":" + subjectKey;
+                        Marksheets.get(marksheetId).then(function(success){
+                          marksheet = success.marksheet;
+                          delete marksheet.table[student['_id']];
+
+                          var deferred = $q.defer();
+                          marksheet.save().then(function(success){
+                            console.log("Marksheet Saved: student", student['_id'], " deleted from marksheet:",marksheet);
+                            deferred.resolve(marksheet);
+                          }).catch(function(error){
+                            console.log("Failed to save marksheet", error, marksheet);
+                            deferred.reject(error);
+                          });
+                        }).catch(function(error){
+                          console.log("marksheet does not exist");
+                        });
+                      });
+                    }
                     student[key] = value;
                 });
                 selected.push(student);
