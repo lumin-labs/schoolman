@@ -117,7 +117,7 @@ angular.module('SchoolMan')
         stats.percentPassing = stats.passing / stats.numStudents;
         stats.percentFailing = 1 - stats.percentPassing;
         stats.classAverage = classTotal / stats.numStudents;
-        stats.classRange = maxStudent - minStudent;
+        stats.classRange = minStudent === 20 ? 0 : maxStudent - minStudent;
         return stats;
     }
     
