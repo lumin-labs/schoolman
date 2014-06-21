@@ -172,23 +172,20 @@ angular.module('SchoolMan')
 
     $scope.moveSelected = function(params){
         var selected = [];
-        var deferred = $q.defer();
-        console.log("params: ", params);
+        
         angular.forEach(data.students, function(student, $index){
             if(data.selected[student._id] === "1"){
-                console.log("selected boolean:", data.selected[student._id]);
-                console.log("student:", student);
                 angular.forEach(params, function(value, key){
                     if(key === 'formIndex' || key === 'groupId' || key === 'deptId'){
-                      console.log("subjects", data.subjects);
                       angular.forEach(data.subjects, function(subject, subjectKey){
                         marksheetId =  student['formIndex'] + ":" + student['deptId'] + ":" + student['groupId'] + ":" + subjectKey;
                         Marksheets.get(marksheetId).then(function(success){
                           marksheet = success.marksheet;
                           delete marksheet.table[student['_id']];
 
+                          var deferred = $q.defer();
                           marksheet.save().then(function(success){
-                            console.log("Marksheet saved", success, marksheet);
+                            console.log("Marksheet Saved: student", student['_id'], " deleted from marksheet:",marksheet);
                             deferred.resolve(marksheet);
                           }).catch(function(error){
                             console.log("Failed to save marksheet", error, marksheet);

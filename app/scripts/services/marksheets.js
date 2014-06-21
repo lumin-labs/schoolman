@@ -262,11 +262,9 @@ angular.module('SchoolMan')
             return student._id;
           });
 
-          console.log("Students: ", allStudents, existingStudents);
 
           // get the list of any new students
           var newStudents = _.difference(allStudents, existingStudents);
-          console.log("new students:", newStudents);
 
           // add new students returned from the above query
           angular.forEach(newStudents, function(studentId, studentIndex){
