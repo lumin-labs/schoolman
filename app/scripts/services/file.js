@@ -7,7 +7,24 @@ angular.module('SchoolMan')
     var self = {};
 
     self.import = function(){
+      chrome.fileSystem.chooseEntry({type:"openFile"}, 
+        function(entry){
+          entry.file(function(file){
+            var reader = new FileReader();
 
+            reader.onloadend = function(success){
+              console.log("Read successful:", JSON.parse(success.target.result));
+            }
+            reader.onerror = function(error){
+              console.log("Read failed:", error);
+            }
+
+            reader.readAsText(file);
+
+          }).catch(function(error){
+            console.log("error reading file", error)
+          });
+        });
     };
 
     self.export = function(){
@@ -66,9 +83,6 @@ angular.module('SchoolMan')
             };
 
             var blob = new Blob([JSON.stringify(data.rows)], {type: 'text/plain'});
-            //blob.append("Test");
-            console.log("blob", blob);
-            console.log("filewriter", fileWriter);
 
             fileWriter.truncate(0);
                         
