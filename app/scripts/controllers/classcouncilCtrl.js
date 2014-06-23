@@ -113,7 +113,7 @@ angular.module('SchoolMan')
             }
         });
 
-        stats.failing = stats.numStudents - stats.passing;
+        stats.failing = stats.numPresent - stats.passing;
         stats.percentPassing = stats.passing / stats.numPresent;
         stats.percentFailing = 1 - stats.percentPassing;
         stats.classAverage = classTotal / stats.numPresent;

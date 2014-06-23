@@ -172,39 +172,46 @@ angular.module('SchoolMan')
 
     $scope.moveSelected = function(params){
         var selected = [];
+        var tagged = [];
         
         angular.forEach(data.students, function(student, $index){
             if(data.selected[student._id] === "1"){
                 angular.forEach(params, function(value, key){
                     if(key === 'formIndex' || key === 'groupId' || key === 'deptId'){
-                      angular.forEach(data.subjects, function(subject, subjectKey){
-                        marksheetId =  student['formIndex'] + ":" + student['deptId'] + ":" + student['groupId'] + ":" + subjectKey;
-                        Marksheets.get(marksheetId).then(function(success){
-                          marksheet = success.marksheet;
-                          delete marksheet.table[student['_id']];
-
-                          var deferred = $q.defer();
-                          marksheet.save().then(function(success){
-                            console.log("Marksheet Saved: student", student['_id'], " deleted from marksheet:",marksheet);
-                            deferred.resolve(marksheet);
-                          }).catch(function(error){
-                            console.log("Failed to save marksheet", error, marksheet);
-                            deferred.reject(error);
-                          });
-                        }).catch(function(error){
-                          console.log("marksheet does not exist");
-                        });
-                      });
+                      tagged.push(student);
                     }
                     student[key] = value;
                 });
                 selected.push(student);
+                updateStudents();
             }
         });
         Students.saveBatch(selected).catch(function(error){
             // console.log("failed to save batch", error);
         });
+        removeFromMarksheet(tagged);
     };
+    var removeFromMarksheet = function(students){
+      angular.forEach(data.subjects, function(subject, subjectKey){
+        marksheetId =  $scope.formIndex + ":" + $scope.deptId + ":" + $scope.groupId + ":" + subjectKey;
+        Marksheets.get(marksheetId).then(function(success){
+          marksheet = success.marksheet;
+          angular.forEach(students, function(student, key){
+            delete marksheet.table[student['_id']];
+          });
+          var deferred = $q.defer();
+          marksheet.save().then(function(success){
+            //console.log("Marksheet Saved:", marksheet);
+            deferred.resolve(marksheet);
+          }).catch(function(error){
+            console.log("Failed to save marksheet", error, marksheet);
+            deferred.reject(error);
+          });
+        }).catch(function(error){
+          console.log("marksheet does not exist");
+        });
+      });
+    }
 
     $scope.open = Location.open;
     
