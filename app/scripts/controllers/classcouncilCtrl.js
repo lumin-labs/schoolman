@@ -113,10 +113,10 @@ angular.module('SchoolMan')
             }
         });
 
-        stats.failing = stats.numStudents - stats.passing;
-        stats.percentPassing = stats.passing / stats.numStudents;
+        stats.failing = stats.numPresent - stats.passing;
+        stats.percentPassing = stats.passing / stats.numPresent;
         stats.percentFailing = 1 - stats.percentPassing;
-        stats.classAverage = classTotal / stats.numStudents;
+        stats.classAverage = classTotal / stats.numPresent;
         stats.classRange = minStudent === 20 ? 0 : maxStudent - minStudent;
         return stats;
     }

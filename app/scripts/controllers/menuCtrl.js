@@ -21,6 +21,7 @@ angular.module('SchoolMan')
     }
 
     $scope.export = File.export;
+    $scope.import = File.import;
 
     $scope.back = function(){
       $scope.show.backButton = false;
