@@ -18,7 +18,8 @@ angular.module('SchoolMan')
       
       var services = [
       	{getDB:function(){return 'gths'}},
-      	{getDB:function(){return 'db_students'}}
+      	{getDB:function(){return 'db_students'}},
+        {getDB:function(){return 'db_payments'}}
       ]
 
       angular.forEach(services, function(service){
@@ -28,22 +29,61 @@ angular.module('SchoolMan')
       		dbs.push(db);
       	}
       });
+      console.log("export dbs", dbs);
 
-    	var merge = function(dbs){
-    		PouchDB.replicate(dbs[0], 'schoolman.exportDB').then(function(info){
-  				if(dbs.length === 1){
-    				exportDB.allDocs({include_docs:true}).then(function(success){
-    					console.log("Succesfully merged", success);
-    				});
-  				} else if(dbs.length > 1){
-  					merge(dbs.slice(1));
-  				}
-    		}).catch(function(error){
-    			console.log("Failed to replicate", error);
-    		});    	
-    	};
-    	merge(dbs);
+      var merge = function(dbs){
+        PouchDB.replicate(dbs[0], exportDB, function(err,resp){
+          if(err){
+            console.log("Failed to replicate", error);
+          }
+        });
+        if(dbs.length === 1){
+            exportDB.allDocs({include_docs:true}).then(function(success){
+              data = success;
+              console.log("Succesfully merged", data);
+            });
+          } else if(dbs.length > 1){
+            merge(dbs.slice(1));
+          } 
+      };
+      merge(dbs);
 
+      chrome.fileSystem.chooseEntry({
+        type:"saveFile", 
+        suggestedName:"schoolman.data"}, 
+        function(entry){
+          entry.createWriter(function(fileWriter){
+            fileWriter.onwriteend = function(error) {
+              if(fileWriter.length === 0){
+                fileWriter.write(blob);
+              } else{
+                console.log('Write completed.');
+              }
+            };
+
+            fileWriter.onerror = function(error) {
+              console.log('Write failed: ' + error);
+            };
+
+            var blob = new Blob([JSON.stringify(data.rows)], {type: 'text/plain'});
+            //blob.append("Test");
+            console.log("blob", blob);
+            console.log("filewriter", fileWriter);
+
+            fileWriter.truncate(0);
+                        
+          }).catch(function(error){
+            console.log("error creating writer", error)
+          });
+          
+          // Save entryId in chrome.storage.local
+          // var entryId = chrome.fileSystem.retainEntry(entry);
+          // chrome.storage.local.set({"dataFileEntryId":entryId},function(d){
+          //     console.log("Stored entry id: ", entryId);
+          //     chrome.storage.local.set({"initialized":"true"});
+          //     $scope.loadData();
+          // });
+        });
 
     };
     window._export = self.export;
