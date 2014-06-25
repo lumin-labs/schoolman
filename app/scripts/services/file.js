@@ -7,13 +7,24 @@ angular.module('SchoolMan')
     var self = {};
 
     self.import = function(){
+      var data = [];
+      /*PouchDB.destroy('schoolman.importDB', function(err, info){
+        if(err){
+          console.log("importDB not deleted", err);
+        }
+      });
+      var importDB = pouchdb.create('schoolman.importDB');
+      */
+
       chrome.fileSystem.chooseEntry({type:"openFile"}, 
         function(entry){
           entry.file(function(file){
             var reader = new FileReader();
 
             reader.onloadend = function(success){
-              console.log("Read successful:", JSON.parse(success.target.result));
+              var data = JSON.parse(success.target.result);
+              console.log("Read successful.", data);
+              saveToDB(data);
             }
             reader.onerror = function(error){
               console.log("Read failed:", error);
@@ -24,14 +35,67 @@ angular.module('SchoolMan')
           }).catch(function(error){
             console.log("error reading file", error)
           });
+      });
+      var saveToDB = function(data){
+        
+        var docList = [];
+        var studentList = [];
+        var paymentList = [];
+        var docDB = pouchdb.create('gths');
+        var studentDB = pouchdb.create('db_students');
+        var paymentDB = pouchdb.create('db_payments');
+        
+        angular.forEach(data, function(item, itemKey){
+          if(item.doc.datatype === "datatype/student/v1"){
+            studentList.push(item.doc);
+          }
+          else if(item.doc.datatype === "datatype/payments/v1"){
+            paymentList.push(item.doc);
+          }
+          else {
+            docList.push(item.doc);
+          }
         });
-    };
+        docDB.bulkDocs({docs: docList}).then(function(success){
+          docDB.allDocs({include_docs:true}).then(function(success){
+            console.log("Doc DB All Docs:", success);
+          }, function(error){
+            console.log("error getting docs", error);
+          });
+        }).catch(function(error){
+          console.log("Error saving to Import DB:", error);
+        });
+        studentDB.bulkDocs({docs: studentList}).then(function(success){
+          studentDB.allDocs({include_docs:true}).then(function(success){
+            console.log("Student DB All Docs:", success);
+          }, function(error){
+            console.log("error getting docs", error);
+          });
+        }).catch(function(error){
+          console.log("Error saving to Import DB:", error);
+        });
+        paymentDB.bulkDocs({docs: paymentList}).then(function(success){
+          paymentDB.allDocs({include_docs:true}).then(function(success){
+            console.log("Payment DB All Docs:", success);
+          }, function(error){
+            console.log("error getting docs", error);
+          });
+        }).catch(function(error){
+          console.log("Error saving to Import DB:", error);
+        });
+      }
+    }
 
     self.export = function(){
       
     	var dbs = [];
     	var data = [];
-      var exportDB = pouchdb.create('schoolman.exportDB');
+      //PouchDB.destroy('schoolman.exportDB', function(err, info){
+        //if(err){
+          //console.log("exportDB not deleted", err);
+        //}
+      //});
+      //var exportDB = pouchdb.create('schoolman.exportDB');
       
       var services = [
       	{getDB:function(){return 'gths'}},
@@ -46,25 +110,23 @@ angular.module('SchoolMan')
       		dbs.push(db);
       	}
       });
-      console.log("export dbs", dbs);
 
       var merge = function(dbs){
-        PouchDB.replicate(dbs[0], exportDB, function(err,resp){
-          if(err){
-            console.log("Failed to replicate", error);
+        pouchdb.create(dbs[0]).allDocs({include_docs:true}).then(function(success){
+          data = data.concat(success.rows);
+          if(dbs.length === 1){
+            console.log("Merge successful:", data);
+            writeData(JSON.stringify(data));
+          }
+          else if(dbs.length > 1){
+            merge(dbs.slice(1));
           }
         });
-        if(dbs.length === 1){
-            exportDB.allDocs({include_docs:true}).then(function(success){
-              data = success;
-              console.log("Succesfully merged", data);
-            });
-          } else if(dbs.length > 1){
-            merge(dbs.slice(1));
-          } 
-      };
+      }
       merge(dbs);
 
+    }
+    var writeData = function(data){
       chrome.fileSystem.chooseEntry({
         type:"saveFile", 
         suggestedName:"schoolman.data"}, 
@@ -82,7 +144,7 @@ angular.module('SchoolMan')
               console.log('Write failed: ' + error);
             };
 
-            var blob = new Blob([JSON.stringify(data.rows)], {type: 'text/plain'});
+            var blob = new Blob([data], {type: 'text/plain'});
 
             fileWriter.truncate(0);
                         
@@ -98,8 +160,8 @@ angular.module('SchoolMan')
           //     $scope.loadData();
           // });
         });
+    }
 
-    };
     window._export = self.export;
     return self;
   });
