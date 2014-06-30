@@ -76,20 +76,9 @@ angular.module('SchoolMan')
         }
       });
       
-      /*angular.forEach(dbs, function(dbItem, key){
-        dbItem.db.bulkDocs({docs: dbItem.list}).then(function(success){
-          //dbItem.db.allDocs({include_docs:true}).then(function(success){
-          //  console.log(dbItem.name, " all docs:", success);
-          //}, function(error){
-          //  console.log("error getting docs", dbItem.name, error);
-          //});
-          console.log(dbItem.name, "imported");
-        }).catch(function(error){
-          console.log("Error saving to Import DB:", error);
-        });
-      });*/
-      dbs[0].db.bulkDocs({docs: dbs[0].list}).then(function(success){
-        console.log(dbs[0].name, "imported");
+      
+      dbs[0].db.bulkDocs({docs: dbs[0].list}, {new_edits:false}).then(function(success){
+        console.log(dbs[0].name, "imported", success, dbs[0].list);
         dbs[1].db.bulkDocs({docs: dbs[1].list}).then(function(success){
           console.log(dbs[1].name, "imported");
           dbs[2].db.bulkDocs({docs: dbs[2].list}).then(function(success){
