@@ -213,7 +213,7 @@ schoolman.provider('model', function modelProvider() {
 
   self.parse2 = function(doc, datatypeId){
     var params = datatypeId.split("/");
-    console.log("Datatypes", self.datatypes);
+    //console.log("Datatypes", self.datatypes);
     var spec = self.datatypes[params[1]][params[2]];
     return self.parse(doc, spec);
   }
