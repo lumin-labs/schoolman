@@ -79,10 +79,10 @@ angular.module('SchoolMan')
       
       dbs[0].db.bulkDocs({docs: dbs[0].list}, {new_edits:false}).then(function(success){
         console.log(dbs[0].name, "imported", success, dbs[0].list);
-        dbs[1].db.bulkDocs({docs: dbs[1].list}).then(function(success){
-          console.log(dbs[1].name, "imported");
-          dbs[2].db.bulkDocs({docs: dbs[2].list}).then(function(success){
-            console.log(dbs[2].name, "imported");
+        dbs[1].db.bulkDocs({docs: dbs[1].list}, {new_edits:false}).then(function(success){
+          console.log(dbs[1].name, "imported", success, dbs[1].list);
+          dbs[2].db.bulkDocs({docs: dbs[2].list}, {new_edits:false}).then(function(success){
+            console.log(dbs[2].name, "imported", success, dbs[1].list);
             deferred.resolve();
           });
         });
