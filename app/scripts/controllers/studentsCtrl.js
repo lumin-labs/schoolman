@@ -76,15 +76,15 @@ angular.module('SchoolMan')
           $scope.data.selected[student._id] = 0;
           
           // Add payment data to student
-          // student.totalPaid = 0;
-          // Payments.query({studentId:student._id}).then(function(payments){
-          //   console.log("Got payments", student._id, payments);
-          //   student.totalPaid = _.reduce(payments, function(total, payment){
-          //       return total + payment.amount;
-          //   },student.totalPaid);
-          // }).catch(function(error){
-          //   console.log("Failed to load payments for ", student.name, error);
-          // });
+          student.totalPaid = 0;
+          Payments.query({studentId:student._id}).then(function(payments){
+            console.log("Got payments", student._id, payments);
+            student.totalPaid = _.reduce(payments, function(total, payment){
+              return total + payment.amount;
+            },student.totalPaid);
+          }).catch(function(error){
+            console.log("Failed to load payments for ", student.name, error);
+          });
 
           // add students class to reports
           var studentsClass = [student.formIndex, student.deptId, student.groupId];
