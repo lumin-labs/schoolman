@@ -340,8 +340,8 @@ angular.module('SchoolMan')
 
     self.validateCell = function(n){
       var status = 'number-valid';
-      if(n > 20){
-        status = "number-invalid"
+      if(n > 20 || n < 0){
+        status = "number-invalid";
       }
       return status;
     }

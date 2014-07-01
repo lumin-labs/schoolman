@@ -32,8 +32,12 @@ angular.module('SchoolMan')
     	hasChanged = true;
     }
 
-    $scope.save = function(){
-    	if(hasChanged){
+    $scope.save = function(studentId, cellIndex){
+        if(hasChanged){
+
+            if($scope.data.marksheet['table'][studentId][cellIndex] > 20 || $scope.data.marksheet['table'][studentId][cellIndex] < 0){
+                $scope.data.marksheet['table'][studentId][cellIndex] = "";
+            }
             console.log("Saving: ", $scope.data.marksheet);
             $scope.data.marksheet.save().then(function(success){
     			hasChanged = false;
@@ -44,5 +48,6 @@ angular.module('SchoolMan')
     	} else {
     	}
     };
+
   });
 
