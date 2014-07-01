@@ -170,10 +170,10 @@
               <tr class="danger">
                 <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
                 <td>{{set.msheet.coeff}}</td>
-                <td class="{{getRemark(set.ssheet[student._id][0] >= 0).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] * set.msheet.coeff : 0 | number:2}}</td>
+                <td class="{{getRemark(set.ssheet[student._id][0]).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] * set.msheet.coeff : 0 | number:2}}</td>
                 <td>{{set.rankings[student._id][termIndex]}}</td>
                 <td class="text-right"><strong>Average:</strong></td>
-                <td  class="{{getRemark(set.ssheet[student._id][0] >= 0).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] : 0| number:2}}</td>
+                <td  class="{{getRemark(set.ssheet[student._id][0]).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] : 0| number:2}}</td>
               </tr>
             </tbody>
           </table>

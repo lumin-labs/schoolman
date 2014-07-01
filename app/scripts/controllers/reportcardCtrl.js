@@ -123,6 +123,8 @@ angular.module('SchoolMan')
       ClassCouncils.get(model.ClassCouncil.generateID($routeParams))
         .then(function(classcouncil){
           $scope.passingScore = classcouncil.passingScore; 
+        }).catch(function(error){
+          $scope.passingScore = 10;
         });
 
       // Data2.get(model.ClassCouncil.generateID($routeParams)).then(function(data){
