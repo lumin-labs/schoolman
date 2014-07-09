@@ -43,14 +43,16 @@ angular.module('SchoolMan')
         if(all.indexOf(value) === -1){
             query[key] = value;
         }
-      });   
+      });  
+      console.log("query:", query); 
 
-      var setPassing = function(student, studentsClass){
+      var setPassing = function(student, classId){
         var studentAverage = 0;
-        if(reports[studentsClass].total.summary){
-          studentAverage = reports[studentsClass].total.summary[student._id][0];
+        if(reports[classId].total.summary){
+          studentAverage = reports[classId].total.summary[student._id][0];
         }
-        student.passing = studentAverage >= classCouncils[studentsClass].passingScore;      
+        student.passing = studentAverage >= classCouncils[classId].passingScore;  
+          
       };
 
       var getSeconds = function(_initial, _final){
@@ -76,53 +78,62 @@ angular.module('SchoolMan')
           $scope.data.selected[student._id] = 0;
           
           // Add payment data to student
-          student.totalPaid = 0;
-          Payments.query({studentId:student._id}).then(function(payments){
-            console.log("Got payments", student._id, payments);
-            student.totalPaid = _.reduce(payments, function(total, payment){
-              return total + payment.amount;
-            },student.totalPaid);
-          }).catch(function(error){
-            console.log("Failed to load payments for ", student.name, error);
-          });
+          //student.totalPaid = 0;
+          //Payments.query({studentId:student._id}).then(function(payments){
+          //  console.log("Got payments", student._id, payments);
+          //  student.totalPaid = _.reduce(payments, function(total, payment){
+          //    return total + payment.amount;
+          //  },student.totalPaid);
+          //}).catch(function(error){
+          //  console.log("Failed to load payments for ", student.name, error);
+          //});
 
           // add students class to reports
           var studentsClass = [student.formIndex, student.deptId, student.groupId];
+          //console.log("reports/class councils", reports, classCouncils, studentsClass);
+            
           
           if(reports.hasOwnProperty(studentsClass) &&  
              classCouncils.hasOwnProperty(studentsClass)){
+            console.log("in if statement reports/class councils", reports, classCouncils, studentsClass, student);
+
 
             setPassing(student, studentsClass);
 
           } else {
+            getReports(studentsClass);
+            //setPassing(student, studentsClass);
+          }
 
+        }); 
+      }).catch(function(error){
+        console.log("Error loading students", error);
+      });  
+    };
+
+    
+    
+
+    var getReports = function(params){
+      //console.log("in getreports reports/class councils", reports, classCouncils, studentsClass, reports[studentsClass]);
             // get report and classCOuncil promises
-            /*var queries = {
-              reports: Marksheets.getReports({
-                formIndex:student.formIndex,
-                deptId:student.deptId,
-                groupId:student.groupId
-            }),
-              classcouncil: ClassCouncils.get(model.ClassCouncil.generateID({
-                    formIndex:student.formIndex,
-                    deptId:student.deptId,
-                    groupId:student.groupId
-                }))
-            }*/
+            console.log("params:", params);
+
             var reportquery = {
               reports: Marksheets.getReports({
-                formIndex:student.formIndex,
-                deptId:student.deptId,
-                groupId:student.groupId
+                formIndex:params.formIndex,
+                deptId:params.deptId,
+                groupId:params.groupId
             })
             }
             var councilquery = {
               classcouncil: ClassCouncils.get(model.ClassCouncil.generateID({
-                    formIndex:student.formIndex,
-                    deptId:student.deptId,
-                    groupId:student.groupId
-                }))
+                formIndex:params.formIndex,
+                deptId:params.deptId,
+                groupId:params.groupId
+              }))
             }
+            var studentsClass = [params.formIndex, params.deptId, params.groupId];
 
             // Get reports and classCouncils
             $q.all(councilquery).then(function(data){
@@ -137,26 +148,66 @@ angular.module('SchoolMan')
             $q.all(reportquery).then(function(data){
               //console.log("all promises: ", data);
               reports[studentsClass] = data.reports;
-              setPassing(student, studentsClass);
+              console.log("reports[studentsClass", reports[studentsClass], reports);
+              updateStudents();
+              
+              
             }).catch(function(error){
                 // console.log("Failed to load reports", error);
             });
+    }
+    var queryReports = function(studentsClass){
+      
+      var params = angular.copy(studentsClass);
+      angular.forEach(params, function(value, key){
+        if(value === "all"){
+          if(key === "formIndex"){
+            params[key] = data.forms;
           }
+          if(key === "deptId"){
+            params[key] = data.departments;
+          }
+          if(key === "groupId"){
+            params[key] = data.groups;
+          }
+        }
+        else{
+          params[key] = [value];
+        }
+      });
 
-        }); 
-      }).catch(function(error){
-        console.log("Error loading students", error);
-      });  
-    };
-    updateStudents();
+      angular.forEach(params.formIndex, function(form, formKey){
+        angular.forEach(params.deptId, function(dept, deptKey){
+          angular.forEach(params.groupId, function(group, groupKey){
+            if(group._id){
+              group = group._id;
+            }
+            if(dept._id){
+              dept = dept._id;
+            }
+            getReports({formIndex:formKey,deptId:dept,groupId:group});
+          })
+        })
+      })
+
+
+      //var newArray = {};
+
+
+      console.log("query Parameters:", params);
+      //getReports(studentsClass);
+    }
+
+    queryReports($scope.queryParams);
+    
 
     $scope.setQuery = function(params){
-        angular.forEach(params, function(value, key){
-            $scope.queryParams[key] = value;
-        });
-        $scope.data.page = 0;
-        // console.log("Query Params", $scope.queryParams);
-        updateStudents();
+      angular.forEach(params, function(value, key){
+          $scope.queryParams[key] = value;
+      });
+      $scope.data.page = 0;
+      console.log("Query Params", $scope.queryParams);
+      queryReports($scope.queryParams);
     };
 
     $scope.moveTab = "form";
