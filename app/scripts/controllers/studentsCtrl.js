@@ -95,13 +95,13 @@ angular.module('SchoolMan')
           
           if(reports.hasOwnProperty(studentsClass) &&  
              classCouncils.hasOwnProperty(studentsClass)){
-            console.log("in if statement reports/class councils", reports, classCouncils, studentsClass, student);
+            //console.log("in if statement reports/class councils", reports, classCouncils, studentsClass, student);
 
 
             setPassing(student, studentsClass);
 
           } else {
-            console.log("in else statement", reports, classCouncils, studentsClass, student);
+            //console.log("in else statement", reports, classCouncils, studentsClass, student);
             //getReports(studentsClass);
             //setPassing(student, studentsClass);
           }
@@ -118,7 +118,7 @@ angular.module('SchoolMan')
     var getReports = function(params){
       //console.log("in getreports reports/class councils", reports, classCouncils, studentsClass, reports[studentsClass]);
             // get report and classCOuncil promises
-            console.log("params:", params);
+            //console.log("params:", params);
 
             var reportquery = {
               reports: Marksheets.getReports({
@@ -149,7 +149,7 @@ angular.module('SchoolMan')
             $q.all(reportquery).then(function(data){
               //console.log("all promises: ", data);
               reports[studentsClass] = data.reports;
-              console.log("reports[studentsClass", reports[studentsClass], reports);
+              //console.log("reports[studentsClass", reports[studentsClass], reports);
               updateStudents();
               
               
