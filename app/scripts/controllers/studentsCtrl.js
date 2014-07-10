@@ -101,7 +101,8 @@ angular.module('SchoolMan')
             setPassing(student, studentsClass);
 
           } else {
-            getReports(studentsClass);
+            console.log("in else statement", reports, classCouncils, studentsClass, student);
+            //getReports(studentsClass);
             //setPassing(student, studentsClass);
           }
 
@@ -153,7 +154,8 @@ angular.module('SchoolMan')
               
               
             }).catch(function(error){
-                // console.log("Failed to load reports", error);
+                console.log("Failed to load reports", error);
+                updateStudents();
             });
     }
     var queryReports = function(studentsClass){
@@ -179,13 +181,22 @@ angular.module('SchoolMan')
       angular.forEach(params.formIndex, function(form, formKey){
         angular.forEach(params.deptId, function(dept, deptKey){
           angular.forEach(params.groupId, function(group, groupKey){
+            //console.log("formkey:", formKey, form);
+            if(form.name){
+              form = formKey;
+            }
             if(group._id){
               group = group._id;
             }
             if(dept._id){
               dept = dept._id;
             }
-            getReports({formIndex:formKey,deptId:dept,groupId:group});
+            if(!(reports.hasOwnProperty(studentsClass) && classCouncils.hasOwnProperty(studentsClass))){
+              getReports({formIndex:form,deptId:dept,groupId:group});
+            }
+            else{
+              updateStudents();
+            }
           })
         })
       })
