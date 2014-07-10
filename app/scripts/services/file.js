@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('File', function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, Groups, Students) {
+  .service('File', function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, Groups, Students, Payments) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var self = {};
@@ -53,7 +53,31 @@ angular.module('SchoolMan')
         $q.all(promises).then(function(success){
           console.log("Successes", success);
           deferred.resolve();
+
+          Students.query().then(function(students){
+            angular.forEach(students, function(student, studentIndex){
+              Payments.query({studentId:student._id}).then(function(payments){
+                //console.log("Got payments", student._id, payments);
+                var totalPaid = _.reduce(payments, function(total, payment){
+                  return total + payment.amount;
+                },0);
+                if(student.totalPaid !== totalPaid){
+                  student.totalPaid = totalPaid;
+                  student.save().then(function(success){
+                    console.log("Student saved:", success);
+                  });
+                }
+              }).catch(function(error){
+                console.log("Failed to load payments for ", student.name, error);
+              });
+            });
+          });
+
+
         });
+
+        
+
       }
       
       return deferred.promise;
