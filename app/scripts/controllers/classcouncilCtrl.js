@@ -3,10 +3,10 @@
 angular.module('SchoolMan')
   .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos) {
     
-    $scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
-    $scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
-    //$scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
-    //$scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
+    //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
+    //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
+    $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
+    $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
     //$scope.schoolYear = SCHOOLYEAR.year;
 
