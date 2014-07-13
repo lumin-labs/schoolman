@@ -13,6 +13,10 @@ angular.module('SchoolMan')
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;
+
+      if($scope.schoolInfo.version === "gths"){
+        $scope.User.roles.classmaster.name = "Head of Dept";
+      }
     }).catch(function(error){
       console.log("failed to load school info", error);
     })

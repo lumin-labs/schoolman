@@ -5,7 +5,7 @@
 				<div class="btn-group" style="margin-right:0px;">
 	        <a class="btn btn-lg dropdown-toggle {{userAccess === 'sales' ? 'btn-warning' : 'btn-default'}}" 
 	           data-toggle="dropdown">
-	          {{(User.roles[userAccess].name === "Class Master" && schoolInfo.version === "gths") ? "Head of Department" : User.roles[userAccess].name}} <span class="caret"></span>
+	          {{User.roles[userAccess].name}} <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu" role="menu">
 	          <li>
@@ -16,10 +16,10 @@
 				  	    ng-if="accessBool === 1"
 				  	    ng-class="accessKey === userAccess ? 'active' : ''">
 					  	<a ng-click="login(accessKey)" 
-					  	   ng-if="settings.access[accessKey] === 1">{{(User.roles[accessKey].name === "Class Master" && schoolInfo.version === "gths") ? "Head of Department" : User.roles[accessKey].name}}</a>	
+					  	   ng-if="settings.access[accessKey] === 1">{{User.roles[accessKey].name}}</a>	
 					  	<a ng-click="login(accessKey)" 
 					  	   ng-if="settings.access[accessKey] === 0"
-					  	   style="color:#999;">{{(User.roles[accessKey].name === "Class Master" && schoolInfo.version === "gths") ? "Head of Department" : User.roles[accessKey].name}}</a>
+					  	   style="color:#999;">{{User.roles[accessKey].name}}</a>
 				  	</li>
 	        </ul>
 	      </div>
