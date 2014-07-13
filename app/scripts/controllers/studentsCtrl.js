@@ -44,7 +44,7 @@ angular.module('SchoolMan')
             query[key] = value;
         }
       });  
-      console.log("query:", query); 
+      //console.log("query:", query); 
 
       var setPassing = function(student, classId){
         var studentAverage = 0;
@@ -205,7 +205,7 @@ angular.module('SchoolMan')
       //var newArray = {};
 
 
-      console.log("query Parameters:", params);
+      //console.log("query Parameters:", params);
       //getReports(studentsClass);
     }
 
@@ -217,7 +217,7 @@ angular.module('SchoolMan')
           $scope.queryParams[key] = value;
       });
       $scope.data.page = 0;
-      console.log("Query Params", $scope.queryParams);
+      //console.log("Query Params", $scope.queryParams);
       queryReports($scope.queryParams);
     };
 
