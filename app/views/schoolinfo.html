@@ -1,0 +1,39 @@
+<div class="row">
+<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+<div class="col-md-10 marksheet" ng-controller="SchoolInfoCtrl">
+
+  <div class="row">
+  	<div class="col-md-9" style="border-right:solid 1px #ddd;">
+    <table class="table table-striped"><tr>
+      <td style="width:200px;text-align:right;"><label for="nameEn">School Name (English)</label></td>
+      <td><input id="nameEn" type="text" class="form-control" placeholder="School Name (English)" ng-model="schoolInfo.nameEn" ng-blur="save()"></input></td></tr>
+
+      <tr><td style="width:200px;text-align:right;"><label for="nameFr">School Name (French)</label></td>
+      <td><input id="nameFr" type="text" class="form-control" placeholder="School Name (French)" ng-model="schoolInfo.nameFr" ng-blur="save()"></input></td></tr>
+
+      <tr><td style="width:200px;text-align:right;"><label for="year">School Year</label></td>
+      <td><input id="year" type="text" class="form-control" style="width:100px" placeholder="School Year" ng-model="schoolInfo.schoolyear" ng-blur="save()"></input></td></tr>
+
+      <tr><td style="width:200px;text-align:right;"><label>Version</label></td>
+      <td><div  class="btn-group">
+        <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+          {{schoolInfo.version}} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li ng-repeat="(versionId, version) in ['gths','ghs']">
+            <a ng-click="schoolInfo.version = version" ng-blur="save()">
+                {{version}}
+            </a>
+        </li>
+      </ul>
+      </div></td></tr>
+      </table>
+
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+</div>
+</div>	
+
