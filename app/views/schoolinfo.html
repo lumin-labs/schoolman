@@ -22,7 +22,7 @@
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="(versionId, version) in ['gths','ghs']">
-            <a ng-click="schoolInfo.version = version" ng-blur="save()">
+            <a ng-click="updateVersion(version)">
                 {{version}}
             </a>
         </li>

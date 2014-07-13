@@ -20,4 +20,8 @@ angular.module('SchoolMan')
       });
     }
 
+    $scope.updateVersion = function(version){
+      $scope.schoolInfo.version = version;
+      $scope.save();
+    }
   });
