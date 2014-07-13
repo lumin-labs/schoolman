@@ -58,7 +58,7 @@
 							<th style="padding-left:10px;">Name</th>
 							<th class="text-center" 
 							    style="width:105px;"
-							    ng-repeat="(roleKey, role) in User.roles">{{role.name}}</th>
+							    ng-repeat="(roleKey, role) in User.roles">{{(role.name === "Class Master" && schoolInfo.version === "gths") ? "Head of Department" : role.name}}</th>
 							
 							<th class="noprint" style="width:80px">Remove</th>
 						</tr>
