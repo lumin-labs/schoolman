@@ -51,32 +51,31 @@ angular.module('SchoolMan')
         var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 
         $q.all(promises).then(function(success){
-          console.log("Successes", success);
-          deferred.resolve();
-
-          Students.query().then(function(students){
-            angular.forEach(students, function(student, studentIndex){
-              Payments.query({studentId:student._id}).then(function(payments){
-                //console.log("Got payments", student._id, payments);
-                var totalPaid = _.reduce(payments, function(total, payment){
-                  return total + payment.amount;
-                },0);
-                if(student.totalPaid !== totalPaid){
-                  student.totalPaid = totalPaid;
-                  student.save().then(function(success){
-                    console.log("Student saved:", success);
-                  });
-                }
-              }).catch(function(error){
-                console.log("Failed to load payments for ", student.name, error);
-              });
+          //console.log("Successes", success);
+          //var students = {};
+          var students = success[6];
+          //console.log("students", students);
+          
+          angular.forEach(students, function(student, studentIndex){
+            //console.log("student", student);
+            Payments.query({studentId:student._id}).then(function(payments){
+              //console.log("Got payments", student._id, payments);
+              var totalPaid = _.reduce(payments, function(total, payment){
+                return total + payment.amount;
+              },0);
+              if(student.totalPaid !== totalPaid){
+                student.totalPaid = totalPaid;
+                student.save().then(function(success){
+                  console.log("Student saved:", success);
+                });
+              }
+            }).catch(function(error){
+              console.log("Failed to load payments for ", student.name, error);
             });
           });
-
+          deferred.resolve();
 
         });
-
-        
 
       }
       

@@ -104,8 +104,8 @@
                 <li><a href="">Save As ...</a></li>
                 <li class="divider"></li> -->
                 <li><a ng-click="print()">Print</a></li>
-                <li><a ng-click="import()">Import File</a></li>
-                <li><a ng-click="export()">Export to File</a></li>
+                <li><a ng-click="import()" ng-if="cache.user.access.admin === 1">Import File</a></li>
+                <li><a ng-click="export()" ng-if="cache.user.access.admin === 1">Export to File</a></li>
                 <li class="divider"></li>
                 <li><a id="close">Quit</a></li>
               </ul>
@@ -205,6 +205,7 @@
         <script src="scripts/models/Dcard.js"></script>
         <script src="scripts/models/ClassCouncil.js"></script>
         <script src="scripts/models/Settings.js"></script>
+        <script src="scripts/models/SchoolInfo.js"></script>
         
         <script src="scripts/models/InsertionError.js"></script>
 
@@ -235,6 +236,7 @@
         <script src="scripts/services/classcouncils.js"></script>
         <script src="scripts/services/dcards.js"></script>
         <script src="scripts/services/settings.js"></script>
+        <script src="scripts/services/schoolinfos.js"></script>
 
 
         <script src="scripts/controllers/loading3Ctrl.js"></script>  
