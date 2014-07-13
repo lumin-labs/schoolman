@@ -7,8 +7,7 @@
        ng-controller="reportcardCtrl" 
        ng-init="mastersheet = getMastersheet()"
        >
-<div ng-repeat="(studentIndex, student) in data.students" ng-show="student._id === data.student._id" 
-  class="ng-hide {{ClassMaster.printVariable === true || ClassMaster.printVariable === 'true' ? 'print-show' : ''}}">
+<div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'" ng-show="student._id === data.student._id" ng-if="student._id === data.student._id || ClassMaster.printVariable === true || ClassMaster.printVariable === 'true'" class="print-show">
   <div class="pagebreak" ng-if="studentIndex !== 0 && (ClassMaster.printVariable === true || ClassMaster.printVariable === 'true')"></div>
 
     <!-- School Name Letterhead -->
@@ -33,7 +32,7 @@
                             data-toggle="dropdown">{{student.name}}
                         </button>
                         <ul class="dropdown-menu">
-                          <li ng-repeat="(studentIndex, student) in data.students">
+                          <li ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
                             <a ng-click="open({studentId:student._id})">{{student.name}}</a>
                           </li>
                         </ul>
@@ -87,7 +86,7 @@
                           </ul>
                         </div>
                       </div> -->
-                      <h4 class="section-header noprint">{{schoolYear}} School Year</h4>
+                      <h4 class="section-header noprint">{{data.schoolInfo.schoolyear}} Academic Year</h4>
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
                             data-toggle="dropdown">{{data.term.name}}
@@ -171,10 +170,10 @@
               <tr class="danger">
                 <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
                 <td>{{set.msheet.coeff}}</td>
-                <td class="{{getRemark(set.ssheet[student._id][0] >= 0).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] * set.msheet.coeff : 0 | number:2}}</td>
+                <td class="{{getRemark(set.ssheet[student._id][0]).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] * set.msheet.coeff : 0 | number:2}}</td>
                 <td>{{set.rankings[student._id][termIndex]}}</td>
                 <td class="text-right"><strong>Average:</strong></td>
-                <td  class="{{getRemark(set.ssheet[student._id][0] >= 0).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] : 0| number:2}}</td>
+                <td  class="{{getRemark(set.ssheet[student._id][0]).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] : 0| number:2}}</td>
               </tr>
             </tbody>
           </table>

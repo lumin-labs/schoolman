@@ -47,7 +47,6 @@ angular.module('SchoolMan')
   	};
 
   	self.query = function(params){
-    	
     	var deferred = $q.defer();
 
     	// Load Data
@@ -69,11 +68,11 @@ angular.module('SchoolMan')
 	    		var collection = [];
 	        angular.forEach(success.rows, function(data, rowIndex){
 	            var spec = data.doc;
-	            var obj = model.parse(data.value.data, spec);
+	            var obj = model.parse2(data.value.data, data.value._id);
 	            var item = modelTransformer.transform(obj, dataModel);
 	            collection.push(item);
 	        });
-	        // console.log("Query: success", success, collection);
+	        //console.log("Query: success", success, collection);
 	        deferred.resolve(collection);
 	    }).catch(function(error){
 	        deferred.reject("Query: failed", error);
