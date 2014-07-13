@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('reportcardCtrl', function ($scope, $routeParams, model, ClassCouncils, SCHOOLYEAR, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+  .controller('reportcardCtrl', function ($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
@@ -9,9 +9,11 @@ angular.module('SchoolMan')
       $scope.ClassMaster = ClassMaster;
 
       $scope.open = Location.open;
+      //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
+      //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
       $scope.pageTitleFrench = "BULLETIN DE NOTES";
-      $scope.schoolYear = SCHOOLYEAR.year;
+      //$scope.schoolYear = SCHOOLYEAR.year;
 
       $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
       $scope.Users = Users;
@@ -32,10 +34,14 @@ angular.module('SchoolMan')
       $scope.data.students = [];
       $scope.data.student;
       $scope.ClassMaster = ClassMaster;
-      //$scope.data.printAll = ClassMaster.printVariable;
 
-      //console.log("classMaster.printVariable", $scope.ClassMaster.printVariable);
-
+      SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+      }).catch(function(error){
+        console.log("failed to get school info", error);
+      });
+      
 
 
       // Load marksheet and student data
@@ -45,7 +51,6 @@ angular.module('SchoolMan')
         groupId:$routeParams.groupId
       })
       .then(function(marksheets){
-
         // Create marksheet summaries 
         $scope.data.summaries = marksheets.map(function(marksheet){
           return Marksheets.summarize(marksheet, termIndex);
@@ -106,6 +111,7 @@ angular.module('SchoolMan')
           console.log("Student: ", $scope.data.student);
           Dcards.get($scope.data.student._id).then(function(dcard){
             $scope.data.dcard = dcard;
+            console.log("Dcard data", $scope.data.dcard)
           }).catch(function(error){
             console.log("Failed to get dcard", error);
           })

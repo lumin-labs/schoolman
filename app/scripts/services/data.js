@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .service('Data', function Data($timeout, $log, VERSION) {
+  .service('Data', function Data($timeout, $log, SchoolInfos) {
 
     var SCHEMA = {
         "version":"",
@@ -31,6 +31,13 @@ angular.module('SchoolMan')
     var self = {};
 
     var listeners = {};
+    var version;
+
+    SchoolInfos.get("schoolinfo").then(function(info){
+        version = info;
+    }).catch(function(error){
+        console.log("unable to retrieve school info");
+    });
     
     self.get = function(key, callback){
     	if(data.hasOwnProperty(key)){
@@ -213,12 +220,12 @@ angular.module('SchoolMan')
                 angular.forEach(entries, function(entry, entryIndex){
                     files[entry.name] = entry;
                 });
-                if(VERSION.mode.toLowerCase() === "gths"){                    
+                if(version.mode.toLowerCase() === "gths"){                    
                     addWriter("schoolman", files["gths.data"]);
                     self.loadFile(files["gths.data"], function(success){
                         callback(success);
                     });
-                } else if (VERSION.mode.toLowerCase() === "ghs"){                    
+                } else if (version.mode.toLowerCase() === "ghs"){                    
                     addWriter("schoolman", files["ghs.data"]);
                     self.loadFile(files["ghs.data"], function(success){
                         callback(success);
