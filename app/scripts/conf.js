@@ -133,7 +133,7 @@ angular.module('SchoolMan')
       page:"reportcardGTHS",
       access:['classmaster'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["gths","ghs"],
       icon:'glyphicon-list-alt'
     },
     {

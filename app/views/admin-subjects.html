@@ -22,9 +22,9 @@
 		          			 placeholder="code" 
 		          		 	 ng-model="newSubject.code">
 		        </div>
-		        <div class="form-group" style="width:130px;">
+		        <div class="form-group" style="width:130px;" ng-if="version === 'gths'">
 		          <!-- Group Dropdown -->
-						  <div class="btn-group" ng-if="version === 'gths'">
+						  <div class="btn-group">
 						    <button class="btn btn-sm btn-default dropdown-toggle" 
 						    				data-toggle="dropdown">
 						      {{types[newSubject.type]}} 
@@ -74,9 +74,9 @@
 							<td class="" style="width:70px;">
 								{{subject.code}}
 							</td>
-							<td style="width:130px;">
+							<td style="width:130px;" ng-if="version === 'gths'">
 								<!-- Group Dropdown -->
-							  <div class="btn-group" ng-if="version === 'gths'">
+							  <div class="btn-group">
 							    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
 							      {{types[subject.type]}} 
 							      &nbsp;<span class="caret"></span>
