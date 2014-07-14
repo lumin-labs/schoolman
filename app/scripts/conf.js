@@ -161,6 +161,14 @@ angular.module('SchoolMan')
       icon:'glyphicon-cog'
     },
     {
+      label:"School Information",
+      page:"schoolInfo",
+      access:['sales'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-info-sign'
+    },
+    {
       label:"Customer Settings",
       page:"customerSettings",
       access:['sales'],

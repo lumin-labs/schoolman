@@ -19,6 +19,7 @@ angular.module('SchoolMan')
     var groupP= Groups.load();
     var studentsP= Students.load();
 
+
     var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 
     $q.all(promises).then(function(success){

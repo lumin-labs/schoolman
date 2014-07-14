@@ -34,7 +34,7 @@
 					<li ng-repeat="(tabIndex, tab) in TABS"
 						ng-if="userHasAccess(tab, schoolInfo.version)"
 						ng-class="activeIfPage(tab.page)">
-						<a ng-if="settings.access[userAccess]" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
+						<a ng-if="settings.access[userAccess] || userAccess === 'sales'" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
 					</li>
 				</ul>
 			</div>
