@@ -10,11 +10,27 @@
  * This service handles marksheets and all calculations
  */
 angular.module('SchoolMan')
-  .service('ClassMaster', function ClassMaster(modelTransformer, Registrar, Data, model) {
+  .service('ClassMaster', function ClassMaster($q, modelTransformer, Registrar, Data, model) {
+
+    // This is the container for public methods of the ClassMaster Service
+    var self = {};
+    
+    self.printVariable = false;
+
+    self.setPrint = function() {
+      var deferred = $q.defer();
+      self.printVariable = true;
+      deferred.resolve(self.printVariable);
+      return deferred.promise;
+    }
 
     var debug_once = 0;
 
     var marksheets = {};
+
+
+
+
 
     /**
      * @ngdoc object
@@ -43,8 +59,6 @@ angular.module('SchoolMan')
     }
 
 
-    // This is the container for public methods of the ClassMaster Service
-    var self = {};
   
     self.addStudent = function(marksheet, studentId){
       var rowData = {

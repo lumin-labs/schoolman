@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, settings, Cache, model) {
+  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, settings, Cache, model, SchoolInfos) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
@@ -9,7 +9,17 @@ angular.module('SchoolMan')
     $scope.teacher = Cache.get('user');
     $scope.User = model.User;
     $scope.settings = settings.get();
-    console.log("Settings", $scope.settings);
+    $scope.activePage = $routeParams.page;
+
+    SchoolInfos.get("schoolinfo").then(function(info){
+      $scope.schoolInfo = info;
+
+      if($scope.schoolInfo.version === "gths"){
+        $scope.User.roles.classmaster.name = "Head of Dept";
+      }
+    }).catch(function(error){
+      console.log("failed to load school info", error);
+    });
 
     $scope.activeIfPage = function(page){
       var cssClass = "";

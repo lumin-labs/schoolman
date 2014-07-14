@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('reportcardCtrl', function ($scope, $routeParams, model, ClassCouncils, SCHOOLYEAR, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+  .controller('reportcardCtrl', function ($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
@@ -9,13 +9,16 @@ angular.module('SchoolMan')
       $scope.ClassMaster = ClassMaster;
 
       $scope.open = Location.open;
+      //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
+      //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
       $scope.pageTitleFrench = "BULLETIN DE NOTES";
-      $scope.schoolYear = SCHOOLYEAR.year;
+      //$scope.schoolYear = SCHOOLYEAR.year;
 
       $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
       $scope.Users = Users;
       $scope.getRemark = ClassMaster.getRemark;
+      $scope.studentId = $routeParams.studentId;
 
       $scope.data = {};
       $scope.data.forms = Forms.all();
@@ -30,6 +33,16 @@ angular.module('SchoolMan')
       $scope.data.rankings = {};
       $scope.data.students = [];
       $scope.data.student;
+      $scope.ClassMaster = ClassMaster;
+
+      SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+      }).catch(function(error){
+        console.log("failed to get school info", error);
+      });
+      
+
 
       // Load marksheet and student data
       Marksheets.query({
@@ -38,7 +51,6 @@ angular.module('SchoolMan')
         groupId:$routeParams.groupId
       })
       .then(function(marksheets){
-
         // Create marksheet summaries 
         $scope.data.summaries = marksheets.map(function(marksheet){
           return Marksheets.summarize(marksheet, termIndex);
@@ -93,12 +105,13 @@ angular.module('SchoolMan')
             return dict
           },{});
 
-          $scope.data.student = Object.keys(studentDict).indexOf($routeParams.studentId) > -1 ? 
-                                studentDict[$routeParams.studentId] :
+          $scope.data.student = studentIds.indexOf($scope.studentId) > -1 ? 
+                                studentDict[$scope.studentId] :
                                 students[0];
           console.log("Student: ", $scope.data.student);
           Dcards.get($scope.data.student._id).then(function(dcard){
             $scope.data.dcard = dcard;
+            console.log("Dcard data", $scope.data.dcard)
           }).catch(function(error){
             console.log("Failed to get dcard", error);
           })
@@ -116,6 +129,8 @@ angular.module('SchoolMan')
       ClassCouncils.get(model.ClassCouncil.generateID($routeParams))
         .then(function(classcouncil){
           $scope.passingScore = classcouncil.passingScore; 
+        }).catch(function(error){
+          $scope.passingScore = 10;
         });
 
       // Data2.get(model.ClassCouncil.generateID($routeParams)).then(function(data){

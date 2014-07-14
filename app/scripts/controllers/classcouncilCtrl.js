@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, SCHOOLYEAR, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet) {
+  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos) {
     
+    //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
+    //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
-    $scope.schoolYear = SCHOOLYEAR.year;
+    //$scope.schoolYear = SCHOOLYEAR.year;
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
@@ -31,6 +33,13 @@ angular.module('SchoolMan')
 
     ClassCouncils.get(classcouncilId).then(function(classcouncil){
         $scope.data.classcouncil = classcouncil;
+    });
+
+    SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+    }).catch(function(error){
+        console.log("failed to get school info", error);
     });
 
 
@@ -101,7 +110,7 @@ angular.module('SchoolMan')
             if(studentAvg >= $scope.data.classcouncil.passingScore){
                 stats.passing = stats.passing +1;
             }
-            if(!isNaN(studentAvg)){
+            if(!isNaN(studentAvg) && studentAvg !== -1){
                 classTotal = classTotal + studentAvg;
                 stats.numPresent = stats.numPresent + 1;
                 if(studentAvg < minStudent){
@@ -113,11 +122,11 @@ angular.module('SchoolMan')
             }
         });
 
-        stats.failing = stats.numStudents - stats.passing;
-        stats.percentPassing = stats.passing / stats.numStudents;
+        stats.failing = stats.numPresent - stats.passing;
+        stats.percentPassing = stats.passing / stats.numPresent;
         stats.percentFailing = 1 - stats.percentPassing;
-        stats.classAverage = classTotal / stats.numStudents;
-        stats.classRange = maxStudent - minStudent;
+        stats.classAverage = classTotal / stats.numPresent;
+        stats.classRange = minStudent === 20 ? 0 : maxStudent - minStudent;
         return stats;
     }
     
@@ -140,11 +149,24 @@ angular.module('SchoolMan')
                     n += 1;
                 }
             })
-        var top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
-        var sortedListEnd = sortedList.slice(-3-n);
-        var worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
 
-        // console.log("Top3", top3);
+        var top3 = [];
+        var worst3 = [];
+
+        if(sortedList.length > 2){        
+            top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
+            var sortedListEnd = sortedList.slice(-3-n);
+            worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
+        }
+        else if(sortedList.length > 1){
+            top3 = [sortedList[0].studentId,sortedList[1].studentId];
+            worst3 = [sortedList[0].studentId,sortedList[1].studentId];
+        }
+        else if(sortedList.length > 0){
+            top3 = [sortedList[0].studentId];
+            worst3 = [sortedList[0].studentId];
+        }
+
 
         Students.getBatch(top3).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){

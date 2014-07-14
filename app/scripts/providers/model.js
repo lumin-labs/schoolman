@@ -4,7 +4,9 @@ var schoolman = angular.module('SchoolMan')
 
 schoolman.provider('model', function modelProvider() {
     
+  
   var self = this;
+  var modelservice = self;
 
   function Model(){};
 
@@ -125,15 +127,25 @@ schoolman.provider('model', function modelProvider() {
 
     var self = this;
     var deferred = self.$q.defer();
+    if(typeof(self.db) === "string"){
+      console.log("db = ", self.db);
+      self.db = modelservice.pouchdb.create(self.db);
+      console.log("db = ", self.db);
+    }
 
     if(self.validates()){
       self.db.put(self.saveable()).then(function(response){
         self._rev = response.rev;
         self._id = response.id;
         console.log("Saved: ", self);
+        self.db.allDocs().then(function(success){
+          console.log("Alldocs:", success);
+        })
         deferred.resolve(response);
       }, function(err, response){
         deferred.reject(err, response);
+      }).catch(function(error){
+        console.log("Failed to save:", error);
       });
     } else {
       deferred.reject(this.constructor + " is not valid");
@@ -201,7 +213,7 @@ schoolman.provider('model', function modelProvider() {
 
   self.parse2 = function(doc, datatypeId){
     var params = datatypeId.split("/");
-    console.log("Datatypes", self.datatypes);
+    //console.log("Datatypes", self.datatypes);
     var spec = self.datatypes[params[1]][params[2]];
     return self.parse(doc, spec);
   }
@@ -225,10 +237,11 @@ schoolman.provider('model', function modelProvider() {
   };
 
 
-  this.$get = ["Data2", "$q" , "Slug", function ModelFactory(Data2, $q, Slug) {
+  this.$get = ["Data2", "$q" , "Slug", "pouchdb", function ModelFactory(Data2, $q, Slug, pouchdb) {
     Model.prototype.db = Data2;
     Model.prototype.$q = $q;
     self.slugify = Slug.slugify;
+    self.pouchdb = pouchdb;
     self.updateDatatypes();
     return self;
   }];

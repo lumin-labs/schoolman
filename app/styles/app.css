@@ -48,6 +48,10 @@ dt,dd{
   margin-top: 5px;
 }
 
+.invalid-input{
+  border-color: #FA787E;
+}
+
 .myclasses thead tr th{
 text-align: left;
   }
@@ -265,6 +269,13 @@ body{
 .nav-stacked li{
   /*border-top:solid 1px #e8e8e8;*/
 }
+
+input[type=radio] {
+  display:none; 
+  margin:10px;
+}
+
+
 
 /*
  * Sidebar
@@ -585,7 +596,9 @@ td.profile-photo{
     body{
       padding-top:0px;
     }
-
+    .print-show{
+      display: initial !important;
+    }
     .side-nav{
       display: none;
     }
@@ -594,6 +607,9 @@ td.profile-photo{
         width:100%;
     }
 
+    .pagebreak{
+      page-break-after: always;
+    }
     .fitpage{
       max-height: 10.5in;
       overflow: hidden;
@@ -750,5 +766,5 @@ td.profile-photo{
       display: none;
     }
     
-
+    
   }

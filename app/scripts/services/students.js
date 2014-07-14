@@ -3,7 +3,10 @@
 angular.module('SchoolMan')
   .service('Students', function Students($q, model, modelTransformer, pouchdb) {
 
-  	var db = pouchdb.create("db_students");
+  	var db = model.Student.db;
+    if(typeof db === "string"){
+      db = pouchdb.create(model.Student.db);
+    }
 
   	var _students = {};
 
@@ -170,7 +173,7 @@ angular.module('SchoolMan')
       	filtered = _.filter(students, function(student){
       		var isOk = true;
       		angular.forEach(params, function(param, key){
-      			if(student[key] !== param){
+      			if(student[key] !== String(param)){
       				isOk = false;
       			}
       		});
