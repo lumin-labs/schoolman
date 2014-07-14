@@ -128,20 +128,12 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
   	 	icon:'glyphicon-th-large'
   	},
-  	{
-  		label:"Report Card",
-  	 	page:"reportcard",
-  	 	access:['classmaster'],
-      exclude:[],
-      modes:["ghs"],
-  	 	icon:'glyphicon-list-alt'
-  	},
     {
       label:"Report Card",
       page:"reportcardGTHS",
       access:['classmaster'],
       exclude:[],
-      modes:["gths"],
+      modes:["gths", "ghs"],
       icon:'glyphicon-list-alt'
     },
     {
