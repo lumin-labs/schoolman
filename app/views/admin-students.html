@@ -210,7 +210,7 @@
 			<tbody>
 
 				<tr ng-repeat="(studentIndex, student) in data.students.slice(data.page * 10, (data.page + 1) * 10) | filter:search">
-					<td class="text-center" style="vertical-align:middle;">
+					<td class="text-center noprint" style="vertical-align:middle;">
 
 						<input type="checkbox"
 						       ng-model="data.selected[student._id]"
