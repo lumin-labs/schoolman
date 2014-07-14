@@ -8,6 +8,7 @@ angular.module('SchoolMan')
     // Initialize/Register ClassCouncil datatype
     var instClassCouncil = new model.ClassCouncil();
     var instSettings = new model.Settings();
+    var instSchoolInfo = new model.SchoolInfo();
 
     var settingsP = settings.load();
 
@@ -17,7 +18,6 @@ angular.module('SchoolMan')
     var subjP = Subjects.load();
     var groupP= Groups.load();
     var studentsP= Students.load();
-
 
     var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 

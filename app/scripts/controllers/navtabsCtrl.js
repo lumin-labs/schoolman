@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, settings, Cache, model) {
+  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
@@ -10,7 +10,16 @@ angular.module('SchoolMan')
     $scope.User = model.User;
     $scope.settings = settings.get();
     $scope.activePage = $routeParams.page;
-    console.log("Settings", $scope.settings);
+
+    SchoolInfos.get("schoolinfo").then(function(info){
+      $scope.schoolInfo = info;
+
+      if($scope.schoolInfo.version === "gths"){
+        $scope.User.roles.classmaster.name = "Head of Dept";
+      }
+    }).catch(function(error){
+      console.log("failed to load school info", error);
+    });
 
     $scope.activeIfPage = function(page){
       var cssClass = "";
@@ -32,8 +41,8 @@ angular.module('SchoolMan')
       return excluded;
     };
 
-    $scope.userHasAccess = function(tab){
-      var isRightMode = tab.modes.indexOf(VERSION.mode) > -1;
+    $scope.userHasAccess = function(tab, version){
+      var isRightMode = tab.modes.indexOf(version) > -1;
     	var hasAccess = tab.access.indexOf($scope.userAccess) > -1;
       var excluded = excludedOnThisPage(tab);
       return (hasAccess && isRightMode && (!excluded));

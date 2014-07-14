@@ -66,7 +66,7 @@
 
 	<table class="table"><tr>
 		<td>
-			<p><b>Academic Year:</b> <i>{{schoolYear}}</i></p>
+			<p><b>Academic Year:</b> <i>{{data.schoolInfo.schoolyear}}</i></p>
 			<p><b>Term:</b> <i>{{data.terms[termIndex].name || "All Terms"}}</i></p>
 		</td>
 		<td>
@@ -204,7 +204,7 @@
 
 	<table><tr>
 		<td width="400px"></td>
-		<th colspan="2">Class Master/Mistress</th></tr>
+		<th colspan="2">{{data.schoolInfo.version === "ghs" ? "Class Master/Mistress" : "Head of Department"}}</th></tr>
 	<tr height="30px"><td></td><td style="text-align:right">Name:</td><td width="300px" ng-if="userAccess === 'classmaster'">
 		<input type="text" class="form-control noprint" placeholder="Class Master" ng-model="data.classcouncil.classMaster" ng-blur="save()">
 		</input>

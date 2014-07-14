@@ -47,7 +47,6 @@ angular.module('SchoolMan')
   	};
 
   	self.query = function(params){
-    	console.log("payment params", params);
     	var deferred = $q.defer();
 
     	// Load Data
