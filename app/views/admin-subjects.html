@@ -24,7 +24,7 @@
 		        </div>
 		        <div class="form-group" style="width:130px;">
 		          <!-- Group Dropdown -->
-						  <div class="btn-group">
+						  <div class="btn-group" ng-if="version === 'gths'">
 						    <button class="btn btn-sm btn-default dropdown-toggle" 
 						    				data-toggle="dropdown">
 						      {{types[newSubject.type]}} 
@@ -63,7 +63,7 @@
 					<thead>
 						<tr>
 							<th class="text-center">Code</th>
-							<th class="text-center">Type</th>
+							<th class="text-center" ng-if="version === 'gths'">Type</th>
 							<th class="">Subject Name (English)</th>
 							<th class="">Subject Name (French)</th>
 							<th class="noprint">Remove</th>
@@ -76,7 +76,7 @@
 							</td>
 							<td style="width:130px;">
 								<!-- Group Dropdown -->
-							  <div class="btn-group">
+							  <div class="btn-group" ng-if="version === 'gths'">
 							    <button class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
 							      {{types[subject.type]}} 
 							      &nbsp;<span class="caret"></span>
