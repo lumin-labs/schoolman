@@ -60,16 +60,16 @@ angular.module('SchoolMan')
               Cache.set({user:user});
 
               var depts = Departments.getAll();
-              console.log("Still ok", depts);
               var groups= Object.keys(Groups.getAll());
               var subjects= Object.keys(Subjects.getAll());
+
               
 
               Location.open({
                 page:page || DEFAULT_START_PAGE[accessRequest].page,
                 subpage:"null",
                 formIndex:"0",
-                deptId:depts[0],
+                deptId:Object.keys(depts)[0],
                 groupId:groups[0],
                 subjectId:subjects[0],
                 studentId:"U0000001",
