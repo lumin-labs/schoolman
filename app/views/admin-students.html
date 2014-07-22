@@ -208,9 +208,8 @@
 				</tr>
 			</thead>
 			<tbody>
-
-				<tr ng-repeat="(studentIndex, student) in data.students.slice(data.page * 10, (data.page + 1) * 10) | filter:search">
-					<td class="text-center" style="vertical-align:middle;">
+				<tr class="noprint" ng-repeat="(studentIndex, student) in data.students.slice(data.page * 10, (data.page + 1) * 10) | filter:search">
+					<td class="text-center noprint" style="vertical-align:middle;">
 
 						<input type="checkbox"
 						       ng-model="data.selected[student._id]"
@@ -282,9 +281,79 @@
 					  </div><!-- /btn-group -->
 	  				</td>
 				</tr>
+				<tr class="printonly-asrow" ng-repeat="(studentIndex, student) in data.students | filter:search">
+					<td class="text-center noprint" style="vertical-align:middle;">
+
+						<input type="checkbox"
+						       ng-model="data.selected[student._id]"
+									 ng-true-value="1" 
+									 ng-false-value="0">
+					</td>
+					<!-- <td style="width:100px;">
+						<a ng-click="open({studentId:student._id, page:'registrarProfile'})">{{student.id}}</a>
+					</td> -->
+					<td>{{student.name}}</td>
+					<td>{{student.sex}}</td>
+					<td>{{student.birth | date:'dd-mm-yyyy'}}</td>
+					<td>{{student.parentName}}</td>
+					<td>{{student.parentPhone}}</td>
+					<td>{{student.parentEmail}}</td>
+					<td>{{data.forms[student.formIndex].name}}</td>
+					<td>{{data.departments[student.deptId].name}}</td>
+					<td>{{data.groups[student.groupId].name}}</td>
+					<td>
+						{{data.fees[student.feeId].amount - student.totalPaid | currency:""}}
+					</td>
+					<td class="promotion">
+						<div  class="btn-group">
+						  <!-- If status is set to automatic -->
+							<button ng-if="student.status['2014'] === 0 && student.passing"
+							      	class="btn btn-sm btn-success dropdown-toggle" 
+							      	data-toggle="dropdown">
+								<i class="glyphicon" 
+								   ng-class="PROMOTE_OPTIONS[0].icon"></i>
+								&nbsp;{{PROMOTE_OPTIONS[1].name}}
+							</button>
+					    
+							<button ng-if="student.status['2014'] === 0 && !student.passing"
+							      class="btn btn-sm btn-warning dropdown-toggle" 
+							      data-toggle="dropdown">
+							    <i class="glyphicon" 
+								   ng-class="PROMOTE_OPTIONS[0].icon"></i>
+								&nbsp;{{PROMOTE_OPTIONS[2].name}}
+							</button>
+					      
+						  <!-- Otherwise show whatever it's manually set to -->
+						  	<button ng-if="student.status['2014'] > 0"
+						  	        class="btn btn-sm dropdown-toggle" 
+						  	        ng-class="'btn-'+PROMOTE_OPTIONS[student.status['2014']].style"
+						  	        data-toggle="dropdown">
+						  	    <i ng-class="PROMOTE_OPTIONS[student.status['2014']].icon"></i>
+						  		&nbsp;{{PROMOTE_OPTIONS[student.status['2014']].name}}
+						  	</button>
+					    
+							<ul class="dropdown-menu">
+							  <li>
+							    <a ng-click="student.setStatus('2014', 0)">
+							    	<i ng-class="PROMOTE_OPTIONS[0].icon"></i>
+							    	{{PROMOTE_OPTIONS[0].name}}
+							    </a>
+							  </li>
+							  <li class="divider"></li>
+							  <li ng-repeat="(optionIndex, option) in PROMOTE_OPTIONS.slice(1)">
+							    <a ng-click="student.setStatus('2014', optionIndex + 1)">
+							    	<i ng-class="PROMOTE_OPTIONS[optionIndex + 1].icon"></i>
+							    	{{PROMOTE_OPTIONS[optionIndex + 1].name}}
+							    </a>
+							  </li>
+							</ul>
+					  </div><!-- /btn-group -->
+	  				</td>
+				</tr>
+				
 			</tbody>
 		</table>
-		<ul class="pagination">
+		<ul class="pagination noprint">
 		  <li class="{{data.page === 0 ? 'disabled' : ''}}">
 		  	<a ng-click="data.page = data.page === 0 ? data.page : data.page - 1">&laquo;</a>
 		  </li>

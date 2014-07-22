@@ -12,7 +12,7 @@ angular.module('SchoolMan')
 
 
     SchoolInfos.get("schoolinfo").then(function(info){
-      $scope.SchoolInfo = info;
+      $scope.schoolInfo = info;
     }).catch(function(error){
       console.log("failed to get school info");
     });

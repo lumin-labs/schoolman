@@ -19,8 +19,8 @@ angular.module('SchoolMan')
   		}).catch(function(error){
   			//var info = new model.SchoolInfo();
         if(error.status === 404){
-          var info = new model.SchoolInfo({nameEn:"GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN",
-                                            nameFr:"LYCEE BILINGUE D'ATIELA-NKWEN"
+          var info = new model.SchoolInfo({nameEn:"Name (English)",
+                                            nameFr:"Name (French)"
                                           });
           info.save().then(function(success){
             deferred.resolve(info);

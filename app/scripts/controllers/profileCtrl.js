@@ -13,6 +13,7 @@ angular.module('SchoolMan')
     $scope.multiplier = 1; // -1 implies that this payment is a correction
 
     $scope.Users = Users;
+    $scope.username = $routeParams.username;
 
     var reports = {};
     var classCouncils = {};
@@ -157,6 +158,14 @@ angular.module('SchoolMan')
         $scope.newComment = new model.Comment($routeParams.username, $scope.data.student._id);
       });     
     };
+
+    $scope.removeComment = function(commentIndex){
+      console.log("Remove comment", $scope.data.comments[commentIndex]);
+      var comment = $scope.data.comments[commentIndex];
+      profile.removeComment(comment).then(function(success){
+        delete $scope.data.comments[commentIndex];
+      });
+    }
 
     $scope.stringToNumber = function(amount){
       amount = Number(amount.replace(/[^0-9\.]+/g,""));
