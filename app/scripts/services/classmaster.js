@@ -9,8 +9,7 @@
  *
  * This service handles marksheets and all calculations
  */
-angular.module('SchoolMan')
-  .service('ClassMaster', function ClassMaster($q, modelTransformer, Registrar, Data, model) {
+function ClassMaster($q, modelTransformer, Registrar, Data, model) {
 
     // This is the container for public methods of the ClassMaster Service
     var self = {};
@@ -223,4 +222,6 @@ angular.module('SchoolMan')
     });
 
     return self;
-});
+}
+ClassMaster.$inject = ['$q', 'modelTransformer', 'Registrar', 'Data', 'model'];
+angular.module('SchoolMan').service('ClassMaster', ClassMaster);

@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Departments', function Departments($q, Data2, modelTransformer, model, InsertionError) {
+function Departments($q, Data2, modelTransformer, model, InsertionError) {
 
 		var departments = {};  	
 
@@ -79,4 +78,6 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+Departments.$inject = ['$q', 'Data2', 'modelTransformer', 'model', 'InsertionError'];
+angular.module('SchoolMan').service('Departments', Departments);

@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('MockData', function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Payments, Data2){
+function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Payments, Data2){
 
     
     var forms = Forms.all();
@@ -68,4 +67,6 @@ angular.module('SchoolMan')
     }
 
 
-  });
+  }
+MockData.$inject = ['model', 'Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Data2'];
+angular.module('SchoolMan').service('MockData', MockData);

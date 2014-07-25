@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Payments', function Payments($q, model, modelTransformer, Fees, Students, pouchdb) {
+function Payments($q, model, modelTransformer, Fees, Students, pouchdb) {
 
   	var db = model.Payment.db;
     if(typeof db === "string"){
@@ -90,4 +89,6 @@ angular.module('SchoolMan')
     }
 
     return self;
-  });
+  }
+Payments.$inject = ['$q', 'model', 'modelTransformer', 'Fees', 'Students', 'pouchdb'];
+angular.module('SchoolMan').service('Payments', Payments);

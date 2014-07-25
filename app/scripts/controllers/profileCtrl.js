@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Dcards, Users, Marksheets, ClassCouncils, $q, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
+function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksheets, ClassCouncils, $q, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -191,4 +190,6 @@ angular.module('SchoolMan')
         console.log("Failed to save model", error);
       });
     };
-  });
+  }
+  ProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'profile', 'Dcards', 'Users', 'Marksheets', 'ClassCouncils', '$q', 'Registrar', 'Students', 'Fees', 'Forms', 'Payments', 'Groups', 'Departments', 'PROMOTE_OPTIONS'];
+  angular.module('SchoolMan').controller('ProfileCtrl', ProfileCtrl);

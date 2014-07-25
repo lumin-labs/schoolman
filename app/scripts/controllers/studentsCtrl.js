@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('StudentsCtrl', function ($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
+function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -316,4 +315,6 @@ angular.module('SchoolMan')
 
 
 
-  });
+  }
+  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Registrar', 'Subjects', 'Payments', 'Students', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS'];
+  angular.module('SchoolMan').controller('StudentsCtrl', StudentsCtrl);

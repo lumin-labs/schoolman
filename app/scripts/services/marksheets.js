@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Marksheets', function Marksheets($q, model, modelTransformer, Subjects, Students, Data2, Slug) {
+function Marksheets($q, model, modelTransformer, Subjects, Students, Data2, Slug) {
    
     var self = {};
 
@@ -412,4 +411,6 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+Marksheets.$inject = ['$q', 'model', 'modelTransformer', 'Subjects', 'Students', 'Data2', 'Slug'];
+angular.module('SchoolMan').service('Marksheets', Marksheets);

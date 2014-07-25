@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  	.controller('SubjectsCtrl', function ($scope, $log, SubjectTypes, Forms, Subjects, modelTransformer, model, SchoolInfos) {
+function SubjectsCtrl($scope, $log, SubjectTypes, Forms, Subjects, modelTransformer, model, SchoolInfos) {
 
   		$scope.forms = Forms.all();
       	$scope.allSubjects = Subjects.getAll();
@@ -37,4 +36,6 @@ angular.module('SchoolMan')
 	    	});
 	    };
 
-  });
+  }
+  SubjectsCtrl.$inject = ['$scope', '$log', 'SubjectTypes', 'Forms', 'Subjects', 'modelTransformer', 'model', 'SchoolInfos'];
+  angular.module('SchoolMan').controller('SubjectsCtrl', SubjectsCtrl);

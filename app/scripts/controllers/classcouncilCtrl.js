@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos) {
-    
+function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos){
+
     //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
     //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
@@ -44,7 +43,7 @@ angular.module('SchoolMan')
 
 
     $scope.groupStats = {};
-    
+
     $scope.open = Location.open;
 
 
@@ -129,8 +128,8 @@ angular.module('SchoolMan')
         stats.classRange = minStudent === 20 ? 0 : maxStudent - minStudent;
         return stats;
     }
-    
-    
+
+
 
     var updatePerformanceRanks = function(){
         var studentIds = Object.keys($scope.data.rankings);
@@ -185,7 +184,7 @@ angular.module('SchoolMan')
           console.log("Failed to find students: ", error);
         });
     }
-    
+
     $scope.changeAcRemark = function(remark){
         $scope.data.classcouncil.academicRemark[$scope.termIndex] = remark;
         $scope.save();
@@ -226,4 +225,6 @@ angular.module('SchoolMan')
     ];
 
 
-  });
+}
+ClasscouncilCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'ClassMaster', 'CourseCatalog', 'Location', 'Mastersheet', 'SchoolInfos']
+angular.module('SchoolMan').controller('ClasscouncilCtrl', ClasscouncilCtrl);

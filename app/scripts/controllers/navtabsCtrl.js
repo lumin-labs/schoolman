@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos) {
+function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
@@ -60,4 +59,6 @@ angular.module('SchoolMan')
         Location.open({page:"default_"+access, accessCode:access});
       }
     }
-  });
+  }
+  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'settings', 'Cache', 'model', 'SchoolInfos'];
+  angular.module('SchoolMan').controller('NavtabsCtrl', NavtabsCtrl);

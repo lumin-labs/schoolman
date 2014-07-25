@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('MarksheetCtrl', function ($scope, $routeParams, Data2, model, Location, Marksheets, ClassMaster) {
+function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets, ClassMaster) {
     
     var marksheetId = model.Marksheet.generateID($routeParams);
     
@@ -49,5 +48,7 @@ angular.module('SchoolMan')
     	}
     };
 
-  });
+  }
+  MarksheetCtrl.$inject = ['$scope', '$routeParams', 'Data2', 'model', 'Location', 'Marksheets', 'ClassMaster'];
+  angular.module('SchoolMan').controller('MarksheetCtrl', MarksheetCtrl);
 
