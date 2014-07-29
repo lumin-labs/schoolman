@@ -33,11 +33,12 @@ function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets,
 
     $scope.save = function(studentId, cellIndex){
         if(hasChanged){
-
-            if($scope.data.marksheet['table'][studentId][cellIndex] > 20 || $scope.data.marksheet['table'][studentId][cellIndex] < 0){
-                $scope.data.marksheet['table'][studentId][cellIndex] = "";
+            if(studentId && cellIndex){
+                if($scope.data.marksheet['table'][studentId][cellIndex] > 20 || $scope.data.marksheet['table'][studentId][cellIndex] < 0){
+                    $scope.data.marksheet['table'][studentId][cellIndex] = "";
+                }
             }
-            console.log("Saving: ", $scope.data.marksheet);
+            // console.log("Saving: ", $scope.data.marksheet);
             $scope.data.marksheet.save().then(function(success){
     			hasChanged = false;
     			$scope.data.rankings = Marksheets.rank($scope.data.marksheet);    			
