@@ -33,8 +33,10 @@ function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets,
 
     $scope.save = function(studentId, cellIndex){
         if(hasChanged){
-            if(studentId && cellIndex){
-                if($scope.data.marksheet['table'][studentId][cellIndex] > 20 || $scope.data.marksheet['table'][studentId][cellIndex] < 0){
+            var value = $scope.data.marksheet['table'][studentId][cellIndex];
+            console.log("number?", isNaN(Number(value)));
+            if(studentId){
+                if(value > 20 || value < 0 || isNaN(Number(value))){
                     $scope.data.marksheet['table'][studentId][cellIndex] = "";
                 }
             }
