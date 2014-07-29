@@ -82,6 +82,7 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
           }
           sets[type].marksheets.push(marksheet);
           sets[type].summsheets[marksheet._id] = Marksheets.summarize(marksheet, termIndex);
+          console.log("Summsheets", sets[type].summsheets[marksheet._id]);
         });
         
         angular.forEach(sets, function(set, i){
