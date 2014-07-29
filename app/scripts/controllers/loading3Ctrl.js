@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('Loading3Ctrl', function ($scope, Location, $q, 
-    Students, Subjects, Forms, Departments, Groups, Fees, Users, settings, model, MockData) {
+function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Departments, Groups, Fees, Users, settings, model, MockData) {
 
 
     // Initialize/Register ClassCouncil datatype
@@ -28,4 +26,6 @@ angular.module('SchoolMan')
       Location.open({page:"login"})
     });
 
-  });
+  }
+LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'Subjects', 'Forms', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData'];
+angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);

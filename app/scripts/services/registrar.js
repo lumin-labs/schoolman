@@ -11,8 +11,7 @@
  *
  * This service stores all student data and links students with classes and courses
  */
-angular.module('SchoolMan')
-  .service('Registrar', function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model, Uid) {
+function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model, Uid) {
     
     // var _students = [];
     var students = {};
@@ -181,4 +180,6 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+Registrar.$inject = ['CourseCatalog', 'Data', 'Data2', '$q', '$log', 'modelTransformer', 'model', 'Uid'];
+angular.module('SchoolMan').service('Registrar', Registrar);

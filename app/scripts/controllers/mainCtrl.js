@@ -11,9 +11,7 @@
  * to move some of these things into a service where we can use caching
  */
 
-angular.module('SchoolMan')
-  .controller('_MainCtrl', 
-    function ($scope, $location, $anchorScroll, $routeParams, Cache, Data, Location, Path, CourseCatalog, TimeTable, Registrar, ClassMaster) {
+function MainCtrl($scope, $location, $anchorScroll, $routeParams, Cache, Data, Location, Path, CourseCatalog, TimeTable, Registrar, ClassMaster) {
 
     $scope.page = $routeParams.page;
     $scope.view = $routeParams.view;
@@ -296,4 +294,6 @@ angular.module('SchoolMan')
     
     
 
-  });
+  }
+  MainCtrl.$inject = ['$scope', '$location', '$anchorScroll', '$routeParams', 'Cache', 'Data', 'Location', 'Path', 'CourseCatalog', 'TimeTable', 'Registrar', 'ClassMaster'];
+  angular.module('SchoolMan').controller('_MainCtrl', MainCtrl);

@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups) {
+function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups) {
       console.log("Hows the call stack?")
       console.log("Departments: ", Departments)
       $log.info("Path: ", $location.path()); 
@@ -112,4 +110,6 @@ angular.module('SchoolMan')
           var page = DEV.hasOwnProperty("AUTO_LOGIN_PAGE") ? DEV.AUTO_LOGIN_PAGE : undefined;
           $scope.login(page); 
       }
-});
+}
+LoginCtrl.$inject = ['$scope', '$location', '$routeParams', '$log', 'DEV', 'Users', 'Subjects', 'Departments', 'settings', 'model', 'Path', 'Cache', 'Location', 'Groups'];
+angular.module('SchoolMan').controller('LoginCtrl', LoginCtrl);
