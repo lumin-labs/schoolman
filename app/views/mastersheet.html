@@ -106,8 +106,8 @@
                           </a>
                         </li>
                         <li class="divider"></li>
-                        <li ng-repeat="(termIndex, term) in [1, 2, 3]">
-                          <a ng-click="open({termIndex:termIndex})">
+                        <li ng-repeat="(termInd, term) in [1, 2, 3]">
+                          <a ng-click="open({termIndex:termInd})">
                             Term {{term}}
                           </a>
                         </li>
@@ -174,7 +174,7 @@
 						{{averageFinal >= 0 ? averageFinal : 0 | number:2 }}
 					</td>
 					<td class="small-column-header">
-						{{data.rankings[student._id][0]}}
+						{{data.rankings[student._id][termIndex]}}
 					</td> 
 				</tr>
 			</tbody>
