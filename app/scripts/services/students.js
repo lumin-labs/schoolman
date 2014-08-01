@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Students', function Students($q, model, modelTransformer, pouchdb) {
+function Students($q, model, modelTransformer, pouchdb) {
 
   	var db = model.Student.db;
     if(typeof db === "string"){
@@ -249,4 +248,6 @@ angular.module('SchoolMan')
     self.getAll = self.query;
 
     return self;
-  });
+  }
+  Students.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb'];
+  angular.module('SchoolMan').service('Students', Students);

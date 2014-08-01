@@ -1,7 +1,5 @@
 'use strict';
 
-// angular.module('SchoolMan').$inject = ['$scope'];
-
 angular.module('SchoolMan').directive('format', ['$filter', function ($filter) {
     return {
         require: '?ngModel',

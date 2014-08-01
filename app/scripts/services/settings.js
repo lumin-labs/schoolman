@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('settings', function settings($q, model, Data2) {
+function settings($q, model, Data2) {
 
     console.log("model service", model);
   	var settings = new model.Settings();
@@ -33,4 +32,6 @@ angular.module('SchoolMan')
 
   	return self;
 
-  });
+  }
+settings.$inject = ['$q', 'model', 'Data2'];
+angular.module('SchoolMan').service('settings', settings);

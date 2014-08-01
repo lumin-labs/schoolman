@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('File', function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, Groups, Students, Payments) {
+function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, Groups, Students, Payments) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var self = {};
@@ -187,4 +186,6 @@ angular.module('SchoolMan')
 
     window._export = self.export;
     return self;
-  });
+  }
+File.$inject = ['pouchdb', '$q', 'settings', 'model', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments'];
+angular.module('SchoolMan').service('File', File);

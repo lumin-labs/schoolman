@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('profile', function profile($q, $rootScope, model, Data2, modelTransformer) {
+function profile($q, $rootScope, model, Data2, modelTransformer) {
 
     var self = {};
 
@@ -47,4 +46,6 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+profile.$inject = ['$q', '$rootScope', 'model', 'Data2', 'modelTransformer'];
+angular.module('SchoolMan').service('profile', profile);

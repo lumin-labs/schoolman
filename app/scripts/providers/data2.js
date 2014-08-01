@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .provider('Data2', function Data2Provider() {
+function Data2Provider() {
     
     var estimateSize = function(db){
       // Print estimated disk consumption
@@ -30,4 +29,6 @@ angular.module('SchoolMan')
         return db
     }];
 
-  });
+  }
+// Data2Provider.$inject = [];
+angular.module('SchoolMan').provider('Data2', Data2Provider);

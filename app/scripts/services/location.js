@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Location', function Location($location, $routeParams, Path) {
+function Location($location, $routeParams, Path) {
 
     var self = {};
     
@@ -17,4 +16,6 @@ angular.module('SchoolMan')
     };
 
     return self;
-  });
+  }
+Location.$inject = ['$location', '$routeParams', 'Path'];
+angular.module('SchoolMan').service('Location', Location);

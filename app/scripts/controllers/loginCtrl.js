@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('LoginCtrl', 
-    function ($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups) {
+function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups) {
       console.log("Hows the call stack?")
       console.log("Departments: ", Departments)
       $log.info("Path: ", $location.path()); 
@@ -63,16 +61,16 @@ angular.module('SchoolMan')
               Cache.set({user:user});
 
               var depts = Departments.getAll();
-              console.log("Still ok", depts);
               var groups= Object.keys(Groups.getAll());
               var subjects= Object.keys(Subjects.getAll());
+
               
 
               Location.open({
                 page:page || DEFAULT_START_PAGE[accessRequest].page,
                 subpage:"null",
                 formIndex:"0",
-                deptId:depts[0],
+                deptId:Object.keys(depts)[0],
                 groupId:groups[0],
                 subjectId:subjects[0],
                 studentId:"U0000001",
@@ -112,4 +110,6 @@ angular.module('SchoolMan')
           var page = DEV.hasOwnProperty("AUTO_LOGIN_PAGE") ? DEV.AUTO_LOGIN_PAGE : undefined;
           $scope.login(page); 
       }
-});
+}
+LoginCtrl.$inject = ['$scope', '$location', '$routeParams', '$log', 'DEV', 'Users', 'Subjects', 'Departments', 'settings', 'model', 'Path', 'Cache', 'Location', 'Groups'];
+angular.module('SchoolMan').controller('LoginCtrl', LoginCtrl);
