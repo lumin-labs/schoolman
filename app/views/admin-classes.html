@@ -1,0 +1,61 @@
+<div class="row ">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+	<div class="col-md-10 marksheet" ng-controller="GroupsCtrl">
+		<div class="printonly"><h3>Classes</h3></div>
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr class="toolbar noprint">
+					<th>
+	    				<input type="text" 
+	    							 class="form-control" 
+	    							 placeholder="Class Name"
+	    							 ng-model="newGroup.name">
+	    			</th>
+	    			<th></th>
+	    			<th class="text-center">
+	    				<button type="submit" class="btn btn-default" ng-click="add(newGroup)">
+				        	Add Class
+				        </button>
+	    			</th>
+	    			
+				</tr>
+				<tr>
+					<th>Name</th>
+					<!-- <th class="text-center" ng-repeat="form in forms">{{form.name}}</th> -->
+					<th>Students</th>
+					<th class="noprint">Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(groupKey, group) in groups">
+					<td class="column readonly" style="vertical-align:middle;">
+						<div style="padding-left:10px;font-weight:bold;font-size:1.2em;">{{group.name}}</div>
+					</td>
+					<!-- <td ng-repeat="(formIndex, form) in group.forms"
+						class="text-center">
+						<button ng-click="group.toggleForm(formIndex)"
+								class="btn btn-md btn-light" style="border:solid 1px #ddd;">
+							<i ng-if="form.active === 0" 
+							   class="glyphicon glyphicon-minus" 
+							   style="color:red;"></i>
+							 <i ng-if="form.active === 1" 
+						   class="glyphicon glyphicon-ok" 
+						   style="color:green;"></i>
+						</button>
+					</td> -->
+					<td class="text-center"
+							style="width:100px;">
+						{{allStudents[groupKey].length}}
+					</td>
+					<td class="remove text-center noprint" 
+							style="width:80px;">
+						<a ng-click="remove(group)"
+							 ng-if="allStudents[groupKey].length === 0">
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
