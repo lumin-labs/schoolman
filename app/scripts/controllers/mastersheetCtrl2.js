@@ -1,9 +1,8 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('MastersheetCtrl2', function ($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	 
-      var termIndex = parseInt($routeParams.termIndex);
+      $scope.termIndex = parseInt($routeParams.termIndex);
       
       $scope.open = Location.open;
 
@@ -13,6 +12,8 @@ angular.module('SchoolMan')
       $scope.data.summaries = {};
       $scope.data.students = [];
       $scope.data.rankings = {};
+
+      $scope.round = Math.round;
 
       $scope.data.view = 'mastersheet';
       $scope.setGraphView = function(view){
@@ -36,7 +37,7 @@ angular.module('SchoolMan')
 
         // Create marksheet summaries 
         $scope.data.summaries = _.map(marksheets , function(marksheet){
-          var summary = Marksheets.summarize(marksheet, termIndex);
+          var summary = Marksheets.summarize(marksheet, $scope.termIndex);
           console.log("Marksheet has been summarized: ", marksheet, summary);
           return summary;
         });
@@ -45,7 +46,7 @@ angular.module('SchoolMan')
         $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
 
         // summarize combined marksheet to get grand totals
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, termIndex);;
+        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;
         
         // get rankings from combined marksheet
         $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);
@@ -168,4 +169,6 @@ angular.module('SchoolMan')
         console.log("Failed to find marksheets", error);
       });
 
-  });
+  }
+  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS'];
+  angular.module('SchoolMan').controller('MastersheetCtrl2', MastersheetCtrl);

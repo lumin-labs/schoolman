@@ -166,7 +166,7 @@
           <div class="col-sm-5">
             <div  class="btn-group">
               <!-- If status is set to automatic -->
-              <button ng-if="data.student.status['2014'] === 0 && studentStatus[data.student._id]"
+              <button ng-if="data.student.status['2014'] === 0 && data.student.passing"
                       class="btn btn-sm btn-success dropdown-toggle 
                              {{accessCode==='admin' ? 'disabled' : ''}}" 
                       data-toggle="dropdown">
@@ -175,7 +175,7 @@
                 &nbsp;{{PROMOTE_OPTIONS[1].name}}
               </button>
               
-              <button ng-if="data.student.status['2014'] === 0 && !studentStatus[data.student._id]"
+              <button ng-if="data.student.status['2014'] === 0 && !data.student.passing"
                     class="btn btn-sm btn-warning dropdown-toggle
                            {{accessCode==='admin' ? 'disabled' : ''}}" 
                     data-toggle="dropdown">

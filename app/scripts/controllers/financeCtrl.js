@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('FinanceCtrl', function ($scope, Forms, Registrar, Fees, Students, Payments, SCHOOLYEAR) {
+function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolInfos) {
   	
   	var forms = _.map(Forms.all(), function(form){
       form.students = [];
@@ -11,7 +10,11 @@ angular.module('SchoolMan')
     
 
 
-    $scope.schoolYear = SCHOOLYEAR;
+    SchoolInfos.get("schoolinfo").then(function(info){
+      $scope.schoolInfo = info;
+    }).catch(function(error){
+      console.log("failed to get school info");
+    });
    //  var classes = Registrar.getClasses()
 
    // $scope.data = {};
@@ -139,4 +142,6 @@ angular.module('SchoolMan')
 			return reduce(fees).by("paid");
 		};
     
-  });
+  }
+FinanceCtrl.$inject = ['$scope', 'Forms', 'Registrar', 'Fees', 'Students', 'Payments', 'SchoolInfos'];
+angular.module('SchoolMan').controller('FinanceCtrl', FinanceCtrl);

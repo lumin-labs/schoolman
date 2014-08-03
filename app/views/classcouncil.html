@@ -45,9 +45,13 @@
 		<!-- Term Dropdown -->
         <div  class="btn-group noprint">
             <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                {{data.terms[termIndex].name}}   <span class="caret"></span>
+                {{data.terms[termIndex].name || "All Terms"}}   <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
+            	<li>
+            		<a ng-click="open({termIndex:3})">All Terms</a>
+            	</li>
+            	<li class="divider"></li>
                 <li ng-repeat="(termIndex, term) in [1, 2, 3]">
                     <a ng-click="open({termIndex:termIndex})">
                         Term {{term}}
@@ -62,8 +66,8 @@
 
 	<table class="table"><tr>
 		<td>
-			<p><b>Academic Year:</b> <i>{{schoolYear}}</i></p>
-			<p><b>Term:</b> <i>{{data.terms[termIndex].name}}</i></p>
+			<p><b>Academic Year:</b> <i>{{data.schoolInfo.schoolyear}}</i></p>
+			<p><b>Term:</b> <i>{{data.terms[termIndex].name || "All Terms"}}</i></p>
 		</td>
 		<td>
 			<p><b>Class:</b> <i>{{data.forms[formIndex].name + data.groups[groupId].name}}</i></p>
@@ -72,7 +76,7 @@
 		<td>
 			<table ng-if="userAccess === 'classmaster'"><tr class="noprint"><td><b>Passing Score:</b></td>
 			<td width="50px" ng-if="userAccess === 'classmaster'">
-				<input type="text" class="form-control noprint" ng-model="score" ng-blur="updatePassingScore()"></input></td>	
+				<input type="text" class="form-control noprint" ng-model="score" ng-blur="updatePassingScore(score)"></input></td>	
 			</tr><tr class="printonly"><td><p><b>Passing Score:</b><i>{{score}}</i></p></td></tr>
 			</table>
 			<p ng-if="userAccess !== 'classmaster'"><b>Passing Score:</b><i>{{score}}</i></p>
@@ -106,33 +110,45 @@
 	<table class="table"><tr>
 		<td width="50px"></td>
 		<td>
-			<b>Three Best Students:</b>
+			<b>Three Best Performances:</b>
 			<table>
-			<tr><td width="50px"></td><td>1- <u>{{data.bestStudents[0].name}}</u></td></tr>
-			<tr><td width="50px"></td><td>2- <u>{{data.bestStudents[1].name}}</u></td></tr>
-			<tr><td width="50px"></td><td>3- <u>{{data.bestStudents[2].name}}</u></td></tr>
+			<tr ng-if="data.bestStudents[0] && data.bestStudents[0].average !== -1">
+				<td width="50px"></td><td>1- <u>{{data.bestStudents[0].name}}</u></td></tr>
+			<tr ng-if="data.bestStudents[1] && data.bestStudents[1].average !== -1">
+				<td width="50px"></td><td>2- <u>{{data.bestStudents[1].name}}</u></td></tr>
+			<tr ng-if="data.bestStudents[2] && data.bestStudents[2].average !== -1">
+				<td width="50px"></td><td>3- <u>{{data.bestStudents[2].name}}</u></td></tr>
 			</table>
 			<br>
-			<b>Three Worst Students:</b>
+			<b>Three Weakest Performances:</b>
 			<table>
-			<tr><td width="50px"></td><td>1- <u>{{data.worstStudents[0].name}}</u></td></tr>
-			<tr><td width="50px"></td><td>2- <u>{{data.worstStudents[1].name}}</u></td></tr>
-			<tr><td width="50px"></td><td>3- <u>{{data.worstStudents[2].name}}</u></td></tr>
+			<tr ng-if="data.worstStudents[0] && data.worstStudents[0].average !== -1">
+				<td width="50px"></td><td>1- <u>{{data.worstStudents[0].name}}</u></td></tr>
+			<tr ng-if="data.worstStudents[1] && data.worstStudents[1].average !== -1">
+				<td width="50px"></td><td>2- <u>{{data.worstStudents[1].name}}</u></td></tr>
+			<tr ng-if="data.worstStudents[2] && data.worstStudents[2].average !== -1">
+				<td width="50px"></td><td>3- <u>{{data.worstStudents[2].name}}</u></td></tr>
 			</table>
 		</td>
 		<td>
 			<b>Average</b>
 			<table>
-			<tr><td><u>{{data.bestStudents[0].average || 0 | number:2}}</u></td></tr>
-			<tr><td><u>{{data.bestStudents[1].average || 0 | number:2}}</u></td></tr>
-			<tr><td><u>{{data.bestStudents[2].average || 0 | number:2}}</u></td></tr>
+			<tr ng-if="data.bestStudents[0] && data.bestStudents[0].average !== -1">
+				<td><u>{{data.bestStudents[0].average || "" | number:2}}</u></td></tr>
+			<tr ng-if="data.bestStudents[1] && data.bestStudents[1].average !== -1">
+				<td><u>{{data.bestStudents[1].average || "" | number:2}}</u></td></tr>
+			<tr ng-if="data.bestStudents[2] && data.bestStudents[2].average !== -1">
+				<td><u>{{data.bestStudents[2].average || "" | number:2}}</u></td></tr>
 			</table>
 			<br>
 			<b>Average</b>
 			<table>
-			<tr><td><u>{{data.worstStudents[0].average || 0 | number:2}}</u></td></tr>
-			<tr><td><u>{{data.worstStudents[1].average || 0 | number:2}}</u></td></tr>
-			<tr><td><u>{{data.worstStudents[2].average || 0 | number:2}}</u></td></tr>
+			<tr ng-if="data.worstStudents[0] && data.worstStudents[0].average !== -1">
+				<td><u>{{data.worstStudents[0].average || "" | number:2}}</u></td></tr>
+			<tr ng-if="data.worstStudents[1] && data.worstStudents[1].average !== -1">
+				<td><u>{{data.worstStudents[1].average || "" | number:2}}</u></td></tr>
+			<tr ng-if="data.worstStudents[2] && data.worstStudents[2].average !== -1">
+				<td><u>{{data.worstStudents[2].average || "" | number:2}}</u></td></tr>
 			</table>
 		</td>
 		<td width="50px"></td>
@@ -188,7 +204,7 @@
 
 	<table><tr>
 		<td width="400px"></td>
-		<th colspan="2">Class Master/Mistress</th></tr>
+		<th colspan="2">{{data.schoolInfo.version === "ghs" ? "Class Master/Mistress" : "Head of Department"}}</th></tr>
 	<tr height="30px"><td></td><td style="text-align:right">Name:</td><td width="300px" ng-if="userAccess === 'classmaster'">
 		<input type="text" class="form-control noprint" placeholder="Class Master" ng-model="data.classcouncil.classMaster" ng-blur="save()">
 		</input>

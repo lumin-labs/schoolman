@@ -1,11 +1,9 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('FeesCtrl', function ($scope, Fees, Students, model) {
+function FeesCtrl($scope, Fees, Students, model) {
       
       $scope.data = {};
       $scope.data.fees = Fees.getAll();
-
       // Join students to fees
       Students.getAll().then(function(students){
         angular.forEach($scope.data.fees, function(fee, key){
@@ -22,6 +20,9 @@ angular.module('SchoolMan')
             try{
                fee.amount = Number(fee.amount.replace(/[^0-9\.]+/g,""));
                fee.save().then(function(success){
+                  if(!$scope.newFee.students){
+                    $scope.newFee.students= [];
+                 }
                   $scope.data.fees[$scope.newFee._id] = $scope.newFee;
                   $scope.newFee = new model.Fee(); 
                }).catch(function(error, result){
@@ -36,4 +37,6 @@ angular.module('SchoolMan')
       $scope.remove = function(fee){
          Fees.remove(fee); 
       }
-});
+}
+FeesCtrl.$inject = ['$scope', 'Fees', 'Students', 'model'];
+angular.module('SchoolMan').controller('FeesCtrl', FeesCtrl);

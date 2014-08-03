@@ -1,8 +1,11 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Payments', function Payments($q, Data2, model, modelTransformer, Fees, Students) {
+function Payments($q, model, modelTransformer, Fees, Students, pouchdb) {
 
+  	var db = model.Payment.db;
+    if(typeof db === "string"){
+      db = pouchdb.create(model.Payment.db);
+    }
 
   	self = {};
 
@@ -17,7 +20,7 @@ angular.module('SchoolMan')
 	      } 
 	    };
 
-  		Data2.query(map, {include_docs : true}).then(function(success){
+  		db.query(map, {include_docs : true}).then(function(success){
   			  var collection = {};
   			  var dataModelStudent = model.Student;
   			  var dataModelPayment = model.Payment;
@@ -43,7 +46,6 @@ angular.module('SchoolMan')
   	};
 
   	self.query = function(params){
-    	
     	var deferred = $q.defer();
 
     	// Load Data
@@ -61,16 +63,15 @@ angular.module('SchoolMan')
 	      	}
 	      } 
 	    };
-	    Data2.query(map, {include_docs : true}).then(function(success){
+	    db.query(map, {include_docs : true}).then(function(success){
 	    		var collection = [];
 	        angular.forEach(success.rows, function(data, rowIndex){
-	            console.logt("data value 2", data);
 	            var spec = data.doc;
-	            var obj = model.parse(data.value.data, spec);
+	            var obj = model.parse2(data.value.data, data.value._id);
 	            var item = modelTransformer.transform(obj, dataModel);
 	            collection.push(item);
 	        });
-	        // console.log("Query: success", success, collection);
+	        //console.log("Query: success", success, collection);
 	        deferred.resolve(collection);
 	    }).catch(function(error){
 	        deferred.reject("Query: failed", error);
@@ -79,5 +80,15 @@ angular.module('SchoolMan')
     	return deferred.promise;
     };
 
+    self.destroy = function(){
+    	db.destroy().then(function(success){
+    		console.log("Destroyed paymentss db");
+    	}).catch(function(error){
+    		console.log("failed to destroy payments db", error)
+    	});
+    }
+
     return self;
-  });
+  }
+Payments.$inject = ['$q', 'model', 'modelTransformer', 'Fees', 'Students', 'pouchdb'];
+angular.module('SchoolMan').service('Payments', Payments);

@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Groups', function Groups($q, Slug, Data2, model, modelTransformer) {
+function Groups($q, Slug, Data2, model, modelTransformer) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var groups = {};
@@ -59,4 +58,6 @@ angular.module('SchoolMan')
     };
 
     return self;
-  });
+  }
+Groups.$inject = ['$q', 'Slug', 'Data2', 'model', 'modelTransformer'];
+angular.module('SchoolMan').service('Groups', Groups);

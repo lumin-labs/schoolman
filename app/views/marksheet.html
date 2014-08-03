@@ -115,7 +115,7 @@
               </div>
             </nav>
           </div>
-      </div>
+      
         </th>
         <th class="text-center"
             style="vertical-align:middle;border:solid 3px #fff;background-color:#f8f8f8;"
@@ -168,13 +168,14 @@
   			<td class="column" 
             ng-repeat="(cellIndex, cell) in [0,1,2,3,4,5]">
   				<input  ng-model="data.marksheet['table'][student._id][cellIndex]"
-  					      ng-blur ="save()" 
+  					      ng-blur ="save(student._id, cellIndex)" 
                   ng-change="noteChange()"
                   tabindex="{{(studentIndex + 1) + (cellIndex * data.students['length'])}}"
                   cell cell-nrow="{{data.students['length']}}"
                   class="cell text-center 
                          {{classMaster.getRemark(data.marksheet['table'][student._id][cellIndex]).css}} 
-                         {{marksheets.validateCell(data.marksheet['table'][student._id][cellIndex])}}">
+                         {{marksheets.validateCell(data.marksheet['table'][student._id][cellIndex])}}"
+                  valid>
         </td>
   		</tr>	
   	</tbody>

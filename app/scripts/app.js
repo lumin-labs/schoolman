@@ -26,7 +26,8 @@ angular.module('SchoolMan', [
   'ngSanitize',
   'ngRoute',
   'slugifier',
-  'pouchdb'
+  'pouchdb',
+  'ui.bootstrap'
 
 ]).config(function ($routeProvider, TABS) {
 
@@ -48,7 +49,8 @@ angular.module('SchoolMan', [
       reportcardGTHS:"reportcard-gths.html",
       registrarProfile:"registrar-profile.html",
       classmasterProfile:"classmaster-profile.html",
-      classcouncil:"classcouncil.html"
+      classcouncil:"classcouncil.html",
+      notactive:"notactive.html"
     };
 
     var getTemplate = function(p){

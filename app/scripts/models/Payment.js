@@ -61,9 +61,11 @@ schoolman.config(['modelProvider', function(model){
 
   Payment.prototype.generateID = function(){
     this.date = new Date();
-    var id = "payment_" + this.date.toISOString();
+    var id = "payment_" + this.studentId + "_" + this.date.toISOString();
     return id;
   }
+
+  Payment.prototype.db = Payment.db = "db_payments";
 
   model.Payment = Payment;
     

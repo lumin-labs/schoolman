@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('GroupsCtrl', function ($scope, Groups, Students, model, Forms, Registrar) {
+function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar) {
     
     $scope.newGroup = new model.Group();
     
@@ -39,4 +38,7 @@ angular.module('SchoolMan')
       console.log("Failed to get all students, ", error);
     });
 
-  });
+  }
+
+GroupsCtrl.$inject = ['$scope', 'Groups', 'Students', 'model', 'Forms', 'Registrar'];
+angular.module('SchoolMan').controller('GroupsCtrl', GroupsCtrl);

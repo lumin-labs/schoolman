@@ -13,7 +13,9 @@
 	  				<input  type="text" class="form-control" placeholder="Department Name" ng-model="newDepartment.name">
 	  			</th>
 	  			<th class="text-center">
-	  				<button type="submit" class="btn btn-default" ng-click="add(newDepartment)">
+	  				<button type="submit" class="btn btn-default" 
+	  				ng-class="newDepartment.code && newDepartment.name ? '' : 'disabled'" 
+	  				ng-click="add(newDepartment)">
 			        	Add
 			        </button>
 	  			</th>

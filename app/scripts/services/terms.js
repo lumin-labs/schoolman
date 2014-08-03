@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Terms', function Terms() {
+function Terms() {
     
     // AngularJS will instantiate a singleton by calling "new" on this function
 
@@ -19,4 +18,6 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+// Terms.$inject = [];
+angular.module('SchoolMan').service('Terms', Terms);

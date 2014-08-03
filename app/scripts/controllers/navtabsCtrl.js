@@ -1,13 +1,24 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS, VERSION, Cache, model) {
+function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
     $scope.teacher = Cache.get('user');
     $scope.User = model.User;
+    $scope.settings = settings.get();
+    $scope.activePage = $routeParams.page;
+
+    SchoolInfos.get("schoolinfo").then(function(info){
+      $scope.schoolInfo = info;
+
+      if($scope.schoolInfo.version === "gths"){
+        $scope.User.roles.classmaster.name = "Head of Dept";
+      }
+    }).catch(function(error){
+      console.log("failed to load school info", error);
+    });
 
     $scope.activeIfPage = function(page){
       var cssClass = "";
@@ -29,8 +40,8 @@ angular.module('SchoolMan')
       return excluded;
     };
 
-    $scope.userHasAccess = function(tab){
-      var isRightMode = tab.modes.indexOf(VERSION.mode) > -1;
+    $scope.userHasAccess = function(tab, version){
+      var isRightMode = tab.modes.indexOf(version) > -1;
     	var hasAccess = tab.access.indexOf($scope.userAccess) > -1;
       var excluded = excludedOnThisPage(tab);
       return (hasAccess && isRightMode && (!excluded));
@@ -41,6 +52,13 @@ angular.module('SchoolMan')
     }
 
     $scope.login = function(access){
-      Location.open({page:"default_"+access, accessCode:access});
+      console.log(access, $scope.settings);
+      if(!$scope.settings.access[access]){
+        Location.open({page:"notactive", accessCode:access});
+      }else {
+        Location.open({page:"default_"+access, accessCode:access});
+      }
     }
-  });
+  }
+  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'settings', 'Cache', 'model', 'SchoolInfos'];
+  angular.module('SchoolMan').controller('NavtabsCtrl', NavtabsCtrl);
