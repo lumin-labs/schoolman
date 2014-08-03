@@ -49,8 +49,7 @@ schoolman.config(['modelProvider', function(model){
       admin:0,
       registrar:0,
       classmaster:0,
-      teacher:1,
-      division:1
+      teacher:1
     };
 
     angular.forEach(specs, function(prop, key){

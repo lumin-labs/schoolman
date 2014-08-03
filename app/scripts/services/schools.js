@@ -37,7 +37,7 @@ function Schools($q, Slug, model, Data2, modelTransformer, InsertionError, $log)
           angular.forEach(success.rows, function(data, rowIndex){
               var spec = data.doc;
               var obj = model.parse(data.value.data, spec);
-              var fee = modelTransformer.transform(obj, model.School);
+              var school = modelTransformer.transform(obj, model.School);
               schools[school._id] = school;
           });
           deferred.resolve(schools);
