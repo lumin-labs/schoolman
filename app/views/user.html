@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+  <div class="col-md-10 marksheet" ng-controller="UserCtrl">
+
+  <div class="row">
+  	<div class="col-md-7" style="border-right:solid 1px #ddd;">
+  	  <h3>{{editingUser.fullname}}</h3>
+  	  <br>
+  	  <form class="form-horizontal" role="form" ng-submit="save()">
+			  <div class="form-group" ng-if="editingUser.username !== currentUser.username">
+			    <label for="repeatpassword" class="col-sm-3 control-label">Your Password</label>
+			    <div class="col-sm-9">
+			      <input id="repeatpassword"
+			           class="form-control"
+			           type="password"
+			           placeholder="Your Password" 
+			           ng-model="data.currentPassword">
+			    </div>
+			  </div>
+			  <div class="form-group" ng-if="editingUser.username === currentUser.username">
+			    <label for="repeatpassword" class="col-sm-3 control-label">Current Password</label>
+			    <div class="col-sm-9">
+			      <input id="repeatpassword"
+			           class="form-control"
+			           type="password"
+			           placeholder="Current Password" 
+			           ng-model="data.currentPassword">
+			    </div>
+			  </div>
+			  <br>
+			  <div class="form-group {{data.newPassword.length > 5 ? 'has-success' : ''}}">
+			    <label for="userFullname" class="col-sm-3 control-label">New Password</label>
+			    <div class="col-sm-9">
+			      <input id="userFullname"
+			           class="form-control" 
+			           type="password"
+			           placeholder="New Password"
+			           ng-model="data.newPassword">
+			    </div>
+			  </div>
+			  <div class="form-group {{data.verifiedStatus}}">
+			    <label for="verifypassword" class="col-sm-3 control-label">Type it Again</label>
+			    <div class="col-sm-9">
+			      <input id="verifypassword"
+			           class="form-control"
+			           type="password"
+			           placeholder="New Password" 
+			           ng-model="data.repeatPassword"
+			           ng-change="verifyStatus()"
+			           ng-blur="verifyMatch()">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="submit" class="col-sm-3 control-label"></label>
+			    <div class="col-sm-9">
+			  		<div ng-if="status === 401" style="color:red;">Incorrect Password</div>
+			  		<br>
+			      <button type="submit" 
+			              class="btn btn-default 
+			                     {{data.newPassword.length < 6 ||
+			                       data.repeatPassword.length < data.newPassword.length ||
+			                       data.verifiedStatus === 'has-error' ? 'disabled' : ''}}"
+			              ng-if="status !== 200">Submit</button>
+			      <button type="submit" 
+			              class="btn btn-success disabled"
+			              ng-if="status === 200">Saved</button>
+			    </div>
+			  </div>
+    		
+			</form>
+  	</div>
+  	<div class="col-md-5"></div>
+  </div>
+  </div>
+	
+</div>	
+
