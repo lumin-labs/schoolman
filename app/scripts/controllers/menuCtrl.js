@@ -1,18 +1,39 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('MenuCtrl', function ($scope, $location, $routeParams, Location, Path, Cache, File) {
+function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, Path, Cache, File, ClassMaster) {
 
-
+    //$scope.ClassMaster = ClassMaster;
     $scope.show = {
       backButton:false
     }
 
+    $scope.ClassMaster = ClassMaster;
+
   	$scope.print = function(){
-  			window.print();
+  		ClassMaster.printVariable = false;
+      if($routeParams.page === "reportcardGTHS"){
+        $scope.openModal("print");
+      }
+      else{
+        window.print();
+      }
     }
 
-    $scope.export = File.export;
+    $scope.export = function(){
+      var modalInstance = $scope.openModal("export");
+      console.log("modal ", modalInstance);
+      $q.when(File.export()).then(function(success){
+        modalInstance.close();
+      });
+    }
+    $scope.import = function(){
+      var modalInstance = $scope.openModal("import");
+      console.log("modal ", modalInstance);
+      $q.when(File.import()).then(function(success){
+        console.log("success importing");
+        modalInstance.close();
+      });
+    }
 
     $scope.back = function(){
       $scope.show.backButton = false;
@@ -51,6 +72,62 @@ angular.module('SchoolMan')
       var path = Path.get(newParams);
       console.log("Open: ", path);
       $location.path(path);
+    };
+
+    $scope.openModal = function (type) {
+
+      var modalInstance; 
+      if(type === "print"){
+        modalInstance = $modal.open({
+        templateUrl: 'printModal.html',
+        controller: PrintModalInstanceFunction
+        });
+      } else if(type === "export"){
+        modalInstance = $modal.open({
+          templateUrl: 'exportModal.html',
+          controller: ImportExportModalInstanceFunction
+        });
+      } else if(type === "import"){
+        modalInstance = $modal.open({
+          templateUrl: 'importModal.html',
+          controller: ImportExportModalInstanceFunction
+        });
+      }
+
+      modalInstance.result.then(function () {
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+      return modalInstance;
+    };
+    //var closeModal = function(modalInstance){
+      //modalInstance.close();
+    //}
+
+    var PrintModalInstanceFunction = function ($scope, $modalInstance, ClassMaster) {
+
+      $scope.ClassMaster = ClassMaster;
+
+      $scope.ok = function () {
+        $modalInstance.close();
+        window.print();
+        ClassMaster.printVariable = false;
+
+      };
+      
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    };
+    
+    var ImportExportModalInstanceFunction = function ($scope, $modalInstance){
+      $scope.close = function () {
+        $modalInstance.close();
+      }
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
     };
 
   	// $scope.importFile = function(){
@@ -99,4 +176,6 @@ angular.module('SchoolMan')
 
   	// 	});
    //  }
-  });
+  }
+  MenuCtrl.$inject = ['$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster'];
+  angular.module('SchoolMan').controller('MenuCtrl', MenuCtrl);

@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Cache', function Cache() {
+function Cache() {
     
     var self = {};
     self.cache = {};
@@ -21,4 +20,6 @@ angular.module('SchoolMan')
     };
 
     return self;
-  });
+  }
+// Cache.$inject = [];
+angular.module('SchoolMan').service('Cache', Cache);

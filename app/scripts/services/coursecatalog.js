@@ -15,8 +15,7 @@
  * This Service is responsible for retrieving information about courses in general
  * and for configuring which courses are available in which classes
  */
-angular.module('SchoolMan')
-  .service('CourseCatalog', function CourseCatalog($log, Data, modelTransformer, model, Groups, Forms) {
+function CourseCatalog($log, Data, modelTransformer, model, Groups, Forms) {
     
     var self = {};
     var courses = {};
@@ -296,4 +295,6 @@ angular.module('SchoolMan')
     return self;          	
     
 
-});
+}
+CourseCatalog.$inject = ['$log', 'Data', 'modelTransformer', 'model', 'Groups', 'Forms'];
+angular.module('SchoolMan').service('CourseCatalog', CourseCatalog);

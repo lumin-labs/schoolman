@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Uid', function Uid($q, $log, Data2) {
+function Uid($q, $log, Data2) {
     
     var N_DIGITS = 7;
 
@@ -79,4 +78,6 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+Uid.$inject = ['$q', '$log', 'Data2'];
+angular.module('SchoolMan').service('Uid', Uid);

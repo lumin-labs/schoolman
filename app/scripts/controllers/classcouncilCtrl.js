@@ -1,12 +1,13 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, SCHOOLYEAR, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet) {
-    
+function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos){
+
+    //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
+    //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
-    $scope.schoolYear = SCHOOLYEAR.year;
+    //$scope.schoolYear = SCHOOLYEAR.year;
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
@@ -33,9 +34,16 @@ angular.module('SchoolMan')
         $scope.data.classcouncil = classcouncil;
     });
 
+    SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+    }).catch(function(error){
+        console.log("failed to get school info", error);
+    });
+
 
     $scope.groupStats = {};
-    
+
     $scope.open = Location.open;
 
 
@@ -60,6 +68,7 @@ angular.module('SchoolMan')
         $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;      
         
         $scope.groupStats = performanceStats();
+
         $scope.score = $scope.data.classcouncil.passingScore;
         
         // get rankings from combined marksheet
@@ -100,7 +109,7 @@ angular.module('SchoolMan')
             if(studentAvg >= $scope.data.classcouncil.passingScore){
                 stats.passing = stats.passing +1;
             }
-            if(!isNaN(studentAvg)){
+            if(!isNaN(studentAvg) && studentAvg !== -1){
                 classTotal = classTotal + studentAvg;
                 stats.numPresent = stats.numPresent + 1;
                 if(studentAvg < minStudent){
@@ -112,15 +121,15 @@ angular.module('SchoolMan')
             }
         });
 
-        stats.failing = stats.numStudents - stats.passing;
-        stats.percentPassing = stats.passing / stats.numStudents;
+        stats.failing = stats.numPresent - stats.passing;
+        stats.percentPassing = stats.passing / stats.numPresent;
         stats.percentFailing = 1 - stats.percentPassing;
-        stats.classAverage = classTotal / stats.numStudents;
-        stats.classRange = maxStudent - minStudent;
+        stats.classAverage = classTotal / stats.numPresent;
+        stats.classRange = minStudent === 20 ? 0 : maxStudent - minStudent;
         return stats;
     }
-    
-    
+
+
 
     var updatePerformanceRanks = function(){
         var studentIds = Object.keys($scope.data.rankings);
@@ -139,11 +148,24 @@ angular.module('SchoolMan')
                     n += 1;
                 }
             })
-        var top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
-        var sortedListEnd = sortedList.slice(-3-n);
-        var worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
 
-        // console.log("Top3", top3);
+        var top3 = [];
+        var worst3 = [];
+
+        if(sortedList.length > 2){        
+            top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
+            var sortedListEnd = sortedList.slice(-3-n);
+            worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
+        }
+        else if(sortedList.length > 1){
+            top3 = [sortedList[0].studentId,sortedList[1].studentId];
+            worst3 = [sortedList[0].studentId,sortedList[1].studentId];
+        }
+        else if(sortedList.length > 0){
+            top3 = [sortedList[0].studentId];
+            worst3 = [sortedList[0].studentId];
+        }
+
 
         Students.getBatch(top3).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){
@@ -162,7 +184,7 @@ angular.module('SchoolMan')
           console.log("Failed to find students: ", error);
         });
     }
-    
+
     $scope.changeAcRemark = function(remark){
         $scope.data.classcouncil.academicRemark[$scope.termIndex] = remark;
         $scope.save();
@@ -172,13 +194,13 @@ angular.module('SchoolMan')
         $scope.save();
     }
 
-    $scope.updatePassingScore = function(){
-        if(isNaN(Number($scope.score))){
+    $scope.updatePassingScore = function(score){
+        if(isNaN(Number(score))){
             $scope.score = $scope.data.classcouncil.passingScore;
         }
         else{
-            
-            $scope.data.classcouncil.passingScore = Number($scope.score);
+            $scope.score = score;
+            $scope.data.classcouncil.passingScore = Number(score);
             $scope.groupStats = performanceStats();
             $scope.save();
         }
@@ -203,4 +225,6 @@ angular.module('SchoolMan')
     ];
 
 
-  });
+}
+ClasscouncilCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'ClassMaster', 'CourseCatalog', 'Location', 'Mastersheet', 'SchoolInfos']
+angular.module('SchoolMan').controller('ClasscouncilCtrl', ClasscouncilCtrl);

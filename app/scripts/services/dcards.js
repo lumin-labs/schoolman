@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Dcards', function Dcards($q, Data2, model) {
+function Dcards($q, Data2, model) {
 
   	var self = {};
 
@@ -39,4 +38,6 @@ angular.module('SchoolMan')
 
   	return self;
 
-});
+}
+Dcards.$inject = ['$q', 'Data2', 'model'];
+angular.module('SchoolMan').service('Dcards', Dcards);

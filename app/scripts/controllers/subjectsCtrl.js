@@ -1,12 +1,17 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('SubjectsCtrl', function ($scope, $log, SubjectTypes, Forms, Subjects, modelTransformer, model) {
+function SubjectsCtrl($scope, $log, SubjectTypes, Forms, Subjects, modelTransformer, model, SchoolInfos) {
 
   		$scope.forms = Forms.all();
-      $scope.allSubjects = Subjects.getAll();
-      console.log("Subjects", $scope.allSubjects);
-      $scope.numSubjects = Object.keys($scope.allSubjects).length;
+      	$scope.allSubjects = Subjects.getAll();
+      	console.log("Subjects", $scope.allSubjects);
+      	$scope.numSubjects = Object.keys($scope.allSubjects).length;
+
+      	SchoolInfos.get("schoolinfo").then(function(info){
+      		$scope.version = info.version;
+      	}).catch(function(error){
+      		console.log("Failed to retrieve school info", error)
+      	});
 
         var subjectsCopy = angular.copy($scope.allSubjects);
 
@@ -31,4 +36,6 @@ angular.module('SchoolMan')
 	    	});
 	    };
 
-  });
+  }
+  SubjectsCtrl.$inject = ['$scope', '$log', 'SubjectTypes', 'Forms', 'Subjects', 'modelTransformer', 'model', 'SchoolInfos'];
+  angular.module('SchoolMan').controller('SubjectsCtrl', SubjectsCtrl);

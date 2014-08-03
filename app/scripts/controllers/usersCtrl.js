@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('UsersCtrl', function ($scope, Users, model, Location) {
+function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos) {
     
     $scope.data = {};
     $scope.data.users = Users.getAll();
@@ -9,6 +8,17 @@ angular.module('SchoolMan')
     $scope.tempUser = new model.User();
 
     $scope.open = Location.open;
+    $scope.username = $routeParams.username;
+
+    SchoolInfos.get("schoolinfo").then(function(info){
+      $scope.schoolInfo = info;
+
+      if($scope.schoolInfo.version === "gths"){
+        $scope.User.roles.classmaster.name = "Head of Dept";
+      }
+    }).catch(function(error){
+      console.log("failed to load school info", error);
+    })
 
     $scope.addUser = function(){
     	$scope.tempUser.save().then(function(success){
@@ -21,5 +31,6 @@ angular.module('SchoolMan')
 
     $scope.remove = Users.remove;
 
-  });
-
+  }
+UsersCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Location', 'SchoolInfos'];
+angular.module('SchoolMan').controller('UsersCtrl', UsersCtrl);

@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Students', function Students($q, model, modelTransformer, pouchdb) {
+function Students($q, model, modelTransformer, pouchdb) {
 
-  	var db = pouchdb.create("db_students");
+  	var db = model.Student.db;
+    if(typeof db === "string"){
+      db = pouchdb.create(model.Student.db);
+    }
 
   	var _students = {};
 
@@ -170,7 +172,7 @@ angular.module('SchoolMan')
       	filtered = _.filter(students, function(student){
       		var isOk = true;
       		angular.forEach(params, function(param, key){
-      			if(student[key] !== param){
+      			if(student[key] !== String(param)){
       				isOk = false;
       			}
       		});
@@ -179,6 +181,7 @@ angular.module('SchoolMan')
       } else {
         filtered = students;
       };
+      console.log("Filtering students", params, _students);
     	console.log("Filtered students", params, filtered);
     	deferred.resolve(filtered);
     	return deferred.promise;
@@ -187,12 +190,11 @@ angular.module('SchoolMan')
 
     self.get = function(studentId){
       var deferred = $q.defer();
-      db.get(studentId).then(function(data){
-        var student = model.parse(data, dataModel.datatype);
-        deferred.resolve(student);
-      }).catch(function(error){
-        console.log("Failed to get student", error);
-      });
+      if(_students.hasOwnProperty(studentId)){
+        deferred.resolve(_students[studentId]);
+      }else{
+        deferred.reject("Student does not exist");
+      }
       return deferred.promise;
     };
 
@@ -213,10 +215,16 @@ angular.module('SchoolMan')
       .then(function(keys){
 
         angular.forEach(keys, function(key, index){
-          self.get(key).then(function(student){
+          db.get(key).then(function(data){
+            var student = model.parse(data, dataModel.datatype);
+            student = new model.Student(student);
             _students[student._id] = student;
+          }).catch(function(error){
+            console.log("Failed to get student", error);
           });
         });
+
+        deferred.resolve(_students);
 
       })
 
@@ -240,4 +248,6 @@ angular.module('SchoolMan')
     self.getAll = self.query;
 
     return self;
-  });
+  }
+  Students.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb'];
+  angular.module('SchoolMan').service('Students', Students);

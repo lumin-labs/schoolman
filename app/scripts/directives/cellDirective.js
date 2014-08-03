@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .directive('cell', function ($log) {
+angular.module('SchoolMan').directive('cell', ['$log', function ($log) {
     return {
     	restrict: 'A',
 	    link: function($scope,elem,attrs) {
@@ -32,4 +31,4 @@ angular.module('SchoolMan')
 	      });
 	    }
     };
-  });
+  }]);

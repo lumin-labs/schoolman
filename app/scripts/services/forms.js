@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Forms', function Forms(model, VERSION) {
+function Forms(model, VERSION, SchoolInfos) {
     
     // AngularJS will instantiate a singleton by calling "new" on this function
 
@@ -26,6 +25,14 @@ angular.module('SchoolMan')
         }
     }
 
+    //var version;
+
+    //SchoolInfos.get("schoolinfo").then(function(info){
+    //    version = info;
+    //}).catch(function(error){
+    //    console.log("unable to retrieve school info");
+    //});
+
     var forms = {
     	"0":new model.Form({name:modes[VERSION.mode]['0']}),
     	"1":new model.Form({name:modes[VERSION.mode]['1']}),	
@@ -44,4 +51,6 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+  Forms.$inject = ['model', 'VERSION', 'SchoolInfos'];
+angular.module('SchoolMan').service('Forms', Forms);
