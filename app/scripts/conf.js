@@ -152,6 +152,38 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
+    {
+      label:"Fee Settings",
+      page:"dues"
+      access:['division'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-cog'
+    },
+    {
+      label:"Schools",
+      page:"schools",
+      access:['division'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-folder-open'
+    },
+    {
+      label:"School Profile",
+      page:"schoolprofile",
+      access:['division'],
+      exclude:['schools', 'dues', 'addschool'],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-home'
+    },
+    {
+      label:"Add School",
+      page:"addschool",
+      access:['division'],
+      exclude:['schools', 'dues', 'schoolprofile'],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-pencil'
+    },
  ]);
 
 

@@ -50,7 +50,11 @@ angular.module('SchoolMan', [
       registrarProfile:"registrar-profile.html",
       classmasterProfile:"classmaster-profile.html",
       classcouncil:"classcouncil.html",
-      notactive:"notactive.html"
+      notactive:"notactive.html",
+      dues:"div-dues.html",
+      schools:"schools.html",
+      schoolprofile:"schoolprofile.html",
+      addschool:"addschool.html"
     };
 
     var getTemplate = function(p){
