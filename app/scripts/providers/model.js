@@ -2,7 +2,7 @@
 
 var schoolman = angular.module('SchoolMan')
 
-function modelProvider() {
+schoolman.provider('model', function modelProvider() {
     
   
   var self = this;
@@ -246,6 +246,4 @@ function modelProvider() {
     return self;
   }];
 
-}
-// modelProvider.$inject = [];
-schoolman.provider('model', modelProvider);
+});

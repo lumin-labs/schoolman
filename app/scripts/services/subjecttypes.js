@@ -1,6 +1,7 @@
 'use strict';
 
-function SubjectTypes() {
+angular.module('SchoolMan')
+  .service('SubjectTypes', function SubjectTypes() {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var types = [
@@ -16,6 +17,4 @@ function SubjectTypes() {
     };
 
     return self;
-  }
-// SubjectTypes.$inject = [];
-angular.module('SchoolMan').service('SubjectTypes', SubjectTypes);
+  });

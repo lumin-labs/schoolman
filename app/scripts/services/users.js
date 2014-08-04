@@ -1,6 +1,7 @@
 'use strict';
 
-function Users($q, $log, Data2, modelTransformer, model, InsertionError, Slug) {
+angular.module('SchoolMan')
+  .service('Users', function Users($q, $log, Data2, modelTransformer, model, InsertionError, Slug) {
 
 		var users = {};  	
 
@@ -125,6 +126,4 @@ function Users($q, $log, Data2, modelTransformer, model, InsertionError, Slug) {
 
     return self;
 
-  }
-Users.$inject = ['$q', '$log', 'Data2', 'modelTransformer', 'model', 'InsertionError', 'Slug'];
-angular.module('SchoolMan').service('Users', Users);
+  });

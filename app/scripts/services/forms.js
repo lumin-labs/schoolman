@@ -1,18 +1,19 @@
 'use strict';
 
-function Forms(model, VERSION, SchoolInfos) {
+angular.module('SchoolMan')
+  .service('Forms', function Forms(model, VERSION, SchoolInfos) {
     
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var modes = {
         'gths':{
-            "0":"Form 1",
-            "1":"Form 2",
-            "2":"Form 3",
-            "3":"Form 4",
-            "4":"Form 5",
-            "5":"Form 6",
-            "6":"Form 7"
+            "0":"Level 1",
+            "1":"Level 2",
+            "2":"Level 3",
+            "3":"Level 4",
+            "4":"Level 5",
+            // "5":"Form 6",
+            // "6":"Form 7"
         },
         'ghs' :{
             "0":"Form 1",
@@ -20,8 +21,8 @@ function Forms(model, VERSION, SchoolInfos) {
             "2":"Form 3",
             "3":"Form 4",
             "4":"Form 5",
-            "5":"Lower Sixth",
-            "6":"Upper Sixth"
+            // "5":"Lower Sixth",
+            // "6":"Upper Sixth"
         }
     }
 
@@ -39,8 +40,8 @@ function Forms(model, VERSION, SchoolInfos) {
     	"2":new model.Form({name:modes[VERSION.mode]['2']}),	
     	"3":new model.Form({name:modes[VERSION.mode]['3']}),	
     	"4":new model.Form({name:modes[VERSION.mode]['4']}),	
-    	"5":new model.Form({name:modes[VERSION.mode]['5']}),	
-    	"6":new model.Form({name:modes[VERSION.mode]['6']})	
+    	// "5":new model.Form({name:modes[VERSION.mode]['5']}),	
+    	// "6":new model.Form({name:modes[VERSION.mode]['6']})	
     };
 
     var self = {};
@@ -51,6 +52,4 @@ function Forms(model, VERSION, SchoolInfos) {
 
     return self;
 
-  }
-  Forms.$inject = ['model', 'VERSION', 'SchoolInfos'];
-angular.module('SchoolMan').service('Forms', Forms);
+  });

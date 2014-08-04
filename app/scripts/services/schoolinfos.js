@@ -1,6 +1,7 @@
 'use strict';
 
-function SchoolInfos($q, Data2, model) {
+angular.module('SchoolMan')
+  .service('SchoolInfos', function SchoolInfos($q, Data2, model) {
 
   	var self = {};
 
@@ -14,19 +15,25 @@ function SchoolInfos($q, Data2, model) {
       var deferred = $q.defer();
 
   		Data2.get("schoolinfo").then(function(data){
+        console.log("school info get", data);
   			deferred.resolve(modelFrom(data));
   		}).catch(function(error){
+
   			//var info = new model.SchoolInfo();
         if(error.status === 404){
           var info = new model.SchoolInfo({nameEn:"Name (English)",
                                             nameFr:"Name (French)"
                                           });
+          console.log("catch schoolinfo", error, info);
           info.save().then(function(success){
             deferred.resolve(info);
+            console.log("saved schoolinfo", info, success);
           }).catch(function(error){
+            console.log("save error school info", error);
             deferred.reject(error);
           })
         } else{
+          console.log("catch else school info", error);
           deferred.reject(error);
         }
   		});
@@ -36,6 +43,4 @@ function SchoolInfos($q, Data2, model) {
 
   	return self;
 
-}
-SchoolInfos.$inject = ['$q', 'Data2', 'model'];
-angular.module('SchoolMan').service('SchoolInfos', SchoolInfos);
+});

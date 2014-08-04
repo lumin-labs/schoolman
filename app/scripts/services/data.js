@@ -1,6 +1,7 @@
 'use strict';
 
-function Data($timeout, $log, SchoolInfos) {
+angular.module('SchoolMan')
+  .service('Data', function Data($timeout, $log, SchoolInfos) {
 
     var SCHEMA = {
         "version":"",
@@ -321,6 +322,4 @@ function Data($timeout, $log, SchoolInfos) {
 
     return self;
 
-  }
-Data.$inject = ['$timeout', '$log', 'SchoolInfos'];
-angular.module('SchoolMan').service('Data', Data);
+  });

@@ -1,6 +1,7 @@
 'use strict';
 
-function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets, ClassMaster) {
+angular.module('SchoolMan')
+  .controller('MarksheetCtrl', function ($scope, $routeParams, Data2, model, Location, Marksheets, ClassMaster) {
     
     var marksheetId = model.Marksheet.generateID($routeParams);
     
@@ -33,14 +34,11 @@ function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets,
 
     $scope.save = function(studentId, cellIndex){
         if(hasChanged){
-            var value = $scope.data.marksheet['table'][studentId][cellIndex];
-            console.log("number?", isNaN(Number(value)));
-            if(studentId){
-                if(value > 20 || value < 0 || isNaN(Number(value))){
-                    $scope.data.marksheet['table'][studentId][cellIndex] = "";
-                }
+
+            if($scope.data.marksheet['table'][studentId][cellIndex] > 20 || $scope.data.marksheet['table'][studentId][cellIndex] < 0){
+                $scope.data.marksheet['table'][studentId][cellIndex] = "";
             }
-            // console.log("Saving: ", $scope.data.marksheet);
+            console.log("Saving: ", $scope.data.marksheet);
             $scope.data.marksheet.save().then(function(success){
     			hasChanged = false;
     			$scope.data.rankings = Marksheets.rank($scope.data.marksheet);    			
@@ -51,7 +49,5 @@ function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets,
     	}
     };
 
-  }
-  MarksheetCtrl.$inject = ['$scope', '$routeParams', 'Data2', 'model', 'Location', 'Marksheets', 'ClassMaster'];
-  angular.module('SchoolMan').controller('MarksheetCtrl', MarksheetCtrl);
+  });
 

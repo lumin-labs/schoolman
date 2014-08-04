@@ -11,7 +11,8 @@
  *
  * This service handles marksheets and all calculations
  */
-function TimeTable(Data) {
+angular.module('SchoolMan')
+  .service('TimeTable', function TimeTable(Data) {
 
 	// Private methods and attributes 
 	// ------------------------------
@@ -165,6 +166,4 @@ function TimeTable(Data) {
   			return courses[teacherId];
   		}
   	}
-  }
-TimeTable.$inject = ['Data'];
-angular.module('SchoolMan').service('TimeTable', TimeTable);
+  });

@@ -1,6 +1,7 @@
 'use strict';
 
-function UserCtrl($scope, $routeParams, Users, model) {
+angular.module('SchoolMan')
+  .controller('UserCtrl', function ($scope, $routeParams, Users, model) {
   	$scope.editing = false;
   	$scope.currentUser = Users.get($routeParams.username);
     $scope.editingUser = $routeParams.subpage === 'current' ? 
@@ -45,6 +46,4 @@ function UserCtrl($scope, $routeParams, Users, model) {
     	}
     }
 
-  }
-UserCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model'];
-angular.module('SchoolMan').controller('UserCtrl', UserCtrl);
+  });

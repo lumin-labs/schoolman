@@ -1,6 +1,7 @@
 'use strict';
 
-function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos) {
+angular.module('SchoolMan')
+  .controller('UsersCtrl', function ($scope, $routeParams, Users, model, Location, SchoolInfos) {
     
     $scope.data = {};
     $scope.data.users = Users.getAll();
@@ -31,6 +32,5 @@ function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos) {
 
     $scope.remove = Users.remove;
 
-  }
-UsersCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Location', 'SchoolInfos'];
-angular.module('SchoolMan').controller('UsersCtrl', UsersCtrl);
+  });
+

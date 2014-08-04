@@ -1,6 +1,7 @@
 'use strict';
 
-function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos) {
+angular.module('SchoolMan')
+  .controller('NavtabsCtrl', function ($scope, $routeParams, Location, TABS,VERSION, settings, Cache, model, SchoolInfos) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
@@ -41,7 +42,7 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
     };
 
     $scope.userHasAccess = function(tab, version){
-      var isRightMode = tab.modes.indexOf(version) > -1;
+      var isRightMode = tab.modes.indexOf(VERSION.mode) > -1;
     	var hasAccess = tab.access.indexOf($scope.userAccess) > -1;
       var excluded = excludedOnThisPage(tab);
       return (hasAccess && isRightMode && (!excluded));
@@ -53,12 +54,10 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
 
     $scope.login = function(access){
       console.log(access, $scope.settings);
-      if(!$scope.settings.access[access]){
+      if(!access === 'sales' && !$scope.settings.access[access]){
         Location.open({page:"notactive", accessCode:access});
       }else {
         Location.open({page:"default_"+access, accessCode:access});
       }
     }
-  }
-  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'settings', 'Cache', 'model', 'SchoolInfos'];
-  angular.module('SchoolMan').controller('NavtabsCtrl', NavtabsCtrl);
+  });

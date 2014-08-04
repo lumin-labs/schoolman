@@ -8,10 +8,12 @@
  *
  * This service helps you create a path that conforms to what the routePovider expects
  */
-function Path() {
+angular.module('SchoolMan')
+  .service('Path', function Path() {
 
     var defaults = {
       default_admin:"users",
+      default_sales:"customerSettings",
       default_classmaster:"classmasterMarksheet",
       default_teacher:"myclasses",
       default_registrar:"registration"
@@ -63,5 +65,4 @@ function Path() {
     	}
     
     return self;
-  }
-angular.module('SchoolMan').service('Path', Path);
+  });

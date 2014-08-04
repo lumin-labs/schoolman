@@ -1,11 +1,12 @@
 'use strict';
 
-function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos){
-
-    //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
-    //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
-    $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
-    $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
+angular.module('SchoolMan')
+  .controller('ClasscouncilCtrl', function ($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos) {
+    
+    $scope.schoolNameEn = "UNIVERSITY OF BAMENDA";
+    $scope.schoolNameFr = "UNIVERSITE DE BAMENDA";
+    // $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
+    // $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
     //$scope.schoolYear = SCHOOLYEAR.year;
 
@@ -43,7 +44,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
 
 
     $scope.groupStats = {};
-
+    
     $scope.open = Location.open;
 
 
@@ -128,8 +129,8 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         stats.classRange = minStudent === 20 ? 0 : maxStudent - minStudent;
         return stats;
     }
-
-
+    
+    
 
     var updatePerformanceRanks = function(){
         var studentIds = Object.keys($scope.data.rankings);
@@ -149,29 +150,31 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
                 }
             })
 
-        var top3 = [];
+        var top10 = [];
         var worst3 = [];
 
-        if(sortedList.length > 2){        
-            top3 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId];
+        if(sortedList.length > 9){        
+            top10 = [sortedList[0].studentId,sortedList[1].studentId,sortedList[2].studentId,sortedList[3].studentId,sortedList[4].studentId,sortedList[5].studentId,sortedList[6].studentId,sortedList[7].studentId,sortedList[8].studentId,sortedList[9].studentId];
             var sortedListEnd = sortedList.slice(-3-n);
             worst3 = [sortedListEnd[0].studentId,sortedListEnd[1].studentId,sortedListEnd[2].studentId];
         }
-        else if(sortedList.length > 1){
-            top3 = [sortedList[0].studentId,sortedList[1].studentId];
-            worst3 = [sortedList[0].studentId,sortedList[1].studentId];
-        }
+        
         else if(sortedList.length > 0){
-            top3 = [sortedList[0].studentId];
+            angular.forEach(sortedList, function(student, objId){
+             top10.push(student.studentId);   
+            })
+            // top10 = [sortedList[0].studentId];
             worst3 = [sortedList[0].studentId];
+           
         }
+             console.log("top10 students", top10,sortedList);
 
-
-        Students.getBatch(top3).then(function(students){
+        Students.getBatch(top10).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){
                 student.average = $scope.data.summarysheet[student._id][0];
                 return student;
             });
+            console.log(students, $scope.data.bestStudents)
         }).catch(function(error){
           console.log("Failed to find students: ", error);
         });
@@ -184,7 +187,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
           console.log("Failed to find students: ", error);
         });
     }
-
+    
     $scope.changeAcRemark = function(remark){
         $scope.data.classcouncil.academicRemark[$scope.termIndex] = remark;
         $scope.save();
@@ -225,6 +228,4 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
     ];
 
 
-}
-ClasscouncilCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'ClassMaster', 'CourseCatalog', 'Location', 'Mastersheet', 'SchoolInfos']
-angular.module('SchoolMan').controller('ClasscouncilCtrl', ClasscouncilCtrl);
+  });

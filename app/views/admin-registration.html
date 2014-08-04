@@ -6,12 +6,12 @@
   <div class="row">
   	<div class="col-md-7" style="border-right:solid 0px #ddd;">
   		<form name="regform" class="form-horizontal form-registration" role="form">
-			  <div class="form-group">
-			    <label for="uid" class="col-sm-3 control-label">Student ID</label>
+			  <!--  <div class="form-group">
+			     <label for="uid" class="col-sm-3 control-label">Student ID</label> 
 			    <div class="col-sm-9">
-			      <p class="form-control-static">{{newStudent.id}}</p>
+			       <p class="form-control-static">{{newStudent.id}}</p> 
 			    </div>
-			  </div>
+			  </div> --> 
 			  <div class="form-group">
 			    <label for="uid" class="col-sm-3 control-label">Class</label>
 			    <div class="col-sm-9">
@@ -119,25 +119,25 @@
 			    </div>
 			  </div>
 			  <br>
-			  <div class="form-group">
-			    <label for="parentName" class="col-sm-3 control-label">Parent Name</label>
+<!-- 			  <div class="form-group">
+			    <label for="parentName" class="col-sm-3 control-label">Student Name</label>
 			    <div class="col-sm-9">
-			      <input id="parentName" 
+			      <input id="StudentName" 
 			      		 class="form-control {{showValidation && newStudent.parentName === '' ? 'invalid-input' : ''}}" 
-			      		 placeholder="Parent Name" 
-			      		 ng-model="newStudent.parentName">
+			      		 placeholder="student Name" 
+			      		 ng-model="newStudent.StudentName">
 			    </div>
-			  </div>
+			  </div> -->
 			  <div class="form-group">
-			    <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
+			    <label for="StudentPhone" class="col-sm-3 control-label">Student Phone</label>
 			    <div class="col-sm-9">
-			      <input id="parentPhone"
-			      		 class="form-control {{showValidation && newStudent.parentPhone === '' ? 'invalid-input' : ''}}" 
-			      		 placeholder="Parent Phone" 
-			      		 ng-model="newStudent.parentPhone">
+			      <input id="StudentPhone"
+			      		 class="form-control {{showValidation && newStudent.studentPhone === '' ? 'invalid-input' : ''}}" 
+			      		 placeholder="Student Phone" 
+			      		 ng-model="newStudent.studentPhone">
 			    </div>
 			  </div>
-			  <div class="form-group">
+			 <!--  <div class="form-group">
 			    <label for="parentEmail" class="col-sm-3 control-label">Parent Email</label>
 			    <div class="col-sm-9">
 			      <input id="parentEmail" 
@@ -145,7 +145,7 @@
 					     placeholder="Parent EMail"
 					     ng-model="newStudent.parentEmail">
 			    </div>
-			  </div>
+			  </div> -->
 			  <br>
 			  <div class="form-group">
 			    <div class="col-sm-offset-3 col-sm-3">

@@ -24,19 +24,15 @@ schoolman.config(['modelProvider', function(model){
         key:"birth",
         type:"string",
         required:true
-      },{
-        key:"parentName",
+      },
+       
+      {
+        key:"studentPhone",
         type:"string",
         required:true
-      },{
-        key:"parentPhone",
-        type:"string",
-        required:true
-      },{
-        key:"parentEmail",
-        type:"string",
-        required:true
-      },{
+       },
+
+      {
         key:"formIndex",
         type:"string",
         required:true
@@ -80,9 +76,9 @@ schoolman.config(['modelProvider', function(model){
     this.name = ""; 
     this.sex = "";     // String
     this.birth = null; // Datetime integer
-    this.parentName = "";
-    this.parentPhone = "";
-    this.parentEmail = "";
+    // this.parentName = "";
+    this.studentPhone = "";
+    // this.parentEmail = "";
     this.formIndex = spec.formIndex || null;  //Integer
     this.deptId = spec.deptId || null; //Integer
     this.groupId = spec.groupId || null; //Integer

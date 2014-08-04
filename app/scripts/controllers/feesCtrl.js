@@ -1,6 +1,7 @@
 'use strict';
 
-function FeesCtrl($scope, Fees, Students, model) {
+angular.module('SchoolMan')
+  .controller('FeesCtrl', function ($scope, Fees, Students, model) {
       
       $scope.data = {};
       $scope.data.fees = Fees.getAll();
@@ -37,6 +38,4 @@ function FeesCtrl($scope, Fees, Students, model) {
       $scope.remove = function(fee){
          Fees.remove(fee); 
       }
-}
-FeesCtrl.$inject = ['$scope', 'Fees', 'Students', 'model'];
-angular.module('SchoolMan').controller('FeesCtrl', FeesCtrl);
+});

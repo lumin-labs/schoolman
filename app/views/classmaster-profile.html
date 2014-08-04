@@ -132,11 +132,7 @@
               <span style="color:#666">{{comment._id | date:'medium'}}</span>
               <br>
               <strong>{{comment.text}}</strong>
-              
             </td>
-            <td><a ng-click="removeComment(commentIndex)" ng-if="comment.userId === username">
-              <i class="glyphicon glyphicon-remove"></i>
-            </a></td>
           </tr>
         </table>
   		</form>

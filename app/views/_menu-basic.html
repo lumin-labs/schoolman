@@ -41,7 +41,7 @@
   <div  ng-if="['mastersheet', 'students', 'registration'].indexOf(page) === -1"
         class="btn-group">
     <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-      {{subject.en || "Select Subject"}} <span class="caret"></span>
+      {{subject.en || "select subject"}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li ng-repeat="(subjectId, subject) in subjects">

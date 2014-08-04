@@ -584,10 +584,6 @@ td.profile-photo{
   display:none;
 }
 
-.printonly-asrow{
-  display:none;
-}
-
 .signature-padding{
   height:37px;
 }
@@ -626,10 +622,6 @@ td.profile-photo{
 
     .printonly{
       display:inline;
-    }
-
-    .printonly-asrow{
-      display:table-row;
     }
 
     .noprint {

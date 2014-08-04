@@ -1,6 +1,7 @@
 'use strict';
 
-function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksheets, ClassCouncils, $q, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
+angular.module('SchoolMan')
+  .controller('ProfileCtrl', function ($scope, $routeParams, model, profile, Dcards, Users, Marksheets, ClassCouncils, $q, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -12,7 +13,6 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     $scope.multiplier = 1; // -1 implies that this payment is a correction
 
     $scope.Users = Users;
-    $scope.username = $routeParams.username;
 
     var reports = {};
     var classCouncils = {};
@@ -158,14 +158,6 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
       });     
     };
 
-    $scope.removeComment = function(commentIndex){
-      console.log("Remove comment", $scope.data.comments[commentIndex]);
-      var comment = $scope.data.comments[commentIndex];
-      profile.removeComment(comment).then(function(success){
-        delete $scope.data.comments[commentIndex];
-      });
-    }
-
     $scope.stringToNumber = function(amount){
       amount = Number(amount.replace(/[^0-9\.]+/g,""));
       return amount;
@@ -190,6 +182,4 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
         console.log("Failed to save model", error);
       });
     };
-  }
-  ProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'profile', 'Dcards', 'Users', 'Marksheets', 'ClassCouncils', '$q', 'Registrar', 'Students', 'Fees', 'Forms', 'Payments', 'Groups', 'Departments', 'PROMOTE_OPTIONS'];
-  angular.module('SchoolMan').controller('ProfileCtrl', ProfileCtrl);
+  });

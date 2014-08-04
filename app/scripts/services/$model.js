@@ -1,6 +1,7 @@
 'use strict';
 
-function $model() {
+angular.module('SchoolMan')
+  .service('$model', function $model() {
 
   	var self = {};
     
@@ -20,6 +21,4 @@ function $model() {
 	};
 
 	return self;
-  }
-// $model.$inject = [];
-angular.module('SchoolMan').service('$model', $model);
+  });

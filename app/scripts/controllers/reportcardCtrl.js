@@ -1,6 +1,7 @@
 'use strict';
 
-function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
+angular.module('SchoolMan')
+  .controller('reportcardCtrl', function ($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       
@@ -10,8 +11,8 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
       $scope.open = Location.open;
       //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
       //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
-      $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
-      $scope.pageTitleFrench = "BULLETIN DE NOTES";
+      $scope.pageTitleEnglish = "RESULT LIST";
+      $scope.pageTitleFrench = "LIST DE RESULTA";
       //$scope.schoolYear = SCHOOLYEAR.year;
 
       $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
@@ -82,7 +83,6 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
           }
           sets[type].marksheets.push(marksheet);
           sets[type].summsheets[marksheet._id] = Marksheets.summarize(marksheet, termIndex);
-          console.log("Summsheets", sets[type].summsheets[marksheet._id]);
         });
         
         angular.forEach(sets, function(set, i){
@@ -144,6 +144,4 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
         return d.row ? d.row[i] : undefined;
       }
 
-  }
-  ReportcardCtrl.$inject = ['$scope', '$routeParams', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS'];
-  angular.module('SchoolMan').controller('reportcardCtrl', ReportcardCtrl);
+  });

@@ -115,14 +115,14 @@
               </div>
             </nav>
           </div>
-      
+      </div>
         </th>
-        <th class="text-center"
+        <!-- <th class="text-center"
             style="vertical-align:middle;border:solid 3px #fff;background-color:#f8f8f8;"
-            colspan="2"> 
-            Term 1
-        </th>
-        <th class="text-center"
+            colspan="6"> 
+            Entrance
+        </th> -->
+        <!-- <th class="text-center"
             style="vertical-align:middle;border:solid 3px #fff;background-color:#f8f8f8;"
             colspan="2"> 
             Term 2
@@ -131,24 +131,26 @@
             style="vertical-align:middle;border:solid 3px #fff;background-color:#f8f8f8;"
             colspan="2"> 
             Term 3
-        </th>
+        </th> -->
       </tr>
   		<tr>
   			<th style="width:40px;">No.</th>
-  			<th style="width:380px;">Name</th>
-        <th style="width:100px;text-align:right;">Rankings</th>
-        <th class="text-center column-on-bottom" 
-            ng-repeat="sequence in [1,2,3,4,5,6]">
-          S{{sequence}}
-        </th>
+  			<th style="width:380px;">ID</th>
+       <!--  <th style="width:100px;text-align:right;">Rankings</th> -->
+        <!-- <th class="text-center column-on-bottom" 
+            ng-repeat="sequence in [1,2,]">
+          Practical{{sequence}}
+        </th> -->
+        <th style="text-align:center">Pratical</th>
+        <th style="text-align:center">Oral</th>
   		</tr>
   	</thead>
   	<tbody>
   		<tr  ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
   			<td>{{$index + 1}}</td>
-  			<td>{{student.name}}</td>
-        <td class="column-on-right" style=" font-family:monotype;font-size:.9em;">
-            <table>
+  			<td>{{student.id}}</td>
+       <!--  <td class="column-on-right" style=" font-family:monotype;font-size:.9em;">
+             <table>
               <tr>
                 <td style="width:25px;text-align:right;">
                   {{data.rankings[student._id][0]}}
@@ -163,10 +165,10 @@
                   <strong>{{data.rankings[student._id][3]}}</strong>
                 </td>
               </tr>
-            </table>
-        </td>
+            </table> 
+        </td> -->
   			<td class="column" 
-            ng-repeat="(cellIndex, cell) in [0,1,2,3,4,5]">
+            ng-repeat="(cellIndex, cell) in [0,1]">
   				<input  ng-model="data.marksheet['table'][student._id][cellIndex]"
   					      ng-blur ="save(student._id, cellIndex)" 
                   ng-change="noteChange()"

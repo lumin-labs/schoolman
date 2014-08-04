@@ -1,8 +1,9 @@
 'use strict';
 
-function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+angular.module('SchoolMan')
+  .controller('MastersheetCtrl2', function ($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
   	 
-      $scope.termIndex = parseInt($routeParams.termIndex);
+      var termIndex = parseInt($routeParams.termIndex);
       
       $scope.open = Location.open;
 
@@ -37,7 +38,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
 
         // Create marksheet summaries 
         $scope.data.summaries = _.map(marksheets , function(marksheet){
-          var summary = Marksheets.summarize(marksheet, $scope.termIndex);
+          var summary = Marksheets.summarize(marksheet, termIndex);
           console.log("Marksheet has been summarized: ", marksheet, summary);
           return summary;
         });
@@ -46,7 +47,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
         $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
 
         // summarize combined marksheet to get grand totals
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;
+        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, termIndex);;
         
         // get rankings from combined marksheet
         $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);
@@ -169,6 +170,4 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
         console.log("Failed to find marksheets", error);
       });
 
-  }
-  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS'];
-  angular.module('SchoolMan').controller('MastersheetCtrl2', MastersheetCtrl);
+  });

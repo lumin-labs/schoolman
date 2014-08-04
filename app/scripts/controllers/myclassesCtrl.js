@@ -1,6 +1,7 @@
 'use strict';
 
-function MyclassesCtrl($scope, $routeParams, Users, model,Forms, Groups, Departments,  Marksheets, Location, Subjects, TimeTable) {
+angular.module('SchoolMan')
+  .controller('MyclassesCtrl', function ($scope, $routeParams, Users, model,Forms, Groups, Departments,  Marksheets, Location, Subjects, TimeTable) {
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
     $scope.open = Location.open;
@@ -117,6 +118,4 @@ function MyclassesCtrl($scope, $routeParams, Users, model,Forms, Groups, Departm
     };
 
     
-  }
-  MyclassesCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Forms', 'Groups', 'Departments', 'Marksheets', 'Location', 'Subjects', 'TimeTable'];
-  angular.module('SchoolMan').controller('MyclassesCtrl', MyclassesCtrl);
+  });

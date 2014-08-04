@@ -128,14 +128,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
   	 	icon:'glyphicon-th-large'
   	},
-    {
-      label:"Report Card",
-      page:"reportcardGTHS",
-      access:['classmaster'],
-      exclude:[],
-      modes:["gths","ghs"],
-      icon:'glyphicon-list-alt'
-    },
+    // {
+    //   label:"Report Card",
+    //   page:"reportcardGTHS",
+    //   access:['classmaster'],
+    //   exclude:[],
+    //   modes:["gths","ghs"],
+    //   icon:'glyphicon-list-alt'
+    // },
     {
       label:"Class Council",
       page:"classcouncil",
@@ -151,6 +151,30 @@ angular.module('SchoolMan')
       exclude:'all',
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
+    },
+    {
+      label:"School Information",
+      page:"schoolInfo",
+      access:['sales'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-info-sign'
+    },
+    {
+      label:"Customer Settings",
+      page:"customerSettings",
+      access:['sales'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-cog'
+    },
+    {
+      label:"Result",
+      page:"result",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-file'
     },
  ]);
 

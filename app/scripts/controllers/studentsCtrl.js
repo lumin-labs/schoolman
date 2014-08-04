@@ -1,10 +1,21 @@
 'use strict';
 
-function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
+angular.module('SchoolMan')
+  .controller('StudentsCtrl', function ($scope, $q, $routeParams, ClassCouncils, Fees, SchoolInfos,Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
+    $scope.schoolNameEn = "UNIVERSITY OF BAMENDA";
+    $scope.schoolNameFr = "UNIVERSITE DE BAMENDA";
+    $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
+    $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
+    SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+    }).catch(function(error){
+        console.log("failed to get school info", error);
+    });
 
     var data = $scope.data = {
         forms:Forms.all(),
@@ -47,6 +58,7 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
 
       var setPassing = function(student, classId){
         var studentAverage = 0;
+        console.log("Reports", reports[classId]);
         if(reports[classId].total.summary){
           studentAverage = reports[classId].total.summary[student._id][0];
         }
@@ -315,6 +327,4 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
 
 
 
-  }
-  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Registrar', 'Subjects', 'Payments', 'Students', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS'];
-  angular.module('SchoolMan').controller('StudentsCtrl', StudentsCtrl);
+  });

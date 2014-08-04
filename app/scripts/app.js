@@ -46,10 +46,13 @@ angular.module('SchoolMan', [
       departments:"admin-departments.html",
       fees:"admin-fees.html",
       finance:"registrar-finance.html",
-      reportcardGTHS:"reportcard-gths.html",
+      // reportcardGTHS:"reportcard-gths.html",
       registrarProfile:"registrar-profile.html",
       classmasterProfile:"classmaster-profile.html",
       classcouncil:"classcouncil.html",
+      customerSettings:"sales.html",
+      schoolInfo:"schoolinfo.html",
+      result:"result.html",
       notactive:"notactive.html"
     };
 

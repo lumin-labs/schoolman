@@ -1,5 +1,7 @@
 'use strict';
-function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Students) {
+
+angular.module('SchoolMan')
+  .controller('RegistrationCtrl', function ($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Students) {
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
@@ -22,6 +24,7 @@ function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups
     })
 
     $scope.add = function(student){
+        console.log("student",student)
         student.save().then(function(success){
             Uid.save(data.uid);
             console.log("Save student: ", success);
@@ -52,7 +55,4 @@ function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups
 
 
 
-  }
-  RegistrationCtrl.$inject = ['$scope', '$routeParams', 'Uid', 'Forms', 'Departments', 'Groups', 'Fees', 'Location', 'model', 'Students'];
-  angular.module('SchoolMan').controller('RegistrationCtrl', RegistrationCtrl);
-
+  });

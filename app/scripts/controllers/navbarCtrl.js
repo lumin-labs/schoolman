@@ -1,6 +1,7 @@
 'use strict';
 
-function NavbarCtrl($scope, $location, $routeParams, Cache) {
+angular.module('SchoolMan')
+  .controller('NavbarCtrl', function ($scope, $location, $routeParams, Cache) {
     
     $scope.username = $routeParams.username;
     $scope.teacher = Cache.user;
@@ -22,6 +23,4 @@ function NavbarCtrl($scope, $location, $routeParams, Cache) {
     	$location.path(url);
     }
 
-  }
-  NavbarCtrl.$inject = ['$scope', '$location', '$routeParams', 'Cache'];
-  angular.module('SchoolMan').controller('NavbarCtrl', NavbarCtrl);
+  });

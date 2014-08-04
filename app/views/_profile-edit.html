@@ -1,11 +1,11 @@
 <form class="form-horizontal" role="form">
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="uid" class="col-sm-3 control-label">Student ID</label>
     <div class="col-sm-9 printonly">{{data.student._id}}</div>
     <div class="col-sm-9 noprint">
       <div class="form-control-static">{{data.student._id}}</div>
     </div>
-  </div>
+  </div> -->
   <div class="form-group">
     <label for="uid" class="col-sm-3 control-label">Class</label>
     <div class="col-sm-9 printonly">{{data.forms[data.student.formIndex].name}} {{data.departments[data.student.deptId].name}} 
@@ -118,7 +118,7 @@
     </div>
   </div>
   <br>
-  <div class="form-group">
+ <!--  <div class="form-group">
     <label for="parentName" class="col-sm-3 control-label">Parent Name</label>
     <div class="col-sm-9 printonly">{{data.student.parentName}}</div>
     <div class="col-sm-9 noprint">
@@ -128,19 +128,19 @@
            ng-readonly="!editing"
            ng-model="data.student.parentName">
     </div>
-  </div>
+  </div> -->
   <div class="form-group">
-    <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
-    <div class="col-sm-9 printonly">{{data.student.parentPhone}}</div>
+    <label for="studentPhone" class="col-sm-3 control-label">Student Phone</label>
+    <div class="col-sm-9 printonly">{{data.student.studentPhone}}</div>
     <div class="col-sm-9 noprint">
-      <input id="parentPhone"
+      <input id="studentPhone"
            class="form-control" 
-           placeholder="Parent Phone" 
+           placeholder="Student Phone" 
            ng-readonly="!editing"
-           ng-model="data.student.parentPhone">
+           ng-model="data.student.studentPhone">
     </div>
   </div>
-  <div class="form-group">
+ <!--  <div class="form-group">
     <label for="parentEmail" class="col-sm-3 control-label">Parent Email</label>
     <div class="col-sm-9 printonly">{{data.student.parentEmail}}</div>
     <div class="col-sm-9 noprint">
@@ -150,7 +150,7 @@
          ng-readonly="!editing"
          ng-model="data.student.parentEmail">
     </div>
-  </div>
+  </div> -->
   <br>
   <div class="form-group noprint" ng-if="accessCode === 'registrar' && !editing">
     <div class="col-sm-offset-3 col-sm-10">

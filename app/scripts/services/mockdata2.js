@@ -1,6 +1,7 @@
 'use strict';
 
-function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Payments, Data2){
+angular.module('SchoolMan')
+  .service('MockData', function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Payments, Data2){
 
     
     var forms = Forms.all();
@@ -40,9 +41,9 @@ function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Paymen
             name: person.first_name + " " + person.last_name,
             sex: person.gender,
             birth: Faker.Date.past(500),
-            parentName:Faker.Name.findName(),
-            parentPhone:Faker.PhoneNumber.phoneNumber(),
-            parentEmail:Faker.Internet.email(),
+            // parentName:Faker.Name.findName(),
+            studentPhone:Faker.PhoneNumber.phoneNumber(),
+            // parentEmail:Faker.Internet.email(),
             formIndex:forms[getRandBetween(0, forms.length)],
             groupId:groups[getRandBetween(0, groups.length)],
             feeId:fees[getRandBetween(0, fees.length)],
@@ -67,6 +68,4 @@ function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Paymen
     }
 
 
-  }
-MockData.$inject = ['model', 'Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Data2'];
-angular.module('SchoolMan').service('MockData', MockData);
+  });

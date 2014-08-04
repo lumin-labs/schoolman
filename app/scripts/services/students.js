@@ -1,6 +1,7 @@
 'use strict';
 
-function Students($q, model, modelTransformer, pouchdb) {
+angular.module('SchoolMan')
+  .service('Students', function Students($q, model, modelTransformer, pouchdb) {
 
   	var db = model.Student.db;
     if(typeof db === "string"){
@@ -47,10 +48,13 @@ function Students($q, model, modelTransformer, pouchdb) {
       var deferred = $q.defer();
 
       var students = [];
+      console.log(_students);
       angular.forEach(studentIds, function(id, index){
         if(_students[id]){
           students.push(_students[id]);
         }
+        console.log("student id:", id);
+
       });
 
       deferred.resolve(students);
@@ -248,6 +252,4 @@ function Students($q, model, modelTransformer, pouchdb) {
     self.getAll = self.query;
 
     return self;
-  }
-  Students.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb'];
-  angular.module('SchoolMan').service('Students', Students);
+  });
