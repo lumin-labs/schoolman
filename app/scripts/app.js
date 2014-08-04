@@ -54,7 +54,8 @@ angular.module('SchoolMan', [
       divfees:"divfees.html",
       schools:"schools.html",
       schoolprofile:"schoolprofile.html",
-      addschool:"addschool.html"
+      addschool:"addschool.html",
+      divfinance:"div-finance.html"
     };
 
     var getTemplate = function(p){

@@ -59,14 +59,14 @@ angular.module('SchoolMan')
    //    modes:["gths", "ghs"],
    //    icon:'glyphicon-list-alt'
    //  },
-   //  {
-   //    label:"Balance Sheet",
-   //    page:"finance",
-   //    access:['registrar', 'admin'],
-   //    exclude:[],
-   //    modes:["gths", "ghs"],
-   //    icon:'glyphicon-envelope'
-   //  },
+    {
+      label:"School Balance Sheet",
+      page:"finance",
+      access:['registrar', 'admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-envelope'
+    },
    //  {
    //    label:"Student Profile",
    //    page:"registrarProfile",
@@ -170,6 +170,14 @@ angular.module('SchoolMan')
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
+    },
+    {
+      label:"Balance Sheet",
+      page:"divfinance",
+      access:['division', 'admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-envelope'
     },
     {
       label:"School Profile",

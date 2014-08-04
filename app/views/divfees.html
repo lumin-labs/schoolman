@@ -57,23 +57,23 @@
 			<tr>
 				<th>Name</th>
 				<th>Amount Per Student</th>
-				<th>Schools</th>
+				<!-- <th>Schools</th> -->
 				<th style="width:80px;">Remove</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="(divfeeeIndex, divfee) in data.ddivfees">
+			<tr ng-repeat="(divfeeeIndex, divfee) in data.divfees">
 				<td class="column readonly" style="width:400px;vertical-align:middle;">
 					<div class="cell">{{divfee.name}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
 					<div class="cell">{{divfee.amount | currency:""}}</div>
 				</td>
-				<td>
+				<!-- <td>
 					{{divfee.schools.length}}
-				</td>
+				</td> -->
 				<td class="remove text-center" style="width:80px;">
-					<a ng-click="remove(divfee)" ng-if="divfee.students && divfee.students.length === 0">
+					<a ng-click="remove(divfee)">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>

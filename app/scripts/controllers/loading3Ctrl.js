@@ -5,13 +5,13 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
     var instSchoolInfo = new model.SchoolInfo();
 
 
-    var settingsP = settings.load();
+    // var settingsP = settings.load();
     var userP = Users.load();
-    var feesP = Fees.load();
-    var deptP = Departments.load();
-    var subjP = Subjects.load();
-    var groupP= Groups.load();
-    var studentsP= Students.load();
+    // var feesP = Fees.load();
+    // var deptP = Departments.load();
+    // var subjP = Subjects.load();
+    // var groupP= Groups.load();
+    // var studentsP= Students.load();
     var DivFeesP = DivFees.load();
     var SchoolsP = Schools.load();
 
@@ -19,7 +19,8 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
     var instClassCouncil = new model.ClassCouncil();
     
 
-    var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, DivFeesP, SchoolsP];
+    // var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, DivFeesP, SchoolsP];
+    var promises = [userP, DivFeesP, SchoolsP];
 
     $q.all(promises).then(function(success){
       console.log("Successes", success);
