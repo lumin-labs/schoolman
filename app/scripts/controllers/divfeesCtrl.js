@@ -1,9 +1,9 @@
 'use strict';
 
-function DuesCtrl($scope, Students, model, Dues) {
+function DivFeesCtrl($scope, Students, model, DivFees) {
       
       $scope.data = {};
-      $scope.data.dues = Dues.getAll();
+      $scope.data.divfees = DivFees.getAll();
       // Replace Students with Schools
       // Students.getAll().then(function(students){
       //   angular.forEach($scope.data.fees, function(fee, key){
@@ -13,30 +13,31 @@ function DuesCtrl($scope, Students, model, Dues) {
       //   });
       // });
       
-      $scope.newDue = new model.Due();
+      $scope.newDivFee = new model.DivFee();
+      console.log("div fees", $scope.data.divfees);
 
-      $scope.add = function(due){
-         if(due.isValid()){
+      $scope.add = function(divfee){
+         if(divfee.isValid()){
             try{
-               due.amount = Number(due.amount.replace(/[^0-9\.]+/g,""));
-               due.save().then(function(success){
-                  if(!$scope.newDue.schools){
-                    $scope.newDue.schools = [];
+               divfee.amount = Number(divfee.amount.replace(/[^0-9\.]+/g,""));
+               divfee.save().then(function(success){
+                  if(!$scope.newDivFee.schools){
+                    $scope.newDivFee.schools = [];
                  }
-                  $scope.data.dues[$scope.newDue._id] = $scope.newDue;
-                  $scope.newDue = new model.Due(); 
+                  $scope.data.divfees[$scope.newDivFee._id] = $scope.newDivFee;
+                  $scope.newDivFee = new model.DivFee(); 
                }).catch(function(error, result){
-                  console.log("Error: Due not added", error);
+                  console.log("Error: DivFee not added", error);
                });
            } catch(e){
-               console.log("DuesCtrl Error: ", e)
+               console.log("DivFeesCtrl Error: ", e)
            }
          }  
       }
 
-      $scope.remove = function(Due){
-         Dues.remove(due); 
+      $scope.remove = function(divfee){
+         DivFees.remove(divfee); 
       }
 }
-DuesCtrl.$inject = ['$scope', 'Students', 'model', 'Dues'];
-angular.module('SchoolMan').controller('DuesCtrl', DuesCtrl);
+DivFeesCtrl.$inject = ['$scope', 'Students', 'model', 'DivFees'];
+angular.module('SchoolMan').controller('DivFeesCtrl', DivFeesCtrl);

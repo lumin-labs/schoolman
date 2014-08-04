@@ -51,7 +51,7 @@ angular.module('SchoolMan', [
       classmasterProfile:"classmaster-profile.html",
       classcouncil:"classcouncil.html",
       notactive:"notactive.html",
-      dues:"div-dues.html",
+      divfees:"divfees.html",
       schools:"schools.html",
       schoolprofile:"schoolprofile.html",
       addschool:"addschool.html"

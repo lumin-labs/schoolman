@@ -4,10 +4,10 @@ var schoolman = angular.module('SchoolMan');
 
 schoolman.config(['modelProvider', function(model){
 
-  model.datatypes.due = {
+  model.datatypes.divfee = {
     v1:{
       type:"schema",
-      _id:"datatype/due/v1",
+      _id:"datatype/divfee/v1",
       fields:[{
         key:"name",
         type:"string",
@@ -22,15 +22,15 @@ schoolman.config(['modelProvider', function(model){
   };
 
   // Constructor
-  function Due(spec){
+  function DivFee(spec){
     spec = spec || {};
 
     var self = this;
 
     // Prevents global namespace clobbering if you istantiate this object
     // without the 'new' keyword
-    if (!(this instanceof Due)) {
-      return new Due();
+    if (!(this instanceof DivFee)) {
+      return new DivFee();
     }
 
     self.amount = spec.amount || "";        // string
@@ -47,16 +47,16 @@ schoolman.config(['modelProvider', function(model){
     };   
   }
 
-  Due.prototype = new model.Model();
-  Due.prototype.generateID = function(){
+  DivFee.prototype = new model.Model();
+  DivFee.prototype.generateID = function(){
     var id = model.slugify(this.name);
     console.log("Slugified:", id);
     return id;
   }
 
-  Due.prototype.datatype = Due.datatype = model.datatypes.due.v1;
+  DivFee.prototype.datatype = DivFee.datatype = model.datatypes.divfee.v1;
 
 
-  model.Due = Due;
+  model.DivFee = DivFee;
 
 }]);

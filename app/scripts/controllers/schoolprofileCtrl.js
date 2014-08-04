@@ -1,6 +1,6 @@
 'use strict';
 
-function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, Dues) {
+function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees) {
 
     $scope.accessCode = $routeParams.accessCode;
 
@@ -46,5 +46,5 @@ function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, Dues) {
       });
     };
   }
-  SchoolProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','Dues'];
+  SchoolProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','DivFees'];
   angular.module('SchoolMan').controller('SchoolProfileCtrl', SchoolProfileCtrl);

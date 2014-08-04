@@ -1,25 +1,25 @@
 'use strict';
 
-function Dues($q, Slug, model, Data2, modelTransformer, InsertionError, $log) {
+function DivFees($q, Slug, model, Data2, modelTransformer, InsertionError, $log) {
     
-    var dues = {};
+    var divfees = {};
 
     var self = {};
 
-    self.get = function(dueKey){
-        return dues[dueKey];
+    self.get = function(divfeeKey){
+        return divfees[divfeeKey];
     };
 
     self.getAll = function(){
-    	return dues;
+    	return divfees;
     };
 
-    self.remove = function(due){
-        Data2.remove(due).then(function(success){
-            console.log("Due removed: ", success);
-            delete dues[due._id];
+    self.remove = function(divfee){
+        Data2.remove(divfee).then(function(success){
+            console.log("DivFee removed: ", success);
+            delete divfees[divfee._id];
         }).catch(function(error){
-            $log.error("dues.js : remove :", error);
+            $log.error("divfees.js : remove :", error);
         });
     };
 
@@ -29,7 +29,7 @@ function Dues($q, Slug, model, Data2, modelTransformer, InsertionError, $log) {
 
       // Load Data
       var map = function(doc, emit){
-        if(doc.datatype === model.Due.datatype._id){
+        if(doc.datatype === model.DivFee.datatype._id){
           emit(doc._id, {_id:doc.datatype, data:doc});
         } 
       };
@@ -37,12 +37,12 @@ function Dues($q, Slug, model, Data2, modelTransformer, InsertionError, $log) {
           angular.forEach(success.rows, function(data, rowIndex){
               var spec = data.doc;
               var obj = model.parse(data.value.data, spec);
-              var due = modelTransformer.transform(obj, model.Due);
-              dues[due._id] = due;
+              var divfee = modelTransformer.transform(obj, model.DivFee);
+              divfees[divfee._id] = divfee;
           });
-          deferred.resolve(dues);
+          deferred.resolve(divfees);
       }).catch(function(error){
-        console.log("Failed to load Dues: ", error);
+        console.log("Failed to load DivFees: ", error);
         deferred.reject(error);
       });
 
@@ -53,5 +53,5 @@ function Dues($q, Slug, model, Data2, modelTransformer, InsertionError, $log) {
     return self;
 
   }
-Dues.$inject = ['$q', 'Slug', 'model', 'Data2', 'modelTransformer', 'InsertionError', '$log'];
-angular.module('SchoolMan').service('Dues', Dues);
+DivFees.$inject = ['$q', 'Slug', 'model', 'Data2', 'modelTransformer', 'InsertionError', '$log'];
+angular.module('SchoolMan').service('DivFees', DivFees);

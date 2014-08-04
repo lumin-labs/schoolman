@@ -165,7 +165,7 @@ angular.module('SchoolMan')
     },
     {
       label:"Fee Settings",
-      page:"dues",
+      page:"divfees",
       access:['division', 'admin'],
       exclude:[],
       modes:["gths", "ghs"],
@@ -175,7 +175,7 @@ angular.module('SchoolMan')
       label:"School Profile",
       page:"schoolprofile",
       access:['division', 'admin'],
-      exclude:['schools', 'dues', 'addschool'],
+      exclude:['schools', 'divfees', 'addschool'],
       modes:["gths", "ghs"],
       icon:'glyphicon-home'
     },

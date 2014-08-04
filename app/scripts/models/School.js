@@ -33,7 +33,7 @@ schoolman.config(['modelProvider', function(model){
         type:"number",
         required:true
       },{
-        key:"dues",
+        key:"divfees",
         type:"object",
         required:true
       }],
@@ -58,7 +58,7 @@ schoolman.config(['modelProvider', function(model){
     this.division = ""; // Datetime integer
     this.subdivision = "";
     this.numStudents = 0;
-    this.dues = {};
+    this.divfees = {};
 
     // Initialize object with spec properties, excluding any that aren't defined above
     var self = this;

@@ -1,12 +1,12 @@
 'use strict';
 
-function AddSchoolCtrl($scope, $q, $routeParams, Schools, Schoolid, Dues, model, Data, Location, DIVISION) {
+function AddSchoolCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model, Data, Location, DIVISION) {
 
 	$scope.showValidaton = false;
 
     var data = $scope.data = {
         schools: Schools.getAll(),
-        dues: Dues.getAll(),
+        divfees: DivFees.getAll(),
      	schoolid:null
     };
     $scope.open = Location.open;
@@ -39,5 +39,5 @@ function AddSchoolCtrl($scope, $q, $routeParams, Schools, Schoolid, Dues, model,
     }
 
   }
-  AddSchoolCtrl.$inject = ['$scope', '$q', '$routeParams', 'Schools', 'Schoolid', 'Dues', 'model', 'Data', 'Location', 'DIVISION'];
+  AddSchoolCtrl.$inject = ['$scope', '$q', '$routeParams', 'Schools', 'Schoolid', 'DivFees', 'model', 'Data', 'Location', 'DIVISION'];
   angular.module('SchoolMan').controller('AddSchoolCtrl', AddSchoolCtrl);
