@@ -1,167 +1,74 @@
 <div class="row ">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-	<div class="col-md-10 marksheet" ng-controller="RegistrationCtrl">
+	<div class="col-md-10 marksheet" ng-controller="AddSchoolCtrl">
 
   <div class="row">
   	<div class="col-md-7" style="border-right:solid 0px #ddd;">
-  		<form name="regform" class="form-horizontal form-registration" role="form">
+  		<form name="addform" class="form-horizontal form-registration" role="form">
 			  <div class="form-group">
-			    <label for="uid" class="col-sm-3 control-label">Student ID</label>
+			    <label for="uid" class="col-sm-3 control-label">School ID</label>
 			    <div class="col-sm-9">
-			      <p class="form-control-static">{{newStudent.id}}</p>
+			      <p class="form-control-static">{{newSchool.id}}</p>
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="uid" class="col-sm-3 control-label">Class</label>
+			    <label for="nameEn" class="col-sm-3 control-label">School Name (English)</label>
 			    <div class="col-sm-9">
-			      <div class="btn-group">
-					    <button class="btn btn-sm btn-default dropdown-toggle
-					    {{showValidation && newStudent.formIndex === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
-					      {{newStudent.formIndex || newStudent.formIndex === 0 ? data.forms[newStudent.formIndex].name : "Select Form"}}  
-					      &nbsp;<span class="caret"></span>
-					    </button>
-					    <ul class="dropdown-menu">
-					      <li ng-repeat="(formIndex, form) in data.forms">
-					        <a ng-href="" ng-click="newStudent.formIndex=formIndex">{{form.name}}</a>
-					      </li>
-					    </ul>
-					  </div>
-					  <!-- Department Dropdown -->
-					  <div class="btn-group">
-					    <button class="{{newStudent.formIndex === null ? 'disabled' : ''}} btn btn-sm btn-default dropdown-toggle
-					    {{showValidation && newStudent.deptId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
-					      {{newStudent.deptId ? data.departments[newStudent.deptId].name : "Select Department"}} 
-					      &nbsp;<span class="caret"></span>
-					    </button>
-					    <ul class="dropdown-menu">
-					      <li ng-repeat="(deptId, dept) in data.departments"
-					          ng-if="dept.forms[newStudent.formIndex] === 1">
-					        <a ng-click="newStudent.deptId = deptId">{{dept.name}}</a>
-					      </li>
-					    </ul>
-					  </div>
-			      <!-- Group Dropdown -->
-					  <div class="btn-group">
-					    <button class="{{newStudent.deptId === null ? 'disabled' : ''}} btn btn-sm btn-default dropdown-toggle
-					    {{showValidation && newStudent.groupId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
-					      {{newStudent.groupId ? data.groups[newStudent.groupId].name : "Select Group"}} 
-					      &nbsp;<span class="caret"></span>
-					    </button>
-					    <ul class="dropdown-menu">
-					      <li ng-repeat="(groupId, group) in data.groups">
-					        <a ng-click="newStudent.groupId = groupId">{{group.name}}</a>
-					      </li>
-					    </ul>
-					  </div>
-			    </div>
-			  </div>
-
-			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-3 control-label">Fee Group</label>
-			    <div class="col-sm-9">
-			    	<div class="btn-group">
-					    <button class="btn btn-sm btn-default dropdown-toggle 
-					    {{showValidation && newStudent.feeId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
-					    	<span ng-if="newStudent.feeGroup !== ''">
-					    		{{newStudent.feeId ? data.fees[newStudent.feeId].name : "Select Fee"}} 
-					    		<span ng-if="newStudent.feeId">
-						    		({{data.fees[newStudent.feeId].amount | currency:""}})
-					    		</span>
-					    	</span>
-					      &nbsp;<span class="caret"></span>
-					    </button>
-					    <ul class="dropdown-menu">
-					      <li ng-repeat="(feeKey, fee) in data.fees">
-					        <a ng-click="newStudent.feeId = feeKey">
-					        {{fee.name}} ({{fee.amount | currency:""}})</a>
-					      </li>
-					    </ul>
-						</div>
-			    </div>
-			  </div>
-			  <br>
-			  <div class="form-group">
-			    <label for="studentName" class="col-sm-3 control-label">Student Name</label>
-			    <div class="col-sm-9">
-			      <input id="studentName"
-			      			name="studentName" 
-			      		 class="form-control {{showValidation && newStudent.name === '' ? 'invalid-input' : ''}}" 
-			      		 placeholder="Student Name" 
-			      		 ng-model="newStudent.name">
+			      <input id="nameEn"
+			      			name="nameEn" 
+			      		 class="form-control {{showValidation && newSchool.nameEn === '' ? 'invalid-input' : ''}}" 
+			      		 placeholder="School Name (English)" 
+			      		 ng-model="newSchool.nameEn">
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="birthdate" class="col-sm-3 control-label">Birthdate</label>
+			    <label for="nameFr" class="col-sm-3 control-label">School Name (French)</label>
 			    <div class="col-sm-9">
-			      <input id="birthdate" 
-			       		 class="form-control {{showValidation && newStudent.birth === null ? 'invalid-input' : ''}}" 
-			       		 placeholder="Birth Date" 
-			       		 ng-model="newStudent.birth"
-			       		 type="date">
+			      <input id="nameFr"
+			      			name="nameFr" 
+			      		 class="form-control {{showValidation && newSchool.nameFr === '' ? 'invalid-input' : ''}}" 
+			      		 placeholder="School Name (French)" 
+			      		 ng-model="newSchool.nameFr">
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-3 control-label">Gender</label>
+			    <label for="subdivision" class="col-sm-3 control-label">Subdivision</label>
 			    <div class="col-sm-9">
-			      <div class="btn-group">
-			        <button class=" btn btn-sm btn-default dropdown-toggle 
-			        {{showValidation && newStudent.sex === '' ? 'invalid-input' : ''}}" data-toggle="dropdown">
-			          <span>{{newStudent.sex || "Select Gender"}}</span>
-			          &nbsp;<span class="caret"></span>
-			        </button>
-			        <ul class="dropdown-menu">
-			          <li ng-repeat="gender in ['Female', 'Male']">
-			            <a ng-click="newStudent.sex = gender">{{gender}}</a>
-			          </li>
-			        </ul>
-			      </div>
-			    </div>
-			  </div>
-			  <br>
-			  <div class="form-group">
-			    <label for="parentName" class="col-sm-3 control-label">Parent Name</label>
-			    <div class="col-sm-9">
-			      <input id="parentName" 
-			      		 class="form-control {{showValidation && newStudent.parentName === '' ? 'invalid-input' : ''}}" 
-			      		 placeholder="Parent Name" 
-			      		 ng-model="newStudent.parentName">
+			      <input id="subdivision"
+			      			name="subdivision" 
+			      		 class="form-control {{showValidation && newSchool.subdivision === '' ? 'invalid-input' : ''}}" 
+			      		 placeholder="Subdivision" 
+			      		 ng-model="newSchool.subdivision">
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
+			    <label for="numStudents" class="col-sm-3 control-label">Number of Students</label>
 			    <div class="col-sm-9">
-			      <input id="parentPhone"
-			      		 class="form-control {{showValidation && newStudent.parentPhone === '' ? 'invalid-input' : ''}}" 
-			      		 placeholder="Parent Phone" 
-			      		 ng-model="newStudent.parentPhone">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label for="parentEmail" class="col-sm-3 control-label">Parent Email</label>
-			    <div class="col-sm-9">
-			      <input id="parentEmail" 
-			             class="form-control pull-left {{showValidation && newStudent.parentEmail === '' ? 'invalid-input' : ''}}" 
-					     placeholder="Parent EMail"
-					     ng-model="newStudent.parentEmail">
+			      <input id="numStudents"
+			      			name="numStudents" 
+			      		 class="form-control {{showValidation && newSchool.numStudents === '' ? 'invalid-input' : ''}}" 
+			      		 type="number"
+			      		 placeholder="Number of Students" 
+			      		 ng-model="newSchool.numStudents">
 			    </div>
 			  </div>
 			  <br>
 			  <div class="form-group">
 			    <div class="col-sm-offset-3 col-sm-3">
-			      <button type="submit" class="btn btn-info" ng-click="add(newStudent)">
-			        Add Student 
+			      <button type="submit" class="btn btn-info" ng-click="add(newSchool)">
+			        Add School
 			      </button>
 			    </div>
 			    <div class="col-sm-offset-1 col-sm-5">
-			      <button type="submit" class="btn btn-info" ng-click="clearForm(newStudent)">
+			      <button type="submit" class="btn btn-info" ng-click="clearForm(newSchool)">
 			        Clear All
 			      </button>
 			    </div>
 			  </div>
 			  <div class="alert alert-sm alert-warning" style="height:45px;padding-top:10px;" ng-if="showValidation">
    				<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
-   				<strong>Student Not Added.</strong> Please fill in all fields highlighted in red and try again.
+   				<strong>School Not Added.</strong> Please fill in all fields highlighted in red and try again.
    			  </div>
 			</form>
   	</div>

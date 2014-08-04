@@ -1,8 +1,8 @@
 <div class="row ">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-	<div class="col-md-10 marksheet" ng-controller="FeesCtrl">
-		<div class="printonly"><h3>Fee List</h3></div>
+	<div class="col-md-10 marksheet" ng-controller="DuesCtrl">
+		<div class="printonly"><h3>Fee Rubric List</h3></div>
 <nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
@@ -21,8 +21,8 @@
 										<th>
 					    				<input 	type="text" 
 					    								class="form-control" 
-					    								placeholder="Fee Name" 
-					    								ng-model="newFee.name"
+					    								placeholder="Rubric Name" 
+					    								ng-model="newDue.name"
 					    								style="width:395px;">
 					    			</th>
 					    			<th>
@@ -31,10 +31,10 @@
 					    					<input type="text"
 					    								 format="number"
 					    								 name="amount"
-					    								 ng-model="newFee.amount"
+					    								 ng-model="newDue.amount"
 					    								 required
 					    							   class="form-control" 
-					    							   placeholder="Fee Amount"
+					    							   placeholder="Rubric Amount Per Student"
 					    							   style="width:400px;">
 					    				</div>
 					    			</th>
@@ -43,9 +43,9 @@
 			        </div>
 			        <button type="submit" 
 		  								class="btn btn-default" 
-		  								ng-class="newFee.isValid() && newFee.name ? '' : 'disabled'" 
-		  								ng-click="add(newFee)">
-			        	Add Fee
+		  								ng-class="newDue.isValid() && newDue.name ? '' : 'disabled'" 
+		  								ng-click="add(newDue)">
+			        	Add Fee Rubric
 			        </button>
 			      </form>
 			      
@@ -56,24 +56,24 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Amount</th>
-				<th>Students</th>
+				<th>Amount Per Student</th>
+				<th>Schools</th>
 				<th style="width:80px;">Remove</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="(feeIndex, fee) in data.fees">
+			<tr ng-repeat="(dueIndex, due) in data.dues">
 				<td class="column readonly" style="width:400px;vertical-align:middle;">
-					<div class="cell">{{fee.name}}</div>
+					<div class="cell">{{due.name}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
-					<div class="cell">{{fee.amount | currency:""}}</div>
+					<div class="cell">{{due.amount | currency:""}}</div>
 				</td>
 				<td>
-					{{fee.students.length}}
+					{{due.schools.length}}
 				</td>
 				<td class="remove text-center" style="width:80px;">
-					<a ng-click="remove(fee)" ng-if="fee.students && fee.students.length === 0">
+					<a ng-click="remove(due)" ng-if="due.students && due.students.length === 0">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>

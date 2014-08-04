@@ -1,8 +1,9 @@
 'use strict';
 
-function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Departments, Groups, Fees, Users, settings, model, MockData) {
+function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Departments, Dues, Schools, Groups, Fees, Users, settings, model, MockData) {
 
     var instSchoolInfo = new model.SchoolInfo();
+
 
     var settingsP = settings.load();
     var userP = Users.load();
@@ -11,6 +12,8 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
     var subjP = Subjects.load();
     var groupP= Groups.load();
     var studentsP= Students.load();
+    var DuesP = Dues.load();
+    var SchoolsP = Schools.load();
 
     // Initialize/Register ClassCouncil datatype
     var instClassCouncil = new model.ClassCouncil();
@@ -24,5 +27,5 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
     });
 
   }
-LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'Subjects', 'Forms', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData'];
+LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'Subjects', 'Forms', 'Departments', 'Dues', 'Schools', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData'];
 angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);

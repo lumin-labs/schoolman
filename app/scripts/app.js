@@ -74,7 +74,7 @@ angular.module('SchoolMan', [
     };
 
     $routeProvider
-      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:username/:accessCode', {
+      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:schoolId/:username/:accessCode', {
         templateUrl:function(p){ return getTemplate(p);},
         // controller:'MainCtrl'
       })

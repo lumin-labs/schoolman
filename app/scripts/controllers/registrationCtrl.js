@@ -11,7 +11,7 @@ function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups
     	fees:Fees.getAll(),
         uid:null
     };
-    angular.forEach()
+    // angular.forEach()
 
     $scope.newStudent = new model.Student();
     console.log("NewStudent", $scope.newStudent);

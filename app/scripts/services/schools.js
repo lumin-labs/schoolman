@@ -9,6 +9,9 @@ function Schools($q, Slug, model, Data2, modelTransformer, InsertionError, $log)
     self.get = function(schoolKey){
         return schools[schoolKey];
     };
+    self.set = function(school){
+      schools[school._id] = school;
+    };
 
     self.getAll = function(){
     	return schools;

@@ -4,45 +4,59 @@ var schoolman = angular.module('SchoolMan');
 
 schoolman.config(['modelProvider', function(model){
 
+  model.datatypes.due = {
+    v1:{
+      type:"schema",
+      _id:"datatype/due/v1",
+      fields:[{
+        key:"name",
+        type:"string",
+        required:true
+      },{
+        key:"amount",
+        type:"number",
+        required:true
+      }],
+      fields_key:0
+    }
+  };
 
-
+  // Constructor
   function Due(spec){
     spec = spec || {};
 
+    var self = this;
+
     // Prevents global namespace clobbering if you istantiate this object
     // without the 'new' keyword
-    if (!(this instanceof ClassCouncil)) {
-      return new Due(spec);
+    if (!(this instanceof Due)) {
+      return new Due();
     }
 
-    this.is("due.v1");
+    self.amount = spec.amount || "";        // string
+    self.name = spec.name || ""; 
 
-    var val = this.val.bind(this); var required = true;
-
-    this[ val ('id : string', required)] = "";
-    this[ val ('name : string', required)] = "";
-    this[ val ('description : string', required)] = "";
-    this[ val ('amount : number', required)] = 0;    
-
-    this.__init__(spec);
+    var listeners = [];
+    self.notify = function(){
+      angular.forEach(listeners, function(callback, $index){
+        callback();
+      });
+    };
+    self.onChange = function(callback){
+      listeners.push(callback);
+    };   
   }
 
   Due.prototype = new model.Model();
-
-  Due.prototype.normalize = function(){
-    this.formIndex = parseInt(this.formIndex);
-  }
-  Due.generateID = function(p){
-        var id = "due_" + this.id;
-        return id;
-  }
   Due.prototype.generateID = function(){
-    return Due.generateID(this);
+    var id = model.slugify(this.name);
+    console.log("Slugified:", id);
+    return id;
   }
 
-  
-  
+  Due.prototype.datatype = Due.datatype = model.datatypes.due.v1;
+
+
   model.Due = Due;
 
 }]);
- 

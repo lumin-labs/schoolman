@@ -32,7 +32,7 @@ function modelProvider() {
 
   self.isValid = function(self){
     // var self = selfthis;
-    console.log("RUNNING: self.isValid", self);
+    // console.log("RUNNING: self.isValid", self);
     var valid = true;
     var invalidValues = {
       "string":[""],
