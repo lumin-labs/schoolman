@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('ClassCouncils', function ClassCouncils($q, $rootScope, model, Data2, modelTransformer) {
+function ClassCouncils($q, $rootScope, model, Data2, modelTransformer) {
 
     var self = {};
     var classcouncils = {};
@@ -52,4 +51,7 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+
+ClassCouncils.$inject = ['$q', '$rootScope', 'model', 'Data2', 'modelTransformer'];
+angular.module('SchoolMan').service('ClassCouncils', ClassCouncils);

@@ -9,8 +9,7 @@
  *
  * This service handles marksheets and all calculations
  */
-angular.module('SchoolMan')
-  .service('ClassMaster', function ClassMaster($q, modelTransformer, Registrar, Data, model) {
+function ClassMaster($q, modelTransformer, Registrar, Data, model) {
 
     // This is the container for public methods of the ClassMaster Service
     var self = {};
@@ -182,23 +181,25 @@ angular.module('SchoolMan')
      */
     self.getRemark = function(average){
         if(average){
-            if(average>15){
-                return {text:"Excellent", css:"remark-excellent"}
-            }else if(average>13){
-                return {text:"Very Good", css:"remark-verygood"}
-            }else if(average>11){
-                return {text:"Good", css:"remark-good"}
-            }else if(average>10){
-                return {text:"Fair", css:"remark-fair"}
-            }else if(average === "10" || average === 10){
-                return {text:"Average", css:"remark-average"}
-            }else if(average>9){
-                return {text:"Poor", css:"remark-poor"}
-            }else if(average>7){
-                return {text:"Poor", css:"remark-poor"}
-            }else{
-                return {text:"Very Poor", css:"remark-verypoor"}
-            }
+          if(average === -1){
+            return {text:"", css:"remark-verypoor"};
+          }else if(average>15){
+              return {text:"Excellent", css:"remark-excellent"}
+          }else if(average>13){
+              return {text:"Very Good", css:"remark-verygood"}
+          }else if(average>11){
+              return {text:"Good", css:"remark-good"}
+          }else if(average>10){
+              return {text:"Fair", css:"remark-fair"}
+          }else if(average === "10" || average === 10){
+              return {text:"Average", css:"remark-average"}
+          }else if(average>9){
+              return {text:"Poor", css:"remark-poor"}
+          }else if(average>7){
+              return {text:"Poor", css:"remark-poor"}
+          }else{
+              return {text:"Very Poor", css:"remark-verypoor"}
+          }
         }
     }
 
@@ -223,4 +224,6 @@ angular.module('SchoolMan')
     });
 
     return self;
-});
+}
+ClassMaster.$inject = ['$q', 'modelTransformer', 'Registrar', 'Data', 'model'];
+angular.module('SchoolMan').service('ClassMaster', ClassMaster);

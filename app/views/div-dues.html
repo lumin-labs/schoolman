@@ -1,0 +1,84 @@
+<div class="row ">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+	<div class="col-md-10 marksheet" ng-controller="DuesCtrl">
+		<div class="printonly"><h3>Fee Rubric List</h3></div>
+<nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	    </div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:0px;">
+			      <form name="feeForm" class="navbar-form navbar-left" style="padding-left:0px;">
+			        <div class="form-group">
+			        	<table>
+			        		<tr class="toolbar">
+										<th>
+					    				<input 	type="text" 
+					    								class="form-control" 
+					    								placeholder="Rubric Name" 
+					    								ng-model="newDue.name"
+					    								style="width:395px;">
+					    			</th>
+					    			<th>
+					    				<div class="input-group">
+					    				  <span class="input-group-addon">CFA</span>
+					    					<input type="text"
+					    								 format="number"
+					    								 name="amount"
+					    								 ng-model="newDue.amount"
+					    								 required
+					    							   class="form-control" 
+					    							   placeholder="Rubric Amount Per Student"
+					    							   style="width:400px;">
+					    				</div>
+					    			</th>
+									</tr>
+			        	</table>
+			        </div>
+			        <button type="submit" 
+		  								class="btn btn-default" 
+		  								ng-class="newDue.isValid() && newDue.name ? '' : 'disabled'" 
+		  								ng-click="add(newDue)">
+			        	Add Fee Rubric
+			        </button>
+			      </form>
+			      
+			</div>
+		</div>
+	</nav>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Amount Per Student</th>
+				<th>Schools</th>
+				<th style="width:80px;">Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="(dueIndex, due) in data.dues">
+				<td class="column readonly" style="width:400px;vertical-align:middle;">
+					<div class="cell">{{due.name}}</div>
+				</td>
+				<td class="column readonly" style="vertical-align:middle;">
+					<div class="cell">{{due.amount | currency:""}}</div>
+				</td>
+				<td>
+					{{due.schools.length}}
+				</td>
+				<td class="remove text-center" style="width:80px;">
+					<a ng-click="remove(due)" ng-if="due.students && due.students.length === 0">
+						<i class="glyphicon glyphicon-remove"></i>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</div>

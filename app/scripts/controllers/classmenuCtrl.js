@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('ClassmenuCtrl', function ($scope, $routeParams, Departments, Subjects, Groups, Forms, CourseCatalog, Location) {
+function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, Forms, CourseCatalog, Location) {
     
     var r = $scope.route = {};
 
@@ -42,4 +41,6 @@ angular.module('SchoolMan')
 
     $scope.open = Location.open;
 
-  });
+  }
+  ClassmenuCtrl.$inject = ['$scope', '$routeParams', 'Departments', 'Subjects', 'Groups', 'Forms', 'CourseCatalog', 'Location'];
+  angular.module('SchoolMan').controller('ClassmenuCtrl', ClassmenuCtrl);

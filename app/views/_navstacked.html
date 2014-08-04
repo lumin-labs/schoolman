@@ -1,16 +1,25 @@
 <div ng-controller="NavtabsCtrl" class="noprint">
-	<div class="row" style="margin-bottom:5px;">
+	<!-- <div class="row" style="margin-bottom:5px;">
 		<div class="col-md-12">
 			<div class="btn-group btn-group-justified" style="margin-right:0px;">
 				<div class="btn-group" style="margin-right:0px;">
+<<<<<<< HEAD
 	        <a class="btn btn-lg dropdown-toggle {{userAccess === 'sales' ? 'btn-warning' : 'btn-default'}}" 
+=======
+	        <a class="btn btn-lg dropdown-toggle {{userAccess === 'division' ? 'btn-warning' : 'btn-default'}}" 
+>>>>>>> 3ab23d89c1a76c5287bb302feaa669379e17a66a
 	           data-toggle="dropdown">
 	          {{User.roles[userAccess].name}} <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu" role="menu">
 	          <li>
+<<<<<<< HEAD
 					  	<a ng-click="login('sales')"
 					  	   style="color:orange;">Sales</a>	
+=======
+					  	<a ng-click="login('division')"
+					  	   style="color:orange;">Division</a>	
+>>>>>>> 3ab23d89c1a76c5287bb302feaa669379e17a66a
 				  	</li>
 	          <li ng-repeat="(accessKey, accessBool) in teacher.access" 
 				  	    ng-if="accessBool === 1"
@@ -25,7 +34,7 @@
 	      </div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="row" style="padding-right:1px;">
 		<div class="col-md-12">
@@ -34,7 +43,10 @@
 					<li ng-repeat="(tabIndex, tab) in TABS"
 						ng-if="userHasAccess(tab, schoolInfo.version)"
 						ng-class="activeIfPage(tab.page)">
-						<a ng-if="settings.access[userAccess] || userAccess === 'sales'" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
+
+
+						<a ng-if="settings.access[userAccess] || userAccess === 'division' || userAccess === 'sales'" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
+
 					</li>
 				</ul>
 			</div>

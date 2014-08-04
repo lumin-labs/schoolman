@@ -65,7 +65,11 @@ schoolman.config(['modelProvider', function(model){
       admin:   {name:"Administrator"},
       classmaster: {name:"Class Master"},
       registrar:{name:"Registrar"},
-      sales:{name:"Sales"}
+
+      sales:{name:"Sales"},
+
+      division:{name: "Div Delegation"}
+
   }
 
   User.prototype = new model.Model();

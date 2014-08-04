@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+  <div class="col-md-10 marksheet" ng-controller="SchoolProfileCtrl">
+  <div class="printonly"><h3>School Profile</h3></div>
+
+  <form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="uid" class="col-sm-3 control-label">School ID</label>
+    <div class="col-sm-9 printonly">{{data.school._id}}</div>
+    <div class="col-sm-9 noprint">
+      <div class="form-control-static">{{data.school._id}}</div>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="nameEn" class="col-sm-3 control-label">School Name (English)</label>
+    <div class="col-sm-9 printonly">{{data.school.nameEn}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="nameEn"
+           class="form-control" 
+           placeholder="School Name (English)"
+           ng-readonly="!editing"
+           ng-model="data.school.nameEn">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="nameFr" class="col-sm-3 control-label">School Name (French)</label>
+    <div class="col-sm-9 printonly">{{data.school.nameFr}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="nameFr"
+           class="form-control" 
+           placeholder="School Name (French)"
+           ng-readonly="!editing"
+           ng-model="data.school.nameFr">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="subdivision" class="col-sm-3 control-label">Subdivision</label>
+    <div class="col-sm-9 printonly">{{data.school.subdivision}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="subdivision"
+           class="form-control" 
+           placeholder="Subdivision"
+           ng-readonly="!editing"
+           ng-model="data.school.subdivision">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="numStudents" class="col-sm-3 control-label">Number of Students</label>
+    <div class="col-sm-9 printonly">{{data.school.numStudents}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numStudents"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Students"
+           ng-readonly="!editing"
+           ng-model="data.school.numStudents">
+    </div>
+  </div>
+  <br>
+  <div class="form-group noprint" ng-if="!editing">
+    <div class="col-sm-offset-3 col-sm-10">
+      <button type="submit" class="btn btn-info" ng-click="edit()">
+        Edit School
+      </button>
+    </div>
+  </div>
+  <div class="form-group noprint" ng-if="editing">
+    <div class="col-sm-offset-3 col-sm-10">
+      <button type="submit" class="btn btn-success" ng-click="save(data.school)">
+        Save Changes
+      </button>
+      <button type="submit" class="btn btn-warning" style="margin-left:15px;" ng-click="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>
+  </div>
+	
+</div>	
+

@@ -1,0 +1,36 @@
+<div class="row ">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+	<div class="col-md-10 marksheet" ng-controller="SchoolsCtrl">
+		<!-- School View -->
+		<table class="table table-striped table-bordered table-compact">
+			<thead>
+				
+				<tr>
+					<!-- <th style="width:100px;">ID</th> -->
+					<th>Name (Eng)</th>
+					<th>Location</th>
+					<th>Number of Students</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="noprint" ng-repeat="(schoolIndex, school) in data.schools">
+					<td>
+					  <a ng-click="open({schoolId:school._id, page:'schoolprofile'})">
+					  {{school.nameEn}}
+					  </a>
+					</td>
+					<td>{{school.subdivision}}</td>
+					<td>{{school.numStudents}}</td>
+					
+				</tr>
+				<tr class="printonly-asrow" ng-repeat="(schoolIndex, school) in data.schools">
+					<td>{{school.name}}</td>
+					<td>{{school.subdivision}}</td>
+					<td>{{school.numStudents}}</td>
+				</tr>
+				
+			</tbody>
+		</table>
+	</div>
+</div>	
+

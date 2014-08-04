@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('SchoolInfos', function SchoolInfos($q, Data2, model) {
+function SchoolInfos($q, Data2, model) {
 
   	var self = {};
 
@@ -19,8 +18,8 @@ angular.module('SchoolMan')
   		}).catch(function(error){
   			//var info = new model.SchoolInfo();
         if(error.status === 404){
-          var info = new model.SchoolInfo({nameEn:"",
-                                            nameFr:""
+          var info = new model.SchoolInfo({nameEn:"Name (English)",
+                                            nameFr:"Name (French)"
                                           });
           info.save().then(function(success){
             deferred.resolve(info);
@@ -37,4 +36,6 @@ angular.module('SchoolMan')
 
   	return self;
 
-});
+}
+SchoolInfos.$inject = ['$q', 'Data2', 'model'];
+angular.module('SchoolMan').service('SchoolInfos', SchoolInfos);

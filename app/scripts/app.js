@@ -50,9 +50,17 @@ angular.module('SchoolMan', [
       registrarProfile:"registrar-profile.html",
       classmasterProfile:"classmaster-profile.html",
       classcouncil:"classcouncil.html",
+
       customerSettings:"sales.html",
       schoolInfo:"schoolinfo.html",
-      notactive:"notactive.html"
+      
+
+      notactive:"notactive.html",
+      dues:"div-dues.html",
+      schools:"schools.html",
+      schoolprofile:"schoolprofile.html",
+      addschool:"addschool.html"
+
     };
 
     var getTemplate = function(p){
@@ -72,7 +80,7 @@ angular.module('SchoolMan', [
     };
 
     $routeProvider
-      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:username/:accessCode', {
+      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:schoolId/:username/:accessCode', {
         templateUrl:function(p){ return getTemplate(p);},
         // controller:'MainCtrl'
       })

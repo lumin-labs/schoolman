@@ -2,7 +2,7 @@
 
 var schoolman = angular.module('SchoolMan')
 
-schoolman.provider('model', function modelProvider() {
+function modelProvider() {
     
   
   var self = this;
@@ -32,7 +32,7 @@ schoolman.provider('model', function modelProvider() {
 
   self.isValid = function(self){
     // var self = selfthis;
-    console.log("RUNNING: self.isValid", self);
+    // console.log("RUNNING: self.isValid", self);
     var valid = true;
     var invalidValues = {
       "string":[""],
@@ -246,4 +246,6 @@ schoolman.provider('model', function modelProvider() {
     return self;
   }];
 
-});
+}
+// modelProvider.$inject = [];
+schoolman.provider('model', modelProvider);

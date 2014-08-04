@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Marksheets', function Marksheets($q, model, modelTransformer, Subjects, Students, Data2, Slug) {
+function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2, Slug) {
    
     var self = {};
 
@@ -141,38 +140,64 @@ angular.module('SchoolMan')
       var newMarksheet = new model.Marksheet();
           newMarksheet.coeff = head.coeff;
           newMarksheet.table = angular.copy(head.table);
+      
 
       // Reduce marksheets into the new marksheet
       return _.reduce(tail, function(prevM, nextM){
        
         var t1 = angular.copy(prevM.table);
         var t2 = nextM.table;
-
+        
         var ignore = ["", null, undefined];
 
-
         angular.forEach(t2, function(row, studentId){
+          var xCoeff = 0;
+          var yCoeff = 0;
+          var count = 0;
+          
           if(!t1.hasOwnProperty(studentId)){
             t1[studentId] = row;
           } else {
             angular.forEach(row, function(y, i){
+              count += 1;
               var x = t1[studentId][i];
               if(ignore.indexOf(x) > -1){
                 t1[studentId][i] = y;
-              } else if(!ignore.indexOf(y) > -1){
-                var xc = x * prevM.coeff;
+                xCoeff += 1;
+              } else if(!(ignore.indexOf(y) > -1)){
+                if(prevM.table[studentId].coeff){
+                  var xc = x * prevM.table[studentId].coeff;
+                  var nc = prevM.table[studentId].coeff + nextM.coeff;
+                } else {
+                  var xc = x * prevM.coeff;
+                  var nc = prevM.coeff + nextM.coeff;
+                }
                 var yc = y * nextM.coeff;
-                var nc = prevM.coeff + nextM.coeff;
 
                 var sum = (xc + yc) / nc;
                 t1[studentId][i] = sum;
+                
 
+              } else {
+                yCoeff += 1
               }
             });
           }
+          
+          if(!prevM.table[studentId].coeff){
+            t1[studentId].coeff = 0;
+            if(xCoeff !== count){
+              t1[studentId].coeff += prevM.coeff;
+            }
+          }  else {
+            t1[studentId].coeff = prevM.table[studentId].coeff;
+          }
+          if(yCoeff !== count){
+            t1[studentId].coeff += nextM.coeff;
+          }      
         });
 
-        newMarksheet.table = t1; 
+        newMarksheet.table = t1;
         newMarksheet.coeff = prevM.coeff + nextM.coeff;
 
         return newMarksheet;
@@ -412,4 +437,6 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+Marksheets.$inject = ['$q','$log', 'model', 'modelTransformer', 'Subjects', 'Students', 'Data2', 'Slug'];
+angular.module('SchoolMan').service('Marksheets', Marksheets);

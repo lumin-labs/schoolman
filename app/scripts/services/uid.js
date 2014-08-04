@@ -1,34 +1,33 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .service('Uid', function Uid($q, $log, Data2) {
+function Uid($q, $log, Data2) {
     
     var N_DIGITS = 7;
 
     var self = {};
 
     var next = function(lastUid){
-    	
+        
         var nextUid = lastUid;
         var value = lastUid.value;
 
-    	var n = parseInt(value.substr(1)) + 1;
-    	var s = n.toString();
+        var n = parseInt(value.substr(1)) + 1;
+        var s = n.toString();
 
-    	while(s.length < N_DIGITS){
-    		s = "0" + s;
-    	}
+        while(s.length < N_DIGITS){
+            s = "0" + s;
+        }
 
-    	var u = "U" + s;
+        var u = "U" + s;
 
-    	if(u.length < 8){
-    		$log.error("n", n);
-    		$log.error("s", s);
-    		$log.error("u", u);
-    	}
+        if(u.length < 8){
+            $log.error("n", n);
+            $log.error("s", s);
+            $log.error("u", u);
+        }
 
         nextUid.value = u;
-    	return nextUid;
+        return nextUid;
     };
 
     self.save = function(lastUid){
@@ -79,4 +78,7 @@ angular.module('SchoolMan')
 
     return self;
 
-  });
+  }
+Uid.$inject = ['$q', '$log', 'Data2'];
+angular.module('SchoolMan').service('Uid', Uid);
+

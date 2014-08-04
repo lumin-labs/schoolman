@@ -1,7 +1,5 @@
 'use strict';
-
-angular.module('SchoolMan')
-  .controller('RegistrationCtrl', function ($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Students) {
+function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Students) {
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
@@ -13,7 +11,7 @@ angular.module('SchoolMan')
     	fees:Fees.getAll(),
         uid:null
     };
-    angular.forEach()
+    // angular.forEach()
 
     $scope.newStudent = new model.Student();
     console.log("NewStudent", $scope.newStudent);
@@ -54,4 +52,7 @@ angular.module('SchoolMan')
 
 
 
-  });
+  }
+  RegistrationCtrl.$inject = ['$scope', '$routeParams', 'Uid', 'Forms', 'Departments', 'Groups', 'Fees', 'Location', 'model', 'Students'];
+  angular.module('SchoolMan').controller('RegistrationCtrl', RegistrationCtrl);
+
