@@ -4,14 +4,22 @@ function DivFeesCtrl($scope, Students, model, DivFees) {
       
       $scope.data = {};
       $scope.data.divfees = DivFees.getAll();
-      // Replace Students with Schools
-      // Students.getAll().then(function(students){
-      //   angular.forEach($scope.data.fees, function(fee, key){
-      //     fee.students = _.filter(students, function(student){
-      //       return student.feeId === key;
-      //     });
-      //   });
-      // });
+
+      var updateAmounts = function(){
+
+        var total = 0;
+        var divtotal = 0;
+        angular.forEach($scope.data.divfees, function(fee, feekey){
+          total += fee.amount;
+          if(fee.division === true){
+            divtotal += fee.amount;
+          }
+        })
+        $scope.data.studentFee = total;
+        $scope.data.divisionFee = divtotal;
+      }
+
+      updateAmounts();
       
       $scope.newDivFee = new model.DivFee();
       console.log("div fees", $scope.data.divfees);
@@ -37,6 +45,17 @@ function DivFeesCtrl($scope, Students, model, DivFees) {
 
       $scope.remove = function(divfee){
          DivFees.remove(divfee); 
+      }
+
+      $scope.toggleDivision = function(divfee){
+        if(divfee.division === true){
+          divfee.division = false;
+        } else {
+          divfee.division = true;
+        }
+        divfee.save().then(function(success){
+          updateAmounts();
+        });
       }
 }
 DivFeesCtrl.$inject = ['$scope', 'Students', 'model', 'DivFees'];

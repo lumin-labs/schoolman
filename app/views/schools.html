@@ -20,13 +20,13 @@
 					  </a>
 					</td>
 					<td>{{school.subdivision}}</td>
-					<td>{{school.numStudents}}</td>
+					<td>{{school.numStudents | number:0}}</td>
 					
 				</tr>
 				<tr class="printonly-asrow" ng-repeat="(schoolIndex, school) in data.schools">
 					<td>{{school.name}}</td>
 					<td>{{school.subdivision}}</td>
-					<td>{{school.numStudents}}</td>
+					<td>{{school.numStudents | number:0}}</td>
 				</tr>
 				
 			</tbody>

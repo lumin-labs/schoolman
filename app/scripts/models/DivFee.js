@@ -16,6 +16,10 @@ schoolman.config(['modelProvider', function(model){
         key:"amount",
         type:"number",
         required:true
+      },{
+        key:"division",
+        type:"boolean",
+        required:true
       }],
       fields_key:0
     }
@@ -35,6 +39,7 @@ schoolman.config(['modelProvider', function(model){
 
     self.amount = spec.amount || "";        // string
     self.name = spec.name || ""; 
+    self.division = false;
 
     var listeners = [];
     self.notify = function(){
