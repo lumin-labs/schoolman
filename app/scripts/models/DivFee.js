@@ -18,7 +18,15 @@ schoolman.config(['modelProvider', function(model){
         required:true
       },{
         key:"division",
-        type:"boolean",
+        type:"number",
+        required:true
+      },{
+        key:"region",
+        type:"number",
+        required:true
+      },{
+        key:"ministry",
+        type:"number",
         required:true
       }],
       fields_key:0
