@@ -47,7 +47,9 @@ schoolman.config(['modelProvider', function(model){
 
     self.amount = spec.amount || "";        // string
     self.name = spec.name || ""; 
-    self.division = false;
+    self.division = spec.division || 0;
+    self.region = spec.region || 0;
+    self.ministry = spec.ministry || 0;
 
     var listeners = [];
     self.notify = function(){
