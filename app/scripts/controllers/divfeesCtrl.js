@@ -23,23 +23,27 @@ function DivFeesCtrl($scope, Students, model, DivFees) {
       
       $scope.newDivFee = new model.DivFee();
       console.log("div fees", $scope.data.divfees);
+      console.log("newDivFee", $scope.newDivFee);
 
       $scope.add = function(divfee){
-         if(divfee.isValid()){
+        var percentages = divfee.division + divfee.region + divfee.ministry;
+         if(divfee.isValid() && percentages <= 100){
             try{
                divfee.amount = Number(divfee.amount.replace(/[^0-9\.]+/g,""));
+               console.log("before save", divfee);
                divfee.save().then(function(success){
-                  if(!$scope.newDivFee.schools){
-                    $scope.newDivFee.schools = [];
-                 }
+                  console.log("in save", success);
                   $scope.data.divfees[$scope.newDivFee._id] = $scope.newDivFee;
                   $scope.newDivFee = new model.DivFee(); 
+                  updateAmounts();
                }).catch(function(error, result){
                   console.log("Error: DivFee not added", error);
                });
            } catch(e){
                console.log("DivFeesCtrl Error: ", e)
            }
+         } else if (divfee <= 100){
+          console.log("DivFee Error: Numbers sum to greater than 100 %", divfee.division, ", ", divfee.region, ", ", divfee.ministry)
          }  
       }
 

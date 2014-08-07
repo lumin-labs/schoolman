@@ -9,7 +9,9 @@
 			<tr>
 				<th>Name</th>
 				<th>Amount Per Student</th>
-				<th style="width:80px;">Division Fee</th>
+				<th style="width:100px;">Division Percent</th>
+				<th style="width:100px;">Region Percent</th>
+				<th style="width:100px;">Ministry Percent</th>
 				<th style="width:80px;">Remove</th>
 			</tr>
 		</thead>
@@ -21,17 +23,16 @@
 				<td class="column readonly" style="vertical-align:middle;">
 					<div class="cell">{{divfee.amount | number:0}}</div>
 				</td>
-				<td class="text-center" style="width:80px;">
-					<button ng-click="toggleDivision(divfee)" 
-						class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-						<i ng-if="!divfee.division" 
-						   class="glyphicon glyphicon-minus" 
-						   style="color:red;"></i>
-						 <i ng-if="divfee.division" 
-					   class="glyphicon glyphicon-ok" 
-					   style="color:green;"></i>
-					</button>
+				<td class="column readonly" style="vertical-align:middle;">
+					<div class="cell">{{divfee.division | number:0}}</div>
 				</td>
+				<td class="column readonly" style="vertical-align:middle;">
+					<div class="cell">{{divfee.region | number:0}}</div>
+				</td>
+				<td class="column readonly" style="vertical-align:middle;">
+					<div class="cell">{{divfee.ministry | number:0}}</div>
+				</td>
+				
 				<td class="remove text-center" style="width:80px;">
 					<a ng-click="remove(divfee)">
 						<i class="glyphicon glyphicon-remove"></i>
@@ -46,7 +47,7 @@
 		</tbody>
 	</table>
 	<br>
-	<nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
+	<nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
 	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -56,40 +57,74 @@
 	        <span class="icon-bar"></span>
 	      </button>
 	    </div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:0px;">
-			      <form name="feeForm" class="navbar-form navbar-left" style="padding-left:0px;">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:10px;">
+			      <form name="feeForm" class="navbar-form navbar-left" style="padding-left:10px;">
 			        <div class="form-group">
 			        	<table>
 			        		<tr class="toolbar">
-										<th>
+									<th colspan="2">
 					    				<input 	type="text" 
 					    								class="form-control" 
 					    								placeholder="Rubric Name" 
 					    								ng-model="newDivFee.name"
-					    								style="width:395px;">
+					    								style="width:400px;">
 					    			</th>
 					    			<th>
 					    				<div class="input-group">
-					    				  <span class="input-group-addon">CFA</span>
-					    					<input type="text"
-					    								 format="number"
+					    				  
+					    					<input type="text" format="number"
 					    								 name="amount"
 					    								 ng-model="newDivFee.amount"
 					    								 required
 					    							   class="form-control" 
-					    							   placeholder="Rubric Amount Per Student"
-					    							   style="width:400px;">
+					    							   placeholder="Rubric Amount"
+					    							   style="width:200px;">
+					    					<span class="input-group-addon">CFA Per Student</span>
 					    				</div>
 					    			</th>
 									</tr>
+									<tr><th>
+											<label for="division">Percentage to Division:</label></th>
+										<th>
+											<label for="region">Percentage to Region:</label></th>
+										<th>
+											<label for="ministry">Percentage to Ministry:</label></th>
+									</tr>
+									<tr><th>
+											<input type="number"
+															max="100"
+						    								 name="division"
+						    								 ng-model="newDivFee.division"
+						    								 required
+						    							   class="form-control" 
+						    							   placeholder="Percentage to Division"
+						    							   style="width:200px;"></th>
+						    			<th>
+						    				<input type="number"
+			    								 name="region"
+			    								 ng-model="newDivFee.region"
+			    								 required
+			    							   class="form-control" 
+			    							   placeholder="Percentage to Region"
+			    							   style="width:200px;"></th>
+						    			<th>
+					    					<input type="number"
+					    								 name="ministry"
+					    								 ng-model="newDivFee.ministry"
+					    								 required
+					    							   class="form-control" 
+					    							   placeholder="Percentage to Ministry"
+					    							   style="width:200px;"></th></tr>
 			        	</table>
 			        </div>
-			        <button type="submit" 
-		  								class="btn btn-default" 
+			        <div class="form-group" style="text-align:center;">
+			        	<button type="submit"
+		  								class="btn btn-info" 
 		  								ng-class="newDivFee.isValid() && newDivFee.name ? '' : 'disabled'" 
 		  								ng-click="add(newDivFee)">
-			        	Add Fee Rubric
-			        </button>
+			        		Add Fee
+			        	</button>
+			        </div>
 			      </form>
 			      
 			</div>

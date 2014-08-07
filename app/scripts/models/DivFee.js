@@ -45,11 +45,11 @@ schoolman.config(['modelProvider', function(model){
       return new DivFee();
     }
 
-    self.amount = spec.amount || "";        // string
-    self.name = spec.name || ""; 
-    self.division = spec.division || 0;
-    self.region = spec.region || 0;
-    self.ministry = spec.ministry || 0;
+    self.amount = "";        // string
+    self.name = ""; 
+    self.division = 0;
+    self.region = 0;
+    self.ministry = 0;
 
     var listeners = [];
     self.notify = function(){
