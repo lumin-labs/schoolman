@@ -33,17 +33,17 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="subdivision" class="col-sm-3 control-label">Division</label>
+			    <label for="division" class="col-sm-3 control-label">Division</label>
 			    <div class="col-sm-9">
 			      <div class="btn-group">
 			        <button class=" btn btn-sm btn-default dropdown-toggle 
 			        {{showValidation && newSchool.division === '' ? 'invalid-input' : ''}}" data-toggle="dropdown">
-			          <span>{{newSchool.division || "Select Division"}}</span>
+			          <span>{{data.divisions["division_" + newSchool.division].name || "Select Division"}}</span>
 			          &nbsp;<span class="caret"></span>
 			        </button>
 			        <ul class="dropdown-menu">
 			          <li ng-repeat="division in data.divisions">
-			            <a ng-click="newSchool.division = division.name">{{division.name}}</a>
+			            <a ng-click="newSchool.division = division.id">{{division.name}}</a>
 			          </li>
 			        </ul>
 			      </div>

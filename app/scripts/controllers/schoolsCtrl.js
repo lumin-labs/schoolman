@@ -21,6 +21,7 @@ function SchoolsCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model
       console.log("Got schoolid", schoolid);
       $scope.newSchool.id = schoolid.value;
   });
+  console.log("Division school", data.divisions)
 
   $scope.add = function(school){
       school.save().then(function(success){

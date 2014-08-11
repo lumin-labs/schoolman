@@ -9,6 +9,10 @@ schoolman.config(['modelProvider', function(model){
       type:"schema",
       _id:"datatype/division/v1",
       fields:[{
+        key:"id",
+        type:"string",
+        required:true
+      },{
         key:"name",
         type:"string",
         required:true
@@ -36,6 +40,7 @@ schoolman.config(['modelProvider', function(model){
       return new Division();
     }
 
+    this.id = "";
     this.name = ""; 
     this.region = "";
     this.numStudents = 0;
@@ -65,7 +70,7 @@ schoolman.config(['modelProvider', function(model){
 
   Division.prototype = new model.Model();
   Division.prototype.generateID = function(){
-    var id = 'division_' + this.name;
+    var id = 'division_' + this.id;
     return id;
   }
   Division.prototype.normalize = function(){

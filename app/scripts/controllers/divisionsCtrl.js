@@ -1,6 +1,6 @@
 'use strict';
 
-function DivisionsCtrl($scope, $q, $routeParams, Divisions, Schools, model, Data, Location) {
+function DivisionsCtrl($scope, $q, $routeParams, Divisions, Schools, model, Data, Location, Divisionid) {
 
   var data = $scope.data = {
     divisions: Divisions.getAll(),
@@ -19,6 +19,11 @@ function DivisionsCtrl($scope, $q, $routeParams, Divisions, Schools, model, Data
   // console.log("Divisions:", $scope.data.divisions);
   $scope.open = Location.open;
   $scope.newDivision = new model.Division();
+  Divisionid.get().then(function(divisionid){
+      data.divisionid = divisionid;
+      console.log("Got divisionid", divisionid);
+      $scope.newDivision.id = divisionid.value;
+  });
 
   $scope.countSchools = function(division){    
     var count = 0;
@@ -45,5 +50,5 @@ function DivisionsCtrl($scope, $q, $routeParams, Divisions, Schools, model, Data
   }
 
 }
-DivisionsCtrl.$inject = ['$scope', '$q', '$routeParams', 'Divisions', 'Schools', 'model', 'Data', 'Location'];
+DivisionsCtrl.$inject = ['$scope', '$q', '$routeParams', 'Divisions', 'Schools', 'model', 'Data', 'Location', 'Divisionid'];
 angular.module('SchoolMan').controller('DivisionsCtrl', DivisionsCtrl);
