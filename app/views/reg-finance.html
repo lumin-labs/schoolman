@@ -16,7 +16,7 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="(divisionName,division) in data.divisions">
-				<td><strong>{{divisionName}}</strong></td>
+				<td><strong>{{division.name}}</strong></td>
 				<td>{{division.numStudents}}</td>
 				<td>{{data.feesAmount}}</td>
 				<td>{{division.numStudents * data.feesAmount | number:0}}</td>
