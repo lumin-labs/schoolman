@@ -173,12 +173,19 @@ angular.module('SchoolMan')
     {
       label:"Fee Settings",
       page:"divfees",
-      access:['division', 'admin', 'region'],
+      access:['division', 'admin'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
     {
+      label:"Fee Settings",
+      page:"regfees",
+      access:['admin', 'region'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-cog'
+    },{
       label:"Balance Sheet",
       page:"divfinance",
       access:['division', 'admin'],

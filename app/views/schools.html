@@ -21,7 +21,7 @@
 					  {{school.nameEn}}
 					  </a>
 					</td>
-					<td>{{school.division}}</td>
+					<td>{{data.divisions[school.division].name}}</td>
 					<td>{{school.subdivision}}</td>
 					<td>{{school.numStudents | number:0}}</td>
 					<td class="remove text-center" style="width:80px;">
@@ -32,7 +32,7 @@
 				</tr>
 				<tr class="printonly-asrow" ng-repeat="(schoolIndex, school) in data.schools">
 					<td>{{school.name}}</td>
-					<td>{{school.division}}</td>
+					<td>{{school.division.name}}</td>
 					<td>{{school.subdivision}}</td>
 					<td>{{school.numStudents | number:0}}</td>
 				</tr>

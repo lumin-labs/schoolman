@@ -1,9 +1,10 @@
 'use strict';
 
-function DivFeesCtrl($scope, Students, model, DivFees) {
+function DivFeesCtrl($scope, $routeParams, Students, model, DivFees) {
       
       $scope.data = {};
       $scope.data.divfees = DivFees.getAll();
+      var userAccess = $routeParams.accessCode;
 
       var updateAmounts = function(){
 
@@ -22,12 +23,15 @@ function DivFeesCtrl($scope, Students, model, DivFees) {
       updateAmounts();
       
       $scope.newDivFee = new model.DivFee();
-      console.log("div fees", $scope.data.divfees);
       console.log("newDivFee", $scope.newDivFee);
 
       $scope.add = function(divfee){
-        var percentages = divfee.division + divfee.region + divfee.ministry;
-         if(divfee.isValid() && percentages <= 100){
+        if(userAccess === 'region'){
+          var percentages = divfee.division + divfee.region + divfee.ministry;
+        } else{
+          var percentages = divfee.division + divfee.region;
+        }
+        if(divfee.isValid() && percentages <= 100){
             try{
                divfee.amount = Number(divfee.amount.replace(/[^0-9\.]+/g,""));
                console.log("before save", divfee);
@@ -62,5 +66,5 @@ function DivFeesCtrl($scope, Students, model, DivFees) {
         });
       }
 }
-DivFeesCtrl.$inject = ['$scope', 'Students', 'model', 'DivFees'];
+DivFeesCtrl.$inject = ['$scope', '$routeParams', 'Students', 'model', 'DivFees'];
 angular.module('SchoolMan').controller('DivFeesCtrl', DivFeesCtrl);

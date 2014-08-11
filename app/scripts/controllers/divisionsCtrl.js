@@ -16,14 +16,18 @@ function DivisionsCtrl($scope, $q, $routeParams, Divisions, Schools, model, Data
               "Southwest Region",
               "West Region"]
   };
-  // console.log("Divisions:", $scope.data.divisions);
-  $scope.open = Location.open;
-  $scope.newDivision = new model.Division();
-  Divisionid.get().then(function(divisionid){
+
+  var getId = function(){
+    Divisionid.get().then(function(divisionid){
       data.divisionid = divisionid;
       console.log("Got divisionid", divisionid);
       $scope.newDivision.id = divisionid.value;
-  });
+    });
+  }
+  // console.log("Divisions:", $scope.data.divisions);
+  $scope.open = Location.open;
+  $scope.newDivision = new model.Division();
+  getId();
 
   $scope.countSchools = function(division){    
     var count = 0;
@@ -35,11 +39,13 @@ function DivisionsCtrl($scope, $q, $routeParams, Divisions, Schools, model, Data
     return count;
   }
   $scope.add = function(division){
+    Divisionid.save(data.divisionid);
     division.save().then(function(success){
         console.log("Save division: ", success);
         $scope.showValidaton = false;
         Divisions.set(division);
         $scope.newDivision = new model.Division();
+        getId();
     }).catch(function(error){
         $scope.showValidation = true;
         console.log("Failed to save division: ", error);

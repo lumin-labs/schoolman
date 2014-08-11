@@ -31,7 +31,7 @@ function SchoolsCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model
           $scope.showValidaton = false;
           Schools.set(school);
           console.log("divisions:", data.divisions);
-          var div = "division_" + school.division;
+          var div = school.division;
           data.divisions[div].numStudents += school.numStudents;
           data.divisions[div].save().then(function(success){
             console.log("Saved divison", success);

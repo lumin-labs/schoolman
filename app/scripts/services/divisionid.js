@@ -18,7 +18,7 @@ function Divisionid($q, $log, Data2) {
             s = "0" + s;
         }
 
-        var u = "U" + s;
+        var u = "D" + s;
 
         if(u.length < 8){
             $log.error("n", n);

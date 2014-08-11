@@ -1,11 +1,10 @@
 'use strict';
 
-function RegFinanceCtrl($scope, DivFees, Schools, Divisions, SchoolPayments) {
+function RegFinanceCtrl($scope, DivFees, Schools, Divisions) {
   	
   $scope.data = {
     schools: Schools.getAll(),
     divfees: DivFees.getAll(),
-    schoolpayments: SchoolPayments.getAll(),
     divisions: Divisions.getAll(),
     divisionTotal: 0,
     regionTotal: 0,
@@ -27,11 +26,6 @@ function RegFinanceCtrl($scope, DivFees, Schools, Divisions, SchoolPayments) {
   $scope.data.totalStudents = reduce($scope.data.schools).by("numStudents");
   $scope.data.feesAmount = reduce($scope.data.divfees).by("amount");
 
-  angular.forEach($scope.data.schools, function(school, schoolId){
-    var payments = SchoolPayments.get(schoolId);
-    school.paid = reduce(payments).by("amount");
-  });
-
   var divTotal = 0; 
   var regTotal = 0;
   var minTotal = 0;
@@ -49,10 +43,6 @@ function RegFinanceCtrl($scope, DivFees, Schools, Divisions, SchoolPayments) {
   $scope.data.regionTotal = $scope.data.totalStudents * regTotal / 100;
   $scope.data.ministryTotal = $scope.data.totalStudents * minTotal / 100;
 
-	$scope.totalPaid = function(fees){
-		return reduce(fees).by("paid");
-	}
-  
 }
-RegFinanceCtrl.$inject = ['$scope','DivFees', 'Schools', 'Divisions', 'SchoolPayments'];
+RegFinanceCtrl.$inject = ['$scope','DivFees', 'Schools', 'Divisions'];
 angular.module('SchoolMan').controller('RegFinanceCtrl', RegFinanceCtrl);

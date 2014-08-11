@@ -11,7 +11,7 @@
 				<th>Amount Per Student</th>
 				<th style="width:100px;">Division Percent</th>
 				<th style="width:100px;">Region Percent</th>
-				<!-- <th style="width:100px;">Ministry Percent</th> -->
+				<th style="width:100px;">Ministry Percent</th>
 				<th style="width:80px;">Remove</th>
 			</tr>
 		</thead>
@@ -29,9 +29,9 @@
 				<td class="column readonly" style="vertical-align:middle;">
 					<div class="cell">{{divfee.region | number:0}}</div>
 				</td>
-				<!-- <td class="column readonly" style="vertical-align:middle;">
+				<td class="column readonly" style="vertical-align:middle;">
 					<div class="cell">{{divfee.ministry | number:0}}</div>
-				</td> -->
+				</td>
 				
 				<td class="remove text-center" style="width:80px;">
 					<a ng-click="remove(divfee)">
@@ -87,8 +87,8 @@
 											<label for="division">Percentage to Division:</label></th>
 										<th>
 											<label for="region">Percentage to Region:</label></th>
-										<!-- <th>
-											<label for="ministry">Percentage to Ministry:</label></th> -->
+										<th>
+											<label for="ministry">Percentage to Ministry:</label></th>
 									</tr>
 									<tr><th>
 											<input type="number"
@@ -107,15 +107,14 @@
 			    							   class="form-control" 
 			    							   placeholder="Percentage to Region"
 			    							   style="width:200px;"></th>
-						    			<!-- <th>
+						    			<th>
 					    					<input type="number"
 					    								 name="ministry"
 					    								 ng-model="newDivFee.ministry"
 					    								 required
 					    							   class="form-control" 
 					    							   placeholder="Percentage to Ministry"
-					    							   style="width:200px;"></th> -->
-					    			</tr>
+					    							   style="width:200px;"></th></tr>
 			        	</table>
 			        </div>
 			        <div class="form-group" style="text-align:center;">

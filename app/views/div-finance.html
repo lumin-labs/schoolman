@@ -10,10 +10,8 @@
 			<tr>
 				<th>School</th>
 				<th>Students</th>
-				<th>Division Fees Per Student</th>
-				<th>Total Division Fees</th>
-				<th>Paid</th>
-				<th>Remaining Due</th>
+				<th>Fees Per Student</th>
+				<th>Total Fees</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,16 +20,12 @@
 				<td>{{school.numStudents}}</td>
 				<td>{{data.feesAmount}}</td>
 				<td>{{school.numStudents * data.feesAmount | number:0}}</td>
-				<td>{{school.paid | number:0}}</td>
-				<td>{{(school.numStudents * data.feesAmount) - school.paid | number:0}}</td>
 			</tr>
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
 				<td>{{data.totalStudents}}</td>
 				<td></td>
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
-				<td>{{totalPaid(data.schools) | number:0}}</td>
-				<td>{{(data.totalStudents * data.feesAmount) - totalPaid(data.schools) | number:0}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -45,7 +39,7 @@
 				<th>Total Fees</th>
 				<th style="width:150px;">Division Amount</th>
 				<th style="width:150px;">Region Amount</th>
-				<th style="width:150px;">Ministry Amount</th>
+				<!-- <th style="width:150px;">Ministry Amount</th> -->
 
 			</tr>
 		</thead>
@@ -57,7 +51,7 @@
 				<td>{{data.totalStudents * fee.amount | number:0}}</td>
 				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.division / 100 | number:0}}</td>
 				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.region / 100 | number:0}}</td>
-				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.ministry / 100 | number:0}}</td>
+				<!-- <td style="width:150px;">{{data.totalStudents * fee.amount * fee.ministry / 100 | number:0}}</td> -->
 
 			</tr>
 			<tr class="finance-summary success">
@@ -67,7 +61,7 @@
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
 				<td style="width:150px;">{{data.divisionTotal | number:0}}</td>
 				<td style="width:150px;">{{data.regionTotal | number:0}}</td>
-				<td style="width:150px;">{{data.ministryTotal | number:0}}</td>
+				<!-- <td style="width:150px;">{{data.ministryTotal | number:0}}</td> -->
 			</tr>
 		</tbody>
 	</table>

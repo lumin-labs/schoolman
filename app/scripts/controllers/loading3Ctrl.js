@@ -1,6 +1,6 @@
 'use strict';
 
-function LoadingCtrl($scope, Location, $q, Students, SchoolPayments, Divisions, Subjects, Forms, Departments, DivFees, Schools, Groups, Fees, Users, settings, model, MockData) {
+function LoadingCtrl($scope, Location, $q, Students, Divisions, Subjects, Forms, Departments, DivFees, Schools, Groups, Fees, Users, settings, model, MockData) {
 
     var instSchoolInfo = new model.SchoolInfo();
 
@@ -14,7 +14,6 @@ function LoadingCtrl($scope, Location, $q, Students, SchoolPayments, Divisions, 
     // var studentsP= Students.load();
     var DivFeesP = DivFees.load();
     var SchoolsP = Schools.load();
-    var SchoolPaymentsP = SchoolPayments.load();
     var DivisionsP = Divisions.load();
 
     // Initialize/Register ClassCouncil datatype
@@ -22,7 +21,7 @@ function LoadingCtrl($scope, Location, $q, Students, SchoolPayments, Divisions, 
     
 
     // var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, DivFeesP, SchoolsP];
-    var promises = [userP, DivFeesP, SchoolsP, SchoolPaymentsP, DivisionsP];
+    var promises = [userP, DivFeesP, SchoolsP, DivisionsP];
 
     $q.all(promises).then(function(success){
       console.log("Successes", success);
@@ -30,5 +29,5 @@ function LoadingCtrl($scope, Location, $q, Students, SchoolPayments, Divisions, 
     });
 
   }
-LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'SchoolPayments', 'Divisions', 'Subjects', 'Forms', 'Departments', 'DivFees', 'Schools', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData'];
+LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'Divisions', 'Subjects', 'Forms', 'Departments', 'DivFees', 'Schools', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData'];
 angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
