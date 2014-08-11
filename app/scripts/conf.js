@@ -156,6 +156,13 @@ angular.module('SchoolMan')
    //    icon:'glyphicon-cog'
    //  },
     {
+      label:"Add School",
+      page:"addschool",
+      access:['division', 'admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-pencil'
+    },{
       label:"Schools",
       page:"schools",
       access:['division', 'admin'],
@@ -195,14 +202,7 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-home'
     },
-    {
-      label:"Add School",
-      page:"addschool",
-      access:['division', 'admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-pencil'
-    },
+    
     {
       label:"Divisions",
       page:"divisions",
