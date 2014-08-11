@@ -8,8 +8,10 @@
 				<tr>
 					<!-- <th style="width:100px;">ID</th> -->
 					<th>Name (Eng)</th>
+					<th>Division</th>
 					<th>Location</th>
 					<th>Number of Students</th>
+					<th class="noprint">Remove</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -19,12 +21,18 @@
 					  {{school.nameEn}}
 					  </a>
 					</td>
+					<td>{{school.division}}</td>
 					<td>{{school.subdivision}}</td>
 					<td>{{school.numStudents | number:0}}</td>
-					
+					<td class="remove text-center" style="width:80px;">
+					<a ng-click="remove(school)">
+						<i class="glyphicon glyphicon-remove"></i>
+					</a>
+				</td>
 				</tr>
 				<tr class="printonly-asrow" ng-repeat="(schoolIndex, school) in data.schools">
 					<td>{{school.name}}</td>
+					<td>{{school.division}}</td>
 					<td>{{school.subdivision}}</td>
 					<td>{{school.numStudents | number:0}}</td>
 				</tr>

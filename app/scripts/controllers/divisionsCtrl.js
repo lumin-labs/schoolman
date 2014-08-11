@@ -1,0 +1,49 @@
+'use strict';
+
+function DivisionsCtrl($scope, $q, $routeParams, Divisions, Schools, model, Data, Location) {
+
+  var data = $scope.data = {
+    divisions: Divisions.getAll(),
+    schools: Schools.getAll(),
+    regions: ["Adamoua",
+              "Center Region",
+              "East Region",
+              "Extreme North Region",
+              "Littoral",
+              "North Region",
+              "Northwest Region",
+              "South Region",
+              "Southwest Region",
+              "West Region"]
+  };
+  // console.log("Divisions:", $scope.data.divisions);
+  $scope.open = Location.open;
+  $scope.newDivision = new model.Division();
+
+  $scope.countSchools = function(division){    
+    var count = 0;
+    angular.forEach(data.schools, function(school, schoolId){
+      if(school.division === division.name){
+        count += 1;
+      }
+    });
+    return count;
+  }
+  $scope.add = function(division){
+    division.save().then(function(success){
+        console.log("Save division: ", success);
+        $scope.showValidaton = false;
+        Divisions.set(division);
+        $scope.newDivision = new model.Division();
+    }).catch(function(error){
+        $scope.showValidation = true;
+        console.log("Failed to save division: ", error);
+    })
+  }
+  $scope.remove = function(division){
+     Divisions.remove(division); 
+  }
+
+}
+DivisionsCtrl.$inject = ['$scope', '$q', '$routeParams', 'Divisions', 'Schools', 'model', 'Data', 'Location'];
+angular.module('SchoolMan').controller('DivisionsCtrl', DivisionsCtrl);

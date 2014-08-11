@@ -15,7 +15,8 @@ function Path() {
       default_classmaster:"classmasterMarksheet",
       default_teacher:"myclasses",
       default_registrar:"registration",
-      default_division:"schools"
+      default_division:"schools",
+      default_region:"divisions"
     }
 
     var self = {};

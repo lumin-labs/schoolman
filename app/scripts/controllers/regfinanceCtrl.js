@@ -1,11 +1,12 @@
 'use strict';
 
-function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments) {
+function RegFinanceCtrl($scope, DivFees, Schools, Divisions, SchoolPayments) {
   	
   $scope.data = {
     schools: Schools.getAll(),
     divfees: DivFees.getAll(),
     schoolpayments: SchoolPayments.getAll(),
+    divisions: Divisions.getAll(),
     divisionTotal: 0,
     regionTotal: 0,
     ministryTotal: 0
@@ -53,5 +54,5 @@ function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments) {
 	}
   
 }
-DivFinanceCtrl.$inject = ['$scope','DivFees', 'Schools', 'SchoolPayments'];
-angular.module('SchoolMan').controller('DivFinanceCtrl', DivFinanceCtrl);
+RegFinanceCtrl.$inject = ['$scope','DivFees', 'Schools', 'Divisions', 'SchoolPayments'];
+angular.module('SchoolMan').controller('RegFinanceCtrl', RegFinanceCtrl);

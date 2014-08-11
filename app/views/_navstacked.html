@@ -1,18 +1,20 @@
 <div ng-controller="NavtabsCtrl" class="noprint">
-	<!-- <div class="row" style="margin-bottom:5px;">
+	<div class="row" style="margin-bottom:5px;">
 		<div class="col-md-12">
 			<div class="btn-group btn-group-justified" style="margin-right:0px;">
 				<div class="btn-group" style="margin-right:0px;">
-	        <a class="btn btn-lg dropdown-toggle {{userAccess === 'division' ? 'btn-warning' : 'btn-default'}}" 
+	        <a class="btn btn-lg dropdown-toggle btn-default" 
 	           data-toggle="dropdown">
 	          {{User.roles[userAccess].name}} <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu" role="menu">
-	          <li>
-					  	<a ng-click="login('division')"
-					  	   style="color:orange;">Division</a>	
+	        <li>
+					  	<a ng-click="login('division')">DDS</a>	
 				  	</li>
-	          <li ng-repeat="(accessKey, accessBool) in teacher.access" 
+	          <li>
+					  	<a ng-click="login('region')">SGDA</a>	
+				  	</li>
+	          <!-- <li ng-repeat="(accessKey, accessBool) in teacher.access" 
 				  	    ng-if="accessBool === 1"
 				  	    ng-class="accessKey === userAccess ? 'active' : ''">
 					  	<a ng-click="login(accessKey)" 
@@ -20,12 +22,12 @@
 					  	<a ng-click="login(accessKey)" 
 					  	   ng-if="settings.access[accessKey] === 0"
 					  	   style="color:#999;">{{User.roles[accessKey].name}}</a>
-				  	</li>
+				  	</li> -->
 	        </ul>
 	      </div>
 			</div>
 		</div>
-	</div> -->
+	</div>
 
 	<div class="row" style="padding-right:1px;">
 		<div class="col-md-12">
@@ -34,7 +36,7 @@
 					<li ng-repeat="(tabIndex, tab) in TABS"
 						ng-if="userHasAccess(tab, schoolInfo.version)"
 						ng-class="activeIfPage(tab.page)">
-						<a ng-if="settings.access[userAccess] || userAccess === 'division'" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
+						<a ng-if="settings.access[userAccess] || userAccess === 'division' || userAccess === 'region'" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
 					</li>
 				</ul>
 			</div>

@@ -166,7 +166,7 @@ angular.module('SchoolMan')
     {
       label:"Fee Settings",
       page:"divfees",
-      access:['division', 'admin'],
+      access:['division', 'admin', 'region'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
@@ -180,10 +180,18 @@ angular.module('SchoolMan')
       icon:'glyphicon-envelope'
     },
     {
+      label:"Balance Sheet",
+      page:"regfinance",
+      access:['region'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-envelope'
+    },
+    {
       label:"School Profile",
       page:"schoolprofile",
       access:['division', 'admin'],
-      exclude:['schools', 'divfees', 'addschool', 'divfinance'],
+      exclude:['schools', 'divfees', 'addschool', 'divfinance', 'divisions'],
       modes:["gths", "ghs"],
       icon:'glyphicon-home'
     },
@@ -194,6 +202,14 @@ angular.module('SchoolMan')
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-pencil'
+    },
+    {
+      label:"Divisions",
+      page:"divisions",
+      access:['region', 'admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-paperclip'
     },
  ]);
 

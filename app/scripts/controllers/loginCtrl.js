@@ -17,6 +17,9 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
           },
           teacher:{
               page:"myclasses"
+          },
+          division:{
+            page:"schools"
           }
       }
 
@@ -44,17 +47,16 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
           console.log("Login Data", data);
           if(data.status === 200){
             var user = data.user;
-            accessRequest = accessRequest === "undefined" || !user.hasAccess(accessRequest) ? user.getHighestAccess() : accessRequest;
-
-            if($scope.settings.access[accessRequest] === 0){
-              accessRequest = user.getHighestAccess();
-            }
-            if($scope.settings.access[accessRequest] === 0 || !user.hasAccess(accessRequest)){
-              $scope.status = data.status = 403;
-              data.message = "Access denied.  User does not have access to any available tabs."
-              console.log("User does not have access to any available tabs. Access:", user.access, "Tabs:", $scope.settings.access);
-            }
-            else{
+            accessRequest = "division";
+            // if($scope.settings.access[accessRequest] === 0){
+            //   accessRequest = user.getHighestAccess();
+            // }
+            // if($scope.settings.access[accessRequest] === 0 || !user.hasAccess(accessRequest)){
+            //   $scope.status = data.status = 403;
+            //   data.message = "Access denied.  User does not have access to any available tabs."
+            //   console.log("User does not have access to any available tabs. Access:", user.access, "Tabs:", $scope.settings.access);
+            // }
+            // else{
               Cache.set({user:user});
 
               var depts = Departments.getAll();
@@ -75,7 +77,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
                 username:user.username,
                 accessCode:accessRequest
               });
-            }
+            // }
           } else {
             $scope.status = data.status;
           }
