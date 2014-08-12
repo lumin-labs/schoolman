@@ -14,9 +14,10 @@ function modelProvider() {
   // TODO: the config for which fields are required should probably be done 
   // elsewhere
   Model.prototype.isValid = function(){
-    console.log("RUNNING: Model.prototype.isValid");
+    // console.log("RUNNING: Model.prototype.isValid");
     var self = this;
     var isOk = true;
+    // console.log("isValid required fields", self.requiredField);
     angular.forEach(self.requiredFields, function(field, fieldIndex){
       console.log("isValid field", field);
       if(self.invalidValues.indexOf(self[field]) > -1){

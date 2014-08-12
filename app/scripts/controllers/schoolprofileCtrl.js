@@ -1,14 +1,15 @@
 'use strict';
 
-function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, Dues) {
+function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Divisions) {
 
     $scope.accessCode = $routeParams.accessCode;
 
     var schoolId = $routeParams.schoolId === "0" ? "school_S0000001" : $routeParams.schoolId;
     console.log("routeParams", $routeParams);
 
-    $scope.data = {
+    var data = $scope.data = {
       school:undefined,
+      divisions: Divisions.getAll()
     };
 
 
@@ -37,14 +38,23 @@ function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, Dues) {
     };
 
 
-    $scope.save = function(model){
-      model.save().then(function(success){
-        console.log("Model saved", success);
+    $scope.save = function(school){
+      school.save().then(function(success){
+        console.log("School saved", success);
         $scope.editing = false;
+        if(school.numStudents !== schoolCopy.numstudents){
+          var div = "division_" + school.division;
+          data.divisions[div].numStudents += school.numStudents-schoolCopy.numStudents;
+          data.divisions[div].save().then(function(success){
+            console.log("Saved divisions", success);
+          }).catch(function(error){
+            console.log("Failed to save division", error);
+          });
+        }
       }).catch(function(error){
-        console.log("Failed to save model", error);
+        console.log("Failed to save school", error);
       });
     };
   }
-  SchoolProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','Dues'];
+  SchoolProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','DivFees', 'Divisions'];
   angular.module('SchoolMan').controller('SchoolProfileCtrl', SchoolProfileCtrl);

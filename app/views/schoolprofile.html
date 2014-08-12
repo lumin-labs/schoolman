@@ -36,6 +36,23 @@
     </div>
   </div>
   <div class="form-group">
+    <label for="subdivision" class="col-sm-3 control-label">Division</label>
+    <div class="col-sm-9 printonly">{{data.school.division}}</div>
+    <div class="col-sm-9">
+      <div class="btn-group">
+        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" ng-readonly="!editing">
+          <span>{{data.divisions[data.school.division].name}}</span>
+          &nbsp;<span ng-if="editing" class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="division in data.divisions">
+            <a ng-click="data.school.division = division._id">{{division.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
     <label for="subdivision" class="col-sm-3 control-label">Subdivision</label>
     <div class="col-sm-9 printonly">{{data.school.subdivision}}</div>
     <div class="col-sm-9 noprint">

@@ -12,11 +12,11 @@ function Path() {
 
     var defaults = {
       default_admin:"users",
-      default_sales:"customerSettings",
       default_classmaster:"classmasterMarksheet",
       default_teacher:"myclasses",
       default_registrar:"registration",
-      default_division:"schools"
+      default_division:"schools",
+      default_region:"divisions"
     }
 
     var self = {};
@@ -58,6 +58,7 @@ function Path() {
                       d.termIndex  + '/' +
                       d.studentId  + '/' + 
                       d.schoolId + '/' +
+                      d.divisionId + '/' +
                       d.username   + '/' +
                       d.accessCode
 

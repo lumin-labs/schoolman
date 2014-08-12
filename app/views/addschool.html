@@ -1,7 +1,7 @@
 <div class="row ">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-	<div class="col-md-10 marksheet" ng-controller="AddSchoolCtrl">
+	<div class="col-md-10 marksheet" ng-controller="SchoolsCtrl">
 
   <div class="row">
   	<div class="col-md-7" style="border-right:solid 0px #ddd;">
@@ -30,6 +30,23 @@
 			      		 class="form-control {{showValidation && newSchool.nameFr === '' ? 'invalid-input' : ''}}" 
 			      		 placeholder="School Name (French)" 
 			      		 ng-model="newSchool.nameFr">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="division" class="col-sm-3 control-label">Division</label>
+			    <div class="col-sm-9">
+			      <div class="btn-group">
+			        <button class=" btn btn-sm btn-default dropdown-toggle 
+			        {{showValidation && newSchool.division === '' ? 'invalid-input' : ''}}" data-toggle="dropdown">
+			          <span>{{data.divisions[newSchool.division].name || "Select Division"}}</span>
+			          &nbsp;<span class="caret"></span>
+			        </button>
+			        <ul class="dropdown-menu">
+			          <li ng-repeat="division in data.divisions">
+			            <a ng-click="newSchool.division = division._id">{{division.name}}</a>
+			          </li>
+			        </ul>
+			      </div>
 			    </div>
 			  </div>
 			  <div class="form-group">

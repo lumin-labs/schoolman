@@ -4,61 +4,46 @@ var schoolman = angular.module('SchoolMan');
 
 schoolman.config(['modelProvider', function(model){
 
-  model.datatypes.school = {
+  model.datatypes.division = {
     v1:{
       type:"schema",
-      _id:"datatype/school/v1",
+      _id:"datatype/division/v1",
       fields:[{
         key:"id",
         type:"string",
         required:true
       },{
-        key:"nameEn",
+        key:"name",
         type:"string",
         required:true
       },{
-        key:"nameFr",
-        type:"string",
-        required:true
-      },{
-        key:"division",
-        type:"string",
-        required:true
-      },{
-        key:"subdivision",
+        key:"region",
         type:"string",
         required:true
       },{
         key:"numStudents",
         type:"number",
         required:true
-      },{
-        key:"fees",
-        type:"object",
-        required:true
       }],
       fields_key:0
     }
   };
-  var schema = model.datatypes.school.v1.fields;
+  var schema = model.datatypes.division.v1.fields;
   
-  function School(spec){
+  function Division(spec){
 
     var spec = spec || {};
 
     // Prevents global namespace clobbering if you istantiate this object
     // without the 'new' keyword
-    if (!(this instanceof School)) {
-      return new School();
+    if (!(this instanceof Division)) {
+      return new Division();
     }
 
     this.id = "";
-    this.nameEn = ""; 
-    this.nameFr = "";     // String
-    this.division = ""; // Datetime integer
-    this.subdivision = "";
+    this.name = ""; 
+    this.region = "";
     this.numStudents = 0;
-    this.fees = {};
 
     // Initialize object with spec properties, excluding any that aren't defined above
     var self = this;
@@ -83,16 +68,16 @@ schoolman.config(['modelProvider', function(model){
         
   };
 
-  School.prototype = new model.Model();
-  School.prototype.generateID = function(){
-    var id = 'school_' + this.id;
+  Division.prototype = new model.Model();
+  Division.prototype.generateID = function(){
+    var id = 'division_' + this.id;
     return id;
   }
-  School.prototype.normalize = function(){
+  Division.prototype.normalize = function(){
     this._id = this.generateID();
   };
-  School.prototype.datatype = School.datatype = model.datatypes.school.v1;
+  Division.prototype.datatype = Division.datatype = model.datatypes.division.v1;
 
-  model.School = School;
+  model.Division = Division;
 
 }]);

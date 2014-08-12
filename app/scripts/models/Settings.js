@@ -19,7 +19,7 @@ schoolman.config(['modelProvider', function(model){
     //this[ val['?'] ('year', String) ] = "2014";
 
     this._id = "customer_settings";
-    this[ val ('access : object')] = {
+    this[ val ('access : object', required)] = {
       'admin':1,
       'registrar':1,
       'classmaster':0,

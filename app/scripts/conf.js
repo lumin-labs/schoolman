@@ -59,14 +59,14 @@ angular.module('SchoolMan')
    //    modes:["gths", "ghs"],
    //    icon:'glyphicon-list-alt'
    //  },
-   //  {
-   //    label:"Balance Sheet",
-   //    page:"finance",
-   //    access:['registrar', 'admin'],
-   //    exclude:[],
-   //    modes:["gths", "ghs"],
-   //    icon:'glyphicon-envelope'
-   //  },
+    // {
+    //   label:"School Balance Sheet",
+    //   page:"finance",
+    //   access:['registrar', 'admin'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-envelope'
+    // },
    //  {
    //    label:"Student Profile",
    //    page:"registrarProfile",
@@ -156,6 +156,13 @@ angular.module('SchoolMan')
    //    icon:'glyphicon-cog'
    //  },
     {
+      label:"Add School",
+      page:"addschool",
+      access:['division', 'admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-pencil'
+    },{
       label:"Schools",
       page:"schools",
       access:['division', 'admin'],
@@ -165,44 +172,59 @@ angular.module('SchoolMan')
     },
     {
       label:"Fee Settings",
-      page:"dues",
+      page:"divfees",
       access:['division', 'admin'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
     {
+      label:"Fee Settings",
+      page:"regfees",
+      access:['admin', 'region'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-cog'
+    },{
+      label:"Balance Sheet",
+      page:"divfinance",
+      access:['division', 'admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-envelope'
+    },
+    {
+      label:"Balance Sheet",
+      page:"regfinance",
+      access:['region'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-envelope'
+    },
+    {
       label:"School Profile",
       page:"schoolprofile",
       access:['division', 'admin'],
-      exclude:['schools', 'dues', 'addschool'],
+      exclude:['schools', 'divfees', 'addschool', 'divfinance', 'divisions'],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-home'
+    },
+     {
+      label:"Division Profile",
+      page:"divisionprofile",
+      access:['region', 'admin'],
+      exclude:['divfees', 'divfinance', 'divisions','regfinance','regfees'],
       modes:["gths", "ghs"],
       icon:'glyphicon-home'
     },
     {
-      label:"Add School",
-      page:"addschool",
-      access:['division', 'admin'],
+      label:"Divisions",
+      page:"divisions",
+      access:['region', 'admin'],
       exclude:[],
       modes:["gths", "ghs"],
-      icon:'glyphicon-pencil'
+      icon:'glyphicon-paperclip'
     },
-    // {
-    //   label:"School Information",
-    //   page:"schoolInfo",
-    //   access:['sales'],
-    //   exclude:[],
-    //   modes:["gths", "ghs"],
-    //   icon:'glyphicon-info-sign'
-    // },
-    // {
-    //   label:"Customer Settings",
-    //   page:"customerSettings",
-    //   access:['sales'],
-    //   exclude:[],
-    //   modes:["gths", "ghs"],
-    //   icon:'glyphicon-cog'
-    // }
  ]);
 
 
