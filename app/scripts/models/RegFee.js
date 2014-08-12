@@ -4,10 +4,10 @@ var schoolman = angular.module('SchoolMan');
 
 schoolman.config(['modelProvider', function(model){
 
-  model.datatypes.divfee = {
+  model.datatypes.regfee = {
     v1:{
       type:"schema",
-      _id:"datatype/divfee/v1",
+      _id:"datatype/regfee/v1",
       fields:[{
         key:"name",
         type:"string",
@@ -24,28 +24,33 @@ schoolman.config(['modelProvider', function(model){
         key:"region",
         type:"number",
         required:true
+      },{
+        key:"ministry",
+        type:"number",
+        required:true
       }],
       fields_key:0
     }
   };
 
   // Constructor
-  function DivFee(spec){
+  function RegFee(spec){
     spec = spec || {};
 
     var self = this;
 
     // Prevents global namespace clobbering if you istantiate this object
     // without the 'new' keyword
-    if (!(this instanceof DivFee)) {
-      return new DivFee();
+    if (!(this instanceof RegFee)) {
+      return new RegFee();
     }
 
     self.amount = "";        // string
     self.name = ""; 
     self.division = 0;
     self.region = 0;
- 
+    self.ministry = 0;
+
     var listeners = [];
     self.notify = function(){
       angular.forEach(listeners, function(callback, $index){
@@ -57,16 +62,16 @@ schoolman.config(['modelProvider', function(model){
     };   
   }
 
-  DivFee.prototype = new model.Model();
-  DivFee.prototype.generateID = function(){
+  RegFee.prototype = new model.Model();
+  RegFee.prototype.generateID = function(){
     var id = model.slugify(this.name);
     console.log("Slugified:", id);
     return id;
   }
 
-  DivFee.prototype.datatype = DivFee.datatype = model.datatypes.divfee.v1;
+  RegFee.prototype.datatype = RegFee.datatype = model.datatypes.regfee.v1;
 
 
-  model.DivFee = DivFee;
+  model.RegFee = RegFee;
 
 }]);

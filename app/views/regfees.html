@@ -1,7 +1,7 @@
 <div class="row ">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-	<div class="col-md-10 marksheet" ng-controller="DivFeesCtrl">
+	<div class="col-md-10 marksheet" ng-controller="RegFeesCtrl">
 		<div class="printonly"><h3>Fee Rubric List</h3></div>
 
 	<table class="table table-striped table-bordered">
@@ -16,25 +16,25 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="(divfeeeIndex, divfee) in data.divfees">
+			<tr ng-repeat="(regfeeeIndex, regfee) in data.regfees">
 				<td class="column readonly" style="width:400px;vertical-align:middle;">
-					<div class="cell">{{divfee.name}}</div>
+					<div class="cell">{{regfee.name}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
-					<div class="cell">{{divfee.amount | number:0}}</div>
+					<div class="cell">{{regfee.amount | number:0}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
-					<div class="cell">{{divfee.division | number:0}}</div>
+					<div class="cell">{{regfee.division | number:0}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
-					<div class="cell">{{divfee.region | number:0}}</div>
+					<div class="cell">{{regfee.region | number:0}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
-					<div class="cell">{{divfee.ministry | number:0}}</div>
+					<div class="cell">{{regfee.ministry | number:0}}</div>
 				</td>
 				
 				<td class="remove text-center" style="width:80px;">
-					<a ng-click="remove(divfee)">
+					<a ng-click="remove(regfee)">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>
@@ -66,7 +66,7 @@
 					    				<input 	type="text" 
 					    								class="form-control" 
 					    								placeholder="Rubric Name" 
-					    								ng-model="newDivFee.name"
+					    								ng-model="newRegFee.name"
 					    								style="width:400px;">
 					    			</th>
 					    			<th>
@@ -74,7 +74,7 @@
 					    				  
 					    					<input type="text" format="number"
 					    								 name="amount"
-					    								 ng-model="newDivFee.amount"
+					    								 ng-model="newRegFee.amount"
 					    								 required
 					    							   class="form-control" 
 					    							   placeholder="Rubric Amount"
@@ -94,7 +94,7 @@
 											<input type="number"
 															max="100"
 						    								 name="division"
-						    								 ng-model="newDivFee.division"
+						    								 ng-model="newRegFee.division"
 						    								 required
 						    							   class="form-control" 
 						    							   placeholder="Percentage to Division"
@@ -102,7 +102,7 @@
 						    			<th>
 						    				<input type="number"
 			    								 name="region"
-			    								 ng-model="newDivFee.region"
+			    								 ng-model="newRegFee.region"
 			    								 required
 			    							   class="form-control" 
 			    							   placeholder="Percentage to Region"
@@ -110,21 +110,25 @@
 						    			<th>
 					    					<input type="number"
 					    								 name="ministry"
-					    								 ng-model="newDivFee.ministry"
+					    								 ng-model="newRegFee.ministry"
 					    								 required
 					    							   class="form-control" 
 					    							   placeholder="Percentage to Ministry"
-					    							   style="width:200px;"></th></tr>
-			        	</table>
-			        </div>
-			        <div class="form-group" style="text-align:center;">
+					    					</th>
+					    					<th>
+					 <div class="form-group" style="text-align:center;">
 			        	<button type="submit"
 		  								class="btn btn-info" 
-		  								ng-class="newDivFee.isValid() && newDivFee.name ? '' : 'disabled'" 
-		  								ng-click="add(newDivFee)">
+		  								ng-class="newRegFee.isValid() && newRegFee.name ? '' : 'disabled'" 
+		  								ng-click="add(newRegFee)">
 			        		Add Fee
 			        	</button>
 			        </div>
+			        </th>
+					    					</tr>
+			        	</table>
+			        </div>
+			       
 			      </form>
 			      
 			</div>

@@ -55,16 +55,7 @@ function DivFeesCtrl($scope, $routeParams, Students, model, DivFees) {
          DivFees.remove(divfee); 
       }
 
-      $scope.toggleDivision = function(divfee){
-        if(divfee.division === true){
-          divfee.division = false;
-        } else {
-          divfee.division = true;
-        }
-        divfee.save().then(function(success){
-          updateAmounts();
-        });
-      }
+     
 }
 DivFeesCtrl.$inject = ['$scope', '$routeParams', 'Students', 'model', 'DivFees'];
 angular.module('SchoolMan').controller('DivFeesCtrl', DivFeesCtrl);
