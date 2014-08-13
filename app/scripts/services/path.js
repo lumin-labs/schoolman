@@ -58,6 +58,7 @@ function Path() {
                       d.termIndex  + '/' +
                       d.studentId  + '/' + 
                       d.schoolId + '/' +
+                      d.divisionId + '/' +
                       d.username   + '/' +
                       d.accessCode
 

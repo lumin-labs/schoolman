@@ -1,10 +1,10 @@
 'use strict';
 
-function RegFinanceCtrl($scope, DivFees, Schools, Divisions) {
+function RegFinanceCtrl($scope, RegFees, Schools, Divisions) {
   	
   $scope.data = {
     schools: Schools.getAll(),
-    divfees: DivFees.getAll(),
+    regfees: RegFees.getAll(),
     divisions: Divisions.getAll(),
     divisionTotal: 0,
     regionTotal: 0,
@@ -23,14 +23,16 @@ function RegFinanceCtrl($scope, DivFees, Schools, Divisions) {
     return self;
   }
 
-  $scope.data.totalStudents = reduce($scope.data.schools).by("numStudents");
-  $scope.data.feesAmount = reduce($scope.data.divfees).by("amount");
+  var totalFemale = reduce($scope.data.schools).by("numFemale");
+  var totalMale = reduce($scope.data.schools).by("numMale");
+  $scope.data.totalStudents = (totalFemale + totalMale);
+  $scope.data.feesAmount = reduce($scope.data.regfees).by("amount");
 
   var divTotal = 0; 
   var regTotal = 0;
   var minTotal = 0;
 
-  angular.forEach($scope.data.divfees, function(fee, feeId){
+  angular.forEach($scope.data.regfees, function(fee, feeId){
     console.log("fee:", fee);
     divTotal += fee.amount * fee.division;
     regTotal += fee.amount * fee.region;
@@ -44,5 +46,5 @@ function RegFinanceCtrl($scope, DivFees, Schools, Divisions) {
   $scope.data.ministryTotal = $scope.data.totalStudents * minTotal / 100;
 
 }
-RegFinanceCtrl.$inject = ['$scope','DivFees', 'Schools', 'Divisions'];
+RegFinanceCtrl.$inject = ['$scope','RegFees', 'Schools', 'Divisions'];
 angular.module('SchoolMan').controller('RegFinanceCtrl', RegFinanceCtrl);

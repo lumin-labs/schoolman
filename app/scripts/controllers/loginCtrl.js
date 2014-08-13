@@ -73,6 +73,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
                 groupId:groups[0],
                 subjectId:subjects[0],
                 studentId:"U0000001",
+                divisionId:"D0000001",
                 termIndex:0,
                 username:user.username,
                 accessCode:accessRequest

@@ -60,14 +60,26 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="numStudents" class="col-sm-3 control-label">Number of Students</label>
+			    <label for="numFemale" class="col-sm-3 control-label">Number of Females</label>
 			    <div class="col-sm-9">
-			      <input id="numStudents"
-			      			name="numStudents" 
-			      		 class="form-control {{showValidation && newSchool.numStudents === '' ? 'invalid-input' : ''}}" 
+			      <input id="numFemale"
+			      			name="numFemale" 
+			      		 class="form-control {{showValidation && newSchool.numFemale === '' ? 'invalid-input' : ''}}" 
 			      		 type="number"
-			      		 placeholder="Number of Students" 
-			      		 ng-model="newSchool.numStudents">
+			      		 placeholder="Number of Females" 
+			      		 ng-model="newSchool.numFemale">
+			    </div>
+			  </div>
+
+			  <div class="form-group">
+			    <label for="numMale" class="col-sm-3 control-label">Number of Males</label>
+			    <div class="col-sm-9">
+			      <input id="numMale"
+			      			name="numMale" 
+			      		 class="form-control {{showValidation && newSchool.numMale === '' ? 'invalid-input' : ''}}" 
+			      		 type="number"
+			      		 placeholder="Number of Males" 
+			      		 ng-model="newSchool.numMale">
 			    </div>
 			  </div>
 			  <br>

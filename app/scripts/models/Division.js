@@ -21,10 +21,16 @@ schoolman.config(['modelProvider', function(model){
         type:"string",
         required:true
       },{
-        key:"numStudents",
+        key:"numMale",
         type:"number",
         required:true
-      }],
+      },
+      {
+        key:"numFemale",
+        type:"number",
+        required:true
+      }
+      ],
       fields_key:0
     }
   };
@@ -43,7 +49,8 @@ schoolman.config(['modelProvider', function(model){
     this.id = "";
     this.name = ""; 
     this.region = "";
-    this.numStudents = 0;
+    this.numFemale = 0;
+    this.numMale = 0;
 
     // Initialize object with spec properties, excluding any that aren't defined above
     var self = this;

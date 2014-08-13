@@ -10,7 +10,8 @@
 					<th>Name (Eng)</th>
 					<th>Division</th>
 					<th>Location</th>
-					<th>Number of Students</th>
+					<th>Number of Females</th>
+					<th>Number of Males</th>
 					<th class="noprint">Remove</th>
 				</tr>
 			</thead>
@@ -23,7 +24,8 @@
 					</td>
 					<td>{{data.divisions[school.division].name}}</td>
 					<td>{{school.subdivision}}</td>
-					<td>{{school.numStudents | number:0}}</td>
+					<td>{{school.numFemale | number:0}}</td>
+					<td>{{school.numMale | number:0}}</td>
 					<td class="remove text-center" style="width:80px;">
 					<a ng-click="remove(school)">
 						<i class="glyphicon glyphicon-remove"></i>
@@ -34,7 +36,8 @@
 					<td>{{school.name}}</td>
 					<td>{{school.division.name}}</td>
 					<td>{{school.subdivision}}</td>
-					<td>{{school.numStudents | number:0}}</td>
+					<td>{{school.numFemale | number:0}}</td>
+					<td>{{school.numMale | number:0}}</td>
 				</tr>
 				
 			</tbody>

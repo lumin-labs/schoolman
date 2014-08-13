@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+  <div class="col-md-10 marksheet" ng-controller="DivisionProfileCtrl">
+  <div class="printonly"><h3>Division Profile</h3></div>
+
+  <form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="uid" class="col-sm-3 control-label">Division ID</label>
+    <div class="col-sm-9 printonly">{{data.division._id}}</div>
+    <div class="col-sm-9 noprint">
+      <div class="form-control-static">{{data.division._id}}</div>
+    </div>
+  </div>
+  <br>
+  
+  <div class="form-group">
+    <label for="name" class="col-sm-3 control-label">Division Name </label>
+    <div class="col-sm-9 printonly">{{data.division.name}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="name"
+           class="form-control" 
+           placeholder="Division Name "
+           ng-readonly="!editing"
+           ng-model="data.division.name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="division" class="col-sm-3 control-label">Region</label>
+    <div class="col-sm-9 printonly">{{data.division.region}}</div>
+    <div class="col-sm-9">
+      <div class="btn-group">
+        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" ng-readonly="!editing">
+          <span>{{data.division.region}}</span>
+          &nbsp;<span ng-if="editing" class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="region in data.regions">
+            <a ng-click="data.division.region = region">{{region}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="numFemale" class="col-sm-3 control-label">Number of Females</label>
+    <div class="col-sm-9 printonly">{{data.division.numFemale}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numFemale"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Females"
+           ng-readonly="!editing"
+           ng-model="data.division.numFemale">
+    </div>
+    </div>  
+    
+     <div class="form-group">
+    <label for="numMale" class="col-sm-3 control-label">Number of Males</label>
+    <div class="col-sm-9 printonly">{{data.division.numMale}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numMale"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Males"
+           ng-readonly="!editing"
+           ng-model="data.division.numMale">
+    </div>
+  </div>
+  <br>
+  <div class="form-group noprint" ng-if="!editing">
+    <div class="col-sm-offset-3 col-sm-10">
+      <button type="submit" class="btn btn-info" ng-click="edit()">
+        Edit Division
+      </button>
+    </div>
+  </div>
+  <div class="form-group noprint" ng-if="editing">
+    <div class="col-sm-offset-3 col-sm-10">
+      <button type="submit" class="btn btn-success" ng-click="save(data.division)">
+        Save Changes
+      </button>
+      <button type="submit" class="btn btn-warning" style="margin-left:15px;" ng-click="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</form>
+  </div>
+	
+</div>	
+

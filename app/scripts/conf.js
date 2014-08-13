@@ -209,7 +209,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-home'
     },
-    
+     {
+      label:"Division Profile",
+      page:"divisionprofile",
+      access:['region', 'admin'],
+      exclude:['divfees', 'divfinance', 'divisions','regfinance','regfees'],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-home'
+    },
     {
       label:"Divisions",
       page:"divisions",

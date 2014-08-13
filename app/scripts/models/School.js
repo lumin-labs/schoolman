@@ -29,10 +29,16 @@ schoolman.config(['modelProvider', function(model){
         type:"string",
         required:true
       },{
-        key:"numStudents",
+        key:"numFemale",
         type:"number",
         required:true
-      },{
+      },
+      {
+        key:"numMale",
+        type:"number",
+        required:true
+      },
+      {
         key:"fees",
         type:"object",
         required:true
@@ -57,7 +63,8 @@ schoolman.config(['modelProvider', function(model){
     this.nameFr = "";     // String
     this.division = ""; // Datetime integer
     this.subdivision = "";
-    this.numStudents = 0;
+    this.numFemale = 0;
+    this.numMale = 0;
     this.fees = {};
 
     // Initialize object with spec properties, excluding any that aren't defined above

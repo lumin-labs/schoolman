@@ -54,6 +54,7 @@ angular.module('SchoolMan', [
       divfees:"divfees.html",
       schools:"schools.html",
       schoolprofile:"schoolprofile.html",
+      divisionprofile:"divisionprofile.html",
       addschool:"addschool.html",
       divfinance:"div-finance.html",
       divisions:"divisions.html",
@@ -78,7 +79,7 @@ angular.module('SchoolMan', [
     };
 
     $routeProvider
-      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:schoolId/:username/:accessCode', {
+      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:schoolId/:divisionId/:username/:accessCode', {
         templateUrl:function(p){ return getTemplate(p);},
         // controller:'MainCtrl'
       })
