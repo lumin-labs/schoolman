@@ -23,8 +23,8 @@ function RegFinanceCtrl($scope, RegFees, Schools, Divisions) {
     return self;
   }
 
-  var totalFemale = reduce($scope.data.schools).by("numFemale");
-  var totalMale = reduce($scope.data.schools).by("numMale");
+  var totalFemale = reduce($scope.data.divisions).by("numFemale");
+  var totalMale = reduce($scope.data.divisions).by("numMale");
   $scope.data.totalStudents = (totalFemale + totalMale);
   $scope.data.feesAmount = reduce($scope.data.regfees).by("amount");
 
