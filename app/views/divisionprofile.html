@@ -69,6 +69,42 @@
     </div>
   </div>
   <br>
+  <div class="form-group">
+    <label for="ddName" class="col-sm-3 control-label">Divisional Delegate</label>
+    <div class="col-sm-9 printonly">{{data.division.ddName}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="ddName"
+           class="form-control" 
+           type="text"
+           placeholder="Divisional Delegate's Name"
+           ng-readonly="!editing"
+           ng-model="data.division.ddName">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="ddBirth" class="col-sm-3 control-label">Date of Birth</label>
+    <div class="col-sm-9 printonly">{{data.division.ddBirth}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="ddBirth"
+           class="form-control" 
+           type="date"
+           placeholder="Divisional Delegate's Date of Birth"
+           ng-readonly="!editing"
+           ng-model="data.division.ddBirth">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="ddPhone" class="col-sm-3 control-label">Phone Number</label>
+    <div class="col-sm-9 printonly">{{data.division.ddPhone}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="ddPhone"
+           class="form-control" 
+           type="text"
+           placeholder="Divisional Delegate's Phone Number"
+           ng-readonly="!editing"
+           ng-model="data.division.ddPhone">
+    </div>
+  </div>
   <div class="form-group noprint" ng-if="!editing">
     <div class="col-sm-offset-3 col-sm-10">
       <button type="submit" class="btn btn-info" ng-click="edit()">

@@ -39,6 +39,11 @@ schoolman.config(['modelProvider', function(model){
         required:true
       },
       {
+        key:"principal",
+        type:"string",
+        required:true
+      },
+      {
         key:"fees",
         type:"object",
         required:true
@@ -65,6 +70,7 @@ schoolman.config(['modelProvider', function(model){
     this.subdivision = "";
     this.numFemale = 0;
     this.numMale = 0;
+    this.principal = "";
     this.fees = {};
 
     // Initialize object with spec properties, excluding any that aren't defined above

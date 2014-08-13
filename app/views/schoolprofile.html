@@ -40,6 +40,17 @@
     </div>
   </div>
   <div class="form-group">
+    <label for="principal" class="col-sm-3 control-label">Principal</label>
+    <div class="col-sm-9 printonly">{{data.school.principal}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="principal"
+           class="form-control" 
+           placeholder="Principal's Name"
+           ng-readonly="!editing"
+           ng-model="data.school.principal">
+    </div>
+  </div>
+  <div class="form-group">
     <label for="subdivision" class="col-sm-3 control-label">Division</label>
     <div class="col-sm-9 printonly">{{data.school.division}}</div>
     <div class="col-sm-9">
