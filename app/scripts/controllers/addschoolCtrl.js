@@ -35,7 +35,8 @@ function AddSchoolCtrl($scope, $q, $routeParams, Schools, Schoolid, Dues, model,
         school.nameEn = "";
         school.nameFr = "";
         school.subdivision = "";
-        school.numStudents = null;
+        school.numFemale = null;
+        school.numMale = null;
     }
 
   }

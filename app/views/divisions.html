@@ -24,7 +24,10 @@
 						</div>
 						</th>
 							<th>
-	  					<input  type="number" class="form-control" placeholder="Number of Student" ng-model="newDivision.numStudents">
+	  					<input  type="number" class="form-control" placeholder="Number of Females" ng-model="newDivision.numFemale">
+		  			</th>
+		  			<th>
+	  					<input  type="number" class="form-control" placeholder="Number of Males" ng-model="newDivision.numMale">
 		  			</th>
 		  			<th>
 		  				<button type="submit" class="btn btn-default" 
@@ -39,7 +42,8 @@
 					<!-- <th style="width:100px;">ID</th> -->
 					<th>Name (Eng)</th>
 					<th>Region</th>
-					<th>Number of Students</th>
+					<th>Number of Females</th>
+					<th>Number of Males</th>
 					<th class="noprint">Remove</th>
 				</tr>
 			</thead>
@@ -48,7 +52,8 @@
 					<td><a ng-click="open({divisionId:division._id, page:'divisionprofile'})">
 					{{division.name}}</a></td>
 					<td>{{division.region}}</td>
-					<td>{{division.numStudents | number:0}}</td>
+					<td>{{division.numFemale | number:0}}</td>
+					<td>{{division.numMale | number:0}}</td>
 					<td class="remove text-center noprint" style="width:80px;">
 						<a ng-click="remove(division)" 
 						   ng-if="countSchools(division) === 0">

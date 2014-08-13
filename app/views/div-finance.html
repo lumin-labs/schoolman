@@ -10,22 +10,25 @@
 			<tr>
 				<th>School</th>
 				<th>Students</th>
-				<th>Fees Per Student</th>
+				<th>Rubric Sum</th>
 				<th>Total Fees</th>
+				<th>Paid</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="(schoolKey,school) in data.schools">
 				<td><strong>{{school.nameEn}}</strong></td>
-				<td>{{school.numStudents}}</td>
+				<td>{{school.numMale + school.numFemale}}</td>
 				<td>{{data.feesAmount}}</td>
-				<td>{{school.numStudents * data.feesAmount | number:0}}</td>
+				<td>{{(school.numMale + school.numFemale) * data.feesAmount | number:0}}</td>
+				<td>{{(school.totalPaid | number :0)}}</td>
 			</tr>
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
 				<td>{{data.totalStudents}}</td>
 				<td></td>
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
+				<td>{{data.totalPayment| number:0}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -35,7 +38,7 @@
 			<tr>
 				<th>Fee</th>
 				<th>Students</th>
-				<th>Fees Per Student</th>
+				<th>Rubric Sum</th>
 				<th>Total Fees</th>
 				<th style="width:150px;">Division Amount</th>
 				<th style="width:150px;">Region Amount</th>
