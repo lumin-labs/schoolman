@@ -37,7 +37,7 @@
 				<th>Students</th>
 				<th>Rubric Sum</th>
 				<th>Total Fees</th>
-				<th style="width:150px;">Division Amount</th>
+				<!-- <th style="width:150px;">Division Amount</th> -->
 				<th style="width:150px;">Region Amount</th>
 				<th style="width:150px;">Ministry Amount</th>
 
@@ -49,7 +49,7 @@
 				<td>{{data.totalStudents}}</td>
 				<td>{{fee.amount | number:0}}</td>
 				<td>{{data.totalStudents * fee.amount | number:0}}</td>
-				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.division / 100 | number:0}}</td>
+				<!-- <td style="width:150px;">{{data.totalStudents * fee.amount * fee.division / 100 | number:0}}</td> -->
 				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.region / 100 | number:0}}</td>
 				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.ministry / 100 | number:0}}</td>
 
@@ -59,7 +59,7 @@
 				<td></td>
 				<td>{{data.feesAmount | number:0}}</td>
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
-				<td style="width:150px;">{{data.divisionTotal | number:0}}</td>
+				<!-- <td style="width:150px;">{{data.divisionTotal | number:0}}</td> -->
 				<td style="width:150px;">{{data.regionTotal | number:0}}</td>
 				<td style="width:150px;">{{data.ministryTotal | number:0}}</td>
 			</tr>
