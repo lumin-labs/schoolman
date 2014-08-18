@@ -20,6 +20,9 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
           },
           division:{
             page:"schools"
+          },
+          region:{
+            page:"divisions"
           }
       }
 
@@ -27,6 +30,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
       $scope.open = Location.open;
       $scope.page = $routeParams.page;
       $scope.status = 200;
+      //$scope.User = model.User;
 
       // This data is used for creating the access dropdown in the login view
       // It should be moved to a service
@@ -34,6 +38,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
 
       $scope.access = $scope.accessLevels[$routeParams.accessCode];
       $scope.settings = settings.get();
+      $scope.accessRequest = $routeParams.accessCode;
 
       // Get a user object. 
       // Note: this user may not actually exist as a registered user
@@ -41,13 +46,11 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
 
       $scope.login = function(page){
 
-        var accessRequest = $routeParams.accessCode;
 
-        Users.login($scope.tempUser, accessRequest, function(data){
+        Users.login($scope.tempUser, $scope.accessRequest, function(data){
           console.log("Login Data", data);
           if(data.status === 200){
             var user = data.user;
-            accessRequest = "division";
             // if($scope.settings.access[accessRequest] === 0){
             //   accessRequest = user.getHighestAccess();
             // }
@@ -66,7 +69,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
               
 
               Location.open({
-                page:page || DEFAULT_START_PAGE[accessRequest].page,
+                page:page || DEFAULT_START_PAGE[$scope.accessRequest].page,
                 subpage:"null",
                 formIndex:"0",
                 deptId:Object.keys(depts)[0],
@@ -76,7 +79,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
                 divisionId:"D0000001",
                 termIndex:0,
                 username:user.username,
-                accessCode:accessRequest
+                accessCode:$scope.accessRequest
               });
             // }
           } else {

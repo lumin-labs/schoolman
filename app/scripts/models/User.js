@@ -46,10 +46,10 @@ schoolman.config(['modelProvider', function(model){
     this.username = "";
     this.password = "";
     this.access = {
-      admin:0,
+      admin:1,
       registrar:0,
       classmaster:0,
-      teacher:1
+      teacher:0
     };
 
     angular.forEach(specs, function(prop, key){
@@ -61,10 +61,7 @@ schoolman.config(['modelProvider', function(model){
   };
 
   User.roles = {
-      teacher: {name:"Teacher"},
-      admin:   {name:"Administrator"},
-      classmaster: {name:"Class Master"},
-      registrar:{name:"Registrar"},
+      admin:{name:"Administrator"},
       division:{name: "DDS"},
       region:{name:"SDGA"}
   }

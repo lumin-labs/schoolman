@@ -29,7 +29,33 @@
     <div ng-if="status === 401" style="color:red;">Incorrect Password</div>
     <div ng-if="status === 403" style="color:red;">User Access Denied</div>
     <br>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <table>
+        <tr>
+            <td width="85px">
+                <div class="btn-group btn-group-justified col-md" style="margin-right:0px;">
+                    <div class="btn-group" style="margin-right:0px;">
+                        <a class="btn btn-med dropdown-toggle btn-default" 
+                           data-toggle="dropdown">
+                          {{accessLevels[accessRequest].name}} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                        <li>
+                                    <a ng-click="accessRequest = 'division'">DDS</a> 
+                                </li>
+                          <li>
+                                    <a ng-click="accessRequest = 'region'">SDGA</a>  
+                                </li>
+
+                        </ul>
+
+                      </div>
+                </div>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </td>
+        </tr>
+    </table>
   </form>
 </div>
 

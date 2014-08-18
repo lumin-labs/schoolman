@@ -41,7 +41,7 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
     }
 
     $scope.logout = function(){
-      Location.open({page:"login", username:null, accessCode:'teacher'});
+      Location.open({page:"login", username:null, accessCode:'division'});
     }
 
     $scope.cache = Cache.cache;

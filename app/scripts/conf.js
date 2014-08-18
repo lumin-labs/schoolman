@@ -2,23 +2,21 @@
 
 angular.module('SchoolMan')
   .constant('VERSION',{
-    mode:"gths"
-  })
-  .constant('DIVISION',{
+    mode:"division",
     name:"Mezam Division"
   })
   //.constant('SCHOOLYEAR',{
   //  year:"2014/2015"
   //})
   .constant('TABS', [
-  	// {
-  	// 	label:"Users",
-  	//  	page:"users",
-  	//  	access:['admin'],
-   //    exclude:[],
-   //    modes:["gths", "ghs"],
-  	//  	icon:'glyphicon-lock'
-  	// },
+  	{
+  		label:"Users",
+  	  page:"users",
+  	  access:['admin', 'region', 'division'],
+      exclude:[],
+      modes:["gths", "ghs"],
+  	 	icon:'glyphicon-lock'
+    },
    //  {
    //    label:"Departments",
    //    page:"departments",
@@ -205,7 +203,7 @@ angular.module('SchoolMan')
       label:"School Profile",
       page:"schoolprofile",
       access:['division', 'admin'],
-      exclude:['schools', 'divfees', 'addschool', 'divfinance', 'divisions'],
+      exclude:['schools', 'divfees', 'addschool', 'divfinance', 'divisions', 'users'],
       modes:["gths", "ghs"],
       icon:'glyphicon-home'
     },
@@ -213,7 +211,7 @@ angular.module('SchoolMan')
       label:"Division Profile",
       page:"divisionprofile",
       access:['region', 'admin'],
-      exclude:['divfees', 'divfinance', 'divisions','regfinance','regfees'],
+      exclude:['divfees', 'divfinance', 'divisions','regfinance','regfees', 'users'],
       modes:["gths", "ghs"],
       icon:'glyphicon-home'
     },

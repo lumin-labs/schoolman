@@ -22,6 +22,24 @@ function Forms(model, VERSION, SchoolInfos) {
             "4":"Form 5",
             "5":"Lower Sixth",
             "6":"Upper Sixth"
+        },
+        'division' :{
+            "0":"Form 1",
+            "1":"Form 2",
+            "2":"Form 3",
+            "3":"Form 4",
+            "4":"Form 5",
+            "5":"Form 6",
+            "6":"Form 7"
+        },
+        'region' :{
+            "0":"Form 1",
+            "1":"Form 2",
+            "2":"Form 3",
+            "3":"Form 4",
+            "4":"Form 5",
+            "5":"Form 6",
+            "6":"Form 7"
         }
     }
 

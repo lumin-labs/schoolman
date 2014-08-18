@@ -1,6 +1,6 @@
 'use strict';
 
-function LoadingCtrl($scope, Location, $q, Students, Divisions, Subjects, Forms, RegFees, SchoolPayments, Departments, DivFees, Schools, Groups, Fees, Users, settings, model, MockData) {
+function LoadingCtrl($scope, Location, $q, Students, Divisions, Subjects, Forms, RegFees, SchoolPayments, Departments, DivFees, Schools, Groups, Fees, Users, settings, model, MockData, VERSION) {
 
     var instSchoolInfo = new model.SchoolInfo();
 
@@ -27,9 +27,9 @@ function LoadingCtrl($scope, Location, $q, Students, Divisions, Subjects, Forms,
 
     $q.all(promises).then(function(success){
       console.log("Successes", success);
-      Location.open({page:"login"})
+      Location.open({page:"login", accessCode:VERSION.mode});
     });
 
   }
-LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'Divisions', 'Subjects', 'Forms', 'RegFees', 'SchoolPayments', 'Departments', 'DivFees', 'Schools', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData'];
+LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'Divisions', 'Subjects', 'Forms', 'RegFees', 'SchoolPayments', 'Departments', 'DivFees', 'Schools', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData', 'VERSION'];
 angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
