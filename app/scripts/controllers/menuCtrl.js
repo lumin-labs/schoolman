@@ -8,6 +8,7 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
     }
 
     $scope.ClassMaster = ClassMaster;
+    $scope.route = $routeParams;
 
   	$scope.print = function(){
   		ClassMaster.printVariable = false;

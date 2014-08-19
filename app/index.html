@@ -37,7 +37,7 @@
             {{cache.user["fullname"]}} <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <li>
+            <li ng-if="route.page && route.page !== 'login'">
               <a ng-click="open({page:'user',subpage:'current'})">Settings</a>
             </li>
             <li class="divider"></li>
