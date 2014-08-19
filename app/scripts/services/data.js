@@ -1,6 +1,6 @@
 'use strict';
 
-function Data($timeout, $log, SchoolInfos) {
+function Data($timeout, $log) {
 
     var SCHEMA = {
         "version":"",
@@ -32,11 +32,11 @@ function Data($timeout, $log, SchoolInfos) {
     var listeners = {};
     var version;
 
-    SchoolInfos.get("schoolinfo").then(function(info){
-        version = info;
-    }).catch(function(error){
-        console.log("unable to retrieve school info");
-    });
+    // SchoolInfos.get("schoolinfo").then(function(info){
+    //     version = info;
+    // }).catch(function(error){
+    //     console.log("unable to retrieve school info");
+    // });
     
     self.get = function(key, callback){
     	if(data.hasOwnProperty(key)){
@@ -322,5 +322,5 @@ function Data($timeout, $log, SchoolInfos) {
     return self;
 
   }
-Data.$inject = ['$timeout', '$log', 'SchoolInfos'];
+Data.$inject = ['$timeout', '$log'];
 angular.module('SchoolMan').service('Data', Data);

@@ -1,6 +1,6 @@
 'use strict';
 
-function DivFeesCtrl($scope, $routeParams, Students, model, DivFees) {
+function DivFeesCtrl($scope, $routeParams, model, DivFees) {
       
       $scope.data = {};
       $scope.data.divfees = DivFees.getAll();
@@ -57,5 +57,5 @@ function DivFeesCtrl($scope, $routeParams, Students, model, DivFees) {
 
      
 }
-DivFeesCtrl.$inject = ['$scope', '$routeParams', 'Students', 'model', 'DivFees'];
+DivFeesCtrl.$inject = ['$scope', '$routeParams', 'model', 'DivFees'];
 angular.module('SchoolMan').controller('DivFeesCtrl', DivFeesCtrl);

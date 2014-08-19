@@ -7,16 +7,14 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
       backButton:false
     }
 
-    $scope.ClassMaster = ClassMaster;
-
   	$scope.print = function(){
-  		ClassMaster.printVariable = false;
-      if($routeParams.page === "reportcardGTHS"){
-        $scope.openModal("print");
-      }
-      else{
+  		// ClassMaster.printVariable = false;
+    //   if($routeParams.page === "reportcardGTHS"){
+    //     $scope.openModal("print");
+    //   }
+    //   else{
         window.print();
-      }
+      // }
     }
 
     $scope.export = function(){
@@ -104,31 +102,31 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
       //modalInstance.close();
     //}
 
-    var PrintModalInstanceFunction = function ($scope, $modalInstance, ClassMaster) {
+    // var PrintModalInstanceFunction = function ($scope, $modalInstance, ClassMaster) {
 
-      $scope.ClassMaster = ClassMaster;
+    //   $scope.ClassMaster = ClassMaster;
 
-      $scope.ok = function () {
-        $modalInstance.close();
-        window.print();
-        ClassMaster.printVariable = false;
+    //   $scope.ok = function () {
+    //     $modalInstance.close();
+    //     window.print();
+    //     ClassMaster.printVariable = false;
 
-      };
+    //   };
       
 
-      $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-      };
-    };
+    //   $scope.cancel = function () {
+    //     $modalInstance.dismiss('cancel');
+    //   };
+    // };
     
-    var ImportExportModalInstanceFunction = function ($scope, $modalInstance){
-      $scope.close = function () {
-        $modalInstance.close();
-      }
-      $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-      };
-    };
+    // var ImportExportModalInstanceFunction = function ($scope, $modalInstance){
+    //   $scope.close = function () {
+    //     $modalInstance.close();
+    //   }
+    //   $scope.cancel = function () {
+    //     $modalInstance.dismiss('cancel');
+    //   };
+    // };
 
   	// $scope.importFile = function(){
   	// 	chrome.fileSystem.chooseEntry({
@@ -177,5 +175,5 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
   	// 	});
    //  }
   }
-  MenuCtrl.$inject = ['$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster'];
+  MenuCtrl.$inject = ['$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File'];
   angular.module('SchoolMan').controller('MenuCtrl', MenuCtrl);

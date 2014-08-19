@@ -70,7 +70,7 @@ function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Di
         console.log("payment saved", success);
         $scope.data.payments.push(payment);
         SchoolPayments.set($scope.newPayment,success.id);
-        $scope.newPayment = new model.Payment();
+        $scope.newPayment = new model.SchoolPayment();
         $scope.newPayment.registrar = $routeParams.username;
         $scope.newPayment.schoolId = schoolId;
 

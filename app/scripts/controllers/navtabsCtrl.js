@@ -1,24 +1,25 @@
 'use strict';
 
-function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos) {
+function NavtabsCtrl($scope, $routeParams, Location, TABS, VERSION, Cache, model) {
 
     $scope.TABS = TABS;
+    $scope.VERSION = VERSION;
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
     $scope.teacher = Cache.get('user');
     $scope.User = model.User;
-    $scope.settings = settings.get();
+    // $scope.settings = settings.get();
     $scope.activePage = $routeParams.page;
 
-    SchoolInfos.get("schoolinfo").then(function(info){
-      $scope.schoolInfo = info;
+    // SchoolInfos.get("schoolinfo").then(function(info){
+    //   $scope.schoolInfo = info;
 
-      if($scope.schoolInfo.version === "gths"){
-        $scope.User.roles.classmaster.name = "Head of Dept";
-      }
-    }).catch(function(error){
-      console.log("failed to load school info", error);
-    });
+    //   if($scope.schoolInfo.version === "gths"){
+    //     $scope.User.roles.classmaster.name = "Head of Dept";
+    //   }
+    // }).catch(function(error){
+    //   console.log("failed to load school info", error);
+    // });
 
     $scope.activeIfPage = function(page){
       var cssClass = "";
@@ -52,13 +53,13 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
     }
 
     $scope.login = function(access){
-      console.log(access, $scope.settings);
-      if(!access === 'division' && !access === 'region' && !$scope.settings.access[access]){
+      console.log(access);
+      if(!access === 'division' && !access === 'region'){
         Location.open({page:"notactive", accessCode:access});
       }else {
         Location.open({page:"default_"+access, accessCode:access});
       }
     }
   }
-  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'settings', 'Cache', 'model', 'SchoolInfos'];
+  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'VERSION', 'Cache', 'model'];
   angular.module('SchoolMan').controller('NavtabsCtrl', NavtabsCtrl);

@@ -1,6 +1,6 @@
 'use strict';
 
-function RegFeesCtrl($scope, $routeParams, Students, model, RegFees) {
+function RegFeesCtrl($scope, $routeParams, model, RegFees) {
       
       $scope.data = {};
       $scope.data.regfees = RegFees.getAll();
@@ -55,5 +55,5 @@ function RegFeesCtrl($scope, $routeParams, Students, model, RegFees) {
 
       
 }
-RegFeesCtrl.$inject = ['$scope', '$routeParams', 'Students', 'model', 'RegFees'];
+RegFeesCtrl.$inject = ['$scope', '$routeParams', 'model', 'RegFees'];
 angular.module('SchoolMan').controller('RegFeesCtrl', RegFeesCtrl);

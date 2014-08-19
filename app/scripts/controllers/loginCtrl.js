@@ -1,8 +1,8 @@
 'use strict';
 
-function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups) {
+function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, model, Path, Cache, Location) {
       console.log("Hows the call stack?")
-      console.log("Departments: ", Departments)
+      // console.log("Departments: ", Departments)
       $log.info("Path: ", $location.path()); 
 
       var DEFAULT_START_PAGE = {
@@ -37,7 +37,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
       $scope.accessLevels = model.User.roles;
 
       $scope.access = $scope.accessLevels[$routeParams.accessCode];
-      $scope.settings = settings.get();
+      // $scope.settings = settings.get();
       $scope.accessRequest = $routeParams.accessCode;
 
       // Get a user object. 
@@ -62,9 +62,9 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
             // else{
               Cache.set({user:user});
 
-              var depts = Departments.getAll();
-              var groups= Object.keys(Groups.getAll());
-              var subjects= Object.keys(Subjects.getAll());
+              // var depts = Departments.getAll();
+              // var groups= Object.keys(Groups.getAll());
+              // var subjects= Object.keys(Subjects.getAll());
 
               
 
@@ -72,9 +72,9 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
                 page:page || DEFAULT_START_PAGE[$scope.accessRequest].page,
                 subpage:"null",
                 formIndex:"0",
-                deptId:Object.keys(depts)[0],
-                groupId:groups[0],
-                subjectId:subjects[0],
+                deptId:"null",
+                groupId:"null",
+                subjectId:"null",
                 studentId:"U0000001",
                 divisionId:"D0000001",
                 termIndex:0,
@@ -114,5 +114,5 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
           $scope.login(page); 
       }
 }
-LoginCtrl.$inject = ['$scope', '$location', '$routeParams', '$log', 'DEV', 'Users', 'Subjects', 'Departments', 'settings', 'model', 'Path', 'Cache', 'Location', 'Groups'];
+LoginCtrl.$inject = ['$scope', '$location', '$routeParams', '$log', 'DEV', 'Users', 'model', 'Path', 'Cache', 'Location'];
 angular.module('SchoolMan').controller('LoginCtrl', LoginCtrl);

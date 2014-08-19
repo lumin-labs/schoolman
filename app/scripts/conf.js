@@ -12,9 +12,9 @@ angular.module('SchoolMan')
   	{
   		label:"Users",
   	  page:"users",
-  	  access:['admin', 'region', 'division'],
+  	  access:['region', 'division'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["region", "division"],
   	 	icon:'glyphicon-lock'
     },
    //  {
@@ -156,39 +156,39 @@ angular.module('SchoolMan')
     {
       label:"Add School",
       page:"addschool",
-      access:['division', 'admin'],
+      access:['division'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-pencil'
     },{
       label:"Schools",
       page:"schools",
-      access:['division', 'admin'],
+      access:['division'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-folder-open'
     },
     {
       label:"Fee Settings",
       page:"divfees",
-      access:['division', 'admin'],
+      access:['division'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-cog'
     },
     {
       label:"Fee Settings",
       page:"regfees",
-      access:['admin', 'region'],
+      access:['region'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-cog'
     },{
       label:"Balance Sheet",
       page:"divfinance",
-      access:['division', 'admin'],
+      access:['division'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-envelope'
     },
     {
@@ -196,31 +196,31 @@ angular.module('SchoolMan')
       page:"regfinance",
       access:['region'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-envelope'
     },
     {
       label:"School Profile",
       page:"schoolprofile",
-      access:['division', 'admin'],
+      access:['division'],
       exclude:['schools', 'divfees', 'addschool', 'divfinance', 'divisions', 'users'],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-home'
     },
      {
       label:"Division Profile",
       page:"divisionprofile",
-      access:['region', 'admin'],
+      access:['region'],
       exclude:['divfees', 'divfinance', 'divisions','regfinance','regfees', 'users'],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-home'
     },
     {
       label:"Divisions",
       page:"divisions",
-      access:['region', 'admin'],
+      access:['region'],
       exclude:[],
-      modes:["gths", "ghs"],
+      modes:["division", "region"],
       icon:'glyphicon-paperclip'
     },
  ]);
