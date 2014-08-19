@@ -4,6 +4,7 @@ function DivFeesCtrl($scope, $routeParams, model, DivFees) {
       
       $scope.data = {};
       $scope.data.divfees = DivFees.getAll();
+      $scope.showValidation = false;
       var userAccess = $routeParams.accessCode;
 
       var updateAmounts = function(){
@@ -27,7 +28,7 @@ function DivFeesCtrl($scope, $routeParams, model, DivFees) {
 
       $scope.add = function(divfee){
         if(userAccess === 'region'){
-          var percentages = divfee.division + divfee.region + divfee.ministry;
+          var percentages = divfee.region + divfee.ministry;
         } else{
           var percentages = divfee.division + divfee.region;
         }
@@ -41,6 +42,9 @@ function DivFeesCtrl($scope, $routeParams, model, DivFees) {
                   $scope.newDivFee = new model.DivFee(); 
                   updateAmounts();
                }).catch(function(error, result){
+                  if(error.status === 409){
+                    $scope.showValidation = true;
+                  }
                   console.log("Error: DivFee not added", error);
                });
            } catch(e){

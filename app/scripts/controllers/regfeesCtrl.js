@@ -4,6 +4,7 @@ function RegFeesCtrl($scope, $routeParams, model, RegFees) {
       
       $scope.data = {};
       $scope.data.regfees = RegFees.getAll();
+      $scope.showValidation = false;
       var userAccess = $routeParams.accessCode;
 
       var updateAmounts = function(){
@@ -39,6 +40,9 @@ function RegFeesCtrl($scope, $routeParams, model, RegFees) {
                   $scope.newRegFee = new model.RegFee(); 
                   updateAmounts();
                }).catch(function(error, result){
+                  if(error.status === 409){
+                    $scope.showValidation = true;
+                  }
                   console.log("Error: RegFee not added", error);
                });
            } catch(e){

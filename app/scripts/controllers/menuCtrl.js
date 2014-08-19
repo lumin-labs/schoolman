@@ -6,6 +6,7 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
     $scope.show = {
       backButton:false
     }
+    $scope.route = $routeParams;
 
   	$scope.print = function(){
   		// ClassMaster.printVariable = false;

@@ -64,7 +64,7 @@
 			        		<tr class="toolbar">
 									<th colspan="2">
 					    				<input 	type="text" 
-					    								class="form-control" 
+					    								class="form-control {{showValidation ? 'invalid-input' : ''}}" 
 					    								placeholder="Rubric Name" 
 					    								ng-model="newDivFee.name"
 					    								style="width:400px;">
@@ -117,6 +117,10 @@
 									        	</button>
 			        						</div>
 			        					</th>
+			        					<th ng-if="showValidation" class="alert alert-sm alert-warning" style="height:30px;padding-top:5px;position:absolute;">
+									        <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
+									        <strong>Error: </strong>Fee Name has to be different.
+									    </th>
 					    			</tr>
 			        	</table>
 			        </div>
