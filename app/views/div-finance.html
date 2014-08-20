@@ -12,7 +12,9 @@
 				<th>Students</th>
 				<th>Rubric Sum</th>
 				<th>Total Fees</th>
+				<th>Division Total</th>
 				<th>Paid</th>
+				<th>Due</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,14 +23,18 @@
 				<td>{{school.numMale + school.numFemale}}</td>
 				<td>{{data.feesAmount}}</td>
 				<td>{{(school.numMale + school.numFemale) * data.feesAmount | number:0}}</td>
+				<td>{{data.divSum * (school.numMale + school.numFemale) | number:0}}</td>
 				<td>{{(school.totalPaid | number :0)}}</td>
+				<td>{{(school.numMale + school.numFemale) * data.feesAmount - (school.totalPaid) | number:0}}</td>
 			</tr>
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
 				<td>{{data.totalStudents}}</td>
 				<td></td>
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
-				<td>{{data.totalPayment| number:0}}</td>
+				<td>{{data.divSum * data.totalStudents | number:0 }}</td>
+				<td>{{data.totalPayment | number:0}}</td>
+				<td>{{(data.feesAmount * data.totalStudents) - data.totalPayment | number :0}}</td>
 			</tr>
 		</tbody>
 	</table>

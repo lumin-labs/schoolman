@@ -103,8 +103,19 @@ function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Di
     };
     return self;
   }
+  var divTotal = 0; 
+  var regTotal = 0;
+  var minTotal = 0;
+
+  angular.forEach($scope.data.divfees, function(fee, feeId){
+    console.log("fee:", fee);
+    divTotal += fee.amount * fee.division;
+    regTotal += fee.amount * fee.region;
+    minTotal += fee.amount * fee.ministry;
+    
+  });
   var students = $scope.data.school.numMale + $scope.data.school.numFemale;
-  $scope.data.school.totalFee = reduce($scope.data.divfees).by("amount") * students;
+  $scope.data.school.totalFee = ((divTotal/100)+ (regTotal/100)) * students;
 
   }
 

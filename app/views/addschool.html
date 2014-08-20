@@ -33,6 +33,16 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
+			    <label for="principal" class="col-sm-3 control-label">Principal</label>
+			    <div class="col-sm-9">
+			      <input id="principal"
+			      			name="principal" 
+			      		 class="form-control {{showValidation && newSchool.principal === '' ? 'invalid-input' : ''}}" 
+			      		 placeholder="Principal's Name" 
+			      		 ng-model="newSchool.principal">
+			    </div>
+			  </div>
+			  <div class="form-group">
 			    <label for="division" class="col-sm-3 control-label">Division</label>
 			    <div class="col-sm-9">
 			      <div class="btn-group">

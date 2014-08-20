@@ -53,10 +53,12 @@ function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments) {
     school.totalPaid = sum;
   })
   $scope.data.totalPayment = totalpayments;
+  $scope.data.divSum = (divTotal/100)+ (regTotal/100);
+  // console.log("div sum", $scope.data.divSum, divTotal, regTotal,minTotal)
   $scope.data.divisionTotal = $scope.data.totalStudents * divTotal / 100;
   $scope.data.regionTotal = $scope.data.totalStudents * regTotal / 100;
-  $scope.data.ministryTotal = $scope.data.totalStudents * minTotal / 100;
-
+  // $scope.data.ministryTotal = $scope.data.totalStudents * minTotal / 100;
+  
   
 }
 DivFinanceCtrl.$inject = ['$scope','DivFees', 'Schools','SchoolPayments'];

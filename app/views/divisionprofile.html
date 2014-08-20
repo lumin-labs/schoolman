@@ -3,6 +3,10 @@
 
   <div class="col-md-10 marksheet" ng-controller="DivisionProfileCtrl">
   <div class="printonly"><h3>Division Profile</h3></div>
+  <table>
+  <tr>
+  <td class="col-md-7" 
+         style="border-right:solid 1px #ddd !important;">
 
   <form class="form-horizontal" role="form">
   <div class="form-group">
@@ -69,6 +73,42 @@
     </div>
   </div>
   <br>
+  <div class="form-group">
+    <label for="ddName" class="col-sm-3 control-label">Divisional Delegate</label>
+    <div class="col-sm-9 printonly">{{data.division.ddName}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="ddName"
+           class="form-control" 
+           type="text"
+           placeholder="Divisional Delegate's Name"
+           ng-readonly="!editing"
+           ng-model="data.division.ddName">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="ddBirth" class="col-sm-3 control-label">Date of Birth</label>
+    <div class="col-sm-9 printonly">{{data.division.ddBirth}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="ddBirth"
+           class="form-control" 
+           type="date"
+           placeholder="Divisional Delegate's Date of Birth"
+           ng-readonly="!editing"
+           ng-model="data.division.ddBirth">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="ddPhone" class="col-sm-3 control-label">Phone Number</label>
+    <div class="col-sm-9 printonly">{{data.division.ddPhone}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="ddPhone"
+           class="form-control" 
+           type="text"
+           placeholder="Divisional Delegate's Phone Number"
+           ng-readonly="!editing"
+           ng-model="data.division.ddPhone">
+    </div>
+  </div>
   <div class="form-group noprint" ng-if="!editing">
     <div class="col-sm-offset-3 col-sm-10">
       <button type="submit" class="btn btn-info" ng-click="edit()">
@@ -87,6 +127,105 @@
     </div>
   </div>
 </form>
+</td>
+
+<td class="col-md-5">
+  <form class="form-horizontal noprint" role="form">
+        <ul class="nav nav-tabs" style="margin-bottom:10px;">
+          <li class="{{multiplier === 1 ? 'active' : ''}}">
+            <a ng-click="multiplier = 1; newPayment.amount = 0">New Payment</a>
+          </li>
+          <li class="{{multiplier === -1 ? 'active' : ''}}">
+            <a ng-click="multiplier = -1; newPayment.amount = 0">New Correction</a>
+          </li>
+        </ul>
+        <div ng-if="multiplier === 1" class="form-group" style="margin-bottom:0px;">
+          <div class="col-sm-8">
+            <div class="input-group" >
+              <span class="input-group-addon">CFA</span>
+              <input type="text"
+                     format="number"
+                     prefix="{{multiplier < 0 ? '-' : ''}}"
+                     name="amount"
+                     ng-model="newPayment.amount"
+                     required
+                     class="form-control">
+            </div>
+              <span style="color:red;font-size:12px;"
+              ng-if="getTotalPayments() + newPayment.getAmount() > 
+                     data.division.totalFee">
+                Payment can't be greater than amount due
+              </span>
+          </div>
+          <div class="col-sm-4">
+            <button type="submit" 
+                    class="btn btn-success" 
+                    ng-click="addPayment(newPayment, 1)"
+                    ng-class="[0,'0.00'].indexOf(newPayment.amount) > -1 || 
+                              getTotalPayments() + newPayment.getAmount() > 
+                              data.division.totalFee ? 'disabled' : ''">
+              Add Payment
+            </button>
+          </div>
+        </div>
+        <div ng-if="multiplier === -1" class="form-group" style="margin-bottom:0px;">
+          <div class="col-sm-8">
+            <div class="input-group" >
+              <span class="input-group-addon">CFA</span>
+              <input type="text"
+                     style="color:red;"
+                     format="number"
+                     prefix="-"
+                     name="amount"
+                     ng-model="newPayment.amount"
+                     required
+                     class="form-control">
+            </div>
+              <span style="color:red;font-size:12px;" ng-if="newPayment.getAmount() > getTotalPayments()">
+                Correction can't be greater than total payments
+              </span>
+          </div>
+          <div class="col-sm-4">
+            <button type="submit" 
+                    class="btn btn-warning" 
+                    ng-click="addPayment(newPayment, -1)"
+                    ng-class="[0,'0.00'].indexOf(newPayment.amount) > -1 || 
+                              newPayment.getAmount() > getTotalPayments() ? 'disabled' : ''">
+              Add Correction
+            </button>
+          </div>
+        </div>
+
+      </form>
+      <table class="table table-striped">
+        <tr class="row-spacer">
+          <th>Payments</th>
+          <th></th>
+        </tr>
+        <tr ng-repeat="(paymentIndex, payment) in data.payments">
+          <td>{{payment.date | date:'MMM d, yy h:mm a'}}</td>
+          <td style="color:{{payment.amount < 0 ? 'red' : 'black'}};">{{payment.amount | currency:""}}</td>
+        </tr>
+        <tr class="row-spacer">
+          <th>Summary</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>Fee Amount:</td>
+          <td>{{data.division.totalFee | currency:""}}</td>
+        </tr>
+        <tr>
+          <td>Total Paid:</td>
+          <td style="font-weight:bold;">{{getTotalPayments() | currency:""}}</td>
+        </tr>
+        <tr class="danger">
+          <td>Due:</td>
+          <td style="color:red;">{{data.division.totalFee -getTotalPayments()  | currency:""}}</td>
+        </tr>
+      </table>
+</td>
+</tr>
+</table>
   </div>
 	
 </div>	
