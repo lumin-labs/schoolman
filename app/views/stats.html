@@ -1,0 +1,154 @@
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+	<div class="col-md-10 marksheet" ng-controller="StatsCtrl">
+    <div class="printonly" ng-controller="ClassmenuCtrl">
+      <h3>Class Mastersheet</h3>
+      <h5>{{form.name}}{{group.name}} {{department.name}}, {{term.name}}</h5>
+    </div>
+		<div class="" style="padding-bottom:10px;">
+		  <div ng-controller="ClassmenuCtrl">
+        <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px;">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:5px;padding-right:5px;">
+              <form class="navbar-form navbar-left" role="search" style="padding-left:0px;width:100%;padding-right:0px;">
+                <div class="form-group">
+                  <!-- Graph Menu -->
+                  <div class="btn-group">
+                    <!-- Form Dropdown -->
+                    <div class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.form['name']}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.form = ''">All Forms</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li ng-repeat="(formIndex, form) in route.forms">
+                          <a ng-click="open({formIndex:formIndex})">
+                            {{route.forms[formIndex].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Department Dropdown -->
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.department['name'] || "Select Department"}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.department = ''">All Departments</a>
+                        </li> -->
+                        <!-- <li class="divider"></li> -->
+                        <li ng-repeat="(deptId, dept) in route.departments">
+                          <a ng-click="open({deptId:deptId})">
+                            {{route.departments[deptId].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Term Dropdown -->
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                         {{term.name || "All Terms"}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.group = ''">All Groups</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li>
+                          <a ng-click="open({termIndex:3})">All Terms
+                          </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-repeat="(termInd, term) in [1, 2, 3]">
+                          <a ng-click="open({termIndex:termInd})">
+                            Term {{term}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>  
+		</div>
+    
+		<table ng-if="data.view === 'mastersheet'" class="table table-striped table-bordered table-compact">
+			<thead>
+				<tr>
+					<th colspan="2" class="text-right">
+						Coefficients:
+					</th>
+					<th class="small-column-header"
+			      	ng-repeat="(marksheetIndex, marksheet) in data.marksheets">
+						{{marksheet.coeff}}
+					</th>
+					<th class="symbol-column-header">=</th>
+					<th class="small-column-header">{{data.combinedMarksheet['coeff']}}</th>
+					<th></th>
+					<!-- <th></th> -->
+				</tr>
+				<tr>
+					<th>No.</th>
+					<th>Name</th>
+					<th class="small-column-header" 
+          		ng-repeat="(marksheetIndex, marksheet) in data.marksheets"
+          		data-toggle="tooltip" 
+          		data-placement="right" 
+          		title="{{data.subjects[marksheet.subjectId].en}}">
+        		 <a ng-click="open({page:'classmasterMarksheet',subjectId:marksheet.subjectId})">
+        		 	{{data.subjects[marksheet.subjectId].code}}
+        		 </a>
+					</th>
+					<th class="symbol-column-header">&sum;</th>
+					<th class="symbol-column-header">/</th>
+					<th class="small-column-header">Rank</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
+					<td style="width:10px;"class="small-column-header">{{$index + 1}}</td>
+					<td style="width:300px;">
+		        <a ng-click="open({page:'classmasterProfile', studentId:student._id})"
+		           data-toggle="tooltip" data-placement="right" title="{{student.name}}">{{student.name | limitTo:7}}.</a>
+	      	</td>
+			    
+					<td class="small-column-header"
+						ng-repeat="(marksheetId, marksheet) in data.marksheets" ng-init="average = data.summaries[marksheetId][student._id]">
+						<span ng-if="round(average * marksheet.coeff) === average * marksheet.coeff">{{ average >= 0 ? round(average * marksheet.coeff) : ""}}</span>
+            <span ng-if="round(average * marksheet.coeff) !== average * marksheet.coeff">{{ average >= 0 ? average * marksheet.coeff : "" | number:1}}</span></td>
+
+					<td class="small-column-header" ng-init="totalAverage = data.summarysheet[student._id][0]">
+						{{totalAverage >= 0 ? totalAverage * data.combinedMarksheet.table[student._id].coeff : 0 | number:1}}
+					</td>
+					<td class="small-column-header" ng-init="averageFinal = data.summarysheet[student._id][0]">
+						{{averageFinal >= 0 ? averageFinal : 0 | number:2 }}
+					</td>
+					<td class="small-column-header">
+						{{data.rankings[student._id][termIndex]}}
+					</td> 
+				</tr>
+			</tbody>
+		</table>
+		<div title="barchart"
+				ng-show="data.view === 'barchart'"
+				ng-hide="data.view !== 'barchart'"
+				class="ng-hide table-bordered">
+				<div class="d3-barchart"></div>
+		</div>
+	</div>
+</div>
