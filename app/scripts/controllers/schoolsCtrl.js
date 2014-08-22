@@ -1,6 +1,6 @@
 'use strict';
 
-function SchoolsCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model, Data, Location, Divisions) {
+function SchoolsCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model, Data, Location, Divisions, File) {
 
   $scope.showValidaton = false;
 
@@ -24,6 +24,7 @@ function SchoolsCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model
   console.log("Division school", data.divisions)
 
   $scope.add = function(school){
+    console.log("school?", school);
       school.save().then(function(success){
           Schoolid.save(data.schoolid);
           console.log("Save school: ", success);
@@ -53,6 +54,22 @@ function SchoolsCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model
       school.numStudents = null;
   }
 
+  $scope.import = function(){
+    File.importSchool().then(function(success){
+      $scope.newSchool.nameEn = success.nameEn;
+      $scope.newSchool.nameFr = success.nameFr;
+      $scope.newSchool.division = success.division;
+      $scope.newSchool.subdivision = success.subdivision;
+      $scope.newSchool.principal = success.principal;
+      $scope.newSchool.numMale = success.maleCycle1;
+      $scope.newSchool.numFemale = success.femaleCycle1;
+      $scope.add($scope.newSchool);
+    }).catch(function(error){
+      console.log("failed to import school", error);
+    })
+    
+  }
+
 }
-SchoolsCtrl.$inject = ['$scope', '$q', '$routeParams', 'Schools', 'Schoolid', 'DivFees', 'model', 'Data', 'Location', 'Divisions'];
+SchoolsCtrl.$inject = ['$scope', '$q', '$routeParams', 'Schools', 'Schoolid', 'DivFees', 'model', 'Data', 'Location', 'Divisions', 'File'];
 angular.module('SchoolMan').controller('SchoolsCtrl', SchoolsCtrl);

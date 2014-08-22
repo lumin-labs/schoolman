@@ -17,6 +17,7 @@ function File(pouchdb, $q, model, Users) {
             reader.onloadend = function(success){
               var school = JSON.parse(success.target.result);
               console.log("Read successful.", school);
+              deferred.resolve(school);
             }
             reader.onerror = function(error){
               console.log("Read failed:", error);

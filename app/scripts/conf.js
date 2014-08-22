@@ -223,6 +223,14 @@ angular.module('SchoolMan')
       modes:["division", "region"],
       icon:'glyphicon-paperclip'
     },
+    {
+      label:"Statistics",
+      page:"stats",
+      access:['division'],
+      exclude:[],
+      modes:["division", "region"],
+      icon:'glyphicon-paperclip'
+    }
  ]);
 
 

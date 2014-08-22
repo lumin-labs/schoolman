@@ -59,7 +59,8 @@ angular.module('SchoolMan', [
       divfinance:"div-finance.html",
       divisions:"divisions.html",
       regfinance:"reg-finance.html",
-      regfees:"regfees.html"
+      regfees:"regfees.html",
+      stats:"stats.html"
     };
 
     var getTemplate = function(p){
