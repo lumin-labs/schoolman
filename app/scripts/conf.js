@@ -203,7 +203,7 @@ angular.module('SchoolMan')
       label:"School Profile",
       page:"schoolprofile",
       access:['division'],
-      exclude:['schools', 'divfees', 'addschool', 'divfinance', 'divisions', 'users'],
+      exclude:['schools', 'divfees', 'addschool', 'divfinance', 'divisions', 'users', 'stats'],
       modes:["division", "region"],
       icon:'glyphicon-home'
     },
@@ -211,7 +211,7 @@ angular.module('SchoolMan')
       label:"Division Profile",
       page:"divisionprofile",
       access:['region'],
-      exclude:['divfees', 'divfinance', 'divisions','regfinance','regfees', 'users'],
+      exclude:['divfees', 'divfinance', 'divisions','regfinance','regfees', 'users', 'stats'],
       modes:["division", "region"],
       icon:'glyphicon-home'
     },
