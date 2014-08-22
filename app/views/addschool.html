@@ -69,7 +69,7 @@
 			      		 ng-model="newSchool.subdivision">
 			    </div>
 			  </div>
-			  <div class="form-group">
+			<!--   <div class="form-group">
 			    <label for="numFemale" class="col-sm-3 control-label">Number of Females</label>
 			    <div class="col-sm-9">
 			      <input id="numFemale"
@@ -79,9 +79,34 @@
 			      		 placeholder="Number of Females" 
 			      		 ng-model="newSchool.numFemale">
 			    </div>
-			  </div>
+			  </div> -->
 
 			  <div class="form-group">
+			    <label for="numFemaleCycle1" class="col-sm-3 control-label">Number of Females First Cycle</label>
+			    <div class="col-sm-9">
+			      <input id="numFemaleCycle1"
+			      			name="numFemaleCycle1" 
+			      		 class="form-control {{showValidation && newSchool.numFemaleCycle1 === '' ? 'invalid-input' : ''}}" 
+			      		 type="number"
+			      		 placeholder="Number of Females First Cycle" 
+			      		 ng-model="newSchool.numFemaleCycle1">
+			    </div>
+			  </div>
+
+			   <div class="form-group">
+			    <label for="numFemaleCycle2" class="col-sm-3 control-label">Number of Females Second Cycle</label>
+			    <div class="col-sm-9">
+			      <input id="numFemaleCycle2"
+			      			name="numFemaleCycle2" 
+			      		 class="form-control {{showValidation && newSchool.numFemaleCycle2 === '' ? 'invalid-input' : ''}}" 
+			      		 type="number"
+			      		 placeholder="Number of Females Second Cycle" 
+			      		 ng-model="newSchool.numFemaleCycle2">
+			    </div>
+			  </div>
+
+
+			 <!--  <div class="form-group">
 			    <label for="numMale" class="col-sm-3 control-label">Number of Males</label>
 			    <div class="col-sm-9">
 			      <input id="numMale"
@@ -90,6 +115,30 @@
 			      		 type="number"
 			      		 placeholder="Number of Males" 
 			      		 ng-model="newSchool.numMale">
+			    </div>
+			  </div> -->
+
+			  <div class="form-group">
+			    <label for="numMaleCycle1" class="col-sm-3 control-label">Number of Males First Cycle</label>
+			    <div class="col-sm-9">
+			      <input id="numMaleCycle1"
+			      			name="numMaleCycle1" 
+			      		 class="form-control {{showValidation && newSchool.numMaleCycle1 === '' ? 'invalid-input' : ''}}" 
+			      		 type="number"
+			      		 placeholder="Number of Males Second Cycle" 
+			      		 ng-model="newSchool.numMaleCycle1">
+			    </div>
+			  </div>
+
+			   <div class="form-group">
+			    <label for="numMaleCycle2" class="col-sm-3 control-label">Number of Males Second Cycle</label>
+			    <div class="col-sm-9">
+			      <input id="numMaleCycle2"
+			      			name="numMaleCycle2" 
+			      		 class="form-control {{showValidation && newSchool.numMaleCycle2 === '' ? 'invalid-input' : ''}}" 
+			      		 type="number"
+			      		 placeholder="Number of Males Second Cycle" 
+			      		 ng-model="newSchool.numMaleCycle2">
 			    </div>
 			  </div>
 			  <br>

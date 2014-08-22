@@ -1,6 +1,6 @@
 'use strict';
 
-function RegFinanceCtrl($scope, RegFees, Schools, Divisions) {
+function RegFinanceCtrl($scope, RegFees, Schools, Divisions, DivisionPayments) {
   	
   $scope.data = {
     schools: Schools.getAll(),
@@ -8,7 +8,8 @@ function RegFinanceCtrl($scope, RegFees, Schools, Divisions) {
     divisions: Divisions.getAll(),
     divisionTotal: 0,
     regionTotal: 0,
-    ministryTotal: 0
+    ministryTotal: 0,
+    payments:DivisionPayments.getAll(),
   }
 
   var reduce = function(collection){
@@ -25,7 +26,11 @@ function RegFinanceCtrl($scope, RegFees, Schools, Divisions) {
 
   var totalFemale = reduce($scope.data.divisions).by("numFemale");
   var totalMale = reduce($scope.data.divisions).by("numMale");
-  $scope.data.totalStudents = (totalFemale + totalMale);
+  var totalmalesCycle1 = reduce($scope.data.divisions).by("numMaleCycle1");
+  var totalmalesCycle2 = reduce($scope.data.divisions).by("numMaleCycle2");
+  var totalfemalesCycle1 = reduce($scope.data.divisions).by("numFemaleCycle1");
+  var totalfemalesCycle2 = reduce($scope.data.divisions).by("numFemaleCycle2");
+  $scope.data.totalStudents = ((totalmalesCycle1 +totalmalesCycle2) + (totalfemalesCycle1+totalfemalesCycle2));
   $scope.data.feesAmount = reduce($scope.data.regfees).by("amount");
 
   var divTotal = 0; 
@@ -41,10 +46,27 @@ function RegFinanceCtrl($scope, RegFees, Schools, Divisions) {
   });
   console.log("totals", divTotal, regTotal, minTotal)
 
+  var totalpayments = 0;
+  angular.forEach($scope.data.divisions,function(division,divisionid){
+    var sum = 0; 
+    angular.forEach($scope.data.payments,function(payment,paymentid){
+      console.log ("payment",payment)
+      if (payment.divisionId === division._id){
+        sum = sum + payment.amount;
+
+
+      }
+    })
+    totalpayments = totalpayments + sum;
+    division.totalPaid = sum;
+  })
+  $scope.data.totalPayment = totalpayments;
+  $scope.data.regSum = (regTotal/100)+ (minTotal/100);
   $scope.data.divisionTotal = $scope.data.totalStudents * divTotal / 100;
   $scope.data.regionTotal = $scope.data.totalStudents * regTotal / 100;
   $scope.data.ministryTotal = $scope.data.totalStudents * minTotal / 100;
 
+
 }
-RegFinanceCtrl.$inject = ['$scope','RegFees', 'Schools', 'Divisions'];
+RegFinanceCtrl.$inject = ['$scope','RegFees', 'Schools', 'Divisions','DivisionPayments'];
 angular.module('SchoolMan').controller('RegFinanceCtrl', RegFinanceCtrl);

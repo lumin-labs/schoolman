@@ -12,20 +12,29 @@
 				<th>Students</th>
 				<th>Rubric Sum</th>
 				<th>Total Fees</th>
+				<th>Region Total</th>
+				<th>Paid</th>
+				<th>Due</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="(divisionName,division) in data.divisions">
 				<td><strong>{{division.name}}</strong></td>
-				<td>{{division.numMale + division.numFemale}}</td>
+				<td>{{((division.numMaleCycle1 + division.numMaleCycle2) + (division.numFemaleCycle1 + division.numFemaleCycle2))}}</td>
 				<td>{{data.feesAmount}}</td>
-				<td>{{(division.numMale + division.numFemale) * data.feesAmount | number:0}}</td>
+				<td>{{((division.numMaleCycle1 + division.numMaleCycle2) + (division.numFemaleCycle1 + division.numFemaleCycle2)) * data.feesAmount | number:0}}</td>
+				<td>{{data.regSum * ((division.numMaleCycle1 + division.numMaleCycle2) + (division.numFemaleCycle1 + division.numFemaleCycle2)) | number:0}}</td>
+				<td>{{(division.totalPaid) | number:0}}</td>
+				<td>{{((division.numMaleCycle1 + division.numMaleCycle2) + (division.numFemaleCycle1 + division.numFemaleCycle2)) * data.feesAmount - (division.totalPaid) | number:0}}</td>
 			</tr>
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
 				<td>{{data.totalStudents}}</td>
 				<td></td>
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
+				<td>{{data.regSum * data.totalStudents | number:0}}</td>
+				<td>{{(data.totalPayment)  | number :0}}</td>
+				<td>{{(data.feesAmount * data.totalStudents) - data.totalPayment | number :0}}</td>
 			</tr>
 		</tbody>
 	</table>

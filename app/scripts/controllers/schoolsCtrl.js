@@ -52,6 +52,10 @@ function SchoolsCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model
       school.nameFr = "";
       school.subdivision = "";
       school.numStudents = null;
+      school.numFemaleCycle1 = null;
+      school.numFemaleCycle2 = null;
+      school.numMaleCycle1 = null;
+      School.numMaleCycle2 = null;
   }
 
   $scope.import = function(){

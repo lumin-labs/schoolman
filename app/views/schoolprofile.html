@@ -78,7 +78,46 @@
            ng-model="data.school.subdivision">
     </div>
   </div>
+   <!-- <div class="form-group">
+    <label for="numFemale" class="col-sm-3 control-label">Number of Females</label>
+    <div class="col-sm-9 printonly">{{data.school.numFemaleCycle1 + data.school.numFemaleCycle2}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numFemale"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Females"
+           ng-readonly="!editing"
+           ng-model="data.school.numFemaleCycle1 + data.school.numFemaleCycle2">
+    </div>
+  </div>  -->
+
+   <div class="form-group">
+    <label for="numFemaleCycle1" class="col-sm-3 control-label">Number of Females First Cycle</label>
+    <div class="col-sm-9 printonly">{{data.school.numFemaleCycle1}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numFemaleCycle1"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Females First Cycle"
+           ng-readonly="!editing"
+           ng-model="data.school.numFemaleCycle1">
+    </div>
+  </div>
   <div class="form-group">
+    <label for="numFemaleCycle2" class="col-sm-3 control-label">Number of Females Second Cycle</label>
+    <div class="col-sm-9 printonly">{{data.school.numFemaleCycle2}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numFemaleCycle2"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Females Second Cycle"
+           ng-readonly="!editing"
+           ng-model="data.school.numFemaleCycle2">
+    </div>
+  </div>
+ <!--  <div class="form-group">
+    <label for="numMale" class="col-sm-3 control-label">Number of Males</label>
+    <div class="col-sm-9 printonly">{{data.school.numMaleCycle1 + data.school.numMaleCycle2}}</div>
     <label for="numFemale" class="col-sm-3 control-label">Number of Females</label>
     <div class="col-sm-9 printonly">{{data.school.numFemale}}</div>
     <div class="col-sm-9 noprint">
@@ -100,6 +139,31 @@
            placeholder="Number of Males"
            ng-readonly="!editing"
            ng-model="data.school.numMale">
+    </div>
+  </div>  -->
+  </div>
+  <div class="form-group">
+    <label for="numMaleCycle1" class="col-sm-3 control-label">Number of Males First Cylce</label>
+    <div class="col-sm-9 printonly">{{data.school.numMaleCycle1}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numMaleCycle1"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Males First Cycle"
+           ng-readonly="!editing"
+           ng-model="data.school.numMaleCycle1">
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="numMaleCycle2" class="col-sm-3 control-label">Number of Males Second Cylce</label>
+    <div class="col-sm-9 printonly">{{data.school.numMaleCycle2}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numMaleCycle2"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Males Second Cycle"
+           ng-readonly="!editing"
+           ng-model="data.school.numMaleCycle2">
     </div>
   </div>
   <br>

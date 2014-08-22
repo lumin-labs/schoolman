@@ -18,7 +18,11 @@
 					<th>Division</th>
 					<th>Location</th>
 					<th>Number of Females</th>
-					<th>Number of Males</th>
+					<th>Number of Females First Cycle</th>
+					<th>Number of Females Second Cycle</th>
+					<th>Number of Males </th>
+					<th>Number of Males First Cycle</th>
+					<th>Number of Males Second Cycle</th>
 					<th class="noprint">Remove</th>
 				</tr>
 			</thead>
@@ -31,8 +35,12 @@
 					</td>
 					<td>{{data.divisions[school.division].name}}</td>
 					<td>{{school.subdivision}}</td>
-					<td>{{school.numFemale | number:0}}</td>
-					<td>{{school.numMale | number:0}}</td>
+					<td>{{school.numFemaleCycle1 + school.numFemaleCycle2 | number:0}}</td>
+					<td>{{school.numFemaleCycle1 | number:0}}</td>
+					<td>{{school.numFemaleCycle2 | number:0}}</td>
+					<td>{{school.numMaleCycle1 + school.numMaleCycle2 | number:0}}</td>
+					<td>{{school.numMaleCycle1 | number:0}}</td>
+					<td>{{school.numMaleCycle2 | number:0}}</td>
 					<td class="remove text-center" style="width:80px;">
 					<a ng-click="remove(school)">
 						<i class="glyphicon glyphicon-remove"></i>
