@@ -34,5 +34,5 @@ function LoadingCtrl($scope, Location, $q, Divisions, DivisionPayments, RegFees,
     });
 
   }
-LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Divisions', 'DivisionPayment', 'RegFees', 'SchoolPayments', 'DivFees', 'Schools', 'Users', 'model', 'VERSION'];
+LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Divisions', 'DivisionPayments', 'RegFees', 'SchoolPayments', 'DivFees', 'Schools', 'Users', 'model', 'VERSION'];
 angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
