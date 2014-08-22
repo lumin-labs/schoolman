@@ -16,9 +16,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-            </div>
+            </div>   
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:5px;padding-right:5px;">
               <form class="navbar-form navbar-left" role="search" style="padding-left:0px;width:100%;padding-right:0px;">
+                <div class="form-group pull-right">
+                  <div class="btn-group" style="margin-right:0px;">
+                    <button type="button" class="btn btn-default btn-md" ng-click="export()">
+                      Export Statistics
+                    </button>
+                  </div>
+                </div>
                 <div class="form-group">
                   <!-- Graph Menu -->
                   <div class="btn-group">
@@ -81,7 +88,6 @@
                   </div>
                 </div>
               </form>
-            </div>
           </div>
         </nav>
       </div>  
@@ -90,65 +96,38 @@
 		<table ng-if="data.view === 'mastersheet'" class="table table-striped table-bordered table-compact">
 			<thead>
 				<tr>
-					<th colspan="2" class="text-right">
-						Coefficients:
-					</th>
-					<th class="small-column-header"
-			      	ng-repeat="(marksheetIndex, marksheet) in data.marksheets">
-						{{marksheet.coeff}}
-					</th>
-					<th class="symbol-column-header">=</th>
-					<th class="small-column-header">{{data.combinedMarksheet['coeff']}}</th>
 					<th></th>
-					<!-- <th></th> -->
+					<th style="text-align:center" colspan="2">Number Sat</th>
+          <th style="text-align:center" colspan="2">Percent Passing</th>
+          <th style="text-align:center" colspan="2">Percent Failing</th>
 				</tr>
-				<tr>
-					<th>No.</th>
-					<th>Name</th>
-					<th class="small-column-header" 
-          		ng-repeat="(marksheetIndex, marksheet) in data.marksheets"
-          		data-toggle="tooltip" 
-          		data-placement="right" 
-          		title="{{data.subjects[marksheet.subjectId].en}}">
-        		 <a ng-click="open({page:'classmasterMarksheet',subjectId:marksheet.subjectId})">
-        		 	{{data.subjects[marksheet.subjectId].code}}
-        		 </a>
-					</th>
-					<th class="symbol-column-header">&sum;</th>
-					<th class="symbol-column-header">/</th>
-					<th class="small-column-header">Rank</th>
-				</tr>
+        <tr>
+          <th>Subject</th>
+          <th>Male</th>
+          <th>Female</th>
+          <th>Male</th>
+          <th>Female</th>
+          <th>Male</th>
+          <th>Female</th>
+        </tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
-					<td style="width:10px;"class="small-column-header">{{$index + 1}}</td>
-					<td style="width:300px;">
-		        <a ng-click="open({page:'classmasterProfile', studentId:student._id})"
-		           data-toggle="tooltip" data-placement="right" title="{{student.name}}">{{student.name | limitTo:7}}.</a>
-	      	</td>
-			    
-					<td class="small-column-header"
-						ng-repeat="(marksheetId, marksheet) in data.marksheets" ng-init="average = data.summaries[marksheetId][student._id]">
-						<span ng-if="round(average * marksheet.coeff) === average * marksheet.coeff">{{ average >= 0 ? round(average * marksheet.coeff) : ""}}</span>
-            <span ng-if="round(average * marksheet.coeff) !== average * marksheet.coeff">{{ average >= 0 ? average * marksheet.coeff : "" | number:1}}</span></td>
-
-					<td class="small-column-header" ng-init="totalAverage = data.summarysheet[student._id][0]">
-						{{totalAverage >= 0 ? totalAverage * data.combinedMarksheet.table[student._id].coeff : 0 | number:1}}
-					</td>
-					<td class="small-column-header" ng-init="averageFinal = data.summarysheet[student._id][0]">
-						{{averageFinal >= 0 ? averageFinal : 0 | number:2 }}
-					</td>
-					<td class="small-column-header">
-						{{data.rankings[student._id][termIndex]}}
-					</td> 
+				<tr ng-repeat="(subjectCode, subject) in data.stats | orderBy:'nameEn'">
+          <td>{{subject.nameEn}}</td>
+          <td>{{subject.maleSat}}</td>
+          <td>{{subject.femaleSat}}</td>
+          <td>{{subject.malePassing / subject.maleSat * 100 | number:0}} %</td>
+          <td>{{subject.femalePassing / subject.femaleSat * 100 | number:0}} %</td>
+          <td>{{(1 - subject.malePassing / subject.maleSat) * 100 | number:0}} %</td>
+          <td>{{(1 - subject.femalePassing / subject.femaleSat) * 100 | number:0}} %</td>
 				</tr>
 			</tbody>
 		</table>
-		<div title="barchart"
+		<!-- <div title="barchart"
 				ng-show="data.view === 'barchart'"
 				ng-hide="data.view !== 'barchart'"
 				class="ng-hide table-bordered">
 				<div class="d3-barchart"></div>
-		</div>
+		</div> -->
 	</div>
 </div>

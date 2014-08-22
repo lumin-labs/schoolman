@@ -9,38 +9,64 @@ function StatsCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, 
       var data = $scope.data = {
         marksheets: [],
         subjects: Subjects.getAll(),
-        view: 'mastersheet'
-
+        view: 'mastersheet',
+        stats: {}
       };
-      console.log("Subjects", data.subjects);
-      var combineGroups = function(marksheets){
-
-      }
 
       $scope.round = Math.round;
 
       // Load marksheet and student data
-      $scope.data.stats = {};
+      var getStats = function(form, dept, term){
+        var statistics = {};
 
-      angular.forEach(data.subjects, function(subject, subjectId){
-        Marksheets.query({formIndex:$routeParams.formIndex, deptId: $routeParams.deptId, subjectId:subjectId})
-            .then(function(marksheets){
-          var combinedMarksheet = Marksheets.combine(marksheets);
-          var summaryMarksheet = Marksheets.summarize(combinedMarksheet, $routeParams.termIndex);
-          console.log("summary marksheet", summaryMarksheet);
-          var studentIds = Object.keys(summaryMarksheet);
+        angular.forEach(data.subjects, function(subject, subjectId){
+          Marksheets.query({formIndex:form, deptId: dept, subjectId:subjectId})
+              .then(function(marksheets){
+            var combinedMarksheet = Marksheets.combine(marksheets);
+            var summaryMarksheet = Marksheets.summarize(combinedMarksheet, term);
+            console.log("summary marksheet", summaryMarksheet);
+            var studentIds = Object.keys(summaryMarksheet);
 
-          Students.getBatch(studentIds).then(function(students){
-            // console.log("students", students);
-            var students = _.map(Object.keys(students), function(studentId){
-              return students[studentId];
-            });
+            Students.getBatch(studentIds).then(function(students){
+              // console.log("students", students);
+              var students = _.map(Object.keys(students), function(studentId){
+                return students[studentId];
+              });
 
-            var maleTotal = 0;
-            var femaleTotal = 0;
-        })
-      })
-      });
+              var maleSat = 0;
+              var femaleSat = 0;
+              var malePass = 0;
+              var femalePass = 0;
+
+              angular.forEach(students, function(student, studentId){
+                // console.log("student stats", summaryMarksheet[student._id][0], student);
+                if(student.sex === "Male" && summaryMarksheet[student._id][0] >= 0){
+                  maleSat += 1;
+                  if(summaryMarksheet[student._id][0] >= 10){
+                    malePass += 1;
+                  }
+                }
+                else if(student.sex === "Female" && summaryMarksheet[student._id][0] >= 0){
+                  femaleSat += 1;
+                  if(summaryMarksheet[student._id][0] >= 10){
+                    femalePass += 1;
+                  }
+                }
+              })
+              statistics[subject.code] = {nameEn: subject.en, nameFr: subject.fr, 
+                                                  maleSat: maleSat, malePassing: malePass, 
+                                                  femaleSat: femaleSat, femalePassing: femalePass};
+            })
+          })
+        });
+        return statistics;
+      }
+      $scope.data.stats = getStats($routeParams.formIndex, $routeParams.deptId, $routeParams.termIndex);
+
+
+      $scope.export = function(){
+        console.log("Exporting", $scope.data.stats);
+      }
       // console.log("Querying marksheet params: ", params);
       // Marksheets.query(params).then(function(marksheets){
       //   console.log("Got marksheets: ", marksheets);
