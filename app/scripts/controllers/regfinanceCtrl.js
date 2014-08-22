@@ -1,10 +1,6 @@
 'use strict';
 
-<<<<<<< HEAD
 function RegFinanceCtrl($scope, RegFees, Schools, Divisions, DivisionPayments) {
-=======
-function RegFinanceCtrl($scope, RegFees, Schools, Divisions) {
->>>>>>> 52a566726f79e30d8225f5fb26b68849452a91a8
   	
   $scope.data = {
     schools: Schools.getAll(),

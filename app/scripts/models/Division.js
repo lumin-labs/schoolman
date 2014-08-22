@@ -28,7 +28,6 @@ schoolman.config(['modelProvider', function(model){
         key:"numFemale",
         type:"number",
         required:true
-<<<<<<< HEAD
       },
       {
         key:"numMaleCycle1",
@@ -49,11 +48,7 @@ schoolman.config(['modelProvider', function(model){
         key:"numFemaleCycle2",
         type:"number",
         required:true
-      },
-      {
-=======
       },{
->>>>>>> 52a566726f79e30d8225f5fb26b68849452a91a8
         key:"ddName",
         type:"string",
         required:false
@@ -65,14 +60,11 @@ schoolman.config(['modelProvider', function(model){
         key:"ddPhone",
         type:"string",
         required:false
-<<<<<<< HEAD
       },
       {
         key:"stats",
         type:"object",
         required:false
-=======
->>>>>>> 52a566726f79e30d8225f5fb26b68849452a91a8
       }
       ],
       fields_key:0
