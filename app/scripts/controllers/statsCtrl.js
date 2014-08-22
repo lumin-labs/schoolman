@@ -86,6 +86,8 @@ function StatsCtrl($scope, $routeParams, File, Subjects, Students, Data2, Marksh
         school.division = data.schoolInfo.division;
         school.subdivision = data.schoolInfo.subdivision;
         school.principal = data.schoolInfo.principal;
+        school.version = data.schoolInfo.version;
+        school.schoolyear = data.schoolInfo.schoolyear;
 
         Students.query().then(function(students){
           var femaleCycle1 = 0;
