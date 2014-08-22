@@ -168,6 +168,13 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
+      label:"Statistics",
+      page:"stats",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    }
  ]);
 
 

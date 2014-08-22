@@ -25,6 +25,7 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
       console.log("Successes", success);
       Location.open({page:"login"})
     });
+   
 
   }
 LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'Subjects', 'Forms', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData'];
