@@ -2,6 +2,7 @@
 
 function LoadingCtrl($scope, Location, $q, Students, Divisions, Subjects, Forms, RegFees, SchoolPayments, Departments, DivFees, Schools, Groups, Fees, Users, settings, model, MockData, DivisionPayments) {
 
+
     var instSchoolInfo = new model.SchoolInfo();
 
 
@@ -18,6 +19,7 @@ function LoadingCtrl($scope, Location, $q, Students, Divisions, Subjects, Forms,
     var DivisionsP = Divisions.load();
     var SchoolPaymentP = SchoolPayments.load(); 
     var DivisionPaymentP = DivisionPayments.load(); 
+
 
     // Initialize/Register ClassCouncil datatype
     var instClassCouncil = new model.ClassCouncil();

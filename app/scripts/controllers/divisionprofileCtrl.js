@@ -7,7 +7,6 @@ function DivisionProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, 
     $scope.newPayment.divisionId = divisionId;
     $scope.newPayment.registrar = $routeParams.username
 
-    
     console.log("routeParams", $routeParams);
 
     var data = $scope.data = {
@@ -25,7 +24,6 @@ function DivisionProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, 
 
     payments:DivisionPayments.get(divisionId),
     regfees:RegFees.getAll(),
-
     };
 
 

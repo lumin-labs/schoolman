@@ -66,7 +66,6 @@ function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments) {
   $scope.data.regionTotal = $scope.data.totalStudents * regTotal / 100;
   // $scope.data.ministryTotal = $scope.data.totalStudents * minTotal / 100;
   
-  
 }
 DivFinanceCtrl.$inject = ['$scope','DivFees', 'Schools','SchoolPayments'];
 angular.module('SchoolMan').controller('DivFinanceCtrl', DivFinanceCtrl);

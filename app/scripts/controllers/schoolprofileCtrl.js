@@ -118,6 +118,5 @@ function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Di
   $scope.data.school.totalFee = ((divTotal/100)+ (regTotal/100)) * students;
 
   }
-
   SchoolProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','DivFees', 'Divisions','SchoolPayments'];
   angular.module('SchoolMan').controller('SchoolProfileCtrl', SchoolProfileCtrl);

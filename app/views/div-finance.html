@@ -26,15 +26,18 @@
 				<td>{{data.divSum * ((school.numMaleCycle1 + school.numMaleCycle2) + (school.numFemaleCycle1 + school.numFemaleCycle2)) | number:0}}</td>
 				<td>{{(school.totalPaid | number :0)}}</td>
 				<td>{{((school.numMaleCycle1 + school.numMaleCycle2) + (school.numFemaleCycle1 + school.numFemaleCycle2)) * data.feesAmount - (school.totalPaid) | number:0}}</td>
+				<td>{{data.feesAmount}}</td>
+				<td>{{(school.totalPaid | number :0)}}</td>
 			</tr>
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
 				<td>{{data.totalStudents}}</td>
 				<td></td>
-				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
+				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>D
 				<td>{{data.divSum * data.totalStudents | number:0 }}</td>
 				<td>{{data.totalPayment | number:0}}</td>
 				<td>{{(data.feesAmount * data.totalStudents) - data.totalPayment | number :0}}</td>
+				<td>{{data.totalPayment| number:0}}</td>
 			</tr>
 		</tbody>
 	</table>

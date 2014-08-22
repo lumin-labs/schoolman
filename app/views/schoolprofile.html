@@ -118,6 +118,20 @@
  <!--  <div class="form-group">
     <label for="numMale" class="col-sm-3 control-label">Number of Males</label>
     <div class="col-sm-9 printonly">{{data.school.numMaleCycle1 + data.school.numMaleCycle2}}</div>
+    <label for="numFemale" class="col-sm-3 control-label">Number of Females</label>
+    <div class="col-sm-9 printonly">{{data.school.numFemale}}</div>
+    <div class="col-sm-9 noprint">
+      <input id="numFemale"
+           class="form-control" 
+           type="number"
+           placeholder="Number of Females"
+           ng-readonly="!editing"
+           ng-model="data.school.numFemale">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="numMale" class="col-sm-3 control-label">Number of Males</label>
+    <div class="col-sm-9 printonly">{{data.school.numMale}}</div>
     <div class="col-sm-9 noprint">
       <input id="numMale"
            class="form-control" 
