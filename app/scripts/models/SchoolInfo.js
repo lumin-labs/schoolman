@@ -19,6 +19,7 @@ schoolman.config(['modelProvider', function(model){
     this[ val ('nameFr : string', required)] = "";
     this[ val ('schoolyear : string', required)] = "2014/2015";
     this[ val ('version : string', required)] = "ghs";
+    this[ val ('principal : string', required)] = "";
 
     this.__init__(spec);
   };
