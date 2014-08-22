@@ -1,6 +1,6 @@
 'use strict';
 
-function StatsCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+function StatsCtrl($scope, $routeParams, File, Subjects, Students, Data2, Marksheets, Departments, Terms, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
   	 
       $scope.termIndex = parseInt($routeParams.termIndex);
       
@@ -10,8 +10,19 @@ function StatsCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, 
         marksheets: [],
         subjects: Subjects.getAll(),
         view: 'mastersheet',
-        stats: {}
+        stats: {},
+        forms: Forms.all(),
+        depts: Departments.getAll(),
+        terms: Terms.getAll()
       };
+
+      SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+      }).catch(function(error){
+        console.log("failed to get school info", error);
+      });
+
 
       $scope.round = Math.round;
 
@@ -22,42 +33,45 @@ function StatsCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, 
         angular.forEach(data.subjects, function(subject, subjectId){
           Marksheets.query({formIndex:form, deptId: dept, subjectId:subjectId})
               .then(function(marksheets){
-            var combinedMarksheet = Marksheets.combine(marksheets);
-            var summaryMarksheet = Marksheets.summarize(combinedMarksheet, term);
-            console.log("summary marksheet", summaryMarksheet);
-            var studentIds = Object.keys(summaryMarksheet);
+            if(marksheets.length > 0){
+              var combinedMarksheet = Marksheets.combine(marksheets);
+              var summaryMarksheet = Marksheets.summarize(combinedMarksheet, term);
+              
+              var studentIds = Object.keys(summaryMarksheet);
 
-            Students.getBatch(studentIds).then(function(students){
-              // console.log("students", students);
-              var students = _.map(Object.keys(students), function(studentId){
-                return students[studentId];
+              Students.getBatch(studentIds).then(function(students){
+                // console.log("students", students);
+                var students = _.map(Object.keys(students), function(studentId){
+                  return students[studentId];
+                });
+
+                var maleSat = 0;
+                var femaleSat = 0;
+                var malePass = 0;
+                var femalePass = 0;
+
+                angular.forEach(students, function(student, studentId){
+                  // console.log("student stats", summaryMarksheet[student._id][0], student);
+                  if(student.sex === "Male" && summaryMarksheet[student._id][0] >= 0){
+                    maleSat += 1;
+                    if(summaryMarksheet[student._id][0] >= 10){
+                      malePass += 1;
+                    }
+                  }
+                  else if(student.sex === "Female" && summaryMarksheet[student._id][0] >= 0){
+                    femaleSat += 1;
+                    if(summaryMarksheet[student._id][0] >= 10){
+                      femalePass += 1;
+                    }
+                  }
+                })
+                statistics[subject.code] = {nameEn: subject.en, nameFr: subject.fr, 
+                                                    maleSat: maleSat, malePassing: malePass, 
+                                                    femaleSat: femaleSat, femalePassing: femalePass};
               });
-
-              var maleSat = 0;
-              var femaleSat = 0;
-              var malePass = 0;
-              var femalePass = 0;
-
-              angular.forEach(students, function(student, studentId){
-                // console.log("student stats", summaryMarksheet[student._id][0], student);
-                if(student.sex === "Male" && summaryMarksheet[student._id][0] >= 0){
-                  maleSat += 1;
-                  if(summaryMarksheet[student._id][0] >= 10){
-                    malePass += 1;
-                  }
-                }
-                else if(student.sex === "Female" && summaryMarksheet[student._id][0] >= 0){
-                  femaleSat += 1;
-                  if(summaryMarksheet[student._id][0] >= 10){
-                    femalePass += 1;
-                  }
-                }
-              })
-              statistics[subject.code] = {nameEn: subject.en, nameFr: subject.fr, 
-                                                  maleSat: maleSat, malePassing: malePass, 
-                                                  femaleSat: femaleSat, femalePassing: femalePass};
-            })
-          })
+            }
+          });
+          
         });
         return statistics;
       }
@@ -65,50 +79,55 @@ function StatsCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, 
 
 
       $scope.export = function(){
-        console.log("Exporting", $scope.data.stats);
+        var statistics = {};
+        var school = {};
+        school.nameEn = data.schoolInfo.nameEn;
+        school.nameFr = data.schoolInfo.nameFr;
+        school.division = data.schoolInfo.division;
+        school.subdivision = data.schoolInfo.subdivision;
+        school.principal = data.schoolInfo.principal;
+
+        Students.query().then(function(students){
+          var femaleCycle1 = 0;
+          var femaleCycle2 = 0;
+          var maleCycle1 = 0;
+          var maleCycle2 = 0;
+
+          angular.forEach(students, function(student, studentId){
+            if(student.sex === "Male"){
+              if(student.formIndex > 4){
+                maleCycle2 += 1;
+              } else {
+                maleCycle1 +=1;
+              }
+            }
+            else if(student.sex === "Female"){
+              if(student.formIndex > 4){
+                femaleCycle2 += 1;
+              } else {
+                femaleCycle1 +=1;
+              }
+            }
+          })
+          school.maleCycle1 = maleCycle1;
+          school.maleCycle2 = maleCycle2;
+          school.femaleCycle1 = femaleCycle1;
+          school.femaleCycle2 = femaleCycle2;
+        })
+
+        angular.forEach($scope.data.terms, function(term, termIndex){
+          statistics[termIndex] = {};
+          angular.forEach($scope.data.depts, function(dept, deptId){
+            statistics[termIndex][deptId] = {name:dept.name};
+            angular.forEach($scope.data.forms, function(form, formIndex){
+              statistics[termIndex][deptId][formIndex] = getStats(formIndex, deptId, termIndex);
+            });
+          });
+        });
+        school.stats = statistics;
+
+        File.exportSchool(school);
       }
-      // console.log("Querying marksheet params: ", params);
-      // Marksheets.query(params).then(function(marksheets){
-      //   console.log("Got marksheets: ", marksheets);
-
-      //   // Convert marksheets to a list and store in $scope.data.marksheets
-      //   $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){
-      //     return marksheets[marksheetId];
-      //   });
-      //   console.log("$scope.data.marksheets", $scope.data.marksheets);
-
-
-
-      //   // Create marksheet summaries 
-      //   $scope.data.summaries = _.map(marksheets , function(marksheet){
-      //     var summary = Marksheets.summarize(marksheet, $scope.termIndex);
-      //     console.log("Marksheet has been summarized: ", marksheet, summary);
-      //     return summary;
-      //   });
-      //   console.log("$scope.data.summaries",$scope.data.summaries);
-
-      //   // combine all marksheets
-      //   $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
-      //   console.log("$scope.data.combinedMarksheet", $scope.data.combinedMarksheet);
-
-      //   // summarize combined marksheet to get grand totals
-      //   $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;
-      //   console.log("$scope.data.summarysheet", $scope.data.summarysheet);
-
-
-      //   // Create a list of student from the union of marksheet studentIds
-      //   var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){
-      //     return result.concat(Object.keys(summary));
-      //   },[]));
-
-
-      //   Students.getBatch(studentIds).then(function(students){
-          
-
-      //   // Catch errors
-      //   }).catch(function(error){
-      //     console.log("Failed to find students: ", error);
-      //   });
 
 
 
@@ -212,5 +231,5 @@ function StatsCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, 
       // });
 
   }
-  StatsCtrl.$inject = ['$scope', '$routeParams', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS'];
+  StatsCtrl.$inject = ['$scope', '$routeParams', 'File', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS'];
   angular.module('SchoolMan').controller('StatsCtrl', StatsCtrl);
