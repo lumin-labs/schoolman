@@ -211,6 +211,52 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       return self.dict(ave);
     };
 
+    self.summarizeBySex = function(marksheet, termIndex){
+      var marksheetCopy = angular.copy(marksheet);
+      var list = self.listify(marksheet.table);
+      var ave  = self.ave(list, self.getSequences(termIndex));
+      var dict = self.dict(ave);
+
+      var studentIds = Object.keys(dict);
+
+      // angular.forEach(ave, function(student, index){
+      //   studentIds.push(student[0]);
+      // })
+      // console.log("studentIds", studentIds);
+
+
+      Students.getBatch(studentIds).then(function(students){
+        // console.log("students", students);
+        var students = _.map(Object.keys(students), function(studentId){
+          return students[studentId];
+        });
+        var maleSummary = {};
+        var femaleSummary = {};
+
+        angular.forEach(students, function(student, index){
+          if(student.sex === "Male"){
+            maleSummary[student._id] = dict[student._id];
+          }
+          else {
+            femaleSummary[student._id] = dict[student._id];
+          }
+        });
+        // console.log("Summaries: ", maleSummary, femaleSummary);
+        marksheet.maleTable = maleSummary;
+        marksheet.femaleTable = femaleSummary;
+        delete marksheet.table;
+        console.log("marksheet copy", marksheet);
+
+        return marksheet;
+
+      // Catch errors
+      }).catch(function(error){
+        console.log("Failed to find students: ", error);
+        return marksheet;
+      });
+      
+    };
+
     // self.summarize2 = function(marksheet){
     //   var summaries = 
     //   angular.forEach([0,1,2,3], function())

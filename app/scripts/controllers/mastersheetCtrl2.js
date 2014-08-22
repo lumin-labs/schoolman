@@ -35,6 +35,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
           return marksheets[marksheetId];
         });
 
+
         // Create marksheet summaries 
         $scope.data.summaries = _.map(marksheets , function(marksheet){
           var summary = Marksheets.summarize(marksheet, $scope.termIndex);

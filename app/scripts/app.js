@@ -52,6 +52,7 @@ angular.module('SchoolMan', [
       classcouncil:"classcouncil.html",
       customerSettings:"sales.html",
       schoolInfo:"schoolinfo.html",
+      stats:"stats.html",
       notactive:"notactive.html"
     };
 
