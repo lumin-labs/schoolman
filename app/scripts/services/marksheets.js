@@ -140,6 +140,14 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       var newMarksheet = new model.Marksheet();
           newMarksheet.coeff = head.coeff;
           newMarksheet.table = angular.copy(head.table);
+
+      if(tail.length === 0){
+        angular.forEach(newMarksheet.table, function(student, studentId){
+          if(!(student[0]==="" && student[1]==="" &&student[2]==="" &&student[3]==="" && student[4]==="" && student[5]==="")){
+            student.coeff = newMarksheet.coeff;
+          }
+        })
+      }
       
 
       // Reduce marksheets into the new marksheet
