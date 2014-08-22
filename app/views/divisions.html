@@ -24,10 +24,16 @@
 						</div>
 						</th>
 							<th>
-	  					<input  type="number" class="form-control" placeholder="Number of Females" ng-model="newDivision.numFemale">
+	  					<input  type="number" class="form-control" placeholder="Number of Females First Cycle" ng-model="newDivision.numFemaleCycle1">
 		  			</th>
 		  			<th>
-	  					<input  type="number" class="form-control" placeholder="Number of Males" ng-model="newDivision.numMale">
+	  					<input  type="number" class="form-control" placeholder="Number of Females Second Cycle" ng-model="newDivision.numFemaleCycle2">
+		  			</th>
+		  			<th>
+	  					<input  type="number" class="form-control" placeholder="Number of Males First Cycle" ng-model="newDivision.numMaleCycle1">
+		  			</th>
+		  			<th>
+	  					<input  type="number" class="form-control" placeholder="Number of Males Second Cycle" ng-model="newDivision.numMaleCycle2">
 		  			</th>
 		  			<th>
 		  				<button type="submit" class="btn btn-default" 
@@ -43,7 +49,11 @@
 					<th>Name (Eng)</th>
 					<th>Region</th>
 					<th>Number of Females</th>
+					<th>Number of Females First Cycle</th>
+					<th>Number of Females Second Cycle</th>
 					<th>Number of Males</th>
+					<th>Number of Males First Cycle</th>
+					<th>Number of Males Second Cycle</th>
 					<th class="noprint">Remove</th>
 				</tr>
 			</thead>
@@ -52,8 +62,12 @@
 					<td><a ng-click="open({divisionId:division._id, page:'divisionprofile'})">
 					{{division.name}}</a></td>
 					<td>{{division.region}}</td>
-					<td>{{division.numFemale | number:0}}</td>
-					<td>{{division.numMale | number:0}}</td>
+					<td>{{division.numFemaleCycle1 + division.numFemaleCycle2 | number:0}}</td>
+					<td>{{division.numFemaleCycle1 | number:0}}</td>
+					<td>{{division.numFemaleCycle2 | number:0}}</td>
+					<td>{{division.numMaleCycle1 + division.numMaleCycle2 | number:0}}</td>
+					<td>{{division.numMaleCycle1 | number:0}}</td>
+					<td>{{division.numMaleCycle2 | number:0}}</td>
 					<td class="remove text-center noprint" style="width:80px;">
 						<a ng-click="remove(division)" 
 						   ng-if="countSchools(division) === 0">

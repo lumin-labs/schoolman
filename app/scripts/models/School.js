@@ -44,6 +44,31 @@ schoolman.config(['modelProvider', function(model){
         required:true
       },
       {
+        key:"numFemaleCycle1",
+        type:"number",
+        required:true
+      },
+       {
+        key:"numFemaleCycle2",
+        type:"number",
+        required:true
+      },
+      {
+        key:"numMaleCycle1",
+        type:"number",
+        required:true
+      },
+      {
+        key:"numMaleCycle2",
+        type:"number",
+        required:true
+      },
+       {
+        key:"stats",
+        type:"object",
+        required:true
+      },
+      {
         key:"fees",
         type:"object",
         required:true
@@ -70,8 +95,13 @@ schoolman.config(['modelProvider', function(model){
     this.subdivision = "";
     this.numFemale = 0;
     this.numMale = 0;
+    this.numFemaleCycle1 = 0;
+    this.numFemaleCycle2 = 0;
+    this.numMaleCycle1 = 0;
+    this.numMaleCycle2 = 0;
     this.principal = "";
     this.fees = {};
+    this.stats = [];
 
     // Initialize object with spec properties, excluding any that aren't defined above
     var self = this;

@@ -20,12 +20,12 @@
 		<tbody>
 			<tr ng-repeat="(schoolKey,school) in data.schools">
 				<td><strong>{{school.nameEn}}</strong></td>
-				<td>{{school.numMale + school.numFemale}}</td>
+				<td>{{(school.numMaleCycle1 + school.numMaleCycle2) + (school.numFemaleCycle1 + school.numFemaleCycle2)}}</td>
 				<td>{{data.feesAmount}}</td>
-				<td>{{(school.numMale + school.numFemale) * data.feesAmount | number:0}}</td>
-				<td>{{data.divSum * (school.numMale + school.numFemale) | number:0}}</td>
+				<td>{{((school.numMaleCycle1 + school.numMaleCycle2) + (school.numFemaleCycle1 + school.numFemaleCycle2)) * data.feesAmount | number:0}}</td>
+				<td>{{data.divSum * ((school.numMaleCycle1 + school.numMaleCycle2) + (school.numFemaleCycle1 + school.numFemaleCycle2)) | number:0}}</td>
 				<td>{{(school.totalPaid | number :0)}}</td>
-				<td>{{(school.numMale + school.numFemale) * data.feesAmount - (school.totalPaid) | number:0}}</td>
+				<td>{{((school.numMaleCycle1 + school.numMaleCycle2) + (school.numFemaleCycle1 + school.numFemaleCycle2)) * data.feesAmount - (school.totalPaid) | number:0}}</td>
 			</tr>
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
