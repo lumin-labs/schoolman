@@ -182,6 +182,35 @@ function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, 
       merge(dbs);
       return deferred.promise;
     }
+
+    self.exportSchool = function(school){
+      console.log("Exporting", school);
+      chrome.fileSystem.chooseEntry({
+      type:"saveFile", 
+      suggestedName:"school.data"}, 
+      function(entry){
+        entry.createWriter(function(fileWriter){
+          fileWriter.onwriteend = function(error) {
+            if(fileWriter.length === 0){
+              fileWriter.write(blob);
+            } else{
+              console.log('Write completed.');
+            }
+          };
+
+          fileWriter.onerror = function(error) {
+            console.log('Write failed: ' + error);
+          };
+
+          var blob = new Blob([JSON.stringify(school)], {type: 'text/plain'});
+
+          fileWriter.truncate(0);
+                      
+        }).catch(function(error){
+          console.log("error creating writer", error)
+        });
+      });
+    }
     
 
     window._export = self.export;
