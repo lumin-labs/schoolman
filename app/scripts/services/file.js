@@ -4,6 +4,34 @@ function File(pouchdb, $q, model, Users) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var self = {};
+    self.importSchool = function(){
+      var school = [];
+      var deferred = $q.defer();
+      var promise;
+
+      chrome.fileSystem.chooseEntry({type:"openFile"}, 
+        function(entry){
+          entry.file(function(file){
+            var reader = new FileReader();
+
+            reader.onloadend = function(success){
+              var school = JSON.parse(success.target.result);
+              console.log("Read successful.", school);
+            }
+            reader.onerror = function(error){
+              console.log("Read failed:", error);
+              deferred.reject(error);
+            }
+
+            reader.readAsText(file);
+
+          }).catch(function(error){
+            console.log("error reading file", error);
+          });
+      });
+      
+      return deferred.promise;
+    }
     
 
     // self.import = function(){
