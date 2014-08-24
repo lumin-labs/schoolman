@@ -141,13 +141,16 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
           newMarksheet.coeff = head.coeff;
           newMarksheet.table = angular.copy(head.table);
 
-      if(tail.length === 0){
+      
         angular.forEach(newMarksheet.table, function(student, studentId){
           if(!(student[0]==="" && student[1]==="" &&student[2]==="" &&student[3]==="" && student[4]==="" && student[5]==="")){
             student.coeff = newMarksheet.coeff;
           }
+          else {
+            student.coeff = 0;
+          }
         })
-      }
+      
       
 
       // Reduce marksheets into the new marksheet
@@ -191,18 +194,17 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
               }
             });
           }
-          
-          if(!prevM.table[studentId].coeff){
-            t1[studentId].coeff = 0;
-            if(xCoeff !== count){
-              t1[studentId].coeff += prevM.coeff;
+            if(!prevM.table[studentId].coeff){
+              t1[studentId].coeff = 0;
+              if(xCoeff !== count){
+                t1[studentId].coeff += prevM.coeff;
+              }
+            }  else {
+              t1[studentId].coeff = prevM.table[studentId].coeff;
             }
-          }  else {
-            t1[studentId].coeff = prevM.table[studentId].coeff;
-          }
-          if(yCoeff !== count){
-            t1[studentId].coeff += nextM.coeff;
-          }      
+            if(yCoeff !== count){
+              t1[studentId].coeff += nextM.coeff;
+            }   
         });
 
         newMarksheet.table = t1;
