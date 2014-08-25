@@ -194,7 +194,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
               }
             });
           }
-            if(!prevM.table[studentId].coeff){
+            if(!t1[studentId].coeff){
               t1[studentId].coeff = 0;
               if(xCoeff !== count){
                 t1[studentId].coeff += prevM.coeff;
