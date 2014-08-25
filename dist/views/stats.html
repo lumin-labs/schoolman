@@ -2,8 +2,8 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="StatsCtrl">
     <div class="printonly" ng-controller="ClassmenuCtrl">
-      <h3>Class Mastersheet</h3>
-      <h5>{{form.name}} {{department.name}}, {{term.name}}</h5>
+      <h3>School Statistics</h3>
+      <h5>{{route.forms[queryParams.formIndex].name}} {{route.departments[queryParams.deptId].name}}, {{term.name}}</h5>
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">
