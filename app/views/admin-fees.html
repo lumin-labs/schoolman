@@ -30,11 +30,24 @@
 					    				  <span class="input-group-addon">CFA</span>
 					    					<input type="text"
 					    								 format="number"
-					    								 name="amount"
-					    								 ng-model="newFee.amount"
+					    								 name="schoolAmount"
+					    								 ng-model="newFee.schoolAmount"
 					    								 required
 					    							   class="form-control" 
-					    							   placeholder="Fee Amount"
+					    							   placeholder="School Fee Amount"
+					    							   style="width:400px;">
+					    				</div>
+					    			</th>
+					    			<th>
+					    				<div class="input-group">
+					    				  <span class="input-group-addon">CFA</span>
+					    					<input type="text"
+					    								 format="number"
+					    								 name="ptaAmount"
+					    								 ng-model="newFee.ptaAmount"
+					    								 required
+					    							   class="form-control" 
+					    							   placeholder="PTA Fee Amount"
 					    							   style="width:400px;">
 					    				</div>
 					    			</th>
@@ -56,7 +69,8 @@
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Amount</th>
+				<th>School Fee Amount</th>
+				<th>PTA Fee Amount</th>
 				<th>Students</th>
 				<th style="width:80px;">Remove</th>
 			</tr>
@@ -67,7 +81,10 @@
 					<div class="cell">{{fee.name}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
-					<div class="cell">{{fee.amount | currency:""}}</div>
+					<div class="cell">{{fee.schoolAmount | currency:""}}</div>
+				</td>
+				<td class="column readonly" style="vertical-align:middle;">
+					<div class="cell">{{fee.ptaAmount | currency:""}}</div>
 				</td>
 				<td>
 					{{fee.students.length}}

@@ -72,7 +72,9 @@ function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolI
 
       	// copy and instatiate each Fee object with owed and paid
       	angular.forEach(Fees.getAll(), function(fee, feeKey){
-      		var feeCopy = angular.copy(fee); //copy, otherwise the next form will clobber this fee object 
+      		var feeCopy = angular.copy(fee); //copy, otherwise the next form will clobber this fee object
+          feeCopy.schoolFee = 0;
+          feeCopy.ptaFee = 0; 
       		feeCopy.owed = 0;
       		feeCopy.paid = 0;
       		feeCopy.students = 0;
@@ -83,7 +85,9 @@ function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolI
       	//console.log(form.name);
       	form.fees = _.reduce(form.students, function(fees, student){
       		fees[student.feeId].students += 1;
-      		fees[student.feeId].owed += Fees.get(student.feeId).amount;
+          fees[student.feeId].schoolFee += Fees.get(student.feeId).schoolAmount;
+          fees[student.feeId].ptaFee += Fees.get(student.feeId).ptaAmount
+      		fees[student.feeId].owed += Fees.get(student.feeId).schoolAmount + Fees.get(student.feeId).ptaAmount;
       		fees[student.feeId].paid = fees[student.feeId].paid +
       			student.payments.reduce(function(totalPaid, payment){
       				return totalPaid + payment.amount;
@@ -102,6 +106,8 @@ function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolI
     	// copy and instatiate each Fee object with owed and paid
     	angular.forEach(Fees.getAll(), function(fee, feeKey){
     		var feeCopy = angular.copy(fee); //copy, otherwise the next form will clobber this fee object 
+        feeCopy.schoolFee = 0;
+        feeCopy.ptaFee = 0; 
     		feeCopy.owed = 0;
     		feeCopy.students = 0;
     		feeCopy.paid = 0;
@@ -111,6 +117,8 @@ function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolI
   		$scope.summary = forms.reduce(function(s, form){
   			angular.forEach(form.fees, function(fee, feeKey){
   				summary.fees[feeKey].students = summary.fees[feeKey].students + fee.students; 
+          summary.fees[feeKey].schoolFee = summary.fees[feeKey].schoolFee + fee.schoolFee;
+          summary.fees[feeKey].ptaFee = summary.fees[feeKey].ptaFee + fee.ptaFee; 
   				summary.fees[feeKey].owed = summary.fees[feeKey].owed + fee.owed; 
   				summary.fees[feeKey].paid = summary.fees[feeKey].paid + fee.paid; 
   			});	
