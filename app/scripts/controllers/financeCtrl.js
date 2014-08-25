@@ -142,6 +142,14 @@ function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolI
 			return reduce(fees).by("students");
 		};
 
+    $scope.totalSchoolFee = function(fees){
+      return reduce(fees).by("schoolFee");
+    };
+
+    $scope.totalPTAFee = function(fees){
+      return reduce(fees).by("ptaFee");
+    };
+
 		$scope.totalOwed = function(fees){
 			return reduce(fees).by("owed");
 		};

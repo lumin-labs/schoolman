@@ -20,8 +20,8 @@
 			<tr ng-repeat="(feeKey,fee) in summary.fees">
 				<td><strong>{{fee.name}}</strong></td>
 				<td>{{fee.students}}</td>
-				<td>{{fee.owed | currency:""}}</td>
-				<td>{{fee.owed | currency:""}}</td>
+				<td>{{fee.schoolFee | currency:""}}</td>
+				<td>{{fee.ptaFee | currency:""}}</td>
 				<td>{{fee.owed | currency:""}}</td>
 				<td>{{fee.paid | currency:""}}</td>
 				<td>{{fee.owed - fee.paid | currency:""}}</td>
@@ -29,8 +29,8 @@
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
 				<td>{{totalStudents(summary.fees)}}</td>
-				<td>{{totalOwed(summary.fees)| currency:""}}</td>
-				<td>{{totalOwed(summary.fees)| currency:""}}</td>
+				<td>{{totalSchoolFee(summary.fees)| currency:""}}</td>
+				<td>{{totalPTAFee(summary.fees)| currency:""}}</td>
 				<td>{{totalOwed(summary.fees)| currency:""}}</td>
 				<td>{{totalPaid(summary.fees) | currency:""}}</td>
 				<td>{{totalOwed(summary.fees) - totalPaid(summary.fees) | currency:""}}</td>
@@ -55,8 +55,8 @@
 			<tr ng-repeat="(feeKey,fee) in form.fees">
 				<td><strong>{{fee.name}}</strong></td>
 				<td>{{fee.students}}</td>
-				<td>{{fee.owed | currency:""}}</td>
-				<td>{{fee.owed | currency:""}}</td>
+				<td>{{fee.schoolFee | currency:""}}</td>
+				<td>{{fee.ptaFee | currency:""}}</td>
 				<td>{{fee.owed | currency:""}}</td>
 				<td>{{fee.paid | currency:""}}</td>
 				<td>{{fee.owed - fee.paid | currency:""}}</td>
@@ -64,6 +64,8 @@
 			<tr class="finance-summary warning">
 				<td><strong>Total:</strong></td>
 				<td>{{totalStudents(form.fees)}}</td>
+				<td>{{totalSchoolFee(form.fees)| currency:""}}</td>
+				<td>{{totalPTAFee(form.fees)| currency:""}}</td>
 				<td>{{totalOwed(form.fees)| currency:""}}</td>
 				<td>{{totalPaid(form.fees) | currency:""}}</td>
 				<td>{{totalOwed(form.fees) - totalPaid(form.fees) | currency:""}}</td>
