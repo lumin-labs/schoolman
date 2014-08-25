@@ -68,6 +68,7 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
         // generate summarySheets
         $scope.data.msheet = Marksheets.combine($scope.data.marksheets);
         $scope.data.summarysheet = Marksheets.summarize($scope.data.msheet, termIndex);
+        console.log("msheet", $scope.data.msheet);
         console.log("summarysheet", $scope.data.summarysheet);
         $scope.data.rankings.master = Marksheets.rank($scope.data.msheet);
 

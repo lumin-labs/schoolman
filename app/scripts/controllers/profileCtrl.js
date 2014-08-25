@@ -21,7 +21,7 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     var studentId = $routeParams.studentId === "0" ? "student_U0000001" : $routeParams.studentId;
     console.log("routeParams", $routeParams);
 
-    $scope.data = {
+    var data = $scope.data = {
       comments:[],
       student:undefined,
       dcard:undefined,
@@ -181,6 +181,10 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
       }, 0);
       return total;
     };
+
+    $scope.getOwed = function(){
+      return data.fees[data.student.feeId].schoolAmount + data.fees[data.student.feeId].ptaAmount;
+    }
 
     $scope.save = function(model){
       model.save().then(function(success){

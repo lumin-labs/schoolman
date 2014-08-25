@@ -173,7 +173,7 @@
 										    	<li class="divider"></li>
 										      <li ng-repeat="(feeId, fee) in data.fees">
 										        <a ng-click="setQuery({feeId:feeId})">
-										        	{{data.fees[feeId].name}} ({{data.fees[feeId].amount | currency:""}})
+										        	{{data.fees[feeId].name}} ({{data.fees[feeId].schoolAmount + data.fees[feeId].ptaAmount| currency:""}})
 										        </a>
 										      </li>
 										    </ul>
@@ -225,7 +225,7 @@
 					  </a>
 					</td>
 					<td>{{student.sex}}</td>
-					<td>{{student.birth | date:'dd-mm-yyyy'}}</td>
+					<td>{{student.birth | date:'dd-MM-yyyy'}}</td>
 					<td>{{student.parentName}}</td>
 					<td>{{student.parentPhone}}</td>
 					<td>{{student.parentEmail}}</td>
@@ -233,7 +233,7 @@
 					<td>{{data.departments[student.deptId].name}}</td>
 					<td>{{data.groups[student.groupId].name}}</td>
 					<td>
-						{{data.fees[student.feeId].amount - student.totalPaid | currency:""}}
+						{{data.fees[student.feeId].schoolAmount + data.fees[student.feeId].ptaAmount - student.totalPaid | currency:""}}
 					</td>
 					<td class="promotion">
 						<div  class="btn-group">
@@ -302,7 +302,7 @@
 					<td>{{data.departments[student.deptId].name}}</td>
 					<td>{{data.groups[student.groupId].name}}</td>
 					<td>
-						{{data.fees[student.feeId].amount - student.totalPaid | currency:""}}
+						{{data.fees[student.feeId].schoolAmount + data.fees[student.feeId].ptaAmount - student.totalPaid | currency:""}}
 					</td>
 					<td class="promotion">
 						<div  class="btn-group">

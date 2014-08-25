@@ -18,7 +18,8 @@ function FeesCtrl($scope, Fees, Students, model) {
       $scope.add = function(fee){
          if(fee.isValid()){
             try{
-               fee.amount = Number(fee.amount.replace(/[^0-9\.]+/g,""));
+               fee.schoolAmount = Number(fee.schoolAmount.replace(/[^0-9\.]+/g,""));
+               fee.ptaAmount = Number(fee.ptaAmount.replace(/[^0-9\.]+/g,""));
                fee.save().then(function(success){
                   if(!$scope.newFee.students){
                     $scope.newFee.students= [];
