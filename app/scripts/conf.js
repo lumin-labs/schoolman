@@ -68,7 +68,7 @@ angular.module('SchoolMan')
       label:"Student Profile",
       page:"registrarProfile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil'],
+      exclude:['registration', 'fees', 'students', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'stats'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
