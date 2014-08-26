@@ -6,6 +6,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 
     self.getID = model.Marksheet.getId; 
 
+    //get sequences for term given
     self.getSequences = function(termIndex){
         var sequences = [];
 
@@ -142,29 +143,21 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
           newMarksheet.table = angular.copy(head.table);
 
       
-        angular.forEach(newMarksheet.table, function(student, studentId){
-          if(!(student[0]==="" && student[1]==="" &&student[2]==="" &&student[3]==="" && student[4]==="" && student[5]==="")){
-            student.coeff = newMarksheet.coeff;
-          }
-          else {
-            student.coeff = 0;
-          }
-          
-        })
-            console.log("newMarksheet", newMarksheet.table["student_U0000504"].coeff);
+      angular.forEach(newMarksheet.table, function(student, studentId){
+        if(!(student[0]==="" && student[1]==="" &&student[2]==="" &&student[3]==="" && student[4]==="" && student[5]==="")){
+          student.coeff = newMarksheet.coeff;
+        }
+        else {
+          student.coeff = 0;
+        }
         
-      
-      
+      })
 
       // Reduce marksheets into the new marksheet
       return _.reduce(tail, function(prevM, nextM){
        
         var t1 = angular.copy(prevM.table);
         var t2 = nextM.table;
-
-        angular.forEach(t1, function(row, studentId){
-          row.coeff = prevM.table[studentId].coeff;
-        });
         
         var ignore = ["", null, undefined];
 
@@ -224,12 +217,14 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       }, newMarksheet);
     }
 
+    //summarize the combined marksheet by termIndex to get term average
     self.summarize = function(marksheet, termIndex){
       var list = self.listify(marksheet.table);
       var ave  = self.ave(list, self.getSequences(termIndex));
       return self.dict(ave);
     };
 
+    //summarize as above but split the summaries by sex
     self.summarizeBySex = function(marksheet, termIndex){
       var marksheetCopy = angular.copy(marksheet);
       var list = self.listify(marksheet.table);
@@ -275,11 +270,6 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       });
       
     };
-
-    // self.summarize2 = function(marksheet){
-    //   var summaries = 
-    //   angular.forEach([0,1,2,3], function())
-    // };
 
     self.create = function(params){
     	var deferred = $q.defer();
