@@ -22,6 +22,7 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
         terms: Terms.getAll(),
         fees: Fees.getAll(),
       };
+      
       Payments.query().then(function(payments){
         $scope.data.payments = payments;
       }).catch(function(error){
@@ -41,6 +42,7 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
       // Load marksheet and student data
       $scope.getStats = function(params, term){
         var statistics = {};
+        $scope.termIndex = term;
         
         angular.forEach(data.subjects, function(subject, subjectId){
           var query = angular.copy(params);

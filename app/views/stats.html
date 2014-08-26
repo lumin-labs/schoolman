@@ -3,7 +3,7 @@
 	<div class="col-md-10 marksheet" ng-controller="StatsCtrl">
     <div class="printonly" ng-controller="ClassmenuCtrl">
       <h3>School Statistics</h3>
-      <h5>{{route.forms[queryParams.formIndex].name}} {{route.departments[queryParams.deptId].name}}, {{term.name}}</h5>
+      <h5>{{route.forms[queryParams.formIndex].name || "All Forms"}} {{route.departments[queryParams.deptId].name || "All Departments"}}, {{route.terms[termIndex].name || "All Terms"}}</h5>
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">
@@ -66,7 +66,7 @@
                     <!-- Term Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                         {{term.name || "All Terms"}}   <span class="caret"></span>
+                         {{route.terms[termIndex].name || "All Terms"}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
