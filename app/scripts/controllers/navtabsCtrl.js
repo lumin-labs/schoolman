@@ -54,7 +54,7 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, VERSION, Cache, model
 
     $scope.login = function(access){
       console.log(access);
-      if(!access === 'division' && !access === 'region'){
+      if(!access === 'division' && !access === 'region' && !access === 'inspectorate'){
         Location.open({page:"notactive", accessCode:access});
       }else {
         Location.open({page:"default_"+access, accessCode:access});

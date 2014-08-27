@@ -28,6 +28,15 @@ schoolman.config(['modelProvider', function(model){
         key:"subdivision",
         type:"string",
         required:true
+      },{
+        key:"numFemale",
+        type:"number",
+        required:true
+      },
+      {
+        key:"numMale",
+        type:"number",
+        required:true
       },
       {
         key:"principal",

@@ -65,10 +65,8 @@ function SchoolsCtrl($scope, $q, $routeParams, Schools, Schoolid, DivFees, model
       $scope.newSchool.division = success.division;
       $scope.newSchool.subdivision = success.subdivision;
       $scope.newSchool.principal = success.principal;
-      $scope.newSchool.numMaleCycle1 = success.maleCycle1;
-      $scope.newSchool.numFemaleCycle1 = success.femaleCycle1;
-      $scope.newSchool.numMaleCycle2 = success.maleCycle2;
-      $scope.newSchool.numFemaleCycle2 = success.femaleCycle2;
+      $scope.newSchool.numMale = success.maleCycle1;
+      $scope.newSchool.numFemale = success.femaleCycle1;
       $scope.add($scope.newSchool);
     }).catch(function(error){
       console.log("failed to import school", error);

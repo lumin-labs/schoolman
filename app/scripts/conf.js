@@ -12,7 +12,7 @@ angular.module('SchoolMan')
   	{
   		label:"Users",
   	  page:"users",
-  	  access:['region', 'division'],
+  	  access:['region', 'division', 'inspectorate'],
       exclude:[],
       modes:["region", "division"],
   	 	icon:'glyphicon-lock'
@@ -156,14 +156,14 @@ angular.module('SchoolMan')
     {
       label:"Add School",
       page:"addschool",
-      access:['division'],
+      access:['inspectorate'],
       exclude:[],
       modes:["division", "region"],
       icon:'glyphicon-pencil'
     },{
       label:"Schools",
       page:"schools",
-      access:['division'],
+      access:['inspectorate'],
       exclude:[],
       modes:["division", "region"],
       icon:'glyphicon-folder-open'
@@ -172,6 +172,14 @@ angular.module('SchoolMan')
       label:"Fee Settings",
       page:"divfees",
       access:['division'],
+      exclude:[],
+      modes:["division", "region"],
+      icon:'glyphicon-cog'
+    },
+    {
+      label:"Fee Settings",
+      page:"inspectoratefees",
+      access:['inspectorate'],
       exclude:[],
       modes:["division", "region"],
       icon:'glyphicon-cog'
@@ -193,6 +201,14 @@ angular.module('SchoolMan')
     },
     {
       label:"Balance Sheet",
+      page:"inspectoratefinance",
+      access:['inspectorate'],
+      exclude:[],
+      modes:["division", "region"],
+      icon:'glyphicon-envelope'
+    },
+    {
+      label:"Balance Sheet",
       page:"regfinance",
       access:['region'],
       exclude:[],
@@ -202,8 +218,8 @@ angular.module('SchoolMan')
     {
       label:"School Profile",
       page:"schoolprofile",
-      access:['division'],
-      exclude:['schools', 'divfees', 'addschool', 'divfinance', 'divisions', 'users', 'stats'],
+      access:['inspectorate'],
+      exclude:['schools', 'divfees', 'inspectoratefinance','addschool', 'divfinance', 'divisions', 'users', 'stats'],
       modes:["division", "region"],
       icon:'glyphicon-home'
     },
@@ -216,6 +232,14 @@ angular.module('SchoolMan')
       icon:'glyphicon-home'
     },
     {
+      label:"Inspectorate Profile",
+      page:"inspectorateprofile",
+      access:['division'],
+      exclude:['divfees', 'divfinance', 'divisions','regfinance','regfees', 'users', 'stats','inspectorates' ],
+      modes:["division", "region"],
+      icon:'glyphicon-home'
+    },
+    {
       label:"Divisions",
       page:"divisions",
       access:['region'],
@@ -223,12 +247,20 @@ angular.module('SchoolMan')
       modes:["division", "region"],
       icon:'glyphicon-paperclip'
     },
+    // {
+    //   label:"Statistics",
+    //   page:"stats",
+    //   access:['division'],
+    //   exclude:[],
+    //   modes:["division", "region"],
+    //   icon:'glyphicon-paperclip'
+    // },
     {
-      label:"Statistics",
-      page:"stats",
+      label:"Inspectorate",
+      page:"inspectorates",
       access:['division'],
       exclude:[],
-      modes:["division", "region"],
+      modes:["inspectorate", "division", "region"],
       icon:'glyphicon-paperclip'
     }
  ]);

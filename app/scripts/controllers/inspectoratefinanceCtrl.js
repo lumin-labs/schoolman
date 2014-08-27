@@ -1,12 +1,12 @@
 'use strict';
 
-function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments,Inspectorates) {
+function InsFinanceCtrl($scope, InspectorateFees, Schools, SchoolPayments) {
   	
   $scope.data = {
-    inspectorates: Inspectorates.getAll(),
-    divfees: DivFees.getAll(),
+    schools: Schools.getAll(),
+    insfees: InspectorateFees.getAll(),
     payments: SchoolPayments.getAll(),
-    divisionTotal: 0,
+    insisionTotal: 0,
     regionTotal: 0,
     ministryTotal: 0
   }
@@ -25,47 +25,47 @@ function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments,Inspectorates) 
     return self;
   }
 
-  var totalmales = reduce($scope.data.inspectorates).by("numMale");
-  var totalfemales = reduce($scope.data.inspectorates).by("numFemale");
+  var totalmales = reduce($scope.data.schools).by("numMale");
+  var totalfemales = reduce($scope.data.schools).by("numFemale");
   // var totalmalesCycle1 = reduce($scope.data.schools).by("numMaleCycle1");
   // var totalmalesCycle2 = reduce($scope.data.schools).by("numMaleCycle2");
   // var totalfemalesCycle1 = reduce($scope.data.schools).by("numFemaleCycle1");
   // var totalfemalesCycle2 = reduce($scope.data.schools).by("numFemaleCycle2");
-  console.log("inspectorate", $scope.data.inspectorates, totalmales);
-  $scope.data.totalStudents = (totalmales +totalfemales);
-  $scope.data.feesAmount = reduce($scope.data.divfees).by("amount");
+  // console.log("school", $scope.data.schools, totalmalesCycle1);
+  $scope.data.totalStudents = (totalmales + totalfemales);
+  $scope.data.feesAmount = reduce($scope.data.insfees).by("amount");
 
-  var divTotal = 0; 
+  var insTotal = 0; 
   var regTotal = 0;
   var minTotal = 0;
 
-  angular.forEach($scope.data.divfees, function(fee, feeId){
+  angular.forEach($scope.data.insfees, function(fee, feeId){
     console.log("fee:", fee);
-    divTotal += fee.amount * fee.division;
+    insTotal += fee.amount * fee.inspectorate;
     regTotal += fee.amount * fee.region;
     minTotal += fee.amount * fee.ministry;
     
   });
   var totalpayments = 0;
-  angular.forEach($scope.data.inspectorates,function(inspectorate,inspectorateid){
+  angular.forEach($scope.data.schools,function(school,schoolid){
     var sum = 0; 
     angular.forEach($scope.data.payments,function(payment,paymentid){
-      if (payment.inspectoratesId === inspectorate._id){
+      if (payment.schoolId === school._id){
         sum = sum + payment.amount;
 
 
       }
     })
     totalpayments = totalpayments + sum;
-    inspectorate.totalPaid = sum;
+    school.totalPaid = sum;
   })
   $scope.data.totalPayment = totalpayments;
-  $scope.data.divSum = (divTotal/100)+ (regTotal/100);
+  $scope.data.insSum = (insTotal/100)+ (regTotal/100);
   // console.log("div sum", $scope.data.divSum, divTotal, regTotal,minTotal)
-  $scope.data.divisionTotal = $scope.data.totalStudents * divTotal / 100;
+  $scope.data.inspectorateTotal = $scope.data.totalStudents * insTotal / 100;
   $scope.data.regionTotal = $scope.data.totalStudents * regTotal / 100;
   // $scope.data.ministryTotal = $scope.data.totalStudents * minTotal / 100;
   
 }
-DivFinanceCtrl.$inject = ['$scope','DivFees', 'Schools','SchoolPayments','Inspectorates'];
-angular.module('SchoolMan').controller('DivFinanceCtrl', DivFinanceCtrl);
+InsFinanceCtrl.$inject = ['$scope','InspectorateFees', 'Schools','SchoolPayments'];
+angular.module('SchoolMan').controller('InsFinanceCtrl', InsFinanceCtrl);

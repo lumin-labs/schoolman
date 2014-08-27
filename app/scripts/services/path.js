@@ -16,7 +16,8 @@ function Path() {
       default_teacher:"myclasses",
       default_registrar:"registration",
       default_division:"schools",
-      default_region:"divisions"
+      default_region:"divisions",
+      default_inspectorate:"schools"
     }
 
     var self = {};
@@ -58,6 +59,7 @@ function Path() {
                       d.termIndex  + '/' +
                       d.studentId  + '/' + 
                       d.schoolId + '/' +
+                      d.inspectorateId + '/' +
                       d.divisionId + '/' +
                       d.username   + '/' +
                       d.accessCode

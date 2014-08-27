@@ -4,10 +4,10 @@ var schoolman = angular.module('SchoolMan');
 
 schoolman.config(['modelProvider', function(model){
 
-  model.datatypes.division = {
+  model.datatypes.inspectorate = {
     v1:{
       type:"schema",
-      _id:"datatype/division/v1",
+      _id:"datatype/inspectorate/v1",
       fields:[{
         key:"id",
         type:"string",
@@ -17,7 +17,7 @@ schoolman.config(['modelProvider', function(model){
         type:"string",
         required:true
       },{
-        key:"region",
+        key:"division",
         type:"string",
         required:true
       },{
@@ -29,7 +29,7 @@ schoolman.config(['modelProvider', function(model){
         type:"number",
         required:true
       },
-      {
+     {
         key:"ddName",
         type:"string",
         required:false
@@ -51,21 +51,21 @@ schoolman.config(['modelProvider', function(model){
       fields_key:0
     }
   };
-  var schema = model.datatypes.division.v1.fields;
+  var schema = model.datatypes.inspectorate.v1.fields;
   
-  function Division(spec){
+  function Inspectorate(spec){
 
     var spec = spec || {};
 
     // Prevents global namespace clobbering if you istantiate this object
     // without the 'new' keyword
-    if (!(this instanceof Division)) {
-      return new Division();
+    if (!(this instanceof Inspectorate)) {
+      return new Inspectorate();
     }
 
     this.id = "";
     this.name = ""; 
-    this.region = "";
+    this.division = "";
     this.numFemale = 0;
     this.numMale = 0;
     this.ddName = "";
@@ -96,16 +96,16 @@ schoolman.config(['modelProvider', function(model){
         
   };
 
-  Division.prototype = new model.Model();
-  Division.prototype.generateID = function(){
-    var id = 'division_' + this.id;
+  Inspectorate.prototype = new model.Model();
+  Inspectorate.prototype.generateID = function(){
+    var id = 'inspectorate_' + this.id;
     return id;
   }
-  Division.prototype.normalize = function(){
+  Inspectorate.prototype.normalize = function(){
     this._id = this.generateID();
   };
-  Division.prototype.datatype = Division.datatype = model.datatypes.division.v1;
+  Inspectorate.prototype.datatype = Inspectorate.datatype = model.datatypes.inspectorate.v1;
 
-  model.Division = Division;
+  model.Inspectorate = Inspectorate;
 
 }]);

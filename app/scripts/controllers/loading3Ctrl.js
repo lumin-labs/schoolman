@@ -1,6 +1,6 @@
 'use strict';
 
-function LoadingCtrl($scope, Location, $q, Divisions, DivisionPayments, RegFees, SchoolPayments, DivFees, Schools, Users, model, VERSION) {
+function LoadingCtrl($scope, Location, $q, Divisions, DivisionPayments,InspectoratePayments,Inspectorates,RegFees, SchoolPayments, DivFees,InspectorateFees, Schools, Users, model, VERSION) {
 
     // var instSchoolInfo = new model.SchoolInfo();
 
@@ -13,11 +13,14 @@ function LoadingCtrl($scope, Location, $q, Divisions, DivisionPayments, RegFees,
     // var groupP= Groups.load();
     // var studentsP= Students.load();
     var DivFeesP = DivFees.load();
+    var InspectorateFeesP = InspectorateFees.load();
     var RegFeesP = RegFees.load();
     var SchoolsP = Schools.load();
     var DivisionsP = Divisions.load();
     var SchoolPaymentP = SchoolPayments.load(); 
     var DivisionPaymentP = DivisionPayments.load(); 
+    var InspectoratePaymentP = InspectoratePayments.load();
+    var InspectorateP = Inspectorates.load();
 
 
     // Initialize/Register ClassCouncil datatype
@@ -26,7 +29,7 @@ function LoadingCtrl($scope, Location, $q, Divisions, DivisionPayments, RegFees,
 
     // var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, DivFeesP, SchoolsP];
 
-    var promises = [userP, DivFeesP, SchoolsP, DivisionsP,RegFeesP,SchoolPaymentP,DivisionPaymentP];
+    var promises = [userP, DivFeesP,InspectorateFeesP, SchoolsP, DivisionsP,RegFeesP,SchoolPaymentP,DivisionPaymentP,InspectoratePaymentP, InspectorateP];
 
     $q.all(promises).then(function(success){
       console.log("Successes", success);
@@ -34,5 +37,5 @@ function LoadingCtrl($scope, Location, $q, Divisions, DivisionPayments, RegFees,
     });
 
   }
-LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Divisions', 'DivisionPayments', 'RegFees', 'SchoolPayments', 'DivFees', 'Schools', 'Users', 'model', 'VERSION'];
+LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Divisions', 'DivisionPayments','Inspectorates','InspectoratePayments', 'RegFees', 'SchoolPayments', 'DivFees','InspectorateFees', 'Schools', 'Users', 'model', 'VERSION'];
 angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);

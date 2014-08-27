@@ -1,0 +1,73 @@
+<div class="row ">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+	<div class="col-md-10 marksheet" ng-controller="InspectoratesCtrl">
+
+		<!-- School View -->
+		<table class="table table-striped table-bordered table-compact">
+			<thead>
+				<tr class="toolbar noprint">
+				  	<th>
+	  					<input  type="text" class="form-control" placeholder="Name" ng-model="newInspectorate.name">
+		  			</th>
+				<!-- 	<th style="text-align:center">
+		  				<div class="btn-group">
+						    <button class="btn btn-sm btn-default dropdown-toggle" 
+						    				data-toggle="dropdown">
+						      {{newInspectorate.region || "Select Region"}} 
+						      &nbsp;<span class="caret"></span>
+						    </button>
+						    <ul class="dropdown-menu">
+						      <li ng-repeat="(regionIndex, region) in data.regions">
+						        <a ng-click="newInspectorate.region = region">{{region}}</a>
+						      </li>
+						    </ul>
+						</div>
+						</th> -->
+						<th>
+	  					<input  type="text" class="form-control" placeholder="Division Name" ng-model="newInspectorate.division">
+		  			</th>
+					
+							<th>
+	  					<input  type="number" class="form-control" placeholder="Number of Females " ng-model="newInspectorate.numFemale">
+		  			</th>
+		  			
+		  			<th>
+	  					<input  type="number" class="form-control" placeholder="Number of Males" ng-model="newInspectorate.numMale">
+		  			</th>
+		  			<th>
+		  				<button type="submit" class="btn btn-default" 
+		  				ng-class="newInspectorate.name && newInspectorate.division ? '' : 'disabled'" 
+		  				ng-click="add(newInspectorate)">
+				        	Add
+				        </button>
+		  			</th>
+		  			<th colspan="2"></th>
+				</tr>
+				<tr>
+					<!-- <th style="width:100px;">ID</th> -->
+					<th>Name (Eng)</th>
+					<th>Region</th>
+					<th>Number of Females</th>
+					<th>Number of Males</th>
+					<th class="noprint">Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="(inspectorateIndex, inspectorate) in data.inspectorates">
+					<td><a ng-click="open({inspectorateId:inspectorate._id, page:'inspectorateprofile'})">
+					{{inspectorate.name}}</a></td>
+					<td>{{inspectorate.region}}</td>
+					<td>{{inspectorate.numFemale | number:0}}</td>
+					<td>{{inspectorate.numMale | number:0}}</td>
+					<td class="remove text-center noprint" style="width:80px;">
+						<a ng-click="remove(inspectorate)" 
+						   ng-if="countSchools(inspectorate) === 0">
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>	
+

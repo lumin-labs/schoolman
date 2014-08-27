@@ -52,12 +52,16 @@ angular.module('SchoolMan', [
       classcouncil:"classcouncil.html",
       notactive:"notactive.html",
       divfees:"divfees.html",
+      inspectoratefeesfees:"inspectoratefees.html",
       schools:"schools.html",
       schoolprofile:"schoolprofile.html",
       divisionprofile:"divisionprofile.html",
       addschool:"addschool.html",
       divfinance:"div-finance.html",
+      inspectoratefinance:"inspectoratefinance.html",
       divisions:"divisions.html",
+      inspectorates:"inspectorates.html",
+      inspectorateprofile:"inspectorateprofile.html",
       regfinance:"reg-finance.html",
       regfees:"regfees.html",
       stats:"stats.html"
@@ -80,7 +84,7 @@ angular.module('SchoolMan', [
     };
 
     $routeProvider
-      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:schoolId/:divisionId/:username/:accessCode', {
+      .when('/:page/:subpage/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:schoolId/:inspectorateId/:divisionId/:username/:accessCode', {
         templateUrl:function(p){ return getTemplate(p);},
         // controller:'MainCtrl'
       })

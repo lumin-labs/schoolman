@@ -19,10 +19,13 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, model, Pat
               page:"myclasses"
           },
           division:{
-            page:"schools"
+            page:"inspectorates"
           },
           region:{
             page:"divisions"
+          },
+          inspectorate:{
+            page:"schools"
           }
       }
 
@@ -76,7 +79,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, model, Pat
                 groupId:"null",
                 subjectId:"null",
                 studentId:"U0000001",
-                divisionId:"D0000001",
+                inspectorateId:"D0000001",
                 termIndex:0,
                 username:user.username,
                 accessCode:$scope.accessRequest

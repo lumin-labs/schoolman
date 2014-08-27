@@ -26,11 +26,11 @@ function RegFinanceCtrl($scope, RegFees, Schools, Divisions, DivisionPayments) {
 
   var totalFemale = reduce($scope.data.divisions).by("numFemale");
   var totalMale = reduce($scope.data.divisions).by("numMale");
-  var totalmalesCycle1 = reduce($scope.data.divisions).by("numMaleCycle1");
-  var totalmalesCycle2 = reduce($scope.data.divisions).by("numMaleCycle2");
-  var totalfemalesCycle1 = reduce($scope.data.divisions).by("numFemaleCycle1");
-  var totalfemalesCycle2 = reduce($scope.data.divisions).by("numFemaleCycle2");
-  $scope.data.totalStudents = ((totalmalesCycle1 +totalmalesCycle2) + (totalfemalesCycle1+totalfemalesCycle2));
+  // var totalmalesCycle1 = reduce($scope.data.divisions).by("numMaleCycle1");
+  // var totalmalesCycle2 = reduce($scope.data.divisions).by("numMaleCycle2");
+  // var totalfemalesCycle1 = reduce($scope.data.divisions).by("numFemaleCycle1");
+  // var totalfemalesCycle2 = reduce($scope.data.divisions).by("numFemaleCycle2");
+  $scope.data.totalStudents = (totalMale +totalFemale);
   $scope.data.feesAmount = reduce($scope.data.regfees).by("amount");
 
   var divTotal = 0; 

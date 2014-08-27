@@ -1,16 +1,16 @@
 'use strict';
 
-function DivisionProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Divisions, RegFees, DivisionPayments) {
-    var divisionId = $routeParams.divisionId === "0" ? "division_D0000001" : $routeParams.divisionId;
+function InspectorateProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Inspectorates, RegFees, DivisionPayments, InspectoratePayments) {
+    var inspectorateId = $routeParams.inspectorateId === "0" ? "inspectorate_D0000001" : $routeParams.inspectorateId;
     $scope.accessCode = $routeParams.accessCode;
-    $scope.newPayment = new model.DivisionPayment();
-    $scope.newPayment.divisionId = divisionId;
+    $scope.newPayment = new model.InspectoratePayment();
+    $scope.newPayment.inspectorateId = inspectorateId;
     $scope.newPayment.registrar = $routeParams.username
 
     console.log("routeParams", $routeParams);
 
     var data = $scope.data = {
-      division:undefined,
+      inspectorate:undefined,
       regions: ["Adamoua",
               "Center Region",
               "East Region",
@@ -22,25 +22,25 @@ function DivisionProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, 
               "Southwest Region",
               "West Region"],
 
-    payments:DivisionPayments.get(divisionId),
+    payments:InspectoratePayments.get(inspectorateId),
     regfees:RegFees.getAll(),
     };
 
 
 
-    console.log("divisionId", divisionId);
+    console.log("inspectorateId", inspectorateId);
     
-    $scope.data.division = Divisions.get(divisionId);
-    console.log("$scope.data.division",$scope.data.division,data.payments)
+    $scope.data.inspectorate = Inspectorates.get(inspectorateId);
+    console.log("$scope.data.inspectorate",$scope.data.inspectorate,data.payments)
 
     // This is for reverting data.school if user starts to edit and chooses to cancel
-    var divisionCopy = angular.copy($scope.data.division);
+    var inspectorateCopy = angular.copy($scope.data.inspectorate);
     $scope.editing = false;
     $scope.edit = function(){
       $scope.editing = true;
     }
     $scope.cancel = function(){
-      $scope.data.division = angular.copy(divisionCopy);
+      $scope.data.inspectorate = angular.copy(inspectorateCopy);
       $scope.editing = false;
     }
 
@@ -54,10 +54,10 @@ function DivisionProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, 
       payment.save().then(function(success){
         console.log("payment saved", success);
         $scope.data.payments.push(payment);
-        DivisionPayments.set($scope.newPayment,success.id);
-        $scope.newPayment = new model.DivisionPayment();
+        InspectoratePayments.set($scope.newPayment,success.id);
+        $scope.newPayment = new model.InspectoratePayment();
         $scope.newPayment.registrar = $routeParams.username;
-        $scope.newPayment.divisionId = divisionId;
+        $scope.newPayment.inspectorateId = inspectorateId;
 
         // This is a crappy hack to compensate for the fact that pouchdb seems
         // to be too slow to calculate this on the fly for a list of students
@@ -84,13 +84,13 @@ function DivisionProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, 
     };
 
 
-    $scope.save = function(division){
-      division.save().then(function(success){
-        console.log("Division saved", success);
+    $scope.save = function(inspectorate){
+      inspectorate.save().then(function(success){
+        console.log("Inspectorate saved", success);
         $scope.editing = false;
         
       }).catch(function(error){
-        console.log("Failed to save division", error);
+        console.log("Failed to save inspectorate", error);
       });
     };
 
@@ -111,14 +111,14 @@ function DivisionProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, 
 
   angular.forEach($scope.data.regfees, function(fee, feeId){
     console.log("fee:", fee);
-    divTotal += fee.amount * fee.division;
+    divTotal += fee.amount * fee.inspectorate;
     regTotal += fee.amount * fee.region;
     minTotal += fee.amount * fee.ministry;
     console.log("totals", divTotal, regTotal, minTotal);
   });
-  var students = $scope.data.division.numMale +  $scope.data.division.numFemale;
-  $scope.data.division.totalFee = ((regTotal/100)+ (minTotal/100)) * students;
+  var students = $scope.data.inspectorate.numMale+ $scope.data.inspectorate.numFemale ;
+  $scope.data.inspectorate.totalFee = ((regTotal/100)+ (minTotal/100)) * students;
   }
 
-  DivisionProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','DivFees','Divisions','RegFees', 'DivisionPayments'];
-  angular.module('SchoolMan').controller('DivisionProfileCtrl', DivisionProfileCtrl);
+  InspectorateProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','DivFees','Inspectorates','RegFees', 'DivisionPayments','InspectoratePayments'];
+  angular.module('SchoolMan').controller('InspectorateProfileCtrl', InspectorateProfileCtrl);

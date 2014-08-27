@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-  <div class="col-md-10 marksheet" ng-controller="DivisionProfileCtrl">
-  <div class="printonly"><h3>Division Profile</h3></div>
+  <div class="col-md-10 marksheet" ng-controller="InspectorateProfileCtrl">
+  <div class="printonly"><h3>Inspecto Profile</h3></div>
   <table>
   <tr>
   <td class="col-md-7" 
@@ -10,37 +10,37 @@
 
   <form class="form-horizontal" role="form">
   <div class="form-group">
-    <label for="uid" class="col-sm-3 control-label">Division ID</label>
-    <div class="col-sm-9 printonly">{{data.division._id}}</div>
+    <label for="uid" class="col-sm-3 control-label">Inspectorate ID</label>
+    <div class="col-sm-9 printonly">{{data.inspectorate._id}}</div>
     <div class="col-sm-9 noprint">
-      <div class="form-control-static">{{data.division._id}}</div>
+      <div class="form-control-static">{{data.inspectorate._id}}</div>
     </div>
   </div>
   <br>
   
   <div class="form-group">
-    <label for="name" class="col-sm-3 control-label">Division Name </label>
-    <div class="col-sm-9 printonly">{{data.division.name}}</div>
+    <label for="name" class="col-sm-3 control-label">Inspectorate Name </label>
+    <div class="col-sm-9 printonly">{{data.inspectorate.name}}</div>
     <div class="col-sm-9 noprint">
       <input id="name"
            class="form-control" 
-           placeholder="Division Name "
+           placeholder="Inspectorate Name "
            ng-readonly="!editing"
-           ng-model="data.division.name">
+           ng-model="data.inspectorate.name">
     </div>
   </div>
   <div class="form-group">
-    <label for="division" class="col-sm-3 control-label">Region</label>
-    <div class="col-sm-9 printonly">{{data.division.region}}</div>
+    <label for="inspectorate" class="col-sm-3 control-label">Region</label>
+    <div class="col-sm-9 printonly">{{data.inspectorate.region}}</div>
     <div class="col-sm-9">
       <div class="btn-group">
         <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" ng-readonly="!editing">
-          <span>{{data.division.region}}</span>
+          <span>{{data.inspectorate.region}}</span>
           &nbsp;<span ng-if="editing" class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="region in data.regions">
-            <a ng-click="data.division.region = region">{{region}}</a>
+            <a ng-click="data.inspectorate.region = region">{{region}}</a>
           </li>
         </ul>
       </div>
@@ -63,28 +63,17 @@
     </div>  -->
     <div class="form-group">
     <label for="numFemale" class="col-sm-3 control-label">Number of Females</label>
-    <div class="col-sm-9 printonly">{{data.division.numFemale}}</div>
+    <div class="col-sm-9 printonly">{{data.inspectorate.numFemale}}</div>
     <div class="col-sm-9 noprint">
       <input id="numFemale"
            class="form-control" 
            type="number"
            placeholder="Number of Females"
            ng-readonly="!editing"
-           ng-model="data.division.numFemale">
+           ng-model="data.inspectorate.numFemale">
     </div>
     </div> 
-   <!--  <div class="form-group">
-    <label for="numFemaleCycle2" class="col-sm-3 control-label">Number of Females Second Cycle</label>
-    <div class="col-sm-9 printonly">{{data.division.numFemaleCycle2}}</div>
-    <div class="col-sm-9 noprint">
-      <input id="numFemaleCycle2"
-           class="form-control" 
-           type="number"
-           placeholder="Number of Females Second Cycle"
-           ng-readonly="!editing"
-           ng-model="data.division.numFemaleCycle2">
-    </div>
-    </div> --> 
+    
     
     <!-- <div class="form-group">
     <label for="numMale" class="col-sm-3 control-label">Number of Males</label>
@@ -107,75 +96,64 @@
   </div> -->
   <div class="form-group">
     <label for="numMale" class="col-sm-3 control-label">Number of Males</label>
-    <div class="col-sm-9 printonly">{{data.division.numMale}}</div>
+    <div class="col-sm-9 printonly">{{data.inspectorate.numMale}}</div>
     <div class="col-sm-9 noprint">
       <input id="numMale"
            class="form-control" 
            type="number"
            placeholder="Number of Males"
            ng-readonly="!editing"
-           ng-model="data.division.numMale">
+           ng-model="data.inspectorate.numMale">
     </div>
   </div>
-  <!-- <div class="form-group">
-    <label for="numMaleCycle2" class="col-sm-3 control-label">Number of Males Second cycle</label>
-    <div class="col-sm-9 printonly">{{data.division.numMaleCycle2}}</div>
-    <div class="col-sm-9 noprint">
-      <input id="numMaleCycle2"
-           class="form-control" 
-           type="number"
-           placeholder="Number of Males Second Cycle"
-           ng-readonly="!editing"
-           ng-model="data.division.numMaleCycle2">
-    </div>
-  </div> -->
+ 
   <br>
   <div class="form-group">
-    <label for="ddName" class="col-sm-3 control-label">Divisional Delegate</label>
-    <div class="col-sm-9 printonly">{{data.division.ddName}}</div>
+    <label for="ddName" class="col-sm-3 control-label">Inspector</label>
+    <div class="col-sm-9 printonly">{{data.inspectorate.ddName}}</div>
     <div class="col-sm-9 noprint">
       <input id="ddName"
            class="form-control" 
            type="text"
-           placeholder="Divisional Delegate's Name"
+           placeholder="inspector"
            ng-readonly="!editing"
-           ng-model="data.division.ddName">
+           ng-model="data.inspectorate.ddName">
     </div>
   </div>
   <div class="form-group">
     <label for="ddBirth" class="col-sm-3 control-label">Date of Birth</label>
-    <div class="col-sm-9 printonly">{{data.division.ddBirth}}</div>
+    <div class="col-sm-9 printonly">{{data.inspectorate.ddBirth}}</div>
     <div class="col-sm-9 noprint">
       <input id="ddBirth"
            class="form-control" 
            type="date"
-           placeholder="Divisional Delegate's Date of Birth"
+           placeholder="inspector Date of Birth"
            ng-readonly="!editing"
-           ng-model="data.division.ddBirth">
+           ng-model="data.inspectorate.ddBirth">
     </div>
   </div>
   <div class="form-group">
     <label for="ddPhone" class="col-sm-3 control-label">Phone Number</label>
-    <div class="col-sm-9 printonly">{{data.division.ddPhone}}</div>
+    <div class="col-sm-9 printonly">{{data.inspectorate.ddPhone}}</div>
     <div class="col-sm-9 noprint">
       <input id="ddPhone"
            class="form-control" 
            type="text"
-           placeholder="Divisional Delegate's Phone Number"
+           placeholder="inspector's Phone Number"
            ng-readonly="!editing"
-           ng-model="data.division.ddPhone">
+           ng-model="data.inspectorate.ddPhone">
     </div>
   </div>
   <div class="form-group noprint" ng-if="!editing">
     <div class="col-sm-offset-3 col-sm-10">
       <button type="submit" class="btn btn-info" ng-click="edit()">
-        Edit Division
+        Edit Inspectorate
       </button>
     </div>
   </div>
   <div class="form-group noprint" ng-if="editing">
     <div class="col-sm-offset-3 col-sm-10">
-      <button type="submit" class="btn btn-success" ng-click="save(data.division)">
+      <button type="submit" class="btn btn-success" ng-click="save(data.inspectorate)">
         Save Changes
       </button>
       <button type="submit" class="btn btn-warning" style="margin-left:15px;" ng-click="cancel()">
@@ -210,7 +188,7 @@
             </div>
               <span style="color:red;font-size:12px;"
               ng-if="getTotalPayments() + newPayment.getAmount() > 
-                     data.division.totalFee">
+                     data.inspectorate.totalFee">
                 Payment can't be greater than amount due
               </span>
           </div>
@@ -220,7 +198,7 @@
                     ng-click="addPayment(newPayment, 1)"
                     ng-class="[0,'0.00'].indexOf(newPayment.amount) > -1 || 
                               getTotalPayments() + newPayment.getAmount() > 
-                              data.division.totalFee ? 'disabled' : ''">
+                              data.inspectorate.totalFee ? 'disabled' : ''">
               Add Payment
             </button>
           </div>
@@ -269,7 +247,7 @@
         </tr>
         <tr>
           <td>Fee Amount:</td>
-          <td>{{data.division.totalFee | currency:""}}</td>
+          <td>{{data.inspectorate.totalFee | currency:""}}</td>
         </tr>
         <tr>
           <td>Total Paid:</td>
@@ -277,7 +255,7 @@
         </tr>
         <tr class="danger">
           <td>Due:</td>
-          <td style="color:red;">{{data.division.totalFee -getTotalPayments()  | currency:""}}</td>
+          <td style="color:red;">{{data.inspectorate.totalFee -getTotalPayments()  | currency:""}}</td>
         </tr>
       </table>
 </td>

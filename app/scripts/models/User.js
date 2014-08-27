@@ -63,7 +63,8 @@ schoolman.config(['modelProvider', function(model){
   User.roles = {
       admin:{name:"Administrator"},
       division:{name: "DDS"},
-      region:{name:"SDGA"}
+      region:{name:"SDGA"},
+      inspectorate:{name:"IBE" }
   }
 
   User.prototype = new model.Model();

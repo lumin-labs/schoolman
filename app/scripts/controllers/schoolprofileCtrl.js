@@ -114,7 +114,7 @@ function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Di
     minTotal += fee.amount * fee.ministry;
     
   });
-  var students = $scope.data.school.numMaleCycle1+$scope.data.school.numMaleCycle2 + $scope.data.school.numFemaleCycle1 + $scope.data.school.numFemaleCycle1;
+  var students = $scope.data.school.numMale + $scope.data.school.numFemale;
   $scope.data.school.totalFee = ((divTotal/100)+ (regTotal/100)) * students;
 
   }
