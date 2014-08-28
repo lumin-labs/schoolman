@@ -23,7 +23,7 @@ function InspectorateProfileCtrl($scope, $routeParams, model, Schools, $q, DivFe
               "West Region"],
 
     payments:InspectoratePayments.get(inspectorateId),
-    regfees:RegFees.getAll(),
+    divfees:DivFees.getAll(),
     };
 
 
@@ -109,15 +109,15 @@ function InspectorateProfileCtrl($scope, $routeParams, model, Schools, $q, DivFe
   var regTotal = 0;
   var minTotal = 0;
 
-  angular.forEach($scope.data.regfees, function(fee, feeId){
+  angular.forEach($scope.data.divfees, function(fee, feeId){
     console.log("fee:", fee);
-    divTotal += fee.amount * fee.inspectorate;
+    divTotal += fee.amount * fee.division;
     regTotal += fee.amount * fee.region;
     minTotal += fee.amount * fee.ministry;
     console.log("totals", divTotal, regTotal, minTotal);
   });
   var students = $scope.data.inspectorate.numMale+ $scope.data.inspectorate.numFemale ;
-  $scope.data.inspectorate.totalFee = ((regTotal/100)+ (minTotal/100)) * students;
+  $scope.data.inspectorate.totalFee = ((regTotal/100)+ (divTotal/100)) * students;
   }
 
   InspectorateProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','DivFees','Inspectorates','RegFees', 'DivisionPayments','InspectoratePayments'];

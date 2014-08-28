@@ -46,7 +46,7 @@
 				<tr>
 					<!-- <th style="width:100px;">ID</th> -->
 					<th>Name (Eng)</th>
-					<th>Region</th>
+					<th>Division</th>
 					<th>Number of Females</th>
 					<th>Number of Males</th>
 					<th class="noprint">Remove</th>
@@ -56,7 +56,7 @@
 				<tr ng-repeat="(inspectorateIndex, inspectorate) in data.inspectorates">
 					<td><a ng-click="open({inspectorateId:inspectorate._id, page:'inspectorateprofile'})">
 					{{inspectorate.name}}</a></td>
-					<td>{{inspectorate.region}}</td>
+					<td>{{inspectorate.division}}</td>
 					<td>{{inspectorate.numFemale | number:0}}</td>
 					<td>{{inspectorate.numMale | number:0}}</td>
 					<td class="remove text-center noprint" style="width:80px;">

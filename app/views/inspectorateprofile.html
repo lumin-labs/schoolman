@@ -30,20 +30,23 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="inspectorate" class="col-sm-3 control-label">Region</label>
-    <div class="col-sm-9 printonly">{{data.inspectorate.region}}</div>
+    <label for="inspectorate" class="col-sm-3 control-label">Division</label>
+    <div class="col-sm-9 printonly">{{data.inspectorate.division}}</div>
     <div class="col-sm-9">
-      <div class="btn-group">
-        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" ng-readonly="!editing">
-          <span>{{data.inspectorate.region}}</span>
+      <input id="name"
+           class="form-control" 
+           placeholder="Division"
+           ng-readonly="!editing"
+           ng-model="data.inspectorate.divison">
+       <!--  <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" data-toggle="text" ng-readonly="!editing">
+          <span>{{data.inspectorate.division}}</span>
           &nbsp;<span ng-if="editing" class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
+        </button> -->
+        <!-- <ul class="dropdown-menu">
           <li ng-repeat="region in data.regions">
-            <a ng-click="data.inspectorate.region = region">{{region}}</a>
+            <a ng-click="data.inspectorate.region = region">{{division}}</a>
           </li>
-        </ul>
-      </div>
+        </ul> -->
     </div>
   </div>
   

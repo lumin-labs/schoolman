@@ -219,7 +219,7 @@ angular.module('SchoolMan')
       label:"School Profile",
       page:"schoolprofile",
       access:['inspectorate'],
-      exclude:['schools', 'divfees', 'inspectoratefinance','addschool', 'divfinance', 'divisions', 'users', 'stats'],
+      exclude:['schools', 'divfees', 'inspectoratefinance','addschool', 'divfinance','inspectoratefees', 'divisions', 'users', 'stats'],
       modes:["division", "region"],
       icon:'glyphicon-home'
     },

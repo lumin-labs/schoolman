@@ -10,7 +10,7 @@
 				<th>Rubric Name</th>
 				<th>Amount Per Student</th>
 				<th style="width:100px;">Inspectorate Percent</th>
-				<th style="width:100px;">Region Percent</th>
+				<th style="width:100px;">Division Percent</th>
 				<!-- <th style="width:100px;">Ministry Percent</th> -->
 				<th style="width:80px;">Remove</th>
 			</tr>
@@ -27,7 +27,7 @@
 					<div class="cell">{{insfee.inspectorate | number:0}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
-					<div class="cell">{{insfee.region | number:0}}</div>
+					<div class="cell">{{insfee.division | number:0}}</div>
 				</td>
 				<!-- <td class="column readonly" style="vertical-align:middle;">
 					<div class="cell">{{divfee.ministry | number:0}}</div>
@@ -86,7 +86,7 @@
 									<tr><th>
 											<label for="inspectorate">Percentage to Inspectorate:</label></th>
 										<th>
-											<label for="region">Percentage to Region:</label></th>
+											<label for="division">Percentage to Division:</label></th>
 										<!-- <th>
 											<label for="ministry">Percentage to Ministry:</label></th> -->
 									</tr>
@@ -101,11 +101,11 @@
 						    							   style="width:200px;"></th>
 						    			<th>
 						    				<input type="number"
-			    								 name="region"
-			    								 ng-model="newInsFee.region"
+			    								 name="division"
+			    								 ng-model="newInsFee.division"
 			    								 required
 			    							   class="form-control" 
-			    							   placeholder="Percentage to Region"
+			    							   placeholder="Percentage to Division"
 			    							   style="width:200px;"></th>
 						    			<th style="text-align:center;">
 					    					<div class="form-group" style="text-align:center;">

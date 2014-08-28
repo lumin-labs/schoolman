@@ -1,6 +1,6 @@
 'use strict';
 
-function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Divisions, SchoolPayments) {
+function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, InspectorateFees, Divisions, SchoolPayments) {
     var schoolId = $routeParams.schoolId === "0" ? "school_S0000001" : $routeParams.schoolId;
     $scope.accessCode = $routeParams.accessCode;
     $scope.multiplier = 1;
@@ -15,7 +15,7 @@ function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Di
       school:undefined,
       divisions: Divisions.getAll(),
       payments:SchoolPayments.get(schoolId),
-      divfees:DivFees.getAll( )
+      insfees:InspectorateFees.getAll( )
     };
     console.log("Payments:", data.payments);
 
@@ -103,20 +103,25 @@ function SchoolProfileCtrl($scope, $routeParams, model, Schools, $q, DivFees, Di
     };
     return self;
   }
+  var insTotal = 0;
   var divTotal = 0; 
   var regTotal = 0;
   var minTotal = 0;
 
-  angular.forEach($scope.data.divfees, function(fee, feeId){
+  angular.forEach($scope.data.insfees, function(fee, feeId){
     console.log("fee:", fee);
+    insTotal += fee.amount * fee.inspectorate;
     divTotal += fee.amount * fee.division;
     regTotal += fee.amount * fee.region;
     minTotal += fee.amount * fee.ministry;
+    console.log("totals", divTotal, regTotal, minTotal);
     
   });
+  console.log("totals", divTotal, regTotal, minTotal);
   var students = $scope.data.school.numMale + $scope.data.school.numFemale;
-  $scope.data.school.totalFee = ((divTotal/100)+ (regTotal/100)) * students;
+  console.log("students", students);
+  $scope.data.school.totalFee = ((divTotal/100)+ (insTotal/100)) * students;
 
   }
-  SchoolProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','DivFees', 'Divisions','SchoolPayments'];
+  SchoolProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Schools', '$q','InspectorateFees', 'Divisions','SchoolPayments'];
   angular.module('SchoolMan').controller('SchoolProfileCtrl', SchoolProfileCtrl);

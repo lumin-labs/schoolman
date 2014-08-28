@@ -1,11 +1,11 @@
 'use strict';
 
-function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments,Inspectorates) {
+function DivFinanceCtrl($scope, DivFees, Schools, InspectoratePayments,Inspectorates) {
   	
   $scope.data = {
     inspectorates: Inspectorates.getAll(),
     divfees: DivFees.getAll(),
-    payments: SchoolPayments.getAll(),
+    payments:InspectoratePayments.getAll(),
     divisionTotal: 0,
     regionTotal: 0,
     ministryTotal: 0
@@ -50,7 +50,7 @@ function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments,Inspectorates) 
   angular.forEach($scope.data.inspectorates,function(inspectorate,inspectorateid){
     var sum = 0; 
     angular.forEach($scope.data.payments,function(payment,paymentid){
-      if (payment.inspectoratesId === inspectorate._id){
+      if (payment.inspectorateId === inspectorate._id){
         sum = sum + payment.amount;
 
 
@@ -67,5 +67,5 @@ function DivFinanceCtrl($scope, DivFees, Schools, SchoolPayments,Inspectorates) 
   // $scope.data.ministryTotal = $scope.data.totalStudents * minTotal / 100;
   
 }
-DivFinanceCtrl.$inject = ['$scope','DivFees', 'Schools','SchoolPayments','Inspectorates'];
+DivFinanceCtrl.$inject = ['$scope','DivFees', 'Schools','InspectoratePayments','Inspectorates'];
 angular.module('SchoolMan').controller('DivFinanceCtrl', DivFinanceCtrl);

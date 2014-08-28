@@ -21,7 +21,7 @@ schoolman.config(['modelProvider', function(model){
         type:"number",
         required:true
       },{
-        key:"region",
+        key:"division",
         type:"number",
         required:true
       }],
@@ -44,7 +44,7 @@ schoolman.config(['modelProvider', function(model){
     self.amount = "";        // string
     self.name = ""; 
     self.inspectorate = 0;
-    self.region = 0;
+    self.division = 0;
  
     var listeners = [];
     self.notify = function(){

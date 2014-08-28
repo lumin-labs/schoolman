@@ -25,7 +25,7 @@
 				<td>{{(school.numMale + school.numFemale) * data.feesAmount | number:0}}</td> 
 				<td>{{data.insSum * (school.numMale +school.numFemale) | number:0}}</td> 
 				<td>{{(school.totalPaid | number :0)}}</td>
-				<td>{{(school.numMale  + school.numFemale) * data.feesAmount - (school.totalPaid) | number:0}}</td>
+				<td>{{data.insSum * (school.numMale  + school.numFemale) - (school.totalPaid) | number:0}}</td>
 			</tr>
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
@@ -34,7 +34,7 @@
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
 				<td>{{data.insSum * data.totalStudents | number:0 }}</td>
 				<td>{{data.totalPayment | number:0}}</td>
-				<td>{{(data.feesAmount * data.totalStudents) - data.totalPayment | number :0}}</td>
+				<td>{{(data.insSum  * data.totalStudents) - data.totalPayment | number :0}}</td>
 			</tr>
 		</tbody>
 	</table>
@@ -59,7 +59,7 @@
 				<td>{{fee.amount | number:0}}</td>
 				<td>{{data.totalStudents * fee.amount | number:0}}</td>
 				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.inspectorate / 100 | number:0}}</td>
-				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.region / 100 | number:0}}</td>
+				<td style="width:150px;">{{data.totalStudents * fee.amount * fee.division / 100 | number:0}}</td>
 				<!-- <td style="width:150px;">{{data.totalStudents * fee.amount * fee.ministry / 100 | number:0}}</td> -->
 
 			</tr>
@@ -69,7 +69,7 @@
 				<td>{{data.feesAmount | number:0}}</td>
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
 				<td style="width:150px;">{{data.inspectorateTotal | number:0}}</td>
-				<td style="width:150px;">{{data.regionTotal | number:0}}</td>
+				<td style="width:150px;">{{data.divisionTotal | number:0}}</td>
 				<!-- <td style="width:150px;">{{data.ministryTotal | number:0}}</td> -->
 			</tr>
 		</tbody>

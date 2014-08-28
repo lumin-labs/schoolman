@@ -25,7 +25,7 @@
 				<td>{{(division.numMale + division.numFemale) * data.feesAmount | number:0}}</td>
 				<td>{{data.regSum * (division.numMale+ division.numFemale) | number:0}}</td>
 				<td>{{(division.totalPaid) | number:0}}</td>
-				<td>{{(division.numMale + division.numFemale) * data.feesAmount - (division.totalPaid) | number:0}}</td>
+				<td>{{data.regSum * (division.numMale + division.numFemale)  - (division.totalPaid) | number:0}}</td>
 			</tr>
 			<tr class="finance-summary success">
 				<td><strong>Total:</strong></td>
@@ -34,7 +34,7 @@
 				<td>{{data.totalStudents * data.feesAmount | number:0}}</td>
 				<td>{{data.regSum * data.totalStudents | number:0}}</td>
 				<td>{{(data.totalPayment)  | number :0}}</td>
-				<td>{{(data.feesAmount * data.totalStudents) - data.totalPayment | number :0}}</td>
+				<td>{{(data.regSum * data.totalStudents) - data.totalPayment | number :0}}</td>
 			</tr>
 		</tbody>
 	</table>

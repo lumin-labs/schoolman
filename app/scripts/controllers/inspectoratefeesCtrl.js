@@ -27,11 +27,9 @@ function InsFeesCtrl($scope, $routeParams, model, InspectorateFees) {
       console.log("newInsFee", $scope.newInsFee);
 
       $scope.add = function(insfee){
-        if(userAccess === 'region'){
-          var percentages = insfee.region + insfee.ministry;
-        } else{
-          var percentages = insfee.inspectorate + insfee.region;
-        }
+        if(userAccess === 'inspectorate'){
+          var percentages = insfee.inspectorate + insfee.division;
+        } 
         if(insfee.isValid() && percentages <= 100){
             try{
                insfee.amount = Number(insfee.amount.replace(/[^0-9\.]+/g,""));
@@ -51,7 +49,7 @@ function InsFeesCtrl($scope, $routeParams, model, InspectorateFees) {
                console.log("InsFeesCtrl Error: ", e)
            }
          } else if (insfee <= 100){
-          console.log("InsFee Error: Numbers sum to greater than 100 %", insfee.inspectorate, ", ", insfee.region, ", ", insfee.ministry)
+          console.log("InsFee Error: Numbers sum to greater than 100 %", insfee.inspectorate, ", ", insfee.division, ", ", insfee.ministry)
          }  
       }
 
