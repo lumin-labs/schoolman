@@ -68,7 +68,7 @@ angular.module('SchoolMan')
       label:"Student Profile",
       page:"registrarProfile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'stats'],
+      exclude:['registration', 'fees', 'students', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -76,7 +76,7 @@ angular.module('SchoolMan')
       label:"Student Profile",
       page:"classmasterProfile",
       access:['classmaster'],
-      exclude:['reportcardGTHS','mastersheet', 'classmasterMarksheet', 'classcouncil'],
+      exclude:['reportcardGTHS','mastersheet', 'classmasterMarksheet', 'classcouncil', 'classmasterStats'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -154,12 +154,20 @@ angular.module('SchoolMan')
     },
     {
       label:"Statistics",
-      page:"stats",
-      access:['admin'],
+      page:"classmasterStats",
+      access:['classmaster'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-stats'
     },
+    {
+      label:"Statistics",
+      page:"adminStats",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    }
  ]);
 
 
