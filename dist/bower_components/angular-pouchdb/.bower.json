@@ -34,5 +34,6 @@
   },
   "_source": "git://github.com/wspringer/angular-pouchdb.git",
   "_target": "~0.1.5",
-  "_originalSource": "angular-pouchdb"
+  "_originalSource": "angular-pouchdb",
+  "_direct": true
 }
