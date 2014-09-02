@@ -737,14 +737,14 @@ td.profile-photo{
     }
 
     .transcript-summary {
-      width:40%;
+      width:33%;
       float:left;
     }
 
-    .signature{
+    /*.signature{
       width:60%;
       float:right;
-    }
+    }*/
 
     .signature-padding{
       height:25px;
