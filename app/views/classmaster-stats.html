@@ -2,8 +2,8 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="StatsCtrl">
     <div class="printonly" ng-controller="ClassmenuCtrl">
-      <h3>Class Mastersheet</h3>
-      <h5>{{form.name}} {{department.name}}, {{term.name}}</h5>
+      <h3>School Statistics</h3>
+      <h5>{{route.forms[queryParams.formIndex].name || "All Forms"}} {{route.departments[queryParams.deptId].name || "All Departments"}}, {{route.terms[termIndex].name || "All Terms"}}</h5>
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">
@@ -19,13 +19,6 @@
             </div>   
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:5px;padding-right:5px;">
               <form class="navbar-form navbar-left" role="search" style="padding-left:0px;width:100%;padding-right:0px;">
-                <div class="form-group pull-right">
-                  <div class="btn-group" style="margin-right:0px;">
-                    <button type="button" class="btn btn-default btn-md" ng-click="export()">
-                      Export Statistics
-                    </button>
-                  </div>
-                </div>
                 <div class="form-group">
                   <!-- Graph Menu -->
                   <div class="btn-group">
@@ -66,7 +59,7 @@
                     <!-- Term Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                         {{term.name || "All Terms"}}   <span class="caret"></span>
+                         {{route.terms[termIndex].name || "All Terms"}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
@@ -74,12 +67,12 @@
                         </li>
                         <li class="divider"></li> -->
                         <li>
-                          <a ng-click="data.stats = getStats(queryParams, 3)">All Terms
+                          <a ng-click="data.stats = getClassmasterStats(queryParams, 3)">All Terms
                           </a>
                         </li>
                         <li class="divider"></li>
                         <li ng-repeat="(termInd, term) in [1, 2, 3]">
-                          <a ng-click="data.stats = getStats(queryParams, termInd)">
+                          <a ng-click="data.stats = getClassmasterStats(queryParams, termInd)">
                             Term {{term}}
                           </a>
                         </li>
@@ -97,6 +90,7 @@
 			<thead>
 				<tr>
 					<th></th>
+          <th style="text-align:center" colspan="3">Number Enrolled</th>
 					<th style="text-align:center" colspan="3">Number Sat</th>
           <th style="text-align:center" colspan="3">Percent Passing</th>
           <th style="text-align:center" colspan="3">Percent Failing</th>
@@ -112,11 +106,17 @@
           <th>Male</th>
           <th>Female</th>
           <th>Total</th>
+          <th>Male</th>
+          <th>Female</th>
+          <th>Total</th>
         </tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="(subjectCode, subject) in data.stats | orderBy:'nameEn'">
           <td>{{subject.nameEn}}</td>
+          <td>{{subject.maleEnrolled}}</td>
+          <td>{{subject.femaleEnrolled}}</td>
+          <td>{{subject.maleEnrolled + subject.femaleEnrolled}}</td>
           <td>{{subject.maleSat}}</td>
           <td>{{subject.femaleSat}}</td>
           <td>{{subject.maleSat + subject.femaleSat}}</td>

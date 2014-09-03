@@ -12,6 +12,7 @@ function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar) {
             group.save().then(function(success){
                 console.log("Success: saved group", success);
                 $scope.groups[group._id] = group;
+                $scope.allStudents[group._id] = [];
                 $scope.newGroup = new model.Group();
             }).catch(function(error){
                 console.log("Error: unable to save group", error);

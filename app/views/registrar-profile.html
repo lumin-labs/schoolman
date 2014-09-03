@@ -186,9 +186,8 @@
                 
               <!-- Otherwise show whatever it's manually set to -->
                 <button ng-if="data.student.status['2014'] > 0"
-                        class="btn btn-sm dropdown-toggle" 
-                        ng-class="'btn-'+PROMOTE_OPTIONS[data.student.status['2014']].style
-                                  {{accessCode==='admin' ? 'disabled' : ''}}"
+                        class="btn btn-sm dropdown-toggle {{accessCode==='admin' ? 'disabled' : ''}}" 
+                        ng-class="'btn-'+PROMOTE_OPTIONS[data.student.status['2014']].style"
                         data-toggle="dropdown">
                     <i ng-class="PROMOTE_OPTIONS[data.student.status['2014']].icon"></i>
                   &nbsp;{{PROMOTE_OPTIONS[data.student.status['2014']].name}}

@@ -52,7 +52,8 @@ angular.module('SchoolMan', [
       classcouncil:"classcouncil.html",
       customerSettings:"sales.html",
       schoolInfo:"schoolinfo.html",
-      stats:"stats.html",
+      classmasterStats:"classmaster-stats.html",
+      adminStats:"admin-stats.html",
       notactive:"notactive.html"
     };
 
