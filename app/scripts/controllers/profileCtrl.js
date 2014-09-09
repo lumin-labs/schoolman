@@ -21,8 +21,8 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     var studentId = $routeParams.studentId === "0" ? "student_U0000001" : $routeParams.studentId;
     console.log("routeParams", $routeParams);
 
-    $scope.data = {
-      comments:[],
+    var data = $scope.data = {
+      comments:{},
       student:undefined,
       dcard:undefined,
       forms:Forms.all(),
@@ -111,7 +111,8 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     });
 
     profile.getComments(studentId).then(function(comments){
-      $scope.data.comments = $scope.data.comments.concat(comments);
+      console.log("Comments??", comments);
+      $scope.data.comments = comments;
     }); 
     
     Payments.query({studentId:studentId}).then(function(payments){
@@ -153,13 +154,13 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     $scope.addComment = function(){
       $scope.newComment.save().then(function(success){
         console.log("Comment saved: ", success);
-        $scope.data.comments.push($scope.newComment);
+        $scope.data.comments[success.id] = $scope.newComment;
         $scope.newComment = new model.Comment($routeParams.username, $scope.data.student._id);
       });     
     };
 
     $scope.removeComment = function(commentIndex){
-      console.log("Remove comment", $scope.data.comments[commentIndex]);
+      console.log("Remove comment", $scope.data.comments, commentIndex);
       var comment = $scope.data.comments[commentIndex];
       profile.removeComment(comment).then(function(success){
         delete $scope.data.comments[commentIndex];
@@ -181,6 +182,10 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
       }, 0);
       return total;
     };
+
+    $scope.getOwed = function(){
+      return data.fees[data.student.feeId].schoolAmount + data.fees[data.student.feeId].ptaAmount;
+    }
 
     $scope.save = function(model){
       model.save().then(function(success){

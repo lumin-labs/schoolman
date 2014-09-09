@@ -6,6 +6,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 
     self.getID = model.Marksheet.getId; 
 
+    //get sequences for term given
     self.getSequences = function(termIndex){
         var sequences = [];
 
@@ -140,7 +141,17 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       var newMarksheet = new model.Marksheet();
           newMarksheet.coeff = head.coeff;
           newMarksheet.table = angular.copy(head.table);
+
       
+      angular.forEach(newMarksheet.table, function(student, studentId){
+        if(!(student[0]==="" && student[1]==="" &&student[2]==="" &&student[3]==="" && student[4]==="" && student[5]==="")){
+          student.coeff = newMarksheet.coeff;
+        }
+        else {
+          student.coeff = 0;
+        }
+        
+      })
 
       // Reduce marksheets into the new marksheet
       return _.reduce(tail, function(prevM, nextM){
@@ -154,6 +165,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
           var xCoeff = 0;
           var yCoeff = 0;
           var count = 0;
+
           
           if(!t1.hasOwnProperty(studentId)){
             t1[studentId] = row;
@@ -183,20 +195,20 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
               }
             });
           }
-          
-          if(!prevM.table[studentId].coeff){
-            t1[studentId].coeff = 0;
-            if(xCoeff !== count){
-              t1[studentId].coeff += prevM.coeff;
-            }
-          }  else {
-            t1[studentId].coeff = prevM.table[studentId].coeff;
-          }
-          if(yCoeff !== count){
-            t1[studentId].coeff += nextM.coeff;
-          }      
-        });
+            if(!prevM.table[studentId] || !prevM.table[studentId].coeff){
+              t1[studentId].coeff = 0;
+              if(xCoeff !== count){
+                t1[studentId].coeff += prevM.coeff;
+              }
+            }  else {
+              t1[studentId].coeff = prevM.table[studentId].coeff;
 
+            }
+            if(yCoeff !== count){
+              t1[studentId].coeff += nextM.coeff;
+            }
+        });
+        
         newMarksheet.table = t1;
         newMarksheet.coeff = prevM.coeff + nextM.coeff;
 
@@ -205,12 +217,14 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       }, newMarksheet);
     }
 
+    //summarize the combined marksheet by termIndex to get term average
     self.summarize = function(marksheet, termIndex){
       var list = self.listify(marksheet.table);
       var ave  = self.ave(list, self.getSequences(termIndex));
       return self.dict(ave);
     };
 
+    //summarize as above but split the summaries by sex
     self.summarizeBySex = function(marksheet, termIndex){
       var marksheetCopy = angular.copy(marksheet);
       var list = self.listify(marksheet.table);
@@ -256,11 +270,6 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       });
       
     };
-
-    // self.summarize2 = function(marksheet){
-    //   var summaries = 
-    //   angular.forEach([0,1,2,3], function())
-    // };
 
     self.create = function(params){
     	var deferred = $q.defer();

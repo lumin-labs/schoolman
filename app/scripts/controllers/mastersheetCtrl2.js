@@ -36,6 +36,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
         });
 
 
+
         // Create marksheet summaries 
         $scope.data.summaries = _.map(marksheets , function(marksheet){
           var summary = Marksheets.summarize(marksheet, $scope.termIndex);
@@ -45,6 +46,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
 
         // combine all marksheets
         $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
+        console.log("combined marksheet", $scope.data.combinedMarksheet);
 
         // summarize combined marksheet to get grand totals
         $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;

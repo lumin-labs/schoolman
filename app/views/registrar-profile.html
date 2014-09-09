@@ -33,8 +33,8 @@
   					</div>
               <span style="color:red;font-size:12px;"
               ng-if="getTotalPayments() + newPayment.getAmount() > 
-                     data.fees[data.student.feeId].amount">
-                Payment can't be greater than amount due
+                     getOwed()">
+                Payment can't be greater than antmou due
               </span>
 			    </div>
 			    <div class="col-sm-4">
@@ -43,7 +43,7 @@
 			      			  ng-click="addPayment(newPayment, 1)"
 			      			  ng-class="[0,'0.00'].indexOf(newPayment.amount) > -1 || 
                               getTotalPayments() + newPayment.getAmount() > 
-                              data.fees[data.student.feeId].amount ? 'disabled' : ''">
+                              getOwed() ? 'disabled' : ''">
 			        Add Payment
 			      </button>
 			    </div>
@@ -92,7 +92,7 @@
   			</tr>
   			<tr>
   				<td>Fee Amount:</td>
-  				<td>{{data.fees[data.student.feeId].amount | currency:""}}</td>
+  				<td>{{getOwed() | currency:""}}</td>
         </tr>
   			<tr>
   				<td>Total Paid:</td>
@@ -100,7 +100,7 @@
   			</tr>
   			<tr class="danger">
   				<td>Due:</td>
-  				<td style="color:red;">{{data.fees[data.student.feeId].amount-getTotalPayments()  | currency:""}}</td>
+  				<td style="color:red;">{{getOwed()-getTotalPayments()  | currency:""}}</td>
   			</tr>
   		</table>
 
@@ -186,9 +186,8 @@
                 
               <!-- Otherwise show whatever it's manually set to -->
                 <button ng-if="data.student.status['2014'] > 0"
-                        class="btn btn-sm dropdown-toggle" 
-                        ng-class="'btn-'+PROMOTE_OPTIONS[data.student.status['2014']].style
-                                  {{accessCode==='admin' ? 'disabled' : ''}}"
+                        class="btn btn-sm dropdown-toggle {{accessCode==='admin' ? 'disabled' : ''}}" 
+                        ng-class="'btn-'+PROMOTE_OPTIONS[data.student.status['2014']].style"
                         data-toggle="dropdown">
                     <i ng-class="PROMOTE_OPTIONS[data.student.status['2014']].icon"></i>
                   &nbsp;{{PROMOTE_OPTIONS[data.student.status['2014']].name}}

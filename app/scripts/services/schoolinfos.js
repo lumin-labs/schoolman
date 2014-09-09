@@ -19,7 +19,8 @@ function SchoolInfos($q, Data2, model) {
   			//var info = new model.SchoolInfo();
         if(error.status === 404){
           var info = new model.SchoolInfo({nameEn:"Name (English)",
-                                            nameFr:"Name (French)"
+                                            nameFr:"Name (French)",
+                                            division:"MEZAM DIVSION"
                                           });
           info.save().then(function(success){
             deferred.resolve(info);
