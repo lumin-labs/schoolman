@@ -1,5 +1,15 @@
 'use strict';
 
+/**
+ * @ngdoc controller
+ * @name SchoolMan.controller:ClasscouncilCtrl
+ * @method {function} performanceStats
+ * @method {function} updatePerformanceRanks
+ * @method {function} changeAcRemark
+ * @method {function} changeConRemark
+ * @description Class council view controller
+ *
+ */
 function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos){
 
     //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
@@ -85,6 +95,14 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         console.log("Failed to find marksheets", error);
       });
 
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @return {object} Returns a hash of class stats
+     * @name SchoolMan.controller:ClasscouncilCtrl#performanceStats
+     * @description This sets the class performance statistics for display on the class council page
+     */
+
     var performanceStats = function(){
         var stats = {
             numStudents:0,
@@ -129,7 +147,12 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         return stats;
     }
 
-
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @name SchoolMan.controller:ClasscouncilCtrl#updatePerformanceRanks
+     * @description This sets/updates the rankings of students to display top three and bottom three performances
+     */
 
     var updatePerformanceRanks = function(){
         var studentIds = Object.keys($scope.data.rankings);
@@ -185,15 +208,38 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         });
     }
 
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @param {string} remark Academic remark to be saved
+     * @name SchoolMan.controller:ClasscouncilCtrl#changeAcRemark
+     * @description This sets and saves the academic remark for the current class council
+     */
+
     $scope.changeAcRemark = function(remark){
         $scope.data.classcouncil.academicRemark[$scope.termIndex] = remark;
         $scope.save();
     }
+
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @param {string} remark Conduct remark to be saved
+     * @name SchoolMan.controller:ClasscouncilCtrl#changeConRemark
+     * @description This sets and saves the conduct remark for the current class council
+     */
     $scope.changeConRemark = function(remark){
         $scope.data.classcouncil.conductRemark = remark;
         $scope.save();
     }
 
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @param {string} score New Passing Score
+     * @name SchoolMan.controller:ClasscouncilCtrl#updatePassingScore
+     * @description This sets and saves the new passing score for the class
+     */
     $scope.updatePassingScore = function(score){
         if(isNaN(Number(score))){
             $scope.score = $scope.data.classcouncil.passingScore;
@@ -206,9 +252,15 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         }
     }
 
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @name SchoolMan.controller:ClasscouncilCtrl#save
+     * @description This saves the current class council to pouchdb
+     */
     $scope.save = function(){
         $scope.data.classcouncil.save().then(function(success){
-            console.log("Council saved", success);
+            // console.log("Council saved", success);
         }).catch(function(error){
             console.log("Council save error ", error);
         });

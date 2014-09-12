@@ -357,49 +357,42 @@ module.exports = function (grunt) {
     },
 
     docular: {
+        useHtml5Mode: false,
+        docular_webapp_target : '/docs',
+        showAngularDocs: false,
+        showDocularDocs: true,
+        examples: {},
         groups: [
           {
-            baseUrl: 'http://localhost:8000', //base tag used by Angular
+            
             groupTitle: 'SchoolMan',
             groupId: 'schoolman',
             groupIcon: 'icon-book',
-            sections: [
-            {
-                id: "api",
-                title: "API",
-                showSource: true,
-                scripts: [
-                    "app/scripts/"
-                ],
-                docs: [],
-                rank : {}
+            groups: [
+              {
+                groupId: "api",
+                groupTitle: "API",
+                files: [
+                  'app/scripts/controllers/mainCtrl.js'
+
+                  ]
               },
               {
-                id: "install",
-                title: "Installation",
-                showSource: true,
-                scripts: [
-                ],
-                docs: [],
-                rank : {}
+                groupId: "install",
+                groupTitle: "Installation",
+                files: []
               },
               {
-                id: "config",
-                title: "Configurations",
-                showSource: true,
-                scripts: [
-                ],
-                docs: [],
-                rank : {}
+                groupId: "config",
+                groupTitle: "Configurations",
+                files: []
               }
             ]
           }
-        ],
-        showDocularDocs: true,
-        showAngularDocs: false,
-        docular_webapp_target : "docs"
+        ]
     }
   });
+// console.log("Test:",grunt.file.expand(['app/scripts/**/*.js', '!app/scripts/services/$model.js']))
 
 
 
