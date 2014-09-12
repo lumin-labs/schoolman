@@ -137,6 +137,14 @@ angular.module('SchoolMan')
       icon:'glyphicon-list-alt'
     },
     {
+      label:"Transcript",
+      page:"transcript",
+      access:['classmaster'],
+      exclude:[],
+      modes:["gths","ghs"],
+      icon:'glyphicon-list-alt'
+    },
+    {
       label:"Class Council",
       page:"classcouncil",
       access:['classmaster','admin'],
