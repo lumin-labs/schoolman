@@ -13,6 +13,7 @@ function TranscriptCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
       $scope.pageTitleEnglish = "ACADEMIC TRANSCRIPT";
       $scope.pageTitleFrench = "TRANSCRIPTION SCOLAIRE";
       //$scope.schoolYear = SCHOOLYEAR.year;
+      $scope.regions = model.SchoolInfo.regions;
 
       $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
       $scope.Users = Users;
