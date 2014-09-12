@@ -22,7 +22,7 @@ schoolman.config(['modelProvider', function(model){
     this[ val ('principal : string')] = "";
     this[ val ('division : string', required)] = "";
     this[ val ('subdivision : string')] = "";
-    this[ val ('region : string', required)] = ""
+    this[ val ('region : string', required)] = "";
 
     this.__init__(spec);
   };
@@ -31,7 +31,7 @@ schoolman.config(['modelProvider', function(model){
     AD:{nameEn:"ADAMOWA", nameFr:"ADAMOUA"},
     CE:{nameEn:"CENTRE", nameFr:"CENTRE"},
     E:{nameEn:"EAST", nameFr:"EST"},
-    FN:{nameEn:"FAR NORTH", "EXTREME NORD"},
+    FN:{nameEn:"FAR NORTH", nameFr:"EXTREME NORD"},
     LT:{nameEn:"LITTORAL", nameFr:"LITTORAL"},
     N:{nameEn:"NORTH", nameFr:"NORD"},
     NW:{nameEn:"NORTH WEST", nameFr: "NORD OUEST"},
