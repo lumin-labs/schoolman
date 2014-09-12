@@ -21,7 +21,7 @@ function SchoolInfos($q, Data2, model) {
           var info = new model.SchoolInfo({nameEn:"NAME (English)",
                                             nameFr:"NAME (French)",
                                             division:"MEZAM",
-                                            region: "NW";
+                                            region: "NW"
                                           });
           info.save().then(function(success){
             deferred.resolve(info);
