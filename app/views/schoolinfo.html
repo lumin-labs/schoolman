@@ -12,6 +12,21 @@
       <tr><td style="width:200px;text-align:right;"><label for="nameFr">School Name (French)</label></td>
       <td><input id="nameFr" type="text" class="form-control" placeholder="School Name (French)" ng-model="schoolInfo.nameFr" ng-blur="save()"></input></td></tr>
 
+      <tr><td style="width:200px;text-align:right;"><label for="region">Region</label></td>
+        <td><div  class="btn-group">
+          <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+            {{schoolInfo.region}} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="(regionId, version) in regions">
+              <a ng-click="schoolInfo.region = regionId; save()">
+                  {{regionId}}
+              </a>
+          </li>
+        </ul>
+        </div></td>
+      </tr>
+
       <tr><td style="width:200px;text-align:right;"><label for="division">Division</label></td>
       <td><input id="division" type="text" class="form-control" placeholder="Division" ng-model="schoolInfo.division" ng-blur="save()"></input></td></tr>
 

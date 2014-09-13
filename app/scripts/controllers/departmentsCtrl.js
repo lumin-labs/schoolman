@@ -1,4 +1,13 @@
 'use strict';
+/**
+ * @ngdoc controller
+ * @name SchoolMan.controller:Departments
+ * @method {function} add
+ * @method {function} remove
+ * @method {function} toggleForm
+ * @description Departments view controller
+ *
+ */
 
 function DepartmentsCtrl($scope, $log, Registrar, model, Students, Departments, CourseCatalog){
 

@@ -5,6 +5,7 @@ angular.module('SchoolMan')
   	
     $scope.accessCode = $routeParams.accessCode;
     $scope.User = model.User;
+    $scope.regions = model.SchoolInfo.regions;
 
   	SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;

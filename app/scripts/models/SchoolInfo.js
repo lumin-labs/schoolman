@@ -22,9 +22,23 @@ schoolman.config(['modelProvider', function(model){
     this[ val ('principal : string')] = "";
     this[ val ('division : string', required)] = "";
     this[ val ('subdivision : string')] = "";
+    this[ val ('region : string', required)] = "";
 
     this.__init__(spec);
   };
+
+  SchoolInfo.regions = {
+    AD:{nameEn:"ADAMOWA", nameFr:"ADAMOUA"},
+    CE:{nameEn:"CENTRE", nameFr:"CENTRE"},
+    E:{nameEn:"EAST", nameFr:"EST"},
+    FN:{nameEn:"FAR NORTH", nameFr:"EXTREME NORD"},
+    LT:{nameEn:"LITTORAL", nameFr:"LITTORAL"},
+    N:{nameEn:"NORTH", nameFr:"NORD"},
+    NW:{nameEn:"NORTH WEST", nameFr: "NORD OUEST"},
+    S:{nameEn:"SOUTH", nameFr:"SUD"},
+    SW:{nameEn:"SOUTH WEST", nameFr: "SUD OUEST"},
+    W:{nameEn:"WEST", nameFr:"OUEST"}
+  }
 
   SchoolInfo.prototype = new model.Model();
   SchoolInfo.prototype.generateID = function(){
