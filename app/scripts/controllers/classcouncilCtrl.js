@@ -18,6 +18,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
     //$scope.schoolYear = SCHOOLYEAR.year;
+    $scope.regions = model.SchoolInfo.regions;
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
