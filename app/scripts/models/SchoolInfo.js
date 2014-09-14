@@ -23,6 +23,7 @@ schoolman.config(['modelProvider', function(model){
     this[ val ('division : string', required)] = "";
     this[ val ('subdivision : string')] = "";
     this[ val ('region : string', required)] = "";
+    this[ val ('refno : string')] = "";
 
     this.__init__(spec);
   };

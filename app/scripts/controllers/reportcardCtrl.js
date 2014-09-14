@@ -13,6 +13,7 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
       $scope.pageTitleFrench = "BULLETIN DE NOTES";
       //$scope.schoolYear = SCHOOLYEAR.year;
+      $scope.regions = model.SchoolInfo.regions;
 
       $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
       $scope.Users = Users;
