@@ -14,7 +14,7 @@
         <h5><strong>{{data.schoolInfo.nameFr}}</strong></h5>
       </td>
   		<td class="text-center title-main" style="border:none;">
-        <img src="images/logo.png" style="width:200px">
+        <img src="images/logo.png" style="width:150px">
 			  <h4  style="margin-top:10px;">
 			  	<strong class="english">{{pageTitleEnglish}}</strong> - 
 			  	<strong class="french">{{pageTitleFrench}}</strong>
@@ -34,11 +34,8 @@
       </td>
     </tr>
     <tr class="title-flank" style="border:none">
-      <td colspan="2" style="border:none">
-        <h6>Ref No:_______________/MINESEC/RDSE/{{data.schoolInfo.region}}/DDSE/{{data.schoolInfo.division}}/{{data.schoolInfo.nameEn}}/{{data.schoolInfo.subdivision}}</h6>
-      </td>
-      <td style="border:none">
-        <h6>DATE:___________________</h6>
+      <td colspan="3" style="border:none">
+        <h6>Ref No:{{data.schoolInfo.refno !== '' ? data.schoolInfo.refno : '_______________'}}/MINESEC/RDSE/{{data.schoolInfo.region}}/DDSE/{{data.schoolInfo.division}}/{{data.schoolInfo.nameEn}}/{{data.schoolInfo.subdivision}}</h6>
       </td>
     </tr>
 	</table>
