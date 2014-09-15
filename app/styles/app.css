@@ -761,6 +761,15 @@ td.profile-photo{
     .table-transcript2 tbody tr td{
       font-size: 7px;
     }
+    .cell-transcript{
+      border:none;
+      width:100%;
+      height:14px;
+      font-size:7px;
+      font-weight:bold;
+      padding:0px;
+      background-color: inherit;
+    }
 
     .transcript-summary {
       width:33%;
