@@ -18,7 +18,10 @@ schoolman.config(['modelProvider', function(model){
     var val = this.val.bind(this); var required = true;
 
     this[ val ('studentId : string', required)] = "";
-    this[ val ('table : object', required)] = {};
+    this[ val ('startYear : number')];
+    this[ val ('endYear : number')];
+    this[ val ('sponsor : string')] = "";
+    this[ val ('table : object')] = {};
 
     this.__init__(spec);
   }

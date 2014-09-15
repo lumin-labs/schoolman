@@ -1,6 +1,6 @@
 'use strict';
 
-function Transcripts($q, model, modelTransformer, pouchdb) {
+function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students) {
 
   	var db = model.Transcript.db;
     if(typeof db === "string"){
@@ -8,6 +8,7 @@ function Transcripts($q, model, modelTransformer, pouchdb) {
     }
 
   	var _transcripts = {};
+    var subjects = Subjects.getAll();
 
   	self = {};
 
@@ -15,13 +16,50 @@ function Transcripts($q, model, modelTransformer, pouchdb) {
 
     self.get = function(studentId){
       var deferred = $q.defer();
-      var trancriptId = "transcript_" + studentId;
-      db.get(transcriptId).then(function(data){
-        var spec = model.parse2(data, data.datatype);
-        var transcript = new model.Transcript(spec);
-        deferred.resolve(transcript);
+      var transcriptId = "transcript_" + studentId;
+      var student;
+
+      Students.get(studentId).then(function(success){
+        student = success;
+
+        db.get(transcriptId).then(function(data){
+          var spec = model.parse2(data, data.datatype);
+          var transcript = new model.Transcript(spec);
+
+          angular.forEach(subjects, function(subject, subjectId){
+            if(!(transcript.table.hasOwnProperty(subjectId))){
+              if(student.formIndex < 5){
+                transcript.table[subjectId]=["","","","","","","","","","","","","","",""];
+              } else {
+                transcript.table[subjectId]=["","","","","",""];
+              }
+            }
+          });
+
+          deferred.resolve(transcript);
+        }).catch(function(error){
+          if(error.status === 404){
+            var transcript = new model.Transcript({studentId:studentId});
+            
+            angular.forEach(subjects, function(subject, subjectId){
+              if(student.formIndex < 5){
+                transcript.table[subjectId]=["","","","","","","","","","","","","","",""];
+              } else {
+                transcript.table[subjectId]=["","","","","",""];
+              }
+            })
+
+            transcript.save().then(function(success){
+              deferred.resolve(transcript);
+            }).catch(function(error){
+              deferred.reject(error);
+            })
+          } else{
+            deferred.reject(error);
+          }
+        });
       }).catch(function(error){
-        deferred.reject(error);
+        console.log("Failed to retreive student", error);
       });
       return deferred.promise;
     };
@@ -36,5 +74,5 @@ function Transcripts($q, model, modelTransformer, pouchdb) {
 
     return self;
   }
-  Transcripts.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb'];
+  Transcripts.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb', 'Subjects', 'Students'];
   angular.module('SchoolMan').service('Transcripts', Transcripts);
