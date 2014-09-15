@@ -17,6 +17,9 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
     var groupP= Groups.load();
     var studentsP= Students.load();
 
+    // Initialize/Register ClassCouncil datatype
+
+    var transcript = new model.Transcript();
 
     var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 

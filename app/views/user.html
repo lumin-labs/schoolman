@@ -2,13 +2,160 @@
   <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
   <div class="col-md-10 marksheet" ng-controller="UserCtrl">
-
+  <h3>{{data.user.fullname}}</h3>
   <div class="row">
   	<div class="col-md-7" style="border-right:solid 1px #ddd;">
-  	  <h3>{{editingUser.fullname}}</h3>
+  	  <h3>User Profile</h3>
+
+  		<form class="form-horizontal" role="form">
+	  		<div class="form-group">
+			    <label for="fullname" class="col-sm-3 control-label">Name</label>
+			    <div class="col-sm-9 printonly">{{data.user.fullname}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="fullname" class="form-control" placeholder="Name" ng-readonly="!editing" ng-model="data.user.fullname">
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="matricalno" class="col-sm-3 control-label">Matrical Number</label>
+			    <div class="col-sm-9 printonly">{{data.user.matricalno}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="matricalno" class="form-control" placeholder="Matrical Number" ng-readonly="!editing" ng-model="data.user.matricalno">
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="grade" class="col-sm-3 control-label">Grade</label>
+			    <div class="col-sm-9 printonly">{{data.user.grade}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="grade" class="form-control" placeholder="Grade" ng-readonly="!editing" ng-model="data.user.grade">
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="qualification" class="col-sm-3 control-label">Highest Qualification</label>
+			    <div class="col-sm-9 printonly">{{data.user.qualification}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="qualification" class="form-control" placeholder="Highest Qualification" ng-readonly="!editing" ng-model="data.user.qualification">
+			    </div>
+			</div>
+
+			<br>
+
+			<div class="form-group">
+			    <label for="dateofentry" class="col-sm-3 control-label">Entry Into Service</label>
+			    <div class="col-sm-9 printonly">{{data.user.dateofentry | date:'dd-MM-yyyy'}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="dateofentry" 
+			           class="form-control" 
+			           placeholder="Date of Entry" 
+			           ng-model="data.user.dateofentry"
+			           ng-readonly="!editing"
+			           type="date">
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="lengthservice" class="col-sm-3 control-label">Years of Service</label>
+			    <div class="col-sm-9">{{data.serviceYears ? data.serviceYears : 0}} Years, {{data.serviceMonths ? data.serviceMonths : 0}} Months</div>
+			</div>
+
+			<div class="form-group">
+			    <label for="retirement" class="col-sm-3 control-label">Date of Retirement</label>
+			    <div class="col-sm-9">{{data.user.birth ? data.retire : '' | date:'dd-MM-yyyy'}}</div>
+			</div>
+
+			<div class="form-group">
+			    <label for="post" class="col-sm-3 control-label">Duty Post</label>
+			    <div class="col-sm-9 printonly">{{data.user.post}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="post" class="form-control" placeholder="Duty Post" ng-readonly="!editing" ng-model="data.user.post">
+			    </div>
+			</div>
+
+			<br>
+
+			<div class="form-group">
+			    <label for="birthdate" class="col-sm-3 control-label">Birth Date</label>
+			    <div class="col-sm-9 printonly">{{data.user.birth | date:'dd-MM-yyyy'}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="birthdate" 
+			           class="form-control" 
+			           placeholder="Birth Date" 
+			           ng-model="data.user.birth"
+			           ng-readonly="!editing"
+			           type="date">
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="gender" class="col-sm-3 control-label">Gender</label>
+			    <div class="col-sm-9 printonly">{{data.user.sex}}</div>
+			    <div class="col-sm-9 noprint">
+			      <div class="btn-group">
+			        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
+			                data-toggle="dropdown">
+			          <span>{{data.user.sex}}</span>
+			          &nbsp;<span ng-if="editing" class="caret"></span>
+			        </button>
+			        <ul class="dropdown-menu">
+			          <li ng-repeat="gender in ['Female', 'Male']">
+			            <a ng-click="data.user.sex = gender">{{gender}}</a>
+			          </li>
+			        </ul>
+			      </div>
+			    </div>
+			  </div>
+
+			<div class="form-group">
+			    <label for="maritalstatus" class="col-sm-3 control-label">Marital Status</label>
+			    <div class="col-sm-9 printonly">{{data.user.maritalstatus}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="maritalstatus" class="form-control" placeholder="Marital Status" ng-readonly="!editing" ng-model="data.user.maritalstatus">
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="subdivision" class="col-sm-3 control-label">Subdivision of Origin</label>
+			    <div class="col-sm-9 printonly">{{data.user.subdivision}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="subdivision" class="form-control" placeholder="Subdivision" ng-readonly="!editing" ng-model="data.user.subdivision">
+			    </div>
+			</div>
+
+			<div class="form-group">
+			    <label for="division" class="col-sm-3 control-label">Division of Origin</label>
+			    <div class="col-sm-9 printonly">{{data.user.division}}</div>
+			    <div class="col-sm-9 noprint">
+			      <input id="division" class="form-control" placeholder="Division" ng-readonly="!editing" ng-model="data.user.division">
+			    </div>
+			</div>
+
+			<br>
+		  	<div class="form-group noprint" ng-if="data.user.access['admin'] === 1 && !editing">
+			    <div class="col-sm-offset-3 col-sm-10">
+			      <button type="submit" class="btn btn-info" ng-click="edit()">
+			        Edit User
+			      </button>
+			    </div>
+		  	</div>
+		  	<div class="form-group noprint" ng-if="data.user.access['admin'] === 1 && editing">
+			    <div class="col-sm-offset-3 col-sm-10">
+			      <button type="submit" class="btn btn-success" ng-click="save(data.user)">
+			        Save Changes
+			      </button>
+			      <button type="submit" class="btn btn-warning" style="margin-left:15px;" ng-click="cancel()">
+			        Cancel
+			      </button>
+			    </div>
+		  	</div>
+		</form>
+  	</div>
+  	<div class="col-md-5">
+		<h3>Change Password</h3>
   	  <br>
-  	  <form class="form-horizontal" role="form" ng-submit="save()">
-			  <div class="form-group" ng-if="editingUser.username !== currentUser.username">
+  	  <form class="form-horizontal" role="form" ng-submit="savePassword()">
+			  <div class="form-group" ng-if="data.user.username !== currentUser.username">
 			    <label for="repeatpassword" class="col-sm-3 control-label">Your Password</label>
 			    <div class="col-sm-9">
 			      <input id="repeatpassword"
@@ -18,7 +165,7 @@
 			           ng-model="data.currentPassword">
 			    </div>
 			  </div>
-			  <div class="form-group" ng-if="editingUser.username === currentUser.username">
+			  <div class="form-group" ng-if="data.user.username === currentUser.username">
 			    <label for="repeatpassword" class="col-sm-3 control-label">Current Password</label>
 			    <div class="col-sm-9">
 			      <input id="repeatpassword"
@@ -70,7 +217,6 @@
     		
 			</form>
   	</div>
-  	<div class="col-md-5"></div>
   </div>
   </div>
 	
