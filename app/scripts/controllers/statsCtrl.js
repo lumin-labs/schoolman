@@ -113,6 +113,12 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
 
         angular.forEach(data.depts, function(dept, deptId){
           statistics[deptId] = {};
+          var deptMaleEnrolled = 0;
+          var deptFemaleEnrolled = 0;
+          var deptMaleSat = 0;
+          var deptMalePassing = 0;
+          var deptFemaleSat = 0;
+          var deptFemalePassing = 0;
         
           angular.forEach(data.forms, function(form, formIndex){
             statistics[deptId][formIndex] = {name: form.name};
@@ -158,6 +164,13 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
                     }
                   }
                 })
+                deptMaleEnrolled += maleOnRoll;
+                deptFemaleEnrolled += femaleOnRoll;
+                deptMaleSat += maleSat;
+                deptMalePassing += malePass;
+                deptFemaleSat += femaleSat;
+                deptFemalePassing += femalePass;
+
                 statistics[deptId][formIndex] = {name: form.name, maleEnrolled: maleOnRoll, femaleEnrolled: femaleOnRoll,
                                                   maleSat: maleSat, malePassing: malePass, 
                                                   femaleSat: femaleSat, femalePassing: femalePass};
@@ -165,6 +178,9 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
             });
             
           });
+          statistics[deptId]["totals"] = {name:"Totals", maleEnrolled:deptMaleEnrolled, femaleEnrolled:deptFemaleEnrolled, 
+                                        maleSat:deptMaleSat, malePassing:deptMalePassing,
+                                        femaleSat:deptFemaleSat, femalePassing:deptFemalePassing}
         });
         return statistics;
       }
@@ -175,7 +191,7 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
       }else{
         $scope.data.stats = $scope.getClassmasterStats($scope.queryParams, $scope.termIndex);
       }
-      //console.log("Stats:", $scope.data.stats);
+      console.log("Stats:", $scope.data.stats);
 
       $scope.setQuery = function(params){
         angular.forEach(params, function(value, key){
@@ -191,6 +207,7 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
         }else{
           $scope.data.stats = $scope.getClassmasterStats($scope.queryParams, $scope.termIndex);
         }
+        console.log("Stats", $scope.data.stats);
       };
 
 
@@ -215,6 +232,12 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
           var femaleCycle2 = 0;
           var maleCycle1 = 0;
           var maleCycle2 = 0;
+          var cycleCutoff = 0;
+          if(school.version === "ghs"){
+            cycleCutoff = 5;
+          } else {
+            cycleCutoff = 4;
+          }
 
           angular.forEach(data.fees, function(fee, key){
             var studentList = _.filter(students, function(student){
@@ -226,14 +249,14 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
 
           angular.forEach(students, function(student, studentId){
             if(student.sex === "Male"){
-              if(student.formIndex > 4){
+              if(student.formIndex > cycleCutoff){
                 maleCycle2 += 1;
               } else {
                 maleCycle1 +=1;
               }
             }
             else if(student.sex === "Female"){
-              if(student.formIndex > 4){
+              if(student.formIndex > cycleCutoff){
                 femaleCycle2 += 1;
               } else {
                 femaleCycle1 +=1;
