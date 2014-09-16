@@ -132,14 +132,14 @@
 			</div>
 
 			<br>
-		  	<div class="form-group noprint" ng-if="data.user.access['admin'] === 1 && !editing">
+		  	<div class="form-group noprint" ng-if="(data.user.access['admin'] === 1 || accessCode === 'admin') && !editing">
 			    <div class="col-sm-offset-3 col-sm-10">
 			      <button type="submit" class="btn btn-info" ng-click="edit()">
 			        Edit User
 			      </button>
 			    </div>
 		  	</div>
-		  	<div class="form-group noprint" ng-if="data.user.access['admin'] === 1 && editing">
+		  	<div class="form-group noprint" ng-if="(data.user.access['admin'] === 1 || accessCode === 'admin') && editing">
 			    <div class="col-sm-offset-3 col-sm-10">
 			      <button type="submit" class="btn btn-success" ng-click="save(data.user)">
 			        Save Changes
