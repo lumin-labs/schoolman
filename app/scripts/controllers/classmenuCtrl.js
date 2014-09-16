@@ -26,7 +26,7 @@ function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, For
         }
       });
     }
-    console.log("Departments", r.departments);
+    // console.log("Departments", r.departments);
     r.department = 
     $scope.department = 
       r.departments.hasOwnProperty($routeParams.deptId) ? 

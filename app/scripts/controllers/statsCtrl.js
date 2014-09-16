@@ -113,12 +113,10 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
 
         angular.forEach(data.depts, function(dept, deptId){
           statistics[deptId] = {};
-          var deptMaleEnrolled = 0;
-          var deptFemaleEnrolled = 0;
-          var deptMaleSat = 0;
-          var deptMalePassing = 0;
-          var deptFemaleSat = 0;
-          var deptFemalePassing = 0;
+
+          statistics[deptId]["totals"] = {name:"Totals", maleEnrolled:0, femaleEnrolled:0, 
+                                        maleSat:0, malePassing:0,
+                                        femaleSat:0, femalePassing:0}
         
           angular.forEach(data.forms, function(form, formIndex){
             statistics[deptId][formIndex] = {name: form.name};
@@ -143,6 +141,8 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
                 var malePass = 0;
                 var femalePass = 0;
 
+
+
                 angular.forEach(students, function(student, studentId){
                   // console.log("student stats", summaryMarksheet[student._id][0], student);
                   if(student.sex === "Male"){
@@ -164,12 +164,13 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
                     }
                   }
                 })
-                deptMaleEnrolled += maleOnRoll;
-                deptFemaleEnrolled += femaleOnRoll;
-                deptMaleSat += maleSat;
-                deptMalePassing += malePass;
-                deptFemaleSat += femaleSat;
-                deptFemalePassing += femalePass;
+                statistics[deptId]["totals"].maleEnrolled += maleOnRoll;
+                statistics[deptId]["totals"].femaleEnrolled += femaleOnRoll;
+                statistics[deptId]["totals"].maleSat += maleSat;
+                statistics[deptId]["totals"].malePassing += malePass;
+                statistics[deptId]["totals"].femaleSat += femaleSat;
+                statistics[deptId]["totals"].femalePassing += femalePass;
+                
 
                 statistics[deptId][formIndex] = {name: form.name, maleEnrolled: maleOnRoll, femaleEnrolled: femaleOnRoll,
                                                   maleSat: maleSat, malePassing: malePass, 
@@ -178,9 +179,8 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
             });
             
           });
-          statistics[deptId]["totals"] = {name:"Totals", maleEnrolled:deptMaleEnrolled, femaleEnrolled:deptFemaleEnrolled, 
-                                        maleSat:deptMaleSat, malePassing:deptMalePassing,
-                                        femaleSat:deptFemaleSat, femalePassing:deptFemalePassing}
+          
+          
         });
         return statistics;
       }
