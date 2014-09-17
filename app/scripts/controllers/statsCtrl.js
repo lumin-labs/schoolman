@@ -60,7 +60,7 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
               // console.log("Combined Marksheets", newMarksheet, marksheets);
               var summaryMarksheet = Marksheets.summarize(newMarksheet, term);
               
-              var studentIds = Object.keys(summaryMarksheet);
+              var studentIds = Object.keys(summaryMarksheet.table);
 
               Students.getBatch(studentIds).then(function(students){
                 // console.log("students", students);
@@ -76,21 +76,21 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
                 var femalePass = 0;
 
                 angular.forEach(students, function(student, studentId){
-                  // console.log("student stats", summaryMarksheet[student._id][0], student);
+                  // console.log("student stats", summaryMarksheet.table[student._id][0], student);
                   if(student.sex === "Male"){
                     maleOnRoll += 1;
-                    if(summaryMarksheet[student._id][0] >= 0){
+                    if(summaryMarksheet.table[student._id][0] >= 0){
                       maleSat += 1;
-                      if(summaryMarksheet[student._id][0] >= 10){
+                      if(summaryMarksheet.table[student._id][0] >= 10){
                         malePass += 1;
                       }
                     }
                   }
                   else if(student.sex === "Female"){
                     femaleOnRoll += 1;
-                    if(summaryMarksheet[student._id][0] >= 0){
+                    if(summaryMarksheet.table[student._id][0] >= 0){
                       femaleSat += 1;
-                      if(summaryMarksheet[student._id][0] >= 10){
+                      if(summaryMarksheet.table[student._id][0] >= 10){
                         femalePass += 1;
                       }
                     }
@@ -122,11 +122,16 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
             statistics[deptId][formIndex] = {name: form.name};
             // console.log("params", query);
             Marksheets.query({formIndex:formIndex, deptId:deptId}).then(function(marksheets){
-              var combinedMarksheet = Marksheets.combine(marksheets);
-              // console.log("Combined Marksheets", newMarksheet, marksheets);
-              var summaryMarksheet = Marksheets.summarize(combinedMarksheet, term);
+              $scope.data.summaries = _.map(marksheets , function(marksheet){
+                var summary = Marksheets.summarize(marksheet, $scope.termIndex);
+                return summary;
+              });
 
-              var studentIds = Object.keys(summaryMarksheet);
+              var summaryMarksheet = Marksheets.combine($scope.data.summaries);
+              // console.log("Combined Marksheets", newMarksheet, marksheets);
+              // var summaryMarksheet = Marksheets.summarize(combinedMarksheet, term);
+
+              var studentIds = Object.keys(summaryMarksheet.table);
 
               Students.getBatch(studentIds).then(function(students){
                 // console.log("students", students);
@@ -144,21 +149,21 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
 
 
                 angular.forEach(students, function(student, studentId){
-                  // console.log("student stats", summaryMarksheet[student._id][0], student);
+                  // console.log("student stats", summaryMarksheet.table[student._id][0], student);
                   if(student.sex === "Male"){
                     maleOnRoll += 1;
-                    if(summaryMarksheet[student._id][0] >= 0){
+                    if(summaryMarksheet.table[student._id][0] >= 0){
                       maleSat += 1;
-                      if(summaryMarksheet[student._id][0] >= 10){
+                      if(summaryMarksheet.table[student._id][0] >= 10){
                         malePass += 1;
                       }
                     }
                   }
                   else if(student.sex === "Female"){
                     femaleOnRoll += 1;
-                    if(summaryMarksheet[student._id][0] >= 0){
+                    if(summaryMarksheet.table[student._id][0] >= 0){
                       femaleSat += 1;
-                      if(summaryMarksheet[student._id][0] >= 10){
+                      if(summaryMarksheet.table[student._id][0] >= 10){
                         femalePass += 1;
                       }
                     }

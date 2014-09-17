@@ -35,9 +35,10 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     var setPassing = function(student, studentsClass){
       var studentAverage = 0;
       if(reports[studentsClass].total.summary){
-        studentAverage = reports[studentsClass].total.summary[student._id][0];
+        studentAverage = reports[studentsClass].total.summary['table'][student._id][0];
       }
-      student.passing = studentAverage >= classCouncils[studentsClass].passingScore;      
+      student.passing = studentAverage >= classCouncils[studentsClass].passingScore;   
+      console.log("passing?", studentAverage, reports[studentsClass].total.summary.table);   
     };
 
     console.log("studentId", studentId);

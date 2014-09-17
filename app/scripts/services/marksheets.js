@@ -43,8 +43,9 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
             if(typeof n === "number" && !isNaN(n)){
               total += n;
               test = true;
+              count += 1;
             }
-            count += 1;
+            
           });
           if(test === true){
             newRow[1] = total / count;
@@ -65,9 +66,10 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
         return d;
       }
 
-    self.rank = function(marksheet){
+    self.rank = function(marksheets){
+      var dict = self.dict;
+      var listify = self.listify;
       
-      var list = self.listify(marksheet);
       
 
       var sort = function(aveList){
@@ -118,19 +120,28 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
         return d;
       };
 
-      var ave = self.ave;
-      var dict = self.dict;
-      var listify = self.listify;
+      var t1 = [];
+      var t2 = [];
+      var t3 = [];
+      var t4 = [];
+      
+      angular.forEach(marksheets, function(marksheet, index){
+        t1[index] = self.summarize(marksheet, 0);
+        t2[index] = self.summarize(marksheet, 1);
+        t3[index] = self.summarize(marksheet, 2);
+        t4[index] = self.summarize(marksheet, 3);
+      })
 
-      var t1 = dict(number(sort(ave(listify(marksheet.table), [0,1]))));
-      var t2 = dict(number(sort(ave(listify(marksheet.table), [2,3]))));
-      var t3 = dict(number(sort(ave(listify(marksheet.table), [4,5]))));
-      var t4 = dict(number(sort(ave(listify(marksheet.table), [0,1,2,3,4,5])))); 
+      var m1 = dict(number(sort(listify(self.combine(t1).table))));
+      var m2 = dict(number(sort(listify(self.combine(t2).table))));
+      var m3 = dict(number(sort(listify(self.combine(t3).table))));
+      var m4 = dict(number(sort(listify(self.combine(t4).table))));
 
-      var rankings = merge([t1,t2,t3,t4]);
+      var rankings = merge([m1,m2,m3,m4]);
       return rankings;
     }
 
+    
     self.combine = function(marksheets){
 
       // console.log("Combining Marksheets", marksheets);
@@ -141,135 +152,106 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       var newMarksheet = new model.Marksheet();
           newMarksheet.coeff = head.coeff;
           newMarksheet.table = angular.copy(head.table);
+          newMarksheet.studentCoeffs = {};
 
       
       angular.forEach(newMarksheet.table, function(student, studentId){
-        if(!(student[0]==="" && student[1]==="" &&student[2]==="" &&student[3]==="" && student[4]==="" && student[5]==="")){
-          student.coeff = newMarksheet.coeff;
-        }
-        else {
-          student.coeff = 0;
-        }
-        
-      })
+        newMarksheet.studentCoeffs[studentId] = [];
+        angular.forEach(student, function(row, index){
+          if(row !== ""){
+            newMarksheet.studentCoeffs[studentId][index] = newMarksheet.coeff;
+            student.coeff = newMarksheet.coeff;
+          } else {
+            newMarksheet.studentCoeffs[studentId][index] = 0;
+            student.coeff = 0;
+          }
+        }); 
+      });
+      // console.log("New Marksheet", newMarksheet);
 
       // Reduce marksheets into the new marksheet
-      return _.reduce(tail, function(prevM, nextM){
+      var combined = _.reduce(tail, function(prevM, nextM){
        
         var t1 = angular.copy(prevM.table);
         var t2 = nextM.table;
+        var coeffs = prevM.studentCoeffs;
+
+        // console.log("T1, T2, COEFFS", t1, t2, coeffs);
         
-        var ignore = ["", null, undefined];
+        var ignore = ["", null, undefined,-1];
 
-        angular.forEach(t2, function(row, studentId){
-          var xCoeff = 0;
-          var yCoeff = 0;
-          var count = 0;
-
-          
+        angular.forEach(t2, function(row, studentId){      
           if(!t1.hasOwnProperty(studentId)){
             t1[studentId] = row;
+            coeffs[studentId] = row;
+
+            angular.forEach(coeffs[studentId], function(y, i){
+              if(!(ignore.indexOf(y) > -1)){
+                y = newMarksheet.coeff;
+              } else {
+                y = 0;
+              }
+            }); 
+
           } else {
             angular.forEach(row, function(y, i){
-              count += 1;
               var x = t1[studentId][i];
               if(ignore.indexOf(x) > -1){
                 t1[studentId][i] = y;
-                xCoeff += 1;
-              } else if(!(ignore.indexOf(y) > -1)){
-                if(prevM.table[studentId].coeff){
-                  var xc = x * prevM.table[studentId].coeff;
-                  var nc = prevM.table[studentId].coeff + nextM.coeff;
-                } else {
-                  var xc = x * prevM.coeff;
-                  var nc = prevM.coeff + nextM.coeff;
+                if(!(ignore.indexOf(y) > -1)){
+                  coeffs[studentId][i] = nextM.coeff;
                 }
+                // if(studentId === "student_U0000208")
+                //   console.log("coeff", coeffs[studentId][i], i, y, "x=[",x,"]")
+              } else if(!(ignore.indexOf(y) > -1)){
+                var xc = x * coeffs[studentId][i];
                 var yc = y * nextM.coeff;
+                var nc = coeffs[studentId][i] + nextM.coeff;
 
-                var sum = (xc + yc) / nc;
-                t1[studentId][i] = sum;
-                
+                var avg = (xc + yc) / nc;
+
+                t1[studentId][i] = avg;
+                coeffs[studentId][i] += nextM.coeff;
+                // if(studentId === "student_U0000208")
+                //   console.log("coeff", coeffs[studentId][i], i, y, "x=[",x,"]")
 
               } else {
-                yCoeff += 1
+                
               }
             });
           }
-            if(!prevM.table[studentId] || !prevM.table[studentId].coeff){
-              t1[studentId].coeff = 0;
-              if(xCoeff !== count){
-                t1[studentId].coeff += prevM.coeff;
-              }
-            }  else {
-              t1[studentId].coeff = prevM.table[studentId].coeff;
-
-            }
-            if(yCoeff !== count){
-              t1[studentId].coeff += nextM.coeff;
-            }
+          t1[studentId].coeff = _.max(coeffs[studentId]);
         });
         
         newMarksheet.table = t1;
         newMarksheet.coeff = prevM.coeff + nextM.coeff;
+        newMarksheet.studentCoeffs = coeffs;
 
         return newMarksheet;
 
       }, newMarksheet);
+      
+      return combined;
     }
 
-    //summarize the combined marksheet by termIndex to get term average
+
     self.summarize = function(marksheet, termIndex){
-      var list = self.listify(marksheet.table);
+      var summarized = new model.Marksheet();
+          summarized.table = angular.copy(marksheet.table);
+          summarized.coeff = marksheet.coeff;
+
+      if(marksheet._id){
+        summarized._id = marksheet._id;
+      }
+      // console.log("error?", summarized.table, marksheet.table);
+      var list = self.listify(summarized.table);
       var ave  = self.ave(list, self.getSequences(termIndex));
-      return self.dict(ave);
+
+      summarized.table = self.dict(ave);
+      return summarized;
     };
 
-    //summarize as above but split the summaries by sex
-    self.summarizeBySex = function(marksheet, termIndex){
-      var marksheetCopy = angular.copy(marksheet);
-      var list = self.listify(marksheet.table);
-      var ave  = self.ave(list, self.getSequences(termIndex));
-      var dict = self.dict(ave);
-
-      var studentIds = Object.keys(dict);
-
-      // angular.forEach(ave, function(student, index){
-      //   studentIds.push(student[0]);
-      // })
-      // console.log("studentIds", studentIds);
-
-
-      Students.getBatch(studentIds).then(function(students){
-        // console.log("students", students);
-        var students = _.map(Object.keys(students), function(studentId){
-          return students[studentId];
-        });
-        var maleSummary = {};
-        var femaleSummary = {};
-
-        angular.forEach(students, function(student, index){
-          if(student.sex === "Male"){
-            maleSummary[student._id] = dict[student._id];
-          }
-          else {
-            femaleSummary[student._id] = dict[student._id];
-          }
-        });
-        // console.log("Summaries: ", maleSummary, femaleSummary);
-        marksheet.maleTable = maleSummary;
-        marksheet.femaleTable = femaleSummary;
-        delete marksheet.table;
-        console.log("marksheet copy", marksheet);
-
-        return marksheet;
-
-      // Catch errors
-      }).catch(function(error){
-        console.log("Failed to find students: ", error);
-        return marksheet;
-      });
-      
-    };
+    
 
     self.create = function(params){
     	var deferred = $q.defer();
@@ -450,7 +432,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
                 report.subjects[subjectType][marksheet._id] = {
                   marksheet:marksheet,
                   summary:self.summarize(marksheet,3),
-                  ranking:self.rank(marksheet)
+                  ranking:self.rank([marksheet])
                 }
               });
 
@@ -459,24 +441,30 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
               // Create combined marksheet for each marksheet type
               angular.forEach(report.subjects, function(set, type){
                 var total = {};
+
                 var marksheets = _.map(Object.keys(set), function(marksheetId){
                   return set[marksheetId].marksheet;
                 });
 
-                total.marksheet = self.combine(marksheets);
+                var summaries = _.map(marksheets , function(marksheet){
+                  var summary = self.summarize(marksheet, 3);
+                  return summary;
+                });
+
+                total.marksheet = self.combine(summaries);
                 
 
                 combinedMarksheets.push(total.marksheet);
-                total.summary = self.summarize(total.marksheet,0);
-                total.rankings = self.rank(total.marksheet);
+                // total.summary = self.summarize(total.marksheet,0);
+                total.rankings = self.rank(marksheets);
                 set.total = total;
               });
 
               report.total = {};
-              report.total.marksheet = self.combine(combinedMarksheets);
-              report.total.summary = self.summarize(report.total.marksheet,3);
-              report.total.rankings = self.rank(report.total.marksheet);
-
+              report.total.summary = self.combine(combinedMarksheets);
+              // report.total.summary = self.summarize(report.total.marksheet,3);
+              report.total.rankings = self.rank(marksheets);
+              console.log("report", report);
               deferred.resolve(report);
             } else {
               deferred.reject("no marksheets found");

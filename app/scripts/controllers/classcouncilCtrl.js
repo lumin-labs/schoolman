@@ -12,12 +12,9 @@
  */
 function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos){
 
-    //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
-    //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
-    //$scope.schoolYear = SCHOOLYEAR.year;
     $scope.regions = model.SchoolInfo.regions;
 
     $scope.formIndex = $routeParams.formIndex;
@@ -71,23 +68,25 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){
           return marksheets[marksheetId];
         });
+
+        $scope.data.summaries = _.map(marksheets , function(marksheet){
+          var summary = Marksheets.summarize(marksheet, $scope.termIndex);
+          return summary;
+        });    
+
+        $scope.data.combinedMarksheet = Marksheets.combine($scope.data.summaries);
         
-        // combine all marksheets
-        $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
-        
-        // summarize combined marksheet to get grand totals
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;      
         
         $scope.groupStats = performanceStats();
 
         $scope.score = $scope.data.classcouncil.passingScore;
         
         // get rankings from combined marksheet
-        $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);
+        $scope.data.rankings = Marksheets.rank($scope.data.marksheets);
         console.log("rankings:", $scope.data.rankings);
         
         updatePerformanceRanks();
-        console.log("User access", $scope.userAccess);
+        // console.log("User access", $scope.userAccess);
 
        
 
@@ -121,7 +120,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         var studentAvg = 0;
         var classTotal = 0;
         
-        angular.forEach($scope.data.summarysheet, function(student, studentId){
+        angular.forEach($scope.data.combinedMarksheet.table, function(student, studentId){
             stats.numStudents = stats.numStudents +1;
             studentAvg = student[0];
 
@@ -145,6 +144,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         stats.percentFailing = 1 - stats.percentPassing;
         stats.classAverage = classTotal / stats.numPresent;
         stats.classRange = minStudent === 20 ? 0 : maxStudent - minStudent;
+        console.log("stats", stats)
         return stats;
     }
 
@@ -189,11 +189,12 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
             top3 = [sortedList[0].studentId];
             worst3 = [sortedList[0].studentId];
         }
+        console.log("ranks", top3, worst3);
 
 
         Students.getBatch(top3).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){
-                student.average = $scope.data.summarysheet[student._id][0];
+                student.average = $scope.data.combinedMarksheet.table[student._id][0];
                 return student;
             });
         }).catch(function(error){
@@ -201,7 +202,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         });
         Students.getBatch(worst3).then(function(students){
             $scope.data.worstStudents = _.map(students, function(student){
-                student.average = $scope.data.summarysheet[student._id][0];
+                student.average = $scope.data.combinedMarksheet.table[student._id][0];
                 return student;
             });
         }).catch(function(error){
