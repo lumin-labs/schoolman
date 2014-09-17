@@ -7,6 +7,81 @@
        ng-controller="reportcardCtrl" 
        ng-init="mastersheet = getMastersheet()"
        >
+
+    <div class="noprint" style="padding-bottom:10px;">
+      <div ng-controller="ClassmenuCtrl">
+        <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px;">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:5px;padding-right:5px;">
+              <form class="navbar-form navbar-left" role="search" style="padding-left:0px;width:100%;padding-right:0px;">
+                <div class="form-group">
+                  <div class="btn-group">
+                    <!-- Form Dropdown -->
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.form['name']}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.form = ''">All Forms</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li ng-repeat="(formIndex, form) in route.forms">
+                          <a ng-click="open({formIndex:formIndex})">
+                            {{route.forms[formIndex].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Department Dropdown -->
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.department['name'] || "Select Department"}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.department = ''">All Departments</a>
+                        </li> -->
+                        <!-- <li class="divider"></li> -->
+                        <li ng-repeat="(deptId, dept) in route.departments">
+                          <a ng-click="open({deptId:deptId})">
+                            {{route.departments[deptId].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Group Dropdown -->
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.group['name'] || "Select Group"}}
+                          <span class="caret"></span> 
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.group = ''">All Groups</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li ng-repeat="(groupId, group) in route.groups">
+                          <a ng-click="open({groupId:groupId})">
+                            {{route.groups[groupId].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>  
+    </div>
 <div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'" ng-show="student._id === data.student._id" ng-if="student._id === data.student._id || ClassMaster.printVariable === true || ClassMaster.printVariable === 'true'" class="print-show">
   <div class="pagebreak" ng-if="studentIndex !== 0 && (ClassMaster.printVariable === true || ClassMaster.printVariable === 'true')"></div>
 
