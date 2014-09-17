@@ -38,10 +38,8 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
         studentAverage = reports[studentsClass].total.summary['table'][student._id][0];
       }
       student.passing = studentAverage >= classCouncils[studentsClass].passingScore;   
-      console.log("passing?", studentAverage, reports[studentsClass].total.summary.table);   
     };
 
-    console.log("studentId", studentId);
     Students.get(studentId).then(function(student){
       console.log("Found student:", student);
       $scope.data.student = student;
@@ -112,12 +110,10 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     });
 
     profile.getComments(studentId).then(function(comments){
-      console.log("Comments??", comments);
       $scope.data.comments = comments;
     }); 
     
     Payments.query({studentId:studentId}).then(function(payments){
-      console.log("payments query: ", payments);
       $scope.data.payments = payments;
     }).catch(function(error){
       console.log("payment error: ", error);
@@ -126,9 +122,8 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     $scope.addPayment = function(payment, multiplier){
     	// Reformat the input from string to number
       payment.amount = payment.getAmount() * multiplier;
-      console.log("Saving payment: ", payment, multiplier);
+
       payment.save().then(function(success){
-        console.log("payment saved", success);
         $scope.data.payments.push(payment);
         $scope.newPayment = new model.Payment();
         $scope.newPayment.registrar = $routeParams.username;
@@ -154,14 +149,12 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
 
     $scope.addComment = function(){
       $scope.newComment.save().then(function(success){
-        console.log("Comment saved: ", success);
         $scope.data.comments[success.id] = $scope.newComment;
         $scope.newComment = new model.Comment($routeParams.username, $scope.data.student._id);
       });     
     };
 
     $scope.removeComment = function(commentIndex){
-      console.log("Remove comment", $scope.data.comments, commentIndex);
       var comment = $scope.data.comments[commentIndex];
       profile.removeComment(comment).then(function(success){
         delete $scope.data.comments[commentIndex];

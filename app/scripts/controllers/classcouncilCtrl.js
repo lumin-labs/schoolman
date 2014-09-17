@@ -144,7 +144,6 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         stats.percentFailing = 1 - stats.percentPassing;
         stats.classAverage = classTotal / stats.numPresent;
         stats.classRange = minStudent === 20 ? 0 : maxStudent - minStudent;
-        console.log("stats", stats)
         return stats;
     }
 
@@ -189,7 +188,6 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
             top3 = [sortedList[0].studentId];
             worst3 = [sortedList[0].studentId];
         }
-        console.log("ranks", top3, worst3);
 
 
         Students.getBatch(top3).then(function(students){
