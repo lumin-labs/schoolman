@@ -4,7 +4,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
    
     var self = {};
 
-    self.getID = model.Marksheet.getId; 
+    // self.getID = model.Marksheet.getId; 
 
     //get sequences for term given
     self.getSequences = function(termIndex){
@@ -399,6 +399,37 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 
     	return deferred.promise;
     };
+    self.getAllClasses = function(){
+      
+      var deferred = $q.defer();
+
+      // Load Data
+      var dataModel = model.Marksheet;
+
+      var map = function(doc, emit){
+        if(doc.datatype === dataModel.datatype._id){
+          var obj = model.parse(doc, dataModel.datatype);
+          emit(doc._id, {_id:doc.datatype, data:doc});
+        } 
+      };
+      Data2.query(map, {include_docs : false}).then(function(success){
+          var collection = {};
+          angular.forEach(success.rows, function(data, rowIndex){
+            var parts = data.id.split(':');
+            var id = [parts[0], parts[1], parts[2]];
+            if(!collection.hasOwnProperty(id)){
+              collection[id] = {formIndex:parts[0], deptId:parts[1], groupId:parts[2]};
+            }
+          });
+          console.log("Query: success", success);
+          deferred.resolve(collection);
+      }).catch(function(error){
+          deferred.reject("Query: failed", error);
+          //console.log("marksheet query failed")
+      });
+
+      return deferred.promise;
+    };
 
     self.validateCell = function(n){
       var status = 'number-valid';
@@ -451,10 +482,10 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
                   return summary;
                 });
 
-                total.marksheet = self.combine(summaries);
+                total.summary = self.combine(summaries);
                 
 
-                combinedMarksheets.push(total.marksheet);
+                combinedMarksheets.push(total.summary);
                 // total.summary = self.summarize(total.marksheet,0);
                 total.rankings = self.rank(marksheets);
                 set.total = total;
@@ -464,7 +495,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
               report.total.summary = self.combine(combinedMarksheets);
               // report.total.summary = self.summarize(report.total.marksheet,3);
               report.total.rankings = self.rank(marksheets);
-              console.log("report", report);
+              // console.log("report", report);
               deferred.resolve(report);
             } else {
               deferred.reject("no marksheets found");
