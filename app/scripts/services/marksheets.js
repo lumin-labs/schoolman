@@ -163,7 +163,6 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
             student.coeff = newMarksheet.coeff;
           } else {
             newMarksheet.studentCoeffs[studentId][index] = 0;
-            student.coeff = 0;
           }
         }); 
       });
@@ -201,8 +200,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
                 if(!(ignore.indexOf(y) > -1)){
                   coeffs[studentId][i] = nextM.coeff;
                 }
-                // if(studentId === "student_U0000208")
-                //   console.log("coeff", coeffs[studentId][i], i, y, "x=[",x,"]")
+
               } else if(!(ignore.indexOf(y) > -1)){
                 var xc = x * coeffs[studentId][i];
                 var yc = y * nextM.coeff;
@@ -212,8 +210,6 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 
                 t1[studentId][i] = avg;
                 coeffs[studentId][i] += nextM.coeff;
-                // if(studentId === "student_U0000208")
-                //   console.log("coeff", coeffs[studentId][i], i, y, "x=[",x,"]")
 
               } else {
                 
@@ -399,7 +395,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 
     	return deferred.promise;
     };
-    self.getAllClasses = function(){
+    self.getAllClasses = function(flags){
       
       var deferred = $q.defer();
 
@@ -416,12 +412,20 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
           var collection = {};
           angular.forEach(success.rows, function(data, rowIndex){
             var parts = data.id.split(':');
-            var id = [parts[0], parts[1], parts[2]];
-            if(!collection.hasOwnProperty(id)){
-              collection[id] = {formIndex:parts[0], deptId:parts[1], groupId:parts[2]};
+
+            if(flags.byDept === true){
+              var id = [parts[0], parts[1], parts[2]];
+              if(!collection.hasOwnProperty(id)){
+                collection[id] = {formIndex:parts[0], deptId:parts[1], groupId:parts[2]};
+              }
+            } else {
+              var id = [parts[0], parts[2]];
+              if(!collection.hasOwnProperty(id)){
+                collection[id] = {formIndex:parts[0], groupId:parts[2]};
+              }
             }
           });
-          console.log("Query: success", success);
+          // console.log("Query: success", success);
           deferred.resolve(collection);
       }).catch(function(error){
           deferred.reject("Query: failed", error);

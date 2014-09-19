@@ -244,7 +244,7 @@
               </tr>
               <tr class="danger">
                 <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
-                <td>{{set.msheet.table[student._id].coeff}}</td>
+                <td>{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id].coeff : ""}}</td>
                 <td class="{{getRemark(set.msheet.table[student._id][0]).css}}">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id][0] * set.msheet.table[student._id].coeff : 0 | number:2}}</td>
                 <td>{{set.rankings[student._id][termIndex]}}</td>
                 <td class="text-right"><strong>Average:</strong></td>

@@ -162,6 +162,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
             obj.studentId = studentId;
             return obj;
         })
+
         var sortedList = rankingsList.sort(function(a,b){
             return a.rankings[$scope.termIndex] - b.rankings[$scope.termIndex];
         })
