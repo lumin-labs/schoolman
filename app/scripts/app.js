@@ -53,6 +53,7 @@ angular.module('SchoolMan', [
       classmasterStats:"classmaster-stats.html",
       adminStats:"admin-stats.html",
       annualreport:"annualreport.html",
+      enrollmentreport:"enrollmentreport.html",
       notactive:"notactive.html"
     };
 

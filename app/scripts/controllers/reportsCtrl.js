@@ -12,7 +12,7 @@ function ReportsCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups,
     formStats:{},
     // deptStats:{}
   }
-  $scope.termIndex=3,
+  $scope.termIndex=3;
 
   angular.forEach(data.forms, function(form, formIndex){
     data.formStats[formIndex] = {
@@ -69,7 +69,6 @@ function ReportsCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups,
             n += 1;
           }
         })
-        console.log("sortedBySubject 1", angular.copy(sortedBySubject));
 
         if(sortedBySubject.length - n > 2){ 
           data.formStats[formIndex].goodSubjects = [sortedBySubject[0], sortedBySubject[1], sortedBySubject[2]];
@@ -81,7 +80,6 @@ function ReportsCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups,
           data.formStats[formIndex].goodSubjects = [sortedBySubject[0]];
           data.formStats[formIndex].poorSubjects = [sortedBySubject[0]];
         }
-        console.log("sortedBySubject 2", sortedBySubject);
 
     })
     // data.deptStats[formIndex] = {};
