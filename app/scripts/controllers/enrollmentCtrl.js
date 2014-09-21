@@ -1,6 +1,6 @@
 'use strict';
 
-function EnrollmentCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
+function EnrollmentCtrl($scope, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
   var data = $scope.data = {
     forms:Forms.all(),
     groups:Groups.getAll(),
@@ -9,15 +9,15 @@ function EnrollmentCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Grou
     classCouncils:{},
     classes:{},
     classStats:{},
-    formStats:{},
+    totalStats:{},
     deptStats:{}
   }
   $scope.termIndex=3;
   $scope.formIndex = $routeParams.formIndex;
-  $scope.allForms = false;
+  $scope.open = Location.open;
 
   // angular.forEach(data.forms, function(form, formIndex){
-    data.formStats = {
+    data.totalStats = {
       boysOnRoll:0,
       girlsOnRoll:0,
       boysEOY:0,
@@ -34,17 +34,11 @@ function EnrollmentCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Grou
 
   // })
   
-  data.classes = Students.getClasses($scope.formIndex,{byDept:true})
-    console.log("all classes", data.classes);
-
-  angular.forEach(data.classes, function(row, classId){
-    
-    // if(!data.classStats.hasOwnProperty(row.formIndex)){
-    //   data.classStats[row.formIndex] = {};
-    // }
-    if(!data.classStats.hasOwnProperty(row.deptId)){
-      data.classStats[row.deptId] = {};
-    }
+  
+  var getStats = function(params){   
+    if(!data.classStats.hasOwnProperty(params.deptId)){
+      data.classStats[params.deptId] = {};
+    } 
     var stats = {
       boysOnRoll:0,
       girlsOnRoll:0,
@@ -59,21 +53,10 @@ function EnrollmentCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Grou
       boysDismiss:0,
       girlsDismiss:0
     }
-    if(!data.deptStats.hasOwnProperty(row.deptId)){
-      data.deptStats[row.deptId] = angular.copy(stats);
+    if(!data.deptStats.hasOwnProperty(params.deptId)){
+      data.deptStats[params.deptId] = angular.copy(stats);
     }
-
-    var params = {
-      formIndex:$scope.formIndex, 
-      deptId:row.deptId, 
-      groupId:row.groupId
-    }
-    //get class councils for passing score
-    ClassCouncils.get(model.ClassCouncil.generateID(params)).then(function(success){
-      data.classCouncils[classId] = success;
-    }).catch(function(error){
-      data.classCouncils[classId] = new model.ClassCouncil();
-    });
+    
 
     Marksheets.query(params).then(function(marksheets){
       if(marksheets.length > 0){
@@ -90,6 +73,7 @@ function EnrollmentCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Grou
 
       Students.query(params).then(function(students){
         angular.forEach(students, function(student, studentIndex){
+          var classId = [student.formIndex, student.deptId, student.groupId];
           if(student.sex === "Male"){
             stats.boysOnRoll += 1;
             stats.boysEOY += 1;
@@ -145,25 +129,92 @@ function EnrollmentCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Grou
             }
           }
         })
-          data.classStats[row.deptId][row.groupId] = stats;
-          console.log("Stats copied", angular.copy(stats), row.deptId, row.groupId);
+        if(params.groupId){
+          data.classStats[params.deptId][params.groupId] = stats;
+        } else {
+          data.classStats[params.deptId][params.formIndex] = stats;
+        }
 
-          angular.forEach(stats, function(value, label){
-            data.formStats[label] += value;
-            data.deptStats[row.deptId][label] += value;
-          })
+        angular.forEach(stats, function(value, label){
+          data.totalStats[label] += value;
+          data.deptStats[params.deptId][label] += value;
+        })
       })
     })
 
+  }
+
+  data.classes = Students.getClasses($scope.formIndex)
+    console.log("all classes", data.classes);
+
+  angular.forEach(data.classes, function(row, classId){
+
+    var params = {
+      formIndex:$scope.formIndex, 
+      deptId:row.deptId, 
+      groupId:row.groupId
+    }
+
+    //get class councils for passing score
+    ClassCouncils.get(model.ClassCouncil.generateID(params)).then(function(success){
+      data.classCouncils[classId] = success;
+    }).catch(function(error){
+      data.classCouncils[classId] = new model.ClassCouncil();
+    });
+
+    getStats(params);
   });
-  $scope.toggleAllForms = function(){
-    $scope.allForms = true;
+
+  $scope.allForms = function(){
+    $scope.formIndex = -1;
+
+    data.classStats = {};
+    data.deptStats = {};
+    data.totalStats = {
+      boysOnRoll:0,
+      girlsOnRoll:0,
+      boysEOY:0,
+      girlsEOY:0,
+      boysPromote:0,
+      girlsPromote:0,
+      boysRepeat:0,
+      girlsRepeat:0,
+      boysWithdraw:0,
+      girlsWithdraw:0,
+      boysDismiss:0,
+      girlsDismiss:0
+    };
+
+    angular.forEach(data.forms, function(form, formIndex){
+      var classes = Students.getClasses(formIndex);
+      angular.forEach(classes, function(row, classId){
+        var p = {
+          formIndex:formIndex, 
+          deptId:row.deptId, 
+          groupId:row.groupId
+        }
+        ClassCouncils.get(model.ClassCouncil.generateID(p)).then(function(success){
+          data.classCouncils[classId] = success;
+        }).catch(function(error){
+          data.classCouncils[classId] = new model.ClassCouncil();
+        });
+      });
+
+      angular.forEach(data.depts, function(dept, deptId){
+        var params = {
+          formIndex:formIndex,
+          deptId:deptId
+        }
+
+        getStats(params);
+      })
+    })
   }
   console.log("Class Stats", data.classStats);
-  console.log("Form Stats", data.formStats);
+  console.log("Form Stats", data.totalStats);
   console.log("Dept Stats", data.deptStats);
   console.log("Class Councils", data.classCouncils);
 
 }
-EnrollmentCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
+EnrollmentCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
 angular.module('SchoolMan').controller('EnrollmentCtrl', EnrollmentCtrl);

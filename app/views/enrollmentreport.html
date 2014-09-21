@@ -1,12 +1,12 @@
 <div class="row">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="EnrollmentCtrl">
-    <div class="printonly" ng-controller="ClassmenuCtrl">
+    <div class="printonly">
       <h3>Enrollment Statistics</h3>
-      <h5>{{route.form['name']}}</h5>
+      <h5>{{data.forms[formIndex].name || "All Forms"}}</h5>
     </div>
     <div class="noprint" style="padding-bottom:10px;">
-      <div ng-controller="ClassmenuCtrl">
+      <div>
         <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px;">
           <div class="container-fluid">
             <div class="navbar-header">
@@ -22,16 +22,16 @@
                 <div class="form-group">
                   <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.form['name']}}   <span class="caret"></span>
+                        {{data.forms[formIndex].name || "All Forms"}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <li>
-                          <a ng-click="toggleAllForms()">All Forms</a>
+                          <a ng-click="allForms()">All Forms</a>
                         </li>
                         <li class="divider"></li>
-                        <li ng-repeat="(formIndex, form) in route.forms">
-                          <a ng-click="open({formIndex:formIndex})">
-                            {{route.forms[formIndex].name}}
+                        <li ng-repeat="(formInd, form) in data.forms">
+                          <a ng-click="open({formIndex:formInd})">
+                            {{data.forms[formIndex].name}}
                           </a>
                         </li>
                       </ul>
@@ -80,7 +80,8 @@
           <td style="text-align:left" colspan="19"><strong>{{data.depts[deptId].name}}</strong></td>
         </tr>
         <tr ng-repeat="(groupId, classStats) in deptStats">
-          <td>{{data.groups[groupId].name}}</td>
+          <td ng-if="formIndex !== -1">{{data.groups[groupId].name}}</td>
+          <td ng-if="formIndex === -1">{{data.forms[groupId].name}}</td>
           <td>{{classStats.boysOnRoll}}</td>
           <td>{{classStats.girlsOnRoll}}</td>
           <td>{{classStats.boysOnRoll + classStats.girlsOnRoll}}</td>
@@ -125,25 +126,25 @@
       </tbody>
       <tbody>
         <tr class="danger">
-          <td><strong>{{data.forms[formIndex].name}} Totals</strong></td>
-          <td>{{data.formStats.boysOnRoll}}</td>
-          <td>{{data.formStats.girlsOnRoll}}</td>
-          <td>{{data.formStats.boysOnRoll + data.formStats.girlsOnRoll}}</td>
-          <td>{{data.formStats.boysEOY}}</td>
-          <td>{{data.formStats.girlsEOY}}</td>
-          <td>{{data.formStats.boysEOY + data.formStats.girlsEOY}}</td>
-          <td>{{data.formStats.boysPromote}}</td>
-          <td>{{data.formStats.girlsPromote}}</td>
-          <td>{{data.formStats.boysPromote + data.formStats.girlsPromote}}</td>
-          <td>{{data.formStats.boysRepeat}}</td>
-          <td>{{data.formStats.girlsRepeat}}</td>
-          <td>{{data.formStats.boysRepeat + data.formStats.girlsRepeat}}</td>
-          <td>{{data.formStats.boysWithdraw}}</td>
-          <td>{{data.formStats.girlsWithdraw}}</td>
-          <td>{{data.formStats.boysWithdraw + data.formStats.girlsWithdraw}}</td>
-          <td>{{data.formStats.boysDismiss}}</td>
-          <td>{{data.formStats.girlsDismiss}}</td>
-          <td>{{data.formStats.boysDismiss + data.formStats.girlsDismiss}}</td>
+          <td><strong>Totals</strong></td>
+          <td>{{data.totalStats.boysOnRoll}}</td>
+          <td>{{data.totalStats.girlsOnRoll}}</td>
+          <td>{{data.totalStats.boysOnRoll + data.totalStats.girlsOnRoll}}</td>
+          <td>{{data.totalStats.boysEOY}}</td>
+          <td>{{data.totalStats.girlsEOY}}</td>
+          <td>{{data.totalStats.boysEOY + data.totalStats.girlsEOY}}</td>
+          <td>{{data.totalStats.boysPromote}}</td>
+          <td>{{data.totalStats.girlsPromote}}</td>
+          <td>{{data.totalStats.boysPromote + data.totalStats.girlsPromote}}</td>
+          <td>{{data.totalStats.boysRepeat}}</td>
+          <td>{{data.totalStats.girlsRepeat}}</td>
+          <td>{{data.totalStats.boysRepeat + data.totalStats.girlsRepeat}}</td>
+          <td>{{data.totalStats.boysWithdraw}}</td>
+          <td>{{data.totalStats.girlsWithdraw}}</td>
+          <td>{{data.totalStats.boysWithdraw + data.totalStats.girlsWithdraw}}</td>
+          <td>{{data.totalStats.boysDismiss}}</td>
+          <td>{{data.totalStats.girlsDismiss}}</td>
+          <td>{{data.totalStats.boysDismiss + data.totalStats.girlsDismiss}}</td>
         </tr>
       </tbody>
     </table>

@@ -395,7 +395,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 
     	return deferred.promise;
     };
-    self.getAllClasses = function(formIndex, flags){
+    self.getClasses = function(formIndex){
       
       var deferred = $q.defer();
       var params = {formIndex:formIndex}
@@ -423,16 +423,9 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
           angular.forEach(success.rows, function(data, rowIndex){
             var parts = data.id.split(':');
 
-            if(flags.byDept === true){
-              var id = [parts[0], parts[1], parts[2]];
-              if(!collection.hasOwnProperty(id)){
-                collection[id] = {formIndex:parts[0], deptId:parts[1], groupId:parts[2]};
-              }
-            } else {
-              var id = [parts[0], parts[2]];
-              if(!collection.hasOwnProperty(id)){
-                collection[id] = {formIndex:parts[0], groupId:parts[2]};
-              }
+            var id = [parts[0], parts[1], parts[2]];
+            if(!collection.hasOwnProperty(id)){
+              collection[id] = {formIndex:parts[0], deptId:parts[1], groupId:parts[2]};
             }
           });
           // console.log("Query: success", success);
