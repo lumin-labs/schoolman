@@ -13,9 +13,10 @@ function ReportsCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups,
     // deptStats:{}
   }
   $scope.termIndex=3;
+  $scope.formIndex = $routeParams.formIndex;
 
-  angular.forEach(data.forms, function(form, formIndex){
-    data.formStats[formIndex] = {
+  // angular.forEach(data.forms, function(form, formIndex){
+    data.formStats = {
       numStudents:0,
       numPresent:0,
       passing:0,
@@ -30,7 +31,7 @@ function ReportsCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups,
       dismiss:0
     }
 
-    Marksheets.query({formIndex:formIndex}).then(function(marksheets){
+    Marksheets.query({formIndex:$scope.formIndex}).then(function(marksheets){
       var summaries = _.map(marksheets , function(marksheet){
         var summary = Marksheets.summarize(marksheet, $scope.termIndex);
         summary.subjectId = marksheet.subjectId;
@@ -71,20 +72,20 @@ function ReportsCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups,
         })
 
         if(sortedBySubject.length - n > 2){ 
-          data.formStats[formIndex].goodSubjects = [sortedBySubject[0], sortedBySubject[1], sortedBySubject[2]];
-          data.formStats[formIndex].poorSubjects = angular.copy(sortedBySubject).slice(-3-n);
+          data.formStats.goodSubjects = [sortedBySubject[0], sortedBySubject[1], sortedBySubject[2]];
+          data.formStats.poorSubjects = angular.copy(sortedBySubject).slice(-3-n);
         } else if(sortedBySubject.length - n > 1){ 
-          data.formStats[formIndex].goodSubjects = [sortedBySubject[0], sortedBySubject[1]];
-          data.formStats[formIndex].poorSubjects = [sortedBySubject[0], sortedBySubject[1]];
+          data.formStats.goodSubjects = [sortedBySubject[0], sortedBySubject[1]];
+          data.formStats.poorSubjects = [sortedBySubject[0], sortedBySubject[1]];
         } else if(sortedBySubject.length - n > 0){ 
-          data.formStats[formIndex].goodSubjects = [sortedBySubject[0]];
-          data.formStats[formIndex].poorSubjects = [sortedBySubject[0]];
+          data.formStats.goodSubjects = [sortedBySubject[0]];
+          data.formStats.poorSubjects = [sortedBySubject[0]];
         }
 
     })
-    // data.deptStats[formIndex] = {};
+    // data.deptStats[$scope.formIndex] = {};
     // angular.forEach(data.depts, function(dept, deptId){
-    //   data.deptStats[formIndex][deptId] = {
+    //   data.deptStats[$scope.formIndex][deptId] = {
     //     numStudents:0,
     //     numPresent:0,
     //     passing:0,
@@ -97,21 +98,21 @@ function ReportsCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups,
     //     dismiss:0
     //   }
     // })
-  })
+  // })
   
-  Marksheets.getAllClasses({byDept:false}).then(function(success){
+  Marksheets.getAllClasses($scope.formIndex, {byDept:false}).then(function(success){
     console.log("all classes", success);
     data.classes = success;
 
     angular.forEach(data.classes, function(row, classId){
-      if(!data.classStats.hasOwnProperty(row.formIndex)){
-        data.classStats[row.formIndex] = {};
-      }
-      // if(!data.classStats[row.formIndex].hasOwnProperty(row.deptId)){
-      //   data.classStats[row.formIndex][row.deptId] = {};
+      // if(!data.classStats.hasOwnProperty($scope.formIndex)){
+      //   data.classStats[$scope.formIndex] = {};
+      // }
+      // if(!data.classStats[$scope.formIndex].hasOwnProperty(row.deptId)){
+      //   data.classStats[$scope.formIndex][row.deptId] = {};
       // }
       var params = {
-        formIndex:row.formIndex, 
+        formIndex:$scope.formIndex, 
         // deptId:row.deptId, 
         groupId:row.groupId
       }
@@ -234,49 +235,49 @@ function ReportsCtrl($scope, $routeParams, model, Marksheets, $q, Forms, Groups,
             }
           })
           //update form and dept totals
-          data.formStats[row.formIndex].promote += stats.promote;
-          data.formStats[row.formIndex].repeat += stats.repeat;
-          data.formStats[row.formIndex].withdrawal += stats.withdrawal;
-          data.formStats[row.formIndex].dismiss += stats.dismiss;
-          // data.deptStats[row.formIndex][row.deptId].promote += stats.promote;
-          // data.deptStats[row.formIndex][row.deptId].repeat += stats.repeat;
-          // data.deptStats[row.formIndex][row.deptId].withdrawal += stats.withdrawal;
-          // data.deptStats[row.formIndex][row.deptId].dismiss += stats.dismiss;
+          data.formStats.promote += stats.promote;
+          data.formStats.repeat += stats.repeat;
+          data.formStats.withdrawal += stats.withdrawal;
+          data.formStats.dismiss += stats.dismiss;
+          // data.deptStats[$scope.formIndex][row.deptId].promote += stats.promote;
+          // data.deptStats[$scope.formIndex][row.deptId].repeat += stats.repeat;
+          // data.deptStats[$scope.formIndex][row.deptId].withdrawal += stats.withdrawal;
+          // data.deptStats[$scope.formIndex][row.deptId].dismiss += stats.dismiss;
         });
 
-        data.classStats[row.formIndex][row.groupId] = stats;
-        // console.log("Subjects, classStatsgoodSub, name", subjects, data.classStats[row.formIndex][row.deptId][row.groupId].goodSubjects[0], subjects[data.classStats[row.formIndex][row.deptId][row.groupId].goodSubjects[0]].en)
+        data.classStats[row.groupId] = stats;
+        // console.log("Subjects, classStatsgoodSub, name", subjects, data.classStats[$scope.formIndex][row.deptId][row.groupId].goodSubjects[0], subjects[data.classStats[$scope.formIndex][row.deptId][row.groupId].goodSubjects[0]].en)
 
         //update form stats
-        var newSum = data.formStats[row.formIndex].aveClass * data.formStats[row.formIndex].numPresent + stats.aveClass * stats.numPresent; 
-        var newNum = data.formStats[row.formIndex].numPresent + stats.numPresent;
+        var newSum = data.formStats.aveClass * data.formStats.numPresent + stats.aveClass * stats.numPresent; 
+        var newNum = data.formStats.numPresent + stats.numPresent;
 
-        data.formStats[row.formIndex].numStudents += stats.numStudents;
-        data.formStats[row.formIndex].numPresent += stats.numPresent;
-        data.formStats[row.formIndex].passing += stats.passing;
-        data.formStats[row.formIndex].aveClass = newSum / newNum;
+        data.formStats.numStudents += stats.numStudents;
+        data.formStats.numPresent += stats.numPresent;
+        data.formStats.passing += stats.passing;
+        data.formStats.aveClass = newSum / newNum;
 
-        if(stats.aveHigh > data.formStats[row.formIndex].aveHigh){
-          data.formStats[row.formIndex].aveHigh = stats.aveHigh;
+        if(stats.aveHigh > data.formStats.aveHigh){
+          data.formStats.aveHigh = stats.aveHigh;
         }
-        if(stats.aveLow < data.formStats[row.formIndex].aveLow){
-          data.formStats[row.formIndex].aveLow = stats.aveLow;
+        if(stats.aveLow < data.formStats.aveLow){
+          data.formStats.aveLow = stats.aveLow;
         }
 
         //update dept stats
-        // var newSum = data.deptStats[row.formIndex][row.deptId].aveClass * data.deptStats[row.formIndex][row.deptId].numPresent + stats.aveClass * stats.numPresent; 
-        // var newNum = data.deptStats[row.formIndex][row.deptId].numPresent + stats.numPresent;
+        // var newSum = data.deptStats[$scope.formIndex][row.deptId].aveClass * data.deptStats[$scope.formIndex][row.deptId].numPresent + stats.aveClass * stats.numPresent; 
+        // var newNum = data.deptStats[$scope.formIndex][row.deptId].numPresent + stats.numPresent;
 
-        // data.deptStats[row.formIndex][row.deptId].numStudents += stats.numStudents;
-        // data.deptStats[row.formIndex][row.deptId].numPresent += stats.numPresent;
-        // data.deptStats[row.formIndex][row.deptId].passing += stats.passing;
-        // data.deptStats[row.formIndex][row.deptId].aveClass = newSum / newNum;
+        // data.deptStats[$scope.formIndex][row.deptId].numStudents += stats.numStudents;
+        // data.deptStats[$scope.formIndex][row.deptId].numPresent += stats.numPresent;
+        // data.deptStats[$scope.formIndex][row.deptId].passing += stats.passing;
+        // data.deptStats[$scope.formIndex][row.deptId].aveClass = newSum / newNum;
 
-        // if(stats.aveHigh > data.deptStats[row.formIndex][row.deptId].aveHigh){
-        //   data.deptStats[row.formIndex][row.deptId].aveHigh = stats.aveHigh;
+        // if(stats.aveHigh > data.deptStats[$scope.formIndex][row.deptId].aveHigh){
+        //   data.deptStats[$scope.formIndex][row.deptId].aveHigh = stats.aveHigh;
         // }
-        // if(stats.aveLow < data.deptStats[row.formIndex][row.deptId].aveLow){
-        //   data.deptStats[row.formIndex][row.deptId].aveLow = stats.aveLow;
+        // if(stats.aveLow < data.deptStats[$scope.formIndex][row.deptId].aveLow){
+        //   data.deptStats[$scope.formIndex][row.deptId].aveLow = stats.aveLow;
         // }        
       
       }).catch(function(error){

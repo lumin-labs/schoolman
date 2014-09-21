@@ -395,9 +395,10 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 
     	return deferred.promise;
     };
-    self.getAllClasses = function(flags){
+    self.getAllClasses = function(formIndex, flags){
       
       var deferred = $q.defer();
+      var params = {formIndex:formIndex}
 
       // Load Data
       var dataModel = model.Marksheet;
@@ -405,7 +406,16 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       var map = function(doc, emit){
         if(doc.datatype === dataModel.datatype._id){
           var obj = model.parse(doc, dataModel.datatype);
-          emit(doc._id, {_id:doc.datatype, data:doc});
+          var isok= true;
+          angular.forEach(params, function(param, paramKey){
+            if(paramKey === "formIndex"){
+              param = parseInt(param);
+            }
+            isok = obj[paramKey] === param ? isok : false;
+          });
+          if(isok){
+            emit(doc._id, {_id:doc.datatype, data:doc});
+          }
         } 
       };
       Data2.query(map, {include_docs : false}).then(function(success){
