@@ -62,7 +62,7 @@
 
 			<div class="form-group">
 			    <label for="retirement" class="col-sm-3 control-label">Date of Retirement</label>
-			    <div class="col-sm-9">{{data.user.birth ? data.retire : '' | date:'dd-MM-yyyy'}}</div>
+			    <div class="col-sm-9">{{data.retire.valueOf() ? data.retire : ''  | date:'dd-MM-yyyy'}}</div>
 			</div>
 
 			<div class="form-group">
@@ -132,14 +132,16 @@
 			</div>
 
 			<br>
-		  	<div class="form-group noprint" ng-if="data.user.access['admin'] === 1 && !editing">
+		  	<div class="form-group noprint" 
+		  			ng-if="(data.user.access['admin'] === 1 || accessCode === 'admin' || accessCode === 'sales') && !editing">
 			    <div class="col-sm-offset-3 col-sm-10">
 			      <button type="submit" class="btn btn-info" ng-click="edit()">
 			        Edit User
 			      </button>
 			    </div>
 		  	</div>
-		  	<div class="form-group noprint" ng-if="data.user.access['admin'] === 1 && editing">
+		  	<div class="form-group noprint" 
+		  			ng-if="(data.user.access['admin'] === 1 || accessCode === 'admin' || accessCode === 'sales') && editing">
 			    <div class="col-sm-offset-3 col-sm-10">
 			      <button type="submit" class="btn btn-success" ng-click="save(data.user)">
 			        Save Changes
