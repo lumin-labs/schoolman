@@ -66,7 +66,7 @@
 					    	<span ng-if="newStudent.feeGroup !== ''">
 					    		{{newStudent.feeId ? data.fees[newStudent.feeId].name : "Select Fee"}} 
 					    		<span ng-if="newStudent.feeId">
-						    		({{data.fees[newStudent.feeId].amount | currency:""}})
+						    		({{data.fees[newStudent.feeId].schoolAmount + data.fees[newStudent.feeId].ptaAmount | currency:""}})
 					    		</span>
 					    	</span>
 					      &nbsp;<span class="caret"></span>
@@ -74,7 +74,7 @@
 					    <ul class="dropdown-menu">
 					      <li ng-repeat="(feeKey, fee) in data.fees">
 					        <a ng-click="newStudent.feeId = feeKey">
-					        {{fee.name}} ({{fee.amount | currency:""}})</a>
+					        {{fee.name}} ({{fee.schoolAmount + fee.ptaAmount | currency:""}})</a>
 					      </li>
 					    </ul>
 						</div>

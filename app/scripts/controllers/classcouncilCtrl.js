@@ -1,13 +1,21 @@
 'use strict';
 
+/**
+ * @ngdoc controller
+ * @name SchoolMan.controller:ClasscouncilCtrl
+ * @method {function} performanceStats
+ * @method {function} updatePerformanceRanks
+ * @method {function} changeAcRemark
+ * @method {function} changeConRemark
+ * @description Class council view controller
+ *
+ */
 function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos){
 
-    //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
-    //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
-    //$scope.schoolYear = SCHOOLYEAR.year;
+    $scope.regions = model.SchoolInfo.regions;
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
@@ -60,23 +68,25 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){
           return marksheets[marksheetId];
         });
+
+        $scope.data.summaries = _.map(marksheets , function(marksheet){
+          var summary = Marksheets.summarize(marksheet, $scope.termIndex);
+          return summary;
+        });    
+
+        $scope.data.combinedMarksheet = Marksheets.combine($scope.data.summaries);
         
-        // combine all marksheets
-        $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
-        
-        // summarize combined marksheet to get grand totals
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;      
         
         $scope.groupStats = performanceStats();
 
         $scope.score = $scope.data.classcouncil.passingScore;
         
         // get rankings from combined marksheet
-        $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);
+        $scope.data.rankings = Marksheets.rank($scope.data.marksheets);
         console.log("rankings:", $scope.data.rankings);
         
         updatePerformanceRanks();
-        console.log("User access", $scope.userAccess);
+        // console.log("User access", $scope.userAccess);
 
        
 
@@ -84,6 +94,14 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
       .catch(function(error){
         console.log("Failed to find marksheets", error);
       });
+
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @return {object} Returns a hash of class stats
+     * @name SchoolMan.controller:ClasscouncilCtrl#performanceStats
+     * @description This sets the class performance statistics for display on the class council page
+     */
 
     var performanceStats = function(){
         var stats = {
@@ -102,7 +120,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         var studentAvg = 0;
         var classTotal = 0;
         
-        angular.forEach($scope.data.summarysheet, function(student, studentId){
+        angular.forEach($scope.data.combinedMarksheet.table, function(student, studentId){
             stats.numStudents = stats.numStudents +1;
             studentAvg = student[0];
 
@@ -129,7 +147,12 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         return stats;
     }
 
-
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @name SchoolMan.controller:ClasscouncilCtrl#updatePerformanceRanks
+     * @description This sets/updates the rankings of students to display top three and bottom three performances
+     */
 
     var updatePerformanceRanks = function(){
         var studentIds = Object.keys($scope.data.rankings);
@@ -139,6 +162,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
             obj.studentId = studentId;
             return obj;
         })
+
         var sortedList = rankingsList.sort(function(a,b){
             return a.rankings[$scope.termIndex] - b.rankings[$scope.termIndex];
         })
@@ -169,7 +193,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
 
         Students.getBatch(top3).then(function(students){
             $scope.data.bestStudents = _.map(students, function(student){
-                student.average = $scope.data.summarysheet[student._id][0];
+                student.average = $scope.data.combinedMarksheet.table[student._id][0];
                 return student;
             });
         }).catch(function(error){
@@ -177,7 +201,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         });
         Students.getBatch(worst3).then(function(students){
             $scope.data.worstStudents = _.map(students, function(student){
-                student.average = $scope.data.summarysheet[student._id][0];
+                student.average = $scope.data.combinedMarksheet.table[student._id][0];
                 return student;
             });
         }).catch(function(error){
@@ -185,15 +209,38 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         });
     }
 
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @param {string} remark Academic remark to be saved
+     * @name SchoolMan.controller:ClasscouncilCtrl#changeAcRemark
+     * @description This sets and saves the academic remark for the current class council
+     */
+
     $scope.changeAcRemark = function(remark){
         $scope.data.classcouncil.academicRemark[$scope.termIndex] = remark;
         $scope.save();
     }
+
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @param {string} remark Conduct remark to be saved
+     * @name SchoolMan.controller:ClasscouncilCtrl#changeConRemark
+     * @description This sets and saves the conduct remark for the current class council
+     */
     $scope.changeConRemark = function(remark){
         $scope.data.classcouncil.conductRemark = remark;
         $scope.save();
     }
 
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @param {string} score New Passing Score
+     * @name SchoolMan.controller:ClasscouncilCtrl#updatePassingScore
+     * @description This sets and saves the new passing score for the class
+     */
     $scope.updatePassingScore = function(score){
         if(isNaN(Number(score))){
             $scope.score = $scope.data.classcouncil.passingScore;
@@ -206,9 +253,15 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         }
     }
 
+    /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:ClasscouncilCtrl
+     * @name SchoolMan.controller:ClasscouncilCtrl#save
+     * @description This saves the current class council to pouchdb
+     */
     $scope.save = function(){
         $scope.data.classcouncil.save().then(function(success){
-            console.log("Council saved", success);
+            // console.log("Council saved", success);
         }).catch(function(error){
             console.log("Council save error ", error);
         });

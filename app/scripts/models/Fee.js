@@ -13,7 +13,11 @@ schoolman.config(['modelProvider', function(model){
         type:"string",
         required:true
       },{
-        key:"amount",
+        key:"schoolAmount",
+        type:"number",
+        required:true
+      },{
+        key:"ptaAmount",
         type:"number",
         required:true
       }],
@@ -33,7 +37,8 @@ schoolman.config(['modelProvider', function(model){
       return new Fee();
     }
 
-    self.amount = spec.amount || "";        // string
+    self.schoolAmount = spec.schoolAmount || "";        // string
+    self.ptaAmount = spec.ptaAmount || "";
     self.name = spec.name || ""; 
 
     var listeners = [];

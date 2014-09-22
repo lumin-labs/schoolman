@@ -17,12 +17,12 @@ function profile($q, $rootScope, model, Data2, modelTransformer) {
 	      } 
 	    };
 	    Data2.query(map, {include_docs : true}).then(function(success){
-	    		var comments = [];
+	    		var comments = {};
 	        angular.forEach(success.rows, function(data, rowIndex){
 	            var spec = data.doc;
 	            var obj = model.parse(data.value.data, spec);
 	            var comment = modelTransformer.transform(obj, model.Comment);
-	            comments.push(comment);
+	            comments[comment._id] = comment;
 	        });
 	        console.log("Comments Query: succeeded", comments);
 	        deferred.resolve(comments);

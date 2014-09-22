@@ -8,6 +8,7 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
     }
 
     $scope.ClassMaster = ClassMaster;
+    $scope.route = $routeParams;
 
   	$scope.print = function(){
   		ClassMaster.printVariable = false;
@@ -119,7 +120,8 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
       };
-    };
+    }
+    PrintModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'ClassMaster'];
     
     var ImportExportModalInstanceFunction = function ($scope, $modalInstance){
       $scope.close = function () {
@@ -128,7 +130,8 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
       };
-    };
+    }
+    ImportExportModalInstanceFunction.$inject = ['$scope', '$modalInstance'];
 
   	// $scope.importFile = function(){
   	// 	chrome.fileSystem.chooseEntry({

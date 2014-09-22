@@ -37,7 +37,7 @@
             {{cache.user["fullname"]}} <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-            <li>
+            <li ng-if="route.page && route.page !== 'login'">
               <a ng-click="open({page:'user',subpage:'current'})">Settings</a>
             </li>
             <li class="divider"></li>
@@ -206,7 +206,7 @@
         <script src="scripts/models/ClassCouncil.js"></script>
         <script src="scripts/models/Settings.js"></script>
         <script src="scripts/models/SchoolInfo.js"></script>
-        
+        <script src="scripts/models/Transcript.js"></script>
         <script src="scripts/models/InsertionError.js"></script>
 
         <script src="scripts/services/timetable.js"></script>
@@ -237,6 +237,8 @@
         <script src="scripts/services/dcards.js"></script>
         <script src="scripts/services/settings.js"></script>
         <script src="scripts/services/schoolinfos.js"></script>
+        <script src="scripts/services/transcripts.js"></script>
+        <script src="scripts/services/file.js"></script>
 
 
         <script src="scripts/controllers/loading3Ctrl.js"></script>  
@@ -260,8 +262,12 @@
         <script src="scripts/controllers/classcouncilCtrl.js"></script>
         <script src="scripts/controllers/registrationCtrl.js"></script>
         <script src="scripts/controllers/reportcardCtrl.js"></script>
+        <script src="scripts/controllers/transcriptCtrl.js"></script>
         <script src="scripts/controllers/userCtrl.js"></script>
-        <script src="scripts/services/file.js"></script>
+        <script src="scripts/controllers/statsCtrl.js"></script>
+        <script src="scripts/controllers/reportsCtrl.js"></script>
+        <script src="scripts/controllers/enrollmentCtrl.js"></script>
+        
         <!-- endbuild -->
 </body>
 </html>
