@@ -181,8 +181,8 @@ function Students($q, model, modelTransformer, pouchdb) {
       } else {
         filtered = students;
       };
-      console.log("Filtering students", params, _students);
-    	console.log("Filtered students", params, filtered);
+     //  console.log("Filtering students", params, _students);
+    	// console.log("Filtered students", params, filtered);
     	deferred.resolve(filtered);
     	return deferred.promise;
     };
@@ -235,18 +235,13 @@ function Students($q, model, modelTransformer, pouchdb) {
     	return deferred.promise;
 
     };
-    self.getAllClasses = function(flags){
+    self.getClasses = function(formIndex, flags){
       var collection = {};
       angular.forEach(_students, function(student, studentId){
-        if(flags.byDept === true){
-          var id = [student.formIndex, student.deptId, student.groupId];
+        if(student.formIndex === formIndex){
+          var id = [formIndex, student.deptId, student.groupId];
           if(!collection.hasOwnProperty(id)){
-            collection[id] = {formIndex:student.formIndex, deptId:student.deptId, groupId:student.groupId};
-          }
-        } else {
-          var id = [student.formIndex, student.groupId];
-          if(!collection.hasOwnProperty(id)){
-            collection[id] = {formIndex:student.formIndex, groupId:student.groupId};
+            collection[id] = {formIndex:formIndex, deptId:student.deptId, groupId:student.groupId};
           }
         }
       });

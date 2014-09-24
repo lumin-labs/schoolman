@@ -395,9 +395,10 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 
     	return deferred.promise;
     };
-    self.getAllClasses = function(flags){
+    self.getClasses = function(formIndex){
       
       var deferred = $q.defer();
+      var params = {formIndex:formIndex}
 
       // Load Data
       var dataModel = model.Marksheet;
@@ -405,7 +406,16 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       var map = function(doc, emit){
         if(doc.datatype === dataModel.datatype._id){
           var obj = model.parse(doc, dataModel.datatype);
-          emit(doc._id, {_id:doc.datatype, data:doc});
+          var isok= true;
+          angular.forEach(params, function(param, paramKey){
+            if(paramKey === "formIndex"){
+              param = parseInt(param);
+            }
+            isok = obj[paramKey] === param ? isok : false;
+          });
+          if(isok){
+            emit(doc._id, {_id:doc.datatype, data:doc});
+          }
         } 
       };
       Data2.query(map, {include_docs : false}).then(function(success){
@@ -413,16 +423,9 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
           angular.forEach(success.rows, function(data, rowIndex){
             var parts = data.id.split(':');
 
-            if(flags.byDept === true){
-              var id = [parts[0], parts[1], parts[2]];
-              if(!collection.hasOwnProperty(id)){
-                collection[id] = {formIndex:parts[0], deptId:parts[1], groupId:parts[2]};
-              }
-            } else {
-              var id = [parts[0], parts[2]];
-              if(!collection.hasOwnProperty(id)){
-                collection[id] = {formIndex:parts[0], groupId:parts[2]};
-              }
+            var id = [parts[0], parts[1], parts[2]];
+            if(!collection.hasOwnProperty(id)){
+              collection[id] = {formIndex:parts[0], deptId:parts[1], groupId:parts[2]};
             }
           });
           // console.log("Query: success", success);

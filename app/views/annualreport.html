@@ -1,12 +1,12 @@
 <div class="row">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="ReportsCtrl">
-    <div class="printonly" ng-controller="ClassmenuCtrl">
+    <div class="printonly">
       <h3>Annual Results Statistics</h3>
-      <!-- <h5>{{term.name || "All Terms"}}</h5> -->
+      <h5>{{data.forms[formIndex].name || "All Forms"}}</h5>
     </div>
-    <!-- <div class="noprint" style="padding-bottom:10px;">
-      <div ng-controller="ClassmenuCtrl">
+    <div class="noprint" style="padding-bottom:10px;">
+      <div>
         <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px;">
           <div class="container-fluid">
             <div class="navbar-header">
@@ -20,20 +20,18 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:5px;padding-right:5px;">
               <form class="navbar-form navbar-left" role="search" style="padding-left:0px;width:100%;padding-right:0px;">
                 <div class="form-group">
-                   
-                    <div  class="btn-group">
+                  <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                         {{term.name || "All Terms"}}   <span class="caret"></span>
+                        {{data.forms[formIndex].name || "All Forms"}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <li>
-                          <a ng-click="open({termIndex:3})">All Terms
-                          </a>
+                          <a ng-click="allForms()">All Forms</a>
                         </li>
                         <li class="divider"></li>
-                        <li ng-repeat="(termInd, term) in [1, 2, 3]">
-                          <a ng-click="open({termIndex:termInd})">
-                            Term {{term}}
+                        <li ng-repeat="(formInd, form) in data.forms">
+                          <a ng-click="open({formIndex:formInd})">
+                            {{data.forms[formInd].name}}
                           </a>
                         </li>
                       </ul>
@@ -44,11 +42,11 @@
           </div>
         </nav>
       </div>  
-    </div> -->
+    </div>
     <table class="table table-striped table-bordered table-compact text-center">
       <thead>
         <tr style="text-align:center">
-          <th style="vertical-align:middle" rowspan="2">Class / Trade</th>
+          <th style="vertical-align:middle" rowspan="2">Class</th>
           <th style="text-align:center" colspan="4">Number</th>
           <th style="text-align:center" style="vertical-align:middle" rowspan="2">% Pass</th>
           <th style="text-align:center" colspan="3">Average</th>
@@ -71,84 +69,82 @@
           <th style="text-align:center">Dismiss</th>
         </tr>
       </thead>
-      <tbody ng-repeat="(formIndex, formStats) in data.classStats">
+      <tbody ng-repeat="(deptId, deptStats) in data.classStats">
         <tr class="success">
-          <td style="text-align:left" colspan="15"><strong>{{data.forms[formIndex].name}}</strong></td>
+          <td style="text-align:left" colspan="15">{{data.depts[deptId].name}}</td>
         </tr>
-        <!-- <tr>
-          <td colspan="15">
-            <table class="table table-striped table-bordered table-compact text-center" ng-repeat="(deptId, deptStats) in formStats">
-              <tr>
-                <td colspan="15">{{data.depts[deptId].name}}</td>
-              </tr> -->
-              <tr ng-repeat="(groupId, classStats) in formStats">
-                <td>{{data.groups[groupId].name}}</td>
-                <td>{{classStats.numStudents}}</td>
-                <td>{{classStats.numPresent}}</td>
-                <td>{{classStats.passing}}</td>
-                <td>{{classStats.numPresent - classStats.passing}}</td>
-                <td>{{(classStats.passing / classStats.numPresent) * 100 | number:0}}</td>
-                <td>{{classStats.aveHigh | number:1}}</td>
-                <td>{{classStats.aveLow !== 21 ? classStats.aveLow  : "" | number:1}}</td>
-                <td>{{classStats.aveClass | number:1}}</td>
-                <td>{{data.subjects[classStats.goodSubjects[0].subject].en}}<br>
-                  {{data.subjects[classStats.goodSubjects[1].subject].en}}<br>
-                  {{data.subjects[classStats.goodSubjects[2].subject].en}}
-                </td>
-                <td>{{data.subjects[classStats.poorSubjects[2].subject].en}}<br>
-                  {{data.subjects[classStats.poorSubjects[1].subject].en}}<br>
-                  {{data.subjects[classStats.poorSubjects[0].subject].en}}
-                </td>
-                <td>{{classStats.promote}}</td>
-                <td>{{classStats.repeat}}</td>
-                <!-- <td>{{classStats.withdrawal}}</td> -->
-                <td>{{classStats.dismiss}}</td>
-              </tr>
-              <!-- <tr>
-                <td><strong>{{data.depts[deptId].name}} Totals</strong></td>
-                <td>{{data.deptStats[formIndex][deptId].numStudents}}</td>
-                <td>{{data.deptStats[formIndex][deptId].numPresent}}</td>
-                <td>{{data.deptStats[formIndex][deptId].passing}}</td>
-                <td>{{data.deptStats[formIndex][deptId].numPresent - data.deptStats[formIndex][deptId].passing}}</td>
-                <td>{{(data.deptStats[formIndex][deptId].passing / data.deptStats[formIndex][deptId].numPresent) * 100 | number:0}}</td>
-                <td>{{data.deptStats[formIndex][deptId].aveHigh | number:1}}</td>
-                <td>{{data.deptStats[formIndex][deptId].aveLow | number:1}}</td>
-                <td>{{data.deptStats[formIndex][deptId].aveClass | number:1}}</td>
-                <td></td>
-                <td></td>
-                <td>{{data.deptStats[formIndex][deptId].promote}}</td>
-                <td>{{data.deptStats[formIndex][deptId].repeat}}</td>
-                <td>{{data.deptStats[formIndex][deptId].withdrawal}}</td>
-                <td>{{data.deptStats[formIndex][deptId].dismiss}}</td>
-              </tr>
-            </table>
+        <tr ng-repeat="(groupId, classStats) in deptStats">
+          <td ng-if="formIndex !== -1">{{data.groups[groupId].name}}</td>
+          <td ng-if="formIndex === -1">{{data.forms[groupId].name}}</td>
+          <td>{{classStats.numStudents}}</td>
+          <td>{{classStats.numPresent}}</td>
+          <td>{{classStats.passing}}</td>
+          <td>{{classStats.numPresent - classStats.passing}}</td>
+          <td>{{(classStats.passing / classStats.numPresent) * 100 | number:0}}</td>
+          <td>{{classStats.aveHigh | number:1}}</td>
+          <td>{{classStats.aveLow !== 21 ? classStats.aveLow  : "" | number:1}}</td>
+          <td>{{classStats.aveClass | number:1}}</td>
+          <td>{{data.subjects[classStats.goodSubjects[0].subject].en}}<br>
+            {{data.subjects[classStats.goodSubjects[1].subject].en}}<br>
+            {{data.subjects[classStats.goodSubjects[2].subject].en}}
           </td>
-        </tr> -->
+          <td>{{data.subjects[classStats.poorSubjects[2].subject].en}}<br>
+            {{data.subjects[classStats.poorSubjects[1].subject].en}}<br>
+            {{data.subjects[classStats.poorSubjects[0].subject].en}}
+          </td>
+          <td>{{classStats.promote}}</td>
+          <td>{{classStats.repeat}}</td>
+          <!-- <td>{{classStats.withdrawal}}</td> -->
+          <td>{{classStats.dismiss}}</td>
+        </tr>
         <tr class="success">
-          <td><strong>{{data.forms[formIndex].name}} Totals</strong></td>
-          <td>{{data.formStats[formIndex].numStudents}}</td>
-          <td>{{data.formStats[formIndex].numPresent}}</td>
-          <td>{{data.formStats[formIndex].passing}}</td>
-          <td>{{data.formStats[formIndex].numPresent - data.formStats[formIndex].passing}}</td>
-          <td>{{(data.formStats[formIndex].passing / data.formStats[formIndex].numPresent) * 100 | number:0}}</td>
-          <td>{{data.formStats[formIndex].aveHigh | number:1}}</td>
-          <td>{{data.formStats[formIndex].aveLow !== 21 ? data.formStats[formIndex].aveLow : "" | number:1}}</td>
-          <td>{{data.formStats[formIndex].aveClass | number:1}}</td>
-          <td>{{data.subjects[data.formStats[formIndex].goodSubjects[0].subject].en}}<br>
-                  {{data.subjects[data.formStats[formIndex].goodSubjects[1].subject].en}}<br>
-                  {{data.subjects[data.formStats[formIndex].goodSubjects[2].subject].en}}
+          <td><strong>{{data.depts[deptId].name}} Totals</strong></td>
+          <td>{{data.deptStats[deptId].numStudents}}</td>
+          <td>{{data.deptStats[deptId].numPresent}}</td>
+          <td>{{data.deptStats[deptId].passing}}</td>
+          <td>{{data.deptStats[deptId].numPresent - data.deptStats[deptId].passing}}</td>
+          <td>{{(data.deptStats[deptId].passing / data.deptStats[deptId].numPresent) * 100 | number:0}}</td>
+          <td>{{data.deptStats[deptId].aveHigh | number:1}}</td>
+          <td>{{data.deptStats[deptId].aveLow !== 21 ? data.deptStats[deptId].aveLow  : "" | number:1}}</td>
+          <td>{{data.deptStats[deptId].aveClass | number:1}}</td>
+          <td>{{data.subjects[data.deptStats[deptId].goodSubjects[0].subject].en}}<br>
+            {{data.subjects[data.deptStats[deptId].goodSubjects[1].subject].en}}<br>
+            {{data.subjects[data.deptStats[deptId].goodSubjects[2].subject].en}}
           </td>
-          <td>{{data.subjects[data.formStats[formIndex].poorSubjects[2].subject].en}}<br>
-            {{data.subjects[data.formStats[formIndex].poorSubjects[1].subject].en}}<br>
-            {{data.subjects[data.formStats[formIndex].poorSubjects[0].subject].en}}
+          <td>{{data.subjects[data.deptStats[deptId].poorSubjects[2].subject].en}}<br>
+            {{data.subjects[data.deptStats[deptId].poorSubjects[1].subject].en}}<br>
+            {{data.subjects[data.deptStats[deptId].poorSubjects[0].subject].en}}  
           </td>
-          <td>{{data.formStats[formIndex].promote}}</td>
-          <td>{{data.formStats[formIndex].repeat}}</td>
-          <!-- <td>{{data.formStats[formIndex].withdrawal}}</td> -->
-          <td>{{data.formStats[formIndex].dismiss}}</td>
+          <td>{{data.deptStats[deptId].promote}}</td>
+          <td>{{data.deptStats[deptId].repeat}}</td>
+          <!--<td>{{data.deptStats[deptId].withdrawal}}</td>-->
+          <td>{{data.deptStats[deptId].dismiss}}</td>
         </tr>
       </tbody>
-
+      <tbody>
+        <tr class="danger">
+          <td><strong>Totals</strong></td>
+          <td>{{data.totalStats.numStudents}}</td>
+          <td>{{data.totalStats.numPresent}}</td>
+          <td>{{data.totalStats.passing}}</td>
+          <td>{{data.totalStats.numPresent - data.totalStats[formIndex].passing}}</td>
+          <td>{{(data.totalStats.passing / data.totalStats.numPresent) * 100 | number:0}}</td>
+          <td>{{data.totalStats.aveHigh | number:1}}</td>
+          <td>{{data.totalStats.aveLow !== 21 ? data.totalStats.aveLow : "" | number:1}}</td>
+          <td>{{data.totalStats.aveClass | number:1}}</td>
+          <td>{{data.subjects[data.totalStats.goodSubjects[0].subject].en}}<br>
+                  {{data.subjects[data.totalStats.goodSubjects[1].subject].en}}<br>
+                  {{data.subjects[data.totalStats.goodSubjects[2].subject].en}}
+          </td>
+          <td>{{data.subjects[data.totalStats.poorSubjects[2].subject].en}}<br>
+            {{data.subjects[data.totalStats.poorSubjects[1].subject].en}}<br>
+            {{data.subjects[data.totalStats.poorSubjects[0].subject].en}}
+          </td>
+          <td>{{data.totalStats.promote}}</td>
+          <td>{{data.totalStats.repeat}}</td>
+          <!-- <td>{{data.totalStats.withdrawal}}</td> -->
+          <td>{{data.totalStats.dismiss}}</td>
+        </tr>
       </tbody>
     </table>
   </div>
