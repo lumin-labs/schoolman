@@ -32,12 +32,11 @@ function UserCtrl($scope, $routeParams, Users, model) {
         }
 
         $scope.data.retire = new Date($scope.data.user.birth);
+        
         $scope.data.retire.setYear($scope.data.retire.getFullYear() + 60);
     }
 
     serviceLength();
-
-    console.log("Retirement", $scope.data.retire);
 
     var userCopy = angular.copy($scope.data.user);
 
@@ -89,13 +88,7 @@ function UserCtrl($scope, $routeParams, Users, model) {
     		$scope.status = 401;
     	}
     }
-    $scope.retirement = function(){
-        var retirement = new Date();
-        retirement = $scope.data.user.birth;
-        retirement.setYear(retirement.getYear() + 60);
-        console.log("Retirement", date, retirement, retirement.getYear());
-        return retirement;
-    }
+    
 
   }
 UserCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model'];

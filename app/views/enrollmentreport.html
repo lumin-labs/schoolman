@@ -1,0 +1,121 @@
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+	<div class="col-md-10 marksheet" ng-controller="EnrollmentCtrl">
+    <div class="printonly" ng-controller="ClassmenuCtrl">
+      <h3>Enrollment Statistics</h3>
+    </div>
+    <table class="table table-striped table-bordered table-compact text-center">
+      <thead>
+        <tr style="text-align:center">
+          <th style="vertical-align:middle" rowspan="2">Class / Trade</th>
+          <th style="text-align:center" colspan="3">Enrollment Beginning of Year</th>
+          <th style="text-align:center" colspan="3">Enrollment End of Year</th>
+          <th style="text-align:center" colspan="3">Promoted</th>
+          <th style="text-align:center" colspan="3">Repeating</th>
+          <th style="text-align:center" colspan="3">Withdrawn</th>
+          <th style="text-align:center" colspan="3">Dismissed</th>
+        </tr>
+        <tr style="text-align:center">
+          <th style="text-align:center">Boys</th>
+          <th style="text-align:center">Girls</th>
+          <th style="text-align:center">Total</th>
+          <th style="text-align:center">Boys</th>
+          <th style="text-align:center">Girls</th>
+          <th style="text-align:center">Total</th>
+          <th style="text-align:center">Boys</th>
+          <th style="text-align:center">Girls</th>
+          <th style="text-align:center">Total</th>
+          <th style="text-align:center">Boys</th>
+          <th style="text-align:center">Girls</th>
+          <th style="text-align:center">Total</th>
+          <th style="text-align:center">Boys</th>
+          <th style="text-align:center">Girls</th>
+          <th style="text-align:center">Total</th>
+          <th style="text-align:center">Boys</th>
+          <th style="text-align:center">Girls</th>
+          <th style="text-align:center">Total</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="(formIndex, formStats) in data.classStats">
+        <tr class="success">
+          <td style="text-align:left" colspan="19"><strong>{{data.forms[formIndex].name}}</strong></td>
+        </tr>
+        <tr>
+          <td colspan="19">
+            <table class="table table-striped table-bordered table-compact text-center" ng-repeat="(deptId, deptStats) in formStats">
+              <tr>
+                <td colspan="19">{{data.depts[deptId].name}}</td>
+              </tr>
+              <tr ng-repeat="(groupId, classStats) in deptStats">
+                <td>{{data.groups[groupId].name}}</td>
+                <td>{{classStats.boysOnRoll}}</td>
+                <td>{{classStats.girlsOnRoll}}</td>
+                <td>{{classStats.boysOnRoll + classStats.girlsOnRoll}}</td>
+                <td>{{classStats.boysEOY}}</td>
+                <td>{{classStats.girlsEOY}}</td>
+                <td>{{classStats.boysEOY + classStats.girlsEOY}}</td>
+                <td>{{classStats.boysPromote}}</td>
+                <td>{{classStats.girlsPromote}}</td>
+                <td>{{classStats.boysPromote + classStats.girlsPromote}}</td>
+                <td>{{classStats.boysRepeat}}</td>
+                <td>{{classStats.girlsRepeat}}</td>
+                <td>{{classStats.boysRepeating + classStats.girlsRepeat}}</td>
+                <td>{{classStats.boysWithdraw}}</td>
+                <td>{{classStats.girlsWithdraw}}</td>
+                <td>{{classStats.boysWithdraw + classStats.girlsWithdraw}}</td>
+                <td>{{classStats.boysDismiss}}</td>
+                <td>{{classStats.girlsDismiss}}</td>
+                <td>{{classStats.boysDismiss + classStats.girlsDismiss}}</td>
+                
+              </tr>
+              <tr>
+                <td><strong>{{data.depts[deptId].name}} Totals</strong></td>
+                <td>{{data.deptStats[formIndex][deptId].boysOnRoll}}</td>
+                <td>{{data.deptStats[formIndex][deptId].girlsOnRoll}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysOnRoll + data.deptStats[formIndex][deptId].girlsOnRoll}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysEOY}}</td>
+                <td>{{data.deptStats[formIndex][deptId].girlsEOY}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysEOY + data.deptStats[formIndex][deptId].girlsEOY}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysPromote}}</td>
+                <td>{{data.deptStats[formIndex][deptId].girlsPromote}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysPromote + data.deptStats[formIndex][deptId].girlsPromote}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysRepeat}}</td>
+                <td>{{data.deptStats[formIndex][deptId].girlsRepeat}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysRepeat + data.deptStats[formIndex][deptId].girlsRepeat}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysWithdraw}}</td>
+                <td>{{data.deptStats[formIndex][deptId].girlsWithdraw}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysWithdraw + data.deptStats[formIndex][deptId].girlsWithdraw}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysDismiss}}</td>
+                <td>{{data.deptStats[formIndex][deptId].girlsDismiss}}</td>
+                <td>{{data.deptStats[formIndex][deptId].boysDismiss + data.deptStats[formIndex][deptId].girlsDismiss}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr class="success">
+          <td><strong>{{data.forms[formIndex].name}} Totals</strong></td>
+          <td>{{data.formStats[formIndex].boysOnRoll}}</td>
+          <td>{{data.formStats[formIndex].girlsOnRoll}}</td>
+          <td>{{data.formStats[formIndex].boysOnRoll + data.formStats[formIndex].girlsOnRoll}}</td>
+          <td>{{data.formStats[formIndex].boysEOY}}</td>
+          <td>{{data.formStats[formIndex].girlsEOY}}</td>
+          <td>{{data.formStats[formIndex].boysEOY + data.formStats[formIndex].girlsEOY}}</td>
+          <td>{{data.formStats[formIndex].boysPromote}}</td>
+          <td>{{data.formStats[formIndex].girlsPromote}}</td>
+          <td>{{data.formStats[formIndex].boysPromote + data.formStats[formIndex].girlsPromote}}</td>
+          <td>{{data.formStats[formIndex].boysRepeat}}</td>
+          <td>{{data.formStats[formIndex].girlsRepeat}}</td>
+          <td>{{data.formStats[formIndex].boysRepeat + data.formStats[formIndex].girlsRepeat}}</td>
+          <td>{{data.formStats[formIndex].boysWithdraw}}</td>
+          <td>{{data.formStats[formIndex].girlsWithdraw}}</td>
+          <td>{{data.formStats[formIndex].boysWithdraw + data.formStats[formIndex].girlsWithdraw}}</td>
+          <td>{{data.formStats[formIndex].boysDismiss}}</td>
+          <td>{{data.formStats[formIndex].girlsDismiss}}</td>
+          <td>{{data.formStats[formIndex].boysDismiss + data.formStats[formIndex].girlsDismiss}}</td>
+        </tr>
+      </tbody>
+
+      </tbody>
+    </table>
+  </div>
+</div>

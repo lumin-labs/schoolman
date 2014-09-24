@@ -163,14 +163,14 @@
 	      	</td>
 			    
 					<td class="small-column-header"
-						ng-repeat="(marksheetId, marksheet) in data.marksheets" ng-init="average = data.summaries[marksheetId][student._id]">
+						ng-repeat="(marksheetId, marksheet) in data.marksheets" ng-init="average = data.summaries[marksheetId]['table'][student._id]">
 						<span ng-if="round(average * marksheet.coeff) === average * marksheet.coeff">{{ average >= 0 ? round(average * marksheet.coeff) : ""}}</span>
             <span ng-if="round(average * marksheet.coeff) !== average * marksheet.coeff && average >= 0">{{average * marksheet.coeff | number:1}}</span></td>
 
-					<td class="small-column-header" ng-init="totalAverage = data.summarysheet[student._id][0]">
+					<td class="small-column-header" ng-init="totalAverage = data.combinedMarksheet.table[student._id][0]">
 						{{totalAverage >= 0 ? totalAverage * data.combinedMarksheet.table[student._id].coeff : 0 | number:1}}
 					</td>
-					<td class="small-column-header" ng-init="averageFinal = data.summarysheet[student._id][0]">
+					<td class="small-column-header" ng-init="averageFinal = data.combinedMarksheet.table[student._id][0]">
 						{{averageFinal >= 0 ? averageFinal : 0 | number:2 }}
 					</td>
 					<td class="small-column-header">

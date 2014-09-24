@@ -191,6 +191,22 @@ angular.module('SchoolMan')
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-stats'
+    },
+    {
+      label:"Annual Report",
+      page:"annualreport",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    },
+    {
+      label:"Enrollment Report",
+      page:"enrollmentreport",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
     }
  ]);
 

@@ -7,6 +7,81 @@
        ng-controller="reportcardCtrl" 
        ng-init="mastersheet = getMastersheet()"
        >
+
+    <div class="noprint" style="padding-bottom:10px;">
+      <div ng-controller="ClassmenuCtrl">
+        <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px;">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:5px;padding-right:5px;">
+              <form class="navbar-form navbar-left" role="search" style="padding-left:0px;width:100%;padding-right:0px;">
+                <div class="form-group">
+                  <div class="btn-group">
+                    <!-- Form Dropdown -->
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.form['name']}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.form = ''">All Forms</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li ng-repeat="(formIndex, form) in route.forms">
+                          <a ng-click="open({formIndex:formIndex})">
+                            {{route.forms[formIndex].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Department Dropdown -->
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.department['name'] || "Select Department"}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.department = ''">All Departments</a>
+                        </li> -->
+                        <!-- <li class="divider"></li> -->
+                        <li ng-repeat="(deptId, dept) in route.departments">
+                          <a ng-click="open({deptId:deptId})">
+                            {{route.departments[deptId].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Group Dropdown -->
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.group['name'] || "Select Group"}}
+                          <span class="caret"></span> 
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.group = ''">All Groups</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li ng-repeat="(groupId, group) in route.groups">
+                          <a ng-click="open({groupId:groupId})">
+                            {{route.groups[groupId].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>  
+    </div>
 <div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'" ng-show="student._id === data.student._id" ng-if="student._id === data.student._id || ClassMaster.printVariable === true || ClassMaster.printVariable === 'true'" class="print-show">
   <div class="pagebreak" ng-if="studentIndex !== 0 && (ClassMaster.printVariable === true || ClassMaster.printVariable === 'true')"></div>
 
@@ -101,8 +176,8 @@
                       <div class="student-info-section">
                         <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} Academic Year</h4><br>
                         <h4 class="printonly">{{data.term.name}}</h4>
-                        <h5 style="font-family:mono;" class="{{getRemark(data.summarysheet[student._id][0]).css}}">{{ data.summarysheet[student._id][0] >= 0 ? data.summarysheet[student._id][0] : 0 | number:2 }} / 20</h5>
-                        <h5>{{getRemark(mastersheet.table["students"][student._id].acAverage).text | uppercase}}</h5>
+                        <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:2 }} / 20</h5>
+                        <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{getRemark(data.msheet.table[student._id][0]).text | uppercase}}</h5>
                       </div>
                     </div>
                   </td>
@@ -149,31 +224,31 @@
                 <td ng-repeat="sequence in [0,1]" class="{{getRemark(getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})).css}}">{{getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})}}
                 </td>
 
-                <td class="{{getRemark(set.summsheets[marksheet._id][student._id][0]).css}}">
-                  {{set.summsheets[marksheet._id][student._id][0] >= 0 ? set.summsheets[marksheet._id][student._id][0] : ""}}
+                <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">
+                  {{set.summsheets[mId]['table'][student._id][0] >= 0 ? set.summsheets[mId]['table'][student._id][0] : ""}}
                 </td>
 
                 <td>
-                  {{set.summsheets[marksheet._id][student._id][0] >= 0 ? marksheet.coeff : ""}}
+                  {{set.summsheets[mId]['table'][student._id][0] >= 0 ? marksheet.coeff : ""}}
                 </td>
-                <td class="{{getRemark(set.summsheets[marksheet._id][student._id][0]).css}}">
-                  {{set.summsheets[marksheet._id][student._id][0] >= 0 ? set.summsheets[marksheet._id][student._id][0] * marksheet.coeff : ""}}
+                <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">
+                  {{set.summsheets[mId]['table'][student._id][0] >= 0 ? set.summsheets[mId]['table'][student._id][0] * marksheet.coeff : ""}}
                 </td>
                 <td>{{data.rankings[marksheet._id][student._id][termIndex]}}</td>
-                <td class="{{getRemark(set.summsheets[marksheet._id][student._id][0]).css}}">{{getRemark(set.summsheets[marksheet._id][student._id][0]).text}}</td>
+                <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">{{getRemark(set.summsheets[mId]['table'][student._id][0]).text}}</td>
                 <td>
                   <div class="signature">
-                    {{set.summsheets[marksheet._id][student._id][0] >= 0 ? Users.get(marksheet.teacherId).fullname : ""}}
+                    {{set.summsheets[mId]['table'][student._id][0] >= 0 ? Users.get(marksheet.teacherId).fullname : ""}}
                   </div>
                 </td>
               </tr>
               <tr class="danger">
                 <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
-                <td>{{set.msheet.table[student._id].coeff}}</td>
-                <td class="{{getRemark(set.ssheet[student._id][0]).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] * set.msheet.table[student._id].coeff : 0 | number:2}}</td>
+                <td>{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id].coeff : ""}}</td>
+                <td class="{{getRemark(set.msheet.table[student._id][0]).css}}">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id][0] * set.msheet.table[student._id].coeff : 0 | number:2}}</td>
                 <td>{{set.rankings[student._id][termIndex]}}</td>
                 <td class="text-right"><strong>Average:</strong></td>
-                <td  class="{{getRemark(set.ssheet[student._id][0]).css}}">{{set.ssheet[student._id][0] >= 0 ? set.ssheet[student._id][0] : 0| number:2}}</td>
+                <td  class="{{getRemark(set.msheet.table[student._id][0]).css}}">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id][0] : 0| number:2}}</td>
               </tr>
             </tbody>
           </table>
@@ -187,7 +262,7 @@
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
           <tr>
             <td>Total Mark:</td>
-            <td class="{{getRemark(data.summarysheet[student._id][0]).css}}">{{data.summarysheet[student._id][0] >= 0 ? data.summarysheet[student._id][0] * data.msheet.table[student._id].coeff : 0 | number:2}}</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff : 0 | number:2}}</td>
           </tr>
           <tr>
             <td>Total Coeff:</td>
@@ -195,11 +270,11 @@
           </tr>
           <tr>
             <td>{{data.terms[term]}} Average:</td>
-            <td class="{{getRemark(data.summarysheet[student._id][0]).css}}">{{data.summarysheet[student._id][0] >= 0 ? data.summarysheet[student._id][0] : 0 | number:1}} / 20</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:1}} / 20</td>
           </tr>
           <tr>
             <td>{{data.terms[term]}} Remark:</td>
-            <td class="{{getRemark(data.summarysheet[student._id][0]).css}}">{{getRemark(data.summarysheet[student._id][0]).text}}</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{getRemark(data.msheet.table[student._id][0]).text}}</td>
           </tr>
           <tr>
             <td>Class Position:</td>
@@ -229,7 +304,7 @@
             <td>Promotion Status</td>
             <td>
                 <span ng-if="student.status[2014] === 0">
-                  {{ data.summarysheet[student._id][0] < passingScore ? "Failing" : "Passing"}}
+                  {{ data.msheet.table[student._id][0] < passingScore ? "Failing" : "Passing"}}
                 </span>
                 <span ng-if="student.status[2014] !== 0">
                   {{PROMOTE_OPTIONS[student.status[2014]].name}}
