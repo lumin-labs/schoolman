@@ -68,7 +68,7 @@ angular.module('SchoolMan')
       label:"Student Profile",
       page:"registrarProfile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats'],
+      exclude:['registration', 'fees', 'students', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -137,14 +137,6 @@ angular.module('SchoolMan')
       icon:'glyphicon-list-alt'
     },
     {
-      label:"Transcript",
-      page:"transcript",
-      access:['classmaster'],
-      exclude:[],
-      modes:["gths","ghs"],
-      icon:'glyphicon-list-alt'
-    },
-    {
       label:"Class Council",
       page:"classcouncil",
       access:['classmaster','admin'],
@@ -152,6 +144,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-folder-open'
     },
+    // {
+    //   label:"Transcript",
+    //   page:"transcript",
+    //   access:['admin'],
+    //   exclude:[],
+    //   modes:["gths","ghs"],
+    //   icon:'glyphicon-list-alt'
+    // },
     {
       label:"User Settings",
       page:"user",
@@ -187,6 +187,22 @@ angular.module('SchoolMan')
     {
       label:"Statistics",
       page:"adminStats",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    },
+    {
+      label:"Annual Report",
+      page:"annualreport",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    },
+    {
+      label:"Enrollment Report",
+      page:"enrollmentreport",
       access:['admin'],
       exclude:[],
       modes:["gths", "ghs"],

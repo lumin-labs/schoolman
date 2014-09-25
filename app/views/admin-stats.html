@@ -87,7 +87,7 @@
 			<tbody ng-repeat="(deptId, dept) in data.stats">
         <tr><th colspan="13">{{data.depts[deptId].name}}</th></tr>
 				<tr ng-repeat="(formIndex, form) in dept">
-          <td>{{data.forms[formIndex].name}}</td>
+          <td>{{form.name}}</td>
           <td>{{form.maleEnrolled}}</td>
           <td>{{form.femaleEnrolled}}</td>
           <td>{{form.maleEnrolled + form.femaleEnrolled}}</td>
@@ -100,7 +100,6 @@
           <td>{{(1 - form.malePassing / form.maleSat) * 100 | number:0}} %</td>
           <td>{{(1 - form.femalePassing / form.femaleSat) * 100 | number:0}} %</td>
           <td>{{(1 - (form.malePassing + form.femalePassing) / (form.maleSat + form.femaleSat)) * 100 | number: 0}} % </td>
-
 				</tr>
         <tr style="border:none;"><td colspan="13"></td></tr>
 			</tbody>

@@ -3,16 +3,16 @@
 function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
+      if(parseInt($routeParams.termIndex) === 3){
+        Location.open({termIndex:2})
+      }
       
       $scope.Marksheets = Marksheets;
       $scope.ClassMaster = ClassMaster;
 
       $scope.open = Location.open;
-      //$scope.schoolNameEn = "GOVERNMENT BILINGUAL HIGH SCHOOL ATIELA-NKWEN";
-      //$scope.schoolNameFr = "LYCEE BILINGUE D'ATIELA-NKWEN";
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";
       $scope.pageTitleFrench = "BULLETIN DE NOTES";
-      //$scope.schoolYear = SCHOOLYEAR.year;
       $scope.regions = model.SchoolInfo.regions;
 
       $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
@@ -29,7 +29,7 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
       $scope.data.terms = Terms.getAll();
       $scope.data.term = $scope.data.terms[$routeParams.termIndex];
       $scope.data.marksheets = [];
-      $scope.data.summaries = {};
+      $scope.data.summaries = [];
       $scope.data.rankings = {};
       $scope.data.students = [];
       $scope.data.student;
@@ -51,9 +51,9 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
         groupId:$routeParams.groupId
       })
       .then(function(marksheets){
-        // Create marksheet summaries 
-        $scope.data.summaries = marksheets.map(function(marksheet){
-          return Marksheets.summarize(marksheet, termIndex);
+        
+        var marksheetStudents = marksheets.map(function(marksheet){
+          return Object.keys(marksheet.table);
         });
 
         // Convert marksheets to a list
@@ -61,17 +61,9 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
           return marksheets[marksheetId];
         });
         angular.forEach($scope.data.marksheets, function(marksheet, $index){
-          $scope.data.rankings[marksheet._id] = Marksheets.rank(marksheet);
+          $scope.data.rankings[marksheet._id] = Marksheets.rank([marksheet]);
         });
-        console.log("Marksheets", $scope.data.marksheets);
-        console.log("Rankings", $scope.data.rankings);
 
-        // generate summarySheets
-        $scope.data.msheet = Marksheets.combine($scope.data.marksheets);
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.msheet, termIndex);
-        console.log("msheet", $scope.data.msheet);
-        console.log("summarysheet", $scope.data.summarysheet);
-        $scope.data.rankings.master = Marksheets.rank($scope.data.msheet);
 
         var sets = $scope.data.sets = {};
         angular.forEach($scope.data.marksheets, function(marksheet, i){
@@ -80,24 +72,30 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
           var type = $scope.data.subjects[marksheet.subjectId].type;
           if(!sets.hasOwnProperty(type)){
             sets[type] = {marksheets:[],
-                          summsheets:{}};
+                          summsheets:[]};
           }
           sets[type].marksheets.push(marksheet);
-          sets[type].summsheets[marksheet._id] = Marksheets.summarize(marksheet, termIndex);
-          console.log("Summsheets", sets[type].summsheets[marksheet._id]);
+          var summsheet = Marksheets.summarize(marksheet, termIndex);
+          sets[type].summsheets.push(summsheet);
+          $scope.data.summaries.push(summsheet);
         });
-        
+
         angular.forEach(sets, function(set, i){
-          sets[i].msheet = Marksheets.combine(set.marksheets);
-          sets[i].ssheet = Marksheets.summarize(sets[i].msheet, termIndex);
-          sets[i].rankings = Marksheets.rank(sets[i].msheet);
+          sets[i].msheet = Marksheets.combine(set.summsheets);
+          console.log("msheet", sets[i].msheet);
+          sets[i].rankings = Marksheets.rank(set.marksheets);
         });
+
+        $scope.data.msheet = Marksheets.combine($scope.data.summaries);
+        $scope.data.rankings.master = Marksheets.rank($scope.data.marksheets);
+        console.log("data.rankings", $scope.data.rankings);
+        
 
         $scope.nsets = Object.keys(sets).length;
 
         // Create a list of student from the union of marksheet studentIds
-        var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){
-          return result.concat(Object.keys(summary));
+        var studentIds = _.union(_.reduce(marksheetStudents, function(result, list){
+          return result.concat(list);
         },[]));
 
         Students.getBatch(studentIds).then(function(students){
@@ -113,7 +111,7 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
           console.log("Student: ", $scope.data.student);
           Dcards.get($scope.data.student._id).then(function(dcard){
             $scope.data.dcard = dcard;
-            console.log("Dcard data", $scope.data.dcard)
+            // console.log("Dcard data", $scope.data.dcard)
           }).catch(function(error){
             console.log("Failed to get dcard", error);
           })

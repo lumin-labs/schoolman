@@ -1,6 +1,6 @@
 'use strict';
 
-function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Payments, Data2){
+function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Payments, Data2, Marksheets, Transcripts){
 
     
     var forms = Forms.all();
@@ -16,8 +16,12 @@ function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Paymen
     window._mock = {} 
     window._mock.students = {};
     window._mock.payments = {};
+    window._mock.marksheets = {};
+    window._mock.transcripts = {};
     window._mock.students.destroy = Students.destroy;
     window._mock.payments.destroy = Payments.destroy;
+    window._mock.marksheets.destroy = Marksheets.destroy;
+    window._mock.transcripts.destroy = Transcripts.destroy;
     window._mock.students.create = function(n){
       var students = {docs:[]};
       Uid.getBatch(n).then(function(uids){
@@ -68,5 +72,5 @@ function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Paymen
 
 
   }
-MockData.$inject = ['model', 'Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Data2'];
+MockData.$inject = ['model', 'Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Data2', 'Marksheets', 'Transcripts'];
 angular.module('SchoolMan').service('MockData', MockData);

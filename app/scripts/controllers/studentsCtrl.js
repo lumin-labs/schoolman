@@ -48,10 +48,9 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
       var setPassing = function(student, classId){
         var studentAverage = 0;
         if(reports[classId].total.summary){
-          studentAverage = reports[classId].total.summary[student._id][0];
+          studentAverage = reports[classId].total.summary['table'][student._id][0];
         }
-        student.passing = studentAverage >= classCouncils[classId].passingScore;  
-          
+        student.passing = studentAverage >= classCouncils[classId].passingScore;            
       };
 
       var getSeconds = function(_initial, _final){

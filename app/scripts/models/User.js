@@ -27,6 +27,56 @@ schoolman.config(['modelProvider', function(model){
         key:"access",
         type:"object",
         required:true
+      },
+      {
+        key:"post",
+        type:"string",
+        required:false
+      },
+      {
+        key:"sex",
+        type:"string",
+        required:false
+      },
+      {
+        key:"matricalno",
+        type:"string",
+        required:false
+      },
+      {
+        key:"maritalstatus",
+        type:"string",
+        required:false
+      },
+      {
+        key:"birth",
+        type:"object",
+        required:false
+      },
+      {
+        key:"grade",
+        type:"string",
+        required:false
+      },
+      {
+        key:"qualification",
+        type:"string",
+        required:false
+      },
+      {
+        key:"subdivision",
+        type:"string",
+        required:false
+      },
+      {
+        key:"division",
+        type:"string",
+        required:false
+      },
+      {
+        key:"dateofentry",
+        type:"object",
+        required:false
       }],
       fields_key:0
     }
@@ -51,6 +101,16 @@ schoolman.config(['modelProvider', function(model){
       classmaster:0,
       teacher:1
     };
+    this.post = "";
+    this.sex = "";
+    this.matricalno = "";
+    this.maritalstatus = "";
+    this.birth = "";
+    this.grade = "";
+    this.highestqual = "";
+    this.subdivision = "";
+    this.division = "";
+    this.dateofentry = "";
 
     angular.forEach(specs, function(prop, key){
       if(self.hasOwnProperty(key)){

@@ -34,29 +34,24 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
         $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){
           return marksheets[marksheetId];
         });
-
+        console.log("Data.marksheets", $scope.data.marksheets);
 
 
         // Create marksheet summaries 
         $scope.data.summaries = _.map(marksheets , function(marksheet){
           var summary = Marksheets.summarize(marksheet, $scope.termIndex);
-          console.log("Marksheet has been summarized: ", marksheet, summary);
           return summary;
         });
-
         // combine all marksheets
-        $scope.data.combinedMarksheet = Marksheets.combine($scope.data.marksheets);
-        console.log("combined marksheet", $scope.data.combinedMarksheet);
-
-        // summarize combined marksheet to get grand totals
-        $scope.data.summarysheet = Marksheets.summarize($scope.data.combinedMarksheet, $scope.termIndex);;
+        $scope.data.combinedMarksheet = Marksheets.combine($scope.data.summaries);
+        // console.log("combined marksheet", $scope.data.combinedMarksheet);
         
         // get rankings from combined marksheet
-        $scope.data.rankings = Marksheets.rank($scope.data.combinedMarksheet);
+        $scope.data.rankings = Marksheets.rank($scope.data.marksheets);
 
         // Create a list of student from the union of marksheet studentIds
         var studentIds = _.union(_.reduce($scope.data.summaries, function(result, summary){
-          return result.concat(Object.keys(summary));
+          return result.concat(Object.keys(summary.table));
         },[]));
 
 
@@ -127,12 +122,12 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
           dataItem.subject = $scope.data.subjects[marksheet.subjectId].code;
           dataItem.name=$scope.data.subjects[marksheet.subjectId].en;
           var summary = Marksheets.summarize(marksheet, $routeParams.termIndex);
-          console.log("Summary ok", summary);
-          var total = _.reduce(summary, function(total, value){
+          console.log("Summary ok", summary.table);
+          var total = _.reduce(summary.table, function(total, value){
             return total + value[0];
           },0);
-          var average = total/ Object.keys(summary).length
-          console.log("Summary", summary, average);
+          var average = total/ Object.keys(summary.table).length
+          console.log("Summary", summary.table, average);
           dataItem.average = average;
 
           return dataItem;

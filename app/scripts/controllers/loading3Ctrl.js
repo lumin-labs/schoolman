@@ -7,6 +7,7 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
     var instClassCouncil = new model.ClassCouncil();
     var instSettings = new model.Settings();
     var instSchoolInfo = new model.SchoolInfo();
+    var transcript = new model.Transcript();
 
     var settingsP = settings.load();
 
@@ -16,7 +17,6 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
     var subjP = Subjects.load();
     var groupP= Groups.load();
     var studentsP= Students.load();
-
 
 
     var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
