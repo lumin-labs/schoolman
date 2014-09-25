@@ -216,6 +216,7 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
 
     $scope.changeCycle = function(cycleIndex){
       $scope.data.cycleIndex = cycleIndex;
+      renderTable();
     }
 
     $scope.save = function(subjectId, cellIndex){

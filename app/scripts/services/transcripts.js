@@ -28,10 +28,14 @@ function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students, S
 
           angular.forEach(subjects, function(subject, subjectId){
             if(!(transcript.table.hasOwnProperty(subjectId))){
-              if(student.formIndex < 5){
+              if(cycleIndex === 0 && info.version !== "gths"){
                 transcript.table[subjectId]=["","","","","","","","","","","","","","",""];
-              } else {
+              }else if(cycleIndex === 0 && info.version === "gths"){
+                transcript.table[subjectId]=["","","","","","","","","","","","",];
+              }else if(cycleIndex === 1 && info.version !== "gths"){
                 transcript.table[subjectId]=["","","","","",""];
+              }else {
+                transcript.table[subjectId]=["","","","","","","","",""];
               }
             }
           });
