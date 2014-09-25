@@ -18,6 +18,7 @@ schoolman.config(['modelProvider', function(model){
     var val = this.val.bind(this); var required = true;
 
     this[ val ('studentId : string', required)] = "";
+    this[ val ('cycleIndex : number', required)] = 0;
     this[ val ('startYear : number')];
     this[ val ('endYear : number')];
     this[ val ('sponsor : string')] = "";
@@ -29,7 +30,7 @@ schoolman.config(['modelProvider', function(model){
   Transcript.prototype = new model.Model();
 
   Transcript.prototype.generateID = function(){
-    var id = "transcript_" + this.studentId;
+    var id = "transcript_" + this.studentId + ":" + this.cycleIndex;
     return id;
   }
 

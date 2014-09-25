@@ -144,14 +144,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-folder-open'
     },
-    // {
-    //   label:"Transcript",
-    //   page:"transcript",
-    //   access:['admin'],
-    //   exclude:[],
-    //   modes:["gths","ghs"],
-    //   icon:'glyphicon-list-alt'
-    // },
+    {
+      label:"Transcript",
+      page:"transcript",
+      access:['admin'],
+      exclude:[],
+      modes:["gths","ghs"],
+      icon:'glyphicon-list-alt'
+    },
     {
       label:"User Settings",
       page:"user",

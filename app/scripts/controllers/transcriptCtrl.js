@@ -31,45 +31,30 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
 
       $scope.types = [];
       $scope.data.subjects = [];
+      $scope.cycles = [{name:"First Cycle"}, {name:"Second Cycle"}];
 
-      angular.forEach($scope.data.allSubjects, function(subject, subjectId){
-        $scope.data.subjects.push(subject);
-        if($scope.types.indexOf($scope.data.subjectTypes[subject.type]) === -1){
-          $scope.types.push($scope.data.subjectTypes[subject.type])
-        }
-      })
-
-      SchoolInfos.get("schoolinfo").then(function(info){
-        $scope.data.schoolInfo = info;
-      }).catch(function(error){
-        console.log("failed to get school info", error);
-      });
-
-      Students.query({formIndex:$routeParams.formIndex, deptId:$routeParams.deptId, groupId:$routeParams.groupId})
-          .then(function(students){
-        $scope.data.students = students;
-        var studentDict = _.reduce(students, function(dict, student){
-          dict[student._id] = student;
-          return dict
-        },{});
-
-        $scope.data.student = studentDict.hasOwnProperty($scope.studentId) ? 
-                              studentDict[$scope.studentId] :
-                              students[0];
-
-        if($scope.data.student.formIndex < 5){
+      var renderTable = function(){
+        if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version !== "gths"){
           $scope.data.forms = [$scope.data.allForms[0], 
                                 $scope.data.allForms[1], 
                                 $scope.data.allForms[2], 
                                 $scope.data.allForms[3], 
                                 $scope.data.allForms[4]];
-        } else {
+        } else if($scope.data.cycleIndex === 0  && $scope.data.schoolInfo.version === "gths"){
+          $scope.data.forms = [$scope.data.allForms[0], 
+                                $scope.data.allForms[1], 
+                                $scope.data.allForms[2], 
+                                $scope.data.allForms[3]];
+        }else if($scope.data.cycleIndex === 1  && $scope.data.schoolInfo.version !== "gths"){
           $scope.data.forms = [$scope.data.allForms[5], $scope.data.allForms[6]];
+        } else {
+          $scope.data.forms = [$scope.data.allForms[4], $scope.data.allForms[5], $scope.data.allForms[6]];
         }
+        console.log("Forms", $scope.data.forms);
 
         $scope.cells = d3.range($scope.data.forms.length * 3);
 
-        Transcripts.get($scope.data.student._id).then(function(success){
+        Transcripts.get($scope.data.student._id, $scope.data.cycleIndex).then(function(success){
           $scope.data.transcript = success;
 
           var subjects = [];
@@ -110,16 +95,27 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
           //   total = total / count[index];
           // })
 
-          if($scope.data.student.formIndex < 5){
+          if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version !== "gths"){
             $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
                                     ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
                                     ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3,
                                     ($scope.data.totals[9]+$scope.data.totals[10]+$scope.data.totals[11]) / 3,
                                     ($scope.data.totals[12]+$scope.data.totals[13]+$scope.data.totals[14]) / 3
                                   ]
-          } else {
+          } else if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version === "gths"){
+            $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
+                                    ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
+                                    ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3,
+                                    ($scope.data.totals[9]+$scope.data.totals[10]+$scope.data.totals[11]) / 3
+                                  ]
+          } else if($scope.data.cycleIndex === 1 && $scope.data.schoolInfo.version !== "gths"){
             $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
                                     ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3
+                                  ]
+          } else {
+            $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
+                                    ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
+                                    ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3
                                   ]
           }
 
@@ -128,17 +124,51 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
         }).catch(function(error){
           console.log("Failed to retrieve transcript:", error);
         })
-        
+      }
 
-      // Catch errors
+      angular.forEach($scope.data.allSubjects, function(subject, subjectId){
+        $scope.data.subjects.push(subject);
+        if($scope.types.indexOf($scope.data.subjectTypes[subject.type]) === -1){
+          $scope.types.push($scope.data.subjectTypes[subject.type])
+        }
+      })
+
+      SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        Students.query({formIndex:$routeParams.formIndex, deptId:$routeParams.deptId, groupId:$routeParams.groupId})
+            .then(function(students){
+          $scope.data.students = students;
+          var studentDict = _.reduce(students, function(dict, student){
+            dict[student._id] = student;
+            return dict
+          },{});
+
+          $scope.data.student = studentDict.hasOwnProperty($scope.studentId) ? 
+                                studentDict[$scope.studentId] :
+                                students[0];
+
+          if($scope.data.student.formIndex < 5){
+            $scope.data.cycleIndex = 0;
+          } else {
+            $scope.data.cycleIndex = 1;
+          }
+
+          renderTable();
+          
+
+        // Catch errors
+        }).catch(function(error){
+          console.log("Failed to find students: ", error);
+        });
       }).catch(function(error){
-        console.log("Failed to find students: ", error);
+        console.log("failed to get school info", error);
       });
 
-      $scope.getMark = function(d){
-        var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
-        return d.row ? d.row[i] : undefined;
-      }
+
+    $scope.getMark = function(d){
+      var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
+      return d.row ? d.row[i] : undefined;
+    }
 
     var hasChanged = false;
 
@@ -158,19 +188,34 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
       })
       console.log("totals", $scope.data.totals);
 
-      if($scope.data.student.formIndex < 5){
+      if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version !== "gths"){
         $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
                                 ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
                                 ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3,
                                 ($scope.data.totals[9]+$scope.data.totals[10]+$scope.data.totals[11]) / 3,
                                 ($scope.data.totals[12]+$scope.data.totals[13]+$scope.data.totals[14]) / 3
                               ]
-      } else {
+      } else if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version === "gths"){
+        $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
+                                ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
+                                ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3,
+                                ($scope.data.totals[9]+$scope.data.totals[10]+$scope.data.totals[11]) / 3
+                              ]
+      } else if($scope.data.cycleIndex === 1 && $scope.data.schoolInfo.version !== "gths"){
         $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
                                 ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3
                               ]
+      } else {
+        $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
+                                ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
+                                ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3
+                              ]
       }
 
+    }
+
+    $scope.changeCycle = function(cycleIndex){
+      $scope.data.cycleIndex = cycleIndex;
     }
 
     $scope.save = function(subjectId, cellIndex){
