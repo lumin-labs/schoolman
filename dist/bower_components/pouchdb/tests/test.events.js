@@ -5,13 +5,15 @@ var adapters = ['local'];
 adapters.forEach(function (adapter) {
   describe('test.events.js-' + adapter, function () {
 
+    //we can't use the same db becasue
+    var i = 0;
     var dbs = {};
     beforeEach(function (done) {
-      dbs.name = testUtils.adapterUrl(adapter, 'events_tests');
+      dbs.name = testUtils.adapterUrl(adapter, 'events_tests' + i++);
       testUtils.cleanup([dbs.name], done);
     });
 
-    after(function (done) {
+    afterEach(function (done) {
       testUtils.cleanup([dbs.name], done);
     });
 
@@ -89,7 +91,7 @@ adapters.forEach(function (adapter) {
         db.put(obj, id).then(function (doc) {
           db.put({'something': 'else'}, id, doc.rev);
         });
-
+       
       });
     });
 
