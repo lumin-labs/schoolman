@@ -102,6 +102,7 @@ schoolman.config(['modelProvider', function(model){
 
   Marksheet.prototype.datatype = Marksheet.datatype = model.datatypes.marksheet.v1;
 
+  Marksheet.prototype.db = Marksheet.db = "db_marksheets";
 
   model.Marksheet = Marksheet;
 
