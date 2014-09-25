@@ -1,8 +1,13 @@
 'use strict';
 
-function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2, Slug) {
+function Marksheets($q, $log, model, modelTransformer, pouchdb, Subjects, Students, Slug) {
    
     var self = {};
+
+    var db = model.Marksheet.db;
+    if(typeof db === "string"){
+      db = pouchdb.create(model.Marksheet.db);
+    }
 
     // self.getID = model.Marksheet.getId; 
 
@@ -295,7 +300,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       var deferred = $q.defer();
       var bundle = {};
 
-      Data2.get(marksheetId).then(function(data){
+      db.get(marksheetId).then(function(data){
         console.log("Received Data", data);
         var spec = model.parse(data, model.Marksheet.datatype);
         console.log("Parse check", data, spec);
@@ -377,12 +382,12 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
 	      	}
 	      } 
 	    };
-	    Data2.query(map, {include_docs : true}).then(function(success){
+	    db.query(map, {include_docs : true}).then(function(success){
           //console.log("Marksheets Query", success);
 	    		var collection = [];
 	        angular.forEach(success.rows, function(data, rowIndex){
 	            var spec = data.doc;
-	            var obj = model.parse(data.value.data, spec);
+	            var obj = model.parse2(data.value.data, data.value._id);
 	            var item = modelTransformer.transform(obj, dataModel);
 	            collection.push(item);
 	        });
@@ -418,7 +423,7 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
           }
         } 
       };
-      Data2.query(map, {include_docs : false}).then(function(success){
+      db.query(map, {include_docs : false}).then(function(success){
           var collection = {};
           angular.forEach(success.rows, function(data, rowIndex){
             var parts = data.id.split(':');
@@ -516,8 +521,16 @@ function Marksheets($q, $log, model, modelTransformer, Subjects, Students, Data2
       return deferred.promise;
     };
 
+    self.destroy = function(){
+      db.destroy().then(function(success){
+        console.log("Destroyed marksheets db");
+      }).catch(function(error){
+        console.log("failed to destroy marksheets db", error)
+      });
+    }
+
     return self;
 
   }
-Marksheets.$inject = ['$q','$log', 'model', 'modelTransformer', 'Subjects', 'Students', 'Data2', 'Slug'];
+Marksheets.$inject = ['$q','$log', 'model', 'modelTransformer', 'pouchdb', 'Subjects', 'Students', 'Slug'];
 angular.module('SchoolMan').service('Marksheets', Marksheets);

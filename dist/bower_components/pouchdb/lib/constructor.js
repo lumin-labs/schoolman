@@ -1,10 +1,12 @@
 /*globals cordova */
 "use strict";
 
+var Promise = typeof global.Promise === 'function' ?
+  global.Promise : require('bluebird');
+
 var Adapter = require('./adapter');
 var utils = require('./utils');
 var TaskQueue = require('./taskqueue');
-var Promise = utils.Promise;
 
 function defaultCallback(err) {
   if (err && global.debug) {
@@ -46,7 +48,7 @@ function PouchDB(name, opts, callback) {
       fulfill(resp);
     };
   
-    opts = utils.clone(opts);
+    opts = utils.extend(true, {}, opts);
     var originalName = opts.name || name;
     var backend, error;
     (function () {
@@ -63,7 +65,7 @@ function PouchDB(name, opts, callback) {
         opts.originalName = originalName;
         opts.name = backend.name;
         opts.adapter = opts.adapter || backend.adapter;
-        self._adapter = opts.adapter;
+
         if (!PouchDB.adapters[opts.adapter]) {
           error = new Error('Adapter is missing');
           error.code = 404;
@@ -90,21 +92,39 @@ function PouchDB(name, opts, callback) {
     self.adapter = opts.adapter;
 
     // needs access to PouchDB;
-    self.replicate = {};
+    self.replicate = function (src, target, opts) {
+      return utils.cancellableFun(function (api, _opts, promise) {
+        var replicate = PouchDB.replicate(src, target, opts);
+        promise.cancel = replicate.cancel;
+      }, self, opts);
+    };
 
     self.replicate.from = function (url, opts, callback) {
+      if (typeof opts === 'function') {
+        callback = opts;
+        opts = {};
+      }
       return PouchDB.replicate(url, self, opts, callback);
     };
 
     self.replicate.to = function (url, opts, callback) {
+      if (typeof opts === 'function') {
+        callback = opts;
+        opts = {};
+      }
       return PouchDB.replicate(self, url, opts, callback);
     };
 
-    self.sync = function (dbName, opts, callback) {
-      return PouchDB.sync(self, dbName, opts, callback);
+    self.replicate.sync = function (dbName, opts, callback) {
+      if (typeof opts === 'function') {
+        callback = opts;
+        opts = {};
+      }
+      return utils.cancellableFun(function (api, _opts, promise) {
+        var sync = PouchDB.sync(self, dbName, opts, callback);
+        promise.cancel = sync.cancel;
+      }, self, opts);
     };
-
-    self.replicate.sync = self.sync;
 
     self.destroy = utils.adapterFun('destroy', function (callback) {
       var self = this;
@@ -150,8 +170,12 @@ function PouchDB(name, opts, callback) {
     oldCB(null, resp);
   }, oldCB);
   self.then = promise.then.bind(promise);
-  self.catch = promise.catch.bind(promise);
-
+  //prevent deoptimizing
+  (function () {
+    try {
+      self['catch'] = promise['catch'].bind(promise);
+    } catch (e) {}
+  }());
 }
 
 module.exports = PouchDB;

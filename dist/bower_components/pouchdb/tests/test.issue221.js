@@ -18,7 +18,7 @@ adapters.forEach(function (adapters) {
       testUtils.cleanup([dbs.name, dbs.remote], done);
     });
 
-    after(function (done) {
+    afterEach(function (done) {
       testUtils.cleanup([dbs.name, dbs.remote], done);
     });
 
