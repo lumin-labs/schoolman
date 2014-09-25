@@ -21,8 +21,8 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     var studentId = $routeParams.studentId === "0" ? "student_U0000001" : $routeParams.studentId;
     console.log("routeParams", $routeParams);
 
-    $scope.data = {
-      comments:[],
+    var data = $scope.data = {
+      comments:{},
       student:undefined,
       dcard:undefined,
       forms:Forms.all(),
@@ -35,12 +35,11 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     var setPassing = function(student, studentsClass){
       var studentAverage = 0;
       if(reports[studentsClass].total.summary){
-        studentAverage = reports[studentsClass].total.summary[student._id][0];
+        studentAverage = reports[studentsClass].total.summary['table'][student._id][0];
       }
-      student.passing = studentAverage >= classCouncils[studentsClass].passingScore;      
+      student.passing = studentAverage >= classCouncils[studentsClass].passingScore;   
     };
 
-    console.log("studentId", studentId);
     Students.get(studentId).then(function(student){
       console.log("Found student:", student);
       $scope.data.student = student;
@@ -111,11 +110,10 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     });
 
     profile.getComments(studentId).then(function(comments){
-      $scope.data.comments = $scope.data.comments.concat(comments);
+      $scope.data.comments = comments;
     }); 
     
     Payments.query({studentId:studentId}).then(function(payments){
-      console.log("payments query: ", payments);
       $scope.data.payments = payments;
     }).catch(function(error){
       console.log("payment error: ", error);
@@ -124,9 +122,8 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     $scope.addPayment = function(payment, multiplier){
     	// Reformat the input from string to number
       payment.amount = payment.getAmount() * multiplier;
-      console.log("Saving payment: ", payment, multiplier);
+
       payment.save().then(function(success){
-        console.log("payment saved", success);
         $scope.data.payments.push(payment);
         $scope.newPayment = new model.Payment();
         $scope.newPayment.registrar = $routeParams.username;
@@ -152,14 +149,12 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
 
     $scope.addComment = function(){
       $scope.newComment.save().then(function(success){
-        console.log("Comment saved: ", success);
-        $scope.data.comments.push($scope.newComment);
+        $scope.data.comments[success.id] = $scope.newComment;
         $scope.newComment = new model.Comment($routeParams.username, $scope.data.student._id);
       });     
     };
 
     $scope.removeComment = function(commentIndex){
-      console.log("Remove comment", $scope.data.comments[commentIndex]);
       var comment = $scope.data.comments[commentIndex];
       profile.removeComment(comment).then(function(success){
         delete $scope.data.comments[commentIndex];
@@ -181,6 +176,10 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
       }, 0);
       return total;
     };
+
+    $scope.getOwed = function(){
+      return data.fees[data.student.feeId].schoolAmount + data.fees[data.student.feeId].ptaAmount;
+    }
 
     $scope.save = function(model){
       model.save().then(function(success){

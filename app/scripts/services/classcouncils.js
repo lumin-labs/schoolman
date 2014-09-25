@@ -3,11 +3,33 @@
 function ClassCouncils($q, $rootScope, model, Data2, modelTransformer) {
 
     var self = {};
-    var classcouncils = {};
+    // var classcouncils = {};
 
-    self.getAll = function(){
-  		return classcouncils;
-  	};
+   //  self.getAll = function(){
+  	// 	var deferred = $q.defer();
+   //    var classcouncils = {};
+      
+   //    // Load Data
+   //    var map = function(doc, emit){
+   //      if(doc.datatype === model.ClassCouncil.datatype._id){
+   //        emit(doc._id, {_id:doc.datatype, data:doc});
+   //      } 
+   //    };
+   //    Data2.query(map, {include_docs : true}).then(function(success){
+   //      angular.forEach(success.rows, function(data, rowIndex){
+   //            var spec = data.doc;
+   //            var obj = model.parse(data.value.data, spec);
+   //            var classcouncil = modelTransformer.transform(obj, model.ClassCouncil);
+   //            classcouncils[classcouncil._id] = classcouncil;
+   //        });
+   //        console.log("ClassCouncils Query: succeeded", classcouncils);
+   //        deferred.resolve(classcouncils);
+   //    }).catch(function(error){
+   //        deferred.reject("ClassCouncils Query: failed", error);
+   //    });
+
+   //    return deferred.promise;
+  	// };
 
   	self.get = function(classcouncilId){
   		var deferred = $q.defer();

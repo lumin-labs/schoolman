@@ -1,5 +1,13 @@
 'use strict';
 
+/**
+ * @ngdoc controller
+ * @name SchoolMan.controller:ClassmenuCtrl
+ * @description
+ *
+ * This controller handles the menus for choosing route department, form, term, group and subject.
+ */
+
 function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, Forms, CourseCatalog, Location) {
     
     var r = $scope.route = {};
@@ -18,7 +26,7 @@ function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, For
         }
       });
     }
-    console.log("Departments", r.departments);
+    // console.log("Departments", r.departments);
     r.department = 
     $scope.department = 
       r.departments.hasOwnProperty($routeParams.deptId) ? 

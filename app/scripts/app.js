@@ -50,6 +50,10 @@ angular.module('SchoolMan', [
       registrarProfile:"registrar-profile.html",
       classmasterProfile:"classmaster-profile.html",
       classcouncil:"classcouncil.html",
+      classmasterStats:"classmaster-stats.html",
+      adminStats:"admin-stats.html",
+      annualreport:"annualreport.html",
+      enrollmentreport:"enrollmentreport.html",
       notactive:"notactive.html"
     };
 
