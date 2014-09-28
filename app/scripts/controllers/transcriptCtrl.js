@@ -61,6 +61,7 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
           angular.forEach($scope.data.transcript.table, function(subject, subjectId){
             subjects.push(subject);
           })
+          console.log("Subjects:", subjects);
 
           // var count = [];
 
@@ -77,12 +78,22 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
           //   }
           // })
           // console.log("Count1", angular.copy(count));
+          var counts = [];
+
+          angular.forEach(subjects[0], function(value, index){
+            if(value !== NaN && value !== ""){
+              counts[index] = 1;
+            } else {
+              counts[index] = 0;
+            }
+          })
           
           $scope.data.totals = _.reduce(angular.copy(subjects), function(sum, num){
-            console.log("Sum num", sum, num);
+
             angular.forEach(sum, function(cell, index){
-              if(Number(num[index]) !== NaN){
+              if(Number(num[index]) !== NaN && num[index] !== ""){
                 sum[index] = (Number(sum[index]) + Number(num[index]));
+                counts[index] +=1;
                 // if(num[index] !== ""){
                 //   count[index] += 1;
                 // }
@@ -90,37 +101,39 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
             })
             return sum;
           });
-          // console.log("Counts", count);
-          // angular.forEach($scope.data.totals, function(total, index){
-          //   total = total / count[index];
-          // })
+
+          $scope.data.numSubjects = counts;
+
+          angular.forEach($scope.data.numSubjects, function(num, index){
+            if(num === 0){
+              $scope.data.numSubjects[index] = 1;
+            }
+          });
 
           if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version !== "gths"){
-            $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
-                                    ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
-                                    ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3,
-                                    ($scope.data.totals[9]+$scope.data.totals[10]+$scope.data.totals[11]) / 3,
-                                    ($scope.data.totals[12]+$scope.data.totals[13]+$scope.data.totals[14]) / 3
+            $scope.data.annuals = [ (Number($scope.data.totals[0])/$scope.data.numSubjects[0]+Number($scope.data.totals[1])/$scope.data.numSubjects[1]+Number($scope.data.totals[2])/$scope.data.numSubjects[2]) / 3, 
+                                    (Number($scope.data.totals[3])/$scope.data.numSubjects[3]+Number($scope.data.totals[4])/$scope.data.numSubjects[4]+Number($scope.data.totals[5])/$scope.data.numSubjects[5]) / 3,
+                                    (Number($scope.data.totals[6])/$scope.data.numSubjects[6]+Number($scope.data.totals[7])/$scope.data.numSubjects[7]+Number($scope.data.totals[8])/$scope.data.numSubjects[8]) / 3,
+                                    (Number($scope.data.totals[9])/$scope.data.numSubjects[9]+Number($scope.data.totals[10])/$scope.data.numSubjects[10]+Number($scope.data.totals[11])/$scope.data.numSubjects[11]) / 3,
+                                    (Number($scope.data.totals[12])/$scope.data.numSubjects[12]+Number($scope.data.totals[13])/$scope.data.numSubjects[13]+Number($scope.data.totals[14])/$scope.data.numSubjects[14]) / 3
                                   ]
           } else if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version === "gths"){
-            $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
-                                    ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
-                                    ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3,
-                                    ($scope.data.totals[9]+$scope.data.totals[10]+$scope.data.totals[11]) / 3
+            $scope.data.annuals = [ (Number($scope.data.totals[0])/$scope.data.numSubjects[0]+Number($scope.data.totals[1])/$scope.data.numSubjects[1]+Number($scope.data.totals[2])/$scope.data.numSubjects[2]) / 3, 
+                                    (Number($scope.data.totals[3])/$scope.data.numSubjects[3]+Number($scope.data.totals[4])/$scope.data.numSubjects[4]+Number($scope.data.totals[5])/$scope.data.numSubjects[5]) / 3,
+                                    (Number($scope.data.totals[6])/$scope.data.numSubjects[6]+Number($scope.data.totals[7])/$scope.data.numSubjects[7]+Number($scope.data.totals[8])/$scope.data.numSubjects[8]) / 3,
+                                    (Number($scope.data.totals[9])/$scope.data.numSubjects[9]+Number($scope.data.totals[10])/$scope.data.numSubjects[10]+Number($scope.data.totals[11])/$scope.data.numSubjects[11]) / 3
                                   ]
           } else if($scope.data.cycleIndex === 1 && $scope.data.schoolInfo.version !== "gths"){
-            $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
-                                    ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3
+            $scope.data.annuals = [ (Number($scope.data.totals[0])/$scope.data.numSubjects[0]+Number($scope.data.totals[1])/$scope.data.numSubjects[1]+Number($scope.data.totals[2])/$scope.data.numSubjects[2]) / 3, 
+                                    (Number($scope.data.totals[3])/$scope.data.numSubjects[3]+Number($scope.data.totals[4])/$scope.data.numSubjects[4]+Number($scope.data.totals[5])/$scope.data.numSubjects[5]) / 3
                                   ]
           } else {
-            $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
-                                    ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
-                                    ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3
+            $scope.data.annuals = [ (Number($scope.data.totals[0])/$scope.data.numSubjects[0]+Number($scope.data.totals[1])/$scope.data.numSubjects[1]+Number($scope.data.totals[2])/$scope.data.numSubjects[2]) / 3, 
+                                    (Number($scope.data.totals[3])/$scope.data.numSubjects[3]+Number($scope.data.totals[4])/$scope.data.numSubjects[4]+Number($scope.data.totals[5])/$scope.data.numSubjects[5]) / 3,
+                                    (Number($scope.data.totals[6])/$scope.data.numSubjects[6]+Number($scope.data.totals[7])/$scope.data.numSubjects[7]+Number($scope.data.totals[8])/$scope.data.numSubjects[8]) / 3
                                   ]
           }
-
-
-
+          
         }).catch(function(error){
           console.log("Failed to retrieve transcript:", error);
         })
@@ -180,35 +193,39 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
 
     var updateTotals = function(cellIndex){
       $scope.data.totals[cellIndex] = 0;
+      $scope.data.numSubjects[cellIndex] = 0;
 
       angular.forEach($scope.data.subjects, function(subject, subjectId){
-        if(Number($scope.data.transcript['table'][subject._id][cellIndex]) !== NaN){
+        var val = $scope.data.transcript['table'][subject._id][cellIndex];
+        if(Number(val) !== NaN && val !== ""){
           $scope.data.totals[cellIndex] += Number($scope.data.transcript['table'][subject._id][cellIndex]);
+          $scope.data.numSubjects[cellIndex] += 1;
         }
       })
-      console.log("totals", $scope.data.totals);
-
+      if($scope.data.numSubjects[cellIndex] === 0){
+        $scope.data.numSubjects[cellIndex] = 1;
+      }
       if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version !== "gths"){
-        $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
-                                ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
-                                ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3,
-                                ($scope.data.totals[9]+$scope.data.totals[10]+$scope.data.totals[11]) / 3,
-                                ($scope.data.totals[12]+$scope.data.totals[13]+$scope.data.totals[14]) / 3
+        $scope.data.annuals = [ (Number($scope.data.totals[0])/$scope.data.numSubjects[0]+Number($scope.data.totals[1])/$scope.data.numSubjects[1]+Number($scope.data.totals[2])/$scope.data.numSubjects[2]) / 3, 
+                                (Number($scope.data.totals[3])/$scope.data.numSubjects[3]+Number($scope.data.totals[4])/$scope.data.numSubjects[4]+Number($scope.data.totals[5])/$scope.data.numSubjects[5]) / 3,
+                                (Number($scope.data.totals[6])/$scope.data.numSubjects[6]+Number($scope.data.totals[7])/$scope.data.numSubjects[7]+Number($scope.data.totals[8])/$scope.data.numSubjects[8]) / 3,
+                                (Number($scope.data.totals[9])/$scope.data.numSubjects[9]+Number($scope.data.totals[10])/$scope.data.numSubjects[10]+Number($scope.data.totals[11])/$scope.data.numSubjects[11]) / 3,
+                                (Number($scope.data.totals[12])/$scope.data.numSubjects[12]+Number($scope.data.totals[13])/$scope.data.numSubjects[13]+Number($scope.data.totals[14])/$scope.data.numSubjects[14]) / 3
                               ]
       } else if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version === "gths"){
-        $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
-                                ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
-                                ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3,
-                                ($scope.data.totals[9]+$scope.data.totals[10]+$scope.data.totals[11]) / 3
+        $scope.data.annuals = [ (Number($scope.data.totals[0])/$scope.data.numSubjects[0]+Number($scope.data.totals[1])/$scope.data.numSubjects[1]+Number($scope.data.totals[2])/$scope.data.numSubjects[2]) / 3, 
+                                (Number($scope.data.totals[3])/$scope.data.numSubjects[3]+Number($scope.data.totals[4])/$scope.data.numSubjects[4]+Number($scope.data.totals[5])/$scope.data.numSubjects[5]) / 3,
+                                (Number($scope.data.totals[6])/$scope.data.numSubjects[6]+Number($scope.data.totals[7])/$scope.data.numSubjects[7]+Number($scope.data.totals[8])/$scope.data.numSubjects[8]) / 3,
+                                (Number($scope.data.totals[9])/$scope.data.numSubjects[9]+Number($scope.data.totals[10])/$scope.data.numSubjects[10]+Number($scope.data.totals[11])/$scope.data.numSubjects[11]) / 3
                               ]
       } else if($scope.data.cycleIndex === 1 && $scope.data.schoolInfo.version !== "gths"){
-        $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
-                                ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3
+        $scope.data.annuals = [ (Number($scope.data.totals[0])/$scope.data.numSubjects[0]+Number($scope.data.totals[1])/$scope.data.numSubjects[1]+Number($scope.data.totals[2])/$scope.data.numSubjects[2]) / 3, 
+                                (Number($scope.data.totals[3])/$scope.data.numSubjects[3]+Number($scope.data.totals[4])/$scope.data.numSubjects[4]+Number($scope.data.totals[5])/$scope.data.numSubjects[5]) / 3
                               ]
       } else {
-        $scope.data.annuals = [ ($scope.data.totals[0]+$scope.data.totals[1]+$scope.data.totals[2]) / 3, 
-                                ($scope.data.totals[3]+$scope.data.totals[4]+$scope.data.totals[5]) / 3,
-                                ($scope.data.totals[6]+$scope.data.totals[7]+$scope.data.totals[8]) / 3
+        $scope.data.annuals = [ (Number($scope.data.totals[0])/$scope.data.numSubjects[0]+Number($scope.data.totals[1])/$scope.data.numSubjects[1]+Number($scope.data.totals[2])/$scope.data.numSubjects[2]) / 3, 
+                                (Number($scope.data.totals[3])/$scope.data.numSubjects[3]+Number($scope.data.totals[4])/$scope.data.numSubjects[4]+Number($scope.data.totals[5])/$scope.data.numSubjects[5]) / 3,
+                                (Number($scope.data.totals[6])/$scope.data.numSubjects[6]+Number($scope.data.totals[7])/$scope.data.numSubjects[7]+Number($scope.data.totals[8])/$scope.data.numSubjects[8]) / 3
                               ]
       }
 

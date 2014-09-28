@@ -195,20 +195,19 @@
       </div>   
     </div>
     
-    <div class="row">
-      <div class="col-md-12">
+
         <div  ng-repeat="(typeIndex, type) in types">
           <h3 ng-if="types.length > 1">{{type}}</h3>    
           <table  class="table table-striped table-bordered table-transcript2">
             <thead>
               <tr>
-                <th></th>
+                <th>Subject Discipline</th>
                 <th style="text-align:center" colspan="3" ng-repeat="(formIndex, form) in data.forms">{{form.name}}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>Subject Discipline</th>
+              <tr style="text-align:center">
+                <th></th>
                 <td ng-if="data.forms.length > 0">Term 1</td>
                 <td ng-if="data.forms.length > 0">Term 2</td>
                 <td ng-if="data.forms.length > 0">Term 3</td>
@@ -231,7 +230,7 @@
                   <input  ng-model="data.transcript['table'][subject._id][cellIndex]"
                           ng-blur="save(subject._id, cellIndex)"
                           ng-change="noteChange()"
-                          tabindex="(subjectIndex + 1) + (cellIndex * data.subjects['length'])"
+                          tabindex="{{(subjectIndex + 1) + (cellIndex * data.subjects['length'])}}"
                           cell cell-nrow="{{data.subjects['length']}}"
                           class="cell-transcript text-center 
                            {{classMaster.getRemark(data.transcript['table'][subject._id][cellIndex]).css}} 
@@ -242,47 +241,47 @@
               </tr>
               <tr class="success">
                 <td><strong>Term Average</strong></td>
-                <td class="text-center {{classMaster.getRemark(total / data.subjects.length).css}}" ng-repeat="total in data.totals track by $index">
-                  <strong>{{total / data.subjects.length | number:1}}</strong>
+                <td class="text-center {{classMaster.getRemark(total / data.numSubjects[index]).css}}" ng-repeat="(index, total) in data.totals track by $index">
+                  <strong>{{total / data.numSubjects[index] | number:1}}</strong>
                 </td>
               </tr>
               <tr class="success">
                 <td><strong>Annual Average</strong></td>
-                <td class="text-center {{classMaster.getRemark(annual / data.subjects.length).css}}" ng-repeat="annual in data.annuals track by $index" colspan="3">
-                  <strong>{{annual / data.subjects.length | number:1}}</strong>
+                <td class="text-center {{classMaster.getRemark(annual).css}}" ng-repeat="(index, annual) in data.annuals track by $index" colspan="3">
+                  <strong>{{annual | number:1}}</strong>
                 </td>
               </tr>
             </tbody>
           </table>
-
-        </div>
       </div>
+
+    <div>
+      <br>
+      <table class="table table-striped table-bordered table-transcript">
+        <tr>
+          <td><strong>Score/20</strong></td>
+          <td>20-14</td>
+          <td>13.9-12</td>
+          <td>11.9-10</td>
+          <td>09.9-9</td>
+          <td>08.9-8</td>
+          <td>07.9-0</td>
+        </tr>
+        <tr>
+          <td><strong>Grade</strong></td>
+          <td>A</td>
+          <td>B</td>
+          <td>C</td>
+          <td>D</td>
+          <td>E</td>
+          <td>F</td>
+        </tr>
+      </table>
+      <br>
     </div>
-    
-    <br>
-    <table class="table table-striped table-bordered table-transcript">
-      <tr>
-        <td><strong>Score/20</strong></td>
-        <td>20-14</td>
-        <td>13.9-12</td>
-        <td>11.9-10</td>
-        <td>09.9-9</td>
-        <td>08.9-8</td>
-        <td>07.9-0</td>
-      </tr>
-      <tr>
-        <td><strong>Grade</strong></td>
-        <td>A</td>
-        <td>B</td>
-        <td>C</td>
-        <td>D</td>
-        <td>E</td>
-        <td>F</td>
-      </tr>
-    </table>
-    <br>
-    <div class="row">
-      <div class="col-md-9">
+    <div>
+      <table>
+      <tr><td>
         <strong style="font-size:10px">NOTES:</strong>
         <ol style="font-size:10px">
           <li>Minimum number of teaching hours per week per subject = 5 hours</li>
@@ -291,10 +290,11 @@
         </ol>
         <br>
         <h5><strong>Date:</strong>________________</h5>
-
-      </div>
-      <div class="col-md-3 signature">
-          <table>
+        </td>
+        <td width="50px">
+        </td>
+        <td width="185px">
+          <table class="table table-bordered signature">
             <tr style="height:37px">
               <td rowspan="5" class="text-center" style="vertical-align:middle;">Principal's Signature</td>
             </tr>
@@ -303,7 +303,8 @@
             <tr class="signature-padding"></tr>
             <tr class="signature-padding"></tr>
           </table>
-      </div>
+        </td></tr>
+      </table>
     </div>
     </div>
   </div>
