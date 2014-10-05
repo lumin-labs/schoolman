@@ -1,6 +1,6 @@
 'use strict';
 
-function ReportsCtrl($scope, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
+function ReportsCtrl($scope, $route, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
   var data = $scope.data = {
     forms:Forms.all(),
     groups:Groups.getAll(),
@@ -14,24 +14,14 @@ function ReportsCtrl($scope, $routeParams, model, Location, Marksheets, $q, Form
   }
   $scope.termIndex=3;
   $scope.formIndex = $routeParams.formIndex;
-  $scope.open = Location.open;
 
-  data.totalStats = {
-    numStudents:0,
-    numPresent:0,
-    passing:0,
-    aveHigh:0,
-    aveLow:21,
-    aveClass:0,
-    goodSubjects:[],
-    poorSubjects:[],
-    promote:0,
-    repeat:0,
-    withdrawal:0,
-    dismiss:0
+  $scope.open = function(params){
+    if(params.formIndex === $routeParams.formIndex){
+      $route.reload();
+    } else {
+      Location.open(params);
+    }
   }
-
-  
   var rankSubjects = function(summaries){
 
       var subjectMarksheets = {};
@@ -271,6 +261,22 @@ function ReportsCtrl($scope, $routeParams, model, Location, Marksheets, $q, Form
         console.log("Failed to get marksheets", error);
     });
   }
+
+  data.totalStats = {
+    numStudents:0,
+    numPresent:0,
+    passing:0,
+    aveHigh:0,
+    aveLow:21,
+    aveClass:0,
+    goodSubjects:[],
+    poorSubjects:[],
+    promote:0,
+    repeat:0,
+    withdrawal:0,
+    dismiss:0
+  }
+
   Marksheets.query({formIndex:$scope.formIndex}).then(function(marksheets){
     var summaries = _.map(marksheets , function(marksheet){
       var summary = Marksheets.summarize(marksheet, $scope.termIndex);
@@ -375,5 +381,5 @@ function ReportsCtrl($scope, $routeParams, model, Location, Marksheets, $q, Form
   console.log("Class Councils", $scope.data.classCouncils);
 
 }
-ReportsCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
+ReportsCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
 angular.module('SchoolMan').controller('ReportsCtrl', ReportsCtrl);

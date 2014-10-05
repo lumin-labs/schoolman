@@ -1,6 +1,6 @@
 'use strict';
 
-function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, Groups, Students, Payments) {
+function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, Groups, Students, Payments, Marksheets, Transcripts) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var self = {};
@@ -85,6 +85,7 @@ function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, 
       var dbs = [{name:"gen", list:[], db:pouchdb.create('gths')},
                   {name:"students", list:[], db:pouchdb.create('db_students'), datatype:"datatype/student/v1"},
                   {name:"payments", list:[], db:pouchdb.create('db_payments'), datatype:"datatype/payment/v1"},
+                  {name:"marksheets", list:[], db:pouchdb.create('db_marksheets'), datatype:"datatype/marksheet/v1"},
                   {name:"transcripts", list:[], db:pouchdb.create('db_transcripts'), datatype:"datatype/transcript/v1"}]
       
       angular.forEach(data, function(item, itemKey){
@@ -96,6 +97,9 @@ function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, 
         }
         else if(item.doc.datatype === dbs[3].datatype){
           dbs[3].list.push(item.doc);
+        }
+        else if(item.doc.datatype === dbs[3].datatype){
+          dbs[4].list.push(item.doc);
         }
         else {
           dbs[0].list.push(item.doc);
@@ -111,7 +115,10 @@ function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, 
             console.log(dbs[2].name, "imported", success, dbs[2].list);
             dbs[3].db.bulkDocs({docs: dbs[3].list}, {new_edits:false}).then(function(success){
               console.log(dbs[3].name, "imported", success, dbs[3].list);
-              deferred.resolve();
+              dbs[4].db.bulkDocs({docs: dbs[4].list}, {new_edits:false}).then(function(success){
+                console.log(dbs[4].name, "imported", success, dbs[4].list);
+                deferred.resolve();
+              });
             });
           });
         });
@@ -133,7 +140,8 @@ function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, 
       	{getDB:function(){return 'gths'}},
       	{getDB:function(){return 'db_students'}},
         {getDB:function(){return 'db_payments'}},
-        {getDB:function(){return 'db_transcripts'}}
+        {getDB:function(){return 'db_marksheets'}},
+        {getDB:function(){return 'db_transcripts'}},
       ]
 
       angular.forEach(services, function(service){
@@ -224,5 +232,5 @@ function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, 
     window._export = self.export;
     return self;
   }
-File.$inject = ['pouchdb', '$q', 'settings', 'model', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments'];
+File.$inject = ['pouchdb', '$q', 'settings', 'model', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Marksheets', 'Transcripts'];
 angular.module('SchoolMan').service('File', File);

@@ -1,6 +1,6 @@
 'use strict';
 
-function EnrollmentCtrl($scope, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
+function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
   var data = $scope.data = {
     forms:Forms.all(),
     groups:Groups.getAll(),
@@ -14,27 +14,15 @@ function EnrollmentCtrl($scope, $routeParams, model, Location, Marksheets, $q, F
   }
   $scope.termIndex=3;
   $scope.formIndex = $routeParams.formIndex;
-  $scope.open = Location.open;
 
-  // angular.forEach(data.forms, function(form, formIndex){
-    data.totalStats = {
-      boysOnRoll:0,
-      girlsOnRoll:0,
-      boysEOY:0,
-      girlsEOY:0,
-      boysPromote:0,
-      girlsPromote:0,
-      boysRepeat:0,
-      girlsRepeat:0,
-      boysWithdraw:0,
-      girlsWithdraw:0,
-      boysDismiss:0,
-      girlsDismiss:0
+  $scope.open = function(params){
+    if(params.formIndex === $routeParams.formIndex){
+      $route.reload();
+    } else {
+      Location.open(params);
     }
+  }
 
-  // })
-  
-  
   var getStats = function(params){   
     if(!data.classStats.hasOwnProperty(params.deptId)){
       data.classStats[params.deptId] = {};
@@ -144,6 +132,21 @@ function EnrollmentCtrl($scope, $routeParams, model, Location, Marksheets, $q, F
 
   }
 
+  data.totalStats = {
+    boysOnRoll:0,
+    girlsOnRoll:0,
+    boysEOY:0,
+    girlsEOY:0,
+    boysPromote:0,
+    girlsPromote:0,
+    boysRepeat:0,
+    girlsRepeat:0,
+    boysWithdraw:0,
+    girlsWithdraw:0,
+    boysDismiss:0,
+    girlsDismiss:0
+  }
+
   data.classes = Students.getClasses($scope.formIndex)
     console.log("all classes", data.classes);
 
@@ -216,5 +219,5 @@ function EnrollmentCtrl($scope, $routeParams, model, Location, Marksheets, $q, F
   console.log("Class Councils", data.classCouncils);
 
 }
-EnrollmentCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
+EnrollmentCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
 angular.module('SchoolMan').controller('EnrollmentCtrl', EnrollmentCtrl);

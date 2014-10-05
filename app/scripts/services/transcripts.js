@@ -1,6 +1,6 @@
 'use strict';
 
-function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students) {
+function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students, SchoolInfos) {
 
   	var db = model.Transcript.db;
     if(typeof db === "string"){
@@ -14,9 +14,9 @@ function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students) {
 
   	var dataModel = model.Transcript;
 
-    self.get = function(studentId){
+    self.get = function(studentId, cycleIndex){
       var deferred = $q.defer();
-      var transcriptId = "transcript_" + studentId;
+      var transcriptId = "transcript_" + studentId + ":" + cycleIndex;
       var student;
 
       Students.get(studentId).then(function(success){
@@ -28,10 +28,14 @@ function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students) {
 
           angular.forEach(subjects, function(subject, subjectId){
             if(!(transcript.table.hasOwnProperty(subjectId))){
-              if(student.formIndex < 5){
+              if(cycleIndex === 0 && info.version !== "gths"){
                 transcript.table[subjectId]=["","","","","","","","","","","","","","",""];
-              } else {
+              }else if(cycleIndex === 0 && info.version === "gths"){
+                transcript.table[subjectId]=["","","","","","","","","","","","",];
+              }else if(cycleIndex === 1 && info.version !== "gths"){
                 transcript.table[subjectId]=["","","","","",""];
+              }else {
+                transcript.table[subjectId]=["","","","","","","","",""];
               }
             }
           });
@@ -39,21 +43,26 @@ function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students) {
           deferred.resolve(transcript);
         }).catch(function(error){
           if(error.status === 404){
-            var transcript = new model.Transcript({studentId:studentId});
-            
-            angular.forEach(subjects, function(subject, subjectId){
-              if(student.formIndex < 5){
-                transcript.table[subjectId]=["","","","","","","","","","","","","","",""];
-              } else {
-                transcript.table[subjectId]=["","","","","",""];
-              }
-            })
+            var transcript = new model.Transcript({studentId:studentId, cycleIndex:cycleIndex});
+            SchoolInfos.get("schoolinfo").then(function(info){
+              angular.forEach(subjects, function(subject, subjectId){
+                if(cycleIndex === 0 && info.version !== "gths"){
+                  transcript.table[subjectId]=["","","","","","","","","","","","","","",""];
+                }else if(cycleIndex === 0 && info.version === "gths"){
+                  transcript.table[subjectId]=["","","","","","","","","","","","",];
+                }else if(cycleIndex === 1 && info.version !== "gths"){
+                  transcript.table[subjectId]=["","","","","",""];
+                }else {
+                  transcript.table[subjectId]=["","","","","","","","",""];
+                }
+              })
 
-            transcript.save().then(function(success){
-              deferred.resolve(transcript);
-            }).catch(function(error){
-              deferred.reject(error);
-            })
+              transcript.save().then(function(success){
+                deferred.resolve(transcript);
+              }).catch(function(error){
+                deferred.reject(error);
+              })
+            });
           } else{
             deferred.reject(error);
           }
@@ -74,5 +83,5 @@ function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students) {
 
     return self;
   }
-  Transcripts.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb', 'Subjects', 'Students'];
+  Transcripts.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb', 'Subjects', 'Students', 'SchoolInfos'];
   angular.module('SchoolMan').service('Transcripts', Transcripts);
