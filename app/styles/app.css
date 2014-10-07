@@ -150,6 +150,11 @@ input.ng-dirty.ng-invalid{
   height: 51px;
 }
 
+.idcard{
+  height:14.75cm !important;
+  width:10.5cm !important;
+}
+
 
 .cell-normal{
   font-weight: normal; 
@@ -658,6 +663,10 @@ td.profile-photo{
     .marksheet{
       padding:0px;
       border:none;
+    }
+    .idcard{
+      height:14.85cm !important;
+      width:10.5cm !important;
     }
 
     .navtabs-container{
