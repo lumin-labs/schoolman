@@ -91,16 +91,16 @@
     </div>
     <div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
       <div class="row" 
-          style="height:9.69cm !important;
-                  width:13.76cm !important;
+          style="height:8.5in !important;
+                  width:11in !important;
                   background-color: #ddd !important;
-                  padding-top:1cm;
-                  padding-bottom:1cm;
-                  padding-left:.5cm;
-                  padding-right:.5cm;
-                  font-size:10px;" 
+                  padding-top:.5in;
+                  padding-bottom:.5in;
+                  padding-left:.25in;
+                  padding-right:.25in;
+                  font-size:24px;" 
           ng-if="data.side === 0">
-        <table><tr><td style="width:50% !important; padding-right:.5cm">
+        <table><tr><td style="width:5.5in !important;height:7.5in !important; padding-right:.5in">
           <table class="table text-center" style="border:double;">
             <tr >
               <th colspan="2" style="border:solid 1px;text-align:center">RENEWALS</th>
@@ -130,35 +130,37 @@
               <td style="border:solid 1px">20_________<br>Principal</td>
             </tr>
           </table>
-        </td><td style="width:50% !important">
+        </td><td style="width:5.5in !important">
         
-          <table class="table text-center" style="border:double"><tr><td>
+          <table class="table text-center" style="border:double"><tr><td style="height:7.5in !important">
           <br>
-          <p><b>REPUBLIC OF CAMEROON</b><br>
+          <p style="font-size:18px;"><b>REPUBLIC OF CAMEROON</b><br>
           Peace-Work-Fatherland</p>
-          <p>MINISTRY OF SECONDARY EDUCATION</p>
-          <p>REGIONAL DELEGATION FOR THE {{data.schoolInfo.region}}</p>
+          <p style="font-size:18px;">MINISTRY OF SECONDARY EDUCATION</p>
+          <p style="font-size:18px;">REGIONAL DELEGATION FOR THE {{data.schoolInfo.region}}</p>
           <br>
           <br>
-          <p><strong>{{pageTitleEnglish}}</strong></p>
+          <p style="font-size:32px;"><strong>{{pageTitleEnglish}}</strong></p>
           <br>
-          <p>{{data.schoolInfo.nameEn}}<br>{{data.schoolInfo.subdivision}}, {{data.schoolInfo.division}} DIVISION</p>
+          <br>
+          <p style="font-size:32px;">{{data.schoolInfo.nameEn}}<br>{{data.schoolInfo.subdivision}}, {{data.schoolInfo.division}} DIVISION</p>
           <br>
           <br>
           <br>
           </td></tr></table>
         </td></tr></table>
       </div>
-      <div class="row" 
-          style="height:13.76cm !important;
-                  width:10.5cm !important;
+      <div class="row pagebreak" 
+          style="height:9.5in !important;
+                  width:8.5in !important;
                   background-color: #ddd !important;
-                  padding-top:1cm;
-                  padding-bottom:1cm;
-                  padding-left:.5cm;
-                  padding-right:.5cm" 
+                  padding-top:.5in;
+                  padding-bottom:.5in;
+                  padding-left:.25in;
+                  padding-right:.25in;
+                  font-size:32px;" 
           ng-if="data.side === 1">
-        <div class="col-md-12">
+          <div class="col-md-12">
 
             <div class="img-thumbnail" >
               <img src="images/user.svg">

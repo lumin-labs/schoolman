@@ -192,14 +192,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-stats'
     },
-    // {
-    //   label:"ID Cards",
-    //   page:"idcards",
-    //   access:['registrar'],
-    //   exclude:[],
-    //   modes:["gths", "ghs"],
-    //   icon:'glyphicon-print'
-    // }
+    {
+      label:"ID Cards",
+      page:"idcards",
+      access:['registrar'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-print'
+    }
  ]);
 
 
