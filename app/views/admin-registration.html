@@ -102,6 +102,15 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
+			    <label for="birthplace" class="col-sm-3 control-label">Place of Birth</label>
+			    <div class="col-sm-9">
+			      <input id="birthplace" 
+			      		 class="form-control" 
+			      		 placeholder="Place of Birth" 
+			      		 ng-model="newStudent.birthplace">
+			    </div>
+			  </div>
+			  <div class="form-group">
 			    <label for="feeGroup" class="col-sm-3 control-label">Gender</label>
 			    <div class="col-sm-9">
 			      <div class="btn-group">
@@ -129,12 +138,30 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
+			    <label for="residence" class="col-sm-3 control-label">Residence</label>
+			    <div class="col-sm-9">
+			      <input id="residence" 
+			      		 class="form-control" 
+			      		 placeholder="Residence" 
+			      		 ng-model="newStudent.residence">
+			    </div>
+			  </div>
+			  <div class="form-group">
 			    <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
 			    <div class="col-sm-9">
 			      <input id="parentPhone"
 			      		 class="form-control {{showValidation && newStudent.parentPhone === '' ? 'invalid-input' : ''}}" 
 			      		 placeholder="Parent Phone" 
 			      		 ng-model="newStudent.parentPhone">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="parentOccupation" class="col-sm-3 control-label">Parent Occupation</label>
+			    <div class="col-sm-9">
+			      <input id="parentOccupation" 
+			      		 class="form-control" 
+			      		 placeholder="Parent Occupation" 
+			      		 ng-model="newStudent.parentOccupation">
 			    </div>
 			  </div>
 			  <div class="form-group">
