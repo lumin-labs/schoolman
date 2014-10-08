@@ -2,7 +2,7 @@
 
 angular.module('SchoolMan')
   .constant('VERSION',{
-    mode:"gths"
+    mode:"ghs"
   })
   //.constant('SCHOOLYEAR',{
   //  year:"2014/2015"
@@ -208,14 +208,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-stats'
     },
-    // {
-    //   label:"ID Cards",
-    //   page:"idcards",
-    //   access:['registrar'],
-    //   exclude:[],
-    //   modes:["gths", "ghs"],
-    //   icon:'glyphicon-print'
-    // }
+    {
+      label:"ID Cards",
+      page:"idcards",
+      access:['registrar'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-print'
+    }
  ]);
 
 
