@@ -77,7 +77,23 @@ schoolman.config(['modelProvider', function(model){
         key:"dateofentry",
         type:"object",
         required:false
-      }],
+      },{
+        key:"specialty",
+        type:"string",
+        required:false
+      },{
+        key:"tribe",
+        type:"string",
+        required:false
+      },{
+        key:"dateposted",
+        type:"object",
+        required:false
+      },{
+        key:"phoneNo",
+        type:"string",
+        required:false
+      },],
       fields_key:0
     }
   };
