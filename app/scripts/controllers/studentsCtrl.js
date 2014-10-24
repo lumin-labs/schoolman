@@ -1,6 +1,6 @@
 'use strict';
 
-function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
+function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS, Lang) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -22,6 +22,7 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
     $scope.deptId = $routeParams.deptId;
+    $scope.dict = Lang.getDict();
 
     $scope.queryParams = {
         formIndex:$scope.formIndex,
@@ -315,5 +316,5 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
 
 
   }
-  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Registrar', 'Subjects', 'Payments', 'Students', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS'];
+  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Registrar', 'Subjects', 'Payments', 'Students', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS', 'Lang'];
   angular.module('SchoolMan').controller('StudentsCtrl', StudentsCtrl);

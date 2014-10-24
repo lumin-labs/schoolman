@@ -1,6 +1,6 @@
 'use strict';
 
-function MyclassesCtrl($scope, $routeParams, Users, model,Forms, Groups, Departments,  Marksheets, Location, Subjects, TimeTable) {
+function MyclassesCtrl($scope, $routeParams, Users, model,Forms, Groups, Departments,  Marksheets, Location, Subjects, TimeTable, Lang) {
 
   	// TimeTable returns courseRefs, CourseCatalog returns actual courses
     $scope.open = Location.open;
@@ -12,6 +12,7 @@ function MyclassesCtrl($scope, $routeParams, Users, model,Forms, Groups, Departm
 
     $scope.page = $routeParams.page;
     $scope.formIndex = $routeParams.formIndex;
+    $scope.dict = Lang.getDict();
 
     $scope.data = {
       forms:Forms.all(),
@@ -118,5 +119,5 @@ function MyclassesCtrl($scope, $routeParams, Users, model,Forms, Groups, Departm
 
     
   }
-  MyclassesCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Forms', 'Groups', 'Departments', 'Marksheets', 'Location', 'Subjects', 'TimeTable'];
+  MyclassesCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Forms', 'Groups', 'Departments', 'Marksheets', 'Location', 'Subjects', 'TimeTable', 'Lang'];
   angular.module('SchoolMan').controller('MyclassesCtrl', MyclassesCtrl);

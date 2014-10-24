@@ -1,11 +1,12 @@
 'use strict';
 
-function SubjectsCtrl($scope, $log, SubjectTypes, Forms, Subjects, modelTransformer, model, SchoolInfos) {
+function SubjectsCtrl($scope, $log, SubjectTypes, Forms, Subjects, modelTransformer, model, SchoolInfos, Lang) {
 
   		$scope.forms = Forms.all();
       	$scope.allSubjects = Subjects.getAll();
       	console.log("Subjects", $scope.allSubjects);
       	$scope.numSubjects = Object.keys($scope.allSubjects).length;
+      	$scope.dict = Lang.getDict();
 
       	SchoolInfos.get("schoolinfo").then(function(info){
       		$scope.version = info.version;
@@ -37,5 +38,5 @@ function SubjectsCtrl($scope, $log, SubjectTypes, Forms, Subjects, modelTransfor
 	    };
 
   }
-  SubjectsCtrl.$inject = ['$scope', '$log', 'SubjectTypes', 'Forms', 'Subjects', 'modelTransformer', 'model', 'SchoolInfos'];
+  SubjectsCtrl.$inject = ['$scope', '$log', 'SubjectTypes', 'Forms', 'Subjects', 'modelTransformer', 'model', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('SubjectsCtrl', SubjectsCtrl);

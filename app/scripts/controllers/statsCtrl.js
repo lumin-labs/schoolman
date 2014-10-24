@@ -1,6 +1,6 @@
 'use strict';
 
-function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2, Marksheets, Departments, Fees, Payments, Terms, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
+function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2, Marksheets, Departments, Fees, Payments, Terms, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS, Lang) {
   	 
     $scope.termIndex = parseInt($routeParams.termIndex),
     $scope.queryParams = {
@@ -12,6 +12,7 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
     }
       
       $scope.open = Location.open;
+      $scope.dict = Lang.getDict();
 
       var data = $scope.data = {
         marksheets: [],
@@ -390,5 +391,5 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
       // });
 
   }
-  StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Fees', 'Payments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS'];
+  StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Fees', 'Payments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS', 'Lang'];
   angular.module('SchoolMan').controller('StatsCtrl', StatsCtrl);

@@ -1,11 +1,12 @@
 'use strict';
 
-function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar) {
+function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar, Lang) {
     
     $scope.newGroup = new model.Group();
     
     $scope.groups = Groups.getAll();
     $scope.forms = Forms.all();
+    $scope.dict = Lang.getDict();
 
     $scope.add = function(group){
     	if(model.isValid(group)){
@@ -41,5 +42,5 @@ function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar) {
 
   }
 
-GroupsCtrl.$inject = ['$scope', 'Groups', 'Students', 'model', 'Forms', 'Registrar'];
+GroupsCtrl.$inject = ['$scope', 'Groups', 'Students', 'model', 'Forms', 'Registrar', 'Lang'];
 angular.module('SchoolMan').controller('GroupsCtrl', GroupsCtrl);

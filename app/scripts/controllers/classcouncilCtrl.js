@@ -10,12 +10,13 @@
  * @description Class council view controller
  *
  */
-function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos){
+function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, ClassMaster, CourseCatalog, Location, Mastersheet, SchoolInfos, Lang){
 
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
     $scope.userAccess = $routeParams.accessCode;
     $scope.regions = model.SchoolInfo.regions;
+    $scope.dict = Lang.getDict();
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
@@ -279,5 +280,5 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
 
 
 }
-ClasscouncilCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'ClassMaster', 'CourseCatalog', 'Location', 'Mastersheet', 'SchoolInfos']
+ClasscouncilCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'ClassMaster', 'CourseCatalog', 'Location', 'Mastersheet', 'SchoolInfos', 'Lang']
 angular.module('SchoolMan').controller('ClasscouncilCtrl', ClasscouncilCtrl);

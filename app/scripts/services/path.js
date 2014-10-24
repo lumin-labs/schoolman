@@ -49,6 +49,7 @@ function Path() {
           // thus all of these variables should be present one way or another
           var path =  d.page       + '/' + 
                       d.subpage    + '/' + 
+                      d.lang       + '/' +
                       d.formIndex  + '/' + 
                       d.deptId    + '/' + 
                       d.groupId   + '/' + 

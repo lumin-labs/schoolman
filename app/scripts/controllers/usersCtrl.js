@@ -1,11 +1,12 @@
 'use strict';
 
-function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos) {
+function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos, Lang) {
     
     $scope.data = {};
     $scope.data.users = Users.getAll();
     $scope.User = model.User;
     $scope.tempUser = new model.User();
+    $scope.dict = Lang.getDict();
 
     $scope.open = Location.open;
     $scope.username = $routeParams.username;
@@ -32,5 +33,5 @@ function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos) {
     $scope.remove = Users.remove;
 
   }
-UsersCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Location', 'SchoolInfos'];
+UsersCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Location', 'SchoolInfos', 'Lang'];
 angular.module('SchoolMan').controller('UsersCtrl', UsersCtrl);

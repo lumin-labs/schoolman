@@ -1,9 +1,10 @@
 'use strict';
 
-function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos) {
+function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       $scope.ClassMaster = ClassMaster;
+      $scope.dict = Lang.getDict();
 
       $scope.open = Location.open;
 
@@ -259,5 +260,5 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
     };
 
   }
-  TranscriptCtrl.$inject = ['$scope', '$routeParams', 'model', 'Transcripts','Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos'];
+  TranscriptCtrl.$inject = ['$scope', '$routeParams', 'model', 'Transcripts','Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('transcriptCtrl', TranscriptCtrl);

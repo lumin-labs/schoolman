@@ -9,9 +9,11 @@
  *
  */
 
-function DepartmentsCtrl($scope, $log, Registrar, model, Students, Departments, CourseCatalog){
+function DepartmentsCtrl($scope, $log, Registrar, model, Students, Departments, CourseCatalog, Lang){
 
   $scope.forms = CourseCatalog.getForms();
+  $scope.dict = Lang.getDict();
+  
 
   $scope.departments = Departments.getAll();
   console.log($scope.departments);
@@ -58,5 +60,5 @@ function DepartmentsCtrl($scope, $log, Registrar, model, Students, Departments, 
 
 }
 
-DepartmentsCtrl.$inject = ['$scope', '$log', 'Registrar', 'model', 'Students', 'Departments', 'CourseCatalog'];
+DepartmentsCtrl.$inject = ['$scope', '$log', 'Registrar', 'model', 'Students', 'Departments', 'CourseCatalog', 'Lang'];
 angular.module('SchoolMan').controller('DepartmentsCtrl', DepartmentsCtrl);
