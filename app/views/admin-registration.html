@@ -66,7 +66,7 @@
 					    	<span ng-if="newStudent.feeGroup !== ''">
 					    		{{newStudent.feeId ? data.fees[newStudent.feeId].name : "Select Fee"}} 
 					    		<span ng-if="newStudent.feeId">
-						    		({{data.fees[newStudent.feeId].amount | currency:""}})
+						    		({{data.fees[newStudent.feeId].schoolAmount + data.fees[newStudent.feeId].ptaAmount | currency:""}})
 					    		</span>
 					    	</span>
 					      &nbsp;<span class="caret"></span>
@@ -74,7 +74,7 @@
 					    <ul class="dropdown-menu">
 					      <li ng-repeat="(feeKey, fee) in data.fees">
 					        <a ng-click="newStudent.feeId = feeKey">
-					        {{fee.name}} ({{fee.amount | currency:""}})</a>
+					        {{fee.name}} ({{fee.schoolAmount + fee.ptaAmount | currency:""}})</a>
 					      </li>
 					    </ul>
 						</div>
@@ -99,6 +99,15 @@
 			       		 placeholder="Birth Date" 
 			       		 ng-model="newStudent.birth"
 			       		 type="date">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="birthplace" class="col-sm-3 control-label">Place of Birth</label>
+			    <div class="col-sm-9">
+			      <input id="birthplace" 
+			      		 class="form-control" 
+			      		 placeholder="Place of Birth" 
+			      		 ng-model="newStudent.birthplace">
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -129,12 +138,30 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
+			    <label for="residence" class="col-sm-3 control-label">Residence</label>
+			    <div class="col-sm-9">
+			      <input id="residence" 
+			      		 class="form-control" 
+			      		 placeholder="Residence" 
+			      		 ng-model="newStudent.residence">
+			    </div>
+			  </div>
+			  <div class="form-group">
 			    <label for="parentPhone" class="col-sm-3 control-label">Parent Phone</label>
 			    <div class="col-sm-9">
 			      <input id="parentPhone"
 			      		 class="form-control {{showValidation && newStudent.parentPhone === '' ? 'invalid-input' : ''}}" 
 			      		 placeholder="Parent Phone" 
 			      		 ng-model="newStudent.parentPhone">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label for="parentOccupation" class="col-sm-3 control-label">Parent Occupation</label>
+			    <div class="col-sm-9">
+			      <input id="parentOccupation" 
+			      		 class="form-control" 
+			      		 placeholder="Parent Occupation" 
+			      		 ng-model="newStudent.parentOccupation">
 			    </div>
 			  </div>
 			  <div class="form-group">

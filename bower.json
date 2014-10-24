@@ -14,6 +14,7 @@
     "angular-slugify": "1.0.0",
     "Faker": "0.7.0",
     "d3-tip": "0.6.4",
+    "Font-Awesome": "~4.0.3",
     "pouchdb":"~2.0.2-alpha",
     "angular-pouchdb": "~0.1.5",
     "lodash": "~2.4.1"

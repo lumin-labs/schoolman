@@ -60,6 +60,18 @@ schoolman.config(['modelProvider', function(model){
         key:"totalPaid",
         type:"number",
         required:false
+      },{
+        key:"birthplace",
+        type:"number",
+        required:false
+      },{
+        key:"residence",
+        type:"number",
+        required:false
+      },{
+        key:"parentOccupation",
+        type:"number",
+        required:false
       }],
       fields_key:0
     }

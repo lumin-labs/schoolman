@@ -181,8 +181,8 @@ function Students($q, model, modelTransformer, pouchdb) {
       } else {
         filtered = students;
       };
-      console.log("Filtering students", params, _students);
-    	console.log("Filtered students", params, filtered);
+     //  console.log("Filtering students", params, _students);
+    	// console.log("Filtered students", params, filtered);
     	deferred.resolve(filtered);
     	return deferred.promise;
     };
@@ -235,6 +235,18 @@ function Students($q, model, modelTransformer, pouchdb) {
     	return deferred.promise;
 
     };
+    self.getClasses = function(formIndex, flags){
+      var collection = {};
+      angular.forEach(_students, function(student, studentId){
+        if(student.formIndex === formIndex){
+          var id = [formIndex, student.deptId, student.groupId];
+          if(!collection.hasOwnProperty(id)){
+            collection[id] = {formIndex:formIndex, deptId:student.deptId, groupId:student.groupId};
+          }
+        }
+      });
+      return collection;
+    }
 
     self.destroy = function(){
     	db.destroy().then(function(success){

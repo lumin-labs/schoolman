@@ -2,7 +2,7 @@
 
 angular.module('SchoolMan')
   .constant('VERSION',{
-    mode:"gths"
+    mode:"ghs"
   })
   //.constant('SCHOOLYEAR',{
   //  year:"2014/2015"
@@ -68,7 +68,7 @@ angular.module('SchoolMan')
       label:"Student Profile",
       page:"registrarProfile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil'],
+      exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -76,7 +76,7 @@ angular.module('SchoolMan')
       label:"Student Profile",
       page:"classmasterProfile",
       access:['classmaster'],
-      exclude:['reportcardGTHS','mastersheet', 'classmasterMarksheet', 'classcouncil'],
+      exclude:['reportcardGTHS','mastersheet', 'classmasterMarksheet', 'classcouncil', 'classmasterStats'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -145,6 +145,14 @@ angular.module('SchoolMan')
       icon:'glyphicon-folder-open'
     },
     {
+      label:"Transcript",
+      page:"transcript",
+      access:['admin'],
+      exclude:[],
+      modes:["gths","ghs"],
+      icon:'glyphicon-list-alt'
+    },
+    {
       label:"User Settings",
       page:"user",
       access:['classmaster','admin','teacher', 'registrar'],
@@ -152,6 +160,46 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
+    {
+      label:"Statistics",
+      page:"classmasterStats",
+      access:['classmaster'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    },
+    {
+      label:"Statistics",
+      page:"adminStats",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    },
+    {
+      label:"Annual Report",
+      page:"annualreport",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    },
+    {
+      label:"Enrollment Report",
+      page:"enrollmentreport",
+      access:['admin'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-stats'
+    },
+    {
+      label:"ID Cards",
+      page:"idcards",
+      access:['registrar'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-print'
+    }
  ]);
 
 

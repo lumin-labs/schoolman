@@ -135,8 +135,24 @@ input.ng-dirty.ng-invalid{
   background-color: inherit;
 }
 
+.cell-transcript{
+  border:none;
+  width:100%;
+  height:22px;
+  font-family:'serif';
+  font-size:11px;
+  font-weight:bold;
+  padding:0px;
+  background-color: inherit;
+}
+
 .cell-md{
   height: 51px;
+}
+
+.idcard{
+  height:14.75cm !important;
+  width:10.5cm !important;
 }
 
 
@@ -592,6 +608,14 @@ td.profile-photo{
   height:37px;
 }
 
+.table-transcript2 thead tr th{
+  font-size: 12px;
+}
+
+.table-transcript2 tbody tr td{
+  font-size: 11px;
+}
+
 
 
 /* Print CSS */
@@ -639,6 +663,10 @@ td.profile-photo{
     .marksheet{
       padding:0px;
       border:none;
+    }
+    .idcard{
+      height:14.85cm !important;
+      width:10.5cm !important;
     }
 
     .navtabs-container{
@@ -735,16 +763,32 @@ td.profile-photo{
       font-size: 10px;
       padding:5px;
     }
+    .table-transcript2 thead tr th{
+      font-size: 11px;
+    }
+
+    .table-transcript2 tbody tr td{
+      font-size: 7px;
+    }
+    .cell-transcript{
+      border:none;
+      width:100%;
+      height:14px;
+      font-size:7px;
+      font-weight:bold;
+      padding:0px;
+      background-color: inherit;
+    }
 
     .transcript-summary {
-      width:40%;
+      width:33%;
       float:left;
     }
 
-    .signature{
+    /*.signature{
       width:60%;
       float:right;
-    }
+    }*/
 
     .signature-padding{
       height:25px;
@@ -773,6 +817,9 @@ td.profile-photo{
     .footer{
       display: none;
     }
+
+    
+
     
     
   }
