@@ -91,23 +91,58 @@
     </div>
     <div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
       <div class="row pagebreak" 
-          style="height:9in !important;
-                  width:7.9in !important;
+          style="height:6.2in !important;
+                  width:10.6in !important;
                   background-color: #ddd !important;
- 
-                  font-size:32px;" 
+                  
+                  font-size:24px;" 
           ng-if="data.side === 0">
-        <div class="col-md-2 img-thumbnail">
-          <img src="images/user.svg" height="200" width="200">
-        </div>
-        <div class="col-md-10">
+        <table><tr><td style="width:5.3in !important;height:6.2in !important; padding-right:.5in">
+          <table class="table text-center" style="border:double;">
+            <tr >
+              <th colspan="2" style="border:solid 1px;text-align:center">RENEWALS</th>
+            </tr>
+            <tr >
+              <th style="border:solid 1px;text-align:center">CLASS</th>
+              <th style="border:solid 1px;text-align:center">YEAR</th>
+            </tr>
+            <tr >
+              <td style="border:solid 1px">I</td>
+              <td style="border:solid 1px">20_________<br>Principal</td>
+            </tr>
+            <tr >
+              <td style="border:solid 1px">II</td>
+              <td style="border:solid 1px">20_________<br>Principal</td>
+            </tr>
+            <tr >
+              <td style="border:solid 1px">III</td>
+              <td style="border:solid 1px">20_________<br>Principal</td>
+            </tr>
+            <tr >
+              <td style="border:solid 1px">IV</td>
+              <td style="border:solid 1px">20_________<br>Principal</td>
+            </tr>
+            <tr >
+              <td style="border:solid 1px">V</td>
+              <td style="border:solid 1px">20_________<br>Principal</td>
+            </tr>
+          </table>
+        </td><td style="width:5.3in !important">
+        
+          <table class="table text-center" style="border:double"><tr><td style="height:6.2in !important">
+          <br>
           <p style="font-size:18px;"><b>REPUBLIC OF CAMEROON</b><br>
           Peace-Work-Fatherland</p>
           <p style="font-size:18px;">MINISTRY OF SECONDARY EDUCATION</p>
           <p style="font-size:18px;">REGIONAL DELEGATION FOR THE {{data.schoolInfo.region}}</p>
           <br>
+          <br>
+          <p style="font-size:32px;"><strong>{{pageTitleEnglish}}</strong></p>
+          <br>
+          <br>
           <p style="font-size:32px;">{{data.schoolInfo.nameEn}}<br>{{data.schoolInfo.subdivision}}, {{data.schoolInfo.division}} DIVISION</p>
-        </div>
+          </td></tr></table>
+        </td></tr></table>
       </div>
       <div class="row pagebreak" 
           style="height:9in !important;
@@ -118,7 +153,9 @@
           ng-if="data.side === 1">
           <div class="col-md-12">
 
-            
+            <div class="img-thumbnail">
+              <img src="images/user.svg" height="200" width="200">
+            </div>
             <div>
               <p>I, <u>{{data.schoolInfo.principal}}</u> The Undersigned, Principal of <u>{{data.schoolInfo.nameEn}}</u> hereby certify that <u>{{student.name}}</u> is a student in my institution.</p>
               <p>Born on <u>{{student.birth | date: "dd MMM yyyy"}}</u> at <u>{{student.birthplace}}</u>
