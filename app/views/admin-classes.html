@@ -8,22 +8,22 @@
 					<th>
 	    				<input type="text" 
 	    							 class="form-control" 
-	    							 placeholder="Class Name"
+	    							 placeholder="{{dict.class_name}}"
 	    							 ng-model="newGroup.name">
 	    			</th>
-	    			<th></th>
+	    			
 	    			<th class="text-center">
 	    				<button type="submit" class="btn btn-default" ng-click="add(newGroup)">
-				        	Add Class
+				        	{{dict.add}}
 				        </button>
 	    			</th>
-	    			
+	    			<th></th>
 				</tr>
 				<tr>
-					<th>Name</th>
+					<th>{{dict.name}}</th>
 					<!-- <th class="text-center" ng-repeat="form in forms">{{form.name}}</th> -->
-					<th>Students</th>
-					<th class="noprint">Remove</th>
+					<th>{{dict.student}}s</th>
+					<th class="noprint">{{dict.remove}}</th>
 				</tr>
 			</thead>
 			<tbody>

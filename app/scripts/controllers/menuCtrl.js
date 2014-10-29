@@ -10,6 +10,7 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
     $scope.ClassMaster = ClassMaster;
     $scope.route = $routeParams;
     $scope.dict = Lang.getDict();
+    // console.log("dict", $scope.dict);
 
   	$scope.print = function(){
   		ClassMaster.printVariable = false;

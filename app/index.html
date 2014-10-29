@@ -38,18 +38,18 @@
           </button>
           <ul class="dropdown-menu">
             <li ng-if="route.page && route.page !== 'login'">
-              <a ng-click="open({page:'user',subpage:'current'})">Settings</a>
+              <a ng-click="open({page:'user',subpage:'current'})">{{dict.settings}}</a>
             </li>
             <li class="divider"></li>
             <li>
-              <a ng-click="logout()">Logout</a>
+              <a ng-click="logout()">{{dict.logout}}</a>
             </li>
           </ul>
         </div>
 
         <script type="text/ng-template" id="printModal.html">
             <div class="modal-header" style="background-color:#eee;">
-                <h3 class="modal-title"><b>Print all report cards?</b></h3>
+                <h3 class="modal-title"><b>{{dict.print_all_report_cards}}?</b></h3>
             </div>
             <div class="modal-body">
                 
@@ -57,66 +57,66 @@
                 <label for="printradio1">
                     <button class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;height:30px;width:40px;">
                     <i ng-if="ClassMaster.printVariable === 'false'" class="glyphicon glyphicon-ok" style="color:green;"></i></button>
-                    Print Current Report Card Only
+                    {{dict.print_current_report_card_only}}
                 </label></input></h4>
                 
                 <h4><input type="radio" id="printradio2" ng-model="ClassMaster.printVariable" value="true">
                 <label for="printradio2">
                     <button class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;height:30px;width:40px;">
                     <i ng-if="ClassMaster.printVariable === 'true'" class="glyphicon glyphicon-ok" style="color:green;"></i></button>
-                    Print All Report Cards
+                    {{dict.print_all_report_cards}}
                 </label></input></h4>
             </div>
             <div class="modal-footer" style="background-color:#eee;">
-                <button class = "btn btn-default" ng-click="ok()">Print</button>
-                <button class = "btn" ng-click="cancel()">Cancel</button>
+                <button class = "btn btn-default" ng-click="ok()">{{dict.print}}</button>
+                <button class = "btn" ng-click="cancel()">{{dict.cancel}}</button>
                 </div>
         </script>
         <script type="text/ng-template" id="exportModal.html">
             <div class="modal-body">
                 <div style="width:100%;text-align:center;padding-top:20%">
                     <img src="/images/ajax-loader.gif"><br>
-                    <h5>Exporting...</h5>
+                    <h5>{{dict.exporting}}...</h5>
                 </div>
             </div>
             <div class="modal-footer" style="background-color:#eee;">
-                <button class = "btn" ng-click="cancel()">Cancel</button>
+                <button class = "btn" ng-click="cancel()">{{dict.cancel}}</button>
             </div>
         </script>
         <script type="text/ng-template" id="importModal.html">
             <div class="modal-body">
                 <div style="width:100%;text-align:center;padding-top:20%">
                     <img src="/images/ajax-loader.gif"><br>
-                    <h5>Importing...</h5>
+                    <h5>{{dict.importing}}...</h5>
                 </div>
             </div>
             <div class="modal-footer" style="background-color:#eee;">
-                <button class = "btn" ng-click="cancel()">Cancel</button>
+                <button class = "btn" ng-click="cancel()">{{dict.cancel}}</button>
             </div>
         </script>
 
           <ul class="nav navbar-nav navbar-sm">
             <li class="dropdown" >
-              <a href="" class="dropdown-toggle" data-toggle="dropdown">File</a>
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">{{dict.file}}</a>
               <ul class="dropdown-menu">
                <!--  <li><a ng-click="importFile()">Import File</a></li>
                 <li><a ng-click="saveFile()">Save</a></li>
                 <li><a href="">Save As ...</a></li>
                 <li class="divider"></li> -->
-                <li><a ng-click="print()">Print</a></li>
-                <li><a ng-click="import()" ng-if="cache.user.access.admin === 1">Import File</a></li>
-                <li><a ng-click="export()" ng-if="cache.user.access.admin === 1">Export to File</a></li>
+                <li><a ng-click="print()">{{dict.print}}</a></li>
+                <li><a ng-click="import()" ng-if="cache.user.access.admin === 1">{{dict.import_file}}</a></li>
+                <li><a ng-click="export()" ng-if="cache.user.access.admin === 1">{{dict.export_file}}</a></li>
                 <li class="divider"></li>
-                <li><a id="close">Quit</a></li>
+                <li><a id="close">{{dict.quit}}</a></li>
               </ul>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-sm">
             <li class="dropdown" >
-              <a href="" class="dropdown-toggle" data-toggle="dropdown">Language</a>
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">{{dict.language}}</a>
               <ul class="dropdown-menu">
                 <li><a ng-click="open({lang:'en'})">English</a></li>
-                <li><a ng-click="open({lang:'fr'})">French</a></li>
+                <li><a ng-click="open({lang:'fr'})">Français</a></li>
               </ul>
             </li>
           </ul>
