@@ -18,7 +18,7 @@
 			      <div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle
 					    {{showValidation && newStudent.formIndex === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
-					      {{newStudent.formIndex || newStudent.formIndex === 0 ? data.forms[newStudent.formIndex].name : "Select Form"}}  
+					      {{newStudent.formIndex || newStudent.formIndex === 0 ? data.forms[newStudent.formIndex].name : dict.select_form}}  
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
@@ -58,7 +58,7 @@
 			  </div>
 
 			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-3 control-label">Fee Group</label>
+			    <label for="feeGroup" class="col-sm-3 control-label">{{dict.fee_group}}</label>
 			    <div class="col-sm-9">
 			    	<div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle 
