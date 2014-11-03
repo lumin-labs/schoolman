@@ -1,6 +1,6 @@
 'use strict';
 
-function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, Path, Cache, File, ClassMaster) {
+function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, Path, Cache, File, ClassMaster, Lang) {
 
     //$scope.ClassMaster = ClassMaster;
     $scope.show = {
@@ -9,6 +9,8 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
 
     $scope.ClassMaster = ClassMaster;
     $scope.route = $routeParams;
+    $scope.dict = Lang.getDict();
+    // console.log("dict", $scope.dict);
 
   	$scope.print = function(){
   		ClassMaster.printVariable = false;
@@ -180,5 +182,5 @@ function MenuCtrl($scope, $location, $routeParams, $modal, $q, $log, Location, P
   	// 	});
    //  }
   }
-  MenuCtrl.$inject = ['$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster'];
+  MenuCtrl.$inject = ['$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang'];
   angular.module('SchoolMan').controller('MenuCtrl', MenuCtrl);

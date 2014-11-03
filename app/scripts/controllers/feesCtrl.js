@@ -1,7 +1,7 @@
 'use strict';
 
-function FeesCtrl($scope, Fees, Students, model) {
-      
+function FeesCtrl($scope, Fees, Students, model, Lang) {
+      $scope.dict = Lang.getDict();
       $scope.data = {};
       $scope.data.fees = Fees.getAll();
       // Join students to fees
@@ -39,5 +39,5 @@ function FeesCtrl($scope, Fees, Students, model) {
          Fees.remove(fee); 
       }
 }
-FeesCtrl.$inject = ['$scope', 'Fees', 'Students', 'model'];
+FeesCtrl.$inject = ['$scope', 'Fees', 'Students', 'model', 'Lang'];
 angular.module('SchoolMan').controller('FeesCtrl', FeesCtrl);

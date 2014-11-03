@@ -1,6 +1,6 @@
 'use strict';
 
-function ReportsCtrl($scope, $route, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
+function ReportsCtrl($scope, $route, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects, Lang) {
   var data = $scope.data = {
     forms:Forms.all(),
     groups:Groups.getAll(),
@@ -14,6 +14,7 @@ function ReportsCtrl($scope, $route, $routeParams, model, Location, Marksheets, 
   }
   $scope.termIndex=3;
   $scope.formIndex = $routeParams.formIndex;
+  $scope.dict = Lang.getDict();
 
   $scope.open = function(params){
     if(params.formIndex === $routeParams.formIndex){
@@ -381,5 +382,5 @@ function ReportsCtrl($scope, $route, $routeParams, model, Location, Marksheets, 
   console.log("Class Councils", $scope.data.classCouncils);
 
 }
-ReportsCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
+ReportsCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects', 'Lang'];
 angular.module('SchoolMan').controller('ReportsCtrl', ReportsCtrl);

@@ -1,9 +1,10 @@
 'use strict';
 
-function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups) {
+function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups, Lang) {
       console.log("Hows the call stack?")
       console.log("Departments: ", Departments)
       $log.info("Path: ", $location.path()); 
+
 
       var DEFAULT_START_PAGE = {
           admin:{
@@ -24,6 +25,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
       $scope.open = Location.open;
       $scope.page = $routeParams.page;
       $scope.status = 200;
+      $scope.dict = Lang.getDict();
 
       // This data is used for creating the access dropdown in the login view
       // It should be moved to a service
@@ -66,6 +68,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
               Location.open({
                 page:page || DEFAULT_START_PAGE[accessRequest].page,
                 subpage:"null",
+                lang:"en",
                 formIndex:"0",
                 deptId:Object.keys(depts)[0],
                 groupId:groups[0],
@@ -108,5 +111,5 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
           $scope.login(page); 
       }
 }
-LoginCtrl.$inject = ['$scope', '$location', '$routeParams', '$log', 'DEV', 'Users', 'Subjects', 'Departments', 'settings', 'model', 'Path', 'Cache', 'Location', 'Groups'];
+LoginCtrl.$inject = ['$scope', '$location', '$routeParams', '$log', 'DEV', 'Users', 'Subjects', 'Departments', 'settings', 'model', 'Path', 'Cache', 'Location', 'Groups', 'Lang'];
 angular.module('SchoolMan').controller('LoginCtrl', LoginCtrl);

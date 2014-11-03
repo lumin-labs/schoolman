@@ -1,8 +1,9 @@
 'use strict';
-function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Students, Marksheets) {
+function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Students, Marksheets, Lang) {
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
+    $scope.dict = Lang.getDict();
 
     var data = $scope.data = {
     	forms:Forms.all(),
@@ -77,6 +78,6 @@ function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups
 
 
   }
-  RegistrationCtrl.$inject = ['$scope', '$routeParams', 'Uid', 'Forms', 'Departments', 'Groups', 'Fees', 'Location', 'model', 'Students', 'Marksheets'];
+  RegistrationCtrl.$inject = ['$scope', '$routeParams', 'Uid', 'Forms', 'Departments', 'Groups', 'Fees', 'Location', 'model', 'Students', 'Marksheets', 'Lang'];
   angular.module('SchoolMan').controller('RegistrationCtrl', RegistrationCtrl);
 

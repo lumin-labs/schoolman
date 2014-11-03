@@ -1,6 +1,6 @@
 'use strict';
 
-function UserCtrl($scope, $routeParams, Users, model) {
+function UserCtrl($scope, $routeParams, Users, model, Lang) {
   	$scope.editing = false;
   	$scope.currentUser = Users.get($routeParams.username);
     // $scope.editingUser = $routeParams.subpage === 'current' ? 
@@ -13,6 +13,7 @@ function UserCtrl($scope, $routeParams, Users, model) {
     $scope.data.repeatPassword = "";
     $scope.data.verifiedStatus = "";
     $scope.accessCode = $routeParams.accessCode;
+    $scope.dict = Lang.getDict();
 
     $scope.data.currentPassword = "";
 
@@ -91,5 +92,5 @@ function UserCtrl($scope, $routeParams, Users, model) {
     
 
   }
-UserCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model'];
+UserCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Lang'];
 angular.module('SchoolMan').controller('UserCtrl', UserCtrl);

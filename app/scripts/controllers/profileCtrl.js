@@ -1,6 +1,6 @@
 'use strict';
 
-function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksheets, ClassCouncils, $q, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS) {
+function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksheets, ClassCouncils, $q, Registrar, Students, Fees, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS, Lang) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -13,6 +13,7 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
 
     $scope.Users = Users;
     $scope.username = $routeParams.username;
+    $scope.dict = Lang.getDict();
 
     var reports = {};
     var classCouncils = {};
@@ -190,5 +191,5 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
       });
     };
   }
-  ProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'profile', 'Dcards', 'Users', 'Marksheets', 'ClassCouncils', '$q', 'Registrar', 'Students', 'Fees', 'Forms', 'Payments', 'Groups', 'Departments', 'PROMOTE_OPTIONS'];
+  ProfileCtrl.$inject = ['$scope', '$routeParams', 'model', 'profile', 'Dcards', 'Users', 'Marksheets', 'ClassCouncils', '$q', 'Registrar', 'Students', 'Fees', 'Forms', 'Payments', 'Groups', 'Departments', 'PROMOTE_OPTIONS', 'Lang'];
   angular.module('SchoolMan').controller('ProfileCtrl', ProfileCtrl);

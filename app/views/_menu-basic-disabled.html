@@ -15,7 +15,7 @@
   <!-- Department Dropdown -->
   <div class="btn-group">
     <button class="btn btn-md btn-light dropdown-toggle disabled" data-toggle="dropdown">
-      {{department.name || "Select Department"}} <span class="caret"></span>
+      {{department.name || dict.select_department}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li ng-repeat="(deptId, dept) in departments">
@@ -27,7 +27,7 @@
   <!-- Group Dropdown -->
   <div class="btn-group">
     <button class="btn btn-md btn-light dropdown-toggle disabled" data-toggle="dropdown">
-      {{group ? group.name : "Select Group"}} <span class="caret"></span>
+      {{group ? group.name : dict.select_group}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li ng-repeat="(groupId, group) in groups">

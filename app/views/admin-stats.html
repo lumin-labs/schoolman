@@ -3,7 +3,7 @@
 	<div class="col-md-10 marksheet" ng-controller="StatsCtrl">
     <div class="printonly" ng-controller="ClassmenuCtrl">
       <h3>School Statistics</h3>
-      <h5>{{route.forms[queryParams.formIndex].name || "All Forms"}} {{route.departments[queryParams.deptId].name || "All Departments"}}, {{route.terms[termIndex].name || "All Terms"}}</h5>
+      <h5>{{route.forms[queryParams.formIndex].name || dict.all_forms}} {{route.departments[queryParams.deptId].name || dict.all_departments}}, {{route.terms[termIndex].name || dict.all_terms}}</h5>
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">
@@ -22,7 +22,7 @@
                 <div class="form-group pull-right">
                   <div class="btn-group" style="margin-right:0px;">
                     <button type="button" class="btn btn-default btn-md" ng-click="export()">
-                      Export Statistics
+                      {{dict.export_statistics}}
                     </button>
                   </div>
                 </div>
@@ -32,7 +32,7 @@
                     <!-- Term Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                         {{route.terms[termIndex].name || "All Terms"}}   <span class="caret"></span>
+                         {{route.terms[termIndex].name || dict.all_terms}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
@@ -40,13 +40,13 @@
                         </li>
                         <li class="divider"></li> -->
                         <li>
-                          <a ng-click="data.stats = getAdminStats(3)">All Terms
+                          <a ng-click="data.stats = getAdminStats(3)">{{dict.all_terms}}
                           </a>
                         </li>
                         <li class="divider"></li>
                         <li ng-repeat="(termInd, term) in [1, 2, 3]">
                           <a ng-click="data.stats = getAdminStats(termInd)">
-                            Term {{term}}
+                            {{dict.term}} {{term}}
                           </a>
                         </li>
                       </ul>
@@ -63,25 +63,25 @@
 			<thead>
 				<tr>
 					<th></th>
-          <th style="text-align:center" colspan="3">Number Enrolled</th>
-					<th style="text-align:center" colspan="3">Number Sat</th>
-          <th style="text-align:center" colspan="3">Percent Passing</th>
-          <th style="text-align:center" colspan="3">Percent Failing</th>
+          <th style="text-align:center" colspan="3">{{dict.number_enrolled}}</th>
+					<th style="text-align:center" colspan="3">{{dict.number_present}}</th>
+          <th style="text-align:center" colspan="3">{{dict.percent_passing}}</th>
+          <th style="text-align:center" colspan="3">{{dict.percent_failing}}</th>
 				</tr>
         <tr>
           <th></th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
         </tr>
 			</thead>
 			<tbody ng-repeat="(deptId, dept) in data.stats">
