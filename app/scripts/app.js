@@ -35,6 +35,7 @@ angular.module('SchoolMan', [
       login:    "login2.html",
       login404: "login.html",
       students: "admin-students.html",
+      staff:"admin-staff.html",
       users:    "admin-users.html",
       user:    "user.html",
       subjects:  "admin-subjects.html",
@@ -45,6 +46,7 @@ angular.module('SchoolMan', [
       registration:"admin-registration.html",
       departments:"admin-departments.html",
       fees:"admin-fees.html",
+      salarys:"admin-salary.html",
       finance:"registrar-finance.html",
       reportcardGTHS:"reportcard-gths.html",
       registrarProfile:"registrar-profile.html",
@@ -54,6 +56,9 @@ angular.module('SchoolMan', [
       adminStats:"admin-stats.html",
       annualreport:"annualreport.html",
       enrollmentreport:"enrollmentreport.html",
+      staffregistration:"staffregistration.html",
+      staffprofile:"staffprofile.html",
+      stafflist:"stafflist.html",
       idcards:"idcards.html",
       notactive:"notactive.html"
     };
