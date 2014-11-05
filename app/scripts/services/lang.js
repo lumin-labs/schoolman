@@ -7,7 +7,8 @@ function Lang($routeParams) {
 
   var langDict = {
   	en:{
-  		
+      academic:"Academic",
+  		academic_year:"Academic Year",
   		add:"Add",
   		add_class:"Add Class",
       add_student:"Add Student", 
@@ -17,19 +18,30 @@ function Lang($routeParams) {
       all_departments:"All Departments",
       all_fees:"All Fees",
       all_groups:"All Groups",
+      annual_results:"Annual Results",
+      average:"Average",
+      best_performances:"Best Performances",
   		cancel:"Cancel",
   		Class:"Class",
+      classmaster:"Class Master/Mistress",
+      class_average:"Class Average",
       class_name:"Class Name",
+      class_range:"Class Range",
       clear_all:"Clear All", //wrong
   		code:"Code",
+      conduct:"Conduct",
+      date:"Date",
   		date_of_birth:"Date of Birth",
   		department_name:"Department Name",
       dept:"Dept",
+      dismiss:"Dismiss",
   		edit_student:"Edit Student",
       english:"English",
+      enrolled:"Enrolled",
       exporting:"Exporting",
       export_file:"Export to File",
       export_statistics:"Export Statistics",
+      fail:"Fail",
       fee:"Fee",
       fees:"Fees",
       fee_due:"Fee Due",
@@ -41,32 +53,47 @@ function Lang($routeParams) {
       form:"Form",
       french:"French",
   		full_name:"Full Name",
+      good:"Good",
+      head_of_department:"Head of Department",
+      high:"High",
       importing:"Importing",
       import_file:"Import File",
       language:"Language",
       logout:"Logout",
+      low:"Low",
       male:"Male",
       move:"Move",
   		name:"Name",
+      no_remark:"No Remark",
       number:"Number",
       number_enrolled:"Number Enrolled",
       number_present:"Number Present",
+      number_with:"Number with",
   		parent_email:"Parent Email",
   		parent_name:"Parent Name",
   		parent_occupation:"Parent Occupation",
   		parent_phone:"Parent Phone",
-      percent_failing:"Percent Failing",
-      percent_passing:"Percent Passing",
+      pass:"Pass",
+      passing_score:"Passing Score",
+      percent_failing:"Percentage Fail",
+      percent_passing:"Percentage Pass",
+      performance_by_subject:"Performance by Subject",
   		place_of_birth:"Place of Birth",
       please_fill_in_all_fields:"Please fill in all fields highlighted in red and try again.",
+      poor:"Poor",
+      possible_factors:"Possible Factors",
+      present:"Present",
       print:"Print",
       print_all_report_cards:"Print All Report Cards",
       print_current_report_card_only:"Print Current Report Card Only",
+      promote:"Promote",
       promotion:"Promotion",
       promotion_status:"Promotion Status",
       pta_fee:"PTA Fee",
-      quit:"Quit",
+      quit:"Exit",
+      remark:"Remark",
   		remove:"Remove",
+      repeat:"Repeat",
   		residence:"Residence",
   		save_changes:"Save Changes",
   		scheduled_to_teach:"is scheduled to teach",
@@ -78,42 +105,59 @@ function Lang($routeParams) {
   		select_subject:"Select Subject",
   		select_fee:"Select Fee",
   		select_form:"Select Form",
+      select_remark:"Select Remark",
       settings:"Settings", //wrong
   		sex:"Gender",
+      signature:"Signature",
+      statistics:"Statistics",
   		student:"Student",
   		student_id:"Student ID",
   		student_name:"Student Name",
       student_not_added:"Student Not Added.",
+      student_performance:"Student Performance",
       subject:"Subject",
       subjects:"Subjects",
       subject_name:"Subject Name",
       term:"Term",
       total:"Total",
       type:"Type",
+      weakest_performances:"Weakest Performances",
   	}, fr:{
-  		
+      academic:"Scolaire",
+  		academic_year:"Année Scolaire",
   		add:"Ajouter",
-  		add_class:"Ajouter la Classe", //wrong??
+  		add_class:"Ajouter la Classe", //wrong
       add_student:"Ajouter l'Etudiant",
       all:"Tous", //wrong
       all_forms:"Tous les Forms", //wrong
-      all_terms:"Tous les Termes", //??
-      all_departments:"Tous les Départements", //??
-      all_fees:"Tous les Ecolages", //??
+      all_terms:"Tous les Termes", 
+      all_departments:"Tous les Départements", 
+      all_fees:"Tous les Ecolages",
       all_groups:"Tous les Groupes",
+      annual_results:"Résultats Annuels",
+      average:"Moyenne",
+      best_performances:"Meilleures Performances",
   		cancel:"Annuler",
   		Class:"Classe",
+      classmaster:"Professeur Titulaire",
+      class_average:"Moyenne de Classe",
       class_name:"Nom de la Classe",
+      class_range:"Gamme de Classe",
       clear_all:"Effacer Tous",
   		code:"Code",
+      conduct:"Comportement",
+      date:"Date",
   		date_of_birth:"Date de Naissance",
       department_name:"Nom du Département",
-      dept:"Dept", //??
+      dept:"Dept", 
+      dismiss:"Exclu",
       edit_student:"Editer l’Etudiant",
       english:"Anglais",
+      enrolled:"Inscrits",
       exporting:"Exporting", //wrong
       export_file:"Export to File",
       export_statistics:"Export Statistics",
+      fail:"Echec",
       fee:"Fee",
       fees:"Les Ecolages",
       fee_due:"Écolage",
@@ -125,32 +169,47 @@ function Lang($routeParams) {
       form:"Form", //wrong
       french:"Francais",
   		full_name:"Nom Complet",
+      good:"Bien",
+      head_of_department:"Chef du Département",
+      high:"Elevé", //wrong
       importing:"Importing", //wrong
       import_file:"Import File",
       language:"Langue",
       logout:"Logout", //wrong
+      low:"Faible", //wrong
       male:"Masculin",
       move:"Move", //wrong
   		name:"Nom",
+      no_remark:"Aucune Remarque",
       number:"Nombre",
-      number_enrolled:"Nombre de Enrollment", //wrong
-      number_present: "Nombre de Present",
+      number_enrolled:"Nombre d'Inscrits", //wrong
+      number_present: "Nombre Actuel",
+      number_with:"Nombre ayant",
   		parent_email:"Email de Parents",
   		parent_name:"Nom de Parents",
   		parent_occupation:"Profession de Parents",
   		parent_phone:"Téléphone de Parents",
-      percent_failing:"Porcentage Fail", //wrong
-      percent_passing:"Porcentage Pass", //wrong
+      pass:"Réussir",
+      passing_score:"Note de Passage",
+      percent_failing:"Pourcentage Echec",
+      percent_passing:"Pourcentage Réussir",
+      performance_by_subject:"Performances par Sujet",
   		place_of_birth:"Place de Naissance", //wrong
       please_fill_in_all_fields:"Completer tous les sections en rouge et essayer encore.", //wrong
-      print:"Imprimer", //??
+      poor:"Faible",
+      possible_factors:"Les Raisons Possibles",
+      present:"Actuel",
+      print:"Imprimer",
       print_all_report_cards:"Imprimer Tous les Bulletins de Notes", //wrong
       print_current_report_card_only:"Imprimer Juste Un Bulletin de Notes", //wrong
+      promote:"Admit",
       promotion:"Promotion",
-      promotion_status:"Admit",
+      promotion_status:"Statut de Promotion",
       pta_fee:"PTA Fee", //wrong
-      quit:"Quitter",
+      quit:"Fermer",
+      remark:"Remarque",
   		remove:"Enlever",
+      repeat:"Redouble",
   		residence:"Résidence",
   		save_changes:"Enregistrer les Modifications",
   		scheduled_to_teach:" doit enseigner ",
@@ -161,19 +220,22 @@ function Lang($routeParams) {
   		select_subject:"Sélectionner la Matiére",
   		select_fee:"Sélectionner l’Ecolage",
   		select_form:"Sélectionner Form",  //wrong
-      select_sex:"Sélectionner le Sexe", //??
+      select_sex:"Sélectionner Sexe", 
       settings:"Settings", //wrong
   		sex: "Sexe",
+      signature:"Signature",
+      statistics:"Statistiques",
   		student:"Étudiant",
   		student_id:"Student ID", //wrong
   		student_name:"Nom de l'Etudiant",
       student_not_added:"Student Not Added.", //wrong
       subject:"Sujet",
       subjects:"Les Sujets",
-      subject_name:"Nom de le Sujet", //??
+      subject_name:"Nom du Sujet",
       term:"Terme",
       total:"Total",
       type:"Type",
+      weakest_performances:"Dernier Performances",
   	},
   }
   self.getDict = function(){
