@@ -34,6 +34,7 @@ function Path() {
     		if(d.page === "login" || d.page === "login404"){
     			d.username = d.username ? d.username : null;
           var path = d.page       + '/' +
+                     d.lang       + '/' +
                      d.username   + '/' +
                      d.accessCode
           return path;

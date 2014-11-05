@@ -73,7 +73,7 @@
                         <li class="divider"></li>
                         <li ng-repeat="(termInd, term) in [1, 2, 3]">
                           <a ng-click="data.stats = getClassmasterStats(queryParams, termInd)">
-                            Term {{term}}
+                            {{dict.term}} {{term}}
                           </a>
                         </li>
                       </ul>
@@ -90,25 +90,25 @@
 			<thead>
 				<tr>
 					<th></th>
-          <th style="text-align:center" colspan="3">Number Enrolled</th>
-					<th style="text-align:center" colspan="3">Number Sat</th>
-          <th style="text-align:center" colspan="3">Percent Passing</th>
-          <th style="text-align:center" colspan="3">Percent Failing</th>
+          <th style="text-align:center" colspan="3">{{dict.number_enrolled}}</th>
+          <th style="text-align:center" colspan="3">{{dict.number_present}}</th>
+          <th style="text-align:center" colspan="3">{{dict.percent_passing}}</th>
+          <th style="text-align:center" colspan="3">{{dict.percent_failing}}</th>
 				</tr>
         <tr>
-          <th>Subject</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
+          <th>{{dict.subject}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
         </tr>
 			</thead>
 			<tbody>

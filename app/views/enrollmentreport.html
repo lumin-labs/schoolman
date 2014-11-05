@@ -2,8 +2,8 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="EnrollmentCtrl">
     <div class="printonly">
-      <h3>Enrollment Statistics</h3>
-      <h5>{{data.forms[formIndex].name || "All Forms"}}</h5>
+      <h3>{{dict.enrollment_statistics}}</h3>
+      <h5>{{data.forms[formIndex].name || dict.all_forms}}</h5>
     </div>
     <div class="noprint" style="padding-bottom:10px;">
       <div>
@@ -22,11 +22,11 @@
                 <div class="form-group">
                   <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{data.forms[formIndex].name || "All Forms"}}   <span class="caret"></span>
+                        {{data.forms[formIndex].name || dict.all_forms}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <li>
-                          <a ng-click="allForms()">All Forms</a>
+                          <a ng-click="allForms()">{{dict.all_forms}}</a>
                         </li>
                         <li class="divider"></li>
                         <li ng-repeat="(formInd, form) in data.forms">
@@ -46,33 +46,33 @@
     <table class="table table-striped table-bordered table-compact text-center">
       <thead>
         <tr style="text-align:center">
-          <th style="vertical-align:middle" rowspan="2">Class</th>
-          <th style="text-align:center" colspan="3">Enrollment Beginning of Year</th>
-          <th style="text-align:center" colspan="3">Enrollment End of Year</th>
-          <th style="text-align:center" colspan="3">Promoted</th>
-          <th style="text-align:center" colspan="3">Repeating</th>
-          <th style="text-align:center" colspan="3">Withdrawn</th>
-          <th style="text-align:center" colspan="3">Dismissed</th>
+          <th style="vertical-align:middle" rowspan="2">{{dict.Class}}</th>
+          <th style="text-align:center" colspan="3">{{dict.enrollment}} {{dict.beginning_of_year}}</th>
+          <th style="text-align:center" colspan="3">{{dict.enrollment}} {{dict.end_of_year}}</th>
+          <th style="text-align:center" colspan="3">{{dict.promote}}</th>
+          <th style="text-align:center" colspan="3">{{dict.repeat}}</th>
+          <th style="text-align:center" colspan="3">{{dict.withdrawn}}</th>
+          <th style="text-align:center" colspan="3">{{dict.dismissed}}</th>
         </tr>
         <tr style="text-align:center">
-          <th style="text-align:center">Boys</th>
-          <th style="text-align:center">Girls</th>
-          <th style="text-align:center">Total</th>
-          <th style="text-align:center">Boys</th>
-          <th style="text-align:center">Girls</th>
-          <th style="text-align:center">Total</th>
-          <th style="text-align:center">Boys</th>
-          <th style="text-align:center">Girls</th>
-          <th style="text-align:center">Total</th>
-          <th style="text-align:center">Boys</th>
-          <th style="text-align:center">Girls</th>
-          <th style="text-align:center">Total</th>
-          <th style="text-align:center">Boys</th>
-          <th style="text-align:center">Girls</th>
-          <th style="text-align:center">Total</th>
-          <th style="text-align:center">Boys</th>
-          <th style="text-align:center">Girls</th>
-          <th style="text-align:center">Total</th>
+          <th style="text-align:center">{{dict.male}}</th>
+          <th style="text-align:center">{{dict.female}}</th>
+          <th style="text-align:center">{{dict.total}}</th>
+          <th style="text-align:center">{{dict.male}}</th>
+          <th style="text-align:center">{{dict.female}}</th>
+          <th style="text-align:center">{{dict.total}}</th>
+          <th style="text-align:center">{{dict.male}}</th>
+          <th style="text-align:center">{{dict.female}}</th>
+          <th style="text-align:center">{{dict.total}}</th>
+          <th style="text-align:center">{{dict.male}}</th>
+          <th style="text-align:center">{{dict.female}}</th>
+          <th style="text-align:center">{{dict.total}}</th>
+          <th style="text-align:center">{{dict.male}}</th>
+          <th style="text-align:center">{{dict.female}}</th>
+          <th style="text-align:center">{{dict.total}}</th>
+          <th style="text-align:center">{{dict.male}}</th>
+          <th style="text-align:center">{{dict.female}}</th>
+          <th style="text-align:center">{{dict.total}}</th>
         </tr>
       </thead>
       <tbody ng-repeat="(deptId, deptStats) in data.classStats">
