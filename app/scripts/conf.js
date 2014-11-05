@@ -40,6 +40,14 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-book'
     },
+     {
+      label:"Staff list",
+      page:"stafflist",
+      access:['admin','registrar'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-book'
+    },
     {
       label:"Fee Settings",
       page:"fees",
@@ -49,8 +57,24 @@ angular.module('SchoolMan')
       icon:'glyphicon-cog'
     },
     {
+      label:"Salary Settings",
+      page:"salarys",
+      access:['registrar'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-cog'
+    },
+    {
       label:"Students",
       page:"students",
+      access:['admin', 'registrar'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-list-alt'
+    },
+    {
+      label:"Staffs",
+      page:"staffs",
       access:['admin', 'registrar'],
       exclude:[],
       modes:["gths", "ghs"],
@@ -73,12 +97,29 @@ angular.module('SchoolMan')
       icon:'glyphicon-user'
     },
     {
+      label:"Staff Profile",
+      page:"staffProfile",
+      access:['admin', 'registrar'],
+      exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-user'
+    },
+    {
       label:"Student Profile",
       page:"classmasterProfile",
       access:['classmaster'],
       exclude:['reportcardGTHS','mastersheet', 'classmasterMarksheet', 'classcouncil', 'classmasterStats'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
+    },
+    
+    {
+      label:"Staff Registration",
+      page:"staffregistration",
+      access:['registrar'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-calendar'
     },
     {
       label:"Registration",

@@ -6,7 +6,9 @@ function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos, La
     $scope.data.users = Users.getAll();
     $scope.User = model.User;
     $scope.tempUser = new model.User();
+    $scope.date = new Date();
     $scope.dict = Lang.getDict();
+
 
     $scope.open = Location.open;
     $scope.username = $routeParams.username;
@@ -29,6 +31,9 @@ function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos, La
         console.log("Could not save user:", error);
       });
     };
+    $scope.getServiceYears = function(dateofentry){
+      return $scope.date.getFullYear()-(new Date(dateofentry)).getFullYear();
+    }
 
     $scope.remove = Users.remove;
 

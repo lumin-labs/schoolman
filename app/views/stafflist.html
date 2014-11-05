@@ -1,0 +1,54 @@
+<div class="row">
+	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+	<div class="col-md-10 marksheet" ng-controller="UsersCtrl">
+		<div class="printonly"><h3>Staff List</h3></div>
+
+		<!-- Subject View -->
+	  	<div class="row" style="font-size:7">
+			<div class="col-md-12">
+				<table class="table table-striped table-bordered" style="font-size:12px">
+					<thead>
+						<tr>
+							<th>Specialty</th>
+							<th>Longevity</th>
+							<th style="width:300px;">Name</th>
+							<th>Matrical No</th>
+							<th>Region of Origin</th>
+							<th>Division of Origin</th>
+							<th>Subdivision of Origin</th>
+							<th>Tribe</th>
+							<th>Grade</th>
+							<th>Marital Status</th>	
+							<th style="width:200px;">Entry Into Service</th>
+							<th style="width:200px;">Entry Into Current Post</th>
+							<th>Sex</th>
+							<th>Contact</th>					
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="(userId, user) in  data.users" ng-if="user.fullname !== 'Admin'">
+							<td>{{user.specialty}}</td>
+							<td>{{getServiceYears(user.dateofentry)}}</td>
+							<td style="width:300px;">{{user.fullname}}</td>
+							<td>{{user.matricalno}}</td>
+							<td>{{user.region}}</td>
+							<td>{{user.division}}</td>
+							<td>{{user.subdivision}}</td>
+							<td>{{user.tribe}}</td>
+							<td>{{user.grade}}</td>
+							<td>{{user.maritalstatus}}</td>
+							<td>{{user.dateofentry}}</td>
+							<td>{{user.dateposted}}</td>
+							<td>{{user.sex}}</td>
+							<td>{{user.phoneNo}}</td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>	
+
