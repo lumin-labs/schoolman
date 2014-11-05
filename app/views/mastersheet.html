@@ -2,7 +2,7 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="MastersheetCtrl2">
     <div class="printonly" ng-controller="ClassmenuCtrl">
-      <h3>Class Mastersheet</h3>
+      <h3>{{dict.mastersheet}}</h3>
       <h5>{{form.name}}{{group.name}} {{department.name}}, {{term.name}}</h5>
     </div>
 		<div class="" style="padding-bottom:10px;">
@@ -58,7 +58,7 @@
                     <!-- Department Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.department['name'] || "Select Department"}}   <span class="caret"></span>
+                        {{route.department['name'] || dict.select_department}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
@@ -75,7 +75,7 @@
                     <!-- Group Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.group['name'] || "Select Group"}}
+                        {{route.group['name'] || dict.select_group}}
                           <span class="caret"></span> 
                       </button>
                       <ul class="dropdown-menu">
@@ -94,7 +94,7 @@
                     <!-- Term Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                         {{term.name || "All Terms"}}   <span class="caret"></span>
+                         {{term.name || dict.all_terms}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
@@ -102,13 +102,13 @@
                         </li>
                         <li class="divider"></li> -->
                         <li>
-                          <a ng-click="open({termIndex:3})">All Terms
+                          <a ng-click="open({termIndex:3})">{{dict.all_terms}}
                           </a>
                         </li>
                         <li class="divider"></li>
                         <li ng-repeat="(termInd, term) in [1, 2, 3]">
                           <a ng-click="open({termIndex:termInd})">
-                            Term {{term}}
+                            Term {{dict.term}}
                           </a>
                         </li>
                       </ul>
@@ -139,7 +139,7 @@
 				</tr>
 				<tr>
 					<th>No.</th>
-					<th>Name</th>
+					<th>{{dict.name}}</th>
 					<th class="small-column-header" 
           		ng-repeat="(marksheetIndex, marksheet) in data.marksheets"
           		data-toggle="tooltip" 
@@ -151,7 +151,7 @@
 					</th>
 					<th class="symbol-column-header">&sum;</th>
 					<th class="symbol-column-header">/</th>
-					<th class="small-column-header">Rank</th>
+					<th class="small-column-header">{{dict.rankings}}</th>
 				</tr>
 			</thead>
 			<tbody>

@@ -115,7 +115,15 @@ angular.module('SchoolMan')
     
     {
       label:"Staff Registration",
-      page:"staff registration",
+      page:"staffregistration",
+      access:['registrar'],
+      exclude:[],
+      modes:["gths", "ghs"],
+      icon:'glyphicon-calendar'
+    },
+    {
+      label:"Registration",
+      page:"registration",
       access:['registrar'],
       exclude:[],
       modes:["gths", "ghs"],

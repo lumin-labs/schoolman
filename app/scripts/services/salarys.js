@@ -2,7 +2,7 @@
 
 function Salarys($q, Slug, model, Data2, modelTransformer, InsertionError, $log) {
     
-    var alarys = {};
+    var salarys = {};
 
     var self = {};
 

@@ -43,12 +43,14 @@ function Lang($routeParams) {
       form:"Form",
       french:"French",
   		full_name:"Full Name",
+      group:"Group",
       importing:"Importing",
       import_file:"Import File",
       language:"Language",
       logout:"Logout",
       male:"Male",
       marksheet:"Classmaster Marksheet",
+      mastersheet:"Mastersheet",
       move:"Move",
   		name:"Name",
       number:"Number",
@@ -71,6 +73,7 @@ function Lang($routeParams) {
       quit:"Quit",
   		remove:"Remove",
   		residence:"Residence",
+      rankings:"Rankings",
   		save_changes:"Save Changes",
   		scheduled_to_teach:"is scheduled to teach",
       school_fee:"School Fee",
@@ -131,12 +134,14 @@ function Lang($routeParams) {
       form:"Form", //wrong
       french:"Francais",
   		full_name:"Nom Complet",
+      group:"Groupe",
       importing:"Importing", //wrong
       import_file:"Import File",
       language:"Langue",
       logout:"Logout", //wrong
       male:"Masculin",
       marksheet:"Relevé de notes",
+      mastersheet:"Carnet de note",
       move:"Move", //wrong
   		name:"Nom",
       number:"Nombre",
@@ -159,6 +164,7 @@ function Lang($routeParams) {
       quit:"Quitter",
   		remove:"Enlever",
   		residence:"Résidence",
+      rankings:"Classement",
   		save_changes:"Enregistrer les Modifications",
   		scheduled_to_teach:" doit enseigner ",
       school_fee:"School Fee", //wrong
@@ -175,6 +181,7 @@ function Lang($routeParams) {
   		student_id:"Student ID", //wrong
   		student_name:"Nom de l'Etudiant",
       student_not_added:"Student Not Added.", //wrong
+      student_profile:"Student Profile",
       subject:"Sujet",
       subjects:"Les Sujets",
       subject_name:"Nom de le Sujet", //??
