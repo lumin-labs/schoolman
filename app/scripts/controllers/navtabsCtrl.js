@@ -10,6 +10,7 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
     $scope.settings = settings.get();
     $scope.activePage = $routeParams.page;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;

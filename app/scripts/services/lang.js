@@ -101,7 +101,7 @@ function Lang($routeParams) {
       low:"Low",
       male:"Male",
       marital_status:"Marital Status",
-      marksheet:"Classmaster Marksheet",
+      marksheet:"Marksheet",
       mastersheet:"Mastersheet",
       matrical_number:"Matrical Number",
       minimum_number_of_teaching_:"Minimum number of teaching hours per week per subject is 5 hours",
@@ -238,7 +238,7 @@ function Lang($routeParams) {
       attended_disciplinary_council:"Traduit au Connseil de Discipline",
       average:"Moyenne",
       AxC:"M*C",
-      balance_sheet:"Fiche de Controle",
+      balance_sheet:"Fiche de Contrôle",
       beginning_of_year:"Début de l'Année",
       best_performances:"Meilleures Performances",
   		cancel:"Annuler",
@@ -312,8 +312,8 @@ function Lang($routeParams) {
       low:"Faible", 
       male:"Masculin",
       marital_status:"État Civil",
-      marksheet:"Relevé de notes",
-      mastersheet:"Carnet de note",
+      marksheet:"Relevé de Notes",
+      mastersheet:"Carnet de Notes",
       matrical_number:"Nombre Matricielle",
       minimum_number_of_teaching_:"Nombre minimum d'heures d'enseignement par semaine et par objet est de 5 heures",
       months:"Mois",
@@ -429,9 +429,11 @@ function Lang($routeParams) {
       _page:"",
   	},
   }
-  self.getDict = function(){
-  	console.log("Language is", $routeParams.lang, langDict[$routeParams.lang]);
-    if($routeParams.lang){
+  self.getDict = function(lang){
+  	// console.log("Language is", $routeParams.lang, langDict[$routeParams.lang]);
+    if(lang !== undefined){
+      return langDict[lang];
+    }else if($routeParams.lang){
   	  return langDict[$routeParams.lang];
     } else {
       $routeParams.lang = self.defaultLang;

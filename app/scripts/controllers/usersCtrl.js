@@ -8,6 +8,7 @@ function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos, La
     $scope.tempUser = new model.User();
     $scope.date = new Date();
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
 
     $scope.open = Location.open;
