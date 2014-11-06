@@ -141,7 +141,7 @@ function Lang($routeParams) {
       poor:"Poor",
       possible_factors:"Possible Factors",
       present:"Present",
-      principals_signature:"Principal;s Signature",
+      principals_signature:"Principal's Signature",
       print:"Print",
       print_all_report_cards:"Print All Report Cards",
       print_current_report_card_only:"Print Current Report Card Only",
