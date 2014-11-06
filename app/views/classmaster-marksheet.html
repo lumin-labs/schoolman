@@ -47,7 +47,7 @@
                         <!-- Department Dropdown -->
                         <div  class="btn-group">
                           <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.department['code'] || "Dept"}} <span class="caret"></span> 
+                            {{route.department['code'] || dict.select_department}} <span class="caret"></span> 
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -64,7 +64,7 @@
                         <!-- Group Dropdown -->
                         <div  class="btn-group">
                           <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.group['name'] || dict.group}} <span class="caret"></span>
+                            {{route.group['name'] || dict.select_group}} <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>
@@ -81,7 +81,7 @@
                         <!-- Subject Dropdown -->
                         <div  class="btn-group">
                           <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.subject['code'] || dict.subject}} <span class="caret"></span>
+                            {{route.subject['code'] || dict.select_subject}} <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu">
                             <li ng-repeat="(subjectId, subject) in route.subjects">
@@ -101,7 +101,7 @@
                            type="text" 
                            class="form-control"
                            readonly="" 
-                           placeholder="coeff"
+                           placeholder="{{dict.coeff}}"
                            ng-model="data.marksheet.coeff"
                            >
                       </div>
@@ -130,7 +130,7 @@
         </th>
       </tr>
       <tr>
-        <th style="width:40px;">No.</th>
+        <th style="width:40px;">{{dict.no}}</th>
         <th style="width:380px;">{{dict.name}}</th>
         <th style="width:100px;text-align:right;">{{dict.rankings}}</th>
         <th class="text-center" 

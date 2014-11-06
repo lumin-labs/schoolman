@@ -43,7 +43,7 @@
                     <!-- Department Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.department['name'] || "Select Department"}}   <span class="caret"></span>
+                        {{route.department['name'] || dict.select_department}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
@@ -60,7 +60,7 @@
                     <!-- Group Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.group['name'] || "Select Group"}}
+                        {{route.group['name'] || dict.select_group}}
                           <span class="caret"></span> 
                       </button>
                       <ul class="dropdown-menu">
@@ -114,10 +114,10 @@
                       </div>
                       <div class="student-info-section">
                         <h4 class="section-header printonly">{{student.name}}</h4>
-                        <h5>Gender: <strong>{{student.sex}}</strong></h5>
-                        <h5>Born: <strong>{{student.birth | date:'MMM dd, yyyy'}}</strong></h5>
-                        <h5>ID: <strong>{{student.id}}</strong></h5>
-                        <h5>Class: <strong>{{data.forms[student.formIndex].name}}, {{data.departments[student.deptId].code}}, {{data.groups[student.groupId].name}}</strong></h5>
+                        <h5>{{dict.sex}}: <strong>{{student.sex}}</strong></h5>
+                        <h5>{{dict.date_of_birth}}: <strong>{{student.birth | date:'dd MMM yyyy'}}</strong></h5>
+                        <h5>{{dict.student_id}}: <strong>{{student.id}}</strong></h5>
+                        <h5>{{dict.Class}}: <strong>{{data.forms[student.formIndex].name}}, {{data.departments[student.deptId].code}}, {{data.groups[student.groupId].name}}</strong></h5>
                       </div>
                     </div>
                   </td>
@@ -161,7 +161,7 @@
                           </ul>
                         </div>
                       </div> -->
-                      <h4 class="section-header noprint">{{data.schoolInfo.schoolyear}} Academic Year</h4>
+                      <h4 class="section-header noprint">{{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4>
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
                             data-toggle="dropdown">{{data.term.name}}
@@ -174,7 +174,7 @@
                         </ul>
                       </div>
                       <div class="student-info-section">
-                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} Academic Year</h4><br>
+                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4><br>
                         <h4 class="printonly">{{data.term.name}}</h4>
                         <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:2 }} / 20</h5>
                         <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{getRemark(data.msheet.table[student._id][0]).text | uppercase}}</h5>
@@ -183,7 +183,7 @@
                   </td>
                   <td class="text-center" style="border-top:0px;">
                     <div class="text-left student-info-section">
-                      <h4 class="section-header">Parent Contact</h4>
+                      <h4 class="section-header">{{dict.parent_contact}}</h4>
                       <h5>{{student.parentName}}</h5>
                       <h5>{{student.parentPhone}}</h5>
                       <h5>{{student.parentEmail}}</h5>
@@ -204,15 +204,15 @@
           <table  class="table table-striped table-bordered table-transcript">
             <thead>
               <tr>
-                <th>Subject Discipline</th>
+                <th>{{dict.subject_discipline}}</th>
                 <th>S1</th>
                 <th>S2</th>
-                <th>Average</th>
-                <th>Coeff</th>
-                <th>A*C</th>
-                <th>Position</th>
-                <th>Remarks</th>
-                <th>Name and Signature</th>
+                <th>{{dict.average}}</th>
+                <th>{{dict.coeff}}</th>
+                <th>{{dict.AxC}}</th>
+                <th>{{dict.rank}}</th>
+                <th>{{dict.remark}}</th>
+                <th>{{dict.name_and_signature}}</th>
               </tr>
             </thead>
             <tbody>
@@ -261,23 +261,23 @@
       <div class="col-md-4 transcript-summary">
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
           <tr>
-            <td>Total Mark:</td>
+            <td>{{dict.total_mark}}:</td>
             <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff : 0 | number:2}}</td>
           </tr>
           <tr>
-            <td>Total Coeff:</td>
+            <td>{{dict.total_coeff}}:</td>
             <td>{{data.msheet.table[student._id].coeff}}</td>
           </tr>
           <tr>
-            <td>{{data.terms[term]}} Average:</td>
+            <td>{{data.terms[term]}} {{dict.average}}:</td>
             <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:1}} / 20</td>
           </tr>
           <tr>
-            <td>{{data.terms[term]}} Remark:</td>
+            <td>{{data.terms[term]}} {{dict.remark}}:</td>
             <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{getRemark(data.msheet.table[student._id][0]).text}}</td>
           </tr>
           <tr>
-            <td>Class Position:</td>
+            <td>{{dict.class_rank}}:</td>
             <td>{{data.rankings.master[student._id][termIndex]}} / {{data.students.length}}</td>
           </tr>
         </table>
@@ -285,23 +285,23 @@
       <div class="col-md-4 transcript-summary">
         <table class="table table-bordered table-striped table-transcript">
           <tr>
-            <td>Hours of Absence:</td>
+            <td>{{dict.hours_of_absence}}</td>
             <td>{{data.dcard.absence}}</td>
           </tr>
           <tr>
-            <td>Attended Disciplinary Council:</td>
+            <td>{{dict.attended_disciplinary_council}}</td>
             <td>{{data.dcard.council}}</td>
           </tr>
           <tr>
-            <td>Warned</td>
+            <td>{{dict.warned}}</td>
             <td>{{data.dcard.warned}}</td>
           </tr>
           <tr>
-            <td>Suspended</td>
+            <td>{{dict.suspended}}</td>
             <td>{{data.dcard.suspended}}</td>
           </tr>
           <tr>
-            <td>Promotion Status</td>
+            <td>{{dict.promotion_status}}</td>
             <td>
                 <span ng-if="student.status[2014] === 0">
                   {{ data.msheet.table[student._id][0] < passingScore ? "Failing" : "Passing"}}
@@ -316,14 +316,14 @@
       <div class="col-md-4 transcript-summary signature">
         <table class="table table-bordered">
           <tr style="height:37px">
-            <td rowspan="5" class="text-center" style="vertical-align:middle;">Principal's Signature</td>
+            <td rowspan="5" class="text-center" style="vertical-align:middle;">{{dict.principals_signature}}</td>
           </tr>
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>
         </table>
-        DATE:
+        {{dict.date}}:
       </div>
     </div>
     </div>
