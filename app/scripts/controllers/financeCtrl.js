@@ -8,7 +8,7 @@ function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolI
   	});
 
     $scope.dict = Lang.getDict();
-
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;

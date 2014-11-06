@@ -4,6 +4,7 @@ function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups
     $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     var data = $scope.data = {
     	forms:Forms.all(),

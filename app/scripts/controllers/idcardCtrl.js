@@ -6,6 +6,7 @@ function IDcardCtrl($scope, $routeParams, model, Users, Students, Departments, G
   // $scope.pageTitleFrench = "CARTE D'IDENTITE";
   $scope.regions = model.SchoolInfo.regions;
   $scope.dict = Lang.getDict();
+  $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
   $scope.Users = Users;
   $scope.studentId = $routeParams.studentId;

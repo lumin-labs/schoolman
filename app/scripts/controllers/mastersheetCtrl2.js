@@ -4,6 +4,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
   	 
       $scope.termIndex = parseInt($routeParams.termIndex);
       $scope.dict = Lang.getDict();
+      $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
       
       $scope.open = Location.open;
 

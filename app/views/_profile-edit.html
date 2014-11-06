@@ -14,12 +14,14 @@
       <div class="btn-group">
         <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
                 data-toggle="dropdown">
-          {{data.student.formIndex || data.student.formIndex === 0 ? data.forms[data.student.formIndex].name : dict.select_form}}  
+          {{data.student.formIndex || data.student.formIndex === 0 ? 
+                (lang === 'en' ? data.forms[data.student.formIndex].nameEn : data.forms[data.student.formIndex].nameFr)
+                 : dict.select_form}}  
           &nbsp;<span ng-if="editing" class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="(formIndex, form) in data.forms">
-            <a ng-href="" ng-click="data.student.formIndex=formIndex">{{form.name}}</a>
+            <a ng-href="" ng-click="data.student.formIndex=formIndex">{{lang === 'en' ? form.nameEn : form.nameFr}}</a>
           </li>
         </ul>
       </div>

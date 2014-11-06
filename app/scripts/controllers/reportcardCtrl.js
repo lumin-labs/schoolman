@@ -10,6 +10,7 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
       $scope.Marksheets = Marksheets;
       $scope.ClassMaster = ClassMaster;
       $scope.dict = Lang.getDict();
+      $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
       $scope.open = Location.open;
       $scope.pageTitleEnglish = "ACADEMIC REPORT CARD";

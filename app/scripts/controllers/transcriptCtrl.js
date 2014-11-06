@@ -5,6 +5,7 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       $scope.ClassMaster = ClassMaster;
       $scope.dict = Lang.getDict();
+      $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
       $scope.open = Location.open;
 

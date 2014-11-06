@@ -11,7 +11,7 @@
 function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, Forms, CourseCatalog, Location, Lang) {
     
     var r = $scope.route = {};
-    var lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
+    var lang = $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
     $scope.dict = Lang.getDict();
 
     r.page = $scope.page = $routeParams.page;

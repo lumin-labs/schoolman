@@ -13,6 +13,7 @@ function MyclassesCtrl($scope, $routeParams, Users, model,Forms, Groups, Departm
     $scope.page = $routeParams.page;
     $scope.formIndex = $routeParams.formIndex;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     $scope.data = {
       forms:Forms.all(),

@@ -8,6 +8,7 @@ function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets,
     $scope.marksheets = Marksheets;
     $scope.open = Location.open;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
     
     $scope.data = {
         marksheet:{},

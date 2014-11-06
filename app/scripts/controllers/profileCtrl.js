@@ -14,6 +14,7 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     $scope.Users = Users;
     $scope.username = $routeParams.username;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     var reports = {};
     var classCouncils = {};
@@ -32,6 +33,7 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
       fees:Fees.getAll(),
       payments:[]
     };
+    console.log("Forms in profile", data.forms);
 
     var setPassing = function(student, studentsClass){
       var studentAverage = 0;

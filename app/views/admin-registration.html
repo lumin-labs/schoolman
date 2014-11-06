@@ -18,12 +18,13 @@
 			      <div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle
 					    {{showValidation && newStudent.formIndex === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
-					      {{newStudent.formIndex || newStudent.formIndex === 0 ? data.forms[newStudent.formIndex].name : dict.select_form}}  
+					      {{newStudent.formIndex || newStudent.formIndex === 0 ? 
+					      	(lang === 'en' ? data.forms[newStudent.formIndex].nameEn : data.forms[newStudent.formIndex].nameFr) : dict.select_form}}  
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
 					      <li ng-repeat="(formIndex, form) in data.forms">
-					        <a ng-href="" ng-click="newStudent.formIndex=formIndex">{{form.name}}</a>
+					        <a ng-href="" ng-click="newStudent.formIndex=formIndex">{{lang === 'en' ? form.nameEn : form.nameFr}}</a>
 					      </li>
 					    </ul>
 					  </div>

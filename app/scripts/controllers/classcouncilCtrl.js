@@ -17,6 +17,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
     $scope.userAccess = $routeParams.accessCode;
     $scope.regions = model.SchoolInfo.regions;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
