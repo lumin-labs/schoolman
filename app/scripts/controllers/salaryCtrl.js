@@ -1,14 +1,14 @@
 'use strict';
 
-function SalarysCtrl($scope, Salarys, Students, model) {
+function SalarysCtrl($scope, Salarys, Staffs, model) {
       
       $scope.data = {};
       $scope.data.salarys = Salarys.getAll();
       // Join students to fees
-      Students.getAll().then(function(students){
+      Staffs.getAll().then(function(staffs){
         angular.forEach($scope.data.salarys, function(salary, key){
-          Salary.students = _.filter(students, function(student){
-            return student.salaryId === key;
+          Salary.staffs = _.filter(staffs, function(staff){
+            return staff.salaryId === key;
           });
         });
       });
@@ -18,11 +18,11 @@ function SalarysCtrl($scope, Salarys, Students, model) {
       $scope.add = function(salary){
          if(salary.isValid()){
             try{
-               salary.schoolAmount = Number(salary.schoolAmount.replace(/[^0-9\.]+/g,""));
-               salary.ptaAmount = Number(salary.ptaAmount.replace(/[^0-9\.]+/g,""));
+               salary.salaryAmount = Number(salary.salaryAmount.replace(/[^0-9\.]+/g,""));
+               salary.socailinsuranceAmount = Number(salary.socailinsuranceAmount.replace(/[^0-9\.]+/g,""));
                salary.save().then(function(success){
-                  if(!$scope.newSalary.students){
-                    $scope.newSalary.students= [];
+                  if(!$scope.newSalary.staffs){
+                    $scope.newSalary.staffs= [];
                  }
                   $scope.data.salarys[$scope.newSalary._id] = $scope.newSalary;
                   $scope.newSalary = new model.Salary(); 
@@ -39,5 +39,5 @@ function SalarysCtrl($scope, Salarys, Students, model) {
          Salarys.remove(salary); 
       }
 }
-SalarysCtrl.$inject = ['$scope', 'Salarys', 'Students', 'model'];
+SalarysCtrl.$inject = ['$scope', 'Salarys', 'Staffs', 'model'];
 angular.module('SchoolMan').controller('SalarysCtrl', SalarysCtrl);

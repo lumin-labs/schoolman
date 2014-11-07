@@ -15,7 +15,7 @@
 			  <div class="form-group">
 			    <label for="uid" class="col-sm-3 control-label">Class</label>
 			    <div class="col-sm-9">
-			      <div class="btn-group">
+			     <!--  <div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle
 					    {{showValidation && newStaff.formIndex === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
 					      {{newStaff.formIndex || newStaff.formIndex === 0 ? data.forms[newStaff.formIndex].name : "Select Form"}}  
@@ -26,10 +26,10 @@
 					        <a ng-href="" ng-click="newStaff.formIndex=formIndex">{{form.name}}</a>
 					      </li>
 					    </ul>
-					  </div>
+					  </div> -->
 					  <!-- Department Dropdown -->
 					  <div class="btn-group">
-					    <button class="{{newStaff.formIndex === null ? 'disabled' : ''}} btn btn-sm btn-default dropdown-toggle
+					    <button class="btn btn-sm btn-default dropdown-toggle
 					    {{showValidation && newStaff.deptId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
 					      {{newStaff.deptId ? data.departments[newStaff.deptId].name : "Select Department"}} 
 					      &nbsp;<span class="caret"></span>
@@ -43,7 +43,7 @@
 					  </div>
 			      <!-- Group Dropdown -->
 					  <div class="btn-group">
-					    <button class="{{newStaff.deptId === null ? 'disabled' : ''}} btn btn-sm btn-default dropdown-toggle
+					    <button class=" btn btn-sm btn-default dropdown-toggle
 					    {{showValidation && newStaff.groupId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
 					      {{newStaff.groupId ? data.groups[newStaff.groupId].name : "Select Group"}} 
 					      &nbsp;<span class="caret"></span>
@@ -58,23 +58,23 @@
 			  </div>
 
 			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-3 control-label">Salary Group</label>
+			    <label for="salaryGroup" class="col-sm-3 control-label">Salary Group</label>
 			    <div class="col-sm-9">
 			    	<div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle 
-					    {{showValidation && newStaff.feeId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
-					    	<span ng-if="newStaff.feeGroup !== ''">
-					    		{{newStaff.feeId ? data.fees[newStaff.feeId].name : "Select Fee"}} 
-					    		<span ng-if="newStaff.feeId">
-						    		({{data.fees[newStaff.feeId].schoolAmount + data.fees[newStaff.feeId].ptaAmount | currency:""}})
+					    {{showValidation && newStaff.salaryId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
+					    	<span ng-if="newStaff.salaryGroup !== ''">
+					    		{{newStaff.salaryId ? data.salarys[newStaff.salaryId].name : "Select Salary"}} 
+					    		<span ng-if="newStaff.salaryId">
+						    		({{data.salarys[newStaff.salaryId].salaryAmount + data.salarys[newStaff.salaryId].socailinsuranceAmount | currency:""}})
 					    		</span>
 					    	</span>
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li ng-repeat="(feeKey, fee) in data.fees">
-					        <a ng-click="newStaff.feeId = feeKey">
-					        {{fee.name}} ({{fee.schoolAmount + fee.ptaAmount | currency:""}})</a>
+					      <li ng-repeat="(salaryKey, salary) in data.salarys">
+					        <a ng-click="newStaff.salaryId = salaryKey">
+					        {{salary.name}} ({{salary.salaryAmount + salary.socailinsuranceAmount | currency:""}})</a>
 					      </li>
 					    </ul>
 						</div>
@@ -111,7 +111,7 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-3 control-label">Gender</label>
+			    <label for="salaryGroup" class="col-sm-3 control-label">Gender</label>
 			    <div class="col-sm-9">
 			      <div class="btn-group">
 			        <button class=" btn btn-sm btn-default dropdown-toggle 

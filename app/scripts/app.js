@@ -35,7 +35,7 @@ angular.module('SchoolMan', [
       login:    "login2.html",
       login404: "login.html",
       students: "admin-students.html",
-      staff:"admin-staff.html",
+      staffs:"admin-staff.html",
       users:    "admin-users.html",
       user:    "user.html",
       subjects:  "admin-subjects.html",
