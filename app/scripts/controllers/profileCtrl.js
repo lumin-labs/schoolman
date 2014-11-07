@@ -57,6 +57,7 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
       }
       $scope.cancel = function(){
         $scope.data.student = angular.copy(studentCopy);
+        Students.set($scope.data.student);
         $scope.editing = false;
       }
 
