@@ -5,6 +5,7 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
     $scope.accessCode = $routeParams.accessCode;
+    $scope.showValidation = false;
 
   	$scope.newPayment = new model.Payment();
   	$scope.newPayment.registrar = $routeParams.username;
@@ -188,7 +189,9 @@ function ProfileCtrl($scope, $routeParams, model, profile, Dcards, Users, Marksh
       model.save().then(function(success){
         console.log("Model saved", success);
         $scope.editing = false;
+        $scope.showValidation = false;
       }).catch(function(error){
+        $scope.showValidation = true;
         console.log("Failed to save model", error);
       });
     };
