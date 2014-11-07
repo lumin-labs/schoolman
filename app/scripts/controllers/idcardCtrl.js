@@ -3,6 +3,7 @@
 function IDcardCtrl($scope, $routeParams, model, Users, Students, Departments, Groups, Terms, Forms, ClassMaster, Location, SchoolInfos, Lang) {
   $scope.open = Location.open;
   $scope.pageTitleEnglish = "SCHOOL IDENTITY CARD";
+  $scope.pageTitleFrench = "CARTE D'IDENTITÉ";
   // $scope.pageTitleFrench = "CARTE D'IDENTITE";
   $scope.regions = model.SchoolInfo.regions;
   $scope.dict = Lang.getDict();
