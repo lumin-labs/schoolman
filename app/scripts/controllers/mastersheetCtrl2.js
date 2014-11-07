@@ -99,11 +99,11 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
             .html(function(d) {
               return "<table>"+
                         "<tr>" +
-                          "<td style='text-align:right;'>Subject:</td>"+
+                          "<td style='text-align:right;'>"+$scope.dict.subject+":</td>"+
                           "<td class='tip-subject'>"+d.name+"</td>"+
                         "</tr>"+
                         "<tr>"+
-                          "<td style='text-align:right;'>Average:</td>"+
+                          "<td style='text-align:right;'>"+$scope.dict.average+":</td>"+
                           "<td class='tip-average'>"+ d.average.toFixed(2) + "</td>"+
                         "</tr>"+
                       "</table>"
@@ -122,7 +122,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
 
           var dataItem = {};
           dataItem.subject = $scope.data.subjects[marksheet.subjectId].code;
-          dataItem.name=$scope.data.subjects[marksheet.subjectId].en;
+          dataItem.name=$scope.lang === 'en' ? $scope.data.subjects[marksheet.subjectId].en : $scope.data.subjects[marksheet.subjectId].fr;
           var summary = Marksheets.summarize(marksheet, $routeParams.termIndex);
           console.log("Summary ok", summary.table);
           var total = _.reduce(summary.table, function(total, value){
@@ -151,7 +151,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Class Average");
+            .text($scope.dict.class_average);
 
         svg.selectAll(".bar")
             .data(data)

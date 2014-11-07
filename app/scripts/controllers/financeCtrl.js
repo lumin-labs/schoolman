@@ -1,6 +1,6 @@
 'use strict';
 
-function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolInfos, Lang) {
+function FinanceCtrl($scope, $routeParams, Forms, Registrar, Fees, Students, Payments, SchoolInfos, Lang) {
   	
   	var forms = _.map(Forms.all(), function(form){
       form.students = [];
@@ -159,5 +159,5 @@ function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolI
 		};
     
   }
-FinanceCtrl.$inject = ['$scope', 'Forms', 'Registrar', 'Fees', 'Students', 'Payments', 'SchoolInfos', 'Lang'];
+FinanceCtrl.$inject = ['$scope', '$routeParams', 'Forms', 'Registrar', 'Fees', 'Students', 'Payments', 'SchoolInfos', 'Lang'];
 angular.module('SchoolMan').controller('FinanceCtrl', FinanceCtrl);

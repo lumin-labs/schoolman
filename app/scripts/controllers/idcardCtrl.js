@@ -18,7 +18,7 @@ function IDcardCtrl($scope, $routeParams, model, Users, Students, Departments, G
   $scope.data.students = [];
   $scope.data.student;
   $scope.data.currentDate = new Date();
-  $scope.data.sides = ["Front","Back"];
+  $scope.data.sides = ["front","back"];
   $scope.data.side = 0;
   $scope.ClassMaster = ClassMaster;
 

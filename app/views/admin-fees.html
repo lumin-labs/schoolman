@@ -72,7 +72,7 @@
 				<th>{{dict.school_fee}}</th>
 				<th>{{dict.pta_fee}}</th>
 				<th>{{dict.student}}s</th>
-				<th style="width:80px;">{{dict.remove}}</th>
+				<th class="noprint" style="width:80px;">{{dict.remove}}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -89,7 +89,7 @@
 				<td>
 					{{fee.students.length}}
 				</td>
-				<td class="remove text-center" style="width:80px;">
+				<td class="remove text-center noprint" style="width:80px;">
 					<a ng-click="remove(fee)" ng-if="fee.students && fee.students.length === 0">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>

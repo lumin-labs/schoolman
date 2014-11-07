@@ -3,7 +3,7 @@
 	<div class="col-md-10 marksheet" ng-controller="EnrollmentCtrl">
     <div class="printonly">
       <h3>{{dict.enrollment_statistics}}</h3>
-      <h5>{{data.forms[formIndex].name || dict.all_forms}}</h5>
+      <h5>{{(lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr) || dict.all_forms}}</h5>
     </div>
     <div class="noprint" style="padding-bottom:10px;">
       <div>
@@ -22,7 +22,7 @@
                 <div class="form-group">
                   <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{data.forms[formIndex].name || dict.all_forms}}   <span class="caret"></span>
+                        {{(lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr) || dict.all_forms}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <li>
@@ -31,7 +31,7 @@
                         <li class="divider"></li>
                         <li ng-repeat="(formInd, form) in data.forms">
                           <a ng-click="open({formIndex:formInd})">
-                            {{data.forms[formInd].name}}
+                            {{lang === 'en' ? data.forms[formInd].nameEn : data.forms[formInd].nameFr}}
                           </a>
                         </li>
                       </ul>
@@ -81,7 +81,7 @@
         </tr>
         <tr ng-repeat="(groupId, classStats) in deptStats">
           <td ng-if="formIndex !== -1">{{data.groups[groupId].name}}</td>
-          <td ng-if="formIndex === -1">{{data.forms[groupId].name}}</td>
+          <td ng-if="formIndex === -1">{{lang === 'en' ? data.forms[groupId].nameEn : data.forms[groupId].nameFr}}</td>
           <td>{{classStats.boysOnRoll}}</td>
           <td>{{classStats.girlsOnRoll}}</td>
           <td>{{classStats.boysOnRoll + classStats.girlsOnRoll}}</td>

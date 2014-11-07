@@ -139,7 +139,7 @@ schoolman.config(['modelProvider', function(model){
   User.roles = {
       teacher: {nameEn:"Teacher", nameFr:"Enseignant"},
       admin:   {nameEn:"Administrator", nameFr:"Administrateur"},
-      classmaster: {nameEn:"Class Master", nameFr:"Professeur Titulaire"},
+      classmaster: {nameEn:"Class Master", nameFr:"Prof Titulaire"},
       registrar:{nameEn:"Registrar", nameFr:"Greffier"}
   }
 

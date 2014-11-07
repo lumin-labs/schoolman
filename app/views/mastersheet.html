@@ -3,7 +3,7 @@
 	<div class="col-md-10 marksheet" ng-controller="MastersheetCtrl2">
     <div class="printonly" ng-controller="ClassmenuCtrl">
       <h3>{{dict.mastersheet}}</h3>
-      <h5>{{form.name}}{{group.name}} {{department.name}}, {{term.name}}</h5>
+      <h5>{{lang === 'en' ? form.nameEn : form.nameFr}}{{group.name}} {{department.name}}, {{term.name || dict.all_terms}}</h5>
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">
@@ -41,7 +41,7 @@
                     <!-- Form Dropdown -->
                     <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.form['name']}}   <span class="caret"></span>
+                        {{lang === 'en' ? route.form['nameEn'] : route.form['nameFr']}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
@@ -50,7 +50,7 @@
                         <li class="divider"></li> -->
                         <li ng-repeat="(formIndex, form) in route.forms">
                           <a ng-click="open({formIndex:formIndex})">
-                            {{route.forms[formIndex].name}}
+                            {{lang === 'en' ? route.forms[formIndex].nameEn : route.forms[formIndex].nameFr}}
                           </a>
                         </li>
                       </ul>
@@ -108,7 +108,7 @@
                         <li class="divider"></li>
                         <li ng-repeat="(termInd, term) in [1, 2, 3]">
                           <a ng-click="open({termIndex:termInd})">
-                            Term {{dict.term}}
+                            {{dict.term}} {{term}}
                           </a>
                         </li>
                       </ul>

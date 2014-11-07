@@ -2,6 +2,7 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="RegistrationCtrl">
+	<div class="printonly"><h3>{{dict.registration}}</h3></div>
 
   <div class="row">
   	<div class="col-md-7" style="border-right:solid 0px #ddd;">
@@ -112,17 +113,20 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-3 control-label">{{dict.sex}}</label>
+			    <label for="sex" class="col-sm-3 control-label">{{dict.sex}}</label>
 			    <div class="col-sm-9">
 			      <div class="btn-group">
 			        <button class=" btn btn-sm btn-default dropdown-toggle 
 			        {{showValidation && newStudent.sex === '' ? 'invalid-input' : ''}}" data-toggle="dropdown">
-			          <span>{{newStudent.sex || dict.select_sex}}</span>
+			          <span>{{dict[newStudent.sex] || dict.select_sex}}</span>
 			          &nbsp;<span class="caret"></span>
 			        </button>
 			        <ul class="dropdown-menu">
-			          <li ng-repeat="sex in ['Female', 'Male']">
-			            <a ng-click="newStudent.sex = sex">{{sex}}</a>
+			          <li>
+			            <a ng-click="newStudent.sex = 'Female'">{{dict.female}}</a>
+			          </li>
+			          <li>
+			            <a ng-click="newStudent.sex = 'Male'">{{dict.male}}</a>
 			          </li>
 			        </ul>
 			      </div>

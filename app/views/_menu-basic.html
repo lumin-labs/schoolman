@@ -41,11 +41,11 @@
   <div  ng-if="['mastersheet', 'students', 'registration'].indexOf(page) === -1"
         class="btn-group">
     <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-      {{subject.en || dict.select_subject}} <span class="caret"></span>
+      {{(lang === 'en' ? subject.en : subject.fr) || dict.select_subject}} <span class="caret"></span>
     </button>
     <ul class="dropdown-menu">
       <li ng-repeat="(subjectId, subject) in subjects">
-        <a ng-click="open({subjectId:subjectId})">{{subject.en}}</a>
+        <a ng-click="open({subjectId:subjectId})">{{lang === 'en' ? subject.en : subject.fr}}</a>
       </li>
     </ul>
   </div><!-- /btn-group -->

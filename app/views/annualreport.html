@@ -3,7 +3,7 @@
 	<div class="col-md-10 marksheet" ng-controller="ReportsCtrl">
     <div class="printonly">
       <h3>{{dict.annual_results}}</h3>
-      <h5>{{data.forms[formIndex].name || dict.all_forms}}</h5>
+      <h5>{{(lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr) || dict.all_forms}}</h5>
     </div>
     <div class="noprint" style="padding-bottom:10px;">
       <div>
@@ -22,7 +22,7 @@
                 <div class="form-group">
                   <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{data.forms[formIndex].name || dict.all_forms}}   <span class="caret"></span>
+                        {{(lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr) || dict.all_forms}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <li>
@@ -31,7 +31,7 @@
                         <li class="divider"></li>
                         <li ng-repeat="(formInd, form) in data.forms">
                           <a ng-click="open({formIndex:formInd})">
-                            {{data.forms[formInd].name}}
+                            {{lang === 'en' ? data.forms[formInd].nameEn : data.forms[formInd].nameFr}}
                           </a>
                         </li>
                       </ul>
@@ -75,7 +75,7 @@
         </tr>
         <tr ng-repeat="(groupId, classStats) in deptStats">
           <td ng-if="formIndex !== -1">{{data.groups[groupId].name}}</td>
-          <td ng-if="formIndex === -1">{{data.forms[groupId].name}}</td>
+          <td ng-if="formIndex === -1">{{lang === 'en' ? data.forms[groupId].nameEn : data.forms[groupId].nameFr}}</td>
           <td>{{classStats.numStudents}}</td>
           <td>{{classStats.numPresent}}</td>
           <td>{{classStats.passing}}</td>
@@ -84,18 +84,18 @@
           <td>{{classStats.aveHigh | number:1}}</td>
           <td>{{classStats.aveLow !== 21 ? classStats.aveLow  : "" | number:1}}</td>
           <td>{{classStats.aveClass | number:1}}</td>
-          <td>{{language === "en" ? data.subjects[classStats.goodSubjects[0].subject].en :
+          <td>{{lang === "en" ? data.subjects[classStats.goodSubjects[0].subject].en :
                 data.subjects[classStats.goodSubjects[0].subject].fr}}<br>
-            {{language === "en" ? data.subjects[classStats.goodSubjects[1].subject].en :
+            {{lang === "en" ? data.subjects[classStats.goodSubjects[1].subject].en :
                 data.subjects[classStats.goodSubjects[1].subject].fr}}<br>
-            {{language === "en" ? data.subjects[classStats.goodSubjects[2].subject].en :
+            {{lang === "en" ? data.subjects[classStats.goodSubjects[2].subject].en :
                 data.subjects[classStats.goodSubjects[2].subject].fr}}
           </td>
-          <td>{{language === "en" ? data.subjects[classStats.poorSubjects[2].subject].en :
+          <td>{{lang === "en" ? data.subjects[classStats.poorSubjects[2].subject].en :
                 data.subjects[classStats.poorSubjects[2].subject].fr}}<br>
-            {{language === "en" ? data.subjects[classStats.poorSubjects[1].subject].en :
+            {{lang === "en" ? data.subjects[classStats.poorSubjects[1].subject].en :
                 data.subjects[classStats.poorSubjects[1].subject].fr}}<br>
-            {{language === "en" ? data.subjects[classStats.poorSubjects[0].subject].en :
+            {{lang === "en" ? data.subjects[classStats.poorSubjects[0].subject].en :
                 data.subjects[classStats.poorSubjects[0].subject].fr}}
           </td>
           <td>{{classStats.promote}}</td>
@@ -113,18 +113,18 @@
           <td>{{data.deptStats[deptId].aveHigh | number:1}}</td>
           <td>{{data.deptStats[deptId].aveLow !== 21 ? data.deptStats[deptId].aveLow  : "" | number:1}}</td>
           <td>{{data.deptStats[deptId].aveClass | number:1}}</td>
-          <td>{{language === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[0].subject].en :
+          <td>{{lang === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[0].subject].en :
                   data.subjects[data.deptStats[deptId].goodSubjects[0].subject].fr}}<br>
-            {{language === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[1].subject].en :
+            {{lang === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[1].subject].en :
                   data.subjects[data.deptStats[deptId].goodSubjects[1].subject].fr}}<br>
-            {{language === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[2].subject].en :
+            {{lang === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[2].subject].en :
                   data.subjects[data.deptStats[deptId].goodSubjects[2].subject].fr}}
           </td>
-          <td>{{language === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[2].subject].en :
+          <td>{{lang === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[2].subject].en :
                   data.subjects[data.deptStats[deptId].poorSubjects[2].subject].fr}}<br>
-            {{language === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[1].subject].en :
+            {{lang === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[1].subject].en :
                   data.subjects[data.deptStats[deptId].poorSubjects[1].subject].fr}}<br>
-            {{language === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[0].subject].en :
+            {{lang === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[0].subject].en :
                   data.subjects[data.deptStats[deptId].poorSubjects[0].subject].fr}}  
           </td>
           <td>{{data.deptStats[deptId].promote}}</td>
@@ -144,18 +144,18 @@
           <td>{{data.totalStats.aveHigh | number:1}}</td>
           <td>{{data.totalStats.aveLow !== 21 ? data.totalStats.aveLow : "" | number:1}}</td>
           <td>{{data.totalStats.aveClass | number:1}}</td>
-          <td>{{language === "en" ? data.subjects[data.totalStats.goodSubjects[0].subject].en :
+          <td>{{lang === "en" ? data.subjects[data.totalStats.goodSubjects[0].subject].en :
                   data.subjects[data.totalStats.goodSubjects[0].subject].fr}}<br>
-              {{language === "en" ? data.subjects[data.totalStats.goodSubjects[1].subject].en :
+              {{lang === "en" ? data.subjects[data.totalStats.goodSubjects[1].subject].en :
                   data.subjects[data.totalStats.goodSubjects[1].subject].fr}}<br>
-              {{language === "en" ? data.subjects[data.totalStats.goodSubjects[2].subject].en :
+              {{lang === "en" ? data.subjects[data.totalStats.goodSubjects[2].subject].en :
                   data.subjects[data.totalStats.goodSubjects[2].subject].fr}}
           </td>
-          <td>{{language === "en" ? data.subjects[data.totalStats.poorSubjects[2].subject].en :
+          <td>{{lang === "en" ? data.subjects[data.totalStats.poorSubjects[2].subject].en :
                   data.subjects[data.totalStats.poorSubjects[2].subject].fr}}<br>
-            {{language === "en" ? data.subjects[data.totalStats.poorSubjects[1].subject].en :
+            {{lang === "en" ? data.subjects[data.totalStats.poorSubjects[1].subject].en :
                   data.subjects[data.totalStats.poorSubjects[1].subject].fr}}<br>
-            {{language === "en" ? data.subjects[data.totalStats.poorSubjects[0].subject].en :
+            {{lang === "en" ? data.subjects[data.totalStats.poorSubjects[0].subject].en :
                   data.subjects[data.totalStats.poorSubjects[0].subject].fr}}
           </td>
           <td>{{data.totalStats.promote}}</td>

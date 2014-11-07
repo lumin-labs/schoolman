@@ -44,7 +44,7 @@
 			      			  ng-class="[0,'0.00'].indexOf(newPayment.amount) > -1 || 
                               getTotalPayments() + newPayment.getAmount() > 
                               getOwed() ? 'disabled' : ''">
-			        {{dict.add_payment}}
+			        {{dict.add}}
 			      </button>
 			    </div>
 			  </div>
@@ -71,7 +71,7 @@
                     ng-click="addPayment(newPayment, -1)"
                     ng-class="[0,'0.00'].indexOf(newPayment.amount) > -1 || 
                               newPayment.getAmount() > getTotalPayments() ? 'disabled' : ''">
-              {{dict.add_correction}}
+              {{dict.add}}
             </button>
           </div>
         </div>

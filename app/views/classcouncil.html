@@ -6,12 +6,12 @@
 		<!-- Form Dropdown -->
 		<div class="btn-group noprint">
 		    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-		      {{data.forms[formIndex].name}} <span class="caret"></span>
+		      {{lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr}} <span class="caret"></span>
 		    </button>
 		    <ul class="dropdown-menu">
 			    <li ng-repeat="(formIndex, form) in data.forms">
 			        <a ng-click="open({formIndex:formIndex})">
-				       	{{data.forms[formIndex].name}}
+				       	{{lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr}}
 				     </a>
 				</li>
 			</ul>
@@ -45,7 +45,7 @@
 		<!-- Term Dropdown -->
         <div  class="btn-group noprint">
             <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                {{data.terms[termIndex].name || dict.all_terms}}   <span class="caret"></span>
+                {{(lang === 'en' ? data.terms[termIndex].nameEn : data.terms[termIndex].nameFr) || dict.all_terms}}   <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
             	<li>
@@ -67,10 +67,10 @@
 	<table class="table"><tr>
 		<td>
 			<p><b>{{dict.academic_year}}:</b> <i>{{data.schoolInfo.schoolyear}}</i></p>
-			<p><b>{{dict.term}}:</b> <i>{{data.terms[termIndex].name || "All Terms"}}</i></p>
+			<p><b>{{dict.term}}:</b> <i>{{(lang === 'en' ? data.terms[termIndex].nameEn : data.terms[termIndex].nameFr) || dict.all_terms}}</i></p>
 		</td>
 		<td>
-			<p><b>{{dict.Class}}:</b> <i>{{data.forms[formIndex].name + data.groups[groupId].name}}</i></p>
+			<p><b>{{dict.Class}}:</b> <i>{{lang === 'en' ? data.forms[formIndex].nameEn + data.groups[groupId].name : data.forms[formIndex].nameFr + data.groups[groupId].name}}</i></p>
 			<p><b>{{dict.dept}}:</b> <i>{{data.departments[deptId].name}}</i></p>
 		</td>
 		<td>
@@ -164,40 +164,40 @@
 		<td ng-if="userAccess === 'classmaster'">
 			<div class="btn-group noprint">
 			  	<button class="btn btn-sm btn-default dropdown-toggle" 
-			  		data-toggle="dropdown">{{data.classcouncil.academicRemark[termIndex].text || dict.select_remark}}
+			  		data-toggle="dropdown">{{dict[data.classcouncil.academicRemark[termIndex].text] || dict.select_remark}}
 			  		<span class="caret"></span>
 			  	</button>
 			  	<ul class="dropdown-menu">
 			    	<li ng-repeat="(remarkIndex, remark) in data.remarks">
-                        <a ng-click="changeAcRemark(remark)">{{remark.text}}</a>
+                        <a ng-click="changeAcRemark(remark)">{{dict[remark.text]}}</a>
                     </li>
 			  	</ul>
 			</div>
-			<div class="printonly">{{data.classcouncil.academicRemark[termIndex].text}}</div>
+			<div class="printonly">{{dict[data.classcouncil.academicRemark[termIndex].text]}}</div>
 		</td>
-		<td ng-if="userAccess !== 'classmaster'">{{data.classcouncil.academicRemark[termIndex].text || dict.no_remark}}</td>
+		<td ng-if="userAccess !== 'classmaster'">{{dict[data.classcouncil.academicRemark[termIndex].text] || dict.no_remark}}</td>
 	</tr><tr>
 		<th>{{dict.conduct}}:</th>
 		<td ng-if="userAccess === 'classmaster'">
 			<div class="btn-group noprint">
 			  	<button class="btn btn-sm btn-default dropdown-toggle" 
-			  		data-toggle="dropdown">{{data.classcouncil.conductRemark.text || dict.select_remark}}
+			  		data-toggle="dropdown">{{dict[data.classcouncil.conductRemark.text] || dict.select_remark}}
 			  		<span class="caret"></span>
 			  	</button>
 			  	<ul class="dropdown-menu">
 			    	<li ng-repeat="(remarkIndex, remark) in data.remarks">
-                       	<a ng-click="changeConRemark(remark)">{{remark.text}}</a>
+                       	<a ng-click="changeConRemark(remark)">{{dict[remark.text]}}</a>
                    	</li>
 			  	</ul>
 			</div>
-			<div class="printonly">{{data.classcouncil.conductRemark.text}}</div>
+			<div class="printonly">{{dict[data.classcouncil.conductRemark.text]}}</div>
 		</td>
-		<td ng-if="userAccess !== 'classmaster'">{{data.classcouncil.conductRemark.text || dict.no_remark}}</td>
+		<td ng-if="userAccess !== 'classmaster'">{{dict[data.classcouncil.conductRemark.text] || dict.no_remark}}</td>
 	</tr></table></td></tr></table>
 
 	<h3>{{dict.possible_factors}}</h3>
 	<table class="table"><tr class="noprint" ng-if="userAccess === 'classmaster'"><td>
-		<textarea class="form-control noprint" placeholder="Possible Factors/Reasons" ng-model="data.classcouncil.factors[termIndex]" ng-blur="save()"></textarea></td></tr>
+		<textarea class="form-control noprint" placeholder="{{dict.possible_factors}}" ng-model="data.classcouncil.factors[termIndex]" ng-blur="save()"></textarea></td></tr>
 		<tr class="printonly"><td>{{data.classcouncil.factors[termIndex] | limitTo:150}}</td></tr>
 		<tr class="noprint" ng-if="userAccess !== 'classmaster'"><td>{{data.classcouncil.factors[termIndex]}}</td>
 	</tr></table>

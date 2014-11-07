@@ -16,7 +16,8 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
       $scope.schoolInfo = info;
 
       if($scope.schoolInfo.version === "gths"){
-        $scope.User.roles.classmaster.name = "Head of Dept";
+        $scope.User.roles.classmaster.nameEn = "Head of Dept";
+        $scope.User.roles.classmaster.nameFr = "Chef du Dépt";
       }
     }).catch(function(error){
       console.log("failed to load school info", error);

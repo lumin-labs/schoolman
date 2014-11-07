@@ -3,8 +3,8 @@
 
   <div class="col-md-10 marksheet" ng-controller="MarksheetCtrl">
   <div class="printonly" ng-controller="ClassmenuCtrl">
-    <h3>{{dict.Marksheet}}</h3>
-    <h5>{{form.name}}{{group.name}} {{department.name}} {{subject.en}}, {{term.name}}</h5>
+    <h3>{{dict.marksheet}}</h3>
+    <h5>{{lang === 'en' ? form.nameEn : form.nameFr}}{{group.name}} {{department.name}} {{lang === 'en' ? subject.en : subject.fr}}</h5>
   </div>
   <table class="table table-bordered table-striped" style="border:0px;">
 
@@ -30,7 +30,7 @@
                         <!-- Form Dropdown -->
                         <div class="btn-group">
                           <button class="disabled btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                            {{route.form["name"]}} 
+                            {{lang === 'en' ? route.form["nameEn"] : route.form["nameFr"]}} 
                           </button>
                           <ul class="dropdown-menu">
                             <!-- <li>

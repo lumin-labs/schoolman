@@ -184,21 +184,21 @@ function ClassMaster($q, modelTransformer, Registrar, Data, model) {
           if(average === -1){
             return {text:"", css:"remark-verypoor"};
           }else if(average>15){
-              return {text:"Excellent", css:"remark-excellent"}
+              return {text:"excellent", css:"remark-excellent"}
           }else if(average>13){
-              return {text:"Very Good", css:"remark-verygood"}
+              return {text:"very_good", css:"remark-verygood"}
           }else if(average>11){
-              return {text:"Good", css:"remark-good"}
+              return {text:"good", css:"remark-good"}
           }else if(average>10){
-              return {text:"Fair", css:"remark-fair"}
+              return {text:"fair", css:"remark-fair"}
           }else if(average === "10" || average === 10){
-              return {text:"Average", css:"remark-average"}
+              return {text:"average", css:"remark-average"}
           }else if(average>9){
-              return {text:"Poor", css:"remark-poor"}
+              return {text:"poor", css:"remark-poor"}
           }else if(average>7){
-              return {text:"Poor", css:"remark-poor"}
+              return {text:"poor", css:"remark-poor"}
           }else{
-              return {text:"Very Poor", css:"remark-verypoor"}
+              return {text:"very_poor", css:"remark-verypoor"}
           }
         }
     }

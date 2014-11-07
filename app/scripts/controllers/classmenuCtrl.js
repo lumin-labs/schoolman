@@ -42,13 +42,8 @@ function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, For
     r.subjects = $scope.subjects = Subjects.getAll();
     r.subject = $scope.subject  = $scope.subjects[$routeParams.subjectId];
 
-    var termLabel = "";
+    var termLabel = lang ==='en' ? "Term" : "Terme";
     
-    if(lang === "fr"){
-      termLabel = "Terme"
-    } else {
-      termLabel = "Term"
-    }
     r.terms = $scope.terms = [
       {name:termLabel + " 1"},
       {name:termLabel + " 2"},

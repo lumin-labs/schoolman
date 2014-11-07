@@ -12,7 +12,7 @@
    		<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
    		<strong>{{data.assignedTeacher.fullname}}</strong> {{dict.scheduled_to_teach}}
    		<strong ng-controller="ClassmenuCtrl">
-   			<em>{{form.name}}, {{department.code}}, {{group.name}}, {{subject.en}}</em>
+   			<em>{{lang === 'en' ? form.nameEn : form.nameFr}}, {{department.code}}, {{group.name}}, {{lang === 'en' ? subject.en : subject.fr}}</em>
    		</strong>
    	</div>
    </div>
