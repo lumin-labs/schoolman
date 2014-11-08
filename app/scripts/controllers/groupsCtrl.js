@@ -7,6 +7,7 @@ function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar, Lang) {
     $scope.groups = Groups.getAll();
     $scope.forms = Forms.all();
     $scope.dict = Lang.getDict();
+    $scope.validationError = false;
 
     $scope.add = function(group){
     	if(model.isValid(group)){
@@ -15,10 +16,18 @@ function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar, Lang) {
                 $scope.groups[group._id] = group;
                 $scope.allStudents[group._id] = [];
                 $scope.newGroup = new model.Group();
+                $scope.validationError = false;
             }).catch(function(error){
+                //handle duplicate dept code
+                if(error.name === "conflict"){
+                    $scope.validationError = true;
+                    $scope.newGroup = new model.Group();
+                    $scope.newGroup.name = group.name;
+                }
                 console.log("Error: unable to save group", error);
             });
     	} else {
+            
             console.log("Model not valid", group);
         }
     };

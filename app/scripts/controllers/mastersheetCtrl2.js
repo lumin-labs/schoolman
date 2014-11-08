@@ -1,6 +1,6 @@
 'use strict';
 
-function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS, Lang) {
+function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS, Lang) {
   	 
       $scope.termIndex = parseInt($routeParams.termIndex);
       $scope.dict = Lang.getDict();
@@ -14,6 +14,13 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
       $scope.data.summaries = {};
       $scope.data.students = [];
       $scope.data.rankings = {};
+
+      SchoolInfos.get("schoolinfo").then(function(info){
+          $scope.data.schoolInfo = info;
+          //console.log("school info retrieved", $scope.data.schoolInfo);
+      }).catch(function(error){
+          console.log("failed to get school info", error);
+      });
 
       $scope.round = Math.round;
 
@@ -170,5 +177,5 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
       });
 
   }
-  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS', 'Lang'];
+  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'SchoolInfos', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS', 'Lang'];
   angular.module('SchoolMan').controller('MastersheetCtrl2', MastersheetCtrl);

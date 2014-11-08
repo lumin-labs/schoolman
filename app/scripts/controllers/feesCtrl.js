@@ -14,6 +14,7 @@ function FeesCtrl($scope, Fees, Students, model, Lang) {
       });
       
       $scope.newFee = new model.Fee();
+      $scope.validationError = false;
 
       $scope.add = function(fee){
          if(fee.isValid()){
@@ -26,7 +27,17 @@ function FeesCtrl($scope, Fees, Students, model, Lang) {
                  }
                   $scope.data.fees[$scope.newFee._id] = $scope.newFee;
                   $scope.newFee = new model.Fee(); 
+                  $scope.validationError = false;
                }).catch(function(error, result){
+                  //handle duplicate dept code
+                if(error.name === "conflict"){
+                  $scope.validationError = true;
+                  var feeCopy = new model.Fee();
+                  feeCopy.name = $scope.newFee.name;
+                  feeCopy.schoolAmount = $scope.newFee.schoolAmount;
+                  // feeCopy.ptaAmount = $scope.newFee.ptaAmount;
+                  $scope.newFee = feeCopy;
+                }
                   console.log("Error: Fee not added", error);
                });
            } catch(e){

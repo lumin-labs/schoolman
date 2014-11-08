@@ -44,15 +44,15 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-book'
     },
-     {
-      labelEn:"Staff list",
-      labelFr:"Personnel",
-      page:"stafflist",
-      access:['admin','registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-book'
-    },
+    //  {
+    //   labelEn:"Staff list",
+    //   labelFr:"Personnel",
+    //   page:"stafflist",
+    //   access:['admin','registrar'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-book'
+    // },
     {
       labelEn:"Fee Settings",
       labelFr:"Écolages",
@@ -62,15 +62,15 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
-    {
-      labelEn:"Salary Settings",
-      labelFr:"Salaires",
-      page:"salarys",
-      access:['registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-cog'
-    },
+    // {
+    //   labelEn:"Salary Settings",
+    //   labelFr:"Salaires",
+    //   page:"salarys",
+    //   access:['registrar'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-cog'
+    // },
     {
       labelEn:"Students",
       labelFr:"Étudiants",
@@ -80,15 +80,15 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-list-alt'
     },
-    {
-      labelEn:"Staff",
-      labelFr:"Personnel",
-      page:"staffs",
-      access:['admin', 'registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-list-alt'
-    },
+    // {
+    //   labelEn:"Staff",
+    //   labelFr:"Personnel",
+    //   page:"staffs",
+    //   access:['admin', 'registrar'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-list-alt'
+    // },
     {
       labelEn:"Balance Sheet",
       labelFr:"Fiche de Contrôle",
@@ -107,15 +107,15 @@ angular.module('SchoolMan')
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
-    {
-      labelEn:"Staff Profile",
-      labelFr:"Profil du Personnel",
-      page:"staffProfile",
-      access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-user'
-    },
+    // {
+    //   labelEn:"Staff Profile",
+    //   labelFr:"Profil du Personnel",
+    //   page:"staffProfile",
+    //   access:['admin', 'registrar'],
+    //   exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-user'
+    // },
     {
       labelEn:"Student Profile",
       labelFr:"Profil de l'Étudiant",
@@ -126,15 +126,15 @@ angular.module('SchoolMan')
       icon:'glyphicon-user'
     },
     
-    {
-      labelEn:"Staff Registration",
-      labelFr:"Inscription du Personnel",
-      page:"staffregistration",
-      access:['registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-calendar'
-    },
+    // {
+    //   labelEn:"Staff Registration",
+    //   labelFr:"Inscription du Personnel",
+    //   page:"staffregistration",
+    //   access:['registrar'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-calendar'
+    // },
     {
       labelEn:"Registration",
       labelFr:"Inscription",

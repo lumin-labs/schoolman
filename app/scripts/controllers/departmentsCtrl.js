@@ -14,6 +14,7 @@ function DepartmentsCtrl($scope, $log, $routeParams, Registrar, model, Students,
   $scope.forms = CourseCatalog.getForms();
   $scope.dict = Lang.getDict();
   $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
+  $scope.validationError = false;
   
 
   $scope.departments = Departments.getAll();
@@ -30,7 +31,15 @@ function DepartmentsCtrl($scope, $log, $routeParams, Registrar, model, Students,
               Departments.set($scope.newDepartment, success.id);
               $scope.allStudents[$scope.newDepartment._id]  = [];
               $scope.newDepartment = new model.Department();
+              $scope.validationError = false;
           }).catch(function(error){
+              //handle duplicate dept code
+              if(error.name === "conflict"){
+                $scope.validationError = true;
+                $scope.newDepartment = new model.Department();
+                $scope.newDepartment.code = department.code;
+                $scope.newDepartment.name = department.name;
+              }
               console.log("Department save error ", error);
           });
   };

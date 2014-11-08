@@ -51,6 +51,10 @@
 		        			  ng-click="addSubject()">
 		        	{{dict.add}}
 		        </button>
+		        <div class="alert alert-sm alert-warning noprint" style="height:25px;padding-top:0px;" ng-if="validationError">
+					<i class="glyphicon glyphicon-exclamation-sign"></i>
+					<strong>{{dict.dept}} {{dict.not_added}}.</strong> {{dict.duplicate_codes_are_not_allowed}}.
+		  		</div>
 		      </form>
 		    </div>
 		  </div>

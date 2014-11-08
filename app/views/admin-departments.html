@@ -19,14 +19,20 @@
 			        	{{dict.add}}
 			        </button>
 	  			</th>
-	  			<th colspan="8"></th>
+	  			<th colspan="5">
+	  				<div class="alert alert-sm alert-warning noprint" style="height:25px;padding-top:0px;" ng-if="validationError">
+   						<i class="glyphicon glyphicon-exclamation-sign"></i>
+   						<strong>{{dict.subject}} {{dict.not_added}}.</strong> {{dict.duplicate_codes_are_not_allowed}}.
+   			  		</div>
+   			  	</th>
+   			  	<th colspan="3"></th>
 				</tr>
 				<tr>
 					<th>{{dict.code}}</th>
 					<th>{{dict.name}}</th>
 					<th class="text-center" ng-repeat="form in forms">{{lang === 'en' ? form.nameEn : form.nameFr}}</th>
 					<th>{{dict.student}}s</th>
-					<th class="noprint"></th>
+					<th class="noprint">{{dict.remove}}</th>
 				</tr>
 			</thead>
 			<tbody>

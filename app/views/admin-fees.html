@@ -60,6 +60,10 @@
 		  								ng-click="add(newFee)">
 			        	{{dict.add}}
 			        </button>
+			        <div class="alert alert-sm alert-warning noprint" style="height:25px;padding-top:0px;" ng-if="validationError">
+   						<i class="glyphicon glyphicon-exclamation-sign"></i>
+   						<strong>{{dict.fee}} {{dict.not_added}}.</strong> {{dict.duplicate_names_are_not_allowed}}.
+   			  		</div>
 			      </form>
 			      
 			</div>
