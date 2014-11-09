@@ -17,10 +17,13 @@ function FeesCtrl($scope, Fees, Students, model, Lang) {
       $scope.validationError = false;
 
       $scope.add = function(fee){
+        console.log("new fee before", angular.copy(fee))
          if(fee.isValid()){
+          console.log("new fee valid", angular.copy(fee))
             try{
-               fee.schoolAmount = Number(fee.schoolAmount.replace(/[^0-9\.]+/g,""));
-               fee.ptaAmount = Number(fee.ptaAmount.replace(/[^0-9\.]+/g,""));
+              typeof fee.schoolAmount === "string" ? fee.schoolAmount = Number(fee.schoolAmount.replace(/[^0-9\.]+/g,"")) : "";
+              typeof fee.ptaAmount === "string" ? fee.ptaAmount = Number(fee.ptaAmount.replace(/[^0-9\.]+/g,"")) : "";
+                
                fee.save().then(function(success){
                   if(!$scope.newFee.students){
                     $scope.newFee.students= [];
@@ -32,11 +35,12 @@ function FeesCtrl($scope, Fees, Students, model, Lang) {
                   //handle duplicate dept code
                 if(error.name === "conflict"){
                   $scope.validationError = true;
-                  var feeCopy = new model.Fee();
-                  feeCopy.name = $scope.newFee.name;
-                  feeCopy.schoolAmount = $scope.newFee.schoolAmount;
-                  // feeCopy.ptaAmount = $scope.newFee.ptaAmount;
-                  $scope.newFee = feeCopy;
+                  console.log("new fee begin", angular.copy(fee))
+                  $scope.newFee = new model.Fee();
+                  $scope.newFee.name = fee.name;
+                  $scope.newFee.schoolAmount = fee.schoolAmount;
+                  $scope.newFee.ptaAmount = fee.ptaAmount;
+                  console.log("new fee end", $scope.newFee)
                 }
                   console.log("Error: Fee not added", error);
                });
