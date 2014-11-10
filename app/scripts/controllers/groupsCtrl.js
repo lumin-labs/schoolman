@@ -1,6 +1,6 @@
 'use strict';
 
-function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar, Lang) {
+function GroupsCtrl($scope, Groups, Students, model, Forms, Lang) {
     
     $scope.newGroup = new model.Group();
     
@@ -51,5 +51,5 @@ function GroupsCtrl($scope, Groups, Students, model, Forms, Registrar, Lang) {
 
   }
 
-GroupsCtrl.$inject = ['$scope', 'Groups', 'Students', 'model', 'Forms', 'Registrar', 'Lang'];
+GroupsCtrl.$inject = ['$scope', 'Groups', 'Students', 'model', 'Forms', 'Lang'];
 angular.module('SchoolMan').controller('GroupsCtrl', GroupsCtrl);

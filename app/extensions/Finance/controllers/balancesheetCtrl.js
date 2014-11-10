@@ -1,6 +1,6 @@
 'use strict';
 
-function FinanceCtrl($scope, $routeParams, Forms, Registrar, Fees, Students, Payments, SchoolInfos, Lang) {
+function BalanceSheetCtrl($scope, $routeParams, Forms, Fees, Students, Payments, SchoolInfos, Lang) {
   	
   	var forms = _.map(Forms.all(), function(form){
       form.students = [];
@@ -159,5 +159,5 @@ function FinanceCtrl($scope, $routeParams, Forms, Registrar, Fees, Students, Pay
 		};
     
   }
-FinanceCtrl.$inject = ['$scope', '$routeParams', 'Forms', 'Registrar', 'Fees', 'Students', 'Payments', 'SchoolInfos', 'Lang'];
-angular.module('SchoolMan').controller('FinanceCtrl', FinanceCtrl);
+BalanceSheetCtrl.$inject = ['$scope', '$routeParams', 'Forms', 'Fees', 'Students', 'Payments', 'SchoolInfos', 'Lang'];
+angular.module('SchoolMan').controller('FinanceCtrl', BalanceSheetCtrl);

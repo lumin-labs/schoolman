@@ -9,9 +9,9 @@
  *
  */
 
-function DepartmentsCtrl($scope, $log, $routeParams, Registrar, model, Students, Departments, CourseCatalog, Lang){
+function DepartmentsCtrl($scope, $log, $routeParams, model, Students, Departments, Forms, Lang){
 
-  $scope.forms = CourseCatalog.getForms();
+  $scope.forms = Forms.all();
   $scope.dict = Lang.getDict();
   $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
   $scope.validationError = false;
@@ -70,5 +70,5 @@ function DepartmentsCtrl($scope, $log, $routeParams, Registrar, model, Students,
 
 }
 
-DepartmentsCtrl.$inject = ['$scope', '$log', '$routeParams', 'Registrar', 'model', 'Students', 'Departments', 'CourseCatalog', 'Lang'];
+DepartmentsCtrl.$inject = ['$scope', '$log', '$routeParams', 'model', 'Students', 'Departments', 'Forms', 'Lang'];
 angular.module('SchoolMan').controller('DepartmentsCtrl', DepartmentsCtrl);

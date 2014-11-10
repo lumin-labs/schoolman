@@ -1,6 +1,6 @@
 'use strict';
 
-function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2, Marksheets, Departments, Fees, Payments, Terms, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS, Lang) {
+function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksheets, Departments, Fees, Payments, Terms, Groups, SubjectTypes, Forms, Cache, Location, SchoolInfos, PROMOTE_OPTIONS, Lang) {
   	 
     $scope.termIndex = parseInt($routeParams.termIndex),
     $scope.queryParams = {
@@ -392,5 +392,5 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
       // });
 
   }
-  StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Fees', 'Payments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS', 'Lang'];
+  StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Fees', 'Payments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Location', 'SchoolInfos', 'PROMOTE_OPTIONS', 'Lang'];
   angular.module('SchoolMan').controller('StatsCtrl', StatsCtrl);

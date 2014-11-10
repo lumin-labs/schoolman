@@ -4,9 +4,6 @@ angular.module('SchoolMan')
   .constant('VERSION',{
     mode:"gths"
   })
-  //.constant('SCHOOLYEAR',{
-  //  year:"2014/2015"
-  //})
   .constant('TABS', [
   	{
   		labelEn:"Users",
@@ -92,7 +89,7 @@ angular.module('SchoolMan')
     {
       labelEn:"Balance Sheet",
       labelFr:"Fiche de Contrôle",
-      page:"finance",
+      page:"balancesheet",
       access:['registrar', 'admin'],
       exclude:[],
       modes:["gths", "ghs"],
@@ -103,7 +100,7 @@ angular.module('SchoolMan')
       labelFr:"Profil de l'Étudiant",
       page:"registrarProfile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
+      exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -112,7 +109,7 @@ angular.module('SchoolMan')
     //   labelFr:"Profil du Personnel",
     //   page:"staffProfile",
     //   access:['admin', 'registrar'],
-    //   exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
+    //   exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
     //   modes:["gths", "ghs"],
     //   icon:'glyphicon-user'
     // },
@@ -121,7 +118,7 @@ angular.module('SchoolMan')
       labelFr:"Profil de l'Étudiant",
       page:"classmasterProfile",
       access:['classmaster'],
-      exclude:['reportcardGTHS','mastersheet', 'classmasterMarksheet', 'classcouncil', 'classmasterStats'],
+      exclude:['reportcard','mastersheet', 'classmasterMarksheet', 'classcouncil', 'classmasterStats'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
@@ -165,7 +162,7 @@ angular.module('SchoolMan')
   	{
   		labelEn:"Marksheet",
       labelFr:"Relevé de Notes",
-  	 	page:"marksheet",
+  	 	page:"teacherMarksheet",
   	 	access:['teacher'],
       exclude:['myclasses'],
       modes:["gths", "ghs"],
@@ -183,7 +180,7 @@ angular.module('SchoolMan')
     {
       labelEn:"Report Card",
       labelFr:"Bulletin de Notes",
-      page:"reportcardGTHS",
+      page:"reportcard",
       access:['classmaster'],
       exclude:[],
       modes:["gths","ghs"],

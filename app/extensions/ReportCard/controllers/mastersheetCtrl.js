@@ -1,6 +1,6 @@
 'use strict';
 
-function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS, Lang) {
+function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Location, PROMOTE_OPTIONS, Lang) {
   	 
       $scope.termIndex = parseInt($routeParams.termIndex);
       $scope.dict = Lang.getDict();
@@ -177,5 +177,5 @@ function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, 
       });
 
   }
-  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'SchoolInfos', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS', 'Lang'];
-  angular.module('SchoolMan').controller('MastersheetCtrl2', MastersheetCtrl);
+  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'SchoolInfos', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Location', 'PROMOTE_OPTIONS', 'Lang'];
+  angular.module('SchoolMan').controller('MastersheetCtrl', MastersheetCtrl);

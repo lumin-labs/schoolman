@@ -9,7 +9,7 @@
  *
  * This service handles marksheets and all calculations
  */
-function ClassMaster($q, modelTransformer, Registrar, Data, model) {
+function ClassMaster($q, modelTransformer, model) {
 
     // This is the container for public methods of the ClassMaster Service
     var self = {};
@@ -49,125 +49,125 @@ function ClassMaster($q, modelTransformer, Registrar, Data, model) {
     // }
 
 
-    var registerListener = function(marksheet){
-      var callback = function(msg){
-          Data.saveLater({marksheets:marksheets});
-      };
-      // console.log("Registering Callback", callback);
-      marksheet.onChange(callback);
-    }
+    // var registerListener = function(marksheet){
+    //   var callback = function(msg){
+    //       Data.saveLater({marksheets:marksheets});
+    //   };
+    //   // console.log("Registering Callback", callback);
+    //   marksheet.onChange(callback);
+    // }
 
 
   
-    self.addStudent = function(marksheet, studentId){
-      var rowData = {
-          columns:[],
-          studentId:studentId
-        }
+    // self.addStudent = function(marksheet, studentId){
+    //   var rowData = {
+    //       columns:[],
+    //       studentId:studentId
+    //     }
 
-        angular.forEach(Marksheet.sequences, function(sequence, sequenceIndex){
-          var count = 0;
-          while(count < sequence){
-            var mark = new Mark();
-            var cellData = {
-              history: [mark],
-              mark: mark.value
-            }
-            var cell = modelTransformer.transform(cellData, Cell);
-            rowData.columns.push(cell);
-            count += 1;
-          }
-        });
+    //     angular.forEach(Marksheet.sequences, function(sequence, sequenceIndex){
+    //       var count = 0;
+    //       while(count < sequence){
+    //         var mark = new Mark();
+    //         var cellData = {
+    //           history: [mark],
+    //           mark: mark.value
+    //         }
+    //         var cell = modelTransformer.transform(cellData, Cell);
+    //         rowData.columns.push(cell);
+    //         count += 1;
+    //       }
+    //     });
 
-        var row = modelTransformer.transform(rowData, Row);
-        marksheet.addRow(row); //This will auto-save
-    }
+    //     var row = modelTransformer.transform(rowData, Row);
+    //     marksheet.addRow(row); //This will auto-save
+    // }
 
-    /**
-     * @ngdoc method
-     * @methodOf SchoolMan.service:ClassMaster
-     * @name SchoolMan.service:ClassMaster#createMarksheet
-     * @description This takes and registers a marksheet object
-     */
-    self.createMarksheet = function(courseId, students) {
+    // /**
+    //  * @ngdoc method
+    //  * @methodOf SchoolMan.service:ClassMaster
+    //  * @name SchoolMan.service:ClassMaster#createMarksheet
+    //  * @description This takes and registers a marksheet object
+    //  */
+    // self.createMarksheet = function(courseId, students) {
 
-      var marksheetData = {
-        table:{},
-        courseId:courseId
-      };
+    //   var marksheetData = {
+    //     table:{},
+    //     courseId:courseId
+    //   };
       
-      angular.forEach(students, function(student, studentIndex){
+    //   angular.forEach(students, function(student, studentIndex){
 
-        var rowData = {
-          columns:[],
-          studentId:student.id
-        }
+    //     var rowData = {
+    //       columns:[],
+    //       studentId:student.id
+    //     }
 
-        angular.forEach(Marksheet.sequences, function(sequence, sequenceIndex){
-          var count = 0;
-          while(count < sequence){
-            var mark = new Mark();
-            var cellData = {
-              history: [mark],
-              mark: mark.value
-            }
-            var cell = modelTransformer.transform(cellData, Cell);
-            rowData.columns.push(cell);
-            count += 1;
-          }
-        });
+    //     angular.forEach(Marksheet.sequences, function(sequence, sequenceIndex){
+    //       var count = 0;
+    //       while(count < sequence){
+    //         var mark = new Mark();
+    //         var cellData = {
+    //           history: [mark],
+    //           mark: mark.value
+    //         }
+    //         var cell = modelTransformer.transform(cellData, Cell);
+    //         rowData.columns.push(cell);
+    //         count += 1;
+    //       }
+    //     });
 
-        var row = modelTransformer.transform(rowData, Row);
-        marksheetData.table[student.id] = row;
+    //     var row = modelTransformer.transform(rowData, Row);
+    //     marksheetData.table[student.id] = row;
 
-      });
+    //   });
 
-      var marksheet = modelTransformer.transform(marksheetData, Marksheet);
-      marksheets[courseId] = marksheet;
+    //   var marksheet = modelTransformer.transform(marksheetData, Marksheet);
+    //   marksheets[courseId] = marksheet;
 
-      registerListener(marksheet);
+    //   registerListener(marksheet);
 
-      // console.log("Created Marksheet", marksheet);
+    //   // console.log("Created Marksheet", marksheet);
 
-      return marksheet;
-    };
+    //   return marksheet;
+    // };
 
-    /**
-     * @ngdoc method
-     * @methodOf SchoolMan.service:ClassMaster
-     * @param {string} courseId This method uses the courseId to fetch the Marksheet object
-     * @return {object} Returns a Marksheet object
-     * @name SchoolMan.service:ClassMaster#getMarksheet
-     * @description This takes and registers a marksheet object
-     */
-    self.getMarksheet = function(courseId){
+    // /**
+    //  * @ngdoc method
+    //  * @methodOf SchoolMan.service:ClassMaster
+    //  * @param {string} courseId This method uses the courseId to fetch the Marksheet object
+    //  * @return {object} Returns a Marksheet object
+    //  * @name SchoolMan.service:ClassMaster#getMarksheet
+    //  * @description This takes and registers a marksheet object
+    //  */
+    // self.getMarksheet = function(courseId){
 
-      if(!(marksheets.hasOwnProperty(courseId))){
-        var students = Registrar.getStudentsByCourseUnsorted(courseId);
-        self.createMarksheet(courseId, students);
-      }
+    //   if(!(marksheets.hasOwnProperty(courseId))){
+    //     var students = Registrar.getStudentsByCourseUnsorted(courseId);
+    //     self.createMarksheet(courseId, students);
+    //   }
 
-      var marksheet = marksheets[courseId];
+    //   var marksheet = marksheets[courseId];
 
-      return marksheet;      
-    };
+    //   return marksheet;      
+    // };
 
 
-    /**
-     * @ngdoc method
-     * @methodOf SchoolMan.service:ClassMaster
-     * @param {array} courseId This method uses an array of courseIds to fetch the Marksheet objects
-     * @return {array} Returns an array of Marksheet objects
-     * @name SchoolMan.service:ClassMaster#getMarksheets
-     * @description This takes and registers a marksheet object
-     */
-    self.getMarksheets = function(courseIds){
-      var marksheets = {};
-      angular.forEach(courseIds, function(courseId, courseIdIndex){
-        marksheets[courseId] = self.getMarksheet(courseId);
-      });
-      return marksheets;
-    };
+    // /**
+    //  * @ngdoc method
+    //  * @methodOf SchoolMan.service:ClassMaster
+    //  * @param {array} courseId This method uses an array of courseIds to fetch the Marksheet objects
+    //  * @return {array} Returns an array of Marksheet objects
+    //  * @name SchoolMan.service:ClassMaster#getMarksheets
+    //  * @description This takes and registers a marksheet object
+    //  */
+    // self.getMarksheets = function(courseIds){
+    //   var marksheets = {};
+    //   angular.forEach(courseIds, function(courseId, courseIdIndex){
+    //     marksheets[courseId] = self.getMarksheet(courseId);
+    //   });
+    //   return marksheets;
+    // };
 
 
     /**
@@ -204,26 +204,26 @@ function ClassMaster($q, modelTransformer, Registrar, Data, model) {
     }
 
 
-    // Load data from file
-    Data.get('marksheets', function(ms){
-      angular.forEach(ms, function(marksheet, courseId){
-        angular.forEach(marksheet.table, function(row, studentId){
-          angular.forEach(row.columns, function(cell, cellIndex){
-            angular.forEach(cell.history, function(mark, markIndex){
-              cell.history[markIndex] = modelTransformer.transform(mark, Mark);
-            });
-            row.columns[cellIndex] = modelTransformer.transform(cell, Cell);
-          });
-          marksheet.table[studentId] = modelTransformer.transform(row, Row);
-        });
-        var marksheet = modelTransformer.transform(marksheet, Marksheet);
-        ms[courseId] = marksheet;
-        registerListener(marksheet);
-      });
-      marksheets = ms;
-    });
+    // // Load data from file
+    // Data.get('marksheets', function(ms){
+    //   angular.forEach(ms, function(marksheet, courseId){
+    //     angular.forEach(marksheet.table, function(row, studentId){
+    //       angular.forEach(row.columns, function(cell, cellIndex){
+    //         angular.forEach(cell.history, function(mark, markIndex){
+    //           cell.history[markIndex] = modelTransformer.transform(mark, Mark);
+    //         });
+    //         row.columns[cellIndex] = modelTransformer.transform(cell, Cell);
+    //       });
+    //       marksheet.table[studentId] = modelTransformer.transform(row, Row);
+    //     });
+    //     var marksheet = modelTransformer.transform(marksheet, Marksheet);
+    //     ms[courseId] = marksheet;
+    //     registerListener(marksheet);
+    //   });
+    //   marksheets = ms;
+    // });
 
     return self;
 }
-ClassMaster.$inject = ['$q', 'modelTransformer', 'Registrar', 'Data', 'model'];
+ClassMaster.$inject = ['$q', 'modelTransformer', 'model'];
 angular.module('SchoolMan').service('ClassMaster', ClassMaster);

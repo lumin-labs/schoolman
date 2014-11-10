@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
-	<div class="col-md-10 marksheet" ng-controller="ReportsCtrl">
+	<div class="col-md-10 marksheet" ng-controller="AnnualReportCtrl">
     <div class="printonly">
       <h3>{{dict.annual_results}}</h3>
       <h5>{{(lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr) || dict.all_forms}}</h5>

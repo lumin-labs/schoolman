@@ -1,6 +1,6 @@
 'use strict';
 
-function IDcardCtrl($scope, $routeParams, model, Users, Students, Departments, Groups, Terms, Forms, ClassMaster, Location, SchoolInfos, Lang) {
+function IDcardCtrl($scope, $routeParams, model, Users, Students, Departments, Groups, Terms, Forms, Location, SchoolInfos, Lang) {
   $scope.open = Location.open;
   $scope.pageTitleEnglish = "SCHOOL IDENTITY CARD";
   $scope.pageTitleFrench = "CARTE D'IDENTITÉ";
@@ -21,7 +21,7 @@ function IDcardCtrl($scope, $routeParams, model, Users, Students, Departments, G
   $scope.data.currentDate = new Date();
   $scope.data.sides = ["front","back"];
   $scope.data.side = 0;
-  $scope.ClassMaster = ClassMaster;
+  // $scope.ClassMaster = ClassMaster;
 
   SchoolInfos.get("schoolinfo").then(function(info){
     $scope.data.schoolInfo = info;
@@ -45,5 +45,5 @@ function IDcardCtrl($scope, $routeParams, model, Users, Students, Departments, G
     console.log("failed to get school info", error);
   });
 }
-IDcardCtrl.$inject = ['$scope', '$routeParams', 'model', 'Users', 'Students', 'Departments', 'Groups', 'Terms', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
+IDcardCtrl.$inject = ['$scope', '$routeParams', 'model', 'Users', 'Students', 'Departments', 'Groups', 'Terms', 'Forms', 'Location', 'SchoolInfos', 'Lang'];
 angular.module('SchoolMan').controller('IDcardCtrl', IDcardCtrl);
