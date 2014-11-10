@@ -6,15 +6,14 @@ function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Department
 
     var settingsP = settings.load();
     var userP = Users.load();
-    var feesP = Fees.load();
     var deptP = Departments.load();
     var subjP = Subjects.load();
     var groupP= Groups.load();
     var studentsP= Students.load();
 
+    var feesP = Fees.load();
     // Initialize/Register ClassCouncil datatype
     var instClassCouncil = new model.ClassCouncil();
-
     var transcript = new model.Transcript();
     
 
