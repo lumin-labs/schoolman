@@ -77,7 +77,23 @@ schoolman.config(['modelProvider', function(model){
         key:"dateofentry",
         type:"object",
         required:false
-      }],
+      },{
+        key:"specialty",
+        type:"string",
+        required:false
+      },{
+        key:"tribe",
+        type:"string",
+        required:false
+      },{
+        key:"dateposted",
+        type:"object",
+        required:false
+      },{
+        key:"phoneNo",
+        type:"string",
+        required:false
+      },],
       fields_key:0
     }
   };
@@ -121,11 +137,11 @@ schoolman.config(['modelProvider', function(model){
   };
 
   User.roles = {
-      teacher: {name:"Teacher"},
-      admin:   {name:"Administrator"},
-      classmaster: {name:"Class Master"},
-      registrar:{name:"Registrar"},
-      sales:{name:"Sales"}
+      teacher: {nameEn:"Teacher", nameFr:"Enseignant"},
+      admin:   {nameEn:"Administrator", nameFr:"Administrateur"},
+      classmaster: {nameEn:"Class Master", nameFr:"Prof Titulaire"},
+      registrar:{nameEn:"Registrar", nameFr:"Économe"},
+      sales:{nameEn:"Sales", nameFr:"Sales"}
   }
 
   User.prototype = new model.Model();

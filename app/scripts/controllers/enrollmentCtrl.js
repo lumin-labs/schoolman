@@ -1,6 +1,6 @@
 'use strict';
 
-function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
+function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects, Lang) {
   var data = $scope.data = {
     forms:Forms.all(),
     groups:Groups.getAll(),
@@ -14,6 +14,8 @@ function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheet
   }
   $scope.termIndex=3;
   $scope.formIndex = $routeParams.formIndex;
+  $scope.dict = Lang.getDict();
+  $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
   $scope.open = function(params){
     if(params.formIndex === $routeParams.formIndex){
@@ -219,5 +221,5 @@ function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheet
   console.log("Class Councils", data.classCouncils);
 
 }
-EnrollmentCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
+EnrollmentCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects', 'Lang'];
 angular.module('SchoolMan').controller('EnrollmentCtrl', EnrollmentCtrl);

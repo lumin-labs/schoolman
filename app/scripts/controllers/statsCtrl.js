@@ -1,6 +1,6 @@
 'use strict';
 
-function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2, Marksheets, Departments, Fees, Payments, Terms, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
+function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2, Marksheets, Departments, Fees, Payments, Terms, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS, Lang) {
   	 
     $scope.termIndex = parseInt($routeParams.termIndex),
     $scope.queryParams = {
@@ -12,6 +12,8 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
     }
       
       $scope.open = Location.open;
+      $scope.dict = Lang.getDict();
+      $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
       var data = $scope.data = {
         marksheets: [],
@@ -114,12 +116,12 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
         angular.forEach(data.depts, function(dept, deptId){
           statistics[deptId] = {};
 
-          statistics[deptId]["totals"] = {name:"Totals", maleEnrolled:0, femaleEnrolled:0, 
+          statistics[deptId]["totals"] = {nameEn:"Totals", nameFr:"Totals", maleEnrolled:0, femaleEnrolled:0, 
                                         maleSat:0, malePassing:0,
                                         femaleSat:0, femalePassing:0}
         
           angular.forEach(data.forms, function(form, formIndex){
-            statistics[deptId][formIndex] = {name: form.name};
+            statistics[deptId][formIndex] = {nameEn: form.nameEn, nameFr: form.nameFr};
             // console.log("params", query);
             Marksheets.query({formIndex:formIndex, deptId:deptId}).then(function(marksheets){
               $scope.data.summaries = _.map(marksheets , function(marksheet){
@@ -177,7 +179,7 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
                 statistics[deptId]["totals"].femalePassing += femalePass;
                 
 
-                statistics[deptId][formIndex] = {name: form.name, maleEnrolled: maleOnRoll, femaleEnrolled: femaleOnRoll,
+                statistics[deptId][formIndex] = {nameEn: form.nameEn, nameFr: form.nameFr, maleEnrolled: maleOnRoll, femaleEnrolled: femaleOnRoll,
                                                   maleSat: maleSat, malePassing: malePass, 
                                                   femaleSat: femaleSat, femalePassing: femalePass};
               });
@@ -390,5 +392,5 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Data2,
       // });
 
   }
-  StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Fees', 'Payments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS'];
+  StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Fees', 'Payments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS', 'Lang'];
   angular.module('SchoolMan').controller('StatsCtrl', StatsCtrl);

@@ -16,7 +16,7 @@
 	  	<li ng-repeat="(accessKey, accessBool) in teacher.access" 
 	  	    ng-if="accessBool === 1"
 	  	    ng-class="accessKey === userAccess ? 'active' : ''">
-		  	<a ng-click="login(accessKey)">{{User.roles[accessKey].name}}</a>	
+		  	<a ng-click="login(accessKey)">{{lang === 'en' ? User.roles[accessKey].nameEn : User.roles[accessKey].nameEn}}</a>	
 	  	</li>
 	  </ul>
 	</div>

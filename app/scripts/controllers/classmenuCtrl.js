@@ -8,9 +8,11 @@
  * This controller handles the menus for choosing route department, form, term, group and subject.
  */
 
-function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, Forms, CourseCatalog, Location) {
+function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, Forms, CourseCatalog, Location, Lang) {
     
     var r = $scope.route = {};
+    var lang = $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
+    $scope.dict = Lang.getDict();
 
     r.page = $scope.page = $routeParams.page;
     
@@ -40,15 +42,17 @@ function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, For
     r.subjects = $scope.subjects = Subjects.getAll();
     r.subject = $scope.subject  = $scope.subjects[$routeParams.subjectId];
 
+    var termLabel = lang ==='en' ? "Term" : "Terme";
+    
     r.terms = $scope.terms = [
-      {name:"Term 1"},
-      {name:"Term 2"},
-      {name:"Term 3"}
+      {name:termLabel + " 1"},
+      {name:termLabel + " 2"},
+      {name:termLabel + " 3"}
     ];
     r.term = $scope.term  = $scope.terms[$routeParams.termIndex];
 
     $scope.open = Location.open;
 
   }
-  ClassmenuCtrl.$inject = ['$scope', '$routeParams', 'Departments', 'Subjects', 'Groups', 'Forms', 'CourseCatalog', 'Location'];
+  ClassmenuCtrl.$inject = ['$scope', '$routeParams', 'Departments', 'Subjects', 'Groups', 'Forms', 'CourseCatalog', 'Location', 'Lang'];
   angular.module('SchoolMan').controller('ClassmenuCtrl', ClassmenuCtrl);
