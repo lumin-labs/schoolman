@@ -15,6 +15,7 @@ function ReportsCtrl($scope, $route, $routeParams, model, Location, Marksheets, 
   $scope.termIndex=3;
   $scope.formIndex = $routeParams.formIndex;
   $scope.dict = Lang.getDict();
+  $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
   $scope.open = function(params){
     if(params.formIndex === $routeParams.formIndex){

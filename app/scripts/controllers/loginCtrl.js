@@ -1,8 +1,6 @@
 'use strict';
 
 function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups, Lang) {
-      console.log("Hows the call stack?")
-      console.log("Departments: ", Departments)
       $log.info("Path: ", $location.path()); 
 
 
@@ -68,7 +66,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, 
               Location.open({
                 page:page || DEFAULT_START_PAGE[accessRequest].page,
                 subpage:"null",
-                lang:"en",
+                lang:$routeParams.lang,
                 formIndex:"0",
                 deptId:Object.keys(depts)[0],
                 groupId:groups[0],

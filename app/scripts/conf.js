@@ -9,7 +9,8 @@ angular.module('SchoolMan')
   //})
   .constant('TABS', [
   	{
-  		label:"Users",
+  		labelEn:"Users",
+      labelFr:"Utilisateurs",
   	 	page:"users",
   	 	access:['admin'],
       exclude:[],
@@ -17,7 +18,8 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-lock'
   	},
     {
-      label:"Departments",
+      labelEn:"Departments",
+      labelFr:"Départements",
       page:"departments",
       access:['admin'],
       exclude:[],
@@ -25,7 +27,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-bookmark'
     },
   	{
-  		label:"Classes",
+  		labelEn:"Classes",
+      labelFr:"Classes",
   	 	page:"classes",
   	 	access:['admin'],
       exclude:[],
@@ -33,55 +36,62 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-calendar'
   	},
     {
-      label:"Subjects",
+      labelEn:"Subjects",
+      labelFr:"Sujets",
       page:"subjects",
       access:['admin'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-book'
     },
-     {
-      label:"Staff list",
-      page:"stafflist",
-      access:['admin','registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-book'
-    },
+    //  {
+    //   labelEn:"Staff list",
+    //   labelFr:"Personnel",
+    //   page:"stafflist",
+    //   access:['admin','registrar'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-book'
+    // },
     {
-      label:"Fee Settings",
+      labelEn:"Fee Settings",
+      labelFr:"Écolages",
       page:"fees",
       access:['registrar'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-cog'
     },
+    // {
+    //   labelEn:"Salary Settings",
+    //   labelFr:"Salaires",
+    //   page:"salarys",
+    //   access:['registrar'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-cog'
+    // },
     {
-      label:"Salary Settings",
-      page:"salarys",
-      access:['registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-cog'
-    },
-    {
-      label:"Students",
+      labelEn:"Students",
+      labelFr:"Étudiants",
       page:"students",
       access:['admin', 'registrar'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-list-alt'
     },
+    // {
+    //   labelEn:"Staff",
+    //   labelFr:"Personnel",
+    //   page:"staffs",
+    //   access:['admin', 'registrar'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-list-alt'
+    // },
     {
-      label:"Staffs",
-      page:"staffs",
-      access:['admin', 'registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-list-alt'
-    },
-    {
-      label:"Balance Sheet",
+      labelEn:"Balance Sheet",
+      labelFr:"Fiche de Contrôle",
       page:"finance",
       access:['registrar', 'admin'],
       exclude:[],
@@ -89,15 +99,26 @@ angular.module('SchoolMan')
       icon:'glyphicon-envelope'
     },
     {
-      label:"Student Profile",
+      labelEn:"Student Profile",
+      labelFr:"Profil de l'Étudiant",
       page:"registrarProfile",
       access:['admin', 'registrar'],
       exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },
+    // {
+    //   labelEn:"Staff Profile",
+    //   labelFr:"Profil du Personnel",
+    //   page:"staffProfile",
+    //   access:['admin', 'registrar'],
+    //   exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-user'
+    // },
     {
-      label:"Staff Profile",
+      labelEn:"Staff Profile",
+      labelFr:"Staff Profile",
       page:"staffprofile",
       access:['admin', 'registrar'],
       exclude:['registration', 'salarys', 'staffs', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
@@ -105,7 +126,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-user'
     },
     {
-      label:"Student Profile",
+      labelEn:"Student Profile",
+      labelFr:"Profil de l'Étudiant",
       page:"classmasterProfile",
       access:['classmaster'],
       exclude:['reportcardGTHS','mastersheet', 'classmasterMarksheet', 'classcouncil', 'classmasterStats'],
@@ -113,32 +135,27 @@ angular.module('SchoolMan')
       icon:'glyphicon-user'
     },
     
+    // {
+    //   labelEn:"Staff Registration",
+    //   labelFr:"Inscription du Personnel",
+    //   page:"staffregistration",
+    //   access:['registrar'],
+    //   exclude:[],
+    //   modes:["gths", "ghs"],
+    //   icon:'glyphicon-calendar'
+    // },
     {
-      label:"Staff Registration",
-      page:"staffregistration",
-      access:['registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-calendar'
-    },
-    {
-      label:"Registration",
+      labelEn:"Registration",
+      labelFr:"Inscription",
       page:"registration",
       access:['registrar'],
       exclude:[],
       modes:["gths", "ghs"],
       icon:'glyphicon-calendar'
     },
-    // {
-    //   label:"Promotion",
-    //   page:"promotion",
-    //   access:['admin'],
-    //   exclude:[],
-    //   modes:["gths", "ghs"],
-    //   icon:'glyphicon-thumbs-up'
-    // },
   	{
-  		label:"My Classes",
+  		labelEn:"My Classes",
+      labelFr:"Mes Classes",
   	 	page:"myclasses",
   	 	access:['teacher'],
       exclude:[],
@@ -146,7 +163,8 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-home'
   	},
     {
-      label:"Marksheet",
+      labelEn:"Marksheet",
+      labelFr:"Relevé de Notes",
       page:"classmasterMarksheet",
       access:['classmaster'],
       exclude:[],
@@ -154,7 +172,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-pencil'
     },
   	{
-  		label:"Marksheet",
+  		labelEn:"Marksheet",
+      labelFr:"Relevé de Notes",
   	 	page:"marksheet",
   	 	access:['teacher'],
       exclude:['myclasses'],
@@ -162,7 +181,8 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-pencil'
   	},
   	{
-  		label:"Mastersheet",
+  		labelEn:"Mastersheet",
+      labelFr:"Carnet de Notes",
   	 	page:"mastersheet",
   	 	access:['classmaster'],
       exclude:[],
@@ -170,7 +190,8 @@ angular.module('SchoolMan')
   	 	icon:'glyphicon-th-large'
   	},
     {
-      label:"Report Card",
+      labelEn:"Report Card",
+      labelFr:"Bulletin de Notes",
       page:"reportcardGTHS",
       access:['classmaster'],
       exclude:[],
@@ -178,7 +199,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-list-alt'
     },
     {
-      label:"Class Council",
+      labelEn:"Class Council",
+      labelFr:"Conseil de Classe",
       page:"classcouncil",
       access:['classmaster','admin'],
       exclude:[],
@@ -186,7 +208,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-folder-open'
     },
     {
-      label:"Transcript",
+      labelEn:"Transcript",
+      labelFr:"Transcription",
       page:"transcript",
       access:['admin'],
       exclude:[],
@@ -194,7 +217,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-list-alt'
     },
     {
-      label:"User Settings",
+      labelEn:"User Settings",
+      labelFr:"Réglages d'Utilisateurs",
       page:"user",
       access:['classmaster','admin','teacher', 'registrar'],
       exclude:'all',
@@ -202,7 +226,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-cog'
     },
     {
-      label:"Statistics",
+      labelEn:"Statistics",
+      labelFr:"Statistiques",
       page:"classmasterStats",
       access:['classmaster'],
       exclude:[],
@@ -210,7 +235,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-stats'
     },
     {
-      label:"Statistics",
+      labelEn:"Statistics",
+      labelFr:"Statistiques",
       page:"adminStats",
       access:['admin'],
       exclude:[],
@@ -218,7 +244,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-stats'
     },
     {
-      label:"Annual Report",
+      labelEn:"Annual Report",
+      labelFr:"Rapport Annuel",
       page:"annualreport",
       access:['admin'],
       exclude:[],
@@ -226,7 +253,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-stats'
     },
     {
-      label:"Enrollment Report",
+      labelEn:"Enrollment Report",
+      labelFr:"Rapport d'Inscription",
       page:"enrollmentreport",
       access:['admin'],
       exclude:[],
@@ -234,7 +262,8 @@ angular.module('SchoolMan')
       icon:'glyphicon-stats'
     },
     {
-      label:"ID Cards",
+      labelEn:"ID Cards",
+      labelFr:"Cartes d'Identité",
       page:"idcards",
       access:['registrar'],
       exclude:[],

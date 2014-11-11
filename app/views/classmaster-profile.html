@@ -2,7 +2,7 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="ProfileCtrl">
-  <div class="printonly"><h3>Student Profile</h3></div>
+  <div class="printonly"><h3>{{dict.student_profile}}</h3></div>
 
   <table class="table"><tr>
   	<td class="col-md-7" 
@@ -11,10 +11,10 @@
   	</td>
   	<td class="col-md-5">
   		<form class="form-horizontal" role="form">
-  			<h5 style="text-decoration:underline;"><strong>Disciplinary Record</strong></h5>
+  			<h5 style="text-decoration:underline;"><strong>{{dict.disciplinary_record}}</strong></h5>
         <div class="form-group">
           <label for="absence" class="col-sm-7 control-label">
-            Hours of Absence
+            {{dict.hours_of_absence}}
           </label>
           <i class="printonly">{{data.dcard['absence']}}</i>
           <div class="col-sm-5 noprint">
@@ -27,7 +27,7 @@
         </div>
         <div class="form-group">
           <label for="council" class="col-sm-7 control-label">
-            Attended Disciplinary Council
+            {{dict.attended_disciplinary_council}}
           </label>
           <i class="printonly">{{data.dcard['council']}}</i>
           <div class="col-sm-5 noprint">
@@ -40,7 +40,7 @@
         </div>
   			<div class="form-group">
           <label for="warned" class="col-sm-7 control-label">
-            Warned
+            {{dict.warned}}
           </label>
           <i class="printonly">{{data.dcard['warned']}}</i>
           <div class="col-sm-5 noprint">
@@ -53,7 +53,7 @@
         </div>
         <div class="form-group">
           <label for="suspended" class="col-sm-7 control-label">
-            Suspended
+            {{dict.suspended}}
           </label>
           <i class="printonly">{{data.dcard['suspended']}}</i>
           <div class="col-sm-5 noprint">
@@ -66,7 +66,7 @@
         </div>
         <div class="form-group">
           <label for="expelled" class="col-sm-7 control-label">
-            Promotion Status
+            {{dict.promotion_status}}
           </label>
           <div class="col-sm-5">
             <div  class="btn-group">
@@ -115,7 +115,7 @@
           </div>
         </div>
         <h5 style="text-decoration:underline;">
-          <strong>Comments</strong>
+          <strong>{{dict.comments}}</strong>
         </h5>
         <textarea class="form-control noprint" 
                   style="margin-bottom:10px;" 
@@ -123,7 +123,7 @@
                   ng-model="newComment.text"></textarea>
         <button class="btn btn-default pull-right noprint"
                 ng-class="!newComment.isValid() ? 'disabled' : 'tests'"
-                ng-click="addComment()">Add Comment</button>
+                ng-click="addComment()">{{dict.add_comment}}</button>
 
         <table class="table table-striped" style="margin-top:55px;">
           <tr ng-repeat="(commentIndex, comment) in data.comments">

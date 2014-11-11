@@ -8,6 +8,8 @@ function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos, La
     $scope.tempUser = new model.User();
     $scope.date = new Date();
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
+    $scope.validationError = false;
 
 
     $scope.open = Location.open;
@@ -27,7 +29,15 @@ function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos, La
     	$scope.tempUser.save().then(function(success){
         $scope.data.users[success.id] = $scope.tempUser;
     	  $scope.tempUser = new model.User();
+        $scope.validationError = false;
       }).catch(function(error){
+        //handle duplicate users
+        if(error.name === "conflict"){
+          var name = $scope.tempUser.name;
+          $scope.validationError = true;
+          $scope.tempUser = new model.User();
+          $scope.tempUser.name = name;
+        }
         console.log("Could not save user:", error);
       });
     };

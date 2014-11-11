@@ -17,6 +17,7 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
     $scope.userAccess = $routeParams.accessCode;
     $scope.regions = model.SchoolInfo.regions;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
@@ -269,13 +270,13 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
     }
 
     $scope.data.remarks = [
-    	{text:"Excellent", css:"remark-excellent"},
-    	{text:"Very Good", css:"remark-verygood"},
-    	{text:"Good", css:"remark-good"},
-    	{text:"Fair", css:"remark-fair"},
-    	{text:"Average", css:"remark-average"},
-    	{text:"Poor", css:"remark-poor"},
-    	{text:"Very Poor", css:"remark-verypoor"}
+    	{text:"excellent", css:"remark-excellent"},
+    	{text:"very_good", css:"remark-verygood"},
+    	{text:"good", css:"remark-good"},
+    	{text:"fair", css:"remark-fair"},
+    	{text:"average", css:"remark-average"},
+    	{text:"poor", css:"remark-poor"},
+    	{text:"very_poor", css:"remark-verypoor"}
     ];
 
 

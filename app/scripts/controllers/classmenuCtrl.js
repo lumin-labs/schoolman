@@ -11,7 +11,7 @@
 function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, Forms, CourseCatalog, Location, Lang) {
     
     var r = $scope.route = {};
-    var lang = $routeParams.lang;
+    var lang = $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
     $scope.dict = Lang.getDict();
 
     r.page = $scope.page = $routeParams.page;
@@ -42,13 +42,8 @@ function ClassmenuCtrl ($scope, $routeParams, Departments, Subjects, Groups, For
     r.subjects = $scope.subjects = Subjects.getAll();
     r.subject = $scope.subject  = $scope.subjects[$routeParams.subjectId];
 
-    var termLabel = "";
+    var termLabel = lang ==='en' ? "Term" : "Terme";
     
-    if(lang === "fr"){
-      termLabel = "Terme"
-    } else {
-      termLabel = "Term"
-    }
     r.terms = $scope.terms = [
       {name:termLabel + " 1"},
       {name:termLabel + " 2"},

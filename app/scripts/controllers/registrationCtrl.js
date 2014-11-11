@@ -2,8 +2,9 @@
 function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Students, Marksheets, Lang) {
 
     $scope.formIndex = $routeParams.formIndex;
-    $scope.showValidaton = false;
+    $scope.showValidation = false;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     var data = $scope.data = {
     	forms:Forms.all(),
@@ -48,7 +49,7 @@ function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups
             Uid.save(data.uid);
             console.log("Save student: ", success);
             Location.open({page:"registrarProfile", studentId:student._id});
-            $scope.showValidaton = false;
+            $scope.showValidation = false;
             Students.set(student);
             updateMarksheets(student);
         }).catch(function(error){

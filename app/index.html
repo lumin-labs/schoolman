@@ -115,16 +115,16 @@
             <li class="dropdown" >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">{{dict.language}}</a>
               <ul class="dropdown-menu">
-                <li><a ng-click="open({lang:'en'})">English</a></li>
-                <li><a ng-click="open({lang:'fr'})">Français</a></li>
+                <li><a ng-click="changeLanguage('en')">English</a></li>
+                <li><a ng-click="changeLanguage('fr')">Français</a></li>
               </ul>
             </li>
           </ul>
-          <form class="navbar-form navbar-left" ng-if="show.backButton === true">
+          <!-- <form class="navbar-form navbar-left" ng-if="show.backButton === true">
             <button type="submit" class="btn btn-default btn-sm" ng-click="back()">
               <i class="glyphicon glyphicon-arrow-left"></i>
             </button>
-          </form>
+          </form> -->
           
           
         </div><!--/.nav-collapse -->

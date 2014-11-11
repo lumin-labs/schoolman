@@ -85,7 +85,7 @@ angular.module('SchoolMan', [
         // controller:'MainCtrl'
       })
       // Login Pages
-      .when('/:page/:fullname/:accessCode', {
+      .when('/:page/:lang/:fullname/:accessCode', {
         templateUrl:function(p){return getTemplate(p);},
         controller:'LoginCtrl'
       })

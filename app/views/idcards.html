@@ -20,7 +20,7 @@
                 <div class="form-group">
                   <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.form['name']}}   <span class="caret"></span>
+                        {{lang === 'en' ? route.form['nameEn'] : route.form['nameFr']}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
@@ -29,7 +29,7 @@
                         <li class="divider"></li> -->
                         <li ng-repeat="(formIndex, form) in route.forms">
                           <a ng-click="open({formIndex:formIndex})">
-                            {{route.forms[formIndex].name}}
+                            {{lang === 'en' ? route.forms[formIndex].nameEn : route.forms[formIndex].nameFr}}
                           </a>
                         </li>
                       </ul>
@@ -71,13 +71,13 @@
                     </div>
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{data.sides[data.side]}}
+                        {{dict[data.sides[data.side]]}}
                           <span class="caret"></span> 
                       </button>
                       <ul class="dropdown-menu">
-                        <li ng-repeat="(index, side) in data.sides">
-                          <a ng-click="data.side=index">
-                            {{side}}
+                        <li ng-repeat="(sideIndex, side) in data.sides">
+                          <a ng-click="data.side=sideIndex">
+                            {{dict[side]}}
                           </a>
                         </li>
                       </ul>
@@ -100,47 +100,47 @@
         <table><tr><td style="width:5.3in !important;height:6.2in !important; padding-right:.5in">
           <table class="table text-center" style="border:double;">
             <tr >
-              <th colspan="2" style="border:solid 1px;text-align:center">RENEWALS</th>
+              <th colspan="2" style="border:solid 1px;text-align:center">{{dict.renewals | uppercase}}</th>
             </tr>
             <tr >
-              <th style="border:solid 1px;text-align:center">CLASS</th>
-              <th style="border:solid 1px;text-align:center">YEAR</th>
+              <th style="border:solid 1px;text-align:center">{{dict.Class | uppercase}}</th>
+              <th style="border:solid 1px;text-align:center">{{dict.academic_year | uppercase}}</th>
             </tr>
             <tr >
               <td style="border:solid 1px">I</td>
-              <td style="border:solid 1px">20_________<br>Principal</td>
+              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
             </tr>
             <tr >
               <td style="border:solid 1px">II</td>
-              <td style="border:solid 1px">20_________<br>Principal</td>
+              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
             </tr>
             <tr >
               <td style="border:solid 1px">III</td>
-              <td style="border:solid 1px">20_________<br>Principal</td>
+              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
             </tr>
             <tr >
               <td style="border:solid 1px">IV</td>
-              <td style="border:solid 1px">20_________<br>Principal</td>
+              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
             </tr>
             <tr >
               <td style="border:solid 1px">V</td>
-              <td style="border:solid 1px">20_________<br>Principal</td>
+              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
             </tr>
           </table>
         </td><td style="width:5.3in !important">
         
           <table class="table text-center" style="border:double"><tr><td style="height:6.2in !important">
           <br>
-          <p style="font-size:18px;"><b>REPUBLIC OF CAMEROON</b><br>
-          Peace-Work-Fatherland</p>
-          <p style="font-size:18px;">MINISTRY OF SECONDARY EDUCATION</p>
-          <p style="font-size:18px;">REGIONAL DELEGATION FOR THE {{data.schoolInfo.region}}</p>
+          <p style="font-size:18px;"><b>{{dict.REPUBLIC_OF_CAMEROON}}</b><br>
+          {{dict.PeaceWorkFatherland}}</p>
+          <p style="font-size:18px;">{{dict.MINISTRY_OF_SECONDARY_EDUCATION}}</p>
+          <p style="font-size:18px;">{{dict.REGIONAL_DELEGATION_FOR_THE}} {{data.schoolInfo.region}}</p>
           <br>
           <br>
-          <p style="font-size:32px;"><strong>{{pageTitleEnglish}}</strong></p>
+          <p style="font-size:32px;"><strong>{{lang === 'en' ? pageTitleEnglish : pageTitleFrench}}</strong></p>
           <br>
           <br>
-          <p style="font-size:32px;">{{data.schoolInfo.nameEn}}<br>{{data.schoolInfo.subdivision}}, {{data.schoolInfo.division}} DIVISION</p>
+          <p style="font-size:32px;">{{lang === 'en' ? data.schoolInfo.nameEn : data.schoolInfo.nameFr}}<br>{{data.schoolInfo.subdivision}}, {{data.schoolInfo.division}} {{dict.division | uppercase}}</p>
           </td></tr></table>
         </td></tr></table>
       </div>
@@ -157,13 +157,13 @@
               <img src="images/user.svg" height="200" width="200">
             </div>
             <div>
-              <p>I, <u>{{data.schoolInfo.principal}}</u> The Undersigned, Principal of <u>{{data.schoolInfo.nameEn}}</u> hereby certify that <u>{{student.name}}</u> is a student in my institution.</p>
-              <p>Born on <u>{{student.birth | date: "dd MMM yyyy"}}</u> at <u>{{student.birthplace}}</u>
+              <p>{{dict.i}}, <u>{{data.schoolInfo.principal}}</u> {{dict.the_undersigned_principal_of}} <u>{{data.schoolInfo.nameEn}}</u>, {{dict.hereby_certify_that}} <u>{{student.name}}</u> {{dict.is_a_student_in_my_institution}}.</p>
+              <p>{{dict.born_on}} <u>{{student.birth | date: "dd MMM yyyy"}}</u> at <u>{{student.birthplace}}</u>
               <br>
-              {{student.sex === "Male" ? "Son of " : "Daughter of "}}<u>{{student.parentName}}</u>
+              {{student.sex === "Male" ? dict.son_of : dict.daughter_of}} <u>{{student.parentName}}</u>
               <br>
-              Occupation:<u>{{student.parentOccupation}}</u>, Residence: <u>{{student.residence}}</u></p>
-              <p>Reg. No. <u>{{student.id}}</u> Date <u>{{data.currentDate | date:"dd MMM yyyy"}}</u></p>
+              {{dict.occupation}}:<u>{{student.parentOccupation}}</u>, {{dict.residence}}: <u>{{student.residence}}</u></p>
+              <p>{{dict.student_id}} <u>{{student.id}}</u> Date <u>{{data.currentDate | date:"dd MMM yyyy"}}</u></p>
               <br>
               <p>
                 <table>
@@ -171,7 +171,7 @@
                   <td style="padding-right:20px">__________________</td><td>__________________</td>
                 </tr>
                 <tr>
-                  <td style="padding-right:20px">Student Signature</td><td>Principal Signature</td>
+                  <td style="padding-right:20px">{{dict.students_signature}}</td><td>{{dict.principals_signature}}</td>
                 </table>
               </p>
   

@@ -12,20 +12,24 @@
       {{data.groups[data.student.groupId].name}}</div>
     <div class="col-sm-9 noprint">
       <div class="btn-group">
-        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
+        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle
+                {{showValidation && data.student.formIndex === null ? 'invalid-input' : ''}}" 
                 data-toggle="dropdown">
-          {{data.student.formIndex || data.student.formIndex === 0 ? data.forms[data.student.formIndex].name : dict.select_form}}  
+          {{data.student.formIndex || data.student.formIndex === 0 ? 
+                (lang === 'en' ? data.forms[data.student.formIndex].nameEn : data.forms[data.student.formIndex].nameFr)
+                 : dict.select_form}}  
           &nbsp;<span ng-if="editing" class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           <li ng-repeat="(formIndex, form) in data.forms">
-            <a ng-href="" ng-click="data.student.formIndex=formIndex">{{form.name}}</a>
+            <a ng-href="" ng-click="data.student.formIndex=formIndex">{{lang === 'en' ? form.nameEn : form.nameFr}}</a>
           </li>
         </ul>
       </div>
       <!-- Department Dropdown -->
       <div class="btn-group">
-        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle
+          {{showValidation && data.student.deptId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
           {{data.student.deptId ? data.departments[data.student.deptId].name : dict.select_department}} 
           &nbsp;<span ng-if="editing" class="caret"></span>
         </button>
@@ -37,7 +41,8 @@
       </div>
       <!-- Group Dropdown -->
       <div class="btn-group">
-        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle
+            {{showValidation && data.student.groupId === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
           {{data.student.groupId ? data.groups[data.student.groupId].name : dict.select_group}} 
           &nbsp;<span ng-if="editing" class="caret"></span>
         </button>
@@ -56,7 +61,8 @@
       ({{getOwed() | currency:"" || ""}})</div>
     <div class="col-sm-9 noprint">
       <div class="btn-group">
-        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
+        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle
+          {{showValidation && data.student.feeId === null ? 'invalid-input' : ''}}" 
                 data-toggle="dropdown">
           <span ng-if="data.student.feeGroup !== ''">
             {{data.student.feeId ? data.fees[data.student.feeId].name : dict.select_fee}} 
@@ -81,7 +87,7 @@
     <div class="col-sm-9 printonly">{{data.student.name}}</div>
     <div class="col-sm-9 noprint">
       <input id="studentName"
-           class="form-control" 
+           class="form-control {{showValidation && data.student.name === '' ? 'invalid-input' : ''}}" 
            placeholder="{{dict.student_name}}"
            ng-readonly="!editing"
            ng-model="data.student.name">
@@ -92,7 +98,7 @@
     <div class="col-sm-9 printonly">{{data.student.birth | date:'dd-MM-yyyy'}}</div>
     <div class="col-sm-9 noprint">
       <input id="birthdate" 
-           class="form-control" 
+           class="form-control {{showValidation && data.student.birth === null ? 'invalid-input' : ''}}" 
            placeholder="{{dict.date_of_birth}}" 
            ng-model="data.student.birth"
            ng-readonly="!editing"
@@ -112,17 +118,21 @@
   </div>
   <div class="form-group">
     <label for="gender" class="col-sm-3 control-label">{{dict.sex}}</label>
-    <div class="col-sm-9 printonly">{{data.student.sex}}</div>
+    <div class="col-sm-9 printonly">{{dict[data.student.sex]}}</div>
     <div class="col-sm-9 noprint">
       <div class="btn-group">
-        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
+        <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle
+          {{showValidation && data.student.sex === '' ? 'invalid-input' : ''}}" 
                 data-toggle="dropdown">
-          <span>{{data.student.sex}}</span>
+          <span>{{dict[data.student.sex]}}</span>
           &nbsp;<span ng-if="editing" class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li ng-repeat="gender in ['Female', 'Male']">
-            <a ng-click="data.student.sex = gender">{{gender}}</a>
+          <li>
+            <a ng-click="data.student.sex = 'Female'">{{dict.female}}</a>
+          </li>
+          <li>
+            <a ng-click="data.student.sex = 'Male'">{{dict.male}}</a>
           </li>
         </ul>
       </div>
@@ -201,5 +211,9 @@
         {{dict.cancel}}
       </button>
     </div>
+  </div>
+  <div class="alert alert-sm alert-warning noprint" style="height:45px;padding-top:10px;" ng-if="showValidation">
+    <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
+    <strong>{{dict.student_not_saved}}.</strong> {{dict.please_fill_in_all_fields}}.
   </div>
 </form>

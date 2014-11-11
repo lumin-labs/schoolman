@@ -2,6 +2,7 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="RegistrationCtrl">
+	<div class="printonly"><h3>{{dict.registration}}</h3></div>
 
   <div class="row">
   	<div class="col-md-7" style="border-right:solid 0px #ddd;">
@@ -18,12 +19,13 @@
 			      <div class="btn-group">
 					    <button class="btn btn-sm btn-default dropdown-toggle
 					    {{showValidation && newStudent.formIndex === null ? 'invalid-input' : ''}}" data-toggle="dropdown">
-					      {{newStudent.formIndex || newStudent.formIndex === 0 ? data.forms[newStudent.formIndex].name : dict.select_form}}  
+					      {{newStudent.formIndex || newStudent.formIndex === 0 ? 
+					      	(lang === 'en' ? data.forms[newStudent.formIndex].nameEn : data.forms[newStudent.formIndex].nameFr) : dict.select_form}}  
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
 					      <li ng-repeat="(formIndex, form) in data.forms">
-					        <a ng-href="" ng-click="newStudent.formIndex=formIndex">{{form.name}}</a>
+					        <a ng-href="" ng-click="newStudent.formIndex=formIndex">{{lang === 'en' ? form.nameEn : form.nameFr}}</a>
 					      </li>
 					    </ul>
 					  </div>
@@ -111,17 +113,20 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="feeGroup" class="col-sm-3 control-label">{{dict.sex}}</label>
+			    <label for="sex" class="col-sm-3 control-label">{{dict.sex}}</label>
 			    <div class="col-sm-9">
 			      <div class="btn-group">
 			        <button class=" btn btn-sm btn-default dropdown-toggle 
 			        {{showValidation && newStudent.sex === '' ? 'invalid-input' : ''}}" data-toggle="dropdown">
-			          <span>{{newStudent.sex || dict.select_sex}}</span>
+			          <span>{{dict[newStudent.sex] || dict.select_sex}}</span>
 			          &nbsp;<span class="caret"></span>
 			        </button>
 			        <ul class="dropdown-menu">
-			          <li ng-repeat="sex in ['Female', 'Male']">
-			            <a ng-click="newStudent.sex = sex">{{sex}}</a>
+			          <li>
+			            <a ng-click="newStudent.sex = 'Female'">{{dict.female}}</a>
+			          </li>
+			          <li>
+			            <a ng-click="newStudent.sex = 'Male'">{{dict.male}}</a>
 			          </li>
 			        </ul>
 			      </div>
@@ -132,7 +137,7 @@
 			    <label for="parentName" class="col-sm-3 control-label">{{dict.parent_name}}</label>
 			    <div class="col-sm-9">
 			      <input id="parentName" 
-			      		 class="form-control {{showValidation && newStudent.parentName === '' ? 'invalid-input' : ''}}" 
+			      		 class="form-control" 
 			      		 placeholder="{{dict.parent_name}}" 
 			      		 ng-model="newStudent.parentName">
 			    </div>
@@ -150,7 +155,7 @@
 			    <label for="parentPhone" class="col-sm-3 control-label">{{dict.parent_phone}}</label>
 			    <div class="col-sm-9">
 			      <input id="parentPhone"
-			      		 class="form-control {{showValidation && newStudent.parentPhone === '' ? 'invalid-input' : ''}}" 
+			      		 class="form-control" 
 			      		 placeholder="{{dict.parent_phone}}" 
 			      		 ng-model="newStudent.parentPhone">
 			    </div>
@@ -168,7 +173,7 @@
 			    <label for="parentEmail" class="col-sm-3 control-label">{{dict.parent_email}}</label>
 			    <div class="col-sm-9">
 			      <input id="parentEmail" 
-			             class="form-control pull-left {{showValidation && newStudent.parentEmail === '' ? 'invalid-input' : ''}}" 
+			             class="form-control pull-left" 
 					     placeholder="{{dict.parent_email}}"
 					     ng-model="newStudent.parentEmail">
 			    </div>
@@ -186,9 +191,9 @@
 			      </button>
 			    </div>
 			  </div>
-			  <div class="alert alert-sm alert-warning" style="height:45px;padding-top:10px;" ng-if="showValidation">
+			  <div class="alert alert-sm alert-warning noprint" style="height:45px;padding-top:10px;" ng-if="showValidation">
    				<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
-   				<strong>{{dict.student_not_added}}</strong> {{dict.please_fill_in_all_fields}}
+   				<strong>{{dict.student_not_added}}.</strong> {{dict.please_fill_in_all_fields}}.
    			  </div>
 			</form>
   	</div>

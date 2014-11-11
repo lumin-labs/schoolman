@@ -10,12 +10,14 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
     $scope.settings = settings.get();
     $scope.activePage = $routeParams.page;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;
 
       if($scope.schoolInfo.version === "gths"){
-        $scope.User.roles.classmaster.name = "Head of Dept";
+        $scope.User.roles.classmaster.nameEn = "Head of Dept";
+        $scope.User.roles.classmaster.nameFr = "Chef du Dépt";
       }
     }).catch(function(error){
       console.log("failed to load school info", error);

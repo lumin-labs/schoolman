@@ -2,8 +2,8 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="StatsCtrl">
     <div class="printonly" ng-controller="ClassmenuCtrl">
-      <h3>School Statistics</h3>
-      <h5>{{route.forms[queryParams.formIndex].name || "All Forms"}} {{route.departments[queryParams.deptId].name || "All Departments"}}, {{route.terms[termIndex].name || "All Terms"}}</h5>
+      <h3>{{dict.school_statistics}}</h3>
+      <h5>{{(lang === 'en' ? route.forms[queryParams.formIndex].nameEn : route.forms[queryParams.formIndex].nameFr) || dict.all_forms}} {{route.departments[queryParams.deptId].name || dict.all_departments}}, {{route.terms[termIndex].name || dict.all_terms}}</h5>
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">
@@ -25,16 +25,16 @@
                     <!-- Form Dropdown -->
                     <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.forms[queryParams.formIndex].name || "All Forms"}}   <span class="caret"></span>
+                        {{(lang === 'en' ? route.forms[queryParams.formIndex].nameEn : route.forms[queryParams.formIndex].nameFr) || dict.all_forms}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <li>
-                          <a ng-click="setQuery({formIndex:'all'})">All Forms</a>
+                          <a ng-click="setQuery({formIndex:'all'})">{{dict.all_forms}}</a>
                         </li>
                         <li class="divider"></li>
                         <li ng-repeat="(formIndex, form) in route.forms">
                           <a ng-click="setQuery({formIndex:formIndex})">
-                            {{route.forms[formIndex].name}}
+                            {{lang === 'en' ? route.forms[formIndex].nameEn : route.forms[formIndex].nameFr}}
                           </a>
                         </li>
                       </ul>
@@ -42,11 +42,11 @@
                     <!-- Department Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{route.departments[queryParams.deptId].name || "All Departments"}}   <span class="caret"></span>
+                        {{route.departments[queryParams.deptId].name || dict.all_departments}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <li>
-                          <a ng-click="setQuery({deptId:'all'})">All Departments</a>
+                          <a ng-click="setQuery({deptId:'all'})">{{dict.all_departments}}</a>
                         </li>
                         <li class="divider"></li>
                         <li ng-repeat="(deptId, dept) in route.departments">
@@ -59,7 +59,7 @@
                     <!-- Term Dropdown -->
                     <div  class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                         {{route.terms[termIndex].name || "All Terms"}}   <span class="caret"></span>
+                         {{route.terms[termIndex].name || dict.all_terms}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <!-- <li>
@@ -67,13 +67,13 @@
                         </li>
                         <li class="divider"></li> -->
                         <li>
-                          <a ng-click="data.stats = getClassmasterStats(queryParams, 3)">All Terms
+                          <a ng-click="data.stats = getClassmasterStats(queryParams, 3)">{{dict.all_terms}}
                           </a>
                         </li>
                         <li class="divider"></li>
                         <li ng-repeat="(termInd, term) in [1, 2, 3]">
                           <a ng-click="data.stats = getClassmasterStats(queryParams, termInd)">
-                            Term {{term}}
+                            {{dict.term}} {{term}}
                           </a>
                         </li>
                       </ul>
@@ -90,25 +90,25 @@
 			<thead>
 				<tr>
 					<th></th>
-          <th style="text-align:center" colspan="3">Number Enrolled</th>
-					<th style="text-align:center" colspan="3">Number Sat</th>
-          <th style="text-align:center" colspan="3">Percent Passing</th>
-          <th style="text-align:center" colspan="3">Percent Failing</th>
+          <th style="text-align:center" colspan="3">{{dict.number_enrolled}}</th>
+          <th style="text-align:center" colspan="3">{{dict.number_present}}</th>
+          <th style="text-align:center" colspan="3">{{dict.percent_passing}}</th>
+          <th style="text-align:center" colspan="3">{{dict.percent_failing}}</th>
 				</tr>
         <tr>
-          <th>Subject</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
-          <th>Male</th>
-          <th>Female</th>
-          <th>Total</th>
+          <th>{{dict.subject}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
+          <th>{{dict.male}}</th>
+          <th>{{dict.female}}</th>
+          <th>{{dict.total}}</th>
         </tr>
 			</thead>
 			<tbody>

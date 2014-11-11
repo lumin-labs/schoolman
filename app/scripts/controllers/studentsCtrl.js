@@ -23,6 +23,7 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
     $scope.groupId = $routeParams.groupId;
     $scope.deptId = $routeParams.deptId;
     $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     $scope.queryParams = {
         formIndex:$scope.formIndex,

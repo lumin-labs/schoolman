@@ -8,7 +8,8 @@ schoolman.config(['modelProvider', function(model){
         return new Form();
       }
 
-      this.name = spec.name || ""; 
+      this.nameEn = spec.nameEn || "";
+      this.nameFr = spec.nameFr || ""; 
       
     
     };

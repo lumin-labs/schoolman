@@ -16,34 +16,28 @@
 		    </div>
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:0px;">
 		      <form class="navbar-form navbar-left" role="search" style="padding-left:0px;">
-		        <div class="form-group">
+		        <table><tr><td>
 		        	<table>
 		        		<tr>
 		        			<td style="padding-left:10px;padding-right:15px;">
 		        				<input style="width:380px;" type="text" class="form-control" placeholder="{{dict.full_name}}" ng-model="tempUser.fullname">
 		        			</td>
-		        			<!-- <td style="width:140px;border-left:solid 1px #ddd;" 
-		        			    class="text-center" 
-		        			    ng-repeat="(accessKey, accessBool) in tempUser.access">
-										<button ng-click="tempUser.toggleAccess(accessKey)"
-												class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-											<i ng-if="!tempUser.hasAccess(accessKey)" 
-											   class="glyphicon glyphicon-minus" 
-											   style="color:red;"></i>
-											 <i ng-if="tempUser.hasAccess(accessKey)" 
-										   class="glyphicon glyphicon-ok" 
-										   style="color:green;"></i>
-										</button>
-									</td> -->
 		        		</tr>
 		        	</table>
-		        </div>
-
-		        <button type="submit" 
-		                class="btn btn-default {{tempUser.validates() ? '' : 'disabled'}}" 
-		                ng-click="addUser()">
-		        	{{dict.add_user}}
-		        </button>
+		        </td>
+		        <td>
+			        <button type="submit" 
+			                class="btn btn-default {{tempUser.validates() ? '' : 'disabled'}}" 
+			                ng-click="addUser()">
+			        	{{dict.add_user}}
+			        </button>
+			    </td>
+			    <td>
+			        <div class="alert alert-sm alert-warning noprint" style="height:25px;padding-top:0px;" ng-if="validationError">
+						<i class="glyphicon glyphicon-exclamation-sign"></i>
+						<strong>{{dict.user}} {{dict.not_added}}.</strong> {{dict.user_already_exists}}.
+			  		</div>
+			  	</td></tr></table>
 		      </form>
 		    </div>
 		  </div>
@@ -59,7 +53,7 @@
 							{{dict.name}}</th>
 							<th class="text-center" 
 							    style="width:105px;"
-							    ng-repeat="(roleKey, role) in User.roles">{{role.name}}</th>
+							    ng-repeat="(roleKey, role) in User.roles">{{lang === 'en' ? role.nameEn : role.nameFr}}</th>
 							
 							<th class="noprint" style="width:80px">{{dict.remove}}</th>
 						</tr>

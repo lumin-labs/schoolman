@@ -27,15 +27,15 @@ schoolman.config(['modelProvider', function(model){
       },{
         key:"parentName",
         type:"string",
-        required:true
+        required:false
       },{
         key:"parentPhone",
         type:"string",
-        required:true
+        required:false
       },{
         key:"parentEmail",
         type:"string",
-        required:true
+        required:false
       },{
         key:"formIndex",
         type:"string",
