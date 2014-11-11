@@ -11,6 +11,7 @@ angular.module('SchoolMan')
       labelFr:"Inscription",
       access:['admin', 'registrar'],
       dependencies:[],
+      location:"",
       icon:"glyphicon-cog",
       tabs: [
         {
@@ -83,6 +84,7 @@ angular.module('SchoolMan')
       labelFr:"Finance",
       access:['admin', 'registrar'],
       dependencies:["Main"],
+      location:"/extensions/Finance",
       icon:"glyphicon-envelope",
       tabs: [
         {
@@ -107,6 +109,7 @@ angular.module('SchoolMan')
       labelFr:"Les Notes",
       access:['admin', 'classmaster', 'teacher'],
       dependencies:["Main"],
+      location:"/extensions/ReportCard",
       icon:"glyphicon-pencil",
       tabs: [
         {
@@ -172,6 +175,7 @@ angular.module('SchoolMan')
       labelFr:"Cartes d'Identité",
       access:['registrar'],
       dependencies:["Main"],
+      location:"/extension/IDCard",
       icon:"glyphicon-print",
       tabs: [
         {
@@ -188,6 +192,7 @@ angular.module('SchoolMan')
       labelFr:"Rapports",
       access:['admin'],
       dependencies:["Main", "ReportCard"],
+      location:"/extension/Reports",
       icon:"glyphicon-stats",
       tabs: [
         {
@@ -211,6 +216,7 @@ angular.module('SchoolMan')
       labelFr:"Personnel",
       access:['admin', 'registrar'],
       dependencies:["Main"],
+      location:"/extension/Staffing",
       icon:"glyphicon-book",
       tabs: [
         //  {
@@ -255,6 +261,7 @@ angular.module('SchoolMan')
       labelFr:"Transcription",
       access:['admin'],
       dependencies:["Main"],
+      location:"/extension/Transcript",
       icon:"glyphicon-list-alt",
       tabs: [
         {
@@ -271,6 +278,7 @@ angular.module('SchoolMan')
       labelFr:"Programme",
       access:['admin'],
       dependencies:["Main", "ReportCard"],
+      location:"/extension/TimeTable",
       icon:"glyphicon-calendar",
       tabs: [
         
