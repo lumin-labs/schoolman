@@ -98,9 +98,9 @@ angular.module('SchoolMan')
     },
     {
       label:"Staff Profile",
-      page:"staffProfile",
+      page:"staffprofile",
       access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
+      exclude:['registration', 'salarys', 'staffs', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
       modes:["gths", "ghs"],
       icon:'glyphicon-user'
     },

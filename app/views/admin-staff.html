@@ -5,7 +5,7 @@
 			<div ng-controller="ClassmenuCtrl">
 				<div class="printonly">
 					<h3>Staffs</h3>
-					<h5>{{data.forms[queryParams.formIndex].name || "All Forms"}}{{data.groups[queryParams.groupId].name || " All Groups"}} {{data.departments[queryParams.deptId].name || "All Depts"}}, {{data.fees[queryParams.feeId].name  || "All"}} Fees</h5>
+					<h5>{{data.groups[queryParams.groupId].name || " All Groups"}} {{data.departments[queryParams.deptId].name || "All Depts"}}, {{data.salarys[queryParams.salaryId].name  || "All"}} Salarys</h5>
 				</div>
 			  <nav class="navbar navbar-default" role="navigation">
 				  <div class="container-fluid">
@@ -39,20 +39,20 @@
 									    </button>
 									    <div class="dropdown-menu" style="padding:10px;">
 									      <ul class="nav nav-tabs">
-												  <li class="{{moveTab === 'form' ? 'active' : ''}}">
+												 <!--  <li class="{{moveTab === 'form' ? 'active' : ''}}">
 												    <a ng-mouseover="moveTab = 'form'">Form</a>
-												  </li>
+												  </li> -->
 												  <li class="{{moveTab === 'dept' ? 'active' : ''}}">
 												    <a ng-mouseover="moveTab = 'dept'">Dept</a>
 												  </li>
 												  <li class="{{moveTab === 'group' ? 'active' : ''}}">
 												    <a ng-mouseover="moveTab = 'group'">Class</a>
 												  </li>
-												  <li class="{{moveTab === 'fee' ? 'active' : ''}}">
-												    <a style="margin-right:0px;" ng-mouseover="moveTab = 'fee'">Fee</a>
+												  <li class="{{moveTab === 'salary' ? 'active' : ''}}">
+												    <a style="margin-right:0px;" ng-mouseover="moveTab = 'salary'">Salary</a>
 												  </li>
 												</ul>
-										    <ul class="nav nav-stacked" 
+										   <!--  <ul class="nav nav-stacked" 
 										        style="border:solid 1px #ddd;border-top:0px;width:258px;" 
 										        ng-if="moveTab==='form'">
 										      <li ng-repeat="(formIndex, form) in data.forms">
@@ -60,7 +60,7 @@
 										        	{{data.forms[formIndex].name}}
 										        </a>
 										      </li>
-										    </ul>
+										    </ul> -->
 										    <ul class="nav nav-stacked" 
 										        style="border:solid 1px #ddd;border-top:0px;width:258px;" 
 										        ng-if="moveTab==='dept'">
@@ -81,10 +81,10 @@
 										    </ul>
 										    <ul class="nav nav-stacked" 
 										        style="border:solid 1px #ddd;border-top:0px;width:258px;" 
-										        ng-if="moveTab==='fee'">
-										      <li ng-repeat="(feeId, fee) in data.fees">
-										        <a ng-click="moveSelected({feeId:feeId})">
-										        	{{data.fees[feeId].name}}
+										        ng-if="moveTab==='salary'">
+										      <li ng-repeat="(salaryId, salary) in data.salarys">
+										        <a ng-click="moveSelected({salaryId:salaryId})">
+										        	{{data.salarys[salaryId].name}}
 										        </a>
 										      </li>
 										    </ul>
@@ -104,7 +104,7 @@
 						          			 placeholder="Search"
 						          		 	 ng-model="search.$"> -->
 						          <!-- Form Dropdown -->
-										  <div class="input-group-btn">
+										 <!--  <div class="input-group-btn">
 										    <button style="border-radius:0px;"
 										    			  class="btn btn-md btn-default dropdown-toggle" 
 										            data-toggle="dropdown">
@@ -121,7 +121,7 @@
 										        </a>
 										      </li>
 										    </ul>
-										  </div>
+										  </div> -->
 										  <!-- Department Dropdown -->
 										  <div  class="input-group-btn">
 										    <button style="border-radius:0px;border-left:0px;"
@@ -164,16 +164,16 @@
 										  <!-- Fee Dropdown -->
 										  <div  class="input-group-btn" >
 										    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-										      {{data.fees[queryParams.feeId].name || "All Fees"}} <span class="caret"></span>
+										      {{data.salarys[queryParams.salaryId].name || "All Salarys"}} <span class="caret"></span>
 										    </button>
 										    <ul class="dropdown-menu">
 										    	<li>
-										    		<a ng-click="setQuery({feeId:'all'})">All Fees</a>
+										    		<a ng-click="setQuery({salaryId:'all'})">All Salarys</a>
 										    	</li>
 										    	<li class="divider"></li>
-										      <li ng-repeat="(feeId, fee) in data.fees">
-										        <a ng-click="setQuery({feeId:feeId})">
-										        	{{data.fees[feeId].name}} ({{data.fees[feeId].schoolAmount + data.fees[feeId].ptaAmount| currency:""}})
+										      <li ng-repeat="(salaryId, salary) in data.salarys">
+										        <a ng-click="setQuery({salaryId:salaryId})">
+										        	{{data.salarys[salaryId].name}} ({{data.salarys[salaryId].salaryAmount + data.salarys[salaryId].socailinsuranceAmount| currency:""}})
 										        </a>
 										      </li>
 										    </ul>
@@ -200,7 +200,7 @@
 					<th>Staff Phone</th>
 					<th>Staff Email</th>
 					<th>Dept.</th>
-					<th>Class</th>
+					<!-- <th>Class</th> -->
 					<th>Salary Due</th>
 				</tr>
 			</thead>
@@ -228,7 +228,7 @@
 					<td>{{data.departments[staff.deptId].name}}</td>
 					<td>{{data.groups[staff.groupId].name}}</td>
 					<td>
-						{{data.fees[staff.feeId].schoolAmount + data.fees[staff.feeId].ptaAmount - staff.totalPaid | currency:""}}
+						{{data.salarys[staff.salaryId].salaryAmount + data.salarys[staff.salaryId].socailinsuranceAmount - staff.totalPaid | currency:""}}
 					</td>
 					<!-- <td class="promotion">
 						<div  class="btn-group"> -->
@@ -295,7 +295,7 @@
 					<td>{{data.departments[staff.deptId].name}}</td>
 					<td>{{data.groups[staff.groupId].name}}</td>
 					<td>
-						{{data.fees[staff.feeId].schoolAmount + data.fees[staff.feeId].ptaAmount - staff.totalPaid | currency:""}}
+						{{data.salarys[staff.salaryId].salaryAmount + data.salarys[staff.salaryId].socailinsuranceAmount - staff.totalPaid | currency:""}}
 					</td>
 					<!-- <td class="promotion">
 						<div  class="btn-group"> -->

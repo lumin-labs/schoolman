@@ -1,15 +1,16 @@
 'use strict';
-function StaffregistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Staffs, Marksheets, Lang) {
+function StaffregistrationCtrl($scope, $routeParams,  Uid,Departments, Groups, Salarys, Location, model, Staffs, Marksheets, Lang) {
 
-    $scope.formIndex = $routeParams.formIndex;
+    // $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
     $scope.dict = Lang.getDict();
+    
 
     var data = $scope.data = {
-    	forms:Forms.all(),
+    	// forms:Forms.all(),
     	departments:Departments.getAll(),
     	groups:Groups.getAll(),
-    	fees:Fees.getAll(),
+    	Salarys:Salarys.getAll(),
         uid:null
     };
     angular.forEach()
@@ -24,24 +25,24 @@ function StaffregistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, G
 
     //update the marksheets once a student has been created -- otherwise mastersheet might
     //display incorrect totals
-    var updateMarksheets = function(staff){
-        var params = {
-            formIndex: staff.formIndex,
-            deptId: staff.deptId,
-            groupId: staff.groupId
-        }
-        Marksheets.query(params).then(function(marksheets){
-            angular.forEach(marksheets, function(marksheet, marksheetId){
-                marksheet.table[staff._id] = ["","","","","",""];
-                marksheet.save().then(function(success){
-                }).catch(function(error){
-                    console.log("Error saving marksheet with new staff", error);
-                })
-            })
-        }).catch(function(error){
-            console.log("Failed to retreive marksheets", error);
-        })
-    }
+    // var updateMarksheets = function(staff){
+    //     var params = {
+    //         formIndex: staff.formIndex,
+    //         deptId: staff.deptId,
+    //         groupId: staff.groupId
+    //     }
+    //     Marksheets.query(params).then(function(marksheets){
+    //         angular.forEach(marksheets, function(marksheet, marksheetId){
+    //             marksheet.table[staff._id] = ["","","","","",""];
+    //             marksheet.save().then(function(success){
+    //             }).catch(function(error){
+    //                 console.log("Error saving marksheet with new staff", error);
+    //             })
+    //         })
+    //     }).catch(function(error){
+    //         console.log("Failed to retreive marksheets", error);
+    //     })
+    // }
 
     $scope.add = function(staff){
         staff.save().then(function(success){
@@ -50,7 +51,7 @@ function StaffregistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, G
             Location.open({page:"registrarProfile", staffId:staff._id});
             $scope.showValidaton = false;
             Staffs.set(staff);
-            updateMarksheets(staff);
+            // updateMarksheets(staff);
         }).catch(function(error){
             $scope.showValidation = true;
             console.log("Failed to save staff: ", error);
@@ -60,16 +61,16 @@ function StaffregistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, G
 
 
     $scope.clearForm = function(staff){
-        staff.formIndex = null;
+        // staff.formIndex = null;
         staff.deptId = null;
         staff.groupId = null;
-        staff.feeId = null;
+        staff.salaryId = null;
         staff.name = "";
         staff.birth = null;
         staff.sex = "";
-        staff.parentName = "";
-        staff.parentPhone = "";
-        staff.parentEmail = "";
+        // staff.parentName = "";
+        staff.staffPhone = "";
+        staff.staffEmail = "";
     }
 
 
@@ -78,6 +79,6 @@ function StaffregistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, G
 
 
   }
-  StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'Uid', 'Forms', 'Departments', 'Groups', 'Fees', 'Location', 'model', 'Staffs', 'Marksheets', 'Lang'];
+  StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'Uid', 'Departments', 'Groups', 'Salarys', 'Location', 'model', 'Staffs', 'Marksheets', 'Lang'];
   angular.module('SchoolMan').controller('StaffregistrationCtrl', StaffregistrationCtrl);
 

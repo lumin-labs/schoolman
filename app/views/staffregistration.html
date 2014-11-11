@@ -35,8 +35,7 @@
 					      &nbsp;<span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li ng-repeat="(deptId, dept) in data.departments"
-					          ng-if="dept.forms[newStaff.formIndex] === 1">
+					      <li ng-repeat="(deptId, dept) in data.departments">
 					        <a ng-click="newStaff.deptId = deptId">{{dept.name}}</a>
 					      </li>
 					    </ul>
@@ -169,8 +168,8 @@
 			    <div class="col-sm-9">
 			      <input id="staffEmail" 
 			             class="form-control pull-left {{showValidation && newStaff.staffEmail === '' ? 'invalid-input' : ''}}" 
-					     placeholder="Staff EMail"
-					     ng-model="newStaff.parentEmail">
+					     placeholder="Staff email"
+					     ng-model="newStaff.staffEmail">
 			    </div>
 			  </div>
 			  <br>

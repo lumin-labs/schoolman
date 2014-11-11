@@ -1,16 +1,16 @@
 'use strict';
 
-function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Staffs, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
+function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Salarys, Groups, Marksheets, Staffregistrar, Subjects, Payments, Staffs, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
   	$scope.courseId = CourseCatalog.getCourseId($routeParams);
 
     var data = $scope.data = {
-        forms:Forms.all(),
+        // forms:Forms.all(),
         departments:Departments.getAll(),
         groups:Groups.getAll(),
-        fees:Fees.getAll(),
+        salarys:Salarys.getAll(),
         subjects:Subjects.getAll(),
         staffs:[],
         selected:{},
@@ -19,15 +19,15 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups
         pages:[]
     };
 
-    $scope.formIndex = $routeParams.formIndex;
+    // $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
     $scope.deptId = $routeParams.deptId;
 
     $scope.queryParams = {
-        formIndex:$scope.formIndex,
+        // formIndex:$scope.formIndex,
         groupId:$scope.groupId,
         deptId:$scope.deptId,
-        feeId:"all"
+        salaryId:"all"
     }
 
     var reports = {};
@@ -87,7 +87,7 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups
           //});
 
           // add students class to reports
-          var staffsClass = [staff.formIndex, staff.deptId, staff.groupId];
+          // var staffsClass = [staff.formIndex, staff.deptId, staff.groupId];
           //console.log("reports/class councils", reports, classCouncils, studentsClass);
             
           
@@ -120,19 +120,18 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups
 
             var reportquery = {
               reports: Marksheets.getReports({
-                formIndex:params.formIndex,
+                // formIndex:params.formIndex,
                 deptId:params.deptId,
                 groupId:params.groupId
             })
             }
             var councilquery = {
               classcouncil: ClassCouncils.get(model.ClassCouncil.generateID({
-                formIndex:params.formIndex,
                 deptId:params.deptId,
                 groupId:params.groupId
               }))
             }
-            var staffsClass = [params.formIndex, params.deptId, params.groupId];
+            var staffsClass = [params. params.deptId, params.groupId];
 
             // Get reports and classCouncils
             $q.all(councilquery).then(function(data){
@@ -161,9 +160,6 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups
       var params = angular.copy(staffsClass);
       angular.forEach(params, function(value, key){
         if(value === "all"){
-          if(key === "formIndex"){
-            params[key] = data.forms;
-          }
           if(key === "deptId"){
             params[key] = data.departments;
           }
@@ -176,28 +172,24 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups
         }
       });
 
-      angular.forEach(params.formIndex, function(form, formKey){
         angular.forEach(params.deptId, function(dept, deptKey){
           angular.forEach(params.groupId, function(group, groupKey){
             //console.log("formkey:", formKey, form);
-            if(form.name){
-              form = formKey;
-            }
             if(group._id){
               group = group._id;
             }
             if(dept._id){
               dept = dept._id;
             }
-            if(!(reports.hasOwnProperty(staffsClass) && classCouncils.hasOwnProperty(staffsClass))){
-              getReports({formIndex:form,deptId:dept,groupId:group});
-            }
+            // if(!(reports.hasOwnProperty(staffsClass) && classCouncils.hasOwnProperty(staffsClass))){
+            //   getReports({formIndex:form,deptId:dept,groupId:group});
+            // }
             else{
               updateStaffs();
             }
           })
         })
-      })
+      
 
 
       //var newArray = {};
@@ -237,7 +229,7 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups
         angular.forEach(data.staffs, function(staff, $index){
             if(data.selected[staff._id] === "1"){
                 angular.forEach(params, function(value, key){
-                    if(key === 'formIndex' || key === 'groupId' || key === 'deptId'){
+                    if(key === 'groupId' || key === 'deptId'){
                       tagged.push(staff);
                     }
                     staff[key] = value;
@@ -315,5 +307,5 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups
 
 
   }
-  StaffsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Registrar', 'Subjects', 'Payments', 'Staffs', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS'];
+  StaffsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Salarys','Groups', 'Marksheets', 'Staffregistrar', 'Subjects', 'Payments', 'Staffs', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS'];
   angular.module('SchoolMan').controller('StaffsCtrl', StaffsCtrl);

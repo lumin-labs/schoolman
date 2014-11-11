@@ -25,15 +25,11 @@ schoolman.config(['modelProvider', function(model){
         type:"string",
         required:true
       },{
-        key:"parentName",
+        key:"staffPhone",
         type:"string",
         required:true
       },{
-        key:"parentPhone",
-        type:"string",
-        required:true
-      },{
-        key:"parentEmail",
+        key:"staffEmail",
         type:"string",
         required:true
       },{
@@ -49,7 +45,7 @@ schoolman.config(['modelProvider', function(model){
         type:"string",
         required:true
       },{
-        key:"feeId",
+        key:"salaryId",
         type:"string",
         required:true
       },{
@@ -66,10 +62,6 @@ schoolman.config(['modelProvider', function(model){
         required:false
       },{
         key:"residence",
-        type:"number",
-        required:false
-      },{
-        key:"parentOccupation",
         type:"number",
         required:false
       }],
@@ -95,10 +87,10 @@ schoolman.config(['modelProvider', function(model){
     this.staffName = "";
     this.staffPhone = "";
     this.staffEmail = "";
-    this.formIndex = spec.formIndex || null;  //Integer
+    // this.formIndex = spec.formIndex || null;  //Integer
     this.deptId = spec.deptId || null; //Integer
     this.groupId = spec.groupId || null; //Integer
-    this.salaryId = spec.feeId || null;
+    this.salaryId = spec.salaryId || null;
     this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
       2014:0
     }; 
