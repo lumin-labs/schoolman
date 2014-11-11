@@ -8,12 +8,12 @@
   	  <table class="table">
   	  	<thead>
   	  		<tr>
-  	  			<td ng-repeat="role in roles" ng-if="role.name !== 'Sales'">{{role.name}}</td>
+  	  			<td ng-repeat="role in roles" ng-if="role.nameEn !== 'Sales'">{{role.nameEn}}</td>
   	  		</tr>
   	  	</thead>
   	  	<tbody>
   	  		<tr>
-  	  			<td ng-repeat="(roleKey, role) in roles" ng-if="role.name !== 'Sales'">
+  	  			<td ng-repeat="(roleKey, role) in roles" ng-if="role.nameEn !== 'Sales'">
   	  			  <button ng-click="toggle(roleKey)"
 										  class="btn btn-md btn-light" style="border:solid 1px #ddd;">
 									<i ng-if="settings.access[roleKey] === 0" 
