@@ -227,15 +227,13 @@
       </form>
     </td>
     <td class="col-md-5">
-    <table class="table"><tr ng-if="accessCode === 'registrar' || accessCode ==='admin'">
-      <td ng-include="'extensions/Finance/_registrar-profile.html'"
-          style="border-right:solid 1px #ddd !important;">
-      </td>
-    </tr><tr ng-if="accessCode === 'classmaster' || accessCode ==='admin'">
-      <td ng-include="'extensions/ReportCard/_classmaster-profile.html'"
-          style="border-right:solid 1px #ddd !important;">
-      </td>
-    </tr></table>
+    <div ng-if="accessCode === 'registrar' || accessCode ==='admin'"
+          ng-include="'extensions/Finance/_registrar-profile.html'"
+          style="border-right:solid 1px #ddd !important;"></div>
+    <div ng-if="accessCode === 'classmaster' || accessCode ==='admin'"
+          ng-include="'extensions/ReportCard/_classmaster-profile.html'"
+          style="border-right:solid 1px #ddd !important;"></div>
+    </td>
   </tr></table>
   </div>
 </div>
