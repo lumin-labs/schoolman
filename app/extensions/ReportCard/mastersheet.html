@@ -159,7 +159,7 @@
 				<tr ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
 					<td style="width:10px;"class="small-column-header">{{$index + 1}}</td>
 					<td style="width:300px;">
-		        <a ng-click="open({page:'classmasterProfile', studentId:student._id})"
+		        <a ng-click="open({page:'profile', studentId:student._id})"
 		           data-toggle="tooltip" data-placement="right" title="{{student.name}}">{{student.name | limitTo:7}}.</a>
 	      	</td>
 			    

@@ -1,6 +1,6 @@
 'use strict';
-
-function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, ClassMaster, Location, SchoolInfos, PROMOTE_OPTIONS, Lang) {
+define(['ReportCard/services/classcouncils', 'ReportCard/services/dcards', 'Users', 'Subjects', 'Students', 'ReportCard/services/marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'], function(ClassCouncils, Dcards, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang){
+  function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCouncils, Dcards, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
       if(parseInt($routeParams.termIndex) === 3){
@@ -146,5 +146,6 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
       }
 
   }
-  ReportcardCtrl.$inject = ['$scope', '$routeParams', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'Cache', 'ClassMaster', 'Location', 'SchoolInfos', 'PROMOTE_OPTIONS', 'Lang'];
+  ReportcardCtrl.$inject = ['$scope', '$routeParams', 'PROMOTE_OPTIONS', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('reportcardCtrl', ReportcardCtrl);
+})

@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="styles/app.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="SchoolMan">
+  <!-- <body ng-app="SchoolMan"> -->
+  <body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -156,7 +157,7 @@
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
-    <!--<script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/sass-bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -170,24 +171,27 @@
     <script src="bower_components/pouchdb/dist/pouchdb-nightly.min.js"></script>
     <script src="bower_components/angular-pouchdb/angular-pouchdb.js"></script>
     <script src="bower_components/lodash/dist/lodash.min.js"></script>
-    <script src="bower_components/requirejs/require.js"></script>-->
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <!--<script src="scripts/lib/ui-bootstrap-0.9.0.min.js"></script>
+
+        <script src="scripts/lib/ui-bootstrap-0.9.0.min.js"></script>
         <script src="scripts/lib/ui-bootstrap-tpls-0.9.0.min.js"></script>
 
         <script src="scripts/app.js"></script>
         <script src="scripts/conf.js"></script>
         <script src="scripts/dev.js"></script>
-        <script src="scripts/sha3.js"></script>-->
+        <script src="scripts/sha3.js"></script>
+        <script src="scripts/providers/data2.js"></script>
+        <script src="scripts/providers/model.js"></script>
+        
+        <script src="/bower_components/requirejs/require.js" data-main="/scripts/scriptloader"></script>
+
+
 
         <!--<script src="scripts/directives/cellDirective.js"></script>
         <script src="scripts/directives/currency.js"></script>-->
-
-        <!--<script src="scripts/providers/data2.js"></script>
-        <script src="scripts/providers/model.js"></script>-->
 
         <!--<script src="scripts/models/Cell.js"></script>
         <script src="scripts/models/Mark.js"></script>

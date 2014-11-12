@@ -1,6 +1,6 @@
 'use strict';
-
-function FeesCtrl($scope, Fees, Students, model, Lang) {
+define(['Finance/services/fees', 'Students', 'Lang'], function(Fees, Students, Lang){
+  function FeesCtrl($scope, model, Fees, Students, Lang) {
       $scope.dict = Lang.getDict();
       $scope.data = {};
       $scope.data.fees = Fees.getAll();
@@ -53,6 +53,7 @@ function FeesCtrl($scope, Fees, Students, model, Lang) {
       $scope.remove = function(fee){
          Fees.remove(fee); 
       }
-}
-FeesCtrl.$inject = ['$scope', 'Fees', 'Students', 'model', 'Lang'];
-angular.module('SchoolMan').controller('FeesCtrl', FeesCtrl);
+  }
+  FeesCtrl.$inject = ['$scope', 'model', 'Fees', 'Students', 'Lang'];
+  angular.module('SchoolMan').controller('FeesCtrl', FeesCtrl);
+})

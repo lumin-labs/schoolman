@@ -56,17 +56,11 @@ angular.module('SchoolMan')
           access:['admin', 'registrar'],
           exclude:[]
         },
+        
         {
           en:"Student Profile",
           fr:"Profil de l'Étudiant",
-          page:"classmasterProfile",
-          access:['classmaster'],
-          exclude:"all"
-        },
-        {
-          en:"Student Profile",
-          fr:"Profil de l'Étudiant",
-          page:"registrarProfile",
+          page:"profile",
           access:['admin', 'registrar'],
           exclude:"all"
         },

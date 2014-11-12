@@ -1,6 +1,6 @@
 'use strict';
-
-function Payments($q, model, modelTransformer, Fees, Students, pouchdb) {
+define(['modelTransformer', 'Students'], function(modelTransformer, Students){
+function Payments($q, pouchdb, model, modelTransformer, Students) {
 
   	var db = model.Payment.db;
     if(typeof db === "string"){
@@ -90,5 +90,6 @@ function Payments($q, model, modelTransformer, Fees, Students, pouchdb) {
 
     return self;
   }
-Payments.$inject = ['$q', 'model', 'modelTransformer', 'Fees', 'Students', 'pouchdb'];
-angular.module('SchoolMan').service('Payments', Payments);
+  Payments.$inject = ['$q', 'pouchdb', 'model', 'modelTransformer', 'Students'];
+  angular.module('SchoolMan').service('Payments', Payments);
+})

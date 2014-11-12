@@ -144,7 +144,7 @@
       <tr  ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
         <td>{{studentIndex + 1}}</td>
         <td>
-          <a ng-click="open({page:'classmasterProfile', studentId:student._id})">
+          <a ng-click="open({page:'profile', studentId:student._id})">
             {{student.name}}
           </a>
         </td>

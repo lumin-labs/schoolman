@@ -1,6 +1,6 @@
 'use strict';
-
-function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Location, PROMOTE_OPTIONS, Lang) {
+define(['SchoolInfos', 'Subjects', 'Students', 'ReportCard/services/marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'Lang'], function(SchoolInfos, Subjects, Students, Marksheets, Departments, Groups, SubjectTypes, Forms, Location, Lang){
+  function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, Marksheets, Departments, Groups, SubjectTypes, Forms, Location, Lang) {
   	 
       $scope.termIndex = parseInt($routeParams.termIndex);
       $scope.dict = Lang.getDict();
@@ -177,5 +177,6 @@ function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, 
       });
 
   }
-  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'SchoolInfos', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Location', 'PROMOTE_OPTIONS', 'Lang'];
+  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'SchoolInfos', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'Lang'];
   angular.module('SchoolMan').controller('MastersheetCtrl', MastersheetCtrl);
+})

@@ -1,8 +1,8 @@
 'use strict';
+define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Location, settings, Cache, SchoolInfos, Lang){
+  function NavtabsCtrl($scope, $routeParams, MODULES, model, Location, settings, Cache, SchoolInfos, Lang) {
 
-function NavtabsCtrl($scope, $routeParams, Location, TABS, MODULES, settings, Cache, model, SchoolInfos, Lang) {
-
-    $scope.TABS = TABS;
+    // $scope.TABS = TABS;
     $scope.modules = MODULES;
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
@@ -67,5 +67,6 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, MODULES, settings, Ca
       }
     }
   }
-  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'MODULES', 'settings', 'Cache', 'model', 'SchoolInfos', 'Lang'];
+  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'MODULES', 'model', 'Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('NavtabsCtrl', NavtabsCtrl);
+})

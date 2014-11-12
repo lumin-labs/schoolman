@@ -90,8 +90,8 @@
           </nav>
         </div>  
       </div>
-<div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'" ng-show="student._id === data.student._id" ng-if="student._id === data.student._id || ClassMaster.printVariable === true || ClassMaster.printVariable === 'true'" class="print-show">
-  <div class="pagebreak" ng-if="studentIndex !== 0 && (ClassMaster.printVariable === true || ClassMaster.printVariable === 'true')"></div>
+<div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'" ng-show="student._id === data.student._id" ng-if="student._id === data.student._id || classMaster.printVariable === true || classMaster.printVariable === 'true'" class="print-show">
+  <div class="pagebreak" ng-if="studentIndex !== 0 && (classMaster.printVariable === true || classMaster.printVariable === 'true')"></div>
 
     <!-- School Name Letterhead -->
     <div class="letterhead" ng-include="'views/_letterhead.html'"></div>
@@ -234,7 +234,7 @@
                           cell cell-nrow="{{data.subjects['length']}}"
                           class="cell-transcript text-center 
                            {{classMaster.getRemark(data.transcript['table'][subject._id][cellIndex]).css}} 
-                           {{marksheets.validateCell(data.transcript['table'][subject._id][cellIndex])}}"
+                           {{validateCell(data.transcript['table'][subject._id][cellIndex])}}"
                            valid>
 
                 </td>

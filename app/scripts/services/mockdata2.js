@@ -1,6 +1,6 @@
 'use strict';
-
-function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Payments, Data2, Marksheets, Transcripts){
+define(['Forms', 'Departments', 'Groups', 'Finance/services/fees', 'Uid', 'Students', 'Finances/services/payments', 'ReportCard/services/marksheets', 'Transcript/services/transcripts'], function(Forms, Departments, Groups, Fees, Uid, Students, Payments, Marksheets, Transcripts){
+  function MockData(model, Data2, Forms, Departments, Groups, Fees, Uid, Students, Payments, Marksheets, Transcripts){
 
     
     var forms = Forms.all();
@@ -69,8 +69,16 @@ function MockData(model, Forms, Departments, Groups, Fees, Uid, Students, Paymen
         });
       });
     }
+    window._mock.dbs = {};
+    window._mock.dbs.destroy = function(){
+      Students.destroy();
+      Payments.destroy();
+      Marksheets.destroy();
+      Transcripts.destroy();
+    }
 
 
   }
-MockData.$inject = ['model', 'Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Data2', 'Marksheets', 'Transcripts'];
-angular.module('SchoolMan').service('MockData', MockData);
+  MockData.$inject = ['model', 'Data2', 'Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Marksheets', 'Transcripts'];
+  angular.module('SchoolMan').service('MockData', MockData);
+})

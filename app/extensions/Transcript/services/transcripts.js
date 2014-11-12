@@ -1,6 +1,6 @@
 'use strict';
-
-function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students, SchoolInfos) {
+define(['Subjects', 'Students', 'SchoolInfos'], function(Subjects, Students, SchoolInfos){
+  function Transcripts($q, pouchdb, model, Subjects, Students, SchoolInfos) {
 
   	var db = model.Transcript.db;
     if(typeof db === "string"){
@@ -83,5 +83,6 @@ function Transcripts($q, model, modelTransformer, pouchdb, Subjects, Students, S
 
     return self;
   }
-  Transcripts.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb', 'Subjects', 'Students', 'SchoolInfos'];
+  Transcripts.$inject = ['$q', 'pouchdb', 'model', 'Subjects', 'Students', 'SchoolInfos'];
   angular.module('SchoolMan').service('Transcripts', Transcripts);
+})

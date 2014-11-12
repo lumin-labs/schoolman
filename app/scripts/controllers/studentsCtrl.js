@@ -1,6 +1,6 @@
 'use strict';
-
-function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Subjects, Payments, Students, Departments, model, Location, PROMOTE_OPTIONS, Lang) {
+define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', 'Groups', 'ReportCard/services/marksheets', 'Subjects', 'Students', 'Departments', 'Location', 'Lang'], function(ClassCouncils, Fees, Forms, Groups, Marksheets, Subjects, Students, Departments, Location, Lang){
+  function StudentsCtrl($scope, $q, $routeParams, PROMOTE_OPTIONS, model, ClassCouncils, Fees, Forms, Groups, Marksheets, Subjects, Students, Departments, Location, Lang) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -76,17 +76,6 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
 
           // set default selection state
           $scope.data.selected[student._id] = 0;
-          
-          // Add payment data to student
-          //student.totalPaid = 0;
-          //Payments.query({studentId:student._id}).then(function(payments){
-          //  console.log("Got payments", student._id, payments);
-          //  student.totalPaid = _.reduce(payments, function(total, payment){
-          //    return total + payment.amount;
-          //  },student.totalPaid);
-          //}).catch(function(error){
-          //  console.log("Failed to load payments for ", student.name, error);
-          //});
 
           // add students class to reports
           var studentsClass = [student.formIndex, student.deptId, student.groupId];
@@ -317,5 +306,6 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
 
 
   }
-  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Subjects', 'Payments', 'Students', 'Departments', 'model', 'Location', 'PROMOTE_OPTIONS', 'Lang'];
+  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'PROMOTE_OPTIONS', 'model', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Subjects', 'Students', 'Departments', 'Location', 'Lang'];
   angular.module('SchoolMan').controller('StudentsCtrl', StudentsCtrl);
+})

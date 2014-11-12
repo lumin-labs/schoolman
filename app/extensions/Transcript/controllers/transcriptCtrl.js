@@ -1,9 +1,8 @@
 'use strict';
-
-function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang) {
+define(['Transcript/services/transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'], function(Transcripts, Subjects, Students, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang){
+  function TranscriptCtrl($scope, $routeParams, model, Transcripts, Subjects, Students, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
-      $scope.ClassMaster = ClassMaster;
       $scope.dict = Lang.getDict();
       $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
@@ -14,26 +13,32 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
       $scope.regions = model.SchoolInfo.regions;
       $scope.studentId = $routeParams.studentId;
 
-      $scope.marksheets = Marksheets;
       $scope.classMaster = ClassMaster;
 
-      $scope.data = {};
-      $scope.data.allForms = Forms.all();
-      $scope.data.departments = Departments.getAll();
-      $scope.data.groups = Groups.getAll();
-      $scope.data.allSubjects = Subjects.getAll();
-      $scope.data.subjectTypes = SubjectTypes.all();
-      $scope.data.terms = Terms.getAll();
-      $scope.data.term = $scope.data.terms[$routeParams.termIndex];
-      $scope.data.marksheets = [];
-      $scope.data.summaries = {};
-      $scope.data.students = [];
-      $scope.data.student;
-      $scope.data.transcript;
+      $scope.data = {
+        allForms: Forms.all(),
+        departments: Departments.getAll(),
+        groups: Groups.getAll(),
+        allSubjects: Subjects.getAll(),
+        subjectTypes: SubjectTypes.all(),
+        terms: Terms.getAll(),
+        marksheets: [],
+        summaries: {},
+        students: [],
+        subjects: [],
+      };
+      $scope.data.term = $scope.data.terms[$routeParams.termIndex],
 
       $scope.types = [];
-      $scope.data.subjects = [];
       $scope.cycles = [{name:"First Cycle"}, {name:"Second Cycle"}];
+
+      $scope.validateCell = function(n){
+        var status = 'number-valid';
+        if(n > 20 || n < 0){
+          status = "number-invalid";
+        }
+        return status;
+      }
 
       var renderTable = function(){
         if($scope.data.cycleIndex === 0 && $scope.data.schoolInfo.version !== "gths"){
@@ -261,5 +266,6 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Users, Subject
     };
 
   }
-  TranscriptCtrl.$inject = ['$scope', '$routeParams', 'model', 'Transcripts','Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
+  TranscriptCtrl.$inject = ['$scope', '$routeParams', 'model', 'Transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('transcriptCtrl', TranscriptCtrl);
+})

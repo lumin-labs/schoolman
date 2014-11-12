@@ -1,6 +1,6 @@
 'use strict';
-
-function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksheets, Departments, Fees, Payments, Terms, Groups, SubjectTypes, Forms, Cache, Location, SchoolInfos, PROMOTE_OPTIONS, Lang) {
+define(['File', 'Subjects', 'Students', 'ReportCard/services/marksheets', 'Departments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'SchoolInfos', 'Lang'], function(File, Subjects, Students, Marksheets, Departments, Terms, Groups, SubjectTypes, Forms, Location, SchoolInfos, Lang){
+  function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksheets, Departments, Terms, Groups, SubjectTypes, Forms, Location, SchoolInfos, Lang) {
   	 
     $scope.termIndex = parseInt($routeParams.termIndex),
     $scope.queryParams = {
@@ -23,14 +23,14 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksh
         forms: Forms.all(),
         depts: Departments.getAll(),
         terms: Terms.getAll(),
-        fees: Fees.getAll(),
+        // fees: Fees.getAll(),
       };
       
-      Payments.query().then(function(payments){
-        $scope.data.payments = payments;
-      }).catch(function(error){
-        console.log("Failed to get payments");
-      });
+      // Payments.query().then(function(payments){
+      //   $scope.data.payments = payments;
+      // }).catch(function(error){
+      //   console.log("Failed to get payments");
+      // });
       
 
       SchoolInfos.get("schoolinfo").then(function(info){
@@ -43,9 +43,11 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksh
       $scope.round = Math.round;
 
       // Load marksheet and student data
-      $scope.getClassmasterStats = function(params, term){
+      $scope.getClassmasterStats = function(params, term, exportFlag){
         var statistics = {};
-        $scope.termIndex = term;
+        if(!exportFlag){
+          $scope.termIndex = term;
+        }
         
         angular.forEach(data.subjects, function(subject, subjectId){
           var query = angular.copy(params);
@@ -109,9 +111,11 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksh
         });
         return statistics;
       }
-      $scope.getAdminStats = function(term){
+      $scope.getAdminStats = function(term, exportFlag){
         var statistics = {};
-        $scope.termIndex = term;
+        if(!exportFlag){
+          $scope.termIndex = term;
+        }
 
         angular.forEach(data.depts, function(dept, deptId){
           statistics[deptId] = {};
@@ -229,10 +233,10 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksh
         school.principal = data.schoolInfo.principal;
         school.version = data.schoolInfo.version;
         school.schoolyear = data.schoolInfo.schoolyear;
-        school.fees = {};
-        school.paymentCollected = _.reduce(data.payments, function(total, payment){
-          return total + payment.amount;
-        },0);
+        // school.fees = {};
+        // school.paymentCollected = _.reduce(data.payments, function(total, payment){
+        //   return total + payment.amount;
+        // },0);
 
         Students.getAll().then(function(students){
           var femaleCycle1 = 0;
@@ -246,13 +250,13 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksh
             cycleCutoff = 4;
           }
 
-          angular.forEach(data.fees, function(fee, key){
-            var studentList = _.filter(students, function(student){
-              return student.feeId === key;
-            });
-            fee.students = studentList.length;
-            school.fees[key] = fee;
-          });
+          // angular.forEach(data.fees, function(fee, key){
+          //   var studentList = _.filter(students, function(student){
+          //     return student.feeId === key;
+          //   });
+          //   fee.students = studentList.length;
+          //   school.fees[key] = fee;
+          // });
 
           angular.forEach(students, function(student, studentId){
             if(student.sex === "Male"){
@@ -281,7 +285,7 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksh
           angular.forEach($scope.data.depts, function(dept, deptId){
             statistics[termIndex][deptId] = {name:dept.name};
             angular.forEach($scope.data.forms, function(form, formIndex){
-              statistics[termIndex][deptId][formIndex] = $scope.getClassmasterStats({formIndex:formIndex,deptId:deptId}, termIndex);
+              statistics[termIndex][deptId][formIndex] = $scope.getClassmasterStats({formIndex:formIndex,deptId:deptId}, termIndex, true);
             });
           });
         });
@@ -392,5 +396,6 @@ function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksh
       // });
 
   }
-  StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Fees', 'Payments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Location', 'SchoolInfos', 'PROMOTE_OPTIONS', 'Lang'];
+  StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('StatsCtrl', StatsCtrl);
+})

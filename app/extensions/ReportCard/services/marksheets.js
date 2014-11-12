@@ -1,6 +1,6 @@
 'use strict';
-
-function Marksheets($q, $log, model, modelTransformer, pouchdb, Subjects, Students, Slug) {
+define(['modelTransformer', 'Subjects', 'Students'], function(modelTransformer, Subjects, Students){
+  function Marksheets($q, $log, Slug, pouchdb, model, modelTransformer, Subjects, Students) {
    
     var self = {};
 
@@ -532,5 +532,6 @@ function Marksheets($q, $log, model, modelTransformer, pouchdb, Subjects, Studen
     return self;
 
   }
-Marksheets.$inject = ['$q','$log', 'model', 'modelTransformer', 'pouchdb', 'Subjects', 'Students', 'Slug'];
-angular.module('SchoolMan').service('Marksheets', Marksheets);
+  Marksheets.$inject = ['$q','$log', 'Slug', 'pouchdb', 'model', 'modelTransformer', 'Subjects', 'Students'];
+  angular.module('SchoolMan').service('Marksheets', Marksheets);
+})

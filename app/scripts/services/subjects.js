@@ -1,6 +1,6 @@
 'use strict';
-
-function Subjects($q, Data2, modelTransformer, model, InsertionError) {
+define(['modelTransformer', 'InsertionError'], function(modelTransformer, InsertionError){
+  function Subjects($q, Data2, model, modelTransformer, InsertionError) {
 
 		var subjects = {};  	
 
@@ -52,5 +52,6 @@ function Subjects($q, Data2, modelTransformer, model, InsertionError) {
     return self;
 
   }
-  Subjects.$inject = ['$q', 'Data2', 'modelTransformer', 'model', 'InsertionError'];
+  Subjects.$inject = ['$q', 'Data2', 'model', 'modelTransformer', 'InsertionError'];
   angular.module('SchoolMan').service('Subjects', Subjects);
+})
