@@ -1,6 +1,6 @@
 'use strict';
 
-function settings($q, model, Data2) {
+function settings($q, model, Data2, MODULES) {
 
   console.log("model service", model);
 	var settings = new model.Settings();
@@ -25,6 +25,15 @@ function settings($q, model, Data2) {
 		})
 
 		return deferred.promise;
+	}
+	self.modules = function(){
+		var modules = [];
+		angular.forEach(settings.modules, function(module, value){
+			if(value === 1){
+				modules.push(module);
+			}
+		})	
+		return modules;
 	}
 
 	return self;
