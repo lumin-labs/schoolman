@@ -12,7 +12,8 @@
                  type="number"
                  class="form-control"  
                  ng-model="data.dcard['absence']"
-                 ng-change="save(data.dcard)">
+                 ng-change="save(data.dcard)"
+                 ng-readonly="accessCode === 'admin'">
         </div>
       </div>
       <div class="form-group">
@@ -25,7 +26,8 @@
                  type="number"
                  class="form-control"  
                  ng-model="data.dcard['council']"
-                 ng-change="save(data.dcard)">
+                 ng-change="save(data.dcard)"
+                 ng-readonly="accessCode === 'admin'">
         </div>
       </div>
 			<div class="form-group">
@@ -38,7 +40,8 @@
                  type="number"
                  class="form-control"  
                  ng-model="data.dcard['warned']"
-                 ng-change="save(data.dcard)">
+                 ng-change="save(data.dcard)"
+                 ng-readonly="accessCode === 'admin'">
         </div>
       </div>
       <div class="form-group">
@@ -51,7 +54,8 @@
                  type="number"
                  class="form-control"  
                  ng-model="data.dcard['suspended']"
-                 ng-change="save(data.dcard)">
+                 ng-change="save(data.dcard)"
+                 ng-readonly="accessCode === 'admin'">
         </div>
       </div>
       <div class="form-group">
@@ -107,6 +111,8 @@
       <h5 style="text-decoration:underline;">
         <strong>{{dict.comments}}</strong>
       </h5>
+      <div ng-if="accessCode === 'classmaster'"
+             style="margin-bottom:55px;">
       <textarea class="form-control noprint" 
                 style="margin-bottom:10px;" 
                 rows="3"
@@ -114,7 +120,7 @@
       <button class="btn btn-default pull-right noprint"
               ng-class="!newComment.isValid() ? 'disabled' : 'tests'"
               ng-click="addComment()">{{dict.add_comment}}</button>
-
+      </div>
       <table class="table table-striped" style="margin-top:55px;">
         <tr ng-repeat="(commentIndex, comment) in data.comments">
           <td>
@@ -122,11 +128,12 @@
             <span style="color:#666">{{comment._id | date:'medium'}}</span>
             <br>
             <strong>{{comment.text}}</strong>
-            
           </td>
-          <td><a ng-click="removeComment(commentIndex)" ng-if="comment.userId === username">
-            <i class="glyphicon glyphicon-remove"></i>
-          </a></td>
+          <td ng-if="accessCode === 'classmaster'">
+            <a ng-click="removeComment(commentIndex)" ng-if="comment.userId === username">
+              <i class="glyphicon glyphicon-remove"></i>
+            </a>
+          </td>
         </tr>
       </table>
 		</form>

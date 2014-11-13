@@ -1,5 +1,5 @@
 'use strict';
-define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', 'Groups', 'ReportCard/services/marksheets', 'Subjects', 'Students', 'Departments', 'Location', 'Lang'], function(ClassCouncils, Fees, Forms, Groups, Marksheets, Subjects, Students, Departments, Location, Lang){
+define(['ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Subjects', 'Students', 'Departments', 'Location', 'Lang'], function(ClassCouncils, Fees, Forms, Groups, Marksheets, Subjects, Students, Departments, Location, Lang){
   function StudentsCtrl($scope, $q, $routeParams, PROMOTE_OPTIONS, model, ClassCouncils, Fees, Forms, Groups, Marksheets, Subjects, Students, Departments, Location, Lang) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
@@ -14,6 +14,7 @@ define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', '
         subjects:Subjects.getAll(),
         students:[],
         selected:{},
+        fees: Fees.getAll();
         globalSelect:0,
         page:0,
         pages:[]
@@ -59,9 +60,9 @@ define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', '
         return (_final.getTime() - _initial.getTime())/1000;
       }
 
-      var START_QUERY = new Date();
+      // var START_QUERY = new Date();
       Students.query(query).then(function(students){
-        var END_QUERY = new Date();
+        // var END_QUERY = new Date();
         console.log("TIME DIFF: ", getSeconds(START_QUERY, END_QUERY));
 
         console.log("Success loading students", students);
@@ -79,21 +80,17 @@ define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', '
 
           // add students class to reports
           var studentsClass = [student.formIndex, student.deptId, student.groupId];
-          //console.log("reports/class councils", reports, classCouncils, studentsClass);
             
           
           if(reports.hasOwnProperty(studentsClass) &&  
              classCouncils.hasOwnProperty(studentsClass)){
-            //console.log("in if statement reports/class councils", reports, classCouncils, studentsClass, student);
-
-
             setPassing(student, studentsClass);
 
-          } else {
-            //console.log("in else statement", reports, classCouncils, studentsClass, student);
-            //getReports(studentsClass);
-            //setPassing(student, studentsClass);
-          }
+          } 
+          // else {
+          //   //getReports(studentsClass);
+          //   //setPassing(student, studentsClass);
+          // }
 
         }); 
       }).catch(function(error){
@@ -105,10 +102,6 @@ define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', '
     
 
     var getReports = function(params){
-      //console.log("in getreports reports/class councils", reports, classCouncils, studentsClass, reports[studentsClass]);
-            // get report and classCOuncil promises
-            //console.log("params:", params);
-
             var reportquery = {
               reports: Marksheets.getReports({
                 formIndex:params.formIndex,
@@ -189,13 +182,6 @@ define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', '
           })
         })
       })
-
-
-      //var newArray = {};
-
-
-      //console.log("query Parameters:", params);
-      //getReports(studentsClass);
     }
 
     queryReports($scope.queryParams);
@@ -206,19 +192,16 @@ define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', '
           $scope.queryParams[key] = value;
       });
       $scope.data.page = 0;
-      //console.log("Query Params", $scope.queryParams);
       queryReports($scope.queryParams);
     };
 
     $scope.moveTab = "form";
 
     $scope.toggleAll = function(){
-        // console.log("toggling");
         // $scope.data.globalSelect = (parseInt($scope.data.globalSelect) + 1) % 2;
         angular.forEach($scope.data.selected, function(selection, studentId){
           $scope.data.selected[studentId] = $scope.data.globalSelect;
         });
-        // console.log("Selected", $scope.data.selected);
     };
 
     $scope.moveSelected = function(params){
@@ -265,8 +248,6 @@ define(['ReportCard/services/classcouncils', 'Finance/services/fees', 'Forms', '
     }
 
     $scope.open = Location.open;
-    
-    $scope.fees = Fees.getAll();
 
     // $scope.mastersheets = {};
 

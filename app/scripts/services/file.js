@@ -1,5 +1,5 @@
 'use strict';
-define(['settings', 'Users', 'Finance/services/fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Finance/services/payments'], function(settings, Users, Fees, Departments, Subjects, Groups, Students, Payments){
+define(['settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments'], function(settings, Users, Fees, Departments, Subjects, Groups, Students, Payments){
   function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 

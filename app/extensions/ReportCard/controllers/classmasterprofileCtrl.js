@@ -1,5 +1,5 @@
 'use strict';
-define(['profile', 'ReportCard/services/dcards', 'Users', 'ReportCard/services/marksheets', 'ReportCard/services/classcouncils', 'Students', 'Forms', 'Groups', 'Departments', 'Lang'], function(profile, Dcards, Users, Marksheets, ClassCouncils, Students, Forms, Groups, Departments, Lang){
+define(['profile', 'ReportCard/services/dcards', 'Users', 'Marksheets', 'ClassCouncils', 'Students', 'Forms', 'Groups', 'Departments', 'Lang'], function(profile, Dcards, Users, Marksheets, ClassCouncils, Students, Forms, Groups, Departments, Lang){
   function ClassmasterProfileCtrl($scope, $routeParams, $q, PROMOTE_OPTIONS, model, profile, Dcards, Users, Marksheets, ClassCouncils, Students, Forms, Groups, Departments, Lang) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;

@@ -1,5 +1,5 @@
 'use strict';
-define(['Location','ReportCard/services/marksheets', 'Forms', 'Groups', 'Departments', 'ReportCard/services/classcouncils', 'Students', 'Subjects', 'Lang'], function(Location, Marksheets, Forms, Groups, Departments, ClassCouncils, Students, Subjects, Lang){
+define(['Location','Marksheets', 'Forms', 'Groups', 'Departments', 'ClassCouncils', 'Students', 'Subjects', 'Lang'], function(Location, Marksheets, Forms, Groups, Departments, ClassCouncils, Students, Subjects, Lang){
   function AnnualReportCtrl($scope, $route, $routeParams, model, Location, Marksheets, Forms, Groups, Departments, ClassCouncils, Students, Subjects, Lang) {
     var data = $scope.data = {
       forms:Forms.all(),

@@ -1,5 +1,5 @@
 'use strict';
-define(['SchoolInfos', 'Subjects', 'Students', 'ReportCard/services/marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'Lang'], function(SchoolInfos, Subjects, Students, Marksheets, Departments, Groups, SubjectTypes, Forms, Location, Lang){
+define(['SchoolInfos', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'Lang'], function(SchoolInfos, Subjects, Students, Marksheets, Departments, Groups, SubjectTypes, Forms, Location, Lang){
   function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, Marksheets, Departments, Groups, SubjectTypes, Forms, Location, Lang) {
   	 
       $scope.termIndex = parseInt($routeParams.termIndex);

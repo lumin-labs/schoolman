@@ -1,5 +1,5 @@
 'use strict';
-define(['Forms', 'Finance/services/fees', 'Students', 'Finance/services/payments', 'SchoolInfos', 'Lang'], function(Forms, Fees, Students, Payments, SchoolInfos, Lang){
+define(['Forms', 'Fees', 'Students', 'Payments', 'SchoolInfos', 'Lang'], function(Forms, Fees, Students, Payments, SchoolInfos, Lang){
   function BalanceSheetCtrl($scope, $routeParams, Forms, Fees, Students, Payments, SchoolInfos, Lang) {
   	
   	var forms = _.map(Forms.all(), function(form){

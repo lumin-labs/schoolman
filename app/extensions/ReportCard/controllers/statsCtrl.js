@@ -1,5 +1,5 @@
 'use strict';
-define(['File', 'Subjects', 'Students', 'ReportCard/services/marksheets', 'Departments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'SchoolInfos', 'Lang'], function(File, Subjects, Students, Marksheets, Departments, Terms, Groups, SubjectTypes, Forms, Location, SchoolInfos, Lang){
+define(['File', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'SchoolInfos', 'Lang'], function(File, Subjects, Students, Marksheets, Departments, Terms, Groups, SubjectTypes, Forms, Location, SchoolInfos, Lang){
   function StatsCtrl($scope, $routeParams, model, File, Subjects, Students, Marksheets, Departments, Terms, Groups, SubjectTypes, Forms, Location, SchoolInfos, Lang) {
   	 
     $scope.termIndex = parseInt($routeParams.termIndex),

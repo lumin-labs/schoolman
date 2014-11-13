@@ -1,5 +1,5 @@
 'use strict';
-define(['profile', 'Users', 'Students', 'Finance/services/fees', 'Forms', 'Finance/services/payments', 'Groups', 'Departments', 'Lang'], function(profile, Users, Students, Fees, Forms, Payments, Groups, Departments, Lang){
+define(['profile', 'Users', 'Students', 'Fees', 'Forms', 'Payments', 'Groups', 'Departments', 'Lang'], function(profile, Users, Students, Fees, Forms, Payments, Groups, Departments, Lang){
   function RegistrarProfileCtrl($scope, $routeParams, $q, model, profile, Users, Students, Fees, Forms, Payments, Groups, Departments, Lang) {
     $scope.accessCode = $routeParams.accessCode;
 

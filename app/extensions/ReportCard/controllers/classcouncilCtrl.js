@@ -10,7 +10,7 @@
  * @description Class council view controller
  *
  */
- define(['ReportCard/services/marksheets', 'Students', 'ReportCard/services/classcouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'Location', 'SchoolInfos', 'Lang'], function(Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, Location, SchoolInfos, Lang){
+ define(['Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'Location', 'SchoolInfos', 'Lang'], function(Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, Location, SchoolInfos, Lang){
     function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, Location, SchoolInfos, Lang){
 
         $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";

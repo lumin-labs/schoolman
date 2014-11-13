@@ -1,6 +1,6 @@
 'use strict';
-define(['Uid', 'Forms', 'Departments', 'Groups', 'Finance/services/fees', 'Location', 'Students', 'ReportCard/services/marksheets', 'Lang'], function(Uid, Forms, Departments, Groups, Fees, Location, Students, Marksheets, Lang){
-    function RegistrationCtrl($scope, $routeParams, model, Uid, Forms, Departments, Groups, Fees, Location, Students, Marksheets, Lang) {
+define(['Uid', 'Forms', 'Departments', 'Groups', 'Location', 'Students', 'Marksheets', 'Fees', 'Lang'], function(Uid, Forms, Departments, Groups, Location, Students, Marksheets, Fees, Lang){
+    function RegistrationCtrl($scope, $routeParams, model, Uid, Forms, Departments, Groups, Location, Students, Marksheets, Fees, Lang) {
 
         $scope.formIndex = $routeParams.formIndex;
         $scope.showValidation = false;
@@ -11,7 +11,7 @@ define(['Uid', 'Forms', 'Departments', 'Groups', 'Finance/services/fees', 'Locat
         	forms:Forms.all(),
         	departments:Departments.getAll(),
         	groups:Groups.getAll(),
-        	fees:Fees.getAll(),
+            fees:Fees.getAll(),
             uid:null
         };
         angular.forEach()
@@ -49,7 +49,7 @@ define(['Uid', 'Forms', 'Departments', 'Groups', 'Finance/services/fees', 'Locat
             student.save().then(function(success){
                 Uid.save(data.uid);
                 console.log("Save student: ", success);
-                Location.open({page:"registrarProfile", studentId:student._id});
+                Location.open({page:"profile", studentId:student._id});
                 $scope.showValidation = false;
                 Students.set(student);
                 updateMarksheets(student);
@@ -80,6 +80,6 @@ define(['Uid', 'Forms', 'Departments', 'Groups', 'Finance/services/fees', 'Locat
 
 
     }
-    RegistrationCtrl.$inject = ['$scope', '$routeParams', 'model', 'Uid', 'Forms', 'Departments', 'Groups', 'Fees', 'Location', 'Students', 'Marksheets', 'Lang'];
+    RegistrationCtrl.$inject = ['$scope', '$routeParams', 'model', 'Uid', 'Forms', 'Departments', 'Groups', 'Location', 'Students', 'Marksheets', 'Fees', 'Lang'];
     angular.module('SchoolMan').controller('RegistrationCtrl', RegistrationCtrl);
 })

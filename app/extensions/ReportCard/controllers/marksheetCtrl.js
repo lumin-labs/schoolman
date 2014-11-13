@@ -1,5 +1,5 @@
 'use strict';
-define(['Location', 'ReportCard/services/marksheets', 'ClassMaster', 'Lang', 'SchoolInfos'], function(Location, Marksheets, ClassMaster, Lang, SchoolInfos){
+define(['Location', 'Marksheets', 'ClassMaster', 'Lang', 'SchoolInfos'], function(Location, Marksheets, ClassMaster, Lang, SchoolInfos){
     function MarksheetCtrl($scope, $routeParams, model, Location, Marksheets, ClassMaster, Lang, SchoolInfos) {
         
         var marksheetId = model.Marksheet.generateID($routeParams);

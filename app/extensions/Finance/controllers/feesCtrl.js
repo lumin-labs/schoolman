@@ -1,5 +1,5 @@
 'use strict';
-define(['Finance/services/fees', 'Students', 'Lang'], function(Fees, Students, Lang){
+define(['Fees', 'Students', 'Lang'], function(Fees, Students, Lang){
   function FeesCtrl($scope, model, Fees, Students, Lang) {
       $scope.dict = Lang.getDict();
       $scope.data = {};
