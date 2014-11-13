@@ -69,13 +69,13 @@ define(['Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments',
         });
       });
     }
-    window._mock.dbs = {};
-    window._mock.dbs.destroy = function(){
-      Students.destroy();
-      Payments.destroy();
-      Marksheets.destroy();
-      Transcripts.destroy();
-    }
+    // window._mock.dbs = {};
+    // window._mock.dbs.destroy = function(){
+    //   Students.destroy();
+    //   Payments.destroy();
+    //   Marksheets.destroy();
+    //   Transcripts.destroy();
+    // }
 
 
   }

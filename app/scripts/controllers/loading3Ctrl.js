@@ -3,7 +3,11 @@
 define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang){
     function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang) {
         $scope.dict = Lang.getDict();
+
+        // Initialize/Register ClassCouncil datatype
         var instSchoolInfo = new model.SchoolInfo();
+        var instClassCouncil = new model.ClassCouncil();
+        var transcript = new model.Transcript();
 
         var settingsP = settings.load();
         var userP = Users.load();
@@ -11,12 +15,7 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
         var subjP = Subjects.load();
         var groupP= Groups.load();
         var studentsP= Students.load();
-
         var feesP = Fees.load();
-        // Initialize/Register ClassCouncil datatype
-        var instClassCouncil = new model.ClassCouncil();
-        var transcript = new model.Transcript();
-        
 
         var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 

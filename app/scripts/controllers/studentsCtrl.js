@@ -10,11 +10,10 @@ define(['ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Subjects', 'S
         forms:Forms.all(),
         departments:Departments.getAll(),
         groups:Groups.getAll(),
-        fees:Fees.getAll(),
         subjects:Subjects.getAll(),
         students:[],
         selected:{},
-        fees: Fees.getAll();
+        fees: Fees.getAll(),
         globalSelect:0,
         page:0,
         pages:[]
