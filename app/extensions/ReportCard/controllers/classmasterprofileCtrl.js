@@ -124,5 +124,5 @@ define(['profile', 'ReportCard/services/dcards', 'Users', 'Marksheets', 'ClassCo
     };
   }
   ClassmasterProfileCtrl.$inject = ['$scope', '$routeParams', '$q', 'PROMOTE_OPTIONS', 'model', 'profile', 'Dcards', 'Users', 'Marksheets', 'ClassCouncils', 'Students', 'Forms', 'Groups', 'Departments', 'Lang'];
-  angular.module('SchoolMan').controller('ClassmasterProfileCtrl', ClassmasterProfileCtrl);
+  angular.module('SchoolMan').register.controller('ClassmasterProfileCtrl', ClassmasterProfileCtrl);
 })

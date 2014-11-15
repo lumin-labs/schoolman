@@ -215,12 +215,12 @@ define(['Location','Marksheets', 'Forms', 'Groups', 'Departments', 'Terms', 'Cla
         })
       })
     }
-    console.log("Class Stats", data.classStats);
-    console.log("Form Stats", data.totalStats);
-    console.log("Dept Stats", data.deptStats);
-    console.log("Class Councils", data.classCouncils);
+    // console.log("Class Stats", data.classStats);
+    // console.log("Form Stats", data.totalStats);
+    // console.log("Dept Stats", data.deptStats);
+    // console.log("Class Councils", data.classCouncils);
 
   }
   EnrollmentCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects', 'Lang'];
-  angular.module('SchoolMan').controller('EnrollmentCtrl', EnrollmentCtrl);
+  angular.module('SchoolMan').register.controller('EnrollmentCtrl', EnrollmentCtrl);
 })

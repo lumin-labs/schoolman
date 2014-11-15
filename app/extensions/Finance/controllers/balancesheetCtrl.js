@@ -160,5 +160,5 @@ define(['Forms', 'Fees', 'Students', 'Payments', 'SchoolInfos', 'Lang'], functio
     
   }
   BalanceSheetCtrl.$inject = ['$scope', '$routeParams', 'Forms', 'Fees', 'Students', 'Payments', 'SchoolInfos', 'Lang'];
-  angular.module('SchoolMan').controller('BalanceSheetCtrl', BalanceSheetCtrl);
+  angular.module('SchoolMan').register.controller('BalanceSheetCtrl', BalanceSheetCtrl);
 })

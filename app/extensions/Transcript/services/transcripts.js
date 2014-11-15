@@ -1,6 +1,9 @@
 'use strict';
 define(['Subjects', 'Students', 'SchoolInfos'], function(Subjects, Students, SchoolInfos){
   function Transcripts($q, pouchdb, model, Subjects, Students, SchoolInfos) {
+    
+    //instantialize/register Transcript datatype
+    var instTranscript = new model.Transcript();
 
   	var db = model.Transcript.db;
     if(typeof db === "string"){
@@ -84,5 +87,5 @@ define(['Subjects', 'Students', 'SchoolInfos'], function(Subjects, Students, Sch
     return self;
   }
   Transcripts.$inject = ['$q', 'pouchdb', 'model', 'Subjects', 'Students', 'SchoolInfos'];
-  angular.module('SchoolMan').service('Transcripts', Transcripts);
+  angular.module('SchoolMan').register.service('Transcripts', Transcripts);
 })

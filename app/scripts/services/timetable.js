@@ -167,4 +167,4 @@ function TimeTable() {
   	}
   }
 // TimeTable.$inject = [];
-angular.module('SchoolMan').service('TimeTable', TimeTable);
+angular.module('SchoolMan').register.service('TimeTable', TimeTable);

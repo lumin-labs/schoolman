@@ -4,10 +4,8 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
     function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang) {
         $scope.dict = Lang.getDict();
 
-        // Initialize/Register ClassCouncil datatype
+        // Initialize/Register SchoolInfo datatype
         var instSchoolInfo = new model.SchoolInfo();
-        var instClassCouncil = new model.ClassCouncil();
-        var transcript = new model.Transcript();
 
         var settingsP = settings.load();
         var userP = Users.load();
@@ -25,7 +23,7 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
         });
        
 
-      }
+    }
     LoadingCtrl.$inject = ['$scope', '$q', 'model', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang'];
     angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
 })

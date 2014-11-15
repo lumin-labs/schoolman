@@ -283,5 +283,5 @@
 
     }
     ClasscouncilCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'Location', 'SchoolInfos', 'Lang']
-    angular.module('SchoolMan').controller('ClasscouncilCtrl', ClasscouncilCtrl);
+    angular.module('SchoolMan').register.controller('ClasscouncilCtrl', ClasscouncilCtrl);
 })

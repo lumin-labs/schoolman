@@ -1,5 +1,5 @@
 'use strict';
-define(['Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Marksheets', 'Transcripts'], function(Forms, Departments, Groups, Fees, Uid, Students, Payments, Marksheets, Transcripts){
+define(['Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Marksheets', 'Transcript/services/transcripts'], function(Forms, Departments, Groups, Fees, Uid, Students, Payments, Marksheets, Transcripts){
   function MockData(model, Data2, Forms, Departments, Groups, Fees, Uid, Students, Payments, Marksheets, Transcripts){
 
     

@@ -384,5 +384,5 @@ define(['Location','Marksheets', 'Forms', 'Groups', 'Departments', 'ClassCouncil
 
   }
   AnnualReportCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', 'Forms', 'Groups', 'Departments', 'ClassCouncils', 'Students', 'Subjects', 'Lang'];
-  angular.module('SchoolMan').controller('AnnualReportCtrl', AnnualReportCtrl);
+  angular.module('SchoolMan').register.controller('AnnualReportCtrl', AnnualReportCtrl);
 })

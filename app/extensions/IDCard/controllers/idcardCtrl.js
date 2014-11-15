@@ -46,5 +46,5 @@ define(['Users', 'Students', 'Departments', 'Groups', 'Forms', 'Location', 'Scho
     });
   }
   IDcardCtrl.$inject = ['$scope', '$routeParams', 'model', 'Users', 'Students', 'Departments', 'Groups', 'Forms', 'Location', 'SchoolInfos', 'Lang'];
-  angular.module('SchoolMan').controller('IDcardCtrl', IDcardCtrl);
+  angular.module('SchoolMan').register.controller('IDcardCtrl', IDcardCtrl);
 })

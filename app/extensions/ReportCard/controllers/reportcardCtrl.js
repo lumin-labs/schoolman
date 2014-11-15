@@ -147,5 +147,5 @@ define(['ClassCouncils', 'ReportCard/services/dcards', 'Users', 'Subjects', 'Stu
 
   }
   ReportcardCtrl.$inject = ['$scope', '$routeParams', 'PROMOTE_OPTIONS', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
-  angular.module('SchoolMan').controller('reportcardCtrl', ReportcardCtrl);
+  angular.module('SchoolMan').register.controller('reportcardCtrl', ReportcardCtrl);
 })

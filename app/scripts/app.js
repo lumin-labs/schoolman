@@ -22,7 +22,7 @@
  */
 
 
-angular.module('SchoolMan', [
+var app = angular.module('SchoolMan', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -31,7 +31,10 @@ angular.module('SchoolMan', [
   'pouchdb',
   'ui.bootstrap'
 
-]).config(function ($routeProvider, TABS) {
+])
+
+app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
+  var self = {};
 
   var TEMPLATE_DIRECTORY = {
     login:    "/views/login2.html",
@@ -80,6 +83,13 @@ angular.module('SchoolMan', [
     return template;
   };
 
+  app.register =
+  {
+      controller: $controllerProvider.register,
+      service: $provide.service,
+      provider: $provide.provider
+  };
+
   $routeProvider
     .when('/:page/:subpage/:lang/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:username/:accessCode', {
       templateUrl:function(p){ return getTemplate(p);},
@@ -97,6 +107,8 @@ angular.module('SchoolMan', [
     .otherwise({
       redirectTo: '/loading'
     });
+
+    return app;
 });
 
 chrome.storage.local.get("initialized",function(r){

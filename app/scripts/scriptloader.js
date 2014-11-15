@@ -16,7 +16,7 @@ var servicesMain = {
     "TimeTable": "../scripts/services/timetable",
     "ClassMaster": "../scripts/services/classmaster",
     "Path": "../scripts/services/path",
-    // "MockData": "../scripts/services/mockdata2",
+    "MockData": "../scripts/services/mockdata2",
     "Location": "../scripts/services/location",
     "Cache": "../scripts/services/cache",
     "modelTransformer": "../scripts/services/modeltransformer",
@@ -32,13 +32,14 @@ var servicesMain = {
     "Users": "../scripts/services/users",
     "Terms": "../scripts/services/terms",
     "settings": "../scripts/services/settings",
-    // "File": "../scripts/services/file",
+    "File": "../scripts/services/file",
     "Lang": "../scripts/services/lang",
     "ScriptManager": "../scripts/services/scriptmanager",
     "InsertionError": "../scripts/models/InsertionError",
     "Marksheets": "ReportCard/services/marksheets",
     "ClassCouncils": "ReportCard/services/classcouncils",
     "Fees": "Finance/services/fees",
+    "Payments":"Finance/services/payments",
 }
 
 var controllersMain = [
@@ -55,31 +56,31 @@ var controllersMain = [
     "../scripts/controllers/groupsCtrl",
     "../scripts/controllers/registrationCtrl",
     "../scripts/controllers/userCtrl",
-    "../scripts/services/moduleloader"
+    "../scripts/services/moduleloader",
+    "ReportCard/models/ClassCouncil",
+    "ReportCard/models/Marksheet",
+    "ReportCard/models/Comment",
+    "ReportCard/models/Dcard",
+    "Finance/models/Fee",
+    "Finance/models/Payment",
+    
 ]
 
 var modularScripts={
     'ReportCard':[
-        "ReportCard/services/dcards",
-        "ReportCard/models/ClassCouncil",
-        "ReportCard/models/Marksheet",
-        "ReportCard/models/Comment",
-        "ReportCard/models/Dcard",
+        "ReportCard/controllers/reportcardCtrl",
         "ReportCard/controllers/classmasterprofileCtrl",
         "ReportCard/controllers/mastersheetCtrl",
         "ReportCard/controllers/marksheetCtrl",
         "ReportCard/controllers/myclassesCtrl",
         "ReportCard/controllers/classcouncilCtrl",
         "ReportCard/controllers/statsCtrl",
-        "ReportCard/controllers/reportcardCtrl"
+        "ReportCard/services/dcards",
     ],
     'Finance':[
-        "Finance/services/payments",
-        "Finance/models/Fee",
-        "Finance/models/Payment",
         "Finance/controllers/registrarprofileCtrl",
         "Finance/controllers/feesCtrl",
-        "Finance/controllers/balancesheetCtrl"
+        "Finance/controllers/balancesheetCtrl",
     ],
     'Staffing':[
         "Staffing/services/salarys",
@@ -93,8 +94,8 @@ var modularScripts={
         "Reports/controllers/enrollmentCtrl"
     ],
     'Transcript':[
-        "Transcript/services/transcripts",
         "Transcript/models/Transcript", 
+        "Transcript/services/transcripts",
         "Transcript/controllers/transcriptCtrl"
     ],
     'IDCard':[
@@ -115,13 +116,14 @@ require(scripts, function(){
         var moduleLoader = require('../scripts/services/moduleloader');
 
         var modules = moduleLoader.modules();
-        var moduleLoadScripts = ["../scripts/services/file", "../scripts/services/mockdata2"];
+        var moduleLoadScripts = [];
         angular.forEach(modules, function(module, key){
             moduleLoadScripts = moduleLoadScripts.concat(modularScripts[module]);
         })
 
         require(moduleLoadScripts, function(){
-            console.log("Loaded scripts", scripts.concat(modularScripts));
+            // angular.bootstrap(document, ["SchoolMan"]);
+            console.log("Loaded scripts", scripts.concat(moduleLoadScripts));
         })
 });
 
