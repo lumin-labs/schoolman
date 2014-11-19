@@ -1,32 +1,30 @@
 'use strict';
 
-function LoadingCtrl($scope, Location, $q, Students, Subjects, Forms, Departments, Groups, Fees, Users, settings, model, MockData, Lang) {
-    $scope.dict = Lang.getDict();
+define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang){
+    function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang) {
+        $scope.dict = Lang.getDict();
 
-    // Initialize/Register ClassCouncil datatype
-    var instClassCouncil = new model.ClassCouncil();
-    var instSettings = new model.Settings();
-    var instSchoolInfo = new model.SchoolInfo();
-    var transcript = new model.Transcript();
+        // Initialize/Register SchoolInfo datatype
+        var instSettings = new model.Settings();
+        var instSchoolInfo = new model.SchoolInfo();
 
-    var settingsP = settings.load();
+        var settingsP = settings.load();
+        var userP = Users.load();
+        var deptP = Departments.load();
+        var subjP = Subjects.load();
+        var groupP= Groups.load();
+        var studentsP= Students.load();
+        var feesP = Fees.load();
 
-    var userP = Users.load();
-    var feesP = Fees.load();
-    var deptP = Departments.load();
-    var subjP = Subjects.load();
-    var groupP= Groups.load();
-    var studentsP= Students.load();
+        var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 
+        $q.all(promises).then(function(success){
+          console.log("Successes", success);
+          Location.open({page:"login"})
+        });
+       
 
-    var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
-
-    $q.all(promises).then(function(success){
-      console.log("Successes", success);
-      Location.open({page:"login"})
-    });
-   
-
-  }
-LoadingCtrl.$inject = ['$scope', 'Location', '$q', 'Students', 'Subjects', 'Forms', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'model', 'MockData', 'Lang'];
-angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
+    }
+    LoadingCtrl.$inject = ['$scope', '$q', 'model', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang'];
+    angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
+})

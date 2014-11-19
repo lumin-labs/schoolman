@@ -67,7 +67,7 @@ angular.module('SchoolMan')
     };
     Department.prototype = new model.Model();
     Department.prototype.generateID = function(){
-      var id = "dept_" + this.code;
+      var id = "dept_" + model.slugify(this.code);
       return id;
     }
     Department.prototype.toggleForm = function(formIndex){

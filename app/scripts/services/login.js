@@ -7,7 +7,7 @@
  *
  * This service can create a new user, and login an existing user
  */
-function Login(Data) {
+function Login() {
     
     var cacheduser = null;
 
@@ -129,5 +129,5 @@ function Login(Data) {
 
     }
   }
-Login.$inject = ['Data'];
+// Login.$inject = [];
 angular.module('SchoolMan').service('Login', Login);
