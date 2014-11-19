@@ -495,7 +495,6 @@ function Lang($routeParams) {
   	},
   }
   self.getDict = function(lang){
-  	console.log("Lang getDict 1", $routeParams.lang, defaultLang);
     if(lang !== undefined){
       return langDict[lang];
     }else if($routeParams.lang){

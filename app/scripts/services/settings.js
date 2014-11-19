@@ -27,6 +27,11 @@ function settings($q, model, Data2, EXTENSIONS) {
     return deferred.promise;
   }
   self.availableExtensions = function(){
+    // var extensions = [];
+    // angular.forEach(EXTENSIONS, function(extension){
+    //   extensions.push(extension);
+    // })
+    // console.log("Extensions", extensions);
     return Object.keys(EXTENSIONS);
   }
 

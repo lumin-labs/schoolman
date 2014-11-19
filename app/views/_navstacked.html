@@ -26,7 +26,9 @@
 	<div class="row" style="padding-right:1px;">
 		<div class="col-md-12">
 			<div class="sidebar" >
-				<ul class="nav nav-sidebar" ng-repeat="(extName, extension) in extensions">
+				<ul class="nav nav-sidebar" 
+					ng-repeat="(extName, extension) in extensions"
+					ng-if="settings.extensions.indexOf(extName) > -1 || extName === 'Main'">
 <!-- 					<li class="nav-heading" ng-if="userHasAccess(extension)">
 						<i class="glyphicon" ng-class="extension.icon"></i> &nbsp;{{lang === 'en' ? extension.labelEn : extension.labelFr}}</a></li> -->
 					<li class="" ng-repeat="(tabIndex, tab) in extension.tabs"

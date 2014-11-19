@@ -3,7 +3,6 @@
 define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader', 'MockData'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData){
     function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData) {
         $scope.dict = Lang.getDict();
-        console.log("Language is", $scope.dict, Lang, Lang.getDict());
 
         // Initialize/Register SchoolInfo datatype
         var instSchoolInfo = new model.SchoolInfo();

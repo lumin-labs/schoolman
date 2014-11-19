@@ -12,6 +12,7 @@ define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Locati
     $scope.activePage = $routeParams.page;
     $scope.dict = Lang.getDict();
     $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
+    console.log("EXTENSIONS", $scope.extensions);
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;
@@ -46,6 +47,7 @@ define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Locati
 
     $scope.userHasAccess = function(item){
     	var hasAccess = item.access.indexOf($scope.userAccess) > -1;
+
       if(item.hasOwnProperty("exclude")){
         var excluded = excludedOnThisPage(item);
       } else {

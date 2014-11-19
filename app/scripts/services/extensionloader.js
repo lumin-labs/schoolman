@@ -4,7 +4,7 @@ define(['settings', 'require'], function(settings, require){
     var self = {};
 
     self.loadScripts = function(){
-      var activeExtensions = settings.get().modules;
+      var activeExtensions = settings.get().extensions;
       var extensionLoadScripts = [];
       angular.forEach(activeExtensions, function(extension, key){
           extensionLoadScripts = extensionLoadScripts.concat(EXTENSIONS[extension].scripts);
