@@ -1,7 +1,7 @@
 'use strict';
 define(['Users', 'Subjects', 'Departments', 'settings', 'Cache', 'Location', 'Groups', 'Lang'], function(Users, Subjects, Departments, settings, Cache, Location, Groups, Lang){
 
-function LoginCtrl($scope, $location, $routeParams, $log, DEV, Users, Subjects, Departments, settings, model, Path, Cache, Location, Groups, Lang) {
+function LoginCtrl($scope, $location, $routeParams, $log, DEV, model, Users, Subjects, Departments, settings, Cache, Location, Groups, Lang) {
       $log.info("Path: ", $location.path()); 
 
 
