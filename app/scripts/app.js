@@ -33,42 +33,8 @@ var app = angular.module('SchoolMan', [
 
 ])
 
-
-    var TEMPLATE_DIRECTORY = {
-      login:    "login2.html",
-      login404: "login.html",
-      students: "admin-students.html",
-      staffs:"admin-staff.html",
-      users:    "admin-users.html",
-      user:    "user.html",
-      subjects:  "admin-subjects.html",
-      classes:  "admin-classes.html",
-      transcript: "transcript.html",
-      promotion:"admin-promotion.html",
-      classmasterMarksheet:"classmaster-marksheet.html",
-      registration:"admin-registration.html",
-      departments:"admin-departments.html",
-      fees:"admin-fees.html",
-      salarys:"admin-salary.html",
-      finance:"registrar-finance.html",
-      payments:"staffs-finance.html",
-      reportcardGTHS:"reportcard-gths.html",
-      registrarProfile:"registrar-profile.html",
-      classmasterProfile:"classmaster-profile.html",
-      classcouncil:"classcouncil.html",
-      classmasterStats:"classmaster-stats.html",
-      adminStats:"admin-stats.html",
-      annualreport:"annualreport.html",
-      enrollmentreport:"enrollmentreport.html",
-      staffregistration:"staffregistration.html",
-      staffprofile:"staffprofile.html",
-      stafflist:"stafflist.html",
-      idcards:"idcards.html",
-      notactive:"notactive.html"
-    };
-
 app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
-  var self = {}; 
+  var self = {};
 
   var TEMPLATE_DIRECTORY = {
     login:    "/views/login2.html",
@@ -111,27 +77,6 @@ app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
     } else {
       console.log("404 Page Not Found");
     }
-
-
-    $routeProvider
-      .when('/:page/:subpage/:lang/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:username/:accessCode/:staffId', {
-        templateUrl:function(p){ return getTemplate(p);},
-        // controller:'MainCtrl'
-      })
-      // Login Pages
-      .when('/:page/:lang/:fullname/:accessCode', {
-        templateUrl:function(p){return getTemplate(p);},
-        controller:'LoginCtrl'
-      })
-      .when('/loading', {
-        templateUrl:'/views/loading3.html',
-        controller:'Loading3Ctrl'
-      })
-      .otherwise({
-        redirectTo: '/loading'
-      });
-  });
-
     // var templatePath = base + template;
     console.log("Load Template: ", template , '\n')
     return template;
@@ -161,7 +106,6 @@ app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
     .otherwise({
       redirectTo: '/loading'
     });
-
 
     return app;
 });

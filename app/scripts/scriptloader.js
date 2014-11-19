@@ -85,9 +85,19 @@ var modularScripts={
     'Staffing':[
         "Staffing/services/salarys",
         "Staffing/services/staffs",
+        "Staffing/services/staff-registrar",
+        "Staffing/services/staffid",
+        "Staffing/services/staffsprofile",
         "Staffing/models/Salary",
+        "Staffing/models/Staff",
+        "Staffing/models/Staffpayment",
         "Staffing/controllers/salaryCtrl",
-        "Staffing/controllers/staffregistrationCtrl"
+        "Staffing/controllers/staffregistrationCtrl",
+        "Staffing/controllers/StafflistCtrl",
+        "Staffing/controllers/staffregistrationCtrl",
+        "Staffing/controllers/staffsCtrl",
+        "Staffing/controllers/staffsfinanceCtrl",
+        "Staffing/controllers/staffsprofileCtrl",
     ],
     'Reports':[
         "Reports/controllers/annualreportCtrl",
