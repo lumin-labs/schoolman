@@ -24,6 +24,7 @@ schoolman.config(['modelProvider', function(model){
     this[ val ('subdivision : string')] = "";
     this[ val ('region : string', required)] = "";
     this[ val ('refno : string')] = "";
+    this[ val ('lang : string', required)] = "en";
 
     this.__init__(spec);
   };

@@ -1,6 +1,6 @@
 'use strict';
-
-function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos, Lang) {
+define(['Users', 'Location', 'SchoolInfos', 'Lang'], function(Users, Location, SchoolInfos, Lang){
+  function UsersCtrl($scope, $routeParams, model, Users, Location, SchoolInfos, Lang) {
     
     $scope.data = {};
     $scope.data.users = Users.getAll();
@@ -48,5 +48,6 @@ function UsersCtrl($scope, $routeParams, Users, model, Location, SchoolInfos, La
     $scope.remove = Users.remove;
 
   }
-UsersCtrl.$inject = ['$scope', '$routeParams', 'Users', 'model', 'Location', 'SchoolInfos', 'Lang'];
-angular.module('SchoolMan').controller('UsersCtrl', UsersCtrl);
+  UsersCtrl.$inject = ['$scope', '$routeParams', 'model', 'Users', 'Location', 'SchoolInfos', 'Lang'];
+  angular.module('SchoolMan').controller('UsersCtrl', UsersCtrl);
+})

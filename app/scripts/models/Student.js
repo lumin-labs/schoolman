@@ -51,7 +51,7 @@ schoolman.config(['modelProvider', function(model){
       },{
         key:"feeId",
         type:"string",
-        required:true
+        required:false
       },{
         key:"status",
         type:"object",

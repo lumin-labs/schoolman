@@ -1,6 +1,6 @@
 'use strict';
-
-function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, Groups, Students, Payments, Marksheets, Transcripts) {
+define(['settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments'], function(settings, Users, Fees, Departments, Subjects, Groups, Students, Payments){
+  function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     var self = {};
@@ -232,5 +232,6 @@ function File(pouchdb, $q, settings, model, Users, Fees, Departments, Subjects, 
     window._export = self.export;
     return self;
   }
-File.$inject = ['pouchdb', '$q', 'settings', 'model', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Marksheets', 'Transcripts'];
-angular.module('SchoolMan').service('File', File);
+  File.$inject = ['pouchdb', '$q', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments'];
+  angular.module('SchoolMan').service('File', File);
+})

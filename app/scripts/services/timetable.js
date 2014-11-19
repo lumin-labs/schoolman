@@ -11,7 +11,7 @@
  *
  * This service handles marksheets and all calculations
  */
-function TimeTable(Data) {
+function TimeTable() {
 
 	// Private methods and attributes 
 	// ------------------------------
@@ -19,22 +19,22 @@ function TimeTable(Data) {
   	var courses  = {};
   	var teachers = {};
 
-  	// Load local storage data into RAM
-  	Data.get("timetable", function(timetable){
-      console.log("timetable", timetable);
-  		if(timetable.hasOwnProperty("courses")){
-  			courses = timetable.courses;
-  			teachers = timetable.teachers;
-  		}
-  	});
+  	// // Load local storage data into RAM
+  	// Data.get("timetable", function(timetable){
+   //    console.log("timetable", timetable);
+  	// 	if(timetable.hasOwnProperty("courses")){
+  	// 		courses = timetable.courses;
+  	// 		teachers = timetable.teachers;
+  	// 	}
+  	// });
 
-    // Private method for saving RAM data to chrome.storage.local
-  	var save = function(){
-  		Data.saveLater({"timetable":{
-  				courses:courses,
-  				teachers:teachers
-  			}});
-  	};
+   //  // Private method for saving RAM data to chrome.storage.local
+  	// var save = function(){
+  	// 	Data.saveLater({"timetable":{
+  	// 			courses:courses,
+  	// 			teachers:teachers
+  	// 		}});
+  	// };
 
 
       /**
@@ -166,5 +166,5 @@ function TimeTable(Data) {
   		}
   	}
   }
-TimeTable.$inject = ['Data'];
-angular.module('SchoolMan').service('TimeTable', TimeTable);
+// TimeTable.$inject = [];
+angular.module('SchoolMan').register.service('TimeTable', TimeTable);
