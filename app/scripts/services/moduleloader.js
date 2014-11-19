@@ -2,23 +2,10 @@
 define(['settings'], function(settings){
 	// function ModuleLoader(settings) {
 		var self = {};
-		// var moduleSettings = (settings.get()).modules;
-		var moduleSettings = {
-	      'ReportCard':1,
-	      'Finance':1,
-	      'Staffing':1,
-	      'Transcript':1,
-	      'IDCard':1,
-	      'Reports':1
-	    };
+		// var modules = (settings.get()).modules;
 
 		self.modules = function(){
-			var modules = [];
-			angular.forEach(moduleSettings, function(value, module){
-				if(value === 1){
-					modules.push(module);
-				}
-			})	
+			var modules = ['ReportCard', 'Finance', 'Staffing', 'Transcript', 'IDCard', 'Reports'];
 			return modules;
 		}
 
@@ -27,11 +14,3 @@ define(['settings'], function(settings){
 	// ModuleLoader.$inject = ['settings'];
 	// angular.module('SchoolMan').service('ModuleLoader', ModuleLoader);
 })
-
-// define(function () {
-//     return {
-//         getHello: function () {
-//             return 'Hello World';
-//         }
-//     };
-// });

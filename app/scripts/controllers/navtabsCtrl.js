@@ -4,6 +4,7 @@ define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Locati
 
     // $scope.TABS = TABS;
     $scope.modules = MODULES;
+    console.log("nav modules",$scope.modules, MODULES);
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
     $scope.teacher = Cache.get('user');

@@ -26,18 +26,16 @@ function settings($q, model, Data2, MODULES) {
 
 		return deferred.promise;
 	}
-	self.modules = function(){
+	self.availableModules = function(){
 		var modules = [];
-		angular.forEach(settings.modules, function(module, value){
-			if(value === 1){
-				modules.push(module);
-			}
-		})	
+		angular.forEach(MODULES.slice(1), function(module,index){
+			modules.push(module.moduleName);
+		})
 		return modules;
 	}
 
 	return self;
 
 }
-settings.$inject = ['$q', 'model', 'Data2'];
+settings.$inject = ['$q', 'model', 'Data2', 'MODULES'];
 angular.module('SchoolMan').service('settings', settings);

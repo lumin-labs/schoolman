@@ -33,7 +33,7 @@ var app = angular.module('SchoolMan', [
 
 ])
 
-app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
+app.config(function ($routeProvider, $controllerProvider, $provide) {
   var TEMPLATE_DIRECTORY = {
     login:    "/views/login2.html",
     login404: "/views/login.html",

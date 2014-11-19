@@ -25,14 +25,7 @@ schoolman.config(['modelProvider', function(model){
       'classmaster':0,
       'teacher':0
     };
-    this[ val ('modules : object', required)] = {
-      'ReportCard':1,
-      'Finance':1,
-      'Staffing':1,
-      'Transcript':1,
-      'IDCard':1,
-      'Reports':1
-    }
+    this[ val ('modules : object', required)] = ['ReportCard', 'Finance'];
 
     // this.def("_id", function(){
     //   return "dcard_" + this.studentId + "_" + this.year;
