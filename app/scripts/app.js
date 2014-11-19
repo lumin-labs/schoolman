@@ -33,7 +33,7 @@ var app = angular.module('SchoolMan', [
 
 ])
 
-app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
+app.config(function ($routeProvider, $controllerProvider, $provide) {
   var self = {};
 
   var TEMPLATE_DIRECTORY = {
@@ -112,10 +112,10 @@ app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
 });
 
 chrome.storage.local.get("initialized",function(r){
-      if(!r.hasOwnProperty("initialized")){
-        chrome.storage.local.set({initialized:false});
-      }
-    });
+  if(!r.hasOwnProperty("initialized")){
+    chrome.storage.local.set({initialized:false});
+  }
+});
 
 document.getElementById("close").onclick = function() {
   window.close();

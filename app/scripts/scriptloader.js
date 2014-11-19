@@ -40,6 +40,7 @@ var servicesMain = {
     "ClassCouncils": "ReportCard/services/classcouncils",
     "Fees": "Finance/services/fees",
     "Payments":"Finance/services/payments",
+    "ModuleLoader": "../scripts/services/moduleloader",
 }
 
 var controllersMain = [
@@ -56,7 +57,6 @@ var controllersMain = [
     "../scripts/controllers/groupsCtrl",
     "../scripts/controllers/registrationCtrl",
     "../scripts/controllers/userCtrl",
-    "../scripts/services/moduleloader",
     "ReportCard/models/ClassCouncil",
     "ReportCard/models/Marksheet",
     "ReportCard/models/Comment",
@@ -112,18 +112,24 @@ require.config({
 var scripts = modelsMain.concat(controllersMain);
 
 require(scripts, function(){
-            angular.bootstrap(document, ["SchoolMan"]);
-        var moduleLoader = require('../scripts/services/moduleloader');
+    angular.bootstrap(document, ["SchoolMan"]);
 
-        var modules = moduleLoader.modules();
-        var moduleLoadScripts = [];
-        angular.forEach(modules, function(module, key){
-            moduleLoadScripts = moduleLoadScripts.concat(modularScripts[module]);
-        })
+    // define(['../scripts/services/moduleloader'], function(ModuleLoader){
+    //     ModuleLoader.loadScripts();
+    // })
 
-        require(moduleLoadScripts, function(){
-            // angular.bootstrap(document, ["SchoolMan"]);
-            console.log("Loaded scripts", scripts.concat(moduleLoadScripts));
-        })
+    // var moduleLoader = require('../scripts/services/moduleloader');
+    // console.log("Module Loader is", moduleLoader)
+
+    // var modules = moduleLoader.modules();
+    // var moduleLoadScripts = [];
+    // angular.forEach(modules, function(module, key){
+    //     moduleLoadScripts = moduleLoadScripts.concat(modularScripts[module]);
+    // })
+
+    // require(moduleLoadScripts, function(){
+    //     // angular.bootstrap(document, ["SchoolMan"]);
+    //     console.log("Loaded scripts", scripts.concat(moduleLoadScripts));
+    // })
 });
 
