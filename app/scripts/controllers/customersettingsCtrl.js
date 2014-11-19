@@ -2,7 +2,7 @@
 define(['settings'], function(settings){
    function SettingsCtrl($scope, Data2, model, $routeParams, settings) {
   	
-  	// $scope.roles = model.User.roles;
+  	$scope.roles = model.User.roles;
     $scope.settings = settings.get();
     $scope.accessCode = $routeParams.accessCode;
 
@@ -10,13 +10,17 @@ define(['settings'], function(settings){
     console.log("Available Modules:", $scope.availableModules);
     console.log("Settings:", $scope.settings);
 
-  	$scope.toggle = function(module){
-        var index = $scope.settings.modules.indexOf(module);
+  	$scope.toggle = function(setting){
+      if($scope.settings.access.hasOwnProperty(setting)){
+        $scope.settings.access[setting] = ($scope.settings.access[setting] + 1) % 2;
+      } else if($scope.availableModules.indexOf(setting) > -1){
+        var index = $scope.settings.modules.indexOf(setting);
         if(index > -1){
           delete $scope.settings.modules[index];
         } else {
-          $scope.settings.modules.push(module);
+          $scope.settings.modules.push(setting);
         }
+      }
         
   		$scope.settings.save().then(function(success){
   			console.log("Settings saved", $scope.settings);
