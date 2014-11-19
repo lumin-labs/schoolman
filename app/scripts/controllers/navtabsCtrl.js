@@ -12,7 +12,6 @@ define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Locati
     $scope.activePage = $routeParams.page;
     $scope.dict = Lang.getDict();
     $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
-    console.log("EXTENSIONS", $scope.extensions);
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;

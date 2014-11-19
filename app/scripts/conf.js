@@ -1,7 +1,7 @@
 'use strict';
 
-var extensionList = { 
-  "Main": {
+var extensionList = [ {
+    moduleName: "Main",
     labelEn:"Registration",
     labelFr:"Inscription",
     access:['admin', 'registrar'],
@@ -65,9 +65,8 @@ var extensionList = {
         exclude:[]
       }
     ]
-  },
-
-  "Finance":{
+  },{
+    moduleName:"Finance",
     labelEn:"Finance",
     labelFr:"Finance",
     access:['admin', 'registrar'],
@@ -94,9 +93,8 @@ var extensionList = {
       },
       
     ]
-  },
-
-  "ReportCard":{
+  },{
+    moduleName:"ReportCard",
     labelEn:"Marks",
     labelFr:"Les Notes",
     access:['admin', 'classmaster', 'teacher'],
@@ -169,9 +167,8 @@ var extensionList = {
         exclude:[]
       },
     ]
-  },
-
-  "IDCard": {
+  },{
+    moduleName:"IDCard",
     labelEn:"ID Cards",
     labelFr:"Cartes d'Identité",
     access:['registrar'],
@@ -188,9 +185,8 @@ var extensionList = {
         exclude:[]
       }
     ]
-  },
-
-  "Reports": {
+  },{
+    moduleName:"Reports",
     labelEn:"Reports",
     labelFr:"Rapports",
     access:['admin'],
@@ -215,9 +211,8 @@ var extensionList = {
         exclude:[]
       }
     ]
-  },
-
-  "Staffing": {
+  },{
+    moduleName:"Staffing",
     labelEn:"Staffing",
     labelFr:"Personnel",
     access:['admin', 'registrar'],
@@ -266,9 +261,8 @@ var extensionList = {
       //   exclude:[]
       // },
     ]
-  },
-
-  "Transcript": {
+  },{
+    moduleName:"Transcript",
     labelEn:"Transcript",
     labelFr:"Transcription",
     access:['admin'],
@@ -287,9 +281,8 @@ var extensionList = {
         exclude:[]
       }
     ]
-  },
-
-  "TimeTable": {
+  },{
+    moduleName:"TimeTable",
     labelEn:"Time Table",
     labelFr:"Programme",
     access:['admin'],
@@ -300,8 +293,7 @@ var extensionList = {
     tabs: [
       
     ]
-  }
-}
+  }]
 
 angular.module('SchoolMan')
   .constant('VERSION',{
