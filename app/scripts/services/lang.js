@@ -3,7 +3,8 @@
 function Lang($routeParams) {
   var langs = ['en', 'fr'];
   // var lang = $routeParams.lang;
-  self.defaultLang = "en";
+  var self = {};
+  var defaultLang = "en";
 
   var langDict = {
   	en:{
@@ -494,14 +495,14 @@ function Lang($routeParams) {
   	},
   }
   self.getDict = function(lang){
-  	// console.log("Language is", $routeParams.lang, langDict[$routeParams.lang]);
+  	console.log("Lang getDict 1", $routeParams.lang, defaultLang);
     if(lang !== undefined){
       return langDict[lang];
     }else if($routeParams.lang){
   	  return langDict[$routeParams.lang];
     } else {
-      $routeParams.lang = self.defaultLang;
-      return langDict[self.defaultLang];
+      $routeParams.lang = defaultLang;
+      return langDict[defaultLang];
     }
   }
 

@@ -274,8 +274,8 @@ var extensionList = {
     access:['admin'],
     icon:"glyphicon-list-alt",
     scripts:[
-      "Transcript/models/Transcript", 
-      "Transcript/services/transcripts",
+      // "Transcript/models/Transcript", 
+      // "Transcript/services/transcripts",
       "Transcript/controllers/transcriptCtrl"
     ],
     tabs: [

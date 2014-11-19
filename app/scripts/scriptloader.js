@@ -9,6 +9,13 @@ var modelsMain = [
     "../scripts/models/Form",
     "../scripts/models/Settings",
     "../scripts/models/SchoolInfo",
+    "ReportCard/models/ClassCouncil",
+    "ReportCard/models/Marksheet",
+    "ReportCard/models/Comment",
+    "ReportCard/models/Dcard",
+    "Finance/models/Fee",
+    "Finance/models/Payment",
+    "Transcript/models/Transcript",
 ]
 
 var servicesMain = {
@@ -40,6 +47,7 @@ var servicesMain = {
     "ClassCouncils": "ReportCard/services/classcouncils",
     "Fees": "Finance/services/fees",
     "Payments":"Finance/services/payments",
+    "Transcripts": "Transcript/services/transcripts",
     "ExtensionLoader": "../scripts/services/extensionloader",
 }
 
@@ -57,12 +65,6 @@ var controllersMain = [
     "../scripts/controllers/groupsCtrl",
     "../scripts/controllers/registrationCtrl",
     "../scripts/controllers/userCtrl",
-    "ReportCard/models/ClassCouncil",
-    "ReportCard/models/Marksheet",
-    "ReportCard/models/Comment",
-    "ReportCard/models/Dcard",
-    "Finance/models/Fee",
-    "Finance/models/Payment",
     
 ]
 
