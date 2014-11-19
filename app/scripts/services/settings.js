@@ -26,7 +26,7 @@ function settings($q, model, Data2, MODULES) {
 
 		return deferred.promise;
 	}
-	self.availableModules = function(){
+	self.availableExtensions = function(){
 		var modules = [];
 		angular.forEach(MODULES.slice(1), function(module,index){
 			modules.push(module.moduleName);
