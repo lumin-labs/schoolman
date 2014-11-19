@@ -37,18 +37,18 @@
       <table class="table">
         <thead>
           <tr>
-            <td ng-repeat="module in availableModules">{{module}}</td>
+            <td ng-repeat="extension in availableExtensions">{{extension}}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td ng-repeat="module in availableModules">
+            <td ng-repeat="module in availableExtensions">
               <button ng-click="toggle(module)"
                       class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-                  <i ng-if="settings.modules.indexOf(module) === -1" 
+                  <i ng-if="settings.extensions.indexOf(module) === -1" 
                      class="glyphicon glyphicon-minus" 
                      style="color:red;"></i>
-                   <i ng-if="settings.modules.indexOf(module) > -1" 
+                   <i ng-if="settings.extension.indexOf(module) > -1" 
                    class="glyphicon glyphicon-ok" 
                    style="color:green;"></i>
                 </button>

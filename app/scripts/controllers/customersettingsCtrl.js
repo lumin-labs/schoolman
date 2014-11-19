@@ -6,8 +6,8 @@ define(['settings'], function(settings){
     $scope.settings = settings.get();
     $scope.accessCode = $routeParams.accessCode;
 
-    $scope.availableModules = settings.availableModules();
-    console.log("Available Modules:", $scope.availableModules);
+    $scope.availableExtensions = settings.availableExtensions();
+    console.log("Available Modules:", $scope.availableExtensions);
     console.log("Settings:", $scope.settings);
 
   	$scope.toggle = function(setting){
@@ -16,9 +16,9 @@ define(['settings'], function(settings){
       } else if($scope.availableModules.indexOf(setting) > -1){
         var index = $scope.settings.modules.indexOf(setting);
         if(index > -1){
-          delete $scope.settings.modules[index];
+          delete $scope.settings.extensions[index];
         } else {
-          $scope.settings.modules.push(setting);
+          $scope.settings.extensions.push(setting);
         }
       }
         
