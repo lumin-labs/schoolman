@@ -29,6 +29,22 @@ angular.module('SchoolMan')
           exclude:'all'
         },
         {
+          en:"Customer Settings",
+          fr:"Customer Settings",
+          page:"customerSettings",
+          access:['sales'],
+          exclude:[],
+          icon:'glyphicon-cog'
+        },
+        {
+          en:"School Information",
+          fr:"SchoolInformation",
+          page:"schoolInfo",
+          access:['sales'],
+          exclude:[],
+          icon:'glyphicon-info-sign'
+        },
+        {
           en:"Departments",
           fr:"Départements",
           page:"departments",
@@ -56,7 +72,6 @@ angular.module('SchoolMan')
           access:['admin', 'registrar'],
           exclude:[]
         },
-        
         {
           en:"Student Profile",
           fr:"Profil de l'Étudiant",

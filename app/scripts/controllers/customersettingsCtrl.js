@@ -1,7 +1,6 @@
 'use strict';
-
-angular.module('SchoolMan')
-  .controller('CustomerCtrl', function ($scope, Data2, model, settings, $routeParams) {
+define(['settings'], function(settings){
+   function SettingsCtrl($scope, Data2, model, $routeParams, settings) {
   	
   	$scope.roles = model.User.roles;
     $scope.settings = settings.get();
@@ -13,4 +12,7 @@ angular.module('SchoolMan')
   			console.log("Settings saved", $scope.settings);
   		}) 
   	}
-  });
+  };
+  SettingsCtrl.$inject = ['$scope', 'Data2', 'model', '$routeParams', 'settings'];
+  angular.module('SchoolMan').controller('SettingsCtrl', SettingsCtrl);
+});

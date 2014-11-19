@@ -56,6 +56,8 @@ var controllersMain = [
     "../scripts/controllers/groupsCtrl",
     "../scripts/controllers/registrationCtrl",
     "../scripts/controllers/userCtrl",
+    "../scripts/controllers/customersettingsCtrl",
+    "../scripts/controllers/schoolinfoCtrl",
     "../scripts/services/moduleloader",
     "ReportCard/models/ClassCouncil",
     "ReportCard/models/Marksheet",
