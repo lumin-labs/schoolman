@@ -40,7 +40,7 @@ var servicesMain = {
     "ClassCouncils": "ReportCard/services/classcouncils",
     "Fees": "Finance/services/fees",
     "Payments":"Finance/services/payments",
-    "ExtensionLoader": "../scripts/services/moduleloader",
+    "ExtensionLoader": "../scripts/services/extensionloader",
 }
 
 var controllersMain = [
@@ -66,43 +66,43 @@ var controllersMain = [
     
 ]
 
-var modularScripts={
-    'ReportCard':[
-        "ReportCard/controllers/reportcardCtrl",
-        "ReportCard/controllers/classmasterprofileCtrl",
-        "ReportCard/controllers/mastersheetCtrl",
-        "ReportCard/controllers/marksheetCtrl",
-        "ReportCard/controllers/myclassesCtrl",
-        "ReportCard/controllers/classcouncilCtrl",
-        "ReportCard/controllers/statsCtrl",
-        "ReportCard/services/dcards",
-    ],
-    'Finance':[
-        "Finance/controllers/registrarprofileCtrl",
-        "Finance/controllers/feesCtrl",
-        "Finance/controllers/balancesheetCtrl",
-    ],
-    'Staffing':[
-        "Staffing/services/salarys",
-        "Staffing/services/staffs",
-        "Staffing/models/Salary",
-        "Staffing/controllers/salaryCtrl",
-        "Staffing/controllers/staffregistrationCtrl"
-    ],
-    'Reports':[
-        "Reports/controllers/annualreportCtrl",
-        "Reports/controllers/enrollmentCtrl"
-    ],
-    'Transcript':[
-        "Transcript/models/Transcript", 
-        "Transcript/services/transcripts",
-        "Transcript/controllers/transcriptCtrl"
-    ],
-    'IDCard':[
-        "IDCard/controllers/idcardCtrl"
-    ]
+// var modularScripts={
+//     'ReportCard':[
+//         "ReportCard/controllers/reportcardCtrl",
+//         "ReportCard/controllers/classmasterprofileCtrl",
+//         "ReportCard/controllers/mastersheetCtrl",
+//         "ReportCard/controllers/marksheetCtrl",
+//         "ReportCard/controllers/myclassesCtrl",
+//         "ReportCard/controllers/classcouncilCtrl",
+//         "ReportCard/controllers/statsCtrl",
+//         "ReportCard/services/dcards",
+//     ],
+//     'Finance':[
+//         "Finance/controllers/registrarprofileCtrl",
+//         "Finance/controllers/feesCtrl",
+//         "Finance/controllers/balancesheetCtrl",
+//     ],
+//     'Staffing':[
+//         "Staffing/services/salarys",
+//         "Staffing/services/staffs",
+//         "Staffing/models/Salary",
+//         "Staffing/controllers/salaryCtrl",
+//         "Staffing/controllers/staffregistrationCtrl"
+//     ],
+//     'Reports':[
+//         "Reports/controllers/annualreportCtrl",
+//         "Reports/controllers/enrollmentCtrl"
+//     ],
+//     'Transcript':[
+//         "Transcript/models/Transcript", 
+//         "Transcript/services/transcripts",
+//         "Transcript/controllers/transcriptCtrl"
+//     ],
+//     'IDCard':[
+//         "IDCard/controllers/idcardCtrl"
+//     ]
 
-}
+// }
 
 require.config({
     baseUrl: 'extensions',

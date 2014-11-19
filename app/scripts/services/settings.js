@@ -1,6 +1,6 @@
 'use strict';
 
-function settings($q, model, Data2, MODULES) {
+function settings($q, model, Data2, EXTENSIONS) {
 
   console.log("model service", model);
   var settings = new model.Settings();
@@ -26,16 +26,12 @@ function settings($q, model, Data2, MODULES) {
 
     return deferred.promise;
   }
-  self.availableModules = function(){
-    var modules = [];
-    angular.forEach(MODULES.slice(1), function(module,index){
-      modules.push(module.moduleName);
-    })
-    return modules;
+  self.availableExtensions = function(){
+    return Object.keys(EXTENSIONS);
   }
 
   return self;
 
 }
-settings.$inject = ['$q', 'model', 'Data2', 'MODULES'];
+settings.$inject = ['$q', 'model', 'Data2', 'EXTENSIONS'];
 angular.module('SchoolMan').service('settings', settings);

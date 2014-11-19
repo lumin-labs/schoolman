@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ModuleLoader'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ModuleLoader){
-    function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ModuleLoader) {
+define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader){
+    function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader) {
         $scope.dict = Lang.getDict();
 
         // Initialize/Register SchoolInfo datatype
@@ -19,13 +19,13 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
 
         $q.all(promises).then(function(success){
           console.log("Successes", success);
-          ModuleLoader.loadExtensions();
+          ExtensionLoader.loadScripts();
           Location.open({page:"login"});
         });
 
         
 
     }
-    LoadingCtrl.$inject = ['$scope', '$q', 'model', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ModuleLoader'];
+    LoadingCtrl.$inject = ['$scope', '$q', 'model', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader'];
     angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
 })
