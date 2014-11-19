@@ -19,20 +19,13 @@ schoolman.config(['modelProvider', function(model){
     //this[ val['?'] ('year', String) ] = "2014";
 
     this._id = "customer_settings";
-    this[ val ('access : object', required)] = {
+    this[ val ('access : object')] = {
       'admin':1,
       'registrar':1,
-      'classmaster':0,
-      'teacher':0
+      'classmaster':1,
+      'teacher':1
     };
-    this[ val ('modules : object', required)] = {
-      'ReportCard':1,
-      'Finance':1,
-      'Staffing':1,
-      'Transcript':1,
-      'IDCard':1,
-      'Reports':1
-    }
+    this[ val ('modules : object', required)] = ['ReportCard', 'Finance'];
 
     // this.def("_id", function(){
     //   return "dcard_" + this.studentId + "_" + this.year;
@@ -52,4 +45,3 @@ schoolman.config(['modelProvider', function(model){
   console.log("Settings added to model", model);
 
 }]);
- 
