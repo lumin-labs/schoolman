@@ -88,8 +88,10 @@ schoolman.config(['modelProvider', function(model){
       return new Student();
     }
 
+    // this.id = "";
+    this.name ="";
     this.id = "";
-    this.name = ""; 
+ 
     this.sex = "";     // String
     this.birth = null; // Datetime integer
     this.parentName = "";

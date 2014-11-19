@@ -1,195 +1,100 @@
 'use strict';
 
-function StaffsprofileCtrl($scope, $routeParams, model, staffsprofile, Dcards, Users, Marksheets, ClassCouncils, $q, Staffregistrar, Staffs, Salarys, Forms, Payments, Groups, Departments, PROMOTE_OPTIONS, Lang) {
+function StaffprofileCtrl($scope, $routeParams, Staffs, model, Lang,Salarys) {
+    $scope.editing = false;
+    // $scope.currentStaff = Staffs.get($routeParams.staffname);
+    // $scope.editingUser = $routeParams.subpage === 'current' ? 
+    //                      $scope.currentUser : Users.get($routeParams.subpage);
 
-    $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
-
+    var data = $scope.data = {};
+    $scope.data.staff = Staffs.get($routeParams.staffId);
+                        console.log("staff",$scope.data.staff);
+    $scope.data.salarys = Salarys.getAll();
+    // $scope.data.newPassword = "";
+    // $scope.data.repeatPassword = "";
+    $scope.data.verifiedStatus = "";
     $scope.accessCode = $routeParams.accessCode;
-
-  	$scope.newPayment = new model.Payment();
-  	$scope.newPayment.registrar = $routeParams.username;
-    $scope.newPayment.staffId = $routeParams.staffId;
-    $scope.multiplier = 1; // -1 implies that this payment is a correction
-
-    $scope.Users = Users;
-    $scope.username = $routeParams.username;
     $scope.dict = Lang.getDict();
 
-    var reports = {};
-    var classCouncils = {};
+    // $scope.data.currentPassword = "";
+
+    $scope.status = "";
+    $scope.date = new Date();
+
+    console.log("Staff", $scope.data.staff);
 
 
-    var staffId = $routeParams.staffId === "0" ? "staff_U0000001" : $routeParams.staffId;
-    console.log("routeParams", $routeParams);
+    var serviceLength = function(){
+        $scope.data.serviceYears = $scope.date.getFullYear()-(new Date($scope.data.staff.dateofentry)).getFullYear();
+        $scope.data.serviceMonths = $scope.date.getMonth()-(new Date($scope.data.staff.dateofentry)).getMonth();
 
-    var data = $scope.data = {
-      comments:{},
-      staff:undefined,
-      dcard:undefined,
-      forms:Forms.all(),
-      departments:Departments.getAll(),
-      groups:Groups.getAll(),
-      salarys:Salarys.getAll(),
-      payments:[]
-    };
+        if($scope.data.serviceMonths < 0){
+            $scope.data.serviceYears -= 1;
+            $scope.data.serviceMonths = 12 + $scope.data.serviceMonths;
+        }
 
-    // var setPassing = function(student, studentsClass){
-    //   var studentAverage = 0;
-    //   if(reports[studentsClass].total.summary){
-    //     studentAverage = reports[studentsClass].total.summary['table'][student._id][0];
-    //   }
-    //   student.passing = studentAverage >= classCouncils[studentsClass].passingScore;   
-    // };
+        $scope.data.retire = new Date($scope.data.staff.birth);
+        
+        $scope.data.retire.setYear($scope.data.retire.getFullYear() + 60);
+    }
 
-    Staffs.get(staffId).then(function(staff){
-      console.log("Found staff:", staff);
-      $scope.data.staff = staff;
-      $scope.newComment = new model.Comment($routeParams.username,  $scope.data.staff._id);
+    serviceLength();
 
-      // This is for reverting data.student if user starts to edit and chooses to cancel
-      var staffCopy = angular.copy($scope.data.staff);
-      $scope.editing = false;
-      $scope.edit = function(){
+    var staffCopy = angular.copy($scope.data.staff);
+
+    $scope.edit = function(){
         $scope.editing = true;
-      }
-      $scope.cancel = function(){
+    }
+
+    $scope.cancel = function(){
         $scope.data.staff = angular.copy(staffCopy);
         $scope.editing = false;
-      }
-
-      $scope.data.staff.passing = false;
-      var staffsClass = [staff.formIndex, staff.deptId, staff.groupId];
-          
-      if(reports.hasOwnProperty(staffsClass) &&  
-        classCouncils.hasOwnProperty(staffsClass)){
-
-        setPassing($scope.data.staff, staffsClass);
-
-      } else {
-        var reportquery = {
-          reports: Marksheets.getReports({
-            formIndex:staff.formIndex,
-            deptId:staff.deptId,
-            groupId:staff.groupId
-          })
-        }
-        var councilquery = {
-          classcouncil: ClassCouncils.get(model.ClassCouncil.generateID({
-            formIndex:staff.formIndex,
-            deptId:staff.deptId,
-            groupId:staff.groupId
-          }))
-        }
-
-        // Get reports and classCouncils
-        $q.all(councilquery).then(function(data){
-          console.log("all promises: ", data);
-          classCouncils[staffsClass] = data.classcouncil;
-        }).catch(function(error){
-          if(!classCouncils[staffsClass]){
-            classCouncils[staffsClass] = new model.ClassCouncil();
-          }
-          // console.log("Failed to load classCouncils:", error);
-        });
-        $q.all(reportquery).then(function(data){
-          console.log("all promises: ", data);
-          reports[staffsClass] = data.reports;
-          setPassing($scope.data.staff, staffsClass);
-        }).catch(function(error){
-            // console.log("Failed to load reports", error);
-        });
-      }
-
-    }).catch(function(error){
-      console.log("staffsprofileCtrl Error: ",error);
-    })
-
-    Dcards.get(staffId).then(function(dcard){
-      $scope.data.dcard = dcard;
-    }).catch(function(error){
-      console.log("Failed to get dcard", error);
-    });
-
-    staffsprofile.getComments(staffId).then(function(comments){
-      $scope.data.comments = comments;
-    }); 
-    
-    Payments.query({staffId:staffId}).then(function(payments){
-      $scope.data.payments = payments;
-    }).catch(function(error){
-      console.log("payment error: ", error);
-    });
-
-    $scope.addPayment = function(payment, multiplier){
-    	// Reformat the input from string to number
-      payment.amount = payment.getAmount() * multiplier;
-
-      payment.save().then(function(success){
-        $scope.data.payments.push(payment);
-        $scope.newPayment = new model.Payment();
-        $scope.newPayment.registrar = $routeParams.username;
-        $scope.newPayment.staffId = $routeParams.staffId;
-
-        // This is a crappy hack to compensate for the fact that pouchdb seems
-        // to be too slow to calculate this on the fly for a list of students
-        $scope.data.staff.totalPaid += payment.amount;
-        $scope.data.staff.save();
-
-      }).catch(function(error){
-        console.log("Payment save error ", error);
-      });
-    };
-
-    // $scope.addComment = function(){
-    //   $scope.newComment.date = new Date();
-    //   $scope.newComment.user = $routeParams.username;
-    //   $scope.student.discipline.comments.push($scope.newComment);
-    //   Registrar.save();
-    //   $scope.newComment = new model.Comment();
-    // }
-
-    $scope.addComment = function(){
-      $scope.newComment.save().then(function(success){
-        $scope.data.comments[success.id] = $scope.newComment;
-        $scope.newComment = new model.Comment($routeParams.username, $scope.data.staff._id);
-      });     
-    };
-
-    $scope.removeComment = function(commentIndex){
-      var comment = $scope.data.comments[commentIndex];
-      staffsprofile.removeComment(comment).then(function(success){
-        delete $scope.data.comments[commentIndex];
-      });
     }
 
-    $scope.stringToNumber = function(amount){
-      amount = Number(amount.replace(/[^0-9\.]+/g,""));
-      return amount;
-    };
-
-    $scope.getTotalPayments = function(){
-      var total = 0;
-      total = $scope.data.payments.reduce(function(total, payment){
-        if(typeof payment.amount === "string"){
-         payment.amount = $scope.stringToNumber(payment.amount);
-        }
-        return payment.amount + total;
-      }, 0);
-      return total;
-    };
-
-    $scope.getOwed = function(){
-      return data.salarys[data.staff.salaryId].salaryAmount + data.salarys[data.staff.salaryId].socailinsuranceAmount;
+     $scope.getOwed = function(){
+        console.log(data.salarys[data.staff.salaryId].salaryAmount,  data.salarys[data.staff.salaryId].socialinsuranceAmount);
+      return data.salarys[data.staff.salaryId].salaryAmount + data.salarys[data.staff.salaryId].socialinsuranceAmount;
     }
+    // $scope.verifyMatch = function(){
+    //   if($scope.data.repeatPassword === $scope.data.newPassword){
+    //     $scope.data.verifiedStatus = "has-success";
+    //   } else {
+    //     $scope.data.verifiedStatus = "has-error"
+    //   }
+    // };
 
-    $scope.save = function(model){
-      model.save().then(function(success){
-        console.log("Model saved", success);
+    // $scope.verifyStatus = function(){
+    //   if($scope.data.repeatPassword.length < $scope.data.newPassword.length){
+    //     $scope.data.verifiedStatus = ""
+    //   } else {
+    //     $scope.verifyMatch();
+    //   }
+    // };
+    $scope.save = function(staff){
+      staff.save().then(function(success){
+        console.log("Staff saved", success);
         $scope.editing = false;
+        serviceLength();
       }).catch(function(error){
-        console.log("Failed to save model", error);
+        console.log("Failed to save staff", error);
       });
     };
+
+    // $scope.savePassword = function(){
+    //   if(model.encrypt($scope.data.currentPassword) === $scope.currentUser.password){
+    //     var user = $scope.data.user;
+    //     user.password = model.encrypt($scope.data.newPassword);
+    //     user.save().then(function(success){
+    //       $scope.status = 200;
+    //     }).catch(function(error){
+    //       console.log("Failed to update password", error);
+    //     });
+    //   } else {
+    //     $scope.status = 401;
+    //   }
+    // }
+    
+
   }
-  StaffsprofileCtrl.$inject = ['$scope', '$routeParams', 'model', 'staffsprofile', 'Dcards', 'Users', 'Marksheets', 'ClassCouncils', '$q', 'Staffregistrar', 'Staffs', 'Salarys', 'Forms', 'Payments', 'Groups', 'Departments', 'PROMOTE_OPTIONS', 'Lang'];
-  angular.module('SchoolMan').controller('StaffsprofileCtrl', StaffsprofileCtrl);
+StaffprofileCtrl.$inject = ['$scope', '$routeParams', 'Staffs', 'model', 'Lang','Salarys'];
+angular.module('SchoolMan').controller('StaffprofileCtrl', StaffprofileCtrl);

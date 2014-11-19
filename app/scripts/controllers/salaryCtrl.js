@@ -4,15 +4,15 @@ function SalarysCtrl($scope, Salarys, Staffs, model) {
       
       $scope.data = {};
       $scope.data.salarys = Salarys.getAll();
+      $scope.data.staffs = Staffs.getAll();
        console.log("salarys",$scope.data.salarys)
       // Join students to fees
-      Staffs.getAll().then(function(staffs){
+      
         angular.forEach($scope.data.salarys, function(salary, key){
-          salary.staffs = _.filter(staffs, function(staff){
+          salary.staffs = _.filter($scope.data.staffs, function(staff){
             return staff.salaryId === key;
           });
         });
-      });
       
       $scope.newSalary = new model.Salary();
 

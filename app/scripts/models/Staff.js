@@ -20,49 +20,97 @@ schoolman.config(['modelProvider', function(model){
         key:"sex",
         type:"string",
         required:true
-      },{
-        key:"birth",
-        type:"string",
-        required:true
-      },{
-        key:"staffPhone",
-        type:"string",
-        required:true
-      },{
+      },
+      // {
+      //   key:"staffName",
+      //   type:"string",
+      //   required:false
+      // },
+      // {
+      //   key:"staffPhone",
+      //   type:"string",
+      //   required:false
+      // },
+        {
         key:"staffEmail",
         type:"string",
-        required:true
-      },{
-        key:"formIndex",
-        type:"string",
-        required:true
-      },{
-        key:"deptId",
-        type:"string",
-        required:true
-      },{
-        key:"groupId",
-        type:"string",
-        required:true
+        required:false
       },{
         key:"salaryId",
         type:"string",
         required:true
       },{
-        key:"status",
-        type:"object",
-        required:true
-      },{
-        key:"totalPaid",
-        type:"number",
-        required:false
-      },{
         key:"birthplace",
-        type:"number",
+        type:"string",
         required:false
       },{
         key:"residence",
-        type:"number",
+        type:"string",
+        required:false
+      },
+      {
+        key:"matricalno",
+        type:"string",
+        required:false
+      },
+      {
+        key:"maritalstatus",
+        type:"string",
+        required:false
+      },
+      {
+        key:"birth",
+        type:"object",
+        required:false
+      },
+      {
+        key:"grade",
+        type:"string",
+        required:false
+      },
+      {
+        key:"qualification",
+        type:"string",
+        required:false
+      },
+      {
+        key:"subdivision",
+        type:"string",
+        required:false
+      },
+      {
+        key:"division",
+        type:"string",
+        required:false
+      },{
+        key:"dateofentry",
+        type:"object",
+        required:false
+      },{
+        key:"specialty",
+        type:"string",
+        required:false
+      },{
+        key:"tribe",
+        type:"string",
+        required:false
+      },{
+        key:"dateposted",
+        type:"object",
+        required:false
+      },{
+        key:"dutypost",
+        type:"string",
+        required:false
+      },
+      {
+        key:"region",
+        type:"string",
+        required:false
+      },
+      {
+        key:"phoneNo",
+        type:"string",
         required:false
       }],
       fields_key:0
@@ -81,19 +129,33 @@ schoolman.config(['modelProvider', function(model){
     }
 
     this.id = "";
-    this.name = ""; 
+    this.name ="";
     this.sex = "";     // String
-    this.birth = null; // Datetime integer
-    this.staffName = "";
-    this.staffPhone = "";
     this.staffEmail = "";
+    this.salaryId = spec.feeId || null;
+    this.birthplace = "";
+    this.residence = "";
+    this.matricalno = "";
+    this.maritalstatus = "";
+    this.birth = null; // Datetime integer
+    this.post = "";
+    this.grade = "";
+    this.qualification = "";
+    this.subdivision = "";
+    this.division = "";
+    this.dateofentry=null;
+    this.specialty = "";
+    this.tribe = "";
+    this.dateposted = null;
+    this.dutypost = "";
+    this.region="";
+    this.phoneNo = "";
     // this.formIndex = spec.formIndex || null;  //Integer
-    this.deptId = spec.deptId || null; //Integer
-    this.groupId = spec.groupId || null; //Integer
-    this.salaryId = spec.salaryId || null;
-    this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
-      2014:0
-    }; 
+    // this.deptId = spec.deptId || null; //Integer
+    // this.groupId = spec.groupId || null; //Integer
+    // this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
+    //   2014:0
+    // }; 
     this.totalPaid = 0; // payment aggregator because pouchdb is too slow to compute a list of student payments
 
     // Initialize object with spec properties, excluding any that aren't defined above
@@ -133,7 +195,6 @@ schoolman.config(['modelProvider', function(model){
     this.save();
   }
 
-  Staff.prototype.db = Staff.db = "db_staffs";
 
   model.Staff = Staff;
 

@@ -11,7 +11,7 @@
  *
  * This service stores all student data and links students with classes and courses
  */
-function Staffregistrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model, Uid) {
+function Staffregistrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model, Staffid) {
     
     // var _students = [];
     var staffs = {};
@@ -55,7 +55,7 @@ function Staffregistrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, 
      *
      * This method adds a student to all courses in their class
      */
-    self.addStaff= function(staff, Uid){
+    self.addStaff= function(staff, Staffid){
 
             staff = modelTransformer.transform(staff, model.Staff);
 
@@ -64,7 +64,7 @@ function Staffregistrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, 
                 self.save();
             });
 
-            var form = staff.form;
+            // var form = staff.form;
             var group= staff.group;
 
     		// Register the student
@@ -72,16 +72,16 @@ function Staffregistrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, 
             // _students.push(student);
 
     		// Register the student in their class
-			var classId = form + "-" + group;
-			if(!classes.hasOwnProperty(classId)){
-				classes[classId] = [];
-			}
-			classes[classId].push(staff.id);
+			// var classId = form + "-" + group;
+			// if(!classes.hasOwnProperty(classId)){
+			// 	classes[classId] = [];
+			// }
+			// classes[classId].push(staff.id);
 
-			// Register the student in all the class courses
-    		angular.forEach(CourseCatalog.getCourses(form, group), function(course, courseIndex){
-				registerStaff(staff.id, course.id);
-			});
+			// // Register the student in all the class courses
+   //  		angular.forEach(CourseCatalog.getCourses(form, group), function(course, courseIndex){
+			// 	registerStaff(staff.id, course.id);
+			// });
             
     };
 
@@ -181,5 +181,5 @@ function Staffregistrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, 
     return self;
 
   }
-Staffregistrar.$inject = ['CourseCatalog', 'Data', 'Data2', '$q', '$log', 'modelTransformer', 'model', 'Uid'];
+Staffregistrar.$inject = ['CourseCatalog', 'Data', 'Data2', '$q', '$log', 'modelTransformer', 'model', 'Staffid'];
 angular.module('SchoolMan').service('Staffregistrar', Staffregistrar);

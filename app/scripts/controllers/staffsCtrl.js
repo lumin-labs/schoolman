@@ -8,7 +8,7 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Salarys, Groups, Ma
 
     var data = $scope.data = {
         // forms:Forms.all(),
-        departments:Departments.getAll(),
+        // departments:Departments.getAll(),
         groups:Groups.getAll(),
         salarys:Salarys.getAll(),
         subjects:Subjects.getAll(),
@@ -20,8 +20,8 @@ function StaffsCtrl($scope, $q, $routeParams, ClassCouncils, Salarys, Groups, Ma
     };
 
     // $scope.formIndex = $routeParams.formIndex;
-    $scope.groupId = $routeParams.groupId;
-    $scope.deptId = $routeParams.deptId;
+    // $scope.groupId = $routeParams.groupId;
+    // $scope.deptId = $routeParams.deptId;
 
     $scope.queryParams = {
         // formIndex:$scope.formIndex,

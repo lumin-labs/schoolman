@@ -17,7 +17,7 @@ schoolman.config(['modelProvider', function(model){
         type:"number",
         required:true
       },{
-        key:"socailinsuranceAmount",
+        key:"socialinsuranceAmount",
         type:"number",
         required:true
       }],
@@ -37,8 +37,8 @@ schoolman.config(['modelProvider', function(model){
       return new Salary();
     }
 
-    self.salaryAmount = spec.salaryAmount || "";        // string
-    self.socailinsuranceAmount = spec.socailinsuranceAmount || "";
+    self.salaryAmount = spec.salaryAmount || 0;        // string
+    self.socialinsuranceAmount = spec.socialinsuranceAmount || 0;
     self.name = spec.name || ""; 
 
     var listeners = [];

@@ -1,5 +1,5 @@
 'use strict';
-function StaffregistrationCtrl($scope, $routeParams,  Uid,Departments, Groups, Salarys, Location, model, Staffs, Marksheets, Lang) {
+function StaffregistrationCtrl($scope, $routeParams,  Staffid,Departments, Groups, Salarys, Location, model, Staffs, Marksheets, Lang) {
 
     // $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
@@ -10,16 +10,16 @@ function StaffregistrationCtrl($scope, $routeParams,  Uid,Departments, Groups, S
     	// forms:Forms.all(),
     	departments:Departments.getAll(),
     	groups:Groups.getAll(),
-    	Salarys:Salarys.getAll(),
+    	salarys:Salarys.getAll(),
         uid:null
     };
     angular.forEach()
 
     $scope.newStaff = new model.Staff();
     console.log("NewStaff", $scope.newStaff);
-    Uid.get().then(function(uid){
+    Staffid.get().then(function(uid){
         data.uid = uid;
-        console.log("Got Uid", uid);
+        console.log("Got Staffid", uid);
         $scope.newStaff.id = uid.value;
     })
 
@@ -46,9 +46,9 @@ function StaffregistrationCtrl($scope, $routeParams,  Uid,Departments, Groups, S
 
     $scope.add = function(staff){
         staff.save().then(function(success){
-            Uid.save(data.uid);
+            Staffid.save(data.uid);
             console.log("Save staff: ", success);
-            Location.open({page:"registrarProfile", staffId:staff._id});
+            Location.open({page:"staffprofile", staffId:staff._id});
             $scope.showValidaton = false;
             Staffs.set(staff);
             // updateMarksheets(staff);
@@ -69,16 +69,41 @@ function StaffregistrationCtrl($scope, $routeParams,  Uid,Departments, Groups, S
         staff.birth = null;
         staff.sex = "";
         // staff.parentName = "";
-        staff.staffPhone = "";
+        staff.phoneNo = "";
         staff.staffEmail = "";
+        staff.matricalnumber="";
+        staff.grade="";
+        staff.highestgualification="";
+        staff.entryintopublicservice=null;
+        staff.lengthofservice=null;
+        staff.dateofretirement=null;
+        staff.dutypost="";
+        staff.maritalstatus="";
+        staff.subdivisionoforigin="";
+        staff.divisionoforigin="";
+
+     }
+
+
+ var serviceLength = function(){
+        $scope.data.serviceYears = $scope.date.getFullYear()-(new Date($scope.data.user.dateofentry)).getFullYear();
+        $scope.data.serviceMonths = $scope.date.getMonth()-(new Date($scope.data.user.dateofentry)).getMonth();
+
+        if($scope.data.serviceMonths < 0){
+            $scope.data.serviceYears -= 1;
+            $scope.data.serviceMonths = 12 + $scope.data.serviceMonths;
+        }
+
+        $scope.data.retire = new Date($scope.data.user.birth);
+        
+        $scope.data.retire.setYear($scope.data.retire.getFullYear() + 60);
     }
 
-
-
+    // serviceLength();
 
 
 
   }
-  StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'Uid', 'Departments', 'Groups', 'Salarys', 'Location', 'model', 'Staffs', 'Marksheets', 'Lang'];
+  StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'Staffid', 'Departments', 'Groups', 'Salarys', 'Location', 'model', 'Staffs', 'Marksheets', 'Lang'];
   angular.module('SchoolMan').controller('StaffregistrationCtrl', StaffregistrationCtrl);
 

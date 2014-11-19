@@ -1,11 +1,6 @@
 'use strict';
 
-function Staffs($q, model, modelTransformer, pouchdb) {
-
-  	var db = model.Staff.db;
-    if(typeof db === "string"){
-      db = pouchdb.create(model.Staff.db);
-    }
+function Staffs($q, model, modelTransformer, Data2,$log) {
 
   	var _staffs = {};
 
@@ -65,7 +60,7 @@ function Staffs($q, model, modelTransformer, pouchdb) {
   			return staff.saveable();
   		})};
   		console.log("Saving batch: ", batch);
-  		db.bulkDocs(batch).then(function(success){
+  		Data2.bulkDocs(batch).then(function(success){
   			console.log("Staffs service saved batch", success);
   			deferred.resolve(success);
   			_staffs = _.reduce(staffs, function(_staffs, staff){
@@ -188,53 +183,44 @@ function Staffs($q, model, modelTransformer, pouchdb) {
     };
 
 
-    self.get = function(staffId){
+    // self.get = function(staffId){
+    //   var deferred = $q.defer();
+    //   if(_staffs.hasOwnProperty(staffId)){
+    //     deferred.resolve(_staffs[staffId]);
+    //   }else{
+    //     deferred.reject("Staff does not exist");
+    //   }
+    //   return deferred.promise;
+    // };
+
+    self.get = function(staffKey){
+      return _staffs[staffKey];
+    };
+
+     self.load = function(){
       var deferred = $q.defer();
-      if(_staffs.hasOwnProperty(saffId)){
-        deferred.resolve(_staffs[staffId]);
-      }else{
-        deferred.reject("Staff does not exist");
-      }
-      return deferred.promise;
-    };
-
-    self.load = function(){
-    	var deferred = $q.defer();
-
-    	db.allDocs({starKey:'staff_', endKey:'staff__'})
-
-    	.then(function(collection){
-        var keys = _.map(collection.rows, function(obj){
-          return obj.key;
-        });
-        console.log("Got keys", keys);
-        deferred.resolve(_staffs);
-        return keys
-      })
-
-      .then(function(keys){
-
-        angular.forEach(keys, function(key, index){
-          db.get(key).then(function(data){
-            var staff = model.parse(data, dataModel.datatype);
-            staff = new model.Staff(staff);
-            _staffs[staff._id] = staff;
-          }).catch(function(error){
-            console.log("Failed to get staff", error);
+      // Load Data
+      var map = function(doc, emit){
+        if(doc.datatype === model.Staff.datatype._id){
+          emit(doc._id, {_id:doc.datatype, data:doc});
+        } 
+      };
+      Data2.query(map, {include_docs : true}).then(function(success){
+        angular.forEach(success.rows, function(data, rowIndex){
+          var spec = data.doc;
+          var obj = model.parse(data.value.data, spec);
+          var staff = modelTransformer.transform(obj, model.Staff);
+          _staffs[staff._id] = staff;
           });
-        });
+          console.log("Staffs:Query success", _staffs);
+          deferred.resolve(_staffs);
+        }).catch(function(error){
+          console.log("Staffs: Query failed", error);
+          deferred.reject(error);
+      });
 
-        deferred.resolve(_staffs);
-
-      })
-
-      .catch(function(error){
-    		deferred.reject(error);
-    	});
-
-    	return deferred.promise;
-
-    };
+      return deferred.promise;
+    }
     self.getClasses = function(formIndex, flags){
       var collection = {};
       angular.forEach(_staffs, function(staff, staffId){
@@ -248,18 +234,31 @@ function Staffs($q, model, modelTransformer, pouchdb) {
       return collection;
     }
 
-    self.destroy = function(){
-    	db.destroy().then(function(success){
-    		console.log("Destroyed staffs db");
-    	}).catch(function(error){
-    		console.log("failed to destroy staffs db", error)
-    	});
-    }
 
+    self.remove = function(staff){
+      var deferred = $q.defer();
+      Data2.remove(staff).then(function(success){
+        console.log("Staff removed: ", success);
+        delete _staffs[staff._id];
+        deferred.resolve(success);
+      }).catch(function(error){
+        $log.error("staffs.js : remove :", error);
+        deferred.reject(error);
+      });
+      return deferred.promise;
+    };
 
-    self.getAll = self.query;
+    self.getAll = function(){
+      // angular.copy exceeds call stack and I don't think we need to copy each 
+      // dept, so instead we just create a new dict
+      var copy = {};
+      angular.forEach(_staffs, function(staff, staffKey){
+        copy[staffKey] = staff;
+      });
+      return copy;
+    };
 
     return self;
   }
-  Staffs.$inject = ['$q', 'model', 'modelTransformer', 'pouchdb'];
+  Staffs.$inject = ['$q', 'model', 'modelTransformer', 'Data2','$log'];
   angular.module('SchoolMan').service('Staffs', Staffs);
