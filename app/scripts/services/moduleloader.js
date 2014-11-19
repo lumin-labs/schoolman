@@ -1,6 +1,6 @@
 'use strict';
 define(['settings', 'require'], function(settings, require){
-  function ModuleLoader(settings) {
+  function ExtensionLoader(settings) {
     var self = {};
     // var modules = (settings.get()).modules;
 
@@ -62,6 +62,6 @@ define(['settings', 'require'], function(settings, require){
 
     return self;
   }
-  ModuleLoader.$inject = ['settings'];
-  angular.module('SchoolMan').service('ModuleLoader', ModuleLoader);
+  ExtensionLoader.$inject = ['settings'];
+  angular.module('SchoolMan').service('ExtensionLoader', ExtensionLoader);
 })

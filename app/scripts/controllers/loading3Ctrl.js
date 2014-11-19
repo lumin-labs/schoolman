@@ -19,10 +19,11 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
 
         $q.all(promises).then(function(success){
           console.log("Successes", success);
-          Location.open({page:"login"})
+          ModuleLoader.loadExtensions();
+          Location.open({page:"login"});
         });
 
-        ModuleLoader.loadExtensions();
+        
 
     }
     LoadingCtrl.$inject = ['$scope', '$q', 'model', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ModuleLoader'];

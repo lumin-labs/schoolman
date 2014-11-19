@@ -73,8 +73,17 @@ this.moduleList = [{
       labelFr:"Finance",
       access:['admin', 'registrar'],
       dependencies:["Main"],
-      location:"/extensions/Finance",
       icon:"glyphicon-envelope",
+      scripts:[
+        "ReportCard/controllers/reportcardCtrl",
+        "ReportCard/controllers/classmasterprofileCtrl",
+        "ReportCard/controllers/mastersheetCtrl",
+        "ReportCard/controllers/marksheetCtrl",
+        "ReportCard/controllers/myclassesCtrl",
+        "ReportCard/controllers/classcouncilCtrl",
+        "ReportCard/controllers/statsCtrl",
+        "ReportCard/services/dcards"
+      ]
       tabs: [
         {
           en:"Fee Settings",
@@ -100,6 +109,11 @@ this.moduleList = [{
       dependencies:["Main"],
       location:"/extensions/ReportCard",
       icon:"glyphicon-pencil",
+      scripts:[
+        "Finance/controllers/registrarprofileCtrl",
+        "Finance/controllers/feesCtrl",
+        "Finance/controllers/balancesheetCtrl"
+      ]      
       tabs: [
         {
           en:"My Classes",
@@ -166,6 +180,9 @@ this.moduleList = [{
       dependencies:["Main"],
       location:"/extension/IDCard",
       icon:"glyphicon-print",
+      scripts:[
+        "IDCard/controllers/idcardCtrl"
+      ]
       tabs: [
         {
           en:"ID Cards",
@@ -183,6 +200,10 @@ this.moduleList = [{
       dependencies:["Main", "ReportCard"],
       location:"/extension/Reports",
       icon:"glyphicon-stats",
+      scripts: [
+        "Reports/controllers/annualreportCtrl",
+        "Reports/controllers/enrollmentCtrl"
+      ]
       tabs: [
         {
           en:"Annual Report",
@@ -207,6 +228,13 @@ this.moduleList = [{
       dependencies:["Main"],
       location:"/extension/Staffing",
       icon:"glyphicon-book",
+      scripts:[
+        "Staffing/services/salarys",
+        "Staffing/services/staffs",
+        "Staffing/models/Salary",
+        "Staffing/controllers/salaryCtrl",
+        "Staffing/controllers/staffregistrationCtrl"
+      ]
       tabs: [
         //  {
         //   en:"Staff list",
@@ -252,6 +280,11 @@ this.moduleList = [{
       dependencies:["Main"],
       location:"/extension/Transcript",
       icon:"glyphicon-list-alt",
+      scripts:[
+        "Transcript/models/Transcript", 
+        "Transcript/services/transcripts",
+        "Transcript/controllers/transcriptCtrl"
+      ]
       tabs: [
         {
           en:"Transcript",
@@ -269,6 +302,9 @@ this.moduleList = [{
       dependencies:["Main", "ReportCard"],
       location:"/extension/TimeTable",
       icon:"glyphicon-calendar",
+      scripts: [
+
+      ]
       tabs: [
         
       ]
