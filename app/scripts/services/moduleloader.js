@@ -46,8 +46,9 @@ define(['settings', 'require'], function(settings, require){
 
     }
     self.loadExtensions = function(){
-      var modules = settings.get().modules;
-      console.log("Modules?", modules);
+      var settingsList = settings.get();
+      console.log("Modules?", settingsList);
+      var modules = settingsList.modules
       var moduleLoadScripts = [];
       angular.forEach(modules, function(module, key){
           moduleLoadScripts = moduleLoadScripts.concat(modularScripts[module]);
