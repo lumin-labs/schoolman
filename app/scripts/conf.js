@@ -12,42 +12,48 @@ var extensionList = [ {
         fr:"Utilisateurs",
         page:"users",
         access:['admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-lock'
       },
       {
         en:"User Settings",
         fr:"Réglages d'Utilisateurs",
         page:"user",
         access:['classmaster','admin','teacher', 'registrar'],
-        exclude:'all'
+        exclude:'all',
+        icon:'glyphicon-cog'
       },
       {
         en:"Departments",
         fr:"Départements",
         page:"departments",
         access:['admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-bookmark'
       },
       {
         en:"Classes",
         fr:"Classes",
         page:"classes",
         access:['admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-calendar'
       },
       {
         en:"Subjects",
         fr:"Sujets",
         page:"subjects",
         access:['admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-book'
       },
       {
         en:"Students",
         fr:"Étudiants",
         page:"students",
         access:['admin', 'registrar'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-list-alt'
       },
       
       {
@@ -55,14 +61,16 @@ var extensionList = [ {
         fr:"Profil de l'Étudiant",
         page:"profile",
         access:['admin', 'registrar'],
-        exclude:"all"
+        exclude:"all",
+        icon:'glyphicon-user'
       },
       {
         en:"Registration",
         fr:"Inscription",
         page:"registration",
         access:['registrar'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-calendar'
       }
     ]
   },{
@@ -82,14 +90,16 @@ var extensionList = [ {
         fr:"Écolages",
         page:"fees",
         access:['registrar'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-cog'
       },
       {
         en:"Balance Sheet",
         fr:"Fiche de Contrôle",
         page:"balancesheet",
         access:['registrar', 'admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-envelope'
       },
       
     ]
@@ -115,56 +125,64 @@ var extensionList = [ {
         fr:"Mes Classes",
         page:"myclasses",
         access:['teacher'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-home'
       },
       {
         en:"Marksheet",
         fr:"Relevé de Notes",
         page:"classmasterMarksheet",
         access:['classmaster'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-pencil'
       },
       {
         en:"Marksheet",
         fr:"Relevé de Notes",
         page:"teacherMarksheet",
         access:['teacher'],
-        exclude:['myclasses']
+        exclude:['myclasses'],
+        icon:'glyphicon-pencil'
       },
       {
         en:"Mastersheet",
         fr:"Carnet de Notes",
         page:"mastersheet",
         access:['classmaster'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-th-large'
       },
       {
         en:"Report Card",
         fr:"Bulletin de Notes",
         page:"reportcard",
         access:['classmaster'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-list-alt'
       },
       {
         en:"Class Council",
         fr:"Conseil de Classe",
         page:"classcouncil",
         access:['classmaster','admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-folder-open'
       },
       {
         en:"Statistics",
         fr:"Statistiques",
         page:"classmasterStats",
         access:['classmaster'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-stats'
       },
       {
         en:"Statistics",
         fr:"Statistiques",
         page:"adminStats",
         access:['admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-stats'
       },
     ]
   },{
@@ -182,7 +200,8 @@ var extensionList = [ {
         fr:"Cartes d'Identité",
         page:"idcards",
         access:['registrar'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-print'
       }
     ]
   },{
@@ -201,14 +220,16 @@ var extensionList = [ {
         fr:"Rapport Annuel",
         page:"annualreport",
         access:['admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-stats'
       },
       {
         en:"Enrollment Report",
         fr:"Rapport d'Inscription",
         page:"enrollmentreport",
         access:['admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-stats'
       }
     ]
   },{
@@ -278,7 +299,8 @@ var extensionList = [ {
         fr:"Transcription",
         page:"transcript",
         access:['admin'],
-        exclude:[]
+        exclude:[],
+        icon:'glyphicon-list-alt'
       }
     ]
   },{

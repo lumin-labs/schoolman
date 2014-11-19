@@ -34,7 +34,9 @@
 					<li class="" ng-repeat="(tabIndex, tab) in extension.tabs"
 						ng-if="userHasAccess(tab)"
 						ng-class="activeIfPage(tab.page)">
-						<a ng-if="settings.access[userAccess]" ng-click="open({page:tab.page})"> &nbsp;{{lang === 'en' ? tab.en : tab.fr}}</a>
+						<a ng-if="settings.access[userAccess]" ng-click="open({page:tab.page})">
+							<i class="glyphicon" ng-class="tab.icon"></i>&nbsp;
+							{{lang === 'en' ? tab.en : tab.fr}}</a>
 					</li>
 				</ul>
 			</div>
