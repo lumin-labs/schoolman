@@ -146,6 +146,17 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
         return d.row ? d.row[i] : undefined;
       }
 
+      $scope.fitPage = function()
+      {
+        var container = document.getElementById ("marktable");
+        // var message = "The width of the contents with padding: " + container.scrollWidth + "px.\n";
+        // message += "The height of the contents with padding: " + container.scrollHeight + "px.\n";
+
+        // console.log(message);
+        return container.scrollHeight <= 480;
+      }
+
+
   }
   ReportcardCtrl.$inject = ['$scope', '$routeParams', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS', 'Lang'];
   angular.module('SchoolMan').controller('reportcardCtrl', ReportcardCtrl);
