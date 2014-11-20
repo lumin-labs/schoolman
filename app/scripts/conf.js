@@ -221,7 +221,7 @@ var extensionList = [ {
         page:"annualreport",
         access:['admin'],
         exclude:[],
-        icon:'glyphicon-stats'
+        icon:'glyphicon-paperclip'
       },
       {
         en:"Enrollment Report",
@@ -229,7 +229,7 @@ var extensionList = [ {
         page:"enrollmentreport",
         access:['admin'],
         exclude:[],
-        icon:'glyphicon-stats'
+        icon:'glyphicon-list'
       }
     ]
   },{
