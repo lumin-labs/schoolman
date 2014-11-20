@@ -29,7 +29,8 @@ var app = angular.module('SchoolMan', [
   'ngRoute',
   'slugifier',
   'pouchdb',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'SchoolMan.ReportCard'
 
 ])
 
@@ -120,5 +121,6 @@ chrome.storage.local.get("initialized",function(r){
 document.getElementById("close").onclick = function() {
   window.close();
 }
+
 
   

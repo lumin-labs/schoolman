@@ -397,5 +397,5 @@ define(['File', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Terms', 'G
 
   }
   StatsCtrl.$inject = ['$scope', '$routeParams', 'model', 'File', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Terms', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'SchoolInfos', 'Lang'];
-  angular.module('SchoolMan').register.controller('StatsCtrl', StatsCtrl);
+  angular.module('SchoolMan.ReportCard').register.controller('StatsCtrl', StatsCtrl);
 })

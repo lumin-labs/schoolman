@@ -63,5 +63,5 @@ define(['Location', 'Marksheets', 'ClassMaster', 'Lang', 'SchoolInfos'], functio
 
     }
     MarksheetCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Marksheets', 'ClassMaster', 'Lang', 'SchoolInfos'];
-    angular.module('SchoolMan').register.controller('MarksheetCtrl', MarksheetCtrl);
+    angular.module('SchoolMan.ReportCard').register.controller('MarksheetCtrl', MarksheetCtrl);
 })
