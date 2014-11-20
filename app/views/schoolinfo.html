@@ -62,7 +62,7 @@
       </button>
       <ul class="dropdown-menu">
         <li ng-repeat="(langId, lang) in {en:'English', fr:'French'}">
-            <a ng-click="schoolInfo.lang = langId">
+            <a ng-click="schoolInfo.lang = langId; save();">
                 {{lang}}
             </a>
         </li>
