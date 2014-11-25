@@ -65,8 +65,29 @@ var controllersMain = [
     "../scripts/controllers/groupsCtrl",
     "../scripts/controllers/registrationCtrl",
     "../scripts/controllers/userCtrl",
+    "Finance/controllers/registrarprofileCtrl",
+  "Finance/controllers/feesCtrl",
+  "Finance/controllers/balancesheetCtrl",
+  "ReportCard/controllers/reportcardCtrl",
+  "ReportCard/controllers/classmasterprofileCtrl",
+  "ReportCard/controllers/mastersheetCtrl",
+  "ReportCard/controllers/marksheetCtrl",
+  "ReportCard/controllers/myclassesCtrl",
+  "ReportCard/controllers/classcouncilCtrl",
+  "ReportCard/controllers/statsCtrl",
+  "ReportCard/services/dcards",
+  "IDCard/controllers/idcardCtrl",
+  "Reports/controllers/annualreportCtrl",
+  "Reports/controllers/enrollmentCtrl",
+  "Staffing/services/salarys",
+  "Staffing/services/staffs",
+  "Staffing/models/Salary",
+  "Staffing/controllers/salaryCtrl",
+  "Staffing/controllers/staffregistrationCtrl",
+  "Transcript/controllers/transcriptCtrl"
     
 ]
+window.name = "NG_DEFER_BOOTSTRAP!";
 
 require.config({
     baseUrl: 'extensions',
@@ -76,6 +97,24 @@ require.config({
 var scripts = modelsMain.concat(controllersMain);
 
 require(scripts, function(){
-    angular.bootstrap(document, ["SchoolMan"]);
-});
 
+    angular.bootstrap(document, ["SchoolMan"]);
+
+        angular.resumeBootstrap([
+            'SchoolMan.ReportCard', 
+            'SchoolMan.Finance',
+            'SchoolMan.IDCard',
+            'SchoolMan.Reports',
+            'SchoolMan.Staffing',
+            'SchoolMan.TimeTable',
+            'SchoolMan.Transcript'])
+    angular.element().ready(function() {
+        // })
+        var settings = require('../scripts/services/settings');
+
+        // define(['settings'], function(settings){
+        console.log("Working?", settings);
+})
+
+
+});

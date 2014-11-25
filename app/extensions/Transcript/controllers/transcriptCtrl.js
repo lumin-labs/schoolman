@@ -267,5 +267,5 @@ define(['Transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms',
 
   }
   TranscriptCtrl.$inject = ['$scope', '$routeParams', 'model', 'Transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
-  angular.module('SchoolMan').register.controller('transcriptCtrl', TranscriptCtrl);
+  angular.module('SchoolMan.Transcript').controller('transcriptCtrl', TranscriptCtrl);
 })

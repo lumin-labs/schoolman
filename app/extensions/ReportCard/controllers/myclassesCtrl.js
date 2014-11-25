@@ -121,5 +121,5 @@ define(['Users', 'Forms', 'Groups', 'Departments', 'Marksheets', 'Location', 'Su
     
   }
   MyclassesCtrl.$inject = ['$scope', '$routeParams', 'model', 'Users', 'Forms', 'Groups', 'Departments', 'Marksheets', 'Location', 'Subjects', 'TimeTable', 'Lang'];
-  angular.module('SchoolMan.ReportCard').register.controller('MyclassesCtrl', MyclassesCtrl);
+  angular.module('SchoolMan.ReportCard').controller('MyclassesCtrl', MyclassesCtrl);
 })

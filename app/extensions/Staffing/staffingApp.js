@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('SchoolMan.ReportCard', ['ngCookies',
+var app = angular.module('SchoolMan.Staffing', ['ngCookies',
                                                   'ngResource',
                                                   'ngSanitize',
                                                   'ngRoute',

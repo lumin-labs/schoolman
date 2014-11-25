@@ -22,6 +22,7 @@
  */
 
 
+
 var app = angular.module('SchoolMan', [
   'ngCookies',
   'ngResource',
@@ -29,8 +30,7 @@ var app = angular.module('SchoolMan', [
   'ngRoute',
   'slugifier',
   'pouchdb',
-  'ui.bootstrap',
-  'SchoolMan.ReportCard'
+  'ui.bootstrap'
 
 ])
 
@@ -122,5 +122,3 @@ document.getElementById("close").onclick = function() {
   window.close();
 }
 
-
-  

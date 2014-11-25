@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('SchoolMan.ReportCard', ['ngCookies',
+angular.module('SchoolMan.Finance', ['ngCookies',
                                                   'ngResource',
                                                   'ngSanitize',
                                                   'ngRoute',
@@ -8,12 +8,12 @@ var app = angular.module('SchoolMan.ReportCard', ['ngCookies',
                                                   'pouchdb',
                                                   'ui.bootstrap']);
 
-app.config(function($controllerProvider, $provide){
-  app.register =
-  {
-      controller: $controllerProvider.register,
-      service: $provide.service,
-      provider: $provide.provider
-  };
-  return app;
-})
+// app.config(function($controllerProvider, $provide){
+//   app.register =
+//   {
+//       controller: $controllerProvider.register,
+//       service: $provide.service,
+//       provider: $provide.provider
+//   };
+//   return app;
+// })
