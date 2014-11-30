@@ -55,6 +55,19 @@
         </li>
       </ul>
       </div></td></tr>
+      <tr><td style="width:200px;text-align:right;"><label>Default Language</label></td>
+      <td><div  class="btn-group">
+        <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+          {{schoolInfo.lang === 'en' ? 'English' : 'French'}} <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li ng-repeat="(langId, lang) in {en:'English', fr:'French'}">
+            <a ng-click="schoolInfo.lang = langId; save();">
+                {{lang}}
+            </a>
+        </li>
+      </ul>
+      </div></td></tr>
       </table>
 
     </div>

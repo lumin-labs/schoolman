@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('SchoolMan')
-  .controller('SchoolInfoCtrl', function ($scope, Data2, model, $routeParams, SchoolInfos) {
+define(['SchoolInfos'], function(SchoolInfos){
+  function SchoolInfoCtrl($scope, Data2, model, $routeParams, SchoolInfos) {
   	
     $scope.accessCode = $routeParams.accessCode;
     $scope.User = model.User;
@@ -31,4 +31,7 @@ angular.module('SchoolMan')
       }
       $scope.save();
     }
-  });
+  }
+  SchoolInfoCtrl.$inject = ['$scope', 'Data2', 'model', '$routeParams', 'SchoolInfos'];
+  angular.module('SchoolMan').controller('SchoolInfoCtrl', SchoolInfoCtrl);
+})

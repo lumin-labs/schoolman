@@ -1,19 +1,19 @@
 'use strict';
-
-function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS, Lang) {
+define(['ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Subjects', 'Students', 'Departments', 'Location', 'Lang'], function(ClassCouncils, Fees, Forms, Groups, Marksheets, Subjects, Students, Departments, Location, Lang){
+  function StudentsCtrl($scope, $q, $routeParams, PROMOTE_OPTIONS, model, ClassCouncils, Fees, Forms, Groups, Marksheets, Subjects, Students, Departments, Location, Lang) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
-  	$scope.courseId = CourseCatalog.getCourseId($routeParams);
+  	// $scope.courseId = CourseCatalog.getCourseId($routeParams);
 
     var data = $scope.data = {
         forms:Forms.all(),
         departments:Departments.getAll(),
         groups:Groups.getAll(),
-        fees:Fees.getAll(),
         subjects:Subjects.getAll(),
         students:[],
         selected:{},
+        fees: Fees.getAll(),
         globalSelect:0,
         page:0,
         pages:[]
@@ -59,10 +59,10 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
         return (_final.getTime() - _initial.getTime())/1000;
       }
 
-      var START_QUERY = new Date();
+      // var START_QUERY = new Date();
       Students.query(query).then(function(students){
-        var END_QUERY = new Date();
-        console.log("TIME DIFF: ", getSeconds(START_QUERY, END_QUERY));
+        // var END_QUERY = new Date();
+        // console.log("TIME DIFF: ", getSeconds(START_QUERY, END_QUERY));
 
         console.log("Success loading students", students);
         $scope.data.students = students;
@@ -76,35 +76,20 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
 
           // set default selection state
           $scope.data.selected[student._id] = 0;
-          
-          // Add payment data to student
-          //student.totalPaid = 0;
-          //Payments.query({studentId:student._id}).then(function(payments){
-          //  console.log("Got payments", student._id, payments);
-          //  student.totalPaid = _.reduce(payments, function(total, payment){
-          //    return total + payment.amount;
-          //  },student.totalPaid);
-          //}).catch(function(error){
-          //  console.log("Failed to load payments for ", student.name, error);
-          //});
 
           // add students class to reports
           var studentsClass = [student.formIndex, student.deptId, student.groupId];
-          //console.log("reports/class councils", reports, classCouncils, studentsClass);
             
           
           if(reports.hasOwnProperty(studentsClass) &&  
              classCouncils.hasOwnProperty(studentsClass)){
-            //console.log("in if statement reports/class councils", reports, classCouncils, studentsClass, student);
-
-
             setPassing(student, studentsClass);
 
-          } else {
-            //console.log("in else statement", reports, classCouncils, studentsClass, student);
-            //getReports(studentsClass);
-            //setPassing(student, studentsClass);
-          }
+          } 
+          // else {
+          //   //getReports(studentsClass);
+          //   //setPassing(student, studentsClass);
+          // }
 
         }); 
       }).catch(function(error){
@@ -116,10 +101,6 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
     
 
     var getReports = function(params){
-      //console.log("in getreports reports/class councils", reports, classCouncils, studentsClass, reports[studentsClass]);
-            // get report and classCOuncil promises
-            //console.log("params:", params);
-
             var reportquery = {
               reports: Marksheets.getReports({
                 formIndex:params.formIndex,
@@ -200,13 +181,6 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
           })
         })
       })
-
-
-      //var newArray = {};
-
-
-      //console.log("query Parameters:", params);
-      //getReports(studentsClass);
     }
 
     queryReports($scope.queryParams);
@@ -217,19 +191,16 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
           $scope.queryParams[key] = value;
       });
       $scope.data.page = 0;
-      //console.log("Query Params", $scope.queryParams);
       queryReports($scope.queryParams);
     };
 
     $scope.moveTab = "form";
 
     $scope.toggleAll = function(){
-        // console.log("toggling");
         // $scope.data.globalSelect = (parseInt($scope.data.globalSelect) + 1) % 2;
         angular.forEach($scope.data.selected, function(selection, studentId){
           $scope.data.selected[studentId] = $scope.data.globalSelect;
         });
-        // console.log("Selected", $scope.data.selected);
     };
 
     $scope.moveSelected = function(params){
@@ -276,8 +247,6 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
     }
 
     $scope.open = Location.open;
-    
-    $scope.fees = Fees.getAll();
 
     // $scope.mastersheets = {};
 
@@ -317,5 +286,6 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
 
 
   }
-  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Registrar', 'Subjects', 'Payments', 'Students', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS', 'Lang'];
+  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'PROMOTE_OPTIONS', 'model', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Subjects', 'Students', 'Departments', 'Location', 'Lang'];
   angular.module('SchoolMan').controller('StudentsCtrl', StudentsCtrl);
+})

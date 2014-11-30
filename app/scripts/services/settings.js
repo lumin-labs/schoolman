@@ -1,37 +1,41 @@
 'use strict';
 
-function settings($q, model, Data2) {
+function settings($q, model, Data2, MODULES) {
 
-    console.log("model service", model);
-  	var settings = new model.Settings();
+  console.log("model service", model);
+	var settings = new model.Settings();
 
-  	var self = {};
-  	self.get = function(){
-  		return settings;
-  	}
+	var self = {};
+	self.get = function(){
+		return settings;
+	}
 
-  	self.load = function(){
-  		var deferred = $q.defer();
+	self.load = function(){
+		var deferred = $q.defer();
 
-  		Data2.get('customer_settings').then(function(data){
+		Data2.get('customer_settings').then(function(data){
+			var spec = model.parse2(data, data.datatype);
+			settings = new model.Settings(spec);
+			deferred.resolve(settings);
+		}).catch(function(error){
+			if(error.status === 404){
+				// use default
+				deferred.resolve(settings);
+			}
+		})
 
-  			var spec = model.parse2(data, data.datatype);
+		return deferred.promise;
+	}
+	self.availableExtensions = function(){
+		var modules = [];
+		angular.forEach(MODULES.slice(1), function(module,index){
+			modules.push(module.moduleName);
+		})
+		return modules;
+	}
 
-  			settings = new model.Settings(spec);
-        console.log("retrieved settings from db", settings);
-  			deferred.resolve(settings);
-  		}).catch(function(error){
-  			if(error.status === 404){
-  				// use default
-  				deferred.resolve(settings);
-  			}
-  		})
+	return self;
 
-  		return deferred.promise;
-  	}
-
-  	return self;
-
-  }
-settings.$inject = ['$q', 'model', 'Data2'];
+}
+settings.$inject = ['$q', 'model', 'Data2', 'MODULES'];
 angular.module('SchoolMan').service('settings', settings);

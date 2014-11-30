@@ -30,11 +30,13 @@
 	<div class="row" style="padding-right:1px;">
 		<div class="col-md-12">
 			<div class="sidebar" >
-				<ul class="nav nav-sidebar">
-					<li ng-repeat="(tabIndex, tab) in TABS"
-						ng-if="userHasAccess(tab, schoolInfo.version)"
+				<ul class="nav nav-sidebar" ng-repeat="(moduleIndex, module) in modules">
+					<li class="nav-heading" ng-if="userHasAccess(module)">
+						<i class="glyphicon" ng-class="module.icon"></i> &nbsp;{{lang === 'en' ? module.labelEn : module.labelFr}}</a></li>
+					<li class="" ng-repeat="(tabIndex, tab) in module.tabs"
+						ng-if="userHasAccess(tab)"
 						ng-class="activeIfPage(tab.page)">
-						<a ng-if="settings.access[userAccess]" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{lang === 'en' ? tab.labelEn : tab.labelFr}}</a>
+						<a ng-if="settings.access[userAccess] || userAccess === 'sales'" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{lang === 'en' ? tab.en : tab.fr}}</a>
 					</li>
 				</ul>
 			</div>

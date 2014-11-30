@@ -1,5 +1,7 @@
 'use strict';
 
+define(['Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang'], function(Location, Path, Cache, File, ClassMaster, Lang){
+
 function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Location, Path, Cache, File, ClassMaster, Lang) {
 
   //$scope.ClassMaster = ClassMaster;
@@ -193,3 +195,5 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
 }
 MenuCtrl.$inject = ['$route','$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang'];
 angular.module('SchoolMan').controller('MenuCtrl', MenuCtrl);
+
+})

@@ -1,0 +1,161 @@
+<div class="row">
+  <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
+  <div class="col-md-10" ng-controller="IDcardCtrl">
+    <div class="noprint" style="padding-bottom:10px;">
+      <div ng-controller="ClassmenuCtrl">
+        <nav class="navbar navbar-default" role="navigation" style="margin-bottom:0px;">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:5px;padding-right:5px;">
+              <form class="navbar-form navbar-left" role="search" style="padding-left:0px;width:100%;padding-right:0px;">
+                <div class="form-group">
+                  <div class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.form['name']}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.form = ''">All Forms</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li ng-repeat="(formIndex, form) in route.forms">
+                          <a ng-click="open({formIndex:formIndex})">
+                            {{route.forms[formIndex].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Department Dropdown -->
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.department['name'] || "Select Department"}}   <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.department = ''">All Departments</a>
+                        </li> -->
+                        <!-- <li class="divider"></li> -->
+                        <li ng-repeat="(deptId, dept) in route.departments">
+                          <a ng-click="open({deptId:deptId})">
+                            {{route.departments[deptId].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Group Dropdown -->
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{route.group['name'] || "Select Group"}}
+                          <span class="caret"></span> 
+                      </button>
+                      <ul class="dropdown-menu">
+                        <!-- <li>
+                          <a ng-click="search.group = ''">All Groups</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li ng-repeat="(groupId, group) in route.groups">
+                          <a ng-click="open({groupId:groupId})">
+                            {{route.groups[groupId].name}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div  class="btn-group">
+                      <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{data.sides[data.side]}}
+                          <span class="caret"></span> 
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li ng-repeat="(index, side) in data.sides">
+                          <a ng-click="data.side=index">
+                            {{side}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </div>  
+    </div>
+    <div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
+      <div class="pagebreak"
+          style="height:6.2in !important;
+                  width:10.6in !important;
+                  background-color: #ddd !important;
+ 
+                  font-size:32px;" 
+          ng-if="data.side === 0">
+        <table>
+          <tr>
+            <td class="img-thumbnail">
+              <img src="images/user.svg" height="300" width="300">
+            </td>
+            <td style="text-align:center;padding-left:100px">
+              <p style="font-size:24px;"><b>REPUBLIC OF CAMEROON</b><br>
+              Peace-Work-Fatherland</p>
+              <p style="font-size:24px;">MINISTRY OF SECONDARY EDUCATION</p>
+              <p style="font-size:24px;">REGIONAL DELEGATION FOR THE {{data.schoolInfo.region}}</p>
+              <p style="font-size:24px;"><b>{{data.schoolInfo.nameEn}}</b><br>{{data.schoolInfo.subdivision}}, {{data.schoolInfo.division}} DIVISION</p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <p></p>
+              <p style="font-size:48px;">Name: <u>{{student.name}}</u></p>
+              <p style="font-size:48px;">Reg No: _________________</p>
+              <p style="font-size:48px;">Birth Date: <u>{{student.birth | date: "dd MMM yyyy"}}</u></p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="row pagebreak" 
+          style="height:6.2in !important;
+                  width:10.6in !important;
+                  background-color: #ddd !important;
+ 
+                  font-size:32px;" 
+          ng-if="data.side === 1">
+          <div class="col-md-12">
+
+            
+            <div>
+              <p>I, <u>{{data.schoolInfo.principal}}</u> The Undersigned, Principal of <u>{{data.schoolInfo.nameEn}}</u> hereby certify that <u>{{student.name}}</u> is a student in my institution.</p>
+              <p>Born on <u>{{student.birth | date: "dd MMM yyyy"}}</u> at <u>{{student.birthplace}}</u>
+              <br>
+              {{student.sex === "Male" ? "Son of " : "Daughter of "}}<u>{{student.parentName}}</u>
+              <br>
+              Occupation:<u>{{student.parentOccupation}}</u>, Residence: <u>{{student.residence}}</u></p>
+              <p>Reg. No. ___________  Date <u>{{data.currentDate | date:"dd MMM yyyy"}}</u></p>
+              <br>
+              <p>
+                <table>
+                  <tr >
+                    <td style="padding-right:50px">__________________</td><td>__________________</td>
+                  </tr>
+                  <tr>
+                    <td style="padding-right:50px">Student Signature</td><td>Principal Signature</td>
+                  </tr>
+                </table>
+              </p>
+  
+          </div>
+        </div>
+      </div>
+
+
+    
+
+    </div>
+  </div>
+</div>

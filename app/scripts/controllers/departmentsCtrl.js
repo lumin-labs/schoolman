@@ -8,67 +8,68 @@
  * @description Departments view controller
  *
  */
+define(['Students', 'Departments', 'Forms', 'Lang'], function(Students, Departments, Forms, Lang){
+  function DepartmentsCtrl($scope, $routeParams, model, Students, Departments, Forms, Lang){
 
-function DepartmentsCtrl($scope, $log, $routeParams, Registrar, model, Students, Departments, CourseCatalog, Lang){
+    $scope.forms = Forms.all();
+    $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
+    $scope.validationError = false;
+    
 
-  $scope.forms = CourseCatalog.getForms();
-  $scope.dict = Lang.getDict();
-  $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
-  $scope.validationError = false;
-  
+    $scope.departments = Departments.getAll();
+    console.log($scope.departments);
 
-  $scope.departments = Departments.getAll();
-  console.log($scope.departments);
+    $scope.newDepartment = new model.Department();
 
-  $scope.newDepartment = new model.Department();
+  		$scope.allStudents = {};
 
-		$scope.allStudents = {};
-
-  $scope.add = function(department){
-    department.save().then(function(success){
-              console.log("Department saved", success);
-              $scope.departments[success.id] = department;
-              Departments.set($scope.newDepartment, success.id);
-              $scope.allStudents[$scope.newDepartment._id]  = [];
-              $scope.newDepartment = new model.Department();
-              $scope.validationError = false;
-          }).catch(function(error){
-              //handle duplicate dept code
-              if(error.name === "conflict"){
-                $scope.validationError = true;
+    $scope.add = function(department){
+      department.save().then(function(success){
+                console.log("Department saved", success);
+                $scope.departments[success.id] = department;
+                Departments.set($scope.newDepartment, success.id);
+                $scope.allStudents[$scope.newDepartment._id]  = [];
                 $scope.newDepartment = new model.Department();
-                $scope.newDepartment.code = department.code;
-                $scope.newDepartment.name = department.name;
-              }
-              console.log("Department save error ", error);
-          });
-  };
+                $scope.validationError = false;
+            }).catch(function(error){
+                //handle duplicate dept code
+                if(error.name === "conflict"){
+                  $scope.validationError = true;
+                  $scope.newDepartment = new model.Department();
+                  $scope.newDepartment.code = department.code;
+                  $scope.newDepartment.name = department.name;
+                }
+                console.log("Department save error ", error);
+            });
+    };
 
-  $scope.remove = function(department){
-    Departments.remove(department).then(function(success){
-      delete $scope.departments[department._id];
-    });
-  };
-
-  $scope.toggleForm = function(department, formIndex){
-    department.toggleForm(formIndex).save().then(function(success){
-      Departments.set(department, department._id);
-    });
-  };
-
-  Students.getAll().then(function(students){
-      angular.forEach($scope.departments, function(dept, deptId){
-        $scope.allStudents[deptId] = [];
+    $scope.remove = function(department){
+      Departments.remove(department).then(function(success){
+        delete $scope.departments[department._id];
       });
-      angular.forEach(students, function(student, studentId){
-        $scope.allStudents[student.deptId].push(student);
+    };
+
+    $scope.toggleForm = function(department, formIndex){
+      department.toggleForm(formIndex).save().then(function(success){
+        Departments.set(department, department._id);
       });
-    console.log("Got all students: ", $scope.allStudents);
-  }).catch(function(error){
-    console.log("Failed to get all students, ", error);
-  });
+    };
 
-}
+    Students.getAll().then(function(students){
+        angular.forEach($scope.departments, function(dept, deptId){
+          $scope.allStudents[deptId] = [];
+        });
+        angular.forEach(students, function(student, studentId){
+          $scope.allStudents[student.deptId].push(student);
+        });
+      console.log("Got all students: ", $scope.allStudents);
+    }).catch(function(error){
+      console.log("Failed to get all students, ", error);
+    });
 
-DepartmentsCtrl.$inject = ['$scope', '$log', '$routeParams', 'Registrar', 'model', 'Students', 'Departments', 'CourseCatalog', 'Lang'];
-angular.module('SchoolMan').controller('DepartmentsCtrl', DepartmentsCtrl);
+  }
+
+  DepartmentsCtrl.$inject = ['$scope', '$routeParams', 'model', 'Students', 'Departments', 'Forms', 'Lang'];
+  angular.module('SchoolMan').controller('DepartmentsCtrl', DepartmentsCtrl);
+})

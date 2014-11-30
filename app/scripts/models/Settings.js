@@ -6,7 +6,7 @@ schoolman.config(['modelProvider', function(model){
 
   function Settings(spec){
     
-    this.is("settings.v1");
+    this.is("settings.v2");
 
     var val = this.val.bind(this); var required = true;
 
@@ -22,9 +22,10 @@ schoolman.config(['modelProvider', function(model){
     this[ val ('access : object')] = {
       'admin':1,
       'registrar':1,
-      'classmaster':0,
-      'teacher':0
+      'classmaster':1,
+      'teacher':1
     };
+    this[ val ('extensions : object', required)] = ['ReportCard', 'Finance'];
 
     // this.def("_id", function(){
     //   return "dcard_" + this.studentId + "_" + this.year;

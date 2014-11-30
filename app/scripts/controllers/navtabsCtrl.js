@@ -1,8 +1,10 @@
 'use strict';
+define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Location, settings, Cache, SchoolInfos, Lang){
+  function NavtabsCtrl($scope, $routeParams, MODULES, model, Location, settings, Cache, SchoolInfos, Lang) {
 
-function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos, Lang) {
-
-    $scope.TABS = TABS;
+    // $scope.TABS = TABS;
+    $scope.modules = MODULES;
+    console.log("nav modules",$scope.modules, MODULES);
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
     $scope.teacher = Cache.get('user');
@@ -43,11 +45,14 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
       return excluded;
     };
 
-    $scope.userHasAccess = function(tab, version){
-      var isRightMode = tab.modes.indexOf(version) > -1;
-    	var hasAccess = tab.access.indexOf($scope.userAccess) > -1;
-      var excluded = excludedOnThisPage(tab);
-      return (hasAccess && isRightMode && (!excluded));
+    $scope.userHasAccess = function(item){
+    	var hasAccess = item.access.indexOf($scope.userAccess) > -1;
+      if(item.hasOwnProperty("exclude")){
+        var excluded = excludedOnThisPage(item);
+      } else {
+        var excluded = false;
+      }
+      return (hasAccess && (!excluded));
     };
 
     $scope.logout = function(){
@@ -63,5 +68,6 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
       }
     }
   }
-  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'settings', 'Cache', 'model', 'SchoolInfos', 'Lang'];
+  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'MODULES', 'model', 'Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('NavtabsCtrl', NavtabsCtrl);
+})

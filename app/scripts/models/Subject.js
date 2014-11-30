@@ -73,7 +73,7 @@ schoolman.config(['modelProvider', function(model){
   };
 
   Subject.prototype.generateID = function(){
-    var id = "subject_" + this.code.toLowerCase();
+    var id = "subject_" + model.slugify(this.code);
     return id;
   }
   Subject.prototype.datatype = Subject.datatype = model.datatypes.subject.v1;

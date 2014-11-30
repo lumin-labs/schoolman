@@ -53,8 +53,9 @@
 							{{dict.name}}</th>
 							<th class="text-center" 
 							    style="width:105px;"
-							    ng-repeat="(roleKey, role) in User.roles">{{lang === 'en' ? role.nameEn : role.nameFr}}</th>
-							
+								ng-repeat="(roleKey, role) in User.roles" 
+								ng-if="roleKey !== 'sales'">
+							    {{lang === 'en' ? role.nameEn : role.nameFr}}</th>							
 							<th class="noprint" style="width:80px">{{dict.remove}}</th>
 						</tr>
 					</thead>
