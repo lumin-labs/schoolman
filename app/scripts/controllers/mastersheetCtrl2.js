@@ -1,8 +1,10 @@
 'use strict';
 
-function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+function MastersheetCtrl($scope, $routeParams, SchoolInfos, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS, Lang) {
   	 
       $scope.termIndex = parseInt($routeParams.termIndex);
+      $scope.dict = Lang.getDict();
+      $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
       
       $scope.open = Location.open;
 
@@ -12,6 +14,13 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
       $scope.data.summaries = {};
       $scope.data.students = [];
       $scope.data.rankings = {};
+
+      SchoolInfos.get("schoolinfo").then(function(info){
+          $scope.data.schoolInfo = info;
+          //console.log("school info retrieved", $scope.data.schoolInfo);
+      }).catch(function(error){
+          console.log("failed to get school info", error);
+      });
 
       $scope.round = Math.round;
 
@@ -97,11 +106,11 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
             .html(function(d) {
               return "<table>"+
                         "<tr>" +
-                          "<td style='text-align:right;'>Subject:</td>"+
+                          "<td style='text-align:right;'>"+$scope.dict.subject+":</td>"+
                           "<td class='tip-subject'>"+d.name+"</td>"+
                         "</tr>"+
                         "<tr>"+
-                          "<td style='text-align:right;'>Average:</td>"+
+                          "<td style='text-align:right;'>"+$scope.dict.average+":</td>"+
                           "<td class='tip-average'>"+ d.average.toFixed(2) + "</td>"+
                         "</tr>"+
                       "</table>"
@@ -120,7 +129,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
 
           var dataItem = {};
           dataItem.subject = $scope.data.subjects[marksheet.subjectId].code;
-          dataItem.name=$scope.data.subjects[marksheet.subjectId].en;
+          dataItem.name=$scope.lang === 'en' ? $scope.data.subjects[marksheet.subjectId].en : $scope.data.subjects[marksheet.subjectId].fr;
           var summary = Marksheets.summarize(marksheet, $routeParams.termIndex);
           console.log("Summary ok", summary.table);
           var total = _.reduce(summary.table, function(total, value){
@@ -149,7 +158,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Class Average");
+            .text($scope.dict.class_average);
 
         svg.selectAll(".bar")
             .data(data)
@@ -168,5 +177,5 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
       });
 
   }
-  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS'];
+  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'SchoolInfos', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS', 'Lang'];
   angular.module('SchoolMan').controller('MastersheetCtrl2', MastersheetCtrl);

@@ -1,6 +1,6 @@
 'use strict';
 
-function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos) {
+function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, model, SchoolInfos, Lang) {
 
     $scope.TABS = TABS;
     $scope.open = Location.open;
@@ -9,12 +9,15 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
     $scope.User = model.User;
     $scope.settings = settings.get();
     $scope.activePage = $routeParams.page;
+    $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;
 
       if($scope.schoolInfo.version === "gths"){
-        $scope.User.roles.classmaster.name = "Head of Dept";
+        $scope.User.roles.classmaster.nameEn = "Head of Dept";
+        $scope.User.roles.classmaster.nameFr = "Chef du Dépt";
       }
     }).catch(function(error){
       console.log("failed to load school info", error);
@@ -60,5 +63,5 @@ function NavtabsCtrl($scope, $routeParams, Location, TABS, settings, Cache, mode
       }
     }
   }
-  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'settings', 'Cache', 'model', 'SchoolInfos'];
+  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'Location', 'TABS', 'settings', 'Cache', 'model', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('NavtabsCtrl', NavtabsCtrl);

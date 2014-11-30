@@ -4,8 +4,8 @@
 		<div style="margin-bottom:10px;">
 			<div ng-controller="ClassmenuCtrl">
 				<div class="printonly">
-					<h3>Students</h3>
-					<h5>{{data.forms[queryParams.formIndex].name || "All Forms"}}{{data.groups[queryParams.groupId].name || " All Groups"}} {{data.departments[queryParams.deptId].name || "All Depts"}}, {{data.fees[queryParams.feeId].name  || "All"}} Fees</h5>
+					<h3>{{dict.student}}s</h3>
+					<h5>{{(lang === 'en' ? data.forms[queryParams.formIndex].nameEn : data.forms[queryParams.formIndex].nameFr) || dict.all_forms}}{{data.groups[queryParams.groupId].name || dict.all_groups}} {{data.departments[queryParams.deptId].name || dict.all_departments}}, {{(data.fees[queryParams.feeId].name  || dict.all) + " " + dict.fees}}</h5>
 				</div>
 			  <nav class="navbar navbar-default" role="navigation">
 				  <div class="container-fluid">
@@ -21,7 +21,7 @@
 				      <form class="navbar-form navbar-left" role="search" style="padding-left:0px;">
 						        
 
-						    <div class="form-group" style="width:120px;">
+						    <div class="form-group" style="width:150px;">
 				          		<div class="input-group" >
 				            		<div class="input-group-addon">
 										  	<input type="checkbox"
@@ -31,33 +31,32 @@
 										  	       ng-change="toggleAll()"
 										  	       style="margin-top:0px;">
 										</div>
-				          	<!-- Form Dropdown -->
 									  <div class="input-group-btn">
 									    <button class="btn btn-md btn-default dropdown-toggle" 
 									            data-toggle="dropdown">
-									      Move <span class="caret"></span>
+									      {{dict.move}} <span class="caret"></span>
 									    </button>
 									    <div class="dropdown-menu" style="padding:10px;">
 									      <ul class="nav nav-tabs">
 												  <li class="{{moveTab === 'form' ? 'active' : ''}}">
-												    <a ng-mouseover="moveTab = 'form'">Form</a>
+												    <a ng-mouseover="moveTab = 'form'">{{dict.form}}</a>
 												  </li>
 												  <li class="{{moveTab === 'dept' ? 'active' : ''}}">
-												    <a ng-mouseover="moveTab = 'dept'">Dept</a>
+												    <a ng-mouseover="moveTab = 'dept'">{{dict.dept}}</a>
 												  </li>
 												  <li class="{{moveTab === 'group' ? 'active' : ''}}">
-												    <a ng-mouseover="moveTab = 'group'">Class</a>
+												    <a ng-mouseover="moveTab = 'group'">{{dict.Class}}</a>
 												  </li>
 												  <li class="{{moveTab === 'fee' ? 'active' : ''}}">
-												    <a style="margin-right:0px;" ng-mouseover="moveTab = 'fee'">Fee</a>
+												    <a style="margin-right:0px;" ng-mouseover="moveTab = 'fee'">{{dict.fee}}</a>
 												  </li>
 												</ul>
 										    <ul class="nav nav-stacked" 
-										        style="border:solid 1px #ddd;border-top:0px;width:258px;" 
+										        style="border:solid 1px #ddd;border-top:0px;width:275px;" 
 										        ng-if="moveTab==='form'">
 										      <li ng-repeat="(formIndex, form) in data.forms">
 										        <a ng-click="moveSelected({formIndex:formIndex})">
-										        	{{data.forms[formIndex].name}}
+										        	{{lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr}}
 										        </a>
 										      </li>
 										    </ul>
@@ -96,7 +95,7 @@
 								<div class="form-group" style="width:380px;margin-left:20px;">
 									<div class="input-group">
 					            <span class="input-group-addon" style="width:50px;">
-								        Filter:
+								        {{dict.filter}}:
 								      </span>
 						          <!-- <input style="" 
 						          			 type="text" 
@@ -108,16 +107,16 @@
 										    <button style="border-radius:0px;"
 										    			  class="btn btn-md btn-default dropdown-toggle" 
 										            data-toggle="dropdown">
-										      {{data.forms[queryParams.formIndex].name || "All Forms"}} <span class="caret"></span>
+										      {{(lang === 'en' ? data.forms[queryParams.formIndex].nameEn : data.forms[queryParams.formIndex].nameFr) || dict.all_forms}} <span class="caret"></span>
 										    </button>
 										    <ul class="dropdown-menu">
 										      <li>
-										    		<a ng-click="setQuery({formIndex:'all'})">All Forms</a>
+										    		<a ng-click="setQuery({formIndex:'all'})">{{dict.all_forms}}</a>
 										    	</li>
 										    	<li class="divider"></li>
 										      <li ng-repeat="(formIndex, form) in data.forms">
 										        <a ng-click="setQuery({formIndex:formIndex})">
-										        	{{data.forms[formIndex].name}}
+										        	{{lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr}}
 										        </a>
 										      </li>
 										    </ul>
@@ -127,11 +126,11 @@
 										    <button style="border-radius:0px;border-left:0px;"
 										            class="btn btn-md btn-default dropdown-toggle" 
 										            data-toggle="dropdown">
-										      {{data.departments[queryParams.deptId].name|| "All Departments"}} <span class="caret"></span>
+										      {{data.departments[queryParams.deptId].name|| dict.all_departments}} <span class="caret"></span>
 										    </button>
 										    <ul class="dropdown-menu">
 										      <li>
-										    		<a ng-click="setQuery({deptId:'all'})">All Departments</a>
+										    		<a ng-click="setQuery({deptId:'all'})">{{dict.all_departments}}</a>
 										    	</li>
 										    	<li class="divider"></li>
 										      <li ng-repeat="(deptId, dept) in data.departments">
@@ -146,11 +145,11 @@
 										  <div  class="input-group-btn" >
 										    <button style="border-radius:0px;border-left:0px;"
 										            class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-										      {{data.groups[queryParams.groupId].name || "All Groups"}} <span class="caret"></span>
+										      {{data.groups[queryParams.groupId].name || dict.all_groups}} <span class="caret"></span>
 										    </button>
 										    <ul class="dropdown-menu">
 										      <li>
-										    		<a ng-click="setQuery({groupId:'all'})">All Groups</a>
+										    		<a ng-click="setQuery({groupId:'all'})">{{dict.all_groups}}</a>
 										    	</li>
 										    	<li class="divider"></li>
 										      <li ng-repeat="(groupId, group) in data.groups">
@@ -164,11 +163,11 @@
 										  <!-- Fee Dropdown -->
 										  <div  class="input-group-btn" >
 										    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-										      {{data.fees[queryParams.feeId].name || "All Fees"}} <span class="caret"></span>
+										      {{data.fees[queryParams.feeId].name || dict.all_fees}} <span class="caret"></span>
 										    </button>
 										    <ul class="dropdown-menu">
 										    	<li>
-										    		<a ng-click="setQuery({feeId:'all'})">All Fees</a>
+										    		<a ng-click="setQuery({feeId:'all'})">{{dict.all_fees}}</a>
 										    	</li>
 										    	<li class="divider"></li>
 										      <li ng-repeat="(feeId, fee) in data.fees">
@@ -192,19 +191,19 @@
 			<thead>
 				
 				<tr>
-					<th class="noprint">select</th>
+					<th class="noprint">{{dict.select}}</th>
 					<!-- <th style="width:100px;">ID</th> -->
-					<th>Name</th>
-					<th>Gender</th>
-					<th>Birth Date</th>
-					<th>Parent Name</th>
-					<th>Parent Phone</th>
-					<th>Parent Email</th>
-					<th>Form</th>
-					<th>Dept.</th>
-					<th>Class</th>
-					<th>Fee Due</th>
-					<th>Promotion</th>
+					<th>{{dict.name}}</th>
+					<th>{{dict.sex}}</th>
+					<th>{{dict.date_of_birth}}</th>
+					<th>{{dict.parent_name}}</th>
+					<th>{{dict.parent_phone}}</th>
+					<th>{{dict.parent_email}}</th>
+					<th>{{dict.form}}</th>
+					<th>{{dict.dept}}</th>
+					<th>{{dict.Class}}</th>
+					<th>{{dict.fee_due}}</th>
+					<th>{{dict.promotion}}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -229,7 +228,7 @@
 					<td>{{student.parentName}}</td>
 					<td>{{student.parentPhone}}</td>
 					<td>{{student.parentEmail}}</td>
-					<td>{{data.forms[student.formIndex].name}}</td>
+					<td>{{lang === 'en' ? data.forms[student.formIndex].nameEn : data.forms[student.formIndex].nameFr}}</td>
 					<td>{{data.departments[student.deptId].name}}</td>
 					<td>{{data.groups[student.groupId].name}}</td>
 					<td>

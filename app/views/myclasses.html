@@ -7,7 +7,7 @@
 	<div class="row " >
 		<div class="col-md-12">	
 			<div class="noprint" ng-include="'views/_menu-bookmark-course.html'" class="pull-left;"></div>
-			<div class="printonly"><h3>{{data.assignedTeacher.fullname}}'s Classes</h3></div>
+			<div class="printonly"><h3>{{dict.classes_for}} {{data.assignedTeacher.fullname}}</h3></div>
 	    </div>
   	</div>
   	<div class="row" style="">
@@ -16,12 +16,12 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>Subject</th>
-						<th>Form</th>
-						<th>Department</th>
-						<th>Class</th>
-						<th># Students</th>
-						<th>Teacher</th>
+						<th>{{dict.subject}}</th>
+						<th>{{dict.form}}</th>
+						<th>{{dict.department}}</th>
+						<th>{{dict.Class}}</th>
+						<th>{{dict.num_students}}</th>
+						<th>{{dict.teacher}}</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -48,9 +48,9 @@
 										deptId:marksheet.deptId,
 										groupId:marksheet.groupId,
 										subjectId:marksheet.subjectId
-									})">{{data.subjects[marksheet.subjectId].en}}</a>
+									})">{{lang === 'en' ? data.subjects[marksheet.subjectId].en : data.subjects[marksheet.subjectId].fr}}</a>
 						</td>
-						<td>{{data.forms[marksheet.formIndex].name}}</td>
+						<td>{{lang === 'en' ? data.forms[marksheet.formIndex].nameEn : data.forms[marksheet.formIndex].nameFr}}</td>
 						<td>{{data.departments[marksheet.deptId].name}}</td>
 						<td>{{data.groups[marksheet.groupId].name}}</td>
 						<td>
@@ -69,10 +69,10 @@
 	</div>
 	<div class="jumbotron" ng-if="data['marksheets'].length < 1" 
 	     style="margin-top:20px;" >
-    	<h2 class="text-left">Welcome to the <b>My Classes</b> page!</h2>
+    	<h2 class="text-left">{{dict.welcome_to_the}} <b>{{dict.my_classes}}</b> {{dict._page}}!</h2>
     	<p class="text-left">
-    		Select the <b>Form</b>, <b>Class</b>, and <b>Subject</b> from the menu above and then click 
-    		<b style="color:#5CB85C;font-size:1.1em;">Add Class</b>.
+    		{{dict.select_the}} <b>{{dict.form}}</b>, <b>{{dict.department}}</b>, <b>{{dict.class}}</b>, and <b>{{dict.subject}}</b> {{dict.from_the_menu_above_then_click}}.
+    		<b style="color:#5CB85C;font-size:1.1em;">{{dict.add_class}}</b>.
     	</p>
 	</div>
 	</div>

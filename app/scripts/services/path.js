@@ -35,6 +35,7 @@ function Path() {
     		if(d.page === "login" || d.page === "login404"){
     			d.username = d.username ? d.username : null;
           var path = d.page       + '/' +
+                     d.lang       + '/' +
                      d.username   + '/' +
                      d.accessCode
           return path;
@@ -50,6 +51,7 @@ function Path() {
           // thus all of these variables should be present one way or another
           var path =  d.page       + '/' + 
                       d.subpage    + '/' + 
+                      d.lang       + '/' +
                       d.formIndex  + '/' + 
                       d.deptId    + '/' + 
                       d.groupId   + '/' + 

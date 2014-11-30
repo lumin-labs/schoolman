@@ -2,8 +2,8 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="ReportsCtrl">
     <div class="printonly">
-      <h3>Annual Results Statistics</h3>
-      <h5>{{data.forms[formIndex].name || "All Forms"}}</h5>
+      <h3>{{dict.annual_results}}</h3>
+      <h5>{{(lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr) || dict.all_forms}}</h5>
     </div>
     <div class="noprint" style="padding-bottom:10px;">
       <div>
@@ -22,16 +22,16 @@
                 <div class="form-group">
                   <div class="btn-group">
                       <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
-                        {{data.forms[formIndex].name || "All Forms"}}   <span class="caret"></span>
+                        {{(lang === 'en' ? data.forms[formIndex].nameEn : data.forms[formIndex].nameFr) || dict.all_forms}}   <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu">
                         <li>
-                          <a ng-click="allForms()">All Forms</a>
+                          <a ng-click="allForms()">{{dict.all_forms}}</a>
                         </li>
                         <li class="divider"></li>
                         <li ng-repeat="(formInd, form) in data.forms">
                           <a ng-click="open({formIndex:formInd})">
-                            {{data.forms[formInd].name}}
+                            {{lang === 'en' ? data.forms[formInd].nameEn : data.forms[formInd].nameFr}}
                           </a>
                         </li>
                       </ul>
@@ -46,27 +46,27 @@
     <table class="table table-striped table-bordered table-compact text-center">
       <thead>
         <tr style="text-align:center">
-          <th style="vertical-align:middle" rowspan="2">Class</th>
-          <th style="text-align:center" colspan="4">Number</th>
-          <th style="text-align:center" style="vertical-align:middle" rowspan="2">% Pass</th>
-          <th style="text-align:center" colspan="3">Average</th>
-          <th style="text-align:center" colspan="2">Performance By Subject</th>
-          <th style="text-align:center" colspan="3">Number</th>
+          <th style="vertical-align:middle" rowspan="2">{{dict.Class}}</th>
+          <th style="text-align:center" colspan="4">{{dict.number}}</th>
+          <th style="text-align:center" style="vertical-align:middle" rowspan="2">% {{dict.pass}}</th>
+          <th style="text-align:center" colspan="3">{{dict.average}}</th>
+          <th style="text-align:center" colspan="2">{{dict.performance_by_subject}}</th>
+          <th style="text-align:center" colspan="3">{{dict.number}}</th>
         </tr>
         <tr style="text-align:center">
-          <th style="text-align:center">On Roll</th>
-          <th style="text-align:center">Sat</th>
-          <th style="text-align:center">Pass</th>
-          <th style="text-align:center">Fail</th>
-          <th style="text-align:center">High</th>
-          <th style="text-align:center">Low</th>
-          <th style="text-align:center">Class</th>
-          <th style="text-align:center">Good</th>
-          <th style="text-align:center">Bad</th>
-          <th style="text-align:center">Promote</th>
-          <th style="text-align:center">Repeat</th>
+          <th style="text-align:center">{{dict.enrolled}}</th>
+          <th style="text-align:center">{{dict.present}}</th>
+          <th style="text-align:center">{{dict.pass}}</th>
+          <th style="text-align:center">{{dict.fail}}</th>
+          <th style="text-align:center">{{dict.high}}</th>
+          <th style="text-align:center">{{dict.low}}</th>
+          <th style="text-align:center">{{dict.Class}}</th>
+          <th style="text-align:center">{{dict.good}}</th>
+          <th style="text-align:center">{{dict.poor}}</th>
+          <th style="text-align:center">{{dict.promote}}</th>
+          <th style="text-align:center">{{dict.repeat}}</th>
           <!-- <th style="text-align:center">Withdrawal</th> -->
-          <th style="text-align:center">Dismiss</th>
+          <th style="text-align:center">{{dict.dismissed}}</th>
         </tr>
       </thead>
       <tbody ng-repeat="(deptId, deptStats) in data.classStats">
@@ -75,7 +75,7 @@
         </tr>
         <tr ng-repeat="(groupId, classStats) in deptStats">
           <td ng-if="formIndex !== -1">{{data.groups[groupId].name}}</td>
-          <td ng-if="formIndex === -1">{{data.forms[groupId].name}}</td>
+          <td ng-if="formIndex === -1">{{lang === 'en' ? data.forms[groupId].nameEn : data.forms[groupId].nameFr}}</td>
           <td>{{classStats.numStudents}}</td>
           <td>{{classStats.numPresent}}</td>
           <td>{{classStats.passing}}</td>
@@ -84,13 +84,19 @@
           <td>{{classStats.aveHigh | number:1}}</td>
           <td>{{classStats.aveLow !== 21 ? classStats.aveLow  : "" | number:1}}</td>
           <td>{{classStats.aveClass | number:1}}</td>
-          <td>{{data.subjects[classStats.goodSubjects[0].subject].en}}<br>
-            {{data.subjects[classStats.goodSubjects[1].subject].en}}<br>
-            {{data.subjects[classStats.goodSubjects[2].subject].en}}
+          <td>{{lang === "en" ? data.subjects[classStats.goodSubjects[0].subject].en :
+                data.subjects[classStats.goodSubjects[0].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[classStats.goodSubjects[1].subject].en :
+                data.subjects[classStats.goodSubjects[1].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[classStats.goodSubjects[2].subject].en :
+                data.subjects[classStats.goodSubjects[2].subject].fr}}
           </td>
-          <td>{{data.subjects[classStats.poorSubjects[2].subject].en}}<br>
-            {{data.subjects[classStats.poorSubjects[1].subject].en}}<br>
-            {{data.subjects[classStats.poorSubjects[0].subject].en}}
+          <td>{{lang === "en" ? data.subjects[classStats.poorSubjects[2].subject].en :
+                data.subjects[classStats.poorSubjects[2].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[classStats.poorSubjects[1].subject].en :
+                data.subjects[classStats.poorSubjects[1].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[classStats.poorSubjects[0].subject].en :
+                data.subjects[classStats.poorSubjects[0].subject].fr}}
           </td>
           <td>{{classStats.promote}}</td>
           <td>{{classStats.repeat}}</td>
@@ -107,13 +113,19 @@
           <td>{{data.deptStats[deptId].aveHigh | number:1}}</td>
           <td>{{data.deptStats[deptId].aveLow !== 21 ? data.deptStats[deptId].aveLow  : "" | number:1}}</td>
           <td>{{data.deptStats[deptId].aveClass | number:1}}</td>
-          <td>{{data.subjects[data.deptStats[deptId].goodSubjects[0].subject].en}}<br>
-            {{data.subjects[data.deptStats[deptId].goodSubjects[1].subject].en}}<br>
-            {{data.subjects[data.deptStats[deptId].goodSubjects[2].subject].en}}
+          <td>{{lang === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[0].subject].en :
+                  data.subjects[data.deptStats[deptId].goodSubjects[0].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[1].subject].en :
+                  data.subjects[data.deptStats[deptId].goodSubjects[1].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[data.deptStats[deptId].goodSubjects[2].subject].en :
+                  data.subjects[data.deptStats[deptId].goodSubjects[2].subject].fr}}
           </td>
-          <td>{{data.subjects[data.deptStats[deptId].poorSubjects[2].subject].en}}<br>
-            {{data.subjects[data.deptStats[deptId].poorSubjects[1].subject].en}}<br>
-            {{data.subjects[data.deptStats[deptId].poorSubjects[0].subject].en}}  
+          <td>{{lang === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[2].subject].en :
+                  data.subjects[data.deptStats[deptId].poorSubjects[2].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[1].subject].en :
+                  data.subjects[data.deptStats[deptId].poorSubjects[1].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[data.deptStats[deptId].poorSubjects[0].subject].en :
+                  data.subjects[data.deptStats[deptId].poorSubjects[0].subject].fr}}  
           </td>
           <td>{{data.deptStats[deptId].promote}}</td>
           <td>{{data.deptStats[deptId].repeat}}</td>
@@ -132,13 +144,19 @@
           <td>{{data.totalStats.aveHigh | number:1}}</td>
           <td>{{data.totalStats.aveLow !== 21 ? data.totalStats.aveLow : "" | number:1}}</td>
           <td>{{data.totalStats.aveClass | number:1}}</td>
-          <td>{{data.subjects[data.totalStats.goodSubjects[0].subject].en}}<br>
-                  {{data.subjects[data.totalStats.goodSubjects[1].subject].en}}<br>
-                  {{data.subjects[data.totalStats.goodSubjects[2].subject].en}}
+          <td>{{lang === "en" ? data.subjects[data.totalStats.goodSubjects[0].subject].en :
+                  data.subjects[data.totalStats.goodSubjects[0].subject].fr}}<br>
+              {{lang === "en" ? data.subjects[data.totalStats.goodSubjects[1].subject].en :
+                  data.subjects[data.totalStats.goodSubjects[1].subject].fr}}<br>
+              {{lang === "en" ? data.subjects[data.totalStats.goodSubjects[2].subject].en :
+                  data.subjects[data.totalStats.goodSubjects[2].subject].fr}}
           </td>
-          <td>{{data.subjects[data.totalStats.poorSubjects[2].subject].en}}<br>
-            {{data.subjects[data.totalStats.poorSubjects[1].subject].en}}<br>
-            {{data.subjects[data.totalStats.poorSubjects[0].subject].en}}
+          <td>{{lang === "en" ? data.subjects[data.totalStats.poorSubjects[2].subject].en :
+                  data.subjects[data.totalStats.poorSubjects[2].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[data.totalStats.poorSubjects[1].subject].en :
+                  data.subjects[data.totalStats.poorSubjects[1].subject].fr}}<br>
+            {{lang === "en" ? data.subjects[data.totalStats.poorSubjects[0].subject].en :
+                  data.subjects[data.totalStats.poorSubjects[0].subject].fr}}
           </td>
           <td>{{data.totalStats.promote}}</td>
           <td>{{data.totalStats.repeat}}</td>

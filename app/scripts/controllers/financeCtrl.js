@@ -1,14 +1,14 @@
 'use strict';
 
-function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolInfos) {
+function FinanceCtrl($scope, $routeParams, Forms, Registrar, Fees, Students, Payments, SchoolInfos, Lang) {
   	
   	var forms = _.map(Forms.all(), function(form){
       form.students = [];
   		return form;
   	});
 
-    
-
+    $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;
@@ -159,5 +159,5 @@ function FinanceCtrl($scope, Forms, Registrar, Fees, Students, Payments, SchoolI
 		};
     
   }
-FinanceCtrl.$inject = ['$scope', 'Forms', 'Registrar', 'Fees', 'Students', 'Payments', 'SchoolInfos'];
+FinanceCtrl.$inject = ['$scope', '$routeParams', 'Forms', 'Registrar', 'Fees', 'Students', 'Payments', 'SchoolInfos', 'Lang'];
 angular.module('SchoolMan').controller('FinanceCtrl', FinanceCtrl);

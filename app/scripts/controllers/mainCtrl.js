@@ -11,11 +11,12 @@
  * to move some of these things into a service where we can use caching
  */
 
-function MainCtrl($scope, $location, $anchorScroll, $routeParams, Cache, Data, Location, Path, CourseCatalog, TimeTable, Registrar, ClassMaster) {
+function MainCtrl($scope, $location, $anchorScroll, $routeParams, Cache, Data, Location, Path, CourseCatalog, TimeTable, Registrar, ClassMaster, Lang) {
 
     $scope.page = $routeParams.page;
     $scope.view = $routeParams.view;
     $scope.accessCode = $routeParams.accessCode;
+    $scope.dict = Lang.getDict();
 
     $anchorScroll(); // Scroll to top of page
 
@@ -295,5 +296,5 @@ function MainCtrl($scope, $location, $anchorScroll, $routeParams, Cache, Data, L
     
 
   }
-  MainCtrl.$inject = ['$scope', '$location', '$anchorScroll', '$routeParams', 'Cache', 'Data', 'Location', 'Path', 'CourseCatalog', 'TimeTable', 'Registrar', 'ClassMaster'];
+  MainCtrl.$inject = ['$scope', '$location', '$anchorScroll', '$routeParams', 'Cache', 'Data', 'Location', 'Path', 'CourseCatalog', 'TimeTable', 'Registrar', 'ClassMaster', 'Lang'];
   angular.module('SchoolMan').controller('_MainCtrl', MainCtrl);

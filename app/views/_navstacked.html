@@ -5,7 +5,7 @@
 				<div class="btn-group" style="margin-right:0px;">
 	        <a class="btn btn-lg dropdown-toggle {{userAccess === 'sales' ? 'btn-warning' : 'btn-default'}}" 
 	           data-toggle="dropdown">
-	          {{User.roles[userAccess].name}} <span class="caret"></span>
+	          {{lang === 'en' ? User.roles[userAccess].nameEn : User.roles[userAccess].nameFr}} <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu" role="menu">
 	          <li>
@@ -16,10 +16,10 @@
 				  	    ng-if="accessBool === 1"
 				  	    ng-class="accessKey === userAccess ? 'active' : ''">
 					  	<a ng-click="login(accessKey)" 
-					  	   ng-if="settings.access[accessKey] === 1">{{User.roles[accessKey].name}}</a>	
+					  	   ng-if="settings.access[accessKey] === 1">{{lang === 'en' ? User.roles[accessKey].nameEn : User.roles[accessKey].nameFr}}</a>	
 					  	<a ng-click="login(accessKey)" 
 					  	   ng-if="settings.access[accessKey] === 0"
-					  	   style="color:#999;">{{User.roles[accessKey].name}}</a>
+					  	   style="color:#999;">{{lang === 'en' ? User.roles[accessKey].nameEn : User.roles[accessKey].nameFr}}</a>
 				  	</li>
 	        </ul>
 	      </div>
@@ -34,7 +34,7 @@
 					<li ng-repeat="(tabIndex, tab) in TABS"
 						ng-if="userHasAccess(tab, schoolInfo.version)"
 						ng-class="activeIfPage(tab.page)">
-						<a ng-if="settings.access[userAccess] || userAccess === 'sales'" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{tab.label}}</a>
+						<a ng-if="settings.access[userAccess]" ng-click="open({page:tab.page})"><i class="glyphicon" ng-class="tab.icon"></i> &nbsp;{{lang === 'en' ? tab.labelEn : tab.labelFr}}</a>
 					</li>
 				</ul>
 			</div>
