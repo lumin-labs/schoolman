@@ -37,7 +37,7 @@
       <table class="table">
         <thead>
           <tr>
-            <td ng-repeat="extension in availableExtensions">{{extension}}</td>
+            <td ng-repeat="extension in availableExtensions" ng-if="extension.moduleName !== 'Main'">{{extension.moduleName}}</td>
           </tr>
         </thead>
         <tbody>
