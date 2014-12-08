@@ -40,4 +40,4 @@ function Dcards($q, Data2, model) {
 
 }
 Dcards.$inject = ['$q', 'Data2', 'model'];
-angular.module('SchoolMan').register.service('Dcards', Dcards);
+angular.module('SchoolMan.ReportCard').service('Dcards', Dcards);

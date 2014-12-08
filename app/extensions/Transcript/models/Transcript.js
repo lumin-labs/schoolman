@@ -1,7 +1,6 @@
 'use strict';
 
 var schoolman = angular.module('SchoolMan');
-console.log("Transcript model getting loaded");
 
 schoolman.config(['modelProvider', function(model){
   function Transcript(spec){
@@ -37,7 +36,5 @@ schoolman.config(['modelProvider', function(model){
   Transcript.prototype.db = Transcript.db = "db_transcripts";
   
   model.Transcript = Transcript;
-
-  console.log("Transcript added to model", model);
 
 }]);

@@ -84,5 +84,5 @@ define(['profile', 'Users', 'Students', 'Fees', 'Forms', 'Payments', 'Groups', '
 
   }
   RegistrarProfileCtrl.$inject = ['$scope', '$routeParams', '$q', 'model', 'profile', 'Users', 'Students', 'Fees', 'Forms', 'Payments', 'Groups', 'Departments', 'Lang'];
-  angular.module('SchoolMan').register.controller('RegistrarProfileCtrl', RegistrarProfileCtrl);
+  angular.module('SchoolMan.Finance').controller('RegistrarProfileCtrl', RegistrarProfileCtrl);
 })

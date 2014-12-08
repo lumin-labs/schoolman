@@ -55,5 +55,5 @@ define(['Fees', 'Students', 'Lang'], function(Fees, Students, Lang){
       }
   }
   FeesCtrl.$inject = ['$scope', 'model', 'Fees', 'Students', 'Lang'];
-  angular.module('SchoolMan').register.controller('FeesCtrl', FeesCtrl);
+  angular.module('SchoolMan.Finance').controller('FeesCtrl', FeesCtrl);
 })

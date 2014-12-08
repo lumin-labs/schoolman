@@ -15,8 +15,6 @@ schoolman.config(['modelProvider', function(model){
     // has already been registered in the db will break the parsing of stored
     // data. this could be fixed by making the user specify the index, or by 
     // automating the creation of sub-version datatype/parse specifications.
-    
-    //this[ val['?'] ('year', String) ] = "2014";
 
     this._id = "customer_settings";
     this[ val ('access : object')] = {
@@ -42,7 +40,4 @@ schoolman.config(['modelProvider', function(model){
   // };
   model.Settings = Settings;
 
-  console.log("Settings added to model", model);
-
 }]);
- 

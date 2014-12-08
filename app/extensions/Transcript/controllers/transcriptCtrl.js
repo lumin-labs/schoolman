@@ -1,5 +1,5 @@
 'use strict';
-define(['Transcript/services/transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'], function(Transcripts, Subjects, Students, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang){
+define(['Transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'], function(Transcripts, Subjects, Students, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang){
   function TranscriptCtrl($scope, $routeParams, model, Transcripts, Subjects, Students, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang) {
   	
       var termIndex = $scope.termIndex = $routeParams.termIndex;
@@ -267,5 +267,5 @@ define(['Transcript/services/transcripts', 'Subjects', 'Students', 'Departments'
 
   }
   TranscriptCtrl.$inject = ['$scope', '$routeParams', 'model', 'Transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
-  angular.module('SchoolMan').register.controller('transcriptCtrl', TranscriptCtrl);
+  angular.module('SchoolMan.Transcript').controller('transcriptCtrl', TranscriptCtrl);
 })

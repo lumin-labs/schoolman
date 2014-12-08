@@ -140,6 +140,16 @@ define(['ClassCouncils', 'ReportCard/services/dcards', 'Users', 'Subjects', 'Stu
       //   $scope.passingScore = classcouncil.passingScore; 
       // })
 
+      $scope.fitPage = function()
+      {
+        var container = document.getElementById ("marktable");
+        // var message = "The width of the contents with padding: " + container.scrollWidth + "px.\n";
+        // message += "The height of the contents with padding: " + container.scrollHeight + "px.\n";
+
+        // console.log(message);
+        return container.scrollHeight <= 480;
+      }
+
       $scope.getMark = function(d){
         var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
         return d.row ? d.row[i] : undefined;
@@ -158,5 +168,6 @@ define(['ClassCouncils', 'ReportCard/services/dcards', 'Users', 'Subjects', 'Stu
 
   }
   ReportcardCtrl.$inject = ['$scope', '$routeParams', 'PROMOTE_OPTIONS', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
-  angular.module('SchoolMan').register.controller('reportcardCtrl', ReportcardCtrl);
+  angular.module('SchoolMan.ReportCard').controller('reportcardCtrl', ReportcardCtrl);
 })
+
