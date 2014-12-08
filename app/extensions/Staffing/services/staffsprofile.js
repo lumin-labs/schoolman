@@ -1,5 +1,6 @@
 'use strict';
 
+define(['modelTransformer'], function(modelTransformer){
 function staffprofile($q, $rootScope, model, Data2, modelTransformer) {
 
     var self = {};
@@ -48,4 +49,5 @@ function staffprofile($q, $rootScope, model, Data2, modelTransformer) {
 
   }
 staffprofile.$inject = ['$q', '$rootScope', 'model', 'Data2', 'modelTransformer'];
-angular.module('SchoolMan').service('staffprofile', staffprofile);
+angular.module('SchoolMan').register.service('staffprofile', staffprofile);
+})

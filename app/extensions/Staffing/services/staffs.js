@@ -1,6 +1,6 @@
 'use strict';
-
-function Staffs($q, model, modelTransformer, Data2,$log) {
+define(['modelTransformer'], function(modelTransformer){
+function Staffs($q, model, Data2,$log, modelTransformer) {
 
   	var _staffs = {};
 
@@ -260,5 +260,6 @@ function Staffs($q, model, modelTransformer, Data2,$log) {
 
     return self;
   }
-  Staffs.$inject = ['$q', 'model', 'modelTransformer', 'Data2','$log'];
+  Staffs.$inject = ['$q', 'model', 'Data2','$log', 'modelTransformer'];
   angular.module('SchoolMan').service('Staffs', Staffs);
+})

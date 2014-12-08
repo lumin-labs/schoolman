@@ -40,6 +40,8 @@ var servicesMain = {
     "ClassCouncils": "ReportCard/services/classcouncils",
     "Fees": "Finance/services/fees",
     "Payments":"Finance/services/payments",
+    // "Salarys": "Staffing/services/salarys",
+    "Staffs": "Staffing/services/staffs",
 }
 
 var controllersMain = [
@@ -63,6 +65,9 @@ var controllersMain = [
     "ReportCard/models/Dcard",
     "Finance/models/Fee",
     "Finance/models/Payment",
+        // "Staffing/models/Staffpayment",
+        // "Staffing/models/Salary",
+        "Staffing/models/Staff",
     
 ]
 
@@ -83,20 +88,15 @@ var modularScripts={
         "Finance/controllers/balancesheetCtrl",
     ],
     'Staffing':[
-        "Staffing/services/salarys",
-        "Staffing/services/staffs",
-        "Staffing/services/staff-registrar",
+        // "Staffing/services/staff-registrar",
         "Staffing/services/staffid",
         "Staffing/services/staffsprofile",
-        "Staffing/models/Salary",
-        "Staffing/models/Staff",
-        "Staffing/models/Staffpayment",
-        "Staffing/controllers/salaryCtrl",
+        // "Staffing/controllers/salaryCtrl",
         "Staffing/controllers/staffregistrationCtrl",
         "Staffing/controllers/StafflistCtrl",
-        "Staffing/controllers/staffregistrationCtrl",
-        "Staffing/controllers/staffsCtrl",
-        "Staffing/controllers/staffsfinanceCtrl",
+        // "Staffing/controllers/staffregistrationCtrl",
+        // "Staffing/controllers/staffsCtrl",
+        // "Staffing/controllers/staffsfinanceCtrl",
         "Staffing/controllers/staffsprofileCtrl",
     ],
     'Reports':[

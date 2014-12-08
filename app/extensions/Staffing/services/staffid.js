@@ -86,4 +86,4 @@ function Staffid($q, $log, Data2) {
 
   }
 Staffid.$inject = ['$q', '$log', 'Data2'];
-angular.module('SchoolMan').service('Staffid', Staffid);
+angular.module('SchoolMan').register.service('Staffid', Staffid);

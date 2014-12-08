@@ -213,13 +213,13 @@ angular.module('SchoolMan')
       location:"/extension/Staffing",
       icon:"glyphicon-book",
       tabs: [
-        //  {
-        //   en:"Staff list",
-        //   fr:"Personnel",
-        //   page:"stafflist",
-        //   access:['admin','registrar'],
-        //   exclude:[]
-        // },
+         {
+          en:"Staff List",
+          fr:"Personnel",
+          page:"stafflist",
+          access:['admin','registrar'],
+          exclude:[]
+        },
         // {
         //   en:"Salary Settings",
         //   fr:"Salaires",
@@ -230,21 +230,35 @@ angular.module('SchoolMan')
         // {
         //   en:"Staff",
         //   fr:"Personnel",
-        //   page:"staffs",
+        //   page:"staff",
         //   access:['admin', 'registrar'],
         //   exclude:[]
         // },
+        {
+          en:"Staff Profile",
+          fr:"Profil du Personnel",
+          page:"staffprofile",
+          access:['admin', 'registrar'],
+          exclude:"all"
+        },
+        {
+          en:"Staff Registration",
+          fr:"Inscription du Personnel",
+          page:"staffregistration",
+          access:['registrar'],
+          exclude:[]
+        },
         // {
-        //   en:"Staff Profile",
-        //   fr:"Profil du Personnel",
-        //   page:"staffProfile",
-        //   access:['admin', 'registrar'],
-        //   exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport']
+        //   en:"Staff Balance Sheet",
+        //   fr:"Staff Balance Sheet",
+        //   page:"staffsfinance",
+        //   access:['registrar'],
+        //   exclude:[]
         // },
         // {
-        //   en:"Staff Registration",
-        //   fr:"Inscription du Personnel",
-        //   page:"staffregistration",
+        //   en:"Registrar Staff",
+        //   fr:"Registrar Staff",
+        //   page:"registrarstaff",
         //   access:['registrar'],
         //   exclude:[]
         // },

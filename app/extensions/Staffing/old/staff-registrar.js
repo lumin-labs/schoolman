@@ -11,7 +11,8 @@
  *
  * This service stores all student data and links students with classes and courses
  */
-function Staffregistrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model, Staffid) {
+ define(['modelTransformer','Staffing/services/staffid'], function(modelTransformer, Staffid){
+function Staffregistrar(Data2, $q, $log, model, modelTransformer, Staffid) {
     
     // var _students = [];
     var staffs = {};
@@ -181,5 +182,6 @@ function Staffregistrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, 
     return self;
 
   }
-Staffregistrar.$inject = ['CourseCatalog', 'Data', 'Data2', '$q', '$log', 'modelTransformer', 'model', 'Staffid'];
-angular.module('SchoolMan').service('Staffregistrar', Staffregistrar);
+Staffregistrar.$inject = ['Data2', '$q', '$log', 'model', 'modelTransformer', 'Staffid'];
+angular.module('SchoolMan').register.service('Staffregistrar', Staffregistrar);
+})

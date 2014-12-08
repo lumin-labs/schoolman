@@ -36,13 +36,9 @@ schoolman.config(['modelProvider', function(model){
         type:"string",
         required:false
       },{
-        key:"salaryId",
-        type:"string",
+        key:"salary",
+        type:"number",
         required:true
-      },{
-        key:"birthplace",
-        type:"string",
-        required:false
       },{
         key:"residence",
         type:"string",
@@ -132,8 +128,7 @@ schoolman.config(['modelProvider', function(model){
     this.name ="";
     this.sex = "";     // String
     this.staffEmail = "";
-    this.salaryId = spec.feeId || null;
-    this.birthplace = "";
+    this.salary = 0;
     this.residence = "";
     this.matricalno = "";
     this.maritalstatus = "";

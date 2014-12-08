@@ -1,6 +1,5 @@
 <div class="row">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
-
 	<div class="col-md-10 marksheet" ng-controller="StafflistsCtrl">
 		<div class="printonly"><h3>Staff List</h3></div>
 
@@ -23,11 +22,11 @@
 							<th>Marital Status</th>	
 							<th style="width:200px;">Entry Into Service</th>
 							<th>Dutypost</th>
-							<th style="width:200px;">Entry Into Current Post</th>
+							<th style="width:200px;">Date Posted</th>
 							<th>Sex</th>
 							<th>Contact</th>
 							<!-- <th>Email</th> -->
-							<th>Remove</th>					
+							<th class="noprint">Remove</th>					
 							
 						</tr>
 					</thead>
@@ -37,7 +36,7 @@
 							<td>{{getServiceYears(staff.dateofentry)}}</td>
 							<td style="width:300px;"><a ng-click ="open({staffId:staff._id,page:'staffprofile'})" >{{staff.name}}</a></td>
 							<td>{{staff.matricalno}}</td>
-							<td>{{data.salarys[staff.salaryId].salaryAmount}}</td>
+							<td>{{staff.salary | number:0}}</td>
 							<td>{{staff.region}}</td>
 							<td>{{staff.division}}</td>
 							<td>{{staff.subdivision}}</td>

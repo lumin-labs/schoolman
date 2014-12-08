@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'Staffing/services/Salarys', 'Staffing/services/Staffs'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, Salarys, Staffs){
-    function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, Salarys, Staffs) {
+define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang',  'Staffs'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, Staffs){
+    function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang,  Staffs) {
         $scope.dict = Lang.getDict();
 
         // Initialize/Register SchoolInfo datatype
@@ -14,10 +14,10 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
         var groupP= Groups.load();
         var studentsP= Students.load();
         var feesP = Fees.load();
-        var salarysP = Salarys.load();
+        // var salarysP = Salarys.load();
         var staffsP= Staffs.load();
 
-        var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP,staffsP, salarysP];
+        var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP,staffsP];
 
         $q.all(promises).then(function(success){
           console.log("Successes", success);
@@ -25,6 +25,6 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
         });
 
     }
-    LoadingCtrl.$inject = ['$scope', '$q', 'model', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'Salarys', 'Staffs'];
+    LoadingCtrl.$inject = ['$scope', '$q', 'model', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang',  'Staffs'];
     angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
 })

@@ -1,5 +1,6 @@
 'use strict';
-function StaffregistrationCtrl($scope, $routeParams,  Staffid,Departments, Groups, Salarys, Location, model, Staffs, Marksheets, Lang) {
+define(['Staffing/services/staffid', 'Departments', 'Groups',  'Location', 'Staffs', 'Lang'], function(Staffid, Departments, Groups, Location, Staffs, Lang){
+function StaffregistrationCtrl($scope, $routeParams, model, Staffid,Departments, Groups, Location, Staffs,  Lang) {
 
     // $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
@@ -10,7 +11,7 @@ function StaffregistrationCtrl($scope, $routeParams,  Staffid,Departments, Group
     	// forms:Forms.all(),
     	departments:Departments.getAll(),
     	groups:Groups.getAll(),
-    	salarys:Salarys.getAll(),
+    	// salarys:Salarys.getAll(),
         uid:null
     };
     angular.forEach()
@@ -61,26 +62,25 @@ function StaffregistrationCtrl($scope, $routeParams,  Staffid,Departments, Group
 
 
     $scope.clearForm = function(staff){
-        // staff.formIndex = null;
-        staff.deptId = null;
-        staff.groupId = null;
-        staff.salaryId = null;
         staff.name = "";
-        staff.birth = null;
         staff.sex = "";
-        // staff.parentName = "";
-        staff.phoneNo = "";
         staff.staffEmail = "";
-        staff.matricalnumber="";
-        staff.grade="";
-        staff.highestgualification="";
-        staff.entryintopublicservice=null;
-        staff.lengthofservice=null;
-        staff.dateofretirement=null;
-        staff.dutypost="";
+        staff.salary = 0;
+        staff.residence = "";
+        staff.matricalno="";
         staff.maritalstatus="";
-        staff.subdivisionoforigin="";
-        staff.divisionoforigin="";
+        staff.birth = null;
+        staff.grade="";
+        staff.qualification="";
+        staff.subdivision="";
+        staff.division="";
+        staff.dateofentry=null;
+        staff.specialty = "";
+        staff.tribe = "";
+        staff.dateposted = "";
+        staff.dutypost="";
+        staff.region = "";
+        staff.phoneNo = "";
 
      }
 
@@ -104,6 +104,6 @@ function StaffregistrationCtrl($scope, $routeParams,  Staffid,Departments, Group
 
 
   }
-  StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'Staffid', 'Departments', 'Groups', 'Salarys', 'Location', 'model', 'Staffs', 'Marksheets', 'Lang'];
-  angular.module('SchoolMan').controller('StaffregistrationCtrl', StaffregistrationCtrl);
-
+  StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffid', 'Departments', 'Groups', 'Location', 'Staffs', 'Lang'];
+  angular.module('SchoolMan').register.controller('StaffregistrationCtrl', StaffregistrationCtrl);
+})

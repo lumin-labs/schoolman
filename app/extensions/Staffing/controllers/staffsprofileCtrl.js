@@ -1,6 +1,6 @@
 'use strict';
-
-function StaffprofileCtrl($scope, $routeParams, Staffs, model, Lang,Salarys) {
+define(['Staffs', 'Lang'], function(Staffs, Lang){
+function StaffprofileCtrl($scope, $routeParams, model, Staffs, Lang) {
     $scope.editing = false;
     // $scope.currentStaff = Staffs.get($routeParams.staffname);
     // $scope.editingUser = $routeParams.subpage === 'current' ? 
@@ -9,7 +9,7 @@ function StaffprofileCtrl($scope, $routeParams, Staffs, model, Lang,Salarys) {
     var data = $scope.data = {};
     $scope.data.staff = Staffs.get($routeParams.staffId);
                         console.log("staff",$scope.data.staff);
-    $scope.data.salarys = Salarys.getAll();
+    // $scope.data.salarys = Salarys.getAll();
     // $scope.data.newPassword = "";
     // $scope.data.repeatPassword = "";
     $scope.data.verifiedStatus = "";
@@ -51,10 +51,10 @@ function StaffprofileCtrl($scope, $routeParams, Staffs, model, Lang,Salarys) {
         $scope.editing = false;
     }
 
-     $scope.getOwed = function(){
-        console.log(data.salarys[data.staff.salaryId].salaryAmount,  data.salarys[data.staff.salaryId].socialinsuranceAmount);
-      return data.salarys[data.staff.salaryId].salaryAmount + data.salarys[data.staff.salaryId].socialinsuranceAmount;
-    }
+    //  $scope.getOwed = function(){
+    //     console.log(data.salarys[data.staff.salaryId].salaryAmount,  data.salarys[data.staff.salaryId].socialinsuranceAmount);
+    //   return data.salarys[data.staff.salaryId].salaryAmount + data.salarys[data.staff.salaryId].socialinsuranceAmount;
+    // }
     // $scope.verifyMatch = function(){
     //   if($scope.data.repeatPassword === $scope.data.newPassword){
     //     $scope.data.verifiedStatus = "has-success";
@@ -96,5 +96,6 @@ function StaffprofileCtrl($scope, $routeParams, Staffs, model, Lang,Salarys) {
     
 
   }
-StaffprofileCtrl.$inject = ['$scope', '$routeParams', 'Staffs', 'model', 'Lang','Salarys'];
-angular.module('SchoolMan').controller('StaffprofileCtrl', StaffprofileCtrl);
+StaffprofileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffs', 'Lang'];
+angular.module('SchoolMan').register.controller('StaffprofileCtrl', StaffprofileCtrl);
+})

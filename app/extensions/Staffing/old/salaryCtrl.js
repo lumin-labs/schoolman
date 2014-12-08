@@ -1,6 +1,6 @@
 'use strict';
-
-function SalarysCtrl($scope, Salarys, Staffs, model) {
+define(['Salarys', 'Staffs'], function(Salarys, Staffs){
+function SalarysCtrl($scope, model, Salarys, Staffs) {
       
       $scope.data = {};
       $scope.data.salarys = Salarys.getAll();
@@ -40,5 +40,6 @@ function SalarysCtrl($scope, Salarys, Staffs, model) {
          Salarys.remove(salary); 
       }
 }
-SalarysCtrl.$inject = ['$scope', 'Salarys', 'Staffs', 'model'];
-angular.module('SchoolMan').controller('SalarysCtrl', SalarysCtrl);
+SalarysCtrl.$inject = ['$scope', 'model', 'Salarys', 'Staffs'];
+angular.module('SchoolMan').register.controller('SalarysCtrl', SalarysCtrl);
+})

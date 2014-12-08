@@ -56,7 +56,7 @@
 			    </div>
 			  </div>
 
-			  <div class="form-group">
+			  <!-- <div class="form-group">
 			    <label for="salaryGroup" class="col-sm-3 control-label">Salary Group</label>
 			    <div class="col-sm-9">
 			    	<div class="btn-group">
@@ -78,8 +78,7 @@
 					    </ul>
 						</div>
 			    </div>
-			  </div>
-			  <br>
+			  </div> -->
 			  <div class="form-group">
 			    <label for="staffName" class="col-sm-3 control-label"> Name</label>
 			    <div class="col-sm-9">
@@ -101,15 +100,6 @@
 			    </div>
 			  </div>
 			  <div class="form-group">
-			    <label for="birthplace" class="col-sm-3 control-label">Place of Birth</label>
-			    <div class="col-sm-9">
-			      <input id="birthplace" 
-			      		 class="form-control" 
-			      		 placeholder="Place of Birth" 
-			      		 ng-model="newStaff.birthplace">
-			    </div>
-			  </div>
-			  <div class="form-group">
 			    <label for="salaryGroup" class="col-sm-3 control-label">Gender</label>
 			    <div class="col-sm-9">
 			      <div class="btn-group">
@@ -126,18 +116,30 @@
 			      </div>
 			    </div>
 			  </div>
-			  <br>
-			  <!-- <div class="form-group">
-			    <label for="parentName" class="col-sm-3 control-label">Parent Name</label>
-			    <div class="col-sm-9">
-			      <input id="parentName" 
-			      		 class="form-control {{showValidation && newStudent.parentName === '' ? 'invalid-input' : ''}}" 
-			      		 placeholder="Parent Name" 
-			      		 ng-model="newStudent.parentName">
-			    </div>
-			  </div> -->
-
 			  <div class="form-group">
+          <label for="maritalstatus" class="col-sm-3 control-label">{{dict.marital_status}}</label>
+          <!-- <div class="col-sm-9 printonly">{{data.staff.maritalstatus}}</div> -->
+          <div class="col-sm-9 ">
+            <input id="maritalstatus" class="form-control" placeholder="{{dict.marital_status}}"ng-model="newStaff.maritalstatus">
+          </div>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="matricalno" class="col-sm-3 control-label">{{dict.matrical_number}}</label>
+          <div class="col-sm-9 printonly">{{data.staff.matricalno}}</div>
+          <div class="col-sm-9 noprint">
+            <input id="matricalno" class="form-control" placeholder="{{dict.matrical_number}}" ng-model="newStaff.matricalno">
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="grade" class="col-sm-3 control-label">{{dict.grade}}</label>
+
+          <div class="col-sm-9 ">
+            <input id="grade" class="form-control" placeholder="{{dict.grade}}" ng-model="newStaff.grade">
+          </div>
+      </div>
+      <div class="form-group">
 			    <label for="specialty" class="col-sm-3 control-label">Specialty</label>
 			    <div class="col-sm-9">
 			      <input id="specialty" 
@@ -146,6 +148,59 @@
 			      		 ng-model="newStaff.specialty">
 			    </div>
 			  </div>
+      <div class="form-group">
+          <label for="qualification" class="col-sm-3 control-label">{{dict.highest_qualification}}</label>
+          <div class="col-sm-9 ">
+            <input id="qualification" class="form-control" placeholder="{{dict.highest_qualification}}"ng-model="newStaff.qualification">
+          </div>
+      </div>
+
+			  <div class="form-group">
+			    <label for="staffName" class="col-sm-3 control-label">Salary</label>
+			    <div class="col-sm-9">
+			      <input id="salary"
+			      			name="salary" 
+			      		 class="form-control" 
+			      		 placeholder="Salary" 
+			      		 ng-model="newStaff.salary"
+			      		 type="number">
+			    </div>
+			  </div>
+
+			  <br>
+			  <div class="form-group">
+          <label for="dateofentry" class="col-sm-3 control-label">{{dict.entry_into_service}}</label>
+          <div class="col-sm-9 ">
+            <input id="dateofentry" 
+                 class="form-control" 
+                 placeholder="Date of Entry" 
+                 ng-model="newStaff.dateofentry"
+                 type="date">
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="dutypost" class="col-sm-3 control-label">{{dict.duty_post}}</label>
+          <!-- <div class="col-sm-9 printonly">{{data.staff.post}}</div> -->
+          <div class="col-sm-9 ">
+            <input id="dutypost" class="form-control" 
+            placeholder="{{dict.duty_post}}"
+            ng-model="newStaff.dutypost">
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="dateposted" class="col-sm-3 control-label">{{dict.date_posted}}</label>
+          <div class="col-sm-9 ">
+            <input id="dateposted" 
+                 class="form-control" 
+                 placeholder="{{dict.date_posted}}" 
+                 ng-model="newStaff.dateposted"
+                 type="date">
+          </div>
+      </div>
+      <br>
+
+			  
 
 			  <div class="form-group">
 			    <label for="residence" class="col-sm-3 control-label">Residence</label>
@@ -162,18 +217,10 @@
 			      <input id="staffPhone"
 			      		 class="form-control {{showValidation && newStaff.phoneNo === '' ? 'invalid-input' : ''}}" 
 			      		 placeholder="Staff Phone" 
-			      		 ng-model="newStaff.phoneNo">
+			      		 ng-model="newStaff.phoneNo"
+			      		 maxlength="13">
 			    </div>
 			  </div>
-			  <!-- <div class="form-group">
-			    <label for="parentOccupation" class="col-sm-3 control-label">Parent Occupation</label>
-			    <div class="col-sm-9">
-			      <input id="parentOccupation" 
-			      		 class="form-control" 
-			      		 placeholder="Parent Occupation" 
-			      		 ng-model="newStudent.parentOccupation">
-			    </div>
-			  </div> -->
 			  <div class="form-group">
 			    <label for="staffemail" class="col-sm-3 control-label">Staff Email</label>
 			    <div class="col-sm-9">
@@ -183,114 +230,16 @@
 					     ng-model="newStaff.staffEmail">
 			    </div>
 			  </div>
+			  <br>
 
-			  <form class="form-horizontal" role="form">
-       <!--  <div class="form-group">
-          <label for="fullname" class="col-sm-3 control-label">{{dict.name}}</label>
-          <div class="col-sm-9 printonly">{{data.staff.fullname}}</div>
-          <div class="col-sm-9 noprint">
-            <input id="fullname" class="form-control" placeholder="{{dict.name}}" ng-readonly="!editing" ng-model="data.staff.fullname">
-          </div>
-      </div> -->
-
-      <div class="form-group">
-          <label for="matricalno" class="col-sm-3 control-label">{{dict.matrical_number}}</label>
-          <div class="col-sm-9 printonly">{{data.staff.matricalno}}</div>
-          <div class="col-sm-9 noprint">
-            <input id="matricalno" class="form-control" placeholder="{{dict.matrical_number}}" ng-model="newStaff.matricalno">
-          </div>
-      </div>
-
-      <div class="form-group">
-          <label for="grade" class="col-sm-3 control-label">{{dict.grade}}</label>
-
+			 
+       <div class="form-group">
+          <label for="tribe" class="col-sm-3 control-label">{{dict.tribe}}</label>
+          <!-- <div class="col-sm-9 printonly">{{data.staff.division}}</div> -->
           <div class="col-sm-9 ">
-            <input id="grade" class="form-control" placeholder="{{dict.grade}}" ng-model="newStaff.grade">
+            <input id="tribe" class="form-control" placeholder="{{dict.tribe}}"ng-model="newStaff.tribe">
           </div>
       </div>
-
-      <div class="form-group">
-          <label for="qualification" class="col-sm-3 control-label">{{dict.highest_qualification}}</label>
-          <div class="col-sm-9 ">
-            <input id="qualification" class="form-control" placeholder="{{dict.highest_qualification}}"ng-model="newStaff.qualification">
-          </div>
-      </div>
-
-      <br>
-
-      <div class="form-group">
-          <label for="dateofentry" class="col-sm-3 control-label">{{dict.entry_into_service}}</label>
-          <div class="col-sm-9 ">
-            <input id="dateofentry" 
-                 class="form-control" 
-                 placeholder="Date of Entry" 
-                 ng-model="newStaff.dateofentry"
-                 type="date">
-          </div>
-      </div>
-
-      <div class="form-group">
-          <label for="lengthservice" class="col-sm-3 control-label">{{dict.length_of_service}}</label>
-          <!-- <div class="col-sm-9">{{data.serviceYears ? data.serviceYears : 0}} {{dict.years}}, {{data.serviceMonths ? data.serviceMonths : 0}} {{dict.months}}</div> -->
-      </div>
-
-      <div class="form-group">
-          <label for="retirement" class="col-sm-3 control-label">{{dict.date_of_retirement}}</label>
-          <!-- <div class="col-sm-9">{{data.retire.valueOf() ? data.retire : ''  | date:'dd MMM yyyy'}}</div> -->
-      </div>
-
-      <div class="form-group">
-          <label for="dutypost" class="col-sm-3 control-label">{{dict.duty_post}}</label>
-          <!-- <div class="col-sm-9 printonly">{{data.staff.post}}</div> -->
-          <div class="col-sm-9 ">
-            <input id="dutypost" class="form-control" 
-            placeholder="{{dict.duty_post}}"
-            ng-model="newStaff.dutypost">
-          </div>
-      </div>
-
-      <br>
-
-      <!-- <div class="form-group">
-          <label for="birthdate" class="col-sm-3 control-label">{{dict.date_of_birth}}</label>
-          <div class="col-sm-9 printonly">{{data.staff.birth | date:'dd-MM-yyyy'}}</div>
-          <div class="col-sm-9 noprint">
-            <input id="birthdate" 
-                 class="form-control" 
-                 placeholder="{{dict.date_of_birth}}" 
-                 ng-model="data.staff.birth"
-                 ng-readonly="!editing"
-                 type="date">
-          </div>
-      </div>
- -->
-      <!-- <div class="form-group">
-          <label for="gender" class="col-sm-3 control-label">{{dict.sex}}</label>
-          <div class="col-sm-9 printonly">{{data.staff.sex}}</div>
-          <div class="col-sm-9 noprint">
-            <div class="btn-group">
-              <button class="{{editing ? '' : 'disabled'}} btn btn-sm btn-default dropdown-toggle" 
-                      data-toggle="dropdown">
-                <span>{{data.staff.sex}}</span>
-                &nbsp;<span ng-if="editing" class="caret"></span>
-              </button>
-               <ul class="dropdown-menu">
-                <li ng-repeat="gender in ['Female', 'Male']">
-                  <a ng-click="data.staff.sex = gender">{{gender}}</a>
-                </li>
-              </ul> 
-            </div>
-          </div>
-        </div> -->
-
-      <div class="form-group">
-          <label for="maritalstatus" class="col-sm-3 control-label">{{dict.marital_status}}</label>
-          <!-- <div class="col-sm-9 printonly">{{data.staff.maritalstatus}}</div> -->
-          <div class="col-sm-9 ">
-            <input id="maritalstatus" class="form-control" placeholder="{{dict.marital_status}}"ng-model="newStaff.maritalstatus">
-          </div>
-      </div>
-
       <div class="form-group">
           <label for="subdivision" class="col-sm-3 control-label">{{dict.subdivision_of_origin}}</label>
           <!-- <div class="col-sm-9 printonly">{{data.staff.subdivision}}</div> -->
@@ -315,30 +264,13 @@
           </div>
       </div>
 
-       <div class="form-group">
-          <label for="tribe" class="col-sm-3 control-label">{{dict.tribe}}</label>
-          <!-- <div class="col-sm-9 printonly">{{data.staff.division}}</div> -->
-          <div class="col-sm-9 ">
-            <input id="tribe" class="form-control" placeholder="{{dict.tribe}}"ng-model="newStaff.tribe">
-          </div>
-      </div>
 
-      	 <div class="form-group">
-          <label for="dateposted" class="col-sm-3 control-label">{{dict.entry_into_current_post}}</label>
-          <div class="col-sm-9 ">
-            <input id="dateposted" 
-                 class="form-control" 
-                 placeholder="Date of entryinto current post" 
-                 ng-model="newStaff.dateposted"
-                 type="date">
-          </div>
-      </div>
-
+      	 
 			  <br>
 			  <div class="form-group">
 			    <div class="col-sm-offset-3 col-sm-3">
 			      <button type="submit" class="btn btn-info" ng-click="add(newStaff)">
-			        Add Staff
+			        Add Teacher
 			      </button>
 			    </div>
 			    <div class="col-sm-offset-1 col-sm-5">
@@ -349,7 +281,7 @@
 			  </div>
 			  <div class="alert alert-sm alert-warning" style="height:45px;padding-top:10px;" ng-if="showValidation">
    				<i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;
-   				<strong>Staff Not Added.</strong> Please fill in all fields highlighted in red and try again.
+   				<strong>Teacher Not Added.</strong> Please fill in all fields highlighted in red and try again.
    			  </div>
 			</form>
   	</div>
