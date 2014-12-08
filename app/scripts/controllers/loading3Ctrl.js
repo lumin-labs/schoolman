@@ -4,7 +4,14 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
     function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData, SchoolInfos) {
         $scope.dict = Lang.getDict();
 
-
+        // angular.resumeBootstrap([
+        //     'SchoolMan.ReportCard', 
+        //     'SchoolMan.Finance',
+        //     'SchoolMan.IDCard',
+        //     'SchoolMan.Reports',
+        //     'SchoolMan.Staffing',
+        //     'SchoolMan.TimeTable',
+        //     'SchoolMan.Transcript'])
     
 
         // Initialize/Register SchoolInfo datatype

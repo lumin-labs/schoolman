@@ -52,6 +52,7 @@ var servicesMain = {
 }
 
 var controllersMain = [
+  // "../scripts/services/settings",
     "../scripts/controllers/loading3Ctrl",
     "../scripts/controllers/menuCtrl",
     "../scripts/controllers/loginCtrl",
@@ -100,6 +101,8 @@ require(scripts, function(){
 
     angular.bootstrap(document, ["SchoolMan"]);
 
+    angular.element().ready(function() {
+      console.log("inside of ready");
         angular.resumeBootstrap([
             'SchoolMan.ReportCard', 
             'SchoolMan.Finance',
@@ -108,12 +111,11 @@ require(scripts, function(){
             'SchoolMan.Staffing',
             'SchoolMan.TimeTable',
             'SchoolMan.Transcript'])
-    angular.element().ready(function() {
         // })
-        var settings = require('../scripts/services/settings');
+        var settings = require('settings');
 
         // define(['settings'], function(settings){
-        console.log("Working?", settings);
+        console.log("Working?", require('settings'));
 })
 
 

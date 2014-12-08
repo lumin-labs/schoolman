@@ -36,6 +36,7 @@ var app = angular.module('SchoolMan', [
 
 app.config(function ($routeProvider, $controllerProvider, $provide) {
   var self = {};
+  console.log("appjs is running");
 
   var TEMPLATE_DIRECTORY = {
     login:    "/views/login2.html",
@@ -83,6 +84,8 @@ app.config(function ($routeProvider, $controllerProvider, $provide) {
     console.log("Load Template: ", template , '\n')
     return template;
   };
+
+
 
   app.register =
   {
