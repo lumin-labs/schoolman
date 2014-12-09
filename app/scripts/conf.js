@@ -321,7 +321,7 @@ angular.module('SchoolMan')
   .constant('VERSION',{
     mode:"gths"
   })
-<<<<<<< HEAD
+
   .constant('MODULES', [
     {
       moduleName:"Main",
@@ -888,8 +888,6 @@ angular.module('SchoolMan')
       icon:'glyphicon-print'
     }
  ]);
-=======
->>>>>>> 58234b002462bcc9d8c9a324a92f8a6d27d40919
 
 angular.module('SchoolMan').constant('EXTENSIONS', extensionList)
 

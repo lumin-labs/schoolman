@@ -47,13 +47,10 @@ var servicesMain = {
     "ClassCouncils": "ReportCard/services/classcouncils",
     "Fees": "Finance/services/fees",
     "Payments":"Finance/services/payments",
-<<<<<<< HEAD
     // "Salarys": "Staffing/services/salarys",
     "Staffs": "Staffing/services/staffs",
-=======
     "Transcripts": "Transcript/services/transcripts",
     "ExtensionLoader": "../scripts/services/extensionloader",
->>>>>>> 58234b002462bcc9d8c9a324a92f8a6d27d40919
 }
 
 var controllersMain = [
@@ -71,8 +68,7 @@ var controllersMain = [
     "../scripts/controllers/groupsCtrl",
     "../scripts/controllers/registrationCtrl",
     "../scripts/controllers/userCtrl",
-<<<<<<< HEAD
-    "../scripts/services/moduleloader",
+    // "../scripts/services/moduleloader",
     "ReportCard/models/ClassCouncil",
     "ReportCard/models/Marksheet",
     "ReportCard/models/Comment",
@@ -127,31 +123,8 @@ var modularScripts={
     ]
 
 }
-=======
-    "Finance/controllers/registrarprofileCtrl",
-  "Finance/controllers/feesCtrl",
-  "Finance/controllers/balancesheetCtrl",
-  "ReportCard/controllers/reportcardCtrl",
-  "ReportCard/controllers/classmasterprofileCtrl",
-  "ReportCard/controllers/mastersheetCtrl",
-  "ReportCard/controllers/marksheetCtrl",
-  "ReportCard/controllers/myclassesCtrl",
-  "ReportCard/controllers/classcouncilCtrl",
-  "ReportCard/controllers/statsCtrl",
-  "ReportCard/services/dcards",
-  "IDCard/controllers/idcardCtrl",
-  "Reports/controllers/annualreportCtrl",
-  "Reports/controllers/enrollmentCtrl",
-  "Staffing/services/salarys",
-  "Staffing/services/staffs",
-  "Staffing/models/Salary",
-  "Staffing/controllers/salaryCtrl",
-  "Staffing/controllers/staffregistrationCtrl",
-  "Transcript/controllers/transcriptCtrl"
-    
-]
+
 window.name = "NG_DEFER_BOOTSTRAP!";
->>>>>>> 58234b002462bcc9d8c9a324a92f8a6d27d40919
 
 require.config({
     baseUrl: 'extensions',

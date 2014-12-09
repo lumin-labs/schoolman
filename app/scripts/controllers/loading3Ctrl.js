@@ -1,12 +1,7 @@
 'use strict';
 
-<<<<<<< HEAD
-define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang',  'Staffs'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, Staffs){
-    function LoadingCtrl($scope, $q, model, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang,  Staffs) {
-=======
-define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader', 'MockData', 'SchoolInfos'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData, SchoolInfos){
-    function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData, SchoolInfos) {
->>>>>>> 58234b002462bcc9d8c9a324a92f8a6d27d40919
+define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader', 'MockData', 'SchoolInfos', 'Staffs'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData, SchoolInfos, Staffs){
+    function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData, SchoolInfos, Staffs) {
         $scope.dict = Lang.getDict();
 
         // angular.resumeBootstrap([
@@ -29,16 +24,14 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
         var groupP= Groups.load();
         var studentsP= Students.load();
         var feesP = Fees.load();
-<<<<<<< HEAD
+
         // var salarysP = Salarys.load();
         var staffsP= Staffs.load();
 
         var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP,staffsP];
-=======
         var infosP = SchoolInfos.get();
 
         var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, infosP];
->>>>>>> 58234b002462bcc9d8c9a324a92f8a6d27d40919
 
         $q.all(promises).then(function(success){
             console.log("Successes", success);
@@ -46,13 +39,11 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
             // ExtensionLoader.loadScripts();
             Location.open({page:"login"});
         });
-<<<<<<< HEAD
 
+
+
+    
     }
-    LoadingCtrl.$inject = ['$scope', '$q', 'model', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang',  'Staffs'];
-=======
-    }
-    LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader', 'MockData', 'SchoolInfos'];
->>>>>>> 58234b002462bcc9d8c9a324a92f8a6d27d40919
+    LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader', 'MockData', 'SchoolInfos', 'Staffs'];
     angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
 })
