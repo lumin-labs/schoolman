@@ -1,8 +1,8 @@
 'use strict';
 
-define(['Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang'], function(Location, Path, Cache, File, ClassMaster, Lang){
+define(['Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang', 'SchoolInfos'], function(Location, Path, Cache, File, ClassMaster, Lang, SchoolInfos){
 
-function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Location, Path, Cache, File, ClassMaster, Lang) {
+function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Location, Path, Cache, File, ClassMaster, Lang, SchoolInfos) {
 
   //$scope.ClassMaster = ClassMaster;
   $scope.show = {
@@ -11,7 +11,10 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
 
   $scope.ClassMaster = ClassMaster;
   $scope.route = $routeParams;
-  $scope.dict = Lang.getDict();
+
+  SchoolInfos.get().then(function(info){
+    $scope.dict = Lang.getDict(info.lang);
+  })
 
 	$scope.print = function(){
 		ClassMaster.printVariable = false;
@@ -193,7 +196,7 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
 	// 	});
  //  }
 }
-MenuCtrl.$inject = ['$route','$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang'];
+MenuCtrl.$inject = ['$route','$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang', 'SchoolInfos'];
 angular.module('SchoolMan').controller('MenuCtrl', MenuCtrl);
 
 })

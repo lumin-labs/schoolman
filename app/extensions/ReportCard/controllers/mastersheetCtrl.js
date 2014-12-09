@@ -178,5 +178,5 @@ define(['SchoolInfos', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Gro
 
   }
   MastersheetCtrl.$inject = ['$scope', '$routeParams', 'SchoolInfos', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Location', 'Lang'];
-  angular.module('SchoolMan').register.controller('MastersheetCtrl', MastersheetCtrl);
+  angular.module('SchoolMan.ReportCard').controller('MastersheetCtrl', MastersheetCtrl);
 })

@@ -9,6 +9,13 @@ var modelsMain = [
     "../scripts/models/Form",
     "../scripts/models/Settings",
     "../scripts/models/SchoolInfo",
+    "ReportCard/models/ClassCouncil",
+    "ReportCard/models/Marksheet",
+    "ReportCard/models/Comment",
+    "ReportCard/models/Dcard",
+    "Finance/models/Fee",
+    "Finance/models/Payment",
+    "Transcript/models/Transcript",
 ]
 
 var servicesMain = {
@@ -40,9 +47,12 @@ var servicesMain = {
     "ClassCouncils": "ReportCard/services/classcouncils",
     "Fees": "Finance/services/fees",
     "Payments":"Finance/services/payments",
+    "Transcripts": "Transcript/services/transcripts",
+    "ExtensionLoader": "../scripts/services/extensionloader",
 }
 
 var controllersMain = [
+  // "../scripts/services/settings",
     "../scripts/controllers/loading3Ctrl",
     "../scripts/controllers/menuCtrl",
     "../scripts/controllers/loginCtrl",
@@ -59,52 +69,30 @@ var controllersMain = [
     "../scripts/controllers/customersettingsCtrl",
     "../scripts/controllers/schoolinfoCtrl",
     "../scripts/services/moduleloader",
-    "ReportCard/models/ClassCouncil",
-    "ReportCard/models/Marksheet",
-    "ReportCard/models/Comment",
-    "ReportCard/models/Dcard",
-    "Finance/models/Fee",
-    "Finance/models/Payment",
+    "Finance/controllers/registrarprofileCtrl",
+  "Finance/controllers/feesCtrl",
+  "Finance/controllers/balancesheetCtrl",
+  "ReportCard/controllers/reportcardCtrl",
+  "ReportCard/controllers/classmasterprofileCtrl",
+  "ReportCard/controllers/mastersheetCtrl",
+  "ReportCard/controllers/marksheetCtrl",
+  "ReportCard/controllers/myclassesCtrl",
+  "ReportCard/controllers/classcouncilCtrl",
+  "ReportCard/controllers/statsCtrl",
+  "ReportCard/services/dcards",
+  "IDCard/controllers/idcardCtrl",
+  "Reports/controllers/annualreportCtrl",
+  "Reports/controllers/enrollmentCtrl",
+  "Staffing/services/salarys",
+  "Staffing/services/staffs",
+  "Staffing/models/Salary",
+  "Staffing/controllers/salaryCtrl",
+  "Staffing/controllers/staffregistrationCtrl",
+  "Transcript/controllers/transcriptCtrl"
+
     
 ]
-
-var modularScripts={
-    'ReportCard':[
-        "ReportCard/controllers/reportcardCtrl",
-        "ReportCard/controllers/classmasterprofileCtrl",
-        "ReportCard/controllers/mastersheetCtrl",
-        "ReportCard/controllers/marksheetCtrl",
-        "ReportCard/controllers/myclassesCtrl",
-        "ReportCard/controllers/classcouncilCtrl",
-        "ReportCard/controllers/statsCtrl",
-        "ReportCard/services/dcards",
-    ],
-    'Finance':[
-        "Finance/controllers/registrarprofileCtrl",
-        "Finance/controllers/feesCtrl",
-        "Finance/controllers/balancesheetCtrl",
-    ],
-    'Staffing':[
-        "Staffing/services/salarys",
-        "Staffing/services/staffs",
-        "Staffing/models/Salary",
-        "Staffing/controllers/salaryCtrl",
-        "Staffing/controllers/staffregistrationCtrl"
-    ],
-    'Reports':[
-        "Reports/controllers/annualreportCtrl",
-        "Reports/controllers/enrollmentCtrl"
-    ],
-    'Transcript':[
-        "Transcript/models/Transcript", 
-        "Transcript/services/transcripts",
-        "Transcript/controllers/transcriptCtrl"
-    ],
-    'IDCard':[
-        "IDCard/controllers/idcardCtrl"
-    ]
-
-}
+window.name = "NG_DEFER_BOOTSTRAP!";
 
 require.config({
     baseUrl: 'extensions',
@@ -114,18 +102,25 @@ require.config({
 var scripts = modelsMain.concat(controllersMain);
 
 require(scripts, function(){
-            angular.bootstrap(document, ["SchoolMan"]);
-        var moduleLoader = require('../scripts/services/moduleloader');
 
-        var modules = moduleLoader.modules();
-        var moduleLoadScripts = [];
-        angular.forEach(modules, function(module, key){
-            moduleLoadScripts = moduleLoadScripts.concat(modularScripts[module]);
-        })
+    angular.bootstrap(document, ["SchoolMan"]);
 
-        require(moduleLoadScripts, function(){
-            // angular.bootstrap(document, ["SchoolMan"]);
-            console.log("Loaded scripts", scripts.concat(moduleLoadScripts));
-        })
+    angular.element().ready(function() {
+      console.log("inside of ready");
+        angular.resumeBootstrap([
+            'SchoolMan.ReportCard', 
+            'SchoolMan.Finance',
+            'SchoolMan.IDCard',
+            'SchoolMan.Reports',
+            'SchoolMan.Staffing',
+            'SchoolMan.TimeTable',
+            'SchoolMan.Transcript'])
+        // })
+        var settings = require('settings');
+
+        // define(['settings'], function(settings){
+        console.log("Working?", require('settings'));
+})
+
+
 });
-

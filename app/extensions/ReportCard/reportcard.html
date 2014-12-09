@@ -173,7 +173,7 @@
                           </li>
                         </ul>
                       </div>
-                      <div class="student-info-section">
+                      <div class="{{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
                         <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4><br>
                         <h4 class="printonly">{{lang === 'en' ? data.term.nameEn : data.term.nameFr}}</h4>
                         <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:2 }} / 20</h5>
@@ -182,7 +182,7 @@
                     </div>
                   </td>
                   <td class="text-center" style="border-top:0px;">
-                    <div class="text-left student-info-section">
+                    <div class="text-left {{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
                       <h4 class="section-header">{{dict.parent_contact}}</h4>
                       <h5>{{student.parentName}}</h5>
                       <h5>{{student.parentPhone}}</h5>
