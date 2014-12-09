@@ -42,7 +42,7 @@
         </thead>
         <tbody>
           <tr>
-            <td ng-repeat="extension in availableExtensions">
+            <td ng-repeat="extension in availableExtensions" ng-if="extension.moduleName !== 'Main'">
               <button ng-click="toggle(extension)"
                       class="btn btn-md btn-light" style="border:solid 1px #ddd;">
                   <i ng-if="settings.extensions.indexOf(extension) === -1" 
