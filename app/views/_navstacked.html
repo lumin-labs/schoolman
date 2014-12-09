@@ -31,8 +31,8 @@
 		<div class="col-md-12">
 			<div class="sidebar" >
 				<ul class="nav nav-sidebar" ng-repeat="(moduleIndex, module) in modules">
-					<li class="nav-heading" ng-if="userHasAccess(module)">
-						<i class="glyphicon" ng-class="module.icon"></i> &nbsp;{{lang === 'en' ? module.labelEn : module.labelFr}}</a></li>
+					<!-- <li class="nav-heading" ng-if="userHasAccess(module)">
+						<i class="glyphicon" ng-class="module.icon"></i> &nbsp;{{lang === 'en' ? module.labelEn : module.labelFr}}</a></li> -->
 					<li class="" ng-repeat="(tabIndex, tab) in module.tabs"
 						ng-if="userHasAccess(tab)"
 						ng-class="activeIfPage(tab.page)">

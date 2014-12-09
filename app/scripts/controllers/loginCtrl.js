@@ -101,7 +101,8 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, model, Users, Sub
       } else {
         $scope.capsLock = false;
       }
+    }
 }
-LoginCtrl.$inject = ['$scope', '$location', '$routeParams', '$log', 'DEV', 'Users', 'Subjects', 'Departments', 'settings', 'model', 'Path', 'Cache', 'Location', 'Groups', 'Lang'];
+LoginCtrl.$inject = ['$scope', '$location', '$routeParams', '$log', 'DEV', 'model', 'Users', 'Subjects', 'Departments', 'settings', 'Cache', 'Location', 'Groups', 'Lang'];
 angular.module('SchoolMan').controller('LoginCtrl', LoginCtrl);
 })

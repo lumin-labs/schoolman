@@ -3,6 +3,7 @@
 function Lang($routeParams) {
   var langs = ['en', 'fr'];
   // var lang = $routeParams.lang;
+  var self = {};
   self.defaultLang = "en";
 
   var langDict = {
