@@ -22,6 +22,7 @@
  */
 
 
+
 var app = angular.module('SchoolMan', [
   'ngCookies',
   'ngResource',
@@ -33,8 +34,9 @@ var app = angular.module('SchoolMan', [
 
 ])
 
-app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
+app.config(function ($routeProvider, $controllerProvider, $provide) {
   var self = {};
+  console.log("appjs is running");
 
   var TEMPLATE_DIRECTORY = {
     login:    "/views/login2.html",
@@ -84,6 +86,8 @@ app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
     return template;
   };
 
+
+
   app.register =
   {
       controller: $controllerProvider.register,
@@ -113,13 +117,12 @@ app.config(function ($routeProvider, $controllerProvider, $provide, TABS) {
 });
 
 chrome.storage.local.get("initialized",function(r){
-      if(!r.hasOwnProperty("initialized")){
-        chrome.storage.local.set({initialized:false});
-      }
-    });
+  if(!r.hasOwnProperty("initialized")){
+    chrome.storage.local.set({initialized:false});
+  }
+});
 
 document.getElementById("close").onclick = function() {
   window.close();
 }
 
-  

@@ -1,9 +1,9 @@
 'use strict';
 define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Location, settings, Cache, SchoolInfos, Lang){
-  function NavtabsCtrl($scope, $routeParams, MODULES, model, Location, settings, Cache, SchoolInfos, Lang) {
+  function NavtabsCtrl($scope, $routeParams, EXTENSIONS, model, Location, settings, Cache, SchoolInfos, Lang) {
 
     // $scope.TABS = TABS;
-    $scope.modules = MODULES;
+    $scope.extensions = EXTENSIONS;
     $scope.open = Location.open;
     $scope.userAccess = $routeParams.accessCode;
     $scope.teacher = Cache.get('user');
@@ -11,7 +11,7 @@ define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Locati
     $scope.settings = settings.get();
     $scope.activePage = $routeParams.page;
     $scope.dict = Lang.getDict();
-    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
+    $scope.lang = $routeParams.lang ? $routeParams.lang : "en";
 
     SchoolInfos.get("schoolinfo").then(function(info){
       $scope.schoolInfo = info;
@@ -46,6 +46,7 @@ define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Locati
 
     $scope.userHasAccess = function(item){
     	var hasAccess = item.access.indexOf($scope.userAccess) > -1;
+
       if(item.hasOwnProperty("exclude")){
         var excluded = excludedOnThisPage(item);
       } else {
@@ -67,6 +68,6 @@ define(['Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'], function(Locati
       }
     }
   }
-  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'MODULES', 'model', 'Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'];
+  NavtabsCtrl.$inject = ['$scope', '$routeParams', 'EXTENSIONS', 'model', 'Location', 'settings', 'Cache', 'SchoolInfos', 'Lang'];
   angular.module('SchoolMan').controller('NavtabsCtrl', NavtabsCtrl);
 })

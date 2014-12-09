@@ -87,5 +87,5 @@ define(['Subjects', 'Students', 'SchoolInfos'], function(Subjects, Students, Sch
     return self;
   }
   Transcripts.$inject = ['$q', 'pouchdb', 'model', 'Subjects', 'Students', 'SchoolInfos'];
-  angular.module('SchoolMan').register.service('Transcripts', Transcripts);
+  angular.module('SchoolMan').service('Transcripts', Transcripts);
 })

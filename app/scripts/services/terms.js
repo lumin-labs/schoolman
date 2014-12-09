@@ -20,4 +20,4 @@ function Terms() {
 
   }
 // Terms.$inject = [];
-angular.module('SchoolMan').register.service('Terms', Terms);
+angular.module('SchoolMan').service('Terms', Terms);
