@@ -18,7 +18,7 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
 
 	$scope.print = function(){
 		ClassMaster.printVariable = false;
-    if($routeParams.page === "reportcardGTHS"){
+    if($routeParams.page === "reportcard"){
       $scope.openModal("print");
     }
     else{
