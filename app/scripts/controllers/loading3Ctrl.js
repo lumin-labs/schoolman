@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader', 'MockData', 'SchoolInfos', 'Staffs'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData, SchoolInfos, Staffs){
-    function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData, SchoolInfos, Staffs) {
+define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos', 'Staffs'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos, Staffs){
+    function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos, Staffs) {
         $scope.dict = Lang.getDict();
 
         // angular.resumeBootstrap([
@@ -24,14 +24,10 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
         var groupP= Groups.load();
         var studentsP= Students.load();
         var feesP = Fees.load();
-
-        // var salarysP = Salarys.load();
         var staffsP= Staffs.load();
-
-        var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP,staffsP];
         var infosP = SchoolInfos.get();
 
-        var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, infosP];
+        var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, staffsP, infosP];
 
         $q.all(promises).then(function(success){
             console.log("Successes", success);
@@ -44,6 +40,6 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
 
     
     }
-    LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader', 'MockData', 'SchoolInfos', 'Staffs'];
+    LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos', 'Staffs'];
     angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
 })

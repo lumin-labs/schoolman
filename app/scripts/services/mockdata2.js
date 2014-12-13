@@ -18,10 +18,17 @@ define(['Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments',
     window._mock.payments = {};
     window._mock.marksheets = {};
     window._mock.transcripts = {};
+    window._mock.dbs = {};
     window._mock.students.destroy = Students.destroy;
     window._mock.payments.destroy = Payments.destroy;
     window._mock.marksheets.destroy = Marksheets.destroy;
     window._mock.transcripts.destroy = Transcripts.destroy;
+    window._mock.dbs.destroy = function(){
+      Students.destroy();
+      Payments.destroy();
+      Marksheets.destroy();
+      Transcripts.destroy();
+    }
     window._mock.students.create = function(n){
       var students = {docs:[]};
       Uid.getBatch(n).then(function(uids){
