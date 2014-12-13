@@ -1,7 +1,7 @@
 'use strict';
 
-define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos){
-    function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos) {
+define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos', 'Staffs'], function(Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos, Staffs){
+    function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos, Staffs) {
         $scope.dict = Lang.getDict();
 
         // angular.resumeBootstrap([
@@ -24,9 +24,10 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
         var groupP= Groups.load();
         var studentsP= Students.load();
         var feesP = Fees.load();
+        var staffsP= Staffs.load();
         var infosP = SchoolInfos.get();
 
-        var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, infosP];
+        var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, staffsP, infosP];
 
         $q.all(promises).then(function(success){
             console.log("Successes", success);
@@ -34,7 +35,11 @@ define(['Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Us
             // ExtensionLoader.loadScripts();
             Location.open({page:"login"});
         });
+
+
+
+    
     }
-    LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos'];
+    LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos', 'Staffs'];
     angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
 })

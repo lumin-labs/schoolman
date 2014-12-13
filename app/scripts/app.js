@@ -66,6 +66,8 @@ app.config(function ($routeProvider, $controllerProvider, $provide) {
     staffregistration:"/extensions/Staffing/staffregistration.html",
     staffprofile:"/extensions/Staffing/staffprofile.html",
     stafflist:"/extensions/Staffing/stafflist.html",
+    registrarstaff:"/extensions/Staffing/registrar-staff.html",
+    staffsfinance:"/extensions/Staffing/staffs-finance.html",
     idcards:"/extensions/IDCard/idcards-full.html",
   };
 
@@ -79,7 +81,6 @@ app.config(function ($routeProvider, $controllerProvider, $provide) {
     } else {
       console.log("404 Page Not Found");
     }
-
     // var templatePath = base + template;
     console.log("Load Template: ", template , '\n')
     return template;
@@ -95,7 +96,7 @@ app.config(function ($routeProvider, $controllerProvider, $provide) {
   };
 
   $routeProvider
-    .when('/:page/:subpage/:lang/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:username/:accessCode', {
+    .when('/:page/:subpage/:lang/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:username/:accessCode/:staffId', {
       templateUrl:function(p){ return getTemplate(p);},
       // controller:'MainCtrl'
     })

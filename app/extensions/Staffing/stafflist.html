@@ -1,7 +1,6 @@
 <div class="row">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
-
-	<div class="col-md-10 marksheet" ng-controller="UsersCtrl">
+	<div class="col-md-10 marksheet" ng-controller="StafflistsCtrl">
 		<div class="printonly"><h3>Staff List</h3></div>
 
 		<!-- Subject View -->
@@ -14,6 +13,7 @@
 							<th>Longevity</th>
 							<th style="width:300px;">Name</th>
 							<th>Matrical No</th>
+							<th>Salary</th>
 							<th>Region of Origin</th>
 							<th>Division of Origin</th>
 							<th>Subdivision of Origin</th>
@@ -21,28 +21,39 @@
 							<th>Grade</th>
 							<th>Marital Status</th>	
 							<th style="width:200px;">Entry Into Service</th>
-							<th style="width:200px;">Entry Into Current Post</th>
+							<th>Dutypost</th>
+							<th style="width:200px;">Date Posted</th>
 							<th>Sex</th>
-							<th>Contact</th>					
+							<th>Contact</th>
+							<!-- <th>Email</th> -->
+							<th class="noprint">Remove</th>					
 							
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(userId, user) in  data.users" ng-if="user.fullname !== 'Admin'">
-							<td>{{user.specialty}}</td>
-							<td>{{getServiceYears(user.dateofentry)}}</td>
-							<td style="width:300px;">{{user.fullname}}</td>
-							<td>{{user.matricalno}}</td>
-							<td>{{user.region}}</td>
-							<td>{{user.division}}</td>
-							<td>{{user.subdivision}}</td>
-							<td>{{user.tribe}}</td>
-							<td>{{user.grade}}</td>
-							<td>{{user.maritalstatus}}</td>
-							<td>{{user.dateofentry}}</td>
-							<td>{{user.dateposted}}</td>
-							<td>{{user.sex}}</td>
-							<td>{{user.phoneNo}}</td>
+						<tr ng-repeat="(staffId, staff) in  data.staffs">
+							<td>{{staff.specialty}}</td>
+							<td>{{getServiceYears(staff.dateofentry)}}</td>
+							<td style="width:300px;"><a ng-click ="open({staffId:staff._id,page:'staffprofile'})" >{{staff.name}}</a></td>
+							<td>{{staff.matricalno}}</td>
+							<td>{{staff.salary | number:0}}</td>
+							<td>{{staff.region}}</td>
+							<td>{{staff.division}}</td>
+							<td>{{staff.subdivision}}</td>
+							<td>{{staff.tribe}}</td>
+							<td>{{staff.grade}}</td>
+							<td>{{staff.maritalstatus}}</td>
+							<td>{{staff.dateofentry}}</td>
+							<td>{{staff.dutypost}}</td>
+							<td>{{staff.dateposted}}</td>
+							<td>{{staff.sex}}</td>
+							<td>{{staff.phoneNo}}</td>
+							<!-- <td>{{staff.staffEmail}}</td> -->
+							<td class="remove text-center noprint" style="width:80px;">
+						<a ng-click="remove(staff)">
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</td>
 							
 						</tr>
 					</tbody>

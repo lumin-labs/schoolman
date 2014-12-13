@@ -58,7 +58,8 @@ function Path() {
                       d.termIndex  + '/' +
                       d.studentId  + '/' + 
                       d.username   + '/' +
-                      d.accessCode
+                      d.accessCode +'/'  +
+                      d.staffId
 
           return path;
         }

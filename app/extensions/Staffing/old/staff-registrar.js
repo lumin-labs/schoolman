@@ -11,7 +11,8 @@
  *
  * This service stores all student data and links students with classes and courses
  */
-function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model, Uid) {
+ define(['modelTransformer','Staffing/services/staffid'], function(modelTransformer, Staffid){
+function Staffregistrar(Data2, $q, $log, model, modelTransformer, Staffid) {
     
     // var _students = [];
     var staffs = {};
@@ -55,7 +56,7 @@ function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model
      *
      * This method adds a student to all courses in their class
      */
-    self.addStaff= function(staff, Uid){
+    self.addStaff= function(staff, Staffid){
 
             staff = modelTransformer.transform(staff, model.Staff);
 
@@ -64,7 +65,7 @@ function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model
                 self.save();
             });
 
-            var form = staff.form;
+            // var form = staff.form;
             var group= staff.group;
 
     		// Register the student
@@ -72,21 +73,21 @@ function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model
             // _students.push(student);
 
     		// Register the student in their class
-			var classId = form + "-" + group;
-			if(!classes.hasOwnProperty(classId)){
-				classes[classId] = [];
-			}
-			classes[classId].push(staff.id);
+			// var classId = form + "-" + group;
+			// if(!classes.hasOwnProperty(classId)){
+			// 	classes[classId] = [];
+			// }
+			// classes[classId].push(staff.id);
 
-			// Register the student in all the class courses
-    		angular.forEach(CourseCatalog.getCourses(form, group), function(course, courseIndex){
-				registerStaff(staff.id, course.id);
-			});
+			// // Register the student in all the class courses
+   //  		angular.forEach(CourseCatalog.getCourses(form, group), function(course, courseIndex){
+			// 	registerStaff(staff.id, course.id);
+			// });
             
     };
 
     self.save = function(callback){
-        console.log("Registrar: saving staffs");
+        console.log("Staffregistrar: saving staffs");
         Data.saveLater({staffs:staffs}, callback);
     };
 
@@ -181,5 +182,6 @@ function Registrar(CourseCatalog, Data, Data2, $q, $log, modelTransformer, model
     return self;
 
   }
-Registrar.$inject = ['CourseCatalog', 'Data', 'Data2', '$q', '$log', 'modelTransformer', 'model', 'Uid'];
-angular.module('SchoolMan').service('Registrar', Registrar);
+Staffregistrar.$inject = ['Data2', '$q', '$log', 'model', 'modelTransformer', 'Staffid'];
+angular.module('SchoolMan').register.service('Staffregistrar', Staffregistrar);
+})

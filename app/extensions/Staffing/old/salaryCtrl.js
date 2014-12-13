@@ -1,28 +1,29 @@
 'use strict';
-
-function SalarysCtrl($scope, Salarys, Students, model) {
+define(['Salarys', 'Staffs'], function(Salarys, Staffs){
+function SalarysCtrl($scope, model, Salarys, Staffs) {
       
       $scope.data = {};
       $scope.data.salarys = Salarys.getAll();
+      $scope.data.staffs = Staffs.getAll();
+       console.log("salarys",$scope.data.salarys)
       // Join students to fees
-      Students.getAll().then(function(students){
+      
         angular.forEach($scope.data.salarys, function(salary, key){
-          Salary.students = _.filter(students, function(student){
-            return student.salaryId === key;
+          salary.staffs = _.filter($scope.data.staffs, function(staff){
+            return staff.salaryId === key;
           });
         });
-      });
       
       $scope.newSalary = new model.Salary();
 
       $scope.add = function(salary){
          if(salary.isValid()){
             try{
-               salary.schoolAmount = Number(salary.schoolAmount.replace(/[^0-9\.]+/g,""));
-               salary.ptaAmount = Number(salary.ptaAmount.replace(/[^0-9\.]+/g,""));
+               salary.salaryAmount = Number(salary.salaryAmount.replace(/[^0-9\.]+/g,""));
+               salary.socailinsuranceAmount = Number(salary.socailinsuranceAmount.replace(/[^0-9\.]+/g,""));
                salary.save().then(function(success){
-                  if(!$scope.newSalary.students){
-                    $scope.newSalary.students= [];
+                  if(!$scope.newSalary.staffs){
+                    $scope.newSalary.staffs= [];
                  }
                   $scope.data.salarys[$scope.newSalary._id] = $scope.newSalary;
                   $scope.newSalary = new model.Salary(); 
@@ -39,5 +40,6 @@ function SalarysCtrl($scope, Salarys, Students, model) {
          Salarys.remove(salary); 
       }
 }
-SalarysCtrl.$inject = ['$scope', 'Salarys', 'Students', 'model'];
-angular.module('SchoolMan').controller('SalarysCtrl', SalarysCtrl);
+SalarysCtrl.$inject = ['$scope', 'model', 'Salarys', 'Staffs'];
+angular.module('SchoolMan').register.controller('SalarysCtrl', SalarysCtrl);
+})

@@ -1,7 +1,7 @@
 <div class="row ">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
-	<div class="col-md-10 marksheet" ng-controller="SalaryCtrl">
+	<div class="col-md-10 marksheet" ng-controller="SalarysCtrl">
 		<div class="printonly"><h3>Salary List</h3></div>
 <nav class="navbar navbar-default" role="navigation" style="margin-bottom:10px;">
 	  <div class="container-fluid">
@@ -30,24 +30,24 @@
 					    				  <span class="input-group-addon">Salary</span>
 					    					<input type="text"
 					    								 format="number"
-					    								 name="schoolAmount"
-					    								 ng-model="newSalary.schoolAmount"
+					    								 name="salaryAmount"
+					    								 ng-model="newSalary.salaryAmount"
 					    								 required
 					    							   class="form-control" 
-					    							   placeholder="Salary Amount"
+					    							   placeholder="SalaryAmount"
 					    							   style="width:150px;">
 					    				</div>
 					    			</th>
 					    			<th>
 					    				<div class="input-group">
-					    				  <span class="input-group-addon">Socail Insurance</span>
+					    				  <span class="input-group-addon">Social Insurance</span>
 					    					<input type="text"
 					    								 format="number"
 					    								 name="socailinsuranceAmount"
-					    								 ng-model="newSalary.socailinsuranceAmount"
+					    								 ng-model="newSalary.socialinsuranceAmount"
 					    								 required
 					    							   class="form-control" 
-					    							   placeholder="Socail Insurance"
+					    							   placeholder="Social Insurance"
 					    							   style="width:150px;">
 					    				</div>
 					    			</th>
@@ -70,8 +70,8 @@
 			<tr>
 				<th style="width:400px">Name</th>
 				<th>Salary Amount</th>
-				<th>Socail Insurance Amount</th>
-				<th>Staffs</th>
+				<th>Social Insurance Amount</th>
+				<th>Teachers</th>
 				<th style="width:80px;">Remove</th>
 			</tr>
 		</thead>
@@ -84,13 +84,13 @@
 					<div class="cell">{{salary.salaryAmount | currency:""}}</div>
 				</td>
 				<td class="column readonly" style="vertical-align:middle;">
-					<div class="cell">{{salary.socailinsuranceAmount | currency:""}}</div>
+					<div class="cell">{{salary.socialinsuranceAmount | currency:""}}</div>
 				</td>
 				<td>
 					{{salary.staffs.length}}
 				</td>
 				<td class="remove text-center" style="width:80px;">
-					<a ng-click="remove(salary)" ng-if="salary.students && salary.students.length === 0">
+					<a ng-click="remove(salary)" ng-if="salary.staffs && salary.staffs.length === 0">
 						<i class="glyphicon glyphicon-remove"></i>
 					</a>
 				</td>

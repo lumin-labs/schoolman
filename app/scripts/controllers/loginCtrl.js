@@ -24,6 +24,7 @@ define(['Users', 'Subjects', 'Departments', 'settings', 'Cache', 'Location', 'Gr
     $scope.page = $routeParams.page;
     $scope.status = 200;
     $scope.dict = Lang.getDict();
+    // console.log("Language dict:", $scope.dict, Lang.getDict(), Lang);
 
     // This data is used for creating the access dropdown in the login view
     // It should be moved to a service

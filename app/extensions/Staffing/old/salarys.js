@@ -1,6 +1,6 @@
 'use strict';
-
-function Salarys($q, Slug, model, Data2, modelTransformer, InsertionError, $log) {
+define(['modelTransformer', 'InsertionError'], function(modelTransformer, InsertionError){
+function Salarys($q, Slug, model, Data2, $log, modelTransformer, InsertionError) {
     
     var salarys = {};
 
@@ -53,5 +53,6 @@ function Salarys($q, Slug, model, Data2, modelTransformer, InsertionError, $log)
     return self;
 
   }
-Salarys.$inject = ['$q', 'Slug', 'model', 'Data2', 'modelTransformer', 'InsertionError', '$log'];
+Salarys.$inject = ['$q', 'Slug', 'model', 'Data2', '$log', 'modelTransformer', 'InsertionError'];
 angular.module('SchoolMan').service('Salarys', Salarys);
+})

@@ -1,5 +1,6 @@
 'use strict';
 
+
 define(['SchoolInfos'], function(SchoolInfos){
   function Lang($routeParams, SchoolInfos) {
     var langs = ['en', 'fr'];
@@ -511,6 +512,7 @@ define(['SchoolInfos'], function(SchoolInfos){
         your_password:"Votre Mot de Passe",
         _page:"",
       },
+
     }
 
     return self;
