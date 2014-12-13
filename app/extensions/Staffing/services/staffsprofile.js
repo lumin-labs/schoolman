@@ -49,5 +49,5 @@ function staffprofile($q, $rootScope, model, Data2, modelTransformer) {
 
   }
 staffprofile.$inject = ['$q', '$rootScope', 'model', 'Data2', 'modelTransformer'];
-angular.module('SchoolMan').register.service('staffprofile', staffprofile);
+angular.module('SchoolMan').service('staffprofile', staffprofile);
 })

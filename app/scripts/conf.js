@@ -246,13 +246,14 @@ var extensionList = [ {
       "Staffing/controllers/staffregistrationCtrl"
     ],
     tabs: [
-      //  {
-      //   en:"Staff list",
-      //   fr:"Personnel",
-      //   page:"stafflist",
-      //   access:['admin','registrar'],
-      //   exclude:[]
-      // },
+        {
+         en:"Staff list",
+         fr:"Personnel",
+         page:"stafflist",
+         access:['admin','registrar'],
+         exclude:[],
+         icon:"glyphicon-book"
+       },
       // {
       //   en:"Salary Settings",
       //   fr:"Salaires",
@@ -260,27 +261,29 @@ var extensionList = [ {
       //   access:['registrar'],
       //   exclude:[]
       // },
-      // {
-      //   en:"Staff",
-      //   fr:"Personnel",
-      //   page:"staffs",
-      //   access:['admin', 'registrar'],
-      //   exclude:[]
-      // },
-      // {
+       // {
+       //   en:"Staff",
+       //   fr:"Personnel",
+       //   page:"staffs",
+       //   access:['admin', 'registrar'],
+       //   exclude:[]
+       // },
+      //  {
       //   en:"Staff Profile",
       //   fr:"Profil du Personnel",
       //   page:"staffProfile",
       //   access:['admin', 'registrar'],
-      //   exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport']
+      //   exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
+      //   icon:"glyphicon-user"
       // },
-      // {
-      //   en:"Staff Registration",
-      //   fr:"Inscription du Personnel",
-      //   page:"staffregistration",
-      //   access:['registrar'],
-      //   exclude:[]
-      // },
+      {
+        en:"Staff Registration",
+        fr:"Inscription du Personnel",
+         page:"staffregistration",
+         access:['registrar'],
+         exclude:[],
+         icon:"glyphicon-calendar"
+      },
     ]
   },{
     moduleName:"Transcript",

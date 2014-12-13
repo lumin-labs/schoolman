@@ -47,7 +47,7 @@ var servicesMain = {
     "ClassCouncils": "ReportCard/services/classcouncils",
     "Fees": "Finance/services/fees",
     "Payments":"Finance/services/payments",
-    // "Salarys": "Staffing/services/salarys",
+    "Salarys": "Staffing/services/salarys",
     "Staffs": "Staffing/services/staffs",
     "Transcripts": "Transcript/services/transcripts",
     "ExtensionLoader": "../scripts/services/extensionloader",
@@ -69,20 +69,18 @@ var controllersMain = [
     "../scripts/controllers/registrationCtrl",
     "../scripts/controllers/userCtrl",
     // "../scripts/services/moduleloader",
-    "ReportCard/models/ClassCouncil",
-    "ReportCard/models/Marksheet",
-    "ReportCard/models/Comment",
-    "ReportCard/models/Dcard",
-    "Finance/models/Fee",
-    "Finance/models/Payment",
+    // "ReportCard/models/ClassCouncil",
+    // "ReportCard/models/Marksheet",
+    // "ReportCard/models/Comment",
+    // "ReportCard/models/Dcard",
+    // "Finance/models/Fee",
+    // "Finance/models/Payment",
         // "Staffing/models/Staffpayment",
-        // "Staffing/models/Salary",
+        "Staffing/models/Salary",
         "Staffing/models/Staff",
     
-]
 
-var modularScripts={
-    'ReportCard':[
+
         "ReportCard/controllers/reportcardCtrl",
         "ReportCard/controllers/classmasterprofileCtrl",
         "ReportCard/controllers/mastersheetCtrl",
@@ -91,39 +89,30 @@ var modularScripts={
         "ReportCard/controllers/classcouncilCtrl",
         "ReportCard/controllers/statsCtrl",
         "ReportCard/services/dcards",
-    ],
-    'Finance':[
+    
+    
         "Finance/controllers/registrarprofileCtrl",
         "Finance/controllers/feesCtrl",
         "Finance/controllers/balancesheetCtrl",
-    ],
-    'Staffing':[
+    
         // "Staffing/services/staff-registrar",
         "Staffing/services/staffid",
         "Staffing/services/staffsprofile",
         // "Staffing/controllers/salaryCtrl",
         "Staffing/controllers/staffregistrationCtrl",
         "Staffing/controllers/StafflistCtrl",
-        // "Staffing/controllers/staffregistrationCtrl",
+        "Staffing/controllers/staffregistrationCtrl",
         // "Staffing/controllers/staffsCtrl",
         // "Staffing/controllers/staffsfinanceCtrl",
         "Staffing/controllers/staffsprofileCtrl",
-    ],
-    'Reports':[
+
         "Reports/controllers/annualreportCtrl",
-        "Reports/controllers/enrollmentCtrl"
-    ],
-    'Transcript':[
-        "Transcript/models/Transcript", 
-        "Transcript/services/transcripts",
-        "Transcript/controllers/transcriptCtrl"
-    ],
-    'IDCard':[
+        "Reports/controllers/enrollmentCtrl",
+        // "Transcript/models/Transcript", 
+        // "Transcript/services/transcripts",
+        "Transcript/controllers/transcriptCtrl",
         "IDCard/controllers/idcardCtrl"
-    ]
-
-}
-
+]
 window.name = "NG_DEFER_BOOTSTRAP!";
 
 require.config({

@@ -59,5 +59,5 @@ function StafflistsCtrl($scope, $routeParams, model, Staffs, Location, Lang) {
 
   }
 StafflistsCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffs', 'Location', 'Lang'];
-angular.module('SchoolMan').register.controller('StafflistsCtrl', StafflistsCtrl);
+angular.module('SchoolMan').controller('StafflistsCtrl', StafflistsCtrl);
 })
