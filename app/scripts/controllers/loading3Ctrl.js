@@ -1,6 +1,6 @@
 'use strict';
 
-function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, ExtensionLoader, MockData, SchoolInfos) {
+function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos) {
     $scope.dict = Lang.getDict();
 
     // angular.resumeBootstrap([
@@ -35,5 +35,5 @@ function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjec
         Location.open({page:"login"});
     });
 }
-LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'ExtensionLoader', 'MockData', 'SchoolInfos'];
+LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos'];
 angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
