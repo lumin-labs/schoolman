@@ -1,5 +1,5 @@
 'use strict';
-define(['Staffing/services/staffid', 'Departments', 'Groups',  'Location', 'Staffs', 'Lang'], function(Staffid, Departments, Groups, Location, Staffs, Lang){
+
 function StaffregistrationCtrl($scope, $routeParams, model, Staffid,Departments, Groups, Location, Staffs,  Lang) {
 
     // $scope.formIndex = $routeParams.formIndex;
@@ -85,7 +85,7 @@ function StaffregistrationCtrl($scope, $routeParams, model, Staffid,Departments,
      }
 
 
- var serviceLength = function(){
+    var serviceLength = function(){
         $scope.data.serviceYears = $scope.date.getFullYear()-(new Date($scope.data.user.dateofentry)).getFullYear();
         $scope.data.serviceMonths = $scope.date.getMonth()-(new Date($scope.data.user.dateofentry)).getMonth();
 
@@ -103,7 +103,9 @@ function StaffregistrationCtrl($scope, $routeParams, model, Staffid,Departments,
 
 
 
-  }
-  StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffid', 'Departments', 'Groups', 'Location', 'Staffs', 'Lang'];
-  angular.module('SchoolMan').controller('StaffregistrationCtrl', StaffregistrationCtrl);
-})
+
+}
+StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffid', 'Departments', 'Groups', 'Location', 'Staffs', 'Lang'];
+angular.module('SchoolMan').controller('StaffregistrationCtrl', StaffregistrationCtrl);
+
+
