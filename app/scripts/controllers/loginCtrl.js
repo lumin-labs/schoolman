@@ -6,7 +6,7 @@ function LoginCtrl($scope, $location, $routeParams, $log, DEV, model, Users, Sub
 
       var DEFAULT_START_PAGE = {
           sales:{
-              page:"settings"
+              page:"customersettings"
           },
           admin:{
               page:"users"
