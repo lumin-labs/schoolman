@@ -61,7 +61,7 @@ function NavtabsCtrl($scope, $routeParams, EXTENSIONS, model, Location, settings
 
   $scope.login = function(access){
     console.log(access, $scope.settings);
-    if(!$scope.settings.access[access]){
+    if(!$scope.settings.access[access] && access !== 'sales'){
       Location.open({page:"notactive", accessCode:access});
     }else {
       Location.open({page:"default_"+access, accessCode:access});
