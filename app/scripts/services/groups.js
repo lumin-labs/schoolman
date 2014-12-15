@@ -1,64 +1,63 @@
 'use strict';
-define(['modelTransformer'], function(modelTransformer){
-  function Groups($q, Slug, Data2, model, modelTransformer) {
-    // AngularJS will instantiate a singleton by calling "new" on this function
 
-    var groups = {};
+function Groups($q, Slug, Data2, model, modelTransformer) {
+  // AngularJS will instantiate a singleton by calling "new" on this function
 
-    var self = {};
+  var groups = {};
 
-    self.getAll = function(){
-    	return groups;
-    };
+  var self = {};
 
-    self.get = function(groupKey){
-    	return groups[groupKey];
-    };
+  self.getAll = function(){
+  	return groups;
+  };
 
-    self.save = function(){
-    	Data.saveLater({"groups": groups})
-    };
+  self.get = function(groupKey){
+  	return groups[groupKey];
+  };
 
-    self.remove = function(group){
-    	Data2.remove(group).then(function(success){
-            console.log("Group removed: ", success);
-            delete groups[group._id];
-        }).catch(function(error){
-            $log.error("groups.js : remove :", error);
-        });
-    };
+  self.save = function(){
+  	Data.saveLater({"groups": groups})
+  };
 
-    self.add = function(group){
-    	group.code = Slug.slugify(group.name);
-    	groups[group.code] = group;
-    };
-
-
-    self.load = function(){
-      var deferred = $q.defer();
-      // Load Data
-      var map = function(doc, emit){
-        if(doc.datatype === model.Group.datatype._id){
-          emit(doc._id, {_id:doc.datatype, data:doc});
-        } 
-      };
-      Data2.query(map, {include_docs : true}).then(function(success){
-          angular.forEach(success.rows, function(data, rowIndex){
-              var spec = data.doc;
-              var obj = model.parse(data.value.data, spec);
-              var group = modelTransformer.transform(obj, model.Group);
-              groups[group._id] = group;
-          });
-          deferred.resolve(groups);
+  self.remove = function(group){
+  	Data2.remove(group).then(function(success){
+          console.log("Group removed: ", success);
+          delete groups[group._id];
       }).catch(function(error){
-          deferred.reject(error);
+          $log.error("groups.js : remove :", error);
       });
+  };
 
-      return deferred.promise;
+  self.add = function(group){
+  	group.code = Slug.slugify(group.name);
+  	groups[group.code] = group;
+  };
+
+
+  self.load = function(){
+    var deferred = $q.defer();
+    // Load Data
+    var map = function(doc, emit){
+      if(doc.datatype === model.Group.datatype._id){
+        emit(doc._id, {_id:doc.datatype, data:doc});
+      } 
     };
+    Data2.query(map, {include_docs : true}).then(function(success){
+        angular.forEach(success.rows, function(data, rowIndex){
+            var spec = data.doc;
+            var obj = model.parse(data.value.data, spec);
+            var group = modelTransformer.transform(obj, model.Group);
+            groups[group._id] = group;
+        });
+        deferred.resolve(groups);
+    }).catch(function(error){
+        deferred.reject(error);
+    });
 
-    return self;
-  }
-  Groups.$inject = ['$q', 'Slug', 'Data2', 'model', 'modelTransformer'];
-  angular.module('SchoolMan').service('Groups', Groups);
-})
+    return deferred.promise;
+  };
+
+  return self;
+}
+Groups.$inject = ['$q', 'Slug', 'Data2', 'model', 'modelTransformer'];
+angular.module('SchoolMan').service('Groups', Groups);
