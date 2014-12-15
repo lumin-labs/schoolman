@@ -1,5 +1,5 @@
 'use strict';
-define(['Staffs', 'Lang'], function(Staffs, Lang){
+
 function StaffprofileCtrl($scope, $routeParams, model, Staffs, Lang) {
     $scope.editing = false;
     // $scope.currentStaff = Staffs.get($routeParams.staffname);
@@ -94,8 +94,6 @@ function StaffprofileCtrl($scope, $routeParams, model, Staffs, Lang) {
     //   }
     // }
     
-
-  }
+}
 StaffprofileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffs', 'Lang'];
-angular.module('SchoolMan').register.controller('StaffprofileCtrl', StaffprofileCtrl);
-})
+angular.module('SchoolMan').controller('StaffprofileCtrl', StaffprofileCtrl);

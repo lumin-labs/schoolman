@@ -21,22 +21,23 @@
  * This module houses all of the code for SchoolMan.
  */
 
-
-
-var app = angular.module('SchoolMan', [
+angular.module('SchoolMan', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
   'ngRoute',
   'slugifier',
   'pouchdb',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'SchoolMan.ReportCard', 
+  'SchoolMan.Finance',
+  'SchoolMan.IDCard',
+  'SchoolMan.Reports',
+  'SchoolMan.Staffing',
+  'SchoolMan.TimeTable',
+  'SchoolMan.Transcript'
 
-])
-
-app.config(function ($routeProvider, $controllerProvider, $provide) {
-  var self = {};
-  console.log("appjs is running");
+]).config(function ($routeProvider, $controllerProvider, $provide) {
 
   var TEMPLATE_DIRECTORY = {
     login:    "/views/login2.html",
@@ -44,26 +45,25 @@ app.config(function ($routeProvider, $controllerProvider, $provide) {
     users:    "/views/admin-users.html",
     subjects:  "/views/admin-subjects.html",
     classes:  "/views/admin-classes.html",
-    staff:"/extensions/Staffing/staff.html",
-    registrarStaff:"/extensions/Staffing/reistrar-staff.html",
-    transcript: "/extensions/Transcript/transcript.html",
+    departments:"/views/admin-departments.html",
+    classmasterProfile:"/views/classmaster-profile.html",
     classmasterMarksheet:"/extensions/ReportCard/classmaster-marksheet.html",
     teacherMarksheet:"/extensions/ReportCard/teacher-marksheet.html",
     mastersheet:"/extensions/ReportCard/mastersheet.html",
     myclasses:"/extensions/ReportCard/myclasses.html",
-    departments:"/views/admin-departments.html",
-    fees:"/extensions/Finance/registrar-fees.html",
-    salarys:"/extensions/Staffing/salary.html",
-    balancesheet:"/extensions/Finance/balancesheet.html",
     reportcard:"/extensions/ReportCard/reportcard.html",
-    registrarProfile:"/extensions/Finance/registrar-profile.html",
-    classmasterProfile:"/views/classmaster-profile.html",
     classcouncil:"/extensions/ReportCard/classcouncil.html",
     adminStats:"/extensions/ReportCard/admin-stats.html",
     classmasterStats:"/extensions/ReportCard/classmaster-stats.html",
+    registrarProfile:"/extensions/Finance/registrar-profile.html",
+    fees:"/extensions/Finance/registrar-fees.html",
+    balancesheet:"/extensions/Finance/balancesheet.html",
+    staff:"/extensions/Staffing/staff.html",
+    salarys:"/extensions/Staffing/salary.html",
+    staffregistration:"/extensions/Staffing/staffregistration.html",
+    transcript: "/extensions/Transcript/transcript.html",
     annualreport:"/extensions/Reports/annualreport.html",
     enrollmentreport:"/extensions/Reports/enrollmentreport.html",
-    staffregistration:"/extensions/Staffing/staffregistration.html",
     staffprofile:"/extensions/Staffing/staffprofile.html",
     stafflist:"/extensions/Staffing/stafflist.html",
     registrarstaff:"/extensions/Staffing/registrar-staff.html",
@@ -86,15 +86,6 @@ app.config(function ($routeProvider, $controllerProvider, $provide) {
     return template;
   };
 
-
-
-  app.register =
-  {
-      controller: $controllerProvider.register,
-      service: $provide.service,
-      provider: $provide.provider
-  };
-
   $routeProvider
     .when('/:page/:subpage/:lang/:formIndex/:deptId/:groupId/:subjectId/:termIndex/:studentId/:username/:accessCode/:staffId', {
       templateUrl:function(p){ return getTemplate(p);},
@@ -113,7 +104,6 @@ app.config(function ($routeProvider, $controllerProvider, $provide) {
       redirectTo: '/loading'
     });
 
-    return app;
 });
 
 chrome.storage.local.get("initialized",function(r){

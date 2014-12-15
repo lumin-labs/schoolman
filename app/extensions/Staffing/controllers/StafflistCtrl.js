@@ -1,5 +1,5 @@
 'use strict';
-define(['Staffs', 'Location', 'Lang'],function(Staffs, Location, Lang){
+
 function StafflistsCtrl($scope, $routeParams, model, Staffs, Location, Lang) {
     
     $scope.data = {};
@@ -57,7 +57,6 @@ function StafflistsCtrl($scope, $routeParams, model, Staffs, Location, Lang) {
 
     // $scope.remove = Staffs.remove;
 
-  }
+}
 StafflistsCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffs', 'Location', 'Lang'];
-angular.module('SchoolMan').register.controller('StafflistsCtrl', StafflistsCtrl);
-})
+angular.module('SchoolMan').controller('StafflistsCtrl', StafflistsCtrl);

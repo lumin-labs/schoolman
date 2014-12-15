@@ -100,7 +100,7 @@ var modularScripts={
     'Staffing':[
         // "Staffing/services/staff-registrar",
         "Staffing/services/staffid",
-        "Staffing/services/staffsprofile",
+        // "Staffing/services/staffsprofile",
         // "Staffing/controllers/salaryCtrl",
         "Staffing/controllers/staffregistrationCtrl",
         "Staffing/controllers/StafflistCtrl",
