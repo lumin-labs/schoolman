@@ -634,6 +634,11 @@ td.profile-photo{
       display: none;
     }
 
+    .remark-poor,
+    .remark-verypoor{
+      color: red !important;
+    }
+
     .container {
         width:100%;
     }
