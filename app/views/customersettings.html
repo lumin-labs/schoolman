@@ -37,18 +37,18 @@
       <table class="table">
         <thead>
           <tr>
-            <td ng-repeat="extension in availableExtensions" ng-if="extension.moduleName !== 'Main'">{{extension.moduleName}}</td>
+            <td ng-repeat="extension in availableExtensions" ng-if="extension.name !== 'Main'">{{extension.name}}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td ng-repeat="extension in availableExtensions" ng-if="extension.moduleName !== 'Main'">
+            <td ng-repeat="extension in availableExtensions" ng-if="extension.name !== 'Main'">
               <button ng-click="toggle(extension)"
                       class="btn btn-md btn-light" style="border:solid 1px #ddd;">
-                  <i ng-if="settings.extensions.indexOf(extension.moduleName) === -1" 
+                  <i ng-if="settings.extensions.indexOf(extension.name) === -1" 
                      class="glyphicon glyphicon-minus" 
                      style="color:red;"></i>
-                   <i ng-if="settings.extensions.indexOf(extension.moduleName) > -1" 
+                   <i ng-if="settings.extensions.indexOf(extension.name) > -1" 
                    class="glyphicon glyphicon-ok" 
                    style="color:green;"></i>
                 </button>
