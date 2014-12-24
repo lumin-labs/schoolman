@@ -60,3 +60,4 @@ function StafflistsCtrl($scope, $routeParams, model, Staffs, Location, Lang) {
 }
 StafflistsCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffs', 'Location', 'Lang'];
 angular.module('SchoolMan').controller('StafflistsCtrl', StafflistsCtrl);
+

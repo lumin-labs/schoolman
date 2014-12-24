@@ -96,4 +96,5 @@ function StaffprofileCtrl($scope, $routeParams, model, Staffs, Lang) {
     
 }
 StaffprofileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffs', 'Lang'];
+
 angular.module('SchoolMan').controller('StaffprofileCtrl', StaffprofileCtrl);
