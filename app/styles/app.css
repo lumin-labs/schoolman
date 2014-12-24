@@ -206,7 +206,7 @@ input.ng-dirty.ng-invalid{
   font-family: 'Serif', cursive;
   /*font-size: 1.3em;*/
   font-weight: bold;
-  color: #444;
+  color: #444 important;
 }
 
 ::-webkit-input-placeholder {
@@ -687,7 +687,6 @@ td.profile-photo{
 
     .table.letterhead{
       padding: 0px;
-      height:110px;
     };
 
     .table.letterhead tr td{
@@ -699,6 +698,7 @@ td.profile-photo{
     .letterhead tr td,
     .summary tr td{
       border-top:none;
+      padding: 0px !important;
     }
 
     .title-flank{
@@ -731,9 +731,9 @@ td.profile-photo{
       border-width:1px 0px 1px 0 !important;
     }
 
-    .well.student-info .row .col-md-12 .table tr td{
+    .well.student-info .row .col-md-12 .table{
       padding:0px;
-      padding-top: 10px;
+      padding-top: 0px;
       border-top:solid 1px #ddd !important;
     }
 
@@ -747,17 +747,7 @@ td.profile-photo{
 
     .student-info-section h5{
       font-size: 10px;
-    }
-    .student-info-section-small{
-      padding-left:0px; 
-    }
-
-    .student-info-section-small h4{
-      font-size: 7px;
-    }
-
-    .student-info-section-small h5{
-      font-size: 8px;
+      
     }
 
     .term-summary{
@@ -784,14 +774,15 @@ td.profile-photo{
     }
 
     .reportcard-small thead tr th{
-      font-size: 9px !important;
+      font-size: 10px !important;
+      padding: 5px;
     }
     .reportcard-small h4{
-      font-size: 10px !important;
+      font-size: 11px !important;
     }
 
     .reportcard-small tbody tr td{
-      font-size: 9px !important;
+      font-size: 10px !important;
       padding:0px;
     }
     .table-transcript2 thead tr th{

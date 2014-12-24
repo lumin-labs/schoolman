@@ -529,6 +529,17 @@ function Marksheets($q, $log, model, modelTransformer, pouchdb, Subjects, Studen
       });
     }
 
+    self.remove = function(marksheet){
+      var deferred = $q.defer();
+      db.remove(marksheet).then(function(success){
+        console.log("Marksheet removed: ", success);
+        deferred.resolve(success);
+      }).catch(function(error){
+        deferred.reject(error);
+      });
+      return deferred.promise;
+    }
+
     return self;
 
   }

@@ -69,10 +69,10 @@ function MyclassesCtrl($scope, $routeParams, Users, model,Forms, Groups, Departm
     // Expects
     // { teacherId:username,
     //   marksheetId:marksheetId }
-    $scope.removeBookmark = function(marksheet){
+    $scope.removeMarksheet = function(marksheet){
       console.log("removing marksheet", marksheet);
-      marksheet.teacherId = null;
-      marksheet.save().then(function(success){
+      // marksheet.teacherId = null;
+      Marksheets.remove(marksheet).then(function(success){
         $scope.data.marksheets = $scope.data.marksheets.filter(function(m){
           return m._id !== marksheet._id;
         });

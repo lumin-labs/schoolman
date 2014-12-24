@@ -154,6 +154,24 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
         return container.scrollHeight <= 480;
       }
 
+      $scope.formatNumber = function(num){
+        // console.log("n", num, Number(num));
+        var n = "";
+        if(Math.round(Number(num)) !== Number(num)){
+          if(Number(num.toFixed(1)) === Number(num.toFixed(2))){
+            n += Number(num).toFixed(1);
+          } else {
+            n += Number(num).toFixed(2);
+          }
+        } else {
+          n += num;
+        }
+        if(Number(num) < 10){
+          n = "0" + n;
+        }
+        return n;
+      }
+
 
   }
   ReportcardCtrl.$inject = ['$scope', '$routeParams', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'SchoolInfos', 'PROMOTE_OPTIONS'];

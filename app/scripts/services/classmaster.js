@@ -180,10 +180,8 @@ function ClassMaster($q, modelTransformer, Registrar, Data, model) {
      * This method takes a number and returns a remark depending on the value 
      */
     self.getRemark = function(average){
-        if(average){
-          if(average === -1){
-            return {text:"", css:"remark-verypoor"};
-          }else if(average>17){
+        if(average >= 0){
+          if(average>17){
               return {text:"Excellent", css:"remark-excellent"}
           }else if(average>15){
               return {text:"Very Good", css:"remark-excellent"}
@@ -202,6 +200,8 @@ function ClassMaster($q, modelTransformer, Registrar, Data, model) {
           }else{
               return {text:"Very Poor", css:"remark-verypoor"}
           }
+        } else {
+            return {text:"", css:"remark-verypoor"};
         }
     }
 
