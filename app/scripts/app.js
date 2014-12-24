@@ -68,7 +68,8 @@ angular.module('SchoolMan', [
     stafflist:"/extensions/Staffing/stafflist.html",
     registrarstaff:"/extensions/Staffing/registrar-staff.html",
     staffsfinance:"/extensions/Staffing/staffs-finance.html",
-    idcards:"/extensions/IDCard/idcards-full.html",
+    idcardsFull:"/extensions/IDCard/idcards-full.html",
+    idcardsSmall:"/extensions/IDCard/idcards-small.html"
   };
 
   var getTemplate = function(p){
