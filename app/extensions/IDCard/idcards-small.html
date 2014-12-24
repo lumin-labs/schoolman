@@ -1,4 +1,3 @@
-
 <div class="row">
   <div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
@@ -75,8 +74,8 @@
                           <span class="caret"></span> 
                       </button>
                       <ul class="dropdown-menu">
-                        <li ng-repeat="(sideIndex, side) in data.sides">
-                          <a ng-click="data.side=sideIndex">
+                        <li ng-repeat="(index, side) in data.sides">
+                          <a ng-click="data.side=index">
                             {{dict[side]}}
                           </a>
                         </li>
@@ -90,88 +89,63 @@
       </div>  
     </div>
     <div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'">
-      <div class="row pagebreak" 
+      <div class="pagebreak"
           style="height:6.2in !important;
                   width:10.6in !important;
                   background-color: #ddd !important;
-                  
-                  font-size:24px;" 
+ 
+                  font-size:32px;" 
           ng-if="data.side === 0">
-        <table><tr><td style="width:5.3in !important;height:6.2in !important; padding-right:.5in">
-          <table class="table text-center" style="border:double;">
-            <tr >
-              <th colspan="2" style="border:solid 1px;text-align:center">{{dict.renewals | uppercase}}</th>
-            </tr>
-            <tr >
-              <th style="border:solid 1px;text-align:center">{{dict.Class | uppercase}}</th>
-              <th style="border:solid 1px;text-align:center">{{dict.academic_year | uppercase}}</th>
-            </tr>
-            <tr >
-              <td style="border:solid 1px">I</td>
-              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
-            </tr>
-            <tr >
-              <td style="border:solid 1px">II</td>
-              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
-            </tr>
-            <tr >
-              <td style="border:solid 1px">III</td>
-              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
-            </tr>
-            <tr >
-              <td style="border:solid 1px">IV</td>
-              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
-            </tr>
-            <tr >
-              <td style="border:solid 1px">V</td>
-              <td style="border:solid 1px">20_________<br>{{dict.principal | uppercase}}</td>
-            </tr>
-          </table>
-        </td><td style="width:5.3in !important">
-        
-          <table class="table text-center" style="border:double"><tr><td style="height:6.2in !important">
-          <br>
-          <p style="font-size:18px;"><b>{{dict.REPUBLIC_OF_CAMEROON}}</b><br>
-          {{dict.PeaceWorkFatherland}}</p>
-          <p style="font-size:18px;">{{dict.MINISTRY_OF_SECONDARY_EDUCATION}}</p>
-          <p style="font-size:18px;">{{dict.REGIONAL_DELEGATION_FOR_THE}} {{data.schoolInfo.region}}</p>
-          <br>
-          <br>
-          <p style="font-size:32px;"><strong>{{lang === 'en' ? pageTitleEnglish : pageTitleFrench}}</strong></p>
-          <br>
-          <br>
-          <p style="font-size:32px;">{{lang === 'en' ? data.schoolInfo.nameEn : data.schoolInfo.nameFr}}<br>{{data.schoolInfo.subdivision}}, {{data.schoolInfo.division}} {{dict.division | uppercase}}</p>
-          </td></tr></table>
-        </td></tr></table>
+        <table>
+          <tr>
+            <td class="img-thumbnail">
+              <img src="images/user.svg" height="300" width="300">
+            </td>
+            <td style="text-align:center;padding-left:100px">
+              <p style="font-size:24px;"><b>{{dict.REPUBLIC_OF_CAMEROON}}</b><br>
+              {{dict.PeaceWorkFatherland}}</p>
+              <p style="font-size:24px;">{{dict.MINISTRY_OF_SECONDARY_EDUCATION}}</p>
+              <p style="font-size:24px;">{{dict.REGIONAL_DELEGATION_FOR_THE}} {{data.schoolInfo.region}}</p>
+              <p style="font-size:24px;"><b>{{lang === 'en' ? data.schoolInfo.nameEn : data.schoolInfo.nameFr}}</b><br>{{data.schoolInfo.subdivision}}, {{data.schoolInfo.division}} {{dict.division | uppercase}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <p></p>
+              <p style="font-size:48px;">{{dict.name}}: <u>{{student.name}}</u></p>
+              <p style="font-size:48px;">{{dict.student_id}}: _________________</p>
+              <p style="font-size:48px;">{{dict.date_of_birth}}: <u>{{student.birth | date: "dd MMM yyyy"}}</u></p>
+            </td>
+          </tr>
+        </table>
       </div>
       <div class="row pagebreak" 
-          style="height:9in !important;
-                  width:7.9in !important;
+          style="height:6.2in !important;
+                  width:10.6in !important;
                   background-color: #ddd !important;
  
                   font-size:32px;" 
           ng-if="data.side === 1">
           <div class="col-md-12">
 
-            <div class="img-thumbnail">
-              <img src="images/user.svg" height="200" width="200">
-            </div>
+            
             <div>
-              <p>{{dict.i}}, <u>{{data.schoolInfo.principal}}</u> {{dict.the_undersigned_principal_of}} <u>{{data.schoolInfo.nameEn}}</u>, {{dict.hereby_certify_that}} <u>{{student.name}}</u> {{dict.is_a_student_in_my_institution}}.</p>
+              <p>{{dict.i}}, <u>{{data.schoolInfo.principal}}</u> {{dict.the_undersigned_principal_of}} <u>{{data.schoolInfo.nameEn}}</u> {{dict.hereby_certify_that}} <u>{{student.name}}</u> {{dict.is_a_student_in_my_institution}}.</p>
               <p>{{dict.born_on}} <u>{{student.birth | date: "dd MMM yyyy"}}</u> at <u>{{student.birthplace}}</u>
               <br>
-              {{student.sex === "Male" ? dict.son_of : dict.daughter_of}} <u>{{student.parentName}}</u>
+              {{student.sex === "Male" ? dict.son_of : dict.daughter_of}}<u>{{student.parentName}}</u>
               <br>
               {{dict.occupation}}:<u>{{student.parentOccupation}}</u>, {{dict.residence}}: <u>{{student.residence}}</u></p>
-              <p>{{dict.student_id}} <u>{{student.id}}</u> Date <u>{{data.currentDate | date:"dd MMM yyyy"}}</u></p>
+              <p>{{dict.student_id}} ___________  {{dict.date}} <u>{{data.currentDate | date:"dd MMM yyyy"}}</u></p>
               <br>
               <p>
                 <table>
-                <tr >
-                  <td style="padding-right:20px">__________________</td><td>__________________</td>
-                </tr>
-                <tr>
-                  <td style="padding-right:20px">{{dict.students_signature}}</td><td>{{dict.principals_signature}}</td>
+                  <tr >
+                    <td style="padding-right:50px">__________________</td><td>__________________</td>
+                  </tr>
+                  <tr>
+                    <td style="padding-right:50px">{{dict.students_signature}}</td><td>{{dict.principals_signature}}</td>
+                  </tr>
                 </table>
               </p>
   
