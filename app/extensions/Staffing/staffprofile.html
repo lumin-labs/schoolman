@@ -208,7 +208,7 @@
     </div>
   </div> 
   <div class="form-group">
-    <label for="phoneNo" class="col-sm-3 control-label">{{dict.phone_number}}</label>
+    <label for="phoneNo" class="col-sm-3 control-label">{{dict.staff_phone}}</label>
     <div class="col-sm-9 printonly">{{data.staff.phoneNo}}</div>
     <div class="col-sm-9 noprint">
       <input id="phoneNo"
@@ -221,7 +221,7 @@
   </div>
       
   <div class="form-group">
-    <label for="staffEmail" class="col-sm-3 control-label">{{dict.email}}</label>
+    <label for="staffEmail" class="col-sm-3 control-label">{{dict.staff_email}}</label>
     <div class="col-sm-9 printonly">{{data.staff.staffEmail}}</div>
     <div class="col-sm-9 noprint">
       <input id="staffEmail" 
@@ -235,7 +235,7 @@
       <br>      
 
       <div class="form-group">
-          <label for="tribe" class="col-sm-3 control-label">{{dict.tribe}}</label>
+          <label for="tribe" class="col-sm-3 control-label">{{dict.Tribe}}</label>
           <div class="col-sm-9 printonly">{{data.staff.tribe}}</div>
           <div class="col-sm-9 noprint">
             <input id="tribe" class="form-control" 
@@ -267,7 +267,7 @@
       </div>
 
       <div class="form-group">
-          <label for="region" class="col-sm-3 control-label">{{dict.region_of_origin}}</label>
+          <label for="region" class="col-sm-3 control-label">{{dict.Region_of_origin}}</label>
           <div class="col-sm-9 printonly">{{data.staff.region}}</div>
           <div class="col-sm-9 noprint">
             <input id="region" class="form-control" 
@@ -602,7 +602,7 @@
     <div class="form-group noprint" ng-if="accessCode === 'registrar' && !editing">
     <div class="col-sm-offset-3 col-sm-10">
       <button type="submit" class="btn btn-info" ng-click="edit()">
-        {{dict.edit_teacher}}
+        {{dict.edit_staff}}
       </button>
     </div>
   </div>
