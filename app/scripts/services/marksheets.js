@@ -180,14 +180,14 @@ function Marksheets($q, $log, model, modelTransformer, pouchdb, Subjects, Studen
         var t2 = nextM.table;
         var coeffs = prevM.studentCoeffs;
 
-        // console.log("T1, T2, COEFFS", t1, t2, coeffs);
+        // console.log("T1, T2, COEFFS", angular.copy(t1), angular.copy(t2), angular.copy(coeffs));
         
         var ignore = ["", null, undefined,-1];
 
         angular.forEach(t2, function(row, studentId){      
           if(!t1.hasOwnProperty(studentId)){
-            t1[studentId] = row;
-            coeffs[studentId] = row;
+            t1[studentId] = angular.copy(row);
+            coeffs[studentId] = [nextM.coeff];
 
             angular.forEach(coeffs[studentId], function(y, i){
               if(!(ignore.indexOf(y) > -1)){

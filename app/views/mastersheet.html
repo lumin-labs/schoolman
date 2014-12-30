@@ -2,8 +2,9 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="MastersheetCtrl2">
     <div class="printonly" ng-controller="ClassmenuCtrl">
-      <h3>Class Mastersheet</h3>
-      <h5>{{form.name}}{{group.name}} {{department.name}}, {{term.name}}</h5>
+      <center><h4>{{data.schoolInfo.nameEn}}</h4>
+      <h4>Class Mastersheet</h4>
+      <h5>{{form.name}}{{group.name}} {{department.name}}, {{term.name}}</h5></center>
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">

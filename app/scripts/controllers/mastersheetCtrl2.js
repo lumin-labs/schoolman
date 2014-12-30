@@ -1,6 +1,6 @@
 'use strict';
 
-function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS) {
+function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksheets, Departments, Groups, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, PROMOTE_OPTIONS, SchoolInfos) {
   	 
       $scope.termIndex = parseInt($routeParams.termIndex);
       
@@ -12,6 +12,13 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
       $scope.data.summaries = {};
       $scope.data.students = [];
       $scope.data.rankings = {};
+
+      SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+      }).catch(function(error){
+          console.log("failed to get school info", error);
+      });
 
       $scope.round = Math.round;
 
@@ -26,9 +33,9 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
         deptId:$routeParams.deptId,
         groupId:$routeParams.groupId
       };
-      console.log("Querying marksheet params: ", params);
+      // console.log("Querying marksheet params: ", params);
       Marksheets.query(params).then(function(marksheets){
-        console.log("Got marksheets: ", marksheets);
+        // console.log("Got marksheets: ", marksheets);
 
         // Convert marksheets to a list and store in $scope.data.marksheets
         $scope.data.marksheets = _.map(Object.keys(marksheets), function(marksheetId){
@@ -44,7 +51,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
         });
         // combine all marksheets
         $scope.data.combinedMarksheet = Marksheets.combine($scope.data.summaries);
-        // console.log("combined marksheet", $scope.data.combinedMarksheet);
+        console.log("combined marksheet", $scope.data.combinedMarksheet);
         
         // get rankings from combined marksheet
         $scope.data.rankings = Marksheets.rank($scope.data.marksheets);
@@ -56,7 +63,7 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
 
 
         Students.getBatch(studentIds).then(function(students){
-          console.log("students", students);
+          // console.log("students", students);
           $scope.data.students = _.map(Object.keys(students), function(studentId){
             return students[studentId];
           });
@@ -122,12 +129,12 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
           dataItem.subject = $scope.data.subjects[marksheet.subjectId].code;
           dataItem.name=$scope.data.subjects[marksheet.subjectId].en;
           var summary = Marksheets.summarize(marksheet, $routeParams.termIndex);
-          console.log("Summary ok", summary.table);
+          // console.log("Summary ok", summary.table);
           var total = _.reduce(summary.table, function(total, value){
             return total + value[0];
           },0);
           var average = total/ Object.keys(summary.table).length
-          console.log("Summary", summary.table, average);
+          // console.log("Summary", summary.table, average);
           dataItem.average = average;
 
           return dataItem;
@@ -168,5 +175,5 @@ function MastersheetCtrl($scope, $routeParams, Subjects, Students, Data2, Marksh
       });
 
   }
-  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS'];
+  MastersheetCtrl.$inject = ['$scope', '$routeParams', 'Subjects', 'Students', 'Data2', 'Marksheets', 'Departments', 'Groups', 'SubjectTypes', 'Forms', 'Cache', 'Registrar', 'CourseCatalog', 'ClassMaster', 'TimeTable', 'Data', 'Location', 'Mastersheet', 'PROMOTE_OPTIONS', 'SchoolInfos'];
   angular.module('SchoolMan').controller('MastersheetCtrl2', MastersheetCtrl);

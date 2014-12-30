@@ -1,6 +1,6 @@
 'use strict';
 
-function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS) {
+function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Groups, Marksheets, Registrar, Subjects, Payments, Students, Departments, CourseCatalog, Mastersheet,  model, Data, Location, PROMOTE_OPTIONS, SchoolInfos) {
 
     $scope.PROMOTE_OPTIONS = PROMOTE_OPTIONS;
 
@@ -18,6 +18,13 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
         page:0,
         pages:[]
     };
+
+    SchoolInfos.get("schoolinfo").then(function(info){
+      $scope.data.schoolInfo = info;
+      //console.log("school info retrieved", $scope.data.schoolInfo);
+    }).catch(function(error){
+      console.log("failed to get school info", error);
+    });
 
     $scope.formIndex = $routeParams.formIndex;
     $scope.groupId = $routeParams.groupId;
@@ -315,5 +322,5 @@ function StudentsCtrl($scope, $q, $routeParams, ClassCouncils, Fees, Forms, Grou
 
 
   }
-  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Registrar', 'Subjects', 'Payments', 'Students', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS'];
+  StudentsCtrl.$inject = ['$scope', '$q', '$routeParams', 'ClassCouncils', 'Fees', 'Forms', 'Groups', 'Marksheets', 'Registrar', 'Subjects', 'Payments', 'Students', 'Departments', 'CourseCatalog', 'Mastersheet', 'model', 'Data', 'Location', 'PROMOTE_OPTIONS', 'SchoolInfos'];
   angular.module('SchoolMan').controller('StudentsCtrl', StudentsCtrl);

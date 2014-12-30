@@ -4,8 +4,9 @@
 		<div style="margin-bottom:10px;">
 			<div ng-controller="ClassmenuCtrl">
 				<div class="printonly">
-					<h3>Students</h3>
-					<h5>{{data.forms[queryParams.formIndex].name || "All Forms"}}{{data.groups[queryParams.groupId].name || " All Groups"}} {{data.departments[queryParams.deptId].name || "All Depts"}}, {{data.fees[queryParams.feeId].name  || "All"}} Fees</h5>
+					<center><h4>{{data.schoolInfo.nameEn}}</h4>
+					<h4>Students</h4>
+					<h5>{{data.forms[queryParams.formIndex].name || "All Forms"}}{{data.groups[queryParams.groupId].name || " All Groups"}} {{data.departments[queryParams.deptId].name || "All Depts"}}, {{data.fees[queryParams.feeId].name  || "All"}} Fees</h5></center>
 				</div>
 			  <nav class="navbar navbar-default" role="navigation">
 				  <div class="container-fluid">

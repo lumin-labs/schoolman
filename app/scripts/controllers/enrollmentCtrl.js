@@ -1,6 +1,6 @@
 'use strict';
 
-function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects) {
+function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheets, $q, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects, SchoolInfos) {
   var data = $scope.data = {
     forms:Forms.all(),
     groups:Groups.getAll(),
@@ -12,6 +12,14 @@ function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheet
     totalStats:{},
     deptStats:{}
   }
+
+  SchoolInfos.get("schoolinfo").then(function(info){
+    $scope.data.schoolInfo = info;
+    //console.log("school info retrieved", $scope.data.schoolInfo);
+  }).catch(function(error){
+    console.log("failed to get school info", error);
+  });
+
   $scope.termIndex=3;
   $scope.formIndex = $routeParams.formIndex;
 
@@ -219,5 +227,5 @@ function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheet
   console.log("Class Councils", data.classCouncils);
 
 }
-EnrollmentCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects'];
+EnrollmentCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', '$q', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects', 'SchoolInfos'];
 angular.module('SchoolMan').controller('EnrollmentCtrl', EnrollmentCtrl);

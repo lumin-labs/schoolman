@@ -2,7 +2,10 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 
 	<div class="col-md-10 marksheet" ng-controller="FinanceCtrl">
-		<div class="printonly"><h3>Balance Sheet ({{schoolInfo.schoolyear}} Academic Year)</h3></div>
+		<div class="printonly">
+		<center><h4>{{schoolInfo.nameEn}}</h4>
+		<h4>Balance Sheet ({{schoolInfo.schoolyear}} Academic Year)</h4></center>
+		</div>
 
 	<table class="table table-striped table-finance">
 		<thead>

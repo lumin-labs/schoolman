@@ -2,8 +2,9 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="EnrollmentCtrl">
     <div class="printonly">
-      <h3>Enrollment Statistics</h3>
-      <h5>{{data.forms[formIndex].name || "All Forms"}}</h5>
+      <center><h4>{{data.schoolInfo.nameEn}}</h4>
+      <h4>Enrollment Statistics</h4>
+      <h5>{{data.forms[formIndex].name || "All Forms"}}</h5></center>
     </div>
     <div class="noprint" style="padding-bottom:10px;">
       <div>

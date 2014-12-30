@@ -1,8 +1,9 @@
 'use strict';
 
-function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets, ClassMaster) {
+function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets, ClassMaster, SchoolInfos) {
     
     var marksheetId = model.Marksheet.generateID($routeParams);
+
     
     $scope.classMaster = ClassMaster;
     $scope.marksheets = Marksheets;
@@ -13,6 +14,13 @@ function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets,
         students:[],
         rankings:{}
     };
+    
+    SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+    }).catch(function(error){
+        console.log("failed to get school info", error);
+    });
 
     var marksheetCopy = {};
 
@@ -53,6 +61,6 @@ function MarksheetCtrl($scope, $routeParams, Data2, model, Location, Marksheets,
     };
 
   }
-  MarksheetCtrl.$inject = ['$scope', '$routeParams', 'Data2', 'model', 'Location', 'Marksheets', 'ClassMaster'];
+  MarksheetCtrl.$inject = ['$scope', '$routeParams', 'Data2', 'model', 'Location', 'Marksheets', 'ClassMaster', 'SchoolInfos'];
   angular.module('SchoolMan').controller('MarksheetCtrl', MarksheetCtrl);
 
