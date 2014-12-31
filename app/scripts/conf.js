@@ -193,7 +193,26 @@ var extensionList = [ {
         icon:'glyphicon-print'
       }
     ]
-  },{
+  },
+  {
+    name:"Accounting",
+    labelEn:"Accounting",
+    labelFr:"Accounté",
+    access:['registrar'],
+    icon:"glyphicon-print",
+    tabs: [
+      {
+        
+        en:"Income and Ependiture",
+        fr:"Income et Ependituré",
+        page:"IncomeandEpenditure",
+        access:['registrar','admin'],
+        exclude:[],
+        icon:'glyphicon-folder-open'
+      },
+    ]
+  }, 
+  {
     name:"Reports",
     labelEn:"Reports",
     labelFr:"Rapports",
