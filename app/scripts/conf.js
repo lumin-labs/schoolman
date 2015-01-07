@@ -2,7 +2,7 @@
 
 angular.module('SchoolMan')
   .constant('VERSION',{
-    mode:"gths"
+    mode:"ghs"
   })
   //.constant('SCHOOLYEAR',{
   //  year:"2014/2015"

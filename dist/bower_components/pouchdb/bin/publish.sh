@@ -5,7 +5,7 @@ rm -r node_modules
 npm install
 
 # get current version
-VERSION=$(node --eval "console.log(require('./package.json').version);")
+VERSION=$(npm ls --json=true pouchdb | grep version | awk '{ print $2}'| sed -e 's/^"//'  -e 's/"$//')
 
 # Build
 git checkout -b build

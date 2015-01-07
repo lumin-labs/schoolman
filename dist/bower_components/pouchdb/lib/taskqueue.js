@@ -21,15 +21,10 @@ TaskQueue.prototype.execute = function () {
     }
   } else if (this.isReady) {
     while ((d = this.queue.shift())) {
-      if (typeof d === 'function') {
-        d();
-      } else {
-        d.task = this.db[d.name].apply(this.db, d.parameters);
-      }
+      d.task = this.db[d.name].apply(this.db, d.parameters);
     }
   }
 };
-
 TaskQueue.prototype.fail = function (err) {
   this.failed = err;
   this.execute();
@@ -47,14 +42,10 @@ TaskQueue.prototype.ready = function (db) {
 };
 
 TaskQueue.prototype.addTask = function (name, parameters) {
-  if (typeof name === 'function') {
-    this.queue.push(name);
-  } else {
-    var task = { name: name, parameters: parameters };
-    this.queue.push(task);
-    if (this.failed) {
-      this.execute();
-    }
-    return task;
+  var task = { name: name, parameters: parameters };
+  this.queue.push(task);
+  if (this.failed) {
+    this.execute();
   }
+  return task;
 };
