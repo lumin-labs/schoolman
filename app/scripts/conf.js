@@ -195,7 +195,7 @@ var extensionList = [ {
     ]
   },
   {
-    name:"Accounting",
+    name:"Incomexpenditure",
     labelEn:"Accounting",
     labelFr:"Accounté",
     access:['registrar'],
