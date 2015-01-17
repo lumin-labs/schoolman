@@ -1,6 +1,6 @@
 'use strict';
 
-function IncomexpendCtrl($scope, $routeParams, model, Itemid,Location, Items,  Lang) {
+function IncomexpendCtrl($scope, $routeParams, model, ItemId,Location, Item,  Lang) {
 
     // $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
@@ -63,6 +63,10 @@ function IncomexpendCtrl($scope, $routeParams, model, Itemid,Location, Items,  L
 
     $scope.clearForm = function(item){
         item.item = "";
+        item.rubric="";
+        item.income=0;
+        item.expenditure=0;
+        item.account_balance=0;
         // staff.sex = "";
         // staff.staffEmail = "";
         // staff.salary = 0;
@@ -105,7 +109,7 @@ function IncomexpendCtrl($scope, $routeParams, model, Itemid,Location, Items,  L
 
 
 }
-IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Itemid','Location', 'Items', 'Lang'];
+IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Itemid','Location', 'Item', 'Lang'];
 angular.module('SchoolMan').controller('IncomexpendCtrl', IncomexpendCtrl);
 
 

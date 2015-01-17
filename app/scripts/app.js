@@ -35,7 +35,8 @@ angular.module('SchoolMan', [
   'SchoolMan.Reports',
   'SchoolMan.Staffing',
   'SchoolMan.TimeTable',
-  'SchoolMan.Transcript'
+  'SchoolMan.Transcript',
+  'SchoolMan.Incomexpenditure'
 
 ]).config(function ($routeProvider, $controllerProvider, $provide) {
 

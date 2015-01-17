@@ -1,6 +1,6 @@
 'use strict';
 
-function Items($q, pouchdb, model, modelTransformer, Items) {
+function Item($q, pouchdb, model, modelTransformer, Item) {
 
 	var db = model.Item.db;
   if(typeof db === "string"){
@@ -29,7 +29,7 @@ function Items($q, pouchdb, model, modelTransformer, Items) {
 			  	
 			  	var itemId = data.value._id;
 			  	if(!collection.hasOwnProperty(itemId)){
-			  		var item = Items.get(itemId);
+			  		var item = Items.get(Itemid);
                 item.items = [];
 			  		collection[itemId] = item;
 			  	};
@@ -90,5 +90,5 @@ function Items($q, pouchdb, model, modelTransformer, Items) {
 
   return self;
 }
-Items.$inject = ['$q', 'pouchdb', 'model', 'modelTransformer', 'Items'];
-angular.module('SchoolMan').service('Items', Items);
+Item.$inject = ['$q', 'pouchdb', 'model', 'modelTransformer', 'Item'];
+angular.module('SchoolMan').service('Item', Item);
