@@ -194,7 +194,7 @@
 					<th>{{dict.description}}</th>
 					<th>{{dict.rubric}}</th>
 					<th>{{dict.income}}</th>
-					<th>{{dict.ependiture}}</th>
+					<th>{{dict.expenditure}}</th>
 					<th>{{dict.account_balance}}</th>
 					<!-- <th>{{dict.parent_email}}</th>
 					<th>{{dict.form}}</th>
@@ -205,9 +205,9 @@
 				</tr>
 			</thead>
 			<tbody>
-			<tr>
+			<tr ng-repeat="item in data.items">
 					<td style="width:100px;">
-						<a ng-click="open({ItemId:item._id, page:'registrarProfile'})">{{item.id}}</a>
+						{{item.itemId}}
 					</td> 
 					<td>
 					  {{item.description}}
@@ -273,13 +273,26 @@
 				<tr>
 					
 					<td style="width:100px;">
-						<a ng-click="open({itemId:item._id, page:'registrarProfile'})">{{item.id}}</a>
+						{{newItem.itemId}}
 					</td> 
-					<td>{{item.description}}</td>
-					<td>{{item.rubric}}</td>
-					<td>{{item.income}}</td>
-					<td>{{item.expenditure}}</td>
-					<td>{{item.account_balance}}</td>
+					<td><input id="description" 
+			      		 class="form-control" 
+			      		 placeholder="{{dict.description}}" 
+			      		 ng-model="newItem.description"></td>
+					<td><input id="rubric" 
+			      		 class="form-control" 
+			      		 placeholder="{{dict.rubric}}" 
+			      		 ng-model="newItem.rubric"></td>
+					<td><input id="income" 
+			      		 class="form-control" 
+			      		 placeholder="{{dict.income}}" 
+			      		 ng-model="newItem.income"></td>
+					<td><input id="expenditure" 
+			      		 class="form-control" 
+			      		 placeholder="{{dict.expenditure}}" 
+			      		 ng-model="newItem.expenditure"></td>
+					<td></td>
+					
 					<!-- <td>{{student.parentEmail}}</td>
 					<td>{{data.forms[student.formIndex].name}}</td>
 					<td>{{data.departments[student.deptId].name}}</td>
@@ -336,6 +349,14 @@
 				
 			</tbody>
 		</table>
+		<br>
+		<div class="form-group" style="text-align:center;">
+		<button type="submit"
+					  class="btn btn-info" 
+					  ng-click="add(newItem)">
+						Add Item
+		</button>
+		</div>
 	</div>
 </div>	
 

@@ -9,7 +9,7 @@ schoolman.config(['modelProvider', function(model){
       fields:[{
         key:"registrar",
         type:"string",
-        required:true
+        required:false
       },{
         key:"itemId",
         type:"string",
@@ -29,7 +29,7 @@ schoolman.config(['modelProvider', function(model){
       },{
         key:"account_balance",
         type:"number",
-        required:true
+        required:false
       }],
       fields_key:0
     }

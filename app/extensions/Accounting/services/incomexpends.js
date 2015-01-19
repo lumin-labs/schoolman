@@ -1,6 +1,6 @@
 'use strict';
 
-function Item($q, pouchdb, model, modelTransformer, Item) {
+function Items($q, pouchdb, model, modelTransformer) {
 
 	var db = model.Item.db;
   if(typeof db === "string"){
@@ -90,5 +90,5 @@ function Item($q, pouchdb, model, modelTransformer, Item) {
 
   return self;
 }
-Item.$inject = ['$q', 'pouchdb', 'model', 'modelTransformer', 'Item'];
-angular.module('SchoolMan').service('Item', Item);
+Items.$inject = ['$q', 'pouchdb', 'model', 'modelTransformer'];
+angular.module('SchoolMan').service('Items', Items);

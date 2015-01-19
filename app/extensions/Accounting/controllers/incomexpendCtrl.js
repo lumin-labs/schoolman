@@ -1,6 +1,6 @@
 'use strict';
 
-function IncomexpendCtrl($scope, $routeParams, model, ItemId,Location, Item,  Lang) {
+function IncomexpendCtrl($scope, $routeParams, model, Itemid,Location, Items,  Lang) {
 
     // $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
@@ -12,18 +12,24 @@ function IncomexpendCtrl($scope, $routeParams, model, ItemId,Location, Item,  La
     	// departments:Departments.getAll(),
     	// groups:Groups.getAll(),
     	// salarys:Salarys.getAll(),
-        uid:null
+        itemid:null,
+        
     };
     angular.forEach()
 
-    $scope.newItem = new model.Item();
-    console.log("NewItem", $scope.newItem);
-    Itemid.get().then(function(uid){
-        data.uid = uid;
-        console.log("Got Itemid", uid);
-        $scope.newStaff.id = uid.value;
+    Items.getAll().then(function(success){
+        $scope.data.items = success;    
+        console.log('items', $scope.data.items);
     })
 
+    $scope.newItem = new model.Item();
+    console.log("NewItem", $scope.newItem);
+    Itemid.get().then(function(itemid){
+        data.itemid = itemid;
+        console.log("Got Itemid", itemid);
+        $scope.newItem.itemId = itemid.value;
+    })
+    
     //update the marksheets once a student has been created -- otherwise mastersheet might
     //display incorrect totals
     // var updateMarksheets = function(staff){
@@ -47,11 +53,12 @@ function IncomexpendCtrl($scope, $routeParams, model, ItemId,Location, Item,  La
 
     $scope.add = function(item){
         item.save().then(function(success){
-            Itemid.save(data.uid);
+            Itemid.save(data.itemid);
             console.log("Save item: ", success);
             Location.open({page:"itemprofile", itemId:item._id});
             $scope.showValidaton = false;
-            Items.set(staff);
+            $scope.data.items[success.itemId] = success;
+            // Items.set(item);
             // updateMarksheets(staff);
         }).catch(function(error){
             $scope.showValidation = true;
@@ -59,9 +66,20 @@ function IncomexpendCtrl($scope, $routeParams, model, ItemId,Location, Item,  La
         })
     }
 
+    $scope.getTotalItems = function(){
+    var total = 0;
+    total = $scope.data.items.reduce(function(total, item){
+      if(typeof item.amount === "string"){
+       item.amount = $scope.stringToNumber(item.amount);
+      }
+      return item.amount + total;
+    }, 0);
+    return total;
+  };
 
 
-    $scope.clearForm = function(item){
+
+    $scope.clearItem = function(item){
         item.item = "";
         item.rubric="";
         item.income=0;
@@ -109,7 +127,7 @@ function IncomexpendCtrl($scope, $routeParams, model, ItemId,Location, Item,  La
 
 
 }
-IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Itemid','Location', 'Item', 'Lang'];
+IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Itemid','Location', 'Items', 'Lang'];
 angular.module('SchoolMan').controller('IncomexpendCtrl', IncomexpendCtrl);
 
 
