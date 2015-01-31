@@ -5,45 +5,45 @@
   <h3>{{data.user.fullname}}</h3>
   <div class="row">
   	<div class="col-md-7" style="border-right:solid 1px #ddd;">
-  	  <h3>User Profile</h3>
+  	  <h3>{{dict.user_profile}}</h3>
 
   		<form class="form-horizontal" role="form">
 	  		<div class="form-group">
-			    <label for="fullname" class="col-sm-3 control-label">Name</label>
+			    <label for="fullname" class="col-sm-3 control-label">{{dict.name}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.fullname}}</div>
 			    <div class="col-sm-9 noprint">
-			      <input id="fullname" class="form-control" placeholder="Name" ng-readonly="!editing" ng-model="data.user.fullname">
+			      <input id="fullname" class="form-control" placeholder="{{dict.name}}" ng-readonly="!editing" ng-model="data.user.fullname">
 			    </div>
 			</div>
 
 			<div class="form-group">
-			    <label for="matricalno" class="col-sm-3 control-label">Matrical Number</label>
+			    <label for="matricalno" class="col-sm-3 control-label">{{dict.matrical_number}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.matricalno}}</div>
 			    <div class="col-sm-9 noprint">
-			      <input id="matricalno" class="form-control" placeholder="Matrical Number" ng-readonly="!editing" ng-model="data.user.matricalno">
+			      <input id="matricalno" class="form-control" placeholder="{{dict.matrical_number}}" ng-readonly="!editing" ng-model="data.user.matricalno">
 			    </div>
 			</div>
 
 			<div class="form-group">
-			    <label for="grade" class="col-sm-3 control-label">Grade</label>
+			    <label for="grade" class="col-sm-3 control-label">{{dict.grade}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.grade}}</div>
 			    <div class="col-sm-9 noprint">
-			      <input id="grade" class="form-control" placeholder="Grade" ng-readonly="!editing" ng-model="data.user.grade">
+			      <input id="grade" class="form-control" placeholder="{{dict.grade}}" ng-readonly="!editing" ng-model="data.user.grade">
 			    </div>
 			</div>
 
 			<div class="form-group">
-			    <label for="qualification" class="col-sm-3 control-label">Highest Qualification</label>
+			    <label for="qualification" class="col-sm-3 control-label">{{dict.highest_qualification}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.qualification}}</div>
 			    <div class="col-sm-9 noprint">
-			      <input id="qualification" class="form-control" placeholder="Highest Qualification" ng-readonly="!editing" ng-model="data.user.qualification">
+			      <input id="qualification" class="form-control" placeholder="{{dict.highest_qualification}}" ng-readonly="!editing" ng-model="data.user.qualification">
 			    </div>
 			</div>
 
 			<br>
 
 			<div class="form-group">
-			    <label for="dateofentry" class="col-sm-3 control-label">Entry Into Service</label>
+			    <label for="dateofentry" class="col-sm-3 control-label">{{dict.entry_into_service}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.dateofentry | date:'dd-MM-yyyy'}}</div>
 			    <div class="col-sm-9 noprint">
 			      <input id="dateofentry" 
@@ -56,32 +56,32 @@
 			</div>
 
 			<div class="form-group">
-			    <label for="lengthservice" class="col-sm-3 control-label">Years of Service</label>
-			    <div class="col-sm-9">{{data.serviceYears ? data.serviceYears : 0}} Years, {{data.serviceMonths ? data.serviceMonths : 0}} Months</div>
+			    <label for="lengthservice" class="col-sm-3 control-label">{{dict.length_of_service}}</label>
+			    <div class="col-sm-9">{{data.serviceYears ? data.serviceYears : 0}} {{dict.years}}, {{data.serviceMonths ? data.serviceMonths : 0}} {{dict.months}}</div>
 			</div>
 
 			<div class="form-group">
-			    <label for="retirement" class="col-sm-3 control-label">Date of Retirement</label>
-			    <div class="col-sm-9">{{data.retire.valueOf() ? data.retire : ''  | date:'dd-MM-yyyy'}}</div>
+			    <label for="retirement" class="col-sm-3 control-label">{{dict.date_of_retirement}}</label>
+			    <div class="col-sm-9">{{data.retire.valueOf() ? data.retire : ''  | date:'dd MMM yyyy'}}</div>
 			</div>
 
 			<div class="form-group">
-			    <label for="post" class="col-sm-3 control-label">Duty Post</label>
+			    <label for="post" class="col-sm-3 control-label">{{dict.duty_post}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.post}}</div>
 			    <div class="col-sm-9 noprint">
-			      <input id="post" class="form-control" placeholder="Duty Post" ng-readonly="!editing" ng-model="data.user.post">
+			      <input id="post" class="form-control" placeholder="{{dict.duty_post}}" ng-readonly="!editing" ng-model="data.user.post">
 			    </div>
 			</div>
 
 			<br>
 
 			<div class="form-group">
-			    <label for="birthdate" class="col-sm-3 control-label">Birth Date</label>
+			    <label for="birthdate" class="col-sm-3 control-label">{{dict.date_of_birth}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.birth | date:'dd-MM-yyyy'}}</div>
 			    <div class="col-sm-9 noprint">
 			      <input id="birthdate" 
 			           class="form-control" 
-			           placeholder="Birth Date" 
+			           placeholder="{{dict.date_of_birth}}" 
 			           ng-model="data.user.birth"
 			           ng-readonly="!editing"
 			           type="date">
@@ -89,7 +89,7 @@
 			</div>
 
 			<div class="form-group">
-			    <label for="gender" class="col-sm-3 control-label">Gender</label>
+			    <label for="gender" class="col-sm-3 control-label">{{dict.sex}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.sex}}</div>
 			    <div class="col-sm-9 noprint">
 			      <div class="btn-group">
@@ -108,26 +108,26 @@
 			  </div>
 
 			<div class="form-group">
-			    <label for="maritalstatus" class="col-sm-3 control-label">Marital Status</label>
+			    <label for="maritalstatus" class="col-sm-3 control-label">{{dict.marital_status}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.maritalstatus}}</div>
 			    <div class="col-sm-9 noprint">
-			      <input id="maritalstatus" class="form-control" placeholder="Marital Status" ng-readonly="!editing" ng-model="data.user.maritalstatus">
+			      <input id="maritalstatus" class="form-control" placeholder="{{dict.marital_status}}" ng-readonly="!editing" ng-model="data.user.maritalstatus">
 			    </div>
 			</div>
 
 			<div class="form-group">
-			    <label for="subdivision" class="col-sm-3 control-label">Subdivision of Origin</label>
+			    <label for="subdivision" class="col-sm-3 control-label">{{dict.subdivision_of_origin}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.subdivision}}</div>
 			    <div class="col-sm-9 noprint">
-			      <input id="subdivision" class="form-control" placeholder="Subdivision" ng-readonly="!editing" ng-model="data.user.subdivision">
+			      <input id="subdivision" class="form-control" placeholder="{{dict.subdivision_of_origin}}" ng-readonly="!editing" ng-model="data.user.subdivision">
 			    </div>
 			</div>
 
 			<div class="form-group">
-			    <label for="division" class="col-sm-3 control-label">Division of Origin</label>
+			    <label for="division" class="col-sm-3 control-label">{{dict.division_of_origin}}</label>
 			    <div class="col-sm-9 printonly">{{data.user.division}}</div>
 			    <div class="col-sm-9 noprint">
-			      <input id="division" class="form-control" placeholder="Division" ng-readonly="!editing" ng-model="data.user.division">
+			      <input id="division" class="form-control" placeholder="{{dict.division_of_origin}}" ng-readonly="!editing" ng-model="data.user.division">
 			    </div>
 			</div>
 
@@ -136,7 +136,7 @@
 		  			ng-if="(data.user.access['admin'] === 1 || accessCode === 'admin' || accessCode === 'sales') && !editing">
 			    <div class="col-sm-offset-3 col-sm-10">
 			      <button type="submit" class="btn btn-info" ng-click="edit()">
-			        Edit User
+			        {{dict.edit_user}}
 			      </button>
 			    </div>
 		  	</div>
@@ -144,57 +144,57 @@
 		  			ng-if="(data.user.access['admin'] === 1 || accessCode === 'admin' || accessCode === 'sales') && editing">
 			    <div class="col-sm-offset-3 col-sm-10">
 			      <button type="submit" class="btn btn-success" ng-click="save(data.user)">
-			        Save Changes
+			        {{dict.save_changes}}
 			      </button>
 			      <button type="submit" class="btn btn-warning" style="margin-left:15px;" ng-click="cancel()">
-			        Cancel
+			        {{dict.cancel}}
 			      </button>
 			    </div>
 		  	</div>
 		</form>
   	</div>
   	<div class="col-md-5">
-		<h3>Change Password</h3>
+		<h3>{{dict.change_password}}</h3>
   	  <br>
   	  <form class="form-horizontal" role="form" ng-submit="savePassword()">
 			  <div class="form-group" ng-if="data.user.username !== currentUser.username">
-			    <label for="repeatpassword" class="col-sm-3 control-label">Your Password</label>
+			    <label for="repeatpassword" class="col-sm-3 control-label">{{dict.your_password}}</label>
 			    <div class="col-sm-9">
 			      <input id="repeatpassword"
 			           class="form-control"
 			           type="password"
-			           placeholder="Your Password" 
+			           placeholder="{{dict.your_password}}" 
 			           ng-model="data.currentPassword">
 			    </div>
 			  </div>
 			  <div class="form-group" ng-if="data.user.username === currentUser.username">
-			    <label for="repeatpassword" class="col-sm-3 control-label">Current Password</label>
+			    <label for="repeatpassword" class="col-sm-3 control-label">{{dict.current_password}}</label>
 			    <div class="col-sm-9">
 			      <input id="repeatpassword"
 			           class="form-control"
 			           type="password"
-			           placeholder="Current Password" 
+			           placeholder="{{dict.current_password}}" 
 			           ng-model="data.currentPassword">
 			    </div>
 			  </div>
 			  <br>
 			  <div class="form-group {{data.newPassword.length > 5 ? 'has-success' : ''}}">
-			    <label for="userFullname" class="col-sm-3 control-label">New Password</label>
+			    <label for="userFullname" class="col-sm-3 control-label">{{dict.new_password}}</label>
 			    <div class="col-sm-9">
 			      <input id="userFullname"
 			           class="form-control" 
 			           type="password"
-			           placeholder="New Password"
+			           placeholder="{{dict.new_password}}"
 			           ng-model="data.newPassword">
 			    </div>
 			  </div>
 			  <div class="form-group {{data.verifiedStatus}}">
-			    <label for="verifypassword" class="col-sm-3 control-label">Type it Again</label>
+			    <label for="verifypassword" class="col-sm-3 control-label">{{dict.type_it_again}}</label>
 			    <div class="col-sm-9">
 			      <input id="verifypassword"
 			           class="form-control"
 			           type="password"
-			           placeholder="New Password" 
+			           placeholder="{{dict.new_password}}" 
 			           ng-model="data.repeatPassword"
 			           ng-change="verifyStatus()"
 			           ng-blur="verifyMatch()">
@@ -203,17 +203,17 @@
 			  <div class="form-group">
 			    <label for="submit" class="col-sm-3 control-label"></label>
 			    <div class="col-sm-9">
-			  		<div ng-if="status === 401" style="color:red;">Incorrect Password</div>
+			  		<div ng-if="status === 401" style="color:red;">{{dict.incorrect_password}}</div>
 			  		<br>
 			      <button type="submit" 
 			              class="btn btn-default 
 			                     {{data.newPassword.length < 6 ||
 			                       data.repeatPassword.length < data.newPassword.length ||
 			                       data.verifiedStatus === 'has-error' ? 'disabled' : ''}}"
-			              ng-if="status !== 200">Submit</button>
+			              ng-if="status !== 200">{{dict.submit}}</button>
 			      <button type="submit" 
 			              class="btn btn-success disabled"
-			              ng-if="status === 200">Saved</button>
+			              ng-if="status === 200">{{dict.saved}}</button>
 			    </div>
 			  </div>
     		

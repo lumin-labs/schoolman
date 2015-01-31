@@ -27,15 +27,15 @@ schoolman.config(['modelProvider', function(model){
       },{
         key:"parentName",
         type:"string",
-        required:true
+        required:false
       },{
         key:"parentPhone",
         type:"string",
-        required:true
+        required:false
       },{
         key:"parentEmail",
         type:"string",
-        required:true
+        required:false
       },{
         key:"formIndex",
         type:"string",
@@ -51,7 +51,7 @@ schoolman.config(['modelProvider', function(model){
       },{
         key:"feeId",
         type:"string",
-        required:true
+        required:false
       },{
         key:"status",
         type:"object",
@@ -88,8 +88,10 @@ schoolman.config(['modelProvider', function(model){
       return new Student();
     }
 
+    // this.id = "";
+    this.name ="";
     this.id = "";
-    this.name = ""; 
+ 
     this.sex = "";     // String
     this.birth = null; // Datetime integer
     this.parentName = "";

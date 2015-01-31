@@ -1,209 +1,331 @@
 'use strict';
 
+var extensionList = [ {
+    name: "Main",
+    labelEn:"Registration",
+    labelFr:"Inscription",
+    access:['admin', 'registrar'],
+    icon:"glyphicon-cog",
+    tabs: [
+      {
+        en:"Users",
+        fr:"Utilisateurs",
+        page:"users",
+        access:['admin'],
+        exclude:[],
+        icon:'glyphicon-lock'
+      },
+      {
+        en:"User Settings",
+        fr:"Réglages d'Utilisateurs",
+        page:"user",
+        access:['classmaster','admin','teacher', 'registrar'],
+        exclude:'all',
+        icon:'glyphicon-cog'
+      },
+      {
+        en:"Departments",
+        fr:"Départements",
+        page:"departments",
+        access:['admin'],
+        exclude:[],
+        icon:'glyphicon-bookmark'
+      },
+      {
+        en:"Classes",
+        fr:"Classes",
+        page:"classes",
+        access:['admin'],
+        exclude:[],
+        icon:'glyphicon-calendar'
+      },
+      {
+        en:"Subjects",
+        fr:"Sujets",
+        page:"subjects",
+        access:['admin'],
+        exclude:[],
+        icon:'glyphicon-book'
+      },
+      {
+        en:"Students",
+        fr:"Étudiants",
+        page:"students",
+        access:['admin', 'registrar'],
+        exclude:[],
+        icon:'glyphicon-list-alt'
+      },      
+      {
+        en:"Student Profile",
+        fr:"Profil de l'Étudiant",
+        page:"profile",
+        access:['admin', 'registrar'],
+        exclude:"all",
+        icon:'glyphicon-user'
+      },
+      {
+        en:"Registration",
+        fr:"Inscription",
+        page:"registration",
+        access:['registrar'],
+        exclude:[],
+        icon:'glyphicon-calendar'
+      }
+    ]
+  },{
+    name:"Finance",
+    labelEn:"Finance",
+    labelFr:"Finance",
+    access:['admin', 'registrar'],
+    icon:"glyphicon-envelope",
+    tabs: [
+      {
+        en:"Fee Settings",
+        fr:"Écolages",
+        page:"fees",
+        access:['registrar'],
+        exclude:[],
+        icon:'glyphicon-cog'
+      },
+      {
+        en:"Balance Sheet",
+        fr:"Fiche de Contrôle",
+        page:"balancesheet",
+        access:['registrar', 'admin'],
+        exclude:[],
+        icon:'glyphicon-envelope'
+      },
+      
+    ]
+  },{
+    name:"ReportCard",
+    labelEn:"Marks",
+    labelFr:"Les Notes",
+    access:['admin', 'classmaster', 'teacher'],
+    icon:"glyphicon-pencil",  
+    tabs: [
+      {
+        en:"My Classes",
+        fr:"Mes Classes",
+        page:"myclasses",
+        access:['teacher'],
+        exclude:[],
+        icon:'glyphicon-home'
+      },
+      {
+        en:"Marksheet",
+        fr:"Relevé de Notes",
+        page:"classmasterMarksheet",
+        access:['classmaster'],
+        exclude:[],
+        icon:'glyphicon-pencil'
+      },
+      {
+        en:"Marksheet",
+        fr:"Relevé de Notes",
+        page:"teacherMarksheet",
+        access:['teacher'],
+        exclude:['myclasses'],
+        icon:'glyphicon-pencil'
+      },
+      {
+        en:"Mastersheet",
+        fr:"Carnet de Notes",
+        page:"mastersheet",
+        access:['classmaster'],
+        exclude:[],
+        icon:'glyphicon-th-large'
+      },
+      {
+        en:"Report Card",
+        fr:"Bulletin de Notes",
+        page:"reportcard",
+        access:['classmaster'],
+        exclude:[],
+        icon:'glyphicon-list-alt'
+      },
+      {
+        en:"Class Council",
+        fr:"Conseil de Classe",
+        page:"classcouncil",
+        access:['classmaster','admin'],
+        exclude:[],
+        icon:'glyphicon-folder-open'
+      },
+      {
+        en:"Statistics",
+        fr:"Statistiques",
+        page:"classmasterStats",
+        access:['classmaster'],
+        exclude:[],
+        icon:'glyphicon-stats'
+      },
+      {
+        en:"Statistics",
+        fr:"Statistiques",
+        page:"adminStats",
+        access:['admin'],
+        exclude:[],
+        icon:'glyphicon-stats'
+      },
+    ]
+  },{
+    name:"IDCard",
+    labelEn:"ID Cards",
+    labelFr:"Cartes d'Identité",
+    access:['registrar'],
+    icon:"glyphicon-print",
+    tabs: [
+      {
+        en:"ID Cards (Large)",
+        fr:"Cartes d'Identité (Grand)",
+        page:"idcardsFull",
+        access:['registrar'],
+        exclude:[],
+        icon:'glyphicon-print'
+      },
+      {
+        en:"ID Cards (Small)",
+        fr:"Cartes d'Identité (Petit)",
+        page:"idcardsSmall",
+        access:['registrar'],
+        exclude:[],
+        icon:'glyphicon-print'
+      }
+    ]
+  },
+  {
+    name:"Incomexpenditure",
+    labelEn:"Accounting",
+    labelFr:"Accounté",
+    access:['registrar'],
+    icon:"glyphicon-print",
+    tabs: [
+      {
+        
+        en:"Income and Ependiture",
+        fr:"Income et Ependituré",
+        page:"IncomeandEpenditure",
+        access:['registrar','admin'],
+        exclude:[],
+        icon:'glyphicon-folder-open'
+      },
+    ]
+  }, 
+  {
+    name:"Reports",
+    labelEn:"Reports",
+    labelFr:"Rapports",
+    access:['admin'],
+    icon:"glyphicon-stats",
+    tabs: [
+      {
+        en:"Annual Report",
+        fr:"Rapport Annuel",
+        page:"annualreport",
+        access:['admin'],
+        exclude:[],
+        icon:'glyphicon-paperclip'
+      },
+      {
+        en:"Enrollment Report",
+        fr:"Rapport d'Inscription",
+        page:"enrollmentreport",
+        access:['admin'],
+        exclude:[],
+        icon:'glyphicon-list'
+      }
+    ]
+  },{
+    name:"Staffing",
+    labelEn:"Staffing",
+    labelFr:"Personnel",
+    access:['admin', 'registrar'],
+    icon:"glyphicon-book",
+    tabs: [
+
+        {
+         en:"Staff list",
+         fr:"Personnel",
+         page:"stafflist",
+         access:['admin','registrar'],
+         exclude:[],
+         icon:"glyphicon-book"
+       },
+      // {
+      //   en:"Salary Settings",
+      //   fr:"Salaires",
+      //   page:"salarys",
+      //   access:['registrar'],
+      //   exclude:[]
+      // },
+       // {
+       //   en:"Staff",
+       //   fr:"Personnel",
+       //   page:"staffs",
+       //   access:['admin', 'registrar'],
+       //   exclude:[]
+       // },
+      //  {
+      //   en:"Staff Profile",
+      //   fr:"Profil du Personnel",
+      //   page:"staffProfile",
+      //   access:['admin', 'registrar'],
+      //   exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
+      //   icon:"glyphicon-user"
+      // },
+      {
+        en:"Staff Registration",
+        fr:"Inscription du Personnel",
+         page:"staffregistration",
+         access:['registrar'],
+         exclude:[],
+         icon:"glyphicon-calendar"
+      },
+      {
+        en:"Staff Profile",
+        fr:"Profil du Personnel",
+        page:"staffProfile",
+        access:['admin', 'registrar'],
+        exclude:'all',
+        icon:"glyphicon-user"
+      },
+      
+    ]
+  },{
+    name:"Transcript",
+    labelEn:"Transcript",
+    labelFr:"Transcription",
+    access:['admin'],
+    icon:"glyphicon-list-alt",
+    tabs: [
+      {
+        en:"Transcript",
+        fr:"Transcription",
+        page:"transcript",
+        access:['admin'],
+        exclude:[],
+        icon:'glyphicon-list-alt'
+      }
+    ]
+  },{
+    name:"TimeTable",
+    labelEn:"Time Table",
+    labelFr:"Programme",
+    access:['admin'],
+    icon:"glyphicon-calendar",
+    tabs: [
+      
+    ]
+  }]
+
 angular.module('SchoolMan')
   .constant('VERSION',{
-    mode:"ghs"
+    mode:"gths"
   })
-  //.constant('SCHOOLYEAR',{
-  //  year:"2014/2015"
-  //})
-  .constant('TABS', [
-  	{
-  		label:"Users",
-  	 	page:"users",
-  	 	access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-lock'
-  	},
-    {
-      label:"Departments",
-      page:"departments",
-      access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-bookmark'
-    },
-  	{
-  		label:"Classes",
-  	 	page:"classes",
-  	 	access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-calendar'
-  	},
-    {
-      label:"Subjects",
-      page:"subjects",
-      access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-book'
-    },
-    {
-      label:"Fee Settings",
-      page:"fees",
-      access:['registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-cog'
-    },
-    {
-      label:"Students",
-      page:"students",
-      access:['admin', 'registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-list-alt'
-    },
-    {
-      label:"Balance Sheet",
-      page:"finance",
-      access:['registrar', 'admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-envelope'
-    },
-    {
-      label:"Student Profile",
-      page:"registrarProfile",
-      access:['admin', 'registrar'],
-      exclude:['registration', 'fees', 'students', 'idcards', 'finance', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-user'
-    },
-    {
-      label:"Student Profile",
-      page:"classmasterProfile",
-      access:['classmaster'],
-      exclude:['reportcardGTHS','mastersheet', 'classmasterMarksheet', 'classcouncil', 'classmasterStats'],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-user'
-    },
-    {
-      label:"Registration",
-      page:"registration",
-      access:['registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-calendar'
-    },
-    // {
-    //   label:"Promotion",
-    //   page:"promotion",
-    //   access:['admin'],
-    //   exclude:[],
-    //   modes:["gths", "ghs"],
-    //   icon:'glyphicon-thumbs-up'
-    // },
-  	{
-  		label:"My Classes",
-  	 	page:"myclasses",
-  	 	access:['teacher'],
-      exclude:[],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-home'
-  	},
-    {
-      label:"Marksheet",
-      page:"classmasterMarksheet",
-      access:['classmaster'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-pencil'
-    },
-  	{
-  		label:"Marksheet",
-  	 	page:"marksheet",
-  	 	access:['teacher'],
-      exclude:['myclasses'],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-pencil'
-  	},
-  	{
-  		label:"Mastersheet",
-  	 	page:"mastersheet",
-  	 	access:['classmaster'],
-      exclude:[],
-      modes:["gths", "ghs"],
-  	 	icon:'glyphicon-th-large'
-  	},
-    {
-      label:"Report Card",
-      page:"reportcardGTHS",
-      access:['classmaster'],
-      exclude:[],
-      modes:["gths","ghs"],
-      icon:'glyphicon-list-alt'
-    },
-    {
-      label:"Class Council",
-      page:"classcouncil",
-      access:['classmaster','admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-folder-open'
-    },
-    {
-      label:"Transcript",
-      page:"transcript",
-      access:['admin'],
-      exclude:[],
-      modes:["gths","ghs"],
-      icon:'glyphicon-list-alt'
-    },
-    {
-      label:"User Settings",
-      page:"user",
-      access:['classmaster','admin','teacher', 'registrar'],
-      exclude:'all',
-      modes:["gths", "ghs"],
-      icon:'glyphicon-cog'
-    },
-    {
-      label:"Statistics",
-      page:"classmasterStats",
-      access:['classmaster'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-stats'
-    },
-    {
-      label:"Statistics",
-      page:"adminStats",
-      access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-stats'
-    },
-    {
-      label:"Annual Report",
-      page:"annualreport",
-      access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-stats'
-    },
-    {
-      label:"Enrollment Report",
-      page:"enrollmentreport",
-      access:['admin'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-stats'
-    },
-    {
-      label:"ID Cards",
-      page:"idcards",
-      access:['registrar'],
-      exclude:[],
-      modes:["gths", "ghs"],
-      icon:'glyphicon-print'
-    }
- ]);
+  
+  .constant('EXTENSIONS', extensionList)
 
-
-angular.module('SchoolMan')
   .constant('PROMOTE_OPTIONS', [
     {name: "automatic",
      icon: "glyphicon glyphicon-cog",
@@ -221,3 +343,5 @@ angular.module('SchoolMan')
      icon: "glyphicon glyphicon-pencil",
      style:"danger"}
 ]);
+  
+

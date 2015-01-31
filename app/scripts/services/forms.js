@@ -1,27 +1,47 @@
 'use strict';
 
 function Forms(model, VERSION, SchoolInfos) {
-    
     // AngularJS will instantiate a singleton by calling "new" on this function
-
     var modes = {
         'gths':{
-            "0":"Form 1",
-            "1":"Form 2",
-            "2":"Form 3",
-            "3":"Form 4",
-            "4":"Form 5",
-            "5":"Form 6",
-            "6":"Form 7"
+            'en':{
+                "0":"Form 1",
+                "1":"Form 2",
+                "2":"Form 3",
+                "3":"Form 4",
+                "4":"Form 5",
+                "5":"Form 6",
+                "6":"Form 7"
+            },
+            'fr':{
+                "0":"Sixième",
+                "1":"Cinquième",
+                "2":"Quatrième",
+                "3":"Troisième",
+                "4":"Seconde",
+                "5":"Première",
+                "6":"Terminal"
+            }
         },
         'ghs' :{
-            "0":"Form 1",
-            "1":"Form 2",
-            "2":"Form 3",
-            "3":"Form 4",
-            "4":"Form 5",
-            "5":"Lower Sixth",
-            "6":"Upper Sixth"
+            'en':{
+                "0":"Form 1",
+                "1":"Form 2",
+                "2":"Form 3",
+                "3":"Form 4",
+                "4":"Form 5",
+                "5":"Lower Sixth",
+                "6":"Upper Sixth"
+            },
+            'fr':{
+                "0":"Sixième",
+                "1":"Cinquième",
+                "2":"Quatrième",
+                "3":"Troisième",
+                "4":"Seconde",
+                "5":"Première",
+                "6":"Terminal"
+            }
         }
     }
 
@@ -34,13 +54,13 @@ function Forms(model, VERSION, SchoolInfos) {
     //});
 
     var forms = {
-    	"0":new model.Form({name:modes[VERSION.mode]['0']}),
-    	"1":new model.Form({name:modes[VERSION.mode]['1']}),	
-    	"2":new model.Form({name:modes[VERSION.mode]['2']}),	
-    	"3":new model.Form({name:modes[VERSION.mode]['3']}),	
-    	"4":new model.Form({name:modes[VERSION.mode]['4']}),	
-    	"5":new model.Form({name:modes[VERSION.mode]['5']}),	
-    	"6":new model.Form({name:modes[VERSION.mode]['6']})	
+    	"0":new model.Form({nameEn:modes[VERSION.mode]['en']['0'], nameFr:modes[VERSION.mode]['fr']['0']}),
+    	"1":new model.Form({nameEn:modes[VERSION.mode]['en']['1'], nameFr:modes[VERSION.mode]['fr']['1']}),	
+    	"2":new model.Form({nameEn:modes[VERSION.mode]['en']['2'], nameFr:modes[VERSION.mode]['fr']['2']}),	
+    	"3":new model.Form({nameEn:modes[VERSION.mode]['en']['3'], nameFr:modes[VERSION.mode]['fr']['3']}),	
+    	"4":new model.Form({nameEn:modes[VERSION.mode]['en']['4'], nameFr:modes[VERSION.mode]['fr']['4']}),	
+    	"5":new model.Form({nameEn:modes[VERSION.mode]['en']['5'], nameFr:modes[VERSION.mode]['fr']['5']}),	
+    	"6":new model.Form({nameEn:modes[VERSION.mode]['en']['6'], nameFr:modes[VERSION.mode]['fr']['6']})	
     };
 
     var self = {};
@@ -51,6 +71,6 @@ function Forms(model, VERSION, SchoolInfos) {
 
     return self;
 
-  }
-  Forms.$inject = ['model', 'VERSION', 'SchoolInfos'];
+}
+Forms.$inject = ['model', 'VERSION', 'SchoolInfos'];
 angular.module('SchoolMan').service('Forms', Forms);

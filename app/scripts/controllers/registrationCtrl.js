@@ -1,14 +1,17 @@
 'use strict';
-function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups, Fees, Location, model, Students, Marksheets) {
+
+function RegistrationCtrl($scope, $routeParams, model, Uid, Forms, Departments, Groups, Location, Students, Marksheets, Fees, Lang) {
 
     $scope.formIndex = $routeParams.formIndex;
-    $scope.showValidaton = false;
+    $scope.showValidation = false;
+    $scope.dict = Lang.getDict();
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     var data = $scope.data = {
     	forms:Forms.all(),
     	departments:Departments.getAll(),
     	groups:Groups.getAll(),
-    	fees:Fees.getAll(),
+        fees:Fees.getAll(),
         uid:null
     };
     angular.forEach()
@@ -46,8 +49,8 @@ function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups
         student.save().then(function(success){
             Uid.save(data.uid);
             console.log("Save student: ", success);
-            Location.open({page:"registrarProfile", studentId:student._id});
-            $scope.showValidaton = false;
+            Location.open({page:"profile", studentId:student._id});
+            $scope.showValidation = false;
             Students.set(student);
             updateMarksheets(student);
         }).catch(function(error){
@@ -76,7 +79,6 @@ function RegistrationCtrl($scope, $routeParams,  Uid, Forms, Departments, Groups
 
 
 
-  }
-  RegistrationCtrl.$inject = ['$scope', '$routeParams', 'Uid', 'Forms', 'Departments', 'Groups', 'Fees', 'Location', 'model', 'Students', 'Marksheets'];
-  angular.module('SchoolMan').controller('RegistrationCtrl', RegistrationCtrl);
-
+}
+RegistrationCtrl.$inject = ['$scope', '$routeParams', 'model', 'Uid', 'Forms', 'Departments', 'Groups', 'Location', 'Students', 'Marksheets', 'Fees', 'Lang'];
+angular.module('SchoolMan').controller('RegistrationCtrl', RegistrationCtrl);

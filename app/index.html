@@ -23,6 +23,7 @@
     <!-- endbuild -->
   </head>
   <body ng-app="SchoolMan">
+  <!-- <body> -->
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -38,18 +39,18 @@
           </button>
           <ul class="dropdown-menu">
             <li ng-if="route.page && route.page !== 'login'">
-              <a ng-click="open({page:'user',subpage:'current'})">Settings</a>
+              <a ng-click="open({page:'user',subpage:'current'})">{{dict.settings}}</a>
             </li>
             <li class="divider"></li>
             <li>
-              <a ng-click="logout()">Logout</a>
+              <a ng-click="logout()">{{dict.logout}}</a>
             </li>
           </ul>
         </div>
 
         <script type="text/ng-template" id="printModal.html">
             <div class="modal-header" style="background-color:#eee;">
-                <h3 class="modal-title"><b>Print all report cards?</b></h3>
+                <h3 class="modal-title"><b>{{dict.print_all_report_cards}}?</b></h3>
             </div>
             <div class="modal-body">
                 
@@ -57,72 +58,74 @@
                 <label for="printradio1">
                     <button class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;height:30px;width:40px;">
                     <i ng-if="ClassMaster.printVariable === 'false'" class="glyphicon glyphicon-ok" style="color:green;"></i></button>
-                    Print Current Report Card Only
+                    {{dict.print_current_report_card_only}}
                 </label></input></h4>
                 
                 <h4><input type="radio" id="printradio2" ng-model="ClassMaster.printVariable" value="true">
                 <label for="printradio2">
                     <button class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;height:30px;width:40px;">
                     <i ng-if="ClassMaster.printVariable === 'true'" class="glyphicon glyphicon-ok" style="color:green;"></i></button>
-                    Print All Report Cards
+                    {{dict.print_all_report_cards}}
                 </label></input></h4>
             </div>
             <div class="modal-footer" style="background-color:#eee;">
-                <button class = "btn btn-default" ng-click="ok()">Print</button>
-                <button class = "btn" ng-click="cancel()">Cancel</button>
+                <button class = "btn btn-default" ng-click="ok()">{{dict.print}}</button>
+                <button class = "btn" ng-click="cancel()">{{dict.cancel}}</button>
                 </div>
         </script>
         <script type="text/ng-template" id="exportModal.html">
             <div class="modal-body">
                 <div style="width:100%;text-align:center;padding-top:20%">
                     <img src="/images/ajax-loader.gif"><br>
-                    <h5>Exporting...</h5>
+                    <h5>{{dict.exporting}}...</h5>
                 </div>
             </div>
             <div class="modal-footer" style="background-color:#eee;">
-                <button class = "btn" ng-click="cancel()">Cancel</button>
+                <button class = "btn" ng-click="cancel()">{{dict.cancel}}</button>
             </div>
         </script>
         <script type="text/ng-template" id="importModal.html">
             <div class="modal-body">
                 <div style="width:100%;text-align:center;padding-top:20%">
                     <img src="/images/ajax-loader.gif"><br>
-                    <h5>Importing...</h5>
+                    <h5>{{dict.importing}}...</h5>
                 </div>
             </div>
             <div class="modal-footer" style="background-color:#eee;">
-                <button class = "btn" ng-click="cancel()">Cancel</button>
+                <button class = "btn" ng-click="cancel()">{{dict.cancel}}</button>
             </div>
         </script>
 
           <ul class="nav navbar-nav navbar-sm">
             <li class="dropdown" >
-              <a href="" class="dropdown-toggle" data-toggle="dropdown">File</a>
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">{{dict.file}}</a>
               <ul class="dropdown-menu">
                <!--  <li><a ng-click="importFile()">Import File</a></li>
                 <li><a ng-click="saveFile()">Save</a></li>
                 <li><a href="">Save As ...</a></li>
                 <li class="divider"></li> -->
-                <li><a ng-click="print()">Print</a></li>
-                <li><a ng-click="import()" ng-if="cache.user.access.admin === 1">Import File</a></li>
-                <li><a ng-click="export()" ng-if="cache.user.access.admin === 1">Export to File</a></li>
+                <li><a ng-click="print()">{{dict.print}}</a></li>
+                <li><a ng-click="import()" ng-if="cache.user.access.admin === 1">{{dict.import_file}}</a></li>
+                <li><a ng-click="export()" ng-if="cache.user.access.admin === 1">{{dict.export_file}}</a></li>
                 <li class="divider"></li>
-                <li><a id="close">Quit</a></li>
+                <li><a id="close">{{dict.quit}}</a></li>
               </ul>
             </li>
-            <!-- <li class="dropdown" ng-if="show.backButton === false">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown">View</a>
-              <ul class="dropdown-menu">
-                <li><a ng-click="open({view:'simple'})">Simple</a></li>
-                <li><a ng-click="open({view:'all'})">Everything</a></li>
-              </ul>
-            </li> -->
           </ul>
-          <form class="navbar-form navbar-left" ng-if="show.backButton === true">
+          <ul class="nav navbar-nav navbar-sm">
+            <li class="dropdown" >
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">{{dict.language}}</a>
+              <ul class="dropdown-menu">
+                <li><a ng-click="changeLanguage('en')">English</a></li>
+                <li><a ng-click="changeLanguage('fr')">Français</a></li>
+              </ul>
+            </li>
+          </ul>
+          <!-- <form class="navbar-form navbar-left" ng-if="show.backButton === true">
             <button type="submit" class="btn btn-default btn-sm" ng-click="back()">
               <i class="glyphicon glyphicon-arrow-left"></i>
             </button>
-          </form>
+          </form> -->
           
           
         </div><!--/.nav-collapse -->
@@ -165,110 +168,127 @@
     <script src="bower_components/Faker/Faker.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/d3-tip/index.js"></script>
-
-    <script src="bower_components/pouchdb/dist/pouchdb-nightly.min.js"></script>
+    <script src="bower_components/pouchdb/dist/pouchdb-nightly.js"></script>
     <script src="bower_components/angular-pouchdb/angular-pouchdb.js"></script>
     <script src="bower_components/lodash/dist/lodash.min.js"></script>
-    
+    <!--<script src="bower_components/Font-Awesome/css/font-awesome.min.css"></script>-->
+
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+
         <script src="scripts/lib/ui-bootstrap-0.9.0.min.js"></script>
         <script src="scripts/lib/ui-bootstrap-tpls-0.9.0.min.js"></script>
 
         <script src="scripts/app.js"></script>
-        <script src="scripts/conf.js"></script>
         <script src="scripts/dev.js"></script>
         <script src="scripts/sha3.js"></script>
-
-        <script src="scripts/directives/cellDirective.js"></script>
-        <script src="scripts/directives/currency.js"></script>
-
+        <script src="scripts/conf.js"></script>
+        
         <script src="scripts/providers/data2.js"></script>
         <script src="scripts/providers/model.js"></script>
 
         <script src="scripts/models/User.js"></script>
         <script src="scripts/models/Student.js"></script>
         <script src="scripts/models/Subject.js"></script>
-        <script src="scripts/models/Cell.js"></script>
-        <script src="scripts/models/Mark.js"></script>
-        <script src="scripts/models/Row.js"></script>
-        <script src="scripts/models/Marksheet2.js"></script>
-        <script src="scripts/models/Mastersheet.js"></script>
         <script src="scripts/models/Department.js"></script>
-        <script src="scripts/models/Fee.js"></script>
-        <script src="scripts/models/Comment.js"></script>
         <script src="scripts/models/Group.js"></script>
         <script src="scripts/models/Form.js"></script>
-        <script src="scripts/models/Payment.js"></script>
-        <script src="scripts/models/Dcard.js"></script>
-        <script src="scripts/models/ClassCouncil.js"></script>
         <script src="scripts/models/Settings.js"></script>
         <script src="scripts/models/SchoolInfo.js"></script>
-        <script src="scripts/models/Transcript.js"></script>
         <script src="scripts/models/InsertionError.js"></script>
 
+        <script src="scripts/services/$model.js"></script>
         <script src="scripts/services/timetable.js"></script>
-        <script src="scripts/services/registrar.js"></script>
-        <script src="scripts/services/coursecatalog.js"></script>
         <script src="scripts/services/classmaster.js"></script>
         <script src="scripts/services/path.js"></script>
         <script src="scripts/services/mockdata2.js"></script>
-        <script src="scripts/services/data.js"></script>
         <script src="scripts/services/location.js"></script>
-        <script src="scripts/services/$model.js"></script>
         <script src="scripts/services/cache.js"></script>
         <script src="scripts/services/modeltransformer.js"></script>
         <script src="scripts/services/uid.js"></script>
         <script src="scripts/services/departments.js"></script>
-        <script src="scripts/services/fees.js"></script>
         <script src="scripts/services/groups.js"></script>
+        <script src="scripts/services/schoolinfos.js"></script>
         <script src="scripts/services/forms.js"></script>
         <script src="scripts/services/subjecttypes.js"></script>
         <script src="scripts/services/profile.js"></script>
-        <script src="scripts/services/marksheets.js"></script>
         <script src="scripts/services/students.js"></script>
-        <script src="scripts/services/payments.js"></script>
         <script src="scripts/services/subjects.js"></script>
         <script src="scripts/services/users.js"></script>
         <script src="scripts/services/terms.js"></script>
-        <script src="scripts/services/classcouncils.js"></script>
-        <script src="scripts/services/dcards.js"></script>
         <script src="scripts/services/settings.js"></script>
-        <script src="scripts/services/schoolinfos.js"></script>
-        <script src="scripts/services/transcripts.js"></script>
         <script src="scripts/services/file.js"></script>
+        <script src="scripts/services/lang.js"></script>
 
-
+        <!--<script sr>="extensions/Accounting/accounting.js"</script>-->
+        <script src="extensions/Accounting/models/incomexpend.js"></script>
+        <script src="extensions/Accounting/services/incomexpends.js"></script>
+        <script src="extensions/Accounting/services/itemids.js"></script>
+        <script src="extensions/Accounting/controllers/incomexpendCtrl.js"></script>
+        <script src="extensions/Accounting/accounting.js"></script>
+        
         <script src="scripts/controllers/loading3Ctrl.js"></script>  
-        <script src="scripts/controllers/mastersheetCtrl2.js"></script>        
-        <script src="scripts/controllers/mainCtrl.js"></script>
         <script src="scripts/controllers/menuCtrl.js"></script>
-        <script src="scripts/controllers/navbarCtrl.js"></script>
         <script src="scripts/controllers/loginCtrl.js"></script>
         <script src="scripts/controllers/usersCtrl.js"></script>
         <script src="scripts/controllers/subjectsCtrl.js"></script>
         <script src="scripts/controllers/studentsCtrl.js"></script>
         <script src="scripts/controllers/navtabsCtrl.js"></script>
         <script src="scripts/controllers/classmenuCtrl.js"></script>
-        <script src="scripts/controllers/marksheetCtrl.js"></script>
-        <script src="scripts/controllers/myclassesCtrl.js"></script>
         <script src="scripts/controllers/departmentsCtrl.js"></script>
-        <script src="scripts/controllers/feesCtrl.js"></script>
         <script src="scripts/controllers/profileCtrl.js"></script>
         <script src="scripts/controllers/groupsCtrl.js"></script>
-        <script src="scripts/controllers/financeCtrl.js"></script>
-        <script src="scripts/controllers/classcouncilCtrl.js"></script>
         <script src="scripts/controllers/registrationCtrl.js"></script>
-        <script src="scripts/controllers/reportcardCtrl.js"></script>
-        <script src="scripts/controllers/transcriptCtrl.js"></script>
         <script src="scripts/controllers/userCtrl.js"></script>
-        <script src="scripts/controllers/statsCtrl.js"></script>
-        <script src="scripts/controllers/reportsCtrl.js"></script>
-        <script src="scripts/controllers/enrollmentCtrl.js"></script>
-        <script src="scripts/controllers/idcardCtrl.js"></script>
-        
+
+        <script src="extensions/ReportCard/reportcardApp.js"></script>
+        <script src="extensions/ReportCard/models/ClassCouncil.js"></script>
+        <script src="extensions/ReportCard/models/Marksheet.js"></script>
+        <script src="extensions/ReportCard/models/Comment.js"></script>
+        <script src="extensions/ReportCard/models/Dcard.js"></script>
+        <script src="extensions/ReportCard/services/marksheets.js"></script>
+        <script src="extensions/ReportCard/services/classcouncils.js"></script>
+        <script src="extensions/ReportCard/services/dcards.js"></script>
+        <script src="extensions/ReportCard/controllers/reportcardCtrl.js"></script>
+        <script src="extensions/ReportCard/controllers/classmasterprofileCtrl.js"></script>
+        <script src="extensions/ReportCard/controllers/marksheetCtrl.js"></script>
+        <script src="extensions/ReportCard/controllers/mastersheetCtrl.js"></script>        
+        <script src="extensions/ReportCard/controllers/myclassesCtrl.js"></script>
+        <script src="extensions/ReportCard/controllers/classcouncilCtrl.js"></script>
+        <script src="extensions/ReportCard/controllers/statsCtrl.js"></script>
+
+        <script src="extensions/Finance/financeApp.js"></script>
+        <script src="extensions/Finance/models/Fee.js"></script>
+        <script src="extensions/Finance/models/Payment.js"></script>
+        <script src="extensions/Finance/services/fees.js"></script>
+        <script src="extensions/Finance/services/payments.js"></script>
+        <script src="extensions/Finance/controllers/registrarprofileCtrl.js"></script>
+        <script src="extensions/Finance/controllers/feesCtrl.js"></script>
+        <script src="extensions/Finance/controllers/balancesheetCtrl.js"></script>
+
+        <script src="extensions/IDCard/idcardApp.js"></script>
+        <script src="extensions/IDCard/controllers/idcardCtrl.js"></script>
+
+        <script src="extensions/Reports/reportsApp.js"></script>
+        <script src="extensions/Reports/controllers/annualreportCtrl.js"></script>
+        <script src="extensions/Reports/controllers/enrollmentCtrl.js"></script>
+
+        <script src="extensions/Staffing/staffingApp.js"></script>
+        <script src="extensions/Staffing/models/Staff.js"></script>
+        <script src="extensions/Staffing/services/staffs.js"></script>
+        <script src="extensions/Staffing/services/staffid.js"></script>
+        <script src="extensions/Staffing/controllers/StafflistCtrl.js"></script>
+        <script src="extensions/Staffing/controllers/staffsprofileCtrl.js"></script>
+        <script src="extensions/Staffing/controllers/staffregistrationCtrl.js"></script>
+
+        <script src="extensions/Timetable/timetableApp.js"></script>
+
+        <script src="extensions/Transcript/transcriptApp.js"></script>
+        <script src="extensions/Transcript/models/Transcript.js"></script>
+        <script src="extensions/Transcript/services/transcripts.js"></script>
+        <script src="extensions/Transcript/controllers/transcriptCtrl.js"></script>       
         <!-- endbuild -->
 </body>
 </html>

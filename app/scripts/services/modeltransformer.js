@@ -1,6 +1,6 @@
 'use strict';
 
-function modelTransformer($log, $model) {
+function modelTransformer($model) {
    
  	var transformObject = function(jsonResult, constructor) {
         var model = new constructor();
@@ -29,6 +29,6 @@ function modelTransformer($log, $model) {
 
     return self;
 
-  }
-modelTransformer.$inject = ['$log', '$model'];
+}
+modelTransformer.$inject = ['$model'];
 angular.module('SchoolMan').service('modelTransformer', modelTransformer);

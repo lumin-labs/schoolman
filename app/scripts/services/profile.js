@@ -46,6 +46,6 @@ function profile($q, $rootScope, model, Data2, modelTransformer) {
 
     return self;
 
-  }
+}
 profile.$inject = ['$q', '$rootScope', 'model', 'Data2', 'modelTransformer'];
 angular.module('SchoolMan').service('profile', profile);
