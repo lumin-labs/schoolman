@@ -53,8 +53,9 @@
 							{{dict.name}}</th>
 							<th class="text-center" 
 							    style="width:105px;"
-							    ng-repeat="(roleKey, role) in User.roles">{{lang === 'en' ? role.nameEn : role.nameFr}}</th>
-							
+								ng-repeat="(roleKey, role) in User.roles" 
+								ng-if="roleKey !== 'sales'">
+							    {{lang === 'en' ? role.nameEn : role.nameFr}}</th>							
 							<th class="noprint" style="width:80px">{{dict.remove}}</th>
 						</tr>
 					</thead>
@@ -63,7 +64,8 @@
 							<td style="padding-left:10px;width:300px;">
 								<a ng-click="open({page:'user', subpage:user.username})">{{user.fullname}}</a>
 							</td>
-							<td class="text-center" ng-repeat="(accessKey, accessBool) in user.access">
+							<td class="text-center" 
+							    ng-repeat="(accessKey, accessBool) in user.access">
 								
 								<button ng-if="user.username !== username && !(user.username === 'admin' && accessKey === 'admin')"
 										ng-click="user.toggleAccess(accessKey)"

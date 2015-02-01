@@ -8,6 +8,7 @@ var self = {};
 // SchoolInfos.get().then(function(info){
   // var defaultLang = "en";
 
+
   self.getDict = function(lang){
     if(lang !== undefined){
       $routeParams.lang = lang;

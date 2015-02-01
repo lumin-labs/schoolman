@@ -12,6 +12,7 @@ function Path() {
 
   var defaults = {
     default_admin:"users",
+    default_sales:"customersettings",
     default_classmaster:"classmasterMarksheet",
     default_teacher:"myclasses",
     default_registrar:"registration"
@@ -61,10 +62,10 @@ function Path() {
                     d.accessCode +'/'  +
                     d.staffId
 
-        return path;
-      }
-  	}
-  
-  return self;
-}
+          return path;
+        }
+    	}
+    
+    return self;
+  }
 angular.module('SchoolMan').service('Path', Path);

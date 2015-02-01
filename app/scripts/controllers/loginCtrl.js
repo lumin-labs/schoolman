@@ -1,23 +1,27 @@
 'use strict';
 
 function LoginCtrl($scope, $location, $routeParams, $log, DEV, model, Users, Subjects, Departments, settings, Cache, Location, Groups, Lang) {
-  $log.info("Path: ", $location.path()); 
+      $log.info("Path: ", $location.path()); 
 
 
-  var DEFAULT_START_PAGE = {
-      admin:{
-          page:"users"
-      },
-      classmaster:{
-          page:"classmasterMarksheet"
-      },
-      registrar:{
-          page:"registration"
-      },
-      teacher:{
-          page:"myclasses"
+      var DEFAULT_START_PAGE = {
+          sales:{
+              page:"customersettings"
+          },
+          admin:{
+              page:"users"
+          },
+          classmaster:{
+              page:"classmasterMarksheet"
+          },
+          registrar:{
+              page:"registration"
+          },
+          teacher:{
+              page:"myclasses"
+          }
       }
-  }
+
 
 
   $scope.open = Location.open;

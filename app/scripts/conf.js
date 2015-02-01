@@ -8,6 +8,22 @@ var extensionList = [ {
     icon:"glyphicon-cog",
     tabs: [
       {
+        en:"Customer Settings",
+        fr:"Utilisateurs",
+        page:"customersettings",
+        access:['sales'],
+        exclude:[],
+        icon:'glyphicon-lock'
+      },
+      {
+        en:"School Info",
+        fr:"Utilisateurs",
+        page:"schoolinfo",
+        access:['sales'],
+        exclude:[],
+        icon:'glyphicon-lock'
+      },
+      {
         en:"Users",
         fr:"Utilisateurs",
         page:"users",

@@ -1,20 +1,10 @@
 'use strict';
 
-
-function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos, Staffs) {
+function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjects, Departments, Groups, Fees, Users, settings, Lang, MockData, SchoolInfos) {
     $scope.dict = Lang.getDict();
 
-    // angular.resumeBootstrap([
-    //     'SchoolMan.ReportCard', 
-    //     'SchoolMan.Finance',
-    //     'SchoolMan.IDCard',
-    //     'SchoolMan.Reports',
-    //     'SchoolMan.Staffing',
-    //     'SchoolMan.TimeTable',
-    //     'SchoolMan.Transcript'])
-
-
     // Initialize/Register SchoolInfo datatype
+    var instSettings = new model.Settings();
     var instSchoolInfo = new model.SchoolInfo();
 
     var settingsP = settings.load();
@@ -24,21 +14,14 @@ function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjec
     var groupP= Groups.load();
     var studentsP= Students.load();
     var feesP = Fees.load();
-    var staffsP= Staffs.load();
     var infosP = SchoolInfos.get();
 
-    var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, staffsP, infosP];
+    var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, infosP];
 
     $q.all(promises).then(function(success){
         console.log("Successes", success);
-        // $scope.dict = Lang.getDict(success[8].lang);
-        // ExtensionLoader.loadScripts();
         Location.open({page:"login"});
     });
-
-
-
-
 }
-LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos', 'Staffs'];
+LoadingCtrl.$inject = ['$scope', '$q', 'model','$routeParams', 'Location', 'Students', 'Subjects', 'Departments', 'Groups', 'Fees', 'Users', 'settings', 'Lang', 'MockData', 'SchoolInfos'];
 angular.module('SchoolMan').controller('Loading3Ctrl', LoadingCtrl);
