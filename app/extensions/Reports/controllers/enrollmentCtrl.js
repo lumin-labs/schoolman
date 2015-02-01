@@ -1,6 +1,6 @@
 'use strict';
 
-function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheets, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects, Lang) {
+function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheets, Forms, Groups, Departments, Terms, ClassCouncils, Students, Subjects, Lang, SchoolInfos) {
   var data = $scope.data = {
     forms:Forms.all(),
     groups:Groups.getAll(),
@@ -229,5 +229,5 @@ function EnrollmentCtrl($scope, $route, $routeParams, model, Location, Marksheet
   // console.log("Class Councils", data.classCouncils);
 
 }
-EnrollmentCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects', 'Lang'];
+EnrollmentCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', 'Forms', 'Groups', 'Departments', 'Terms', 'ClassCouncils', 'Students', 'Subjects', 'Lang', 'SchoolInfos'];
 angular.module('SchoolMan.Reports').controller('EnrollmentCtrl', EnrollmentCtrl);
