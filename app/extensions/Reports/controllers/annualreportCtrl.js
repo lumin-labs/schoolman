@@ -1,6 +1,6 @@
 'use strict';
 
-function AnnualReportCtrl($scope, $route, $routeParams, model, Location, Marksheets, Forms, Groups, Departments, ClassCouncils, Students, Subjects, Lang) {
+function AnnualReportCtrl($scope, $route, $routeParams, model, Location, Marksheets, Forms, Groups, Departments, ClassCouncils, Students, Subjects, Lang, SchoolInfos) {
 
   var data = $scope.data = {
     forms:Forms.all(),
@@ -392,5 +392,5 @@ function AnnualReportCtrl($scope, $route, $routeParams, model, Location, Markshe
   console.log("Class Councils", $scope.data.classCouncils);
 
 }
-AnnualReportCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', 'Forms', 'Groups', 'Departments', 'ClassCouncils', 'Students', 'Subjects', 'Lang'];
+AnnualReportCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', 'Forms', 'Groups', 'Departments', 'ClassCouncils', 'Students', 'Subjects', 'Lang', 'SchoolInfos'];
 angular.module('SchoolMan.Reports').controller('AnnualReportCtrl', AnnualReportCtrl);
