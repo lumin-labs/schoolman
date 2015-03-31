@@ -150,6 +150,11 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
       return container.scrollHeight <= 480;
     }
 
+    // $scope.getSequence = function(d){
+    //   var i = (parseInt(d.s) + 1) * 2 + d.t - 2;
+    //   return d.row ? d.row[i] : undefined;
+    // }
+
     $scope.getMark = function(d){
       var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
       return d.row ? d.row[i] : undefined;

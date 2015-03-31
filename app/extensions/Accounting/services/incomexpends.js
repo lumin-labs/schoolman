@@ -29,7 +29,7 @@ function Items($q, pouchdb, model, modelTransformer) {
 			  	
 			  	var itemId = data.value._id;
 			  	if(!collection.hasOwnProperty(itemId)){
-			  		var item = Items.get(Itemid);
+			  		var item = Items.get(ItemId);
                 item.items = [];
 			  		collection[itemId] = item;
 			  	};
