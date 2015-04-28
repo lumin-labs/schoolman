@@ -360,7 +360,7 @@ module.exports = function (grunt) {
         useHtml5Mode: false,
         docular_webapp_target : '/docs',
         showAngularDocs: false,
-        showDocularDocs: false,
+        showDocularDocs: true,
         examples: {},
         groups: [
           {
@@ -373,9 +373,10 @@ module.exports = function (grunt) {
                 groupId: "api",
                 groupTitle: "API",
                 files: [
-                  'app/scripts/controllers/classcouncilCtrl.js',
-                  'app/scripts/controllers/mainCtrl.js',
-                  'app/scripts/departmentsCtrl.js'
+                  'app/scripts/controllers/classmenuCtrl.js',
+                  'app/scripts/controllers/divfinanceCtrl.js',
+                  'app/scripts/departmentsCtrl.js',
+                  'app/scripts/groupsCtrl.js'
                 ]
 
                   

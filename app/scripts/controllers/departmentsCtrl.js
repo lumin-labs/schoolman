@@ -24,6 +24,12 @@ function DepartmentsCtrl($scope, $routeParams, model, Students, Departments, For
 
 		$scope.allStudents = {};
 
+  /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:DepartmentsCtrl
+     * @name SchoolMan.controller:DepartmentsCtrl#add
+     * @description Adds a new department to the pouchdb database and to the current view
+     */
   $scope.add = function(department){
     department.save().then(function(success){
               console.log("Department saved", success);
@@ -43,7 +49,12 @@ function DepartmentsCtrl($scope, $routeParams, model, Students, Departments, For
               console.log("Department save error ", error);
           });
   };
-
+  /**
+     * @ngdoc method
+     * @methodOf SchoolMan.controller:DepartmentsCtrl
+     * @name SchoolMan.controller:DepartmentsCtrl#remove
+     * @description Removes a department from the pouchdb database and from the current view
+     */
   $scope.remove = function(department){
     Departments.remove(department).then(function(success){
       delete $scope.departments[department._id];
