@@ -112,7 +112,7 @@
                           </li>
                         </ul>
                       </div>
-                      <div class="{{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
+                      <div class="student-info-section">
                         <h4 class="section-header printonly">{{student.name}}</h4>
                         <h5>{{dict.sex}}: <strong>{{dict[student.sex]}}</strong><br>
                         {{dict.date_of_birth}}: <strong>{{student.birth | date:'MMM dd, yyyy'}}</strong><br>
@@ -173,35 +173,19 @@
                           </li>
                         </ul>
                       </div>
-<<<<<<< HEAD:app/views/reportcard-gths.html
                       <div class="student-info-section">
-                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} Academic Year <br>{{data.term.name}}</h4>
+                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}} <br>{{data.term.name}}</h4>
                         <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0" }} / 20<br>
                         {{getRemark(data.msheet.table[student._id][0]).text | uppercase}}</h5>
-=======
-                      <div class="{{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
-                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4><br>
-                        <h4 class="printonly">{{lang === 'en' ? data.term.nameEn : data.term.nameFr}}</h4>
-                        <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:2 }} / 20</h5>
-                        <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{dict[getRemark(data.msheet.table[student._id][0]).text] | uppercase}}</h5>
->>>>>>> 39a15eb44dba77866abc4ad59a9b5953f4b7a80d:app/extensions/ReportCard/reportcard.html
                       </div>
                     </div>
                   </td>
                   <td class="text-center" style="border-top:0px;">
-<<<<<<< HEAD:app/views/reportcard-gths.html
                     <div class="text-left student-info-section">
-                      <h4 class="section-header">Parent Contact</h4>
+                      <h4 class="section-header">{{dict.parent_contact}}</h4>
                       <h5>{{student.parentName}}<br>
                       {{student.parentPhone}}<br>
                       {{student.parentEmail}}</h5>
-=======
-                    <div class="text-left {{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
-                      <h4 class="section-header">{{dict.parent_contact}}</h4>
-                      <h5>{{student.parentName}}</h5>
-                      <h5>{{student.parentPhone}}</h5>
-                      <h5>{{student.parentEmail}}</h5>
->>>>>>> 39a15eb44dba77866abc4ad59a9b5953f4b7a80d:app/extensions/ReportCard/reportcard.html
                     </div>
                   </td>
                 </tr>
@@ -213,11 +197,7 @@
     </div>
     
     <div class="row">
-<<<<<<< HEAD:app/views/reportcard-gths.html
       <div class="col-md-12 reportcard-small" id="marktable">
-=======
-      <div class="col-md-12 {{fitPage() ? 'table-transcript' : 'reportcard-small'}}">
->>>>>>> 39a15eb44dba77866abc4ad59a9b5953f4b7a80d:app/extensions/ReportCard/reportcard.html
         <div  ng-repeat="(setIndex, set) in data.sets">
           <h4 ng-if="nsets > 1">{{data.subjectTypes[setIndex] | uppercase}}</h4>    
           <table  class="table table-striped table-bordered">
@@ -280,26 +260,16 @@
       <div class="col-md-4 transcript-summary">
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
           <tr>
-<<<<<<< HEAD:app/views/reportcard-gths.html
-            <td>Total Mark:</td>
-            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff) : "0.0"}}</td>
-=======
             <td>{{dict.total_mark}}:</td>
-            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff : 0 | number:2}}</td>
->>>>>>> 39a15eb44dba77866abc4ad59a9b5953f4b7a80d:app/extensions/ReportCard/reportcard.html
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff) : "0.0"}}</td>
           </tr>
           <tr>
             <td>{{dict.total_coeff}}:</td>
             <td>{{data.msheet.table[student._id].coeff}}</td>
           </tr>
           <tr>
-<<<<<<< HEAD:app/views/reportcard-gths.html
-            <td>{{data.terms[term]}} Average:</td>
-            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0"}} / 20</td>
-=======
             <td>{{data.terms[term]}} {{dict.average}}:</td>
-            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:1}} / 20</td>
->>>>>>> 39a15eb44dba77866abc4ad59a9b5953f4b7a80d:app/extensions/ReportCard/reportcard.html
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0"}} / 20</td>
           </tr>
           <tr>
             <td>{{data.terms[term]}} {{dict.remark}}:</td>
@@ -344,13 +314,8 @@
       </div>
       <div class="col-md-4 transcript-summary signature">
         <table class="table table-bordered">
-<<<<<<< HEAD:app/views/reportcard-gths.html
           <tr style="">
-            <td rowspan="6" class="text-center" style="vertical-align:middle;color:#B2B2B2 !important;">Principal's Signature</td>
-=======
-          <tr style="height:37px">
-            <td rowspan="5" class="text-center" style="vertical-align:middle;">{{dict.principals_signature}}</td>
->>>>>>> 39a15eb44dba77866abc4ad59a9b5953f4b7a80d:app/extensions/ReportCard/reportcard.html
+            <td rowspan="6" class="text-center" style="vertical-align:middle;color:#B2B2B2 !important;">{{dict.principals_signature}}</td>
           </tr>
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>
@@ -358,10 +323,6 @@
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>
         </table>
-<<<<<<< HEAD:app/views/reportcard-gths.html
-=======
-        {{dict.date}}:
->>>>>>> 39a15eb44dba77866abc4ad59a9b5953f4b7a80d:app/extensions/ReportCard/reportcard.html
       </div>
     </div>
     </div>
