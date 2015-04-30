@@ -7,6 +7,8 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
     Location.open({termIndex:2})
   }
   
+  $scope.s = [(parseInt(termIndex) + 1) * 2 - 1, (parseInt(termIndex) + 1) * 2]
+
   $scope.Marksheets = Marksheets;
   $scope.ClassMaster = ClassMaster;
   $scope.dict = Lang.getDict();
