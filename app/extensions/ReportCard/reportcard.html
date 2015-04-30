@@ -117,7 +117,9 @@
                         <h5>{{dict.sex}}: <strong>{{dict[student.sex]}}</strong><br>
                         {{dict.date_of_birth}}: <strong>{{student.birth | date:'MMM dd, yyyy'}}</strong><br>
                         {{dict.student_id}}: <strong>{{student.id}}</strong><br>
-                        {{dict.Class}}: <strong>{{data.forms[student.formIndex].name}}, {{data.departments[student.deptId].code}}, {{data.groups[student.groupId].name}}</strong></h5>
+                        {{dict.Class}}: <strong>
+                          {{lang === 'en' ? data.forms[student.formIndex].nameEn : data.forms[student.formIndex].nameFr}}, 
+                          {{data.departments[student.deptId].code}}, {{data.groups[student.groupId].name}}</strong></h5>
                       </div>
                     </div>
                   </td>
@@ -176,7 +178,7 @@
                       <div class="student-info-section">
                         <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}} <br>{{data.term.name}}</h4>
                         <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0" }} / 20<br>
-                        {{getRemark(data.msheet.table[student._id][0]).text | uppercase}}</h5>
+                        {{dict[getRemark(data.msheet.table[student._id][0]).text] | uppercase}}</h5>
                       </div>
                     </div>
                   </td>
