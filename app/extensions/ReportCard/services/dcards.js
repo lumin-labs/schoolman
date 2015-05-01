@@ -36,8 +36,16 @@ function Dcards($q, Data2, model) {
   		return getOrCreate(tempDcard);
   	};
 
+    self.remove = function(dcard){  
+        Data2.remove(dcard).then(function(success){
+          console.log("Dcard removed: ", success);
+        }).catch(function(error){
+          $log.error("dcards.js : remove :", error);
+        });
+    };
+
   	return self;
 
 }
 Dcards.$inject = ['$q', 'Data2', 'model'];
-angular.module('SchoolMan.ReportCard').service('Dcards', Dcards);
+angular.module('SchoolMan').service('Dcards', Dcards);

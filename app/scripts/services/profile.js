@@ -1,6 +1,6 @@
 'use strict';
 
-function profile($q, $rootScope, model, Data2, modelTransformer) {
+function profile($q, $rootScope, $log, model, Data2, modelTransformer) {
 
     var self = {};
 
@@ -36,6 +36,7 @@ function profile($q, $rootScope, model, Data2, modelTransformer) {
     self.removeComment = function(comment){
     	var deferred = $q.defer();
     	Data2.remove(comment).then(function(success){
+    		console.log("Comment removed", success);
     		deferred.resolve(success);
     	}).catch(function(error){
     		$log.error("profile.js : removeComment :", error);
@@ -47,5 +48,5 @@ function profile($q, $rootScope, model, Data2, modelTransformer) {
     return self;
 
 }
-profile.$inject = ['$q', '$rootScope', 'model', 'Data2', 'modelTransformer'];
+profile.$inject = ['$q', '$rootScope', '$log', 'model', 'Data2', 'modelTransformer'];
 angular.module('SchoolMan').service('profile', profile);

@@ -521,6 +521,26 @@ function Marksheets($q, $log, Slug, pouchdb, model, modelTransformer, Subjects, 
     return deferred.promise;
   };
 
+  self.removeFromMarksheets = function(students, params){
+    console.log("remove marksheets params", params, students)
+    self.query(params).then(function(marksheets){
+      console.log("Student Marksheets", marksheets);
+      angular.forEach(marksheets, function(marksheet, marksheetId){
+        angular.forEach(students, function(student, studentId){
+          delete marksheet.table[student._id];
+        })
+
+        marksheet.save().then(function(success){
+          console.log("Marksheet Saved:", marksheet);
+        }).catch(function(error){
+          console.log("Failed to save marksheet", error, marksheet);
+        });
+      })
+    }).catch(function(error){
+      console.log("marksheet does not exist", student.formIndex, student.deptId, student.groupId);
+    });
+  }
+
   self.destroy = function(){
     db.destroy().then(function(success){
       console.log("Destroyed marksheets db");

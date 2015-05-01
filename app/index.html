@@ -95,6 +95,17 @@
                 <button class = "btn" ng-click="cancel()">{{dict.cancel}}</button>
             </div>
         </script>
+        <script type="text/ng-template" id="deleteStudentModal.html">
+            <div class="modal-body">
+                <div style="text-align:center">
+                    <h3 class="modal-title"><b>{{dict.are_you_sure_you_want_to_delete_student}}</b></h3>
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color:#eee;">
+                <button class = "btn" ng-click="remove()">{{dict.delete_student}}</button>
+                <button class = "btn" ng-click="cancel()">{{dict.cancel}}</button>
+            </div>
+        </script>
 
           <ul class="nav navbar-nav navbar-sm">
             <li class="dropdown" >
