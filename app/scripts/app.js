@@ -60,16 +60,11 @@ angular.module('SchoolMan', [
     registrarProfile:"/extensions/Finance/registrar-profile.html",
     fees:"/extensions/Finance/registrar-fees.html",
     balancesheet:"/extensions/Finance/balancesheet.html",
-    staff:"/extensions/Staffing/staff.html",
-    salarys:"/extensions/Staffing/salary.html",
-    staffregistration:"/extensions/Staffing/staffregistration.html",
     transcript: "/extensions/Transcript/transcript.html",
     annualreport:"/extensions/Reports/annualreport.html",
     enrollmentreport:"/extensions/Reports/enrollmentreport.html",
     staffprofile:"/extensions/Staffing/staffprofile.html",
     stafflist:"/extensions/Staffing/stafflist.html",
-    registrarstaff:"/extensions/Staffing/registrar-staff.html",
-    staffsfinance:"/extensions/Staffing/staffs-finance.html",
     idcardsFull:"/extensions/IDCard/idcards-full.html",
     idcardsSmall:"/extensions/IDCard/idcards-small.html"
   };

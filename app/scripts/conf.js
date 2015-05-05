@@ -274,14 +274,14 @@ var extensionList = [ {
       //   exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
       //   icon:"glyphicon-user"
       // },
-      {
-        en:"Staff Registration",
-        fr:"Inscription du Personnel",
-         page:"staffregistration",
-         access:['registrar'],
-         exclude:[],
-         icon:"glyphicon-calendar"
-      },
+      // {
+      //   en:"Staff Registration",
+      //   fr:"Inscription du Personnel",
+      //    page:"staffregistration",
+      //    access:['registrar'],
+      //    exclude:[],
+      //    icon:"glyphicon-calendar"
+      // },
       {
         en:"Staff Profile",
         fr:"Profil du Personnel",
