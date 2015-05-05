@@ -31,13 +31,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(staffId, staff) in  data.staff">
+						<tr ng-repeat="(staffId, staff) in  data.staff" ng-if="staff.username !== 'admin'">
 							<td>{{staff.specialty}}</td>
 							<td>{{getServiceYears(staff.dateofentry)}}</td>
 							<td style="width:300px;">
-								<a ng-click ="open({staffId:user._id,page:'staffprofile'})" >{{staff.fullname}}</a></td>
+								<a ng-click ="open({subpage:staff.username,page:'user'})" >{{staff.fullname}}</a></td>
 							<td>{{staff.matricalno}}</td>
-							<td>{{staff.salary >= 0 ? (staff.salary | number:0) : ""}}</td>
+							<td>{{staff.salary > 0 ? (staff.salary | number:0) : ""}}</td>
 							<td>{{staff.region}}</td>
 							<td>{{staff.division}}</td>
 							<td>{{staff.subdivision}}</td>

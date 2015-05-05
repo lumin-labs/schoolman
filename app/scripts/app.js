@@ -63,7 +63,6 @@ angular.module('SchoolMan', [
     transcript: "/extensions/Transcript/transcript.html",
     annualreport:"/extensions/Reports/annualreport.html",
     enrollmentreport:"/extensions/Reports/enrollmentreport.html",
-    staffprofile:"/extensions/Staffing/staffprofile.html",
     stafflist:"/extensions/Staffing/stafflist.html",
     idcardsFull:"/extensions/IDCard/idcards-full.html",
     idcardsSmall:"/extensions/IDCard/idcards-small.html"

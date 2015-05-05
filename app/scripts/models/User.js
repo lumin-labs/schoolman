@@ -143,7 +143,7 @@ schoolman.config(['modelProvider', function(model){
     };
     this.sex = "";     
     this.staffEmail = "";
-    this.salary = -1;
+    this.salary = 0;
     this.residence = "";
     this.matricalno = "";
     this.maritalstatus = "";

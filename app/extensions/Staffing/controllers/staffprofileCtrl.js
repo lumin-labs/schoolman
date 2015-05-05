@@ -4,7 +4,7 @@ function StaffprofileCtrl($scope, $routeParams, model, Users, Lang) {
     $scope.editing = false;
 
     var data = $scope.data = {};
-    $scope.data.staff = Users.get($routeParams.username);
+    $scope.data.staff = Users.get($routeParams.subpage);
                         console.log("staff",$scope.data.staff);
 
     $scope.data.verifiedStatus = "";
@@ -52,8 +52,9 @@ function StaffprofileCtrl($scope, $routeParams, model, Users, Lang) {
         $scope.editing = false;
     }
 
-    $scope.save = function(staff){
-      staff.save().then(function(success){
+    $scope.save = function(user){
+      user.salary = parseInt(user.salary);
+      user.save().then(function(success){
         console.log("Staff saved", success);
         $scope.editing = false;
         serviceLength();
