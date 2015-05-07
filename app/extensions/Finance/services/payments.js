@@ -80,6 +80,16 @@ function Payments($q, pouchdb, model, modelTransformer, Students) {
   	return deferred.promise;
   };
 
+  self.removePayments = function(payments){
+      angular.forEach(payments, function(payment, paymentId){
+        db.remove(payment).then(function(success){
+          console.log("Payment removed: ", success);
+        }).catch(function(error){
+          $log.error("payments.js : remove :", error);
+        });
+      })
+  };
+
   self.destroy = function(){
   	db.destroy().then(function(success){
   		console.log("Destroyed paymentss db");

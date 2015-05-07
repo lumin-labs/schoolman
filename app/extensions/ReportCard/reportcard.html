@@ -112,12 +112,14 @@
                           </li>
                         </ul>
                       </div>
-                      <div class="{{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
+                      <div class="student-info-section">
                         <h4 class="section-header printonly">{{student.name}}</h4>
                         <h5>{{dict.sex}}: <strong>{{dict[student.sex]}}</strong><br>
                         {{dict.date_of_birth}}: <strong>{{student.birth | date:'MMM dd, yyyy'}}</strong><br>
                         {{dict.student_id}}: <strong>{{student.id}}</strong><br>
-                        {{dict.Class}}: <strong>{{data.forms[student.formIndex].name}}, {{data.departments[student.deptId].code}}, {{data.groups[student.groupId].name}}</strong></h5>
+                        {{dict.Class}}: <strong>
+                          {{lang === 'en' ? data.forms[student.formIndex].nameEn : data.forms[student.formIndex].nameFr}}, 
+                          {{data.departments[student.deptId].code}}, {{data.groups[student.groupId].name}}</strong></h5>
                       </div>
                     </div>
                   </td>
@@ -204,8 +206,8 @@
             <thead>
               <tr>
                 <th>{{dict.subject_discipline}}</th>
-                <th>S1</th>
-                <th>S2</th>
+                <th>S{{s[0]}}</th>
+                <th>S{{s[1]}}</th>
                 <th>{{dict.average}}</th>
                 <th>{{dict.coeff}}</th>
                 <th>{{dict.AxC}}</th>
@@ -260,7 +262,11 @@
       <div class="col-md-4 transcript-summary">
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
           <tr>
+<<<<<<< HEAD
             <td>{{dict.total_mark}}</td>
+=======
+            <td>{{dict.total_mark}}:</td>
+>>>>>>> 80130c33841a5a3563d3a8a98ffe9f5e20fd179f
             <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff) : "0.0"}}</td>
           </tr>
           <tr>

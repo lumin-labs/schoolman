@@ -1,6 +1,6 @@
 'use strict';
 
-function SubjectsCtrl($scope, model, SubjectTypes, Forms, Subjects, SchoolInfos, Lang) {
+function SubjectsCtrl($scope, model, SubjectTypes, Forms, Subjects, SchoolInfos, Lang, Marksheets) {
 
 		$scope.forms = Forms.all();
     	$scope.allSubjects = Subjects.getAll();
@@ -8,6 +8,19 @@ function SubjectsCtrl($scope, model, SubjectTypes, Forms, Subjects, SchoolInfos,
     	$scope.numSubjects = Object.keys($scope.allSubjects).length;
     	$scope.dict = Lang.getDict();
     	$scope.validationError = false;
+        $scope.numMarksheets = {};
+
+        angular.forEach($scope.allSubjects, function(subject, subjectId){
+            $scope.numMarksheets[subjectId] = 0;
+        })
+
+        Marksheets.query().then(function(marksheets){
+            angular.forEach(marksheets, function(marksheet, marksheetId){
+                $scope.numMarksheets[marksheet.subjectId] += 1
+            })
+        }).catch(function(error){
+            console.log("Failed to get marksheets", error);
+        })
 
     	SchoolInfos.get("schoolinfo").then(function(info){
     		$scope.version = info.version;
@@ -52,5 +65,5 @@ function SubjectsCtrl($scope, model, SubjectTypes, Forms, Subjects, SchoolInfos,
     };
 
 }
-SubjectsCtrl.$inject = ['$scope', 'model', 'SubjectTypes', 'Forms', 'Subjects', 'SchoolInfos', 'Lang'];
+SubjectsCtrl.$inject = ['$scope', 'model', 'SubjectTypes', 'Forms', 'Subjects', 'SchoolInfos', 'Lang', 'Marksheets'];
 angular.module('SchoolMan').controller('SubjectsCtrl', SubjectsCtrl);

@@ -204,9 +204,14 @@
         </div>
         <br>
         <div class="form-group noprint" ng-if="accessCode === 'registrar' && !editing">
-          <div class="col-sm-offset-3 col-sm-10">
+          <div class="col-sm-offset-3 col-sm-3">
             <button type="submit" class="btn btn-info" ng-click="edit()">
               {{dict.edit_student}}
+            </button>
+          </div>
+          <div class="col-sm-offset-3 col-sm-3">
+            <button type="submit" class="btn btn-danger" ng-click="openDeleteModal()">
+              {{dict.delete_student}}
             </button>
           </div>
         </div>

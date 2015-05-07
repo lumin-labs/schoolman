@@ -248,6 +248,21 @@ function Students($q, model, pouchdb) {
     return collection;
   }
 
+  self.remove = function(student){
+    var deferred = $q.defer();
+    db.remove(student).then(function(success){
+      console.log("Student removed: ", success);
+      delete _students[student._id];
+      deferred.resolve(success);
+    }).catch(function(error){
+      $log.error("students.js : remove :", error);
+      deferred.reject(error);
+    });
+    return deferred.promise;
+  };
+
+  
+
   self.destroy = function(){
   	db.destroy().then(function(success){
   		console.log("Destroyed students db");

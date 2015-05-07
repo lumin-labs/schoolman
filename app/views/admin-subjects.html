@@ -99,7 +99,8 @@
 							<td class="column readonly">
 								<div class="cell cell-md cell-normal">{{subject.fr}}</div>
 							</td>
-							<td class="column readonly">{{numMarksheets[subject._id]}}
+							<td class="column readonly">
+								<div class="cell cell-md cell-normal">{{numMarksheets[subject._id] || 0}}</div>
 							</td>
 							<td class="remove text-center noprint" style="width:80px;padding-top:15px;">
 								<a ng-click="remove(subject)" ng-if="numMarksheets[subject._id] === 0">
