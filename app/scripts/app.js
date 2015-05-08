@@ -56,6 +56,7 @@ angular.module('SchoolMan', [
     classcouncil:"/extensions/ReportCard/classcouncil.html",
     adminStats:"/extensions/ReportCard/admin-stats.html",
     IncomeandExpenditure:"/extensions/Accounting/incomexpend.html",
+    rubrics:"/extensions/Accounting/rubrics.html",
     classmasterStats:"/extensions/ReportCard/classmaster-stats.html",
     registrarProfile:"/extensions/Finance/registrar-profile.html",
     fees:"/extensions/Finance/registrar-fees.html",

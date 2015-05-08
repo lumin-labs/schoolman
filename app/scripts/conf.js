@@ -203,13 +203,21 @@ var extensionList = [ {
     tabs: [
       {
         
-        en:"Income and Expenditure",
+        en:"Income and Expenditures",
         fr:"Revenu et Dépense",
         page:"IncomeandExpenditure",
         access:['registrar','admin'],
         exclude:[],
-        icon:'glyphicon-folder-open'
-      },
+        icon:'glyphicon-th-list'
+      },{
+        
+        en:"Rubrics",
+        fr:"Rubrique",
+        page:"rubrics",
+        access:['registrar','admin'],
+        exclude:[],
+        icon:'glyphicon-pencil'
+      }
     ]
   }, 
   {

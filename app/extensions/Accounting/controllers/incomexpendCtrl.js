@@ -1,12 +1,13 @@
 'use strict';
 
-function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang) {
+function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Rubrics) {
     $scope.dict = Lang.getDict();
     $scope.balance = 0;
     
 
     var data = $scope.data = {
-        items: {}
+        items: [],
+        rubrics: {}
     };
 
     Items.getAll().then(function(success){
@@ -15,6 +16,10 @@ function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang) {
             $scope.balance += item.income - item.expenditure;
             item.balance = $scope.balance;
         })
+    })
+
+    Rubrics.getAll().then(function(rubrics){
+        $scope.data.rubrics = rubrics;
     })
 
     $scope.newItem = new model.Item();
@@ -39,7 +44,7 @@ function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang) {
 
 
 }
-IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Items', 'Lang'];
+IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Items', 'Lang', 'Rubrics'];
 angular.module('SchoolMan.Accounting').controller('IncomexpendCtrl', IncomexpendCtrl);
 
 

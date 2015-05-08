@@ -41,10 +41,10 @@
 					<td>
 					  {{item.description}}
 					</td>
-					<td>{{item.rubric}}</td>
-					<td>{{item.income | currency:""}}</td>
-					<td>{{item.expenditure | currency:""}}</td>
-					<td>{{item.balance | currency:""}}</td>
+					<td>{{data.rubrics[item.rubric].description}}</td>
+					<td>{{item.income === 0 ? "" : (item.income | currency:"")}}</td>
+					<td style="color:red">{{item.expenditure === 0 ? "" : (item.expenditure | currency:"")}}</td>
+					<td style="{{item.balance <= 0 ? 'color:red' : ''}}">{{item.balance | currency:""}}</td>
 					
 				</tr>
 				<tr>
@@ -54,10 +54,20 @@
 			      		 class="form-control" 
 			      		 placeholder="{{dict.description}}" 
 			      		 ng-model="newItem.description"></td>
-					<td><input id="rubric" 
-			      		 class="form-control" 
-			      		 placeholder="{{dict.rubric}}" 
-			      		 ng-model="newItem.rubric"></td>
+					<td><div class="form-group" style="width:130px;">
+						  <div class="btn-group">
+							    <button class="btn btn-sm btn-default dropdown-toggle" 
+							    				data-toggle="dropdown">
+							      {{data.rubrics[newItem.rubric].description}} 
+							      &nbsp;<span class="caret"></span>
+							    </button>
+							    <ul class="dropdown-menu">
+							      <li ng-repeat="(rubricId, rubric) in data.rubrics">
+							        <a ng-click="newItem.rubric = rubricId">{{rubric.description}}</a>
+							      </li>
+							    </ul>
+							  </div>
+			        </div></td>
 					<td><input id="income" 
 							type="text" 
 							format="number"
