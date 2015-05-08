@@ -316,15 +316,6 @@ var extensionList = [ {
         icon:'glyphicon-list-alt'
       }
     ]
-  },{
-    name:"TimeTable",
-    labelEn:"Time Table",
-    labelFr:"Programme",
-    access:['admin'],
-    icon:"glyphicon-calendar",
-    tabs: [
-      
-    ]
   }]
 
 angular.module('SchoolMan')
