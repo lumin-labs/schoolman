@@ -211,7 +211,7 @@ var extensionList = [ {
     ]
   },
   {
-    name:"Incomexpenditure",
+    name:"Accounting",
     labelEn:"Accounting",
     labelFr:"Accounté",
     access:['registrar'],
@@ -219,13 +219,21 @@ var extensionList = [ {
     tabs: [
       {
         
-        en:"Income and Ependiture",
-        fr:"Income et Ependituré",
-        page:"IncomeandEpenditure",
+        en:"Income and Expenditures",
+        fr:"Revenu et Dépense",
+        page:"IncomeandExpenditure",
         access:['registrar','admin'],
         exclude:[],
-        icon:'glyphicon-folder-open'
-      },
+        icon:'glyphicon-th-list'
+      },{
+        
+        en:"Rubrics",
+        fr:"Rubrique",
+        page:"rubrics",
+        access:['registrar','admin'],
+        exclude:[],
+        icon:'glyphicon-pencil'
+      }
     ]
   }, 
   {
@@ -290,14 +298,14 @@ var extensionList = [ {
       //   exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
       //   icon:"glyphicon-user"
       // },
-      {
-        en:"Staff Registration",
-        fr:"Inscription du Personnel",
-         page:"staffregistration",
-         access:['registrar'],
-         exclude:[],
-         icon:"glyphicon-calendar"
-      },
+      // {
+      //   en:"Staff Registration",
+      //   fr:"Inscription du Personnel",
+      //    page:"staffregistration",
+      //    access:['registrar'],
+      //    exclude:[],
+      //    icon:"glyphicon-calendar"
+      // },
       {
         en:"Staff Profile",
         fr:"Profil du Personnel",

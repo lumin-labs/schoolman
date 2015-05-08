@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
-	<div class="col-md-10 marksheet" ng-controller="StafflistsCtrl">
+	<div class="col-md-10 marksheet" ng-controller="StafflistCtrl">
 		<div class="printonly"><h3>Staff List</h3></div>
 
 		<!-- Subject View -->
@@ -26,17 +26,18 @@
 							<th>Sex</th>
 							<th>Contact</th>
 							<!-- <th>Email</th> -->
-							<th class="noprint">Remove</th>					
+							<!-- <th class="noprint">Remove</th> -->					
 							
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(staffId, staff) in  data.staffs">
+						<tr ng-repeat="(staffId, staff) in  data.staff" ng-if="staff.username !== 'admin'">
 							<td>{{staff.specialty}}</td>
 							<td>{{getServiceYears(staff.dateofentry)}}</td>
-							<td style="width:300px;"><a ng-click ="open({staffId:staff._id,page:'staffprofile'})" >{{staff.name}}</a></td>
+							<td style="width:300px;">
+								<a ng-click ="open({subpage:staff.username,page:'user'})" >{{staff.fullname}}</a></td>
 							<td>{{staff.matricalno}}</td>
-							<td>{{staff.salary | number:0}}</td>
+							<td>{{staff.salary > 0 ? (staff.salary | number:0) : ""}}</td>
 							<td>{{staff.region}}</td>
 							<td>{{staff.division}}</td>
 							<td>{{staff.subdivision}}</td>
@@ -49,11 +50,11 @@
 							<td>{{staff.sex}}</td>
 							<td>{{staff.phoneNo}}</td>
 							<!-- <td>{{staff.staffEmail}}</td> -->
-							<td class="remove text-center noprint" style="width:80px;">
-						<a ng-click="remove(staff)">
-							<i class="glyphicon glyphicon-remove"></i>
-						</a>
-					</td>
+							<!-- <td class="remove text-center noprint" style="width:80px;">
+								<a ng-click="remove(staff)">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td> -->
 							
 						</tr>
 					</tbody>

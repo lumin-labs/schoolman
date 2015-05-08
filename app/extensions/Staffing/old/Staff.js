@@ -20,18 +20,7 @@ schoolman.config(['modelProvider', function(model){
         key:"sex",
         type:"string",
         required:true
-      },
-      // {
-      //   key:"staffName",
-      //   type:"string",
-      //   required:false
-      // },
-      // {
-      //   key:"staffPhone",
-      //   type:"string",
-      //   required:false
-      // },
-        {
+      },{
         key:"staffEmail",
         type:"string",
         required:false
@@ -145,13 +134,6 @@ schoolman.config(['modelProvider', function(model){
     this.dutypost = "";
     this.region="";
     this.phoneNo = "";
-    // this.formIndex = spec.formIndex || null;  //Integer
-    // this.deptId = spec.deptId || null; //Integer
-    // this.groupId = spec.groupId || null; //Integer
-    // this.status= {     //year:int (index of option in conf.js PROMOTION_OPTIONS)
-    //   2014:0
-    // }; 
-    this.totalPaid = 0; // payment aggregator because pouchdb is too slow to compute a list of student payments
 
     // Initialize object with spec properties, excluding any that aren't defined above
     var self = this;

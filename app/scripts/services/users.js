@@ -79,6 +79,7 @@ function Users($q, $log, Data2, model, Slug, modelTransformer, InsertionError) {
         fullname:"Admin",
         username:"admin",
         password:model.encrypt("admin123"),
+        name:"admin",
         _id:"user_admin"
       });
       superuser.access.admin = 1;
