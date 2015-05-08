@@ -52,23 +52,24 @@ schoolman.config(['modelProvider', function(model){
   Item.prototype = new model.Model();
   
   Item.prototype.datatype = Item.datatype = model.datatypes.item.v1;
-  Item.prototype.getAmount = function(){
-    var amount = this.amount;
-    if(typeof this.amount === 'string'){
-      amount = Number(this.amount.replace(/[^0-9\.]+/g,""));
+  Item.prototype.getAmount = function(amount){
+    if(typeof amount === 'string'){
+      amount = Number(amount.replace(/[^0-9\.]+/g,""));
     }
     return amount;
   }
   Item.prototype.normalize = function(){
     // convert amount from string to number
-    if(typeof this.amount === "string"){
-      this.amount = this.getAmount();
+    if(typeof this.income === "string"){
+      this.income = this.getAmount(this.income);
+    } 
+    if(typeof this.expenditure === "string"){
+      this.expenditure = this.getAmount(this.expenditure);
     } 
     this.date = new Date();
   };
 
   Item.prototype.generateID = function(){
-    this.date = new Date();
     var id = "item_" + this.date.toISOString();
     return id;
   }
