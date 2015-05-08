@@ -9,9 +9,13 @@ schoolman.config(['modelProvider', function(model){
       fields:[{
         key:"registrar",
         type:"string",
-        required:false
+        required:true
       },{
-        key:"itemId",
+        key:"date",
+        type:"object",
+        required:true
+      },{
+        key:"description",
         type:"string",
         required:true
       },{
@@ -26,10 +30,6 @@ schoolman.config(['modelProvider', function(model){
         key:"expenditure",
         type:"number",
         required:true
-      },{
-        key:"account_balance",
-        type:"number",
-        required:false
       }],
       fields_key:0
     }
@@ -43,10 +43,10 @@ schoolman.config(['modelProvider', function(model){
       return new Item();
     }
     this.registrar = "";  // string
-    this.itemId = "";  // string
+    this.description = "";
+    this.date = new Date();
     this.income = 0.00; // number
     this.expenditure = 0.00; // number
-    this.account_balance = 0.00; // number
   };
 
   Item.prototype = new model.Model();
@@ -69,7 +69,7 @@ schoolman.config(['modelProvider', function(model){
 
   Item.prototype.generateID = function(){
     this.date = new Date();
-    var id = "item_" + this.itemId + "_" + this.date.toISOString();
+    var id = "item_" + this.date.toISOString();
     return id;
   }
 

@@ -36,7 +36,7 @@ angular.module('SchoolMan', [
   'SchoolMan.Staffing',
   'SchoolMan.TimeTable',
   'SchoolMan.Transcript',
-  'SchoolMan.Incomexpenditure'
+  'SchoolMan.Accounting'
 
 ]).config(function ($routeProvider, $controllerProvider, $provide) {
 
@@ -55,7 +55,7 @@ angular.module('SchoolMan', [
     reportcard:"/extensions/ReportCard/reportcard.html",
     classcouncil:"/extensions/ReportCard/classcouncil.html",
     adminStats:"/extensions/ReportCard/admin-stats.html",
-    IncomeandEpenditure:"/extensions/Accounting/incomexpend.html",
+    IncomeandExpenditure:"/extensions/Accounting/incomexpend.html",
     classmasterStats:"/extensions/ReportCard/classmaster-stats.html",
     registrarProfile:"/extensions/Finance/registrar-profile.html",
     fees:"/extensions/Finance/registrar-fees.html",

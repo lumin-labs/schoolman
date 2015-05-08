@@ -195,7 +195,7 @@ var extensionList = [ {
     ]
   },
   {
-    name:"Incomexpenditure",
+    name:"Accounting",
     labelEn:"Accounting",
     labelFr:"Accounté",
     access:['registrar'],
@@ -203,9 +203,9 @@ var extensionList = [ {
     tabs: [
       {
         
-        en:"Income and Ependiture",
-        fr:"Income et Ependituré",
-        page:"IncomeandEpenditure",
+        en:"Income and Expenditure",
+        fr:"Revenu et Dépense",
+        page:"IncomeandExpenditure",
         access:['registrar','admin'],
         exclude:[],
         icon:'glyphicon-folder-open'
