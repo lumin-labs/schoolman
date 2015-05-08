@@ -276,36 +276,6 @@ var extensionList = [ {
          exclude:[],
          icon:"glyphicon-book"
        },
-      // {
-      //   en:"Salary Settings",
-      //   fr:"Salaires",
-      //   page:"salarys",
-      //   access:['registrar'],
-      //   exclude:[]
-      // },
-       // {
-       //   en:"Staff",
-       //   fr:"Personnel",
-       //   page:"staffs",
-       //   access:['admin', 'registrar'],
-       //   exclude:[]
-       // },
-      //  {
-      //   en:"Staff Profile",
-      //   fr:"Profil du Personnel",
-      //   page:"staffProfile",
-      //   access:['admin', 'registrar'],
-      //   exclude:['registration', 'fees', 'students', 'idcards', 'balancesheet', 'users', 'subjects', 'user', 'departments', 'classes', 'classcouncil', 'adminStats', 'annualreport', 'enrollmentreport'],
-      //   icon:"glyphicon-user"
-      // },
-      // {
-      //   en:"Staff Registration",
-      //   fr:"Inscription du Personnel",
-      //    page:"staffregistration",
-      //    access:['registrar'],
-      //    exclude:[],
-      //    icon:"glyphicon-calendar"
-      // },
       {
         en:"Staff Profile",
         fr:"Profil du Personnel",
