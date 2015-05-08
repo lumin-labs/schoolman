@@ -117,7 +117,12 @@ schoolman.config(['modelProvider', function(model){
         key:"phoneNo",
         type:"string",
         required:false
-      },],
+      },
+      {
+        key:"name",
+        type:"string",
+        required:true
+      }],
       fields_key:0
     }
   };
@@ -133,6 +138,7 @@ schoolman.config(['modelProvider', function(model){
     }
 
     this.fullname = "";
+    this.name = ""; //unslugified username in case fullname is changed later
     this.username = "";
     this.password = "";
     this.access = {

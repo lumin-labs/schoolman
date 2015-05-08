@@ -53,7 +53,7 @@ function StaffprofileCtrl($scope, $routeParams, model, Users, Lang) {
     }
 
     $scope.save = function(user){
-      user.salary = parseInt(user.salary);
+      typeof user.salary === "string" ? user.salary = Number(user.salary.replace(/[^0-9\.]+/g,"")) : "";
       user.save().then(function(success){
         console.log("Staff saved", success);
         $scope.editing = false;
