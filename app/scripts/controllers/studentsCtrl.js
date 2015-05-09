@@ -222,28 +222,11 @@ function StudentsCtrl($scope, $q, $routeParams, PROMOTE_OPTIONS, model, ClassCou
       Students.saveBatch(selected).catch(function(error){
           // console.log("failed to save batch", error);
       });
-      removeFromMarksheet(tagged);
+      removeFromMarksheets(tagged);
   };
-  var removeFromMarksheet = function(students){
-    angular.forEach(data.subjects, function(subject, subjectKey){
-      marksheetId =  $scope.formIndex + ":" + $scope.deptId + ":" + $scope.groupId + ":" + subjectKey;
-      Marksheets.get(marksheetId).then(function(success){
-        marksheet = success.marksheet;
-        angular.forEach(students, function(student, key){
-          delete marksheet.table[student['_id']];
-        });
-        var deferred = $q.defer();
-        marksheet.save().then(function(success){
-          //console.log("Marksheet Saved:", marksheet);
-          deferred.resolve(marksheet);
-        }).catch(function(error){
-          console.log("Failed to save marksheet", error, marksheet);
-          deferred.reject(error);
-        });
-      }).catch(function(error){
-        console.log("marksheet does not exist");
-      });
-    });
+  var removeFromMarksheets = function(students){
+    var params = {formIndex:$scope.queryParams.formIndex, deptId:$scope.queryParams.deptId, groupId:$scope.queryParams.groupId};
+    Marksheets.removeFromMarksheets(students, params);
   }
 
   $scope.open = Location.open;
@@ -282,7 +265,6 @@ function StudentsCtrl($scope, $q, $routeParams, PROMOTE_OPTIONS, model, ClassCou
 
   //     updateGroupStats(groupIndex, mastersheet.numstats(passingScore));
   // };
-
 
 
 }

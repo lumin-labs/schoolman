@@ -204,15 +204,7 @@
 
 	<table><tr>
 		<td width="400px"></td>
-		<th colspan="2">{{data.schoolInfo.version === "ghs" ? dict.classmaster : dict.head_of_department}}</th></tr>
-	<tr height="30px"><td></td><td style="text-align:right">{{dict.name}}:</td><td width="300px" ng-if="userAccess === 'classmaster'">
-		<input type="text" class="form-control noprint" placeholder="Class Master" ng-model="data.classcouncil.classMaster" ng-blur="save()">
-		</input>
-		<i class="printonly">{{data.classcouncil.classMaster}}</i></td>
-		<td ng-if="userAccess !== 'classmaster'">{{data.classcouncil.classMaster}}</td>
-	</tr>
-	<tr height="30px"><td></td><td style="text-align:right">{{dict.signature}}:</td><td></td></tr>
-	<tr height="30px"><td></td><td style="text-align:right">{{dict.date}}:</td><td></td></tr>
+		<th colspan="2">{{data.schoolInfo.version === "ghs" ? "Class Master/Mistress" : "Head of Department"}}</th></tr>
 	</table>
 		
 	</div>

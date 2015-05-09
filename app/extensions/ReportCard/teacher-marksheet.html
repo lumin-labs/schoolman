@@ -3,8 +3,9 @@
 
   <div class="col-md-10 marksheet" ng-controller="MarksheetCtrl">
   <div class="printonly" ng-controller="ClassmenuCtrl">
-    <h3>{{dict.marksheet}}</h3>
-    <h5>{{lang === 'en' ? form.nameEn : form.nameFr}}{{group.name}} {{department.name}} {{lang === 'en' ? subject.en : subject.fr}}</h5>
+    <center><h4>{{data.schoolInfo.nameEn}}</h4>
+    <h4>{{dict.marksheet}}</h4>
+    <h5>{{lang === 'en' ? form.nameEn : form.nameFr}}{{group.name}} {{department.name}} {{lang === 'en' ? subject.en : subject.fr}}</h5></center>
   </div>
   <table class="table table-bordered table-striped" style="border:0px;">
 

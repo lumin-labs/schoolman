@@ -1,6 +1,6 @@
 'use strict';
 
-function Transcripts($q, pouchdb, model, Subjects, Students, SchoolInfos) {
+function Transcripts($q, $log, pouchdb, model, Subjects, Students, SchoolInfos) {
   
   //instantialize/register Transcript datatype
   var instTranscript = new model.Transcript();
@@ -76,6 +76,29 @@ function Transcripts($q, pouchdb, model, Subjects, Students, SchoolInfos) {
     return deferred.promise;
   };
 
+  self.removeTranscripts = function(studentId){
+    var cycles = [1,2];
+
+    angular.forEach(cycles, function(cycle, cycleIndex){
+      var transcriptId = "transcript_" + studentId + ":" + cycleIndex;
+      db.get(transcriptId).then(function(data){
+        var spec = model.parse2(data, data.datatype);
+        var transcript = new model.Transcript(spec);
+
+        db.remove(transcript).then(function(success){
+          console.log("Transcript removed: ", success);
+        }).catch(function(error){
+          $log.error("transcripts.js : remove :", error);
+        });
+        
+
+      }).catch(function(error){
+        console.log("Failed to get Transcript", error);
+      })
+      
+    })
+  };
+
   self.destroy = function(){
   	db.destroy().then(function(success){
   		console.log("Destroyed transcripts db");
@@ -86,5 +109,5 @@ function Transcripts($q, pouchdb, model, Subjects, Students, SchoolInfos) {
 
   return self;
 }
-Transcripts.$inject = ['$q', 'pouchdb', 'model', 'Subjects', 'Students', 'SchoolInfos'];
+Transcripts.$inject = ['$q', '$log', 'pouchdb', 'model', 'Subjects', 'Students', 'SchoolInfos'];
 angular.module('SchoolMan').service('Transcripts', Transcripts);

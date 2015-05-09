@@ -86,7 +86,7 @@
   <div class="pagebreak" ng-if="studentIndex !== 0 && (ClassMaster.printVariable === true || ClassMaster.printVariable === 'true')"></div>
 
     <!-- School Name Letterhead -->
-    <div class="letterhead" ng-include="'views/_letterhead.html'"></div>
+    <div class="" ng-include="'views/_letterhead.html'"></div>
 
     <div class="row">
       <div class="col-md-12">
@@ -112,12 +112,14 @@
                           </li>
                         </ul>
                       </div>
-                      <div class="{{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
+                      <div class="student-info-section">
                         <h4 class="section-header printonly">{{student.name}}</h4>
-                        <h5>{{dict.sex}}: <strong>{{dict[student.sex]}}</strong></h5>
-                        <h5>{{dict.date_of_birth}}: <strong>{{student.birth | date:'dd MMM yyyy'}}</strong></h5>
-                        <h5>{{dict.student_id}}: <strong>{{student.id}}</strong></h5>
-                        <h5>{{dict.Class}}: <strong>{{lang === 'en' ? data.forms[student.formIndex].nameEn : data.forms[student.formIndex].nameFr}}, {{data.departments[student.deptId].code}}, {{data.groups[student.groupId].name}}</strong></h5>
+                        <h5>{{dict.sex}}: <strong>{{dict[student.sex]}}</strong><br>
+                        {{dict.date_of_birth}}: <strong>{{student.birth | date:'MMM dd, yyyy'}}</strong><br>
+                        {{dict.student_id}}: <strong>{{student.id}}</strong><br>
+                        {{dict.Class}}: <strong>
+                          {{lang === 'en' ? data.forms[student.formIndex].nameEn : data.forms[student.formIndex].nameFr}}, 
+                          {{data.departments[student.deptId].code}}, {{data.groups[student.groupId].name}}</strong></h5>
                       </div>
                     </div>
                   </td>
@@ -173,20 +175,19 @@
                           </li>
                         </ul>
                       </div>
-                      <div class="{{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
-                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4><br>
-                        <h4 class="printonly">{{lang === 'en' ? data.term.nameEn : data.term.nameFr}}</h4>
-                        <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:2 }} / 20</h5>
-                        <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{dict[getRemark(data.msheet.table[student._id][0]).text] | uppercase}}</h5>
+                      <div class="student-info-section">
+                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}} <br>{{data.term.name}}</h4>
+                        <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0" }} / 20<br>
+                        {{dict[getRemark(data.msheet.table[student._id][0]).text] | uppercase}}</h5>
                       </div>
                     </div>
                   </td>
                   <td class="text-center" style="border-top:0px;">
-                    <div class="text-left {{fitPage() ? 'student-info-section' : 'student-info-section-small'}}">
+                    <div class="text-left student-info-section">
                       <h4 class="section-header">{{dict.parent_contact}}</h4>
-                      <h5>{{student.parentName}}</h5>
-                      <h5>{{student.parentPhone}}</h5>
-                      <h5>{{student.parentEmail}}</h5>
+                      <h5>{{student.parentName}}<br>
+                      {{student.parentPhone}}<br>
+                      {{student.parentEmail}}</h5>
                     </div>
                   </td>
                 </tr>
@@ -198,20 +199,23 @@
     </div>
     
     <div class="row">
-      <div class="col-md-12 {{fitPage() ? 'table-transcript' : 'reportcard-small'}}">
+      <div class="col-md-12 reportcard-small" id="marktable">
         <div  ng-repeat="(setIndex, set) in data.sets">
           <h4 ng-if="nsets > 1">{{data.subjectTypes[setIndex] | uppercase}}</h4>    
           <table  class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>{{dict.subject_discipline}}</th>
+
                 <!--  <th></th> -->
-                <th class="text-center"
+                <!-- <th class="text-center"
                   style="vertical-align:middle;border:solid 3px #fff;background-color:#f8f8f8;"
                   ng-repeat = "sequence in [1,2]"> 
                   S{{sequence}}
-                </th>
+                </th> -->
                 <!-- <th>S2</th> -->
+                <th>S{{s[0]}}</th>
+                <th>S{{s[1]}}</th> 
                 <th>{{dict.average}}</th>
                 <th>{{dict.coeff}}</th>
                 <th>{{dict.AxC}}</th>
@@ -230,14 +234,14 @@
                 </td>
 
                 <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">
-                  {{set.summsheets[mId]['table'][student._id][0] >= 0 ? set.summsheets[mId]['table'][student._id][0] : ""}}
+                  {{set.summsheets[mId]['table'][student._id][0] >= 0 ? formatNumber(set.summsheets[mId]['table'][student._id][0]) : ""}}
                 </td>
 
                 <td>
                   {{set.summsheets[mId]['table'][student._id][0] >= 0 ? marksheet.coeff : ""}}
                 </td>
                 <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">
-                  {{set.summsheets[mId]['table'][student._id][0] >= 0 ? set.summsheets[mId]['table'][student._id][0] * marksheet.coeff : ""}}
+                  {{set.summsheets[mId]['table'][student._id][0] >= 0 ? formatNumber(set.summsheets[mId]['table'][student._id][0] * marksheet.coeff) : ""}}
                 </td>
                 <td>{{data.rankings[marksheet._id][student._id][termIndex]}}</td>
                 <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">{{dict[getRemark(set.summsheets[mId]['table'][student._id][0]).text]}}</td>
@@ -248,12 +252,12 @@
                 </td>
               </tr>
               <tr class="danger">
-                <td colspan="4" class="text-right"><strong>Sub Total:</strong></td>
-                <td>{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id].coeff : ""}}</td>
-                <td class="{{getRemark(set.msheet.table[student._id][0]).css}}">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id][0] * set.msheet.table[student._id].coeff : 0 | number:2}}</td>
-                <td>{{set.rankings[student._id][termIndex]}}</td>
-                <td class="text-right"><strong>Average:</strong></td>
-                <td  class="{{getRemark(set.msheet.table[student._id][0]).css}}">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id][0] : 0| number:2}}</td>
+                <td colspan="4" class="text-right" style="padding:5px"><strong>Sub Total:</strong></td>
+                <td style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id].coeff : ""}}</td>
+                <td class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0] * set.msheet.table[student._id].coeff) : "0.0"}}</td>
+                <td style="padding:5px">{{set.rankings[student._id][termIndex]}}</td>
+                <td class="text-right" style="padding:5px"><strong>Average:</strong></td>
+                <td  class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0]) : "0.0"}}</td>
               </tr>
             </tbody>
           </table>
@@ -267,7 +271,7 @@
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
           <tr>
             <td>{{dict.total_mark}}:</td>
-            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff : 0 | number:2}}</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff) : "0.0"}}</td>
           </tr>
           <tr>
             <td>{{dict.total_coeff}}:</td>
@@ -275,7 +279,7 @@
           </tr>
           <tr>
             <td>{{data.terms[term]}} {{dict.average}}:</td>
-            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:1}} / 20</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0"}} / 20</td>
           </tr>
           <tr>
             <td>{{data.terms[term]}} {{dict.remark}}:</td>
@@ -320,15 +324,15 @@
       </div>
       <div class="col-md-4 transcript-summary signature">
         <table class="table table-bordered">
-          <tr style="height:37px">
-            <td rowspan="5" class="text-center" style="vertical-align:middle;">{{dict.principals_signature}}</td>
+          <tr style="">
+            <td rowspan="6" class="text-center" style="vertical-align:middle;color:#B2B2B2 !important;">{{dict.principals_signature}}</td>
           </tr>
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>
           <tr class="signature-padding"></tr>
+          <tr class="signature-padding"></tr>
         </table>
-        {{dict.date}}:
       </div>
     </div>
     </div>

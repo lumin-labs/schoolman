@@ -1,6 +1,7 @@
 'use strict';
 
-function AnnualReportCtrl($scope, $route, $routeParams, model, Location, Marksheets, Forms, Groups, Departments, ClassCouncils, Students, Subjects, Lang) {
+function AnnualReportCtrl($scope, $route, $routeParams, model, Location, Marksheets, Forms, Groups, Departments, ClassCouncils, Students, Subjects, Lang, SchoolInfos) {
+
   var data = $scope.data = {
     forms:Forms.all(),
     groups:Groups.getAll(),
@@ -12,6 +13,14 @@ function AnnualReportCtrl($scope, $route, $routeParams, model, Location, Markshe
     totalStats:{},
     deptStats:{}
   }
+
+  SchoolInfos.get("schoolinfo").then(function(info){
+    $scope.data.schoolInfo = info;
+    //console.log("school info retrieved", $scope.data.schoolInfo);
+  }).catch(function(error){
+    console.log("failed to get school info", error);
+  });
+
   $scope.termIndex=3;
   $scope.formIndex = $routeParams.formIndex;
   $scope.dict = Lang.getDict();
@@ -383,5 +392,5 @@ function AnnualReportCtrl($scope, $route, $routeParams, model, Location, Markshe
   console.log("Class Councils", $scope.data.classCouncils);
 
 }
-AnnualReportCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', 'Forms', 'Groups', 'Departments', 'ClassCouncils', 'Students', 'Subjects', 'Lang'];
+AnnualReportCtrl.$inject = ['$scope', '$route','$routeParams', 'model', 'Location','Marksheets', 'Forms', 'Groups', 'Departments', 'ClassCouncils', 'Students', 'Subjects', 'Lang', 'SchoolInfos'];
 angular.module('SchoolMan.Reports').controller('AnnualReportCtrl', AnnualReportCtrl);

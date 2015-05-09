@@ -38,6 +38,7 @@ function RegistrarProfileCtrl($scope, $routeParams, $q, model, profile, Users, S
   
   Payments.query({studentId:studentId}).then(function(payments){
     $scope.data.payments = payments;
+    console.log("Student payments", payments);
   }).catch(function(error){
     console.log("payment error: ", error);
   });

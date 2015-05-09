@@ -3,6 +3,7 @@
 function MarksheetCtrl($scope, $routeParams, model, Location, Marksheets, ClassMaster, Lang, SchoolInfos) {
     
     var marksheetId = model.Marksheet.generateID($routeParams);
+
     
     $scope.classMaster = ClassMaster;
     $scope.marksheets = Marksheets;
@@ -15,6 +16,13 @@ function MarksheetCtrl($scope, $routeParams, model, Location, Marksheets, ClassM
         students:[],
         rankings:{}
     };
+    
+    SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+        //console.log("school info retrieved", $scope.data.schoolInfo);
+    }).catch(function(error){
+        console.log("failed to get school info", error);
+    });
 
     SchoolInfos.get("schoolinfo").then(function(info){
         $scope.data.schoolInfo = info;
@@ -60,7 +68,6 @@ function MarksheetCtrl($scope, $routeParams, model, Location, Marksheets, ClassM
     	} else {
     	}
     };
-
 }
 MarksheetCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Marksheets', 'ClassMaster', 'Lang', 'SchoolInfos'];
 angular.module('SchoolMan.ReportCard').controller('MarksheetCtrl', MarksheetCtrl);

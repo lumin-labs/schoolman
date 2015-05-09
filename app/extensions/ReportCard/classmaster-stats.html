@@ -2,8 +2,9 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="StatsCtrl">
     <div class="printonly" ng-controller="ClassmenuCtrl">
-      <h3>{{dict.school_statistics}}</h3>
-      <h5>{{(lang === 'en' ? route.forms[queryParams.formIndex].nameEn : route.forms[queryParams.formIndex].nameFr) || dict.all_forms}} {{route.departments[queryParams.deptId].name || dict.all_departments}}, {{route.terms[termIndex].name || dict.all_terms}}</h5>
+      <center><h4>{{lang === 'en' ? data.schoolInfo.nameEn : data.schoolInfo.nameFr}}</h4>
+      <h4>{{dict.school_statistics}}</h4>
+      <h5>{{(lang === 'en' ? route.forms[queryParams.formIndex].nameEn : route.forms[queryParams.formIndex].nameFr) || dict.all_forms}} {{route.departments[queryParams.deptId].name || dict.all_departments}}, {{route.terms[termIndex].name || dict.all_terms}}</h5></center>
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">

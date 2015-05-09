@@ -180,26 +180,28 @@ function ClassMaster($q) {
      * This method takes a number and returns a remark depending on the value 
      */
     self.getRemark = function(average){
-        if(average){
-          if(average === -1){
-            return {text:"", css:"remark-verypoor"};
-          }else if(average>15){
+        if(average >= 0){
+          if(average>17){
               return {text:"excellent", css:"remark-excellent"}
+          }else if(average>15){
+              return {text:"very_good", css:"remark-excellent"}
           }else if(average>13){
-              return {text:"very_good", css:"remark-verygood"}
+              return {text:"good", css:"remark-verygood"}
           }else if(average>11){
-              return {text:"good", css:"remark-good"}
+              return {text:"fair", css:"remark-good"}
           }else if(average>10){
-              return {text:"fair", css:"remark-fair"}
+              return {text:"average", css:"remark-fair"}
           }else if(average === "10" || average === 10){
               return {text:"average", css:"remark-average"}
-          }else if(average>9){
-              return {text:"poor", css:"remark-poor"}
-          }else if(average>7){
+          }else if(average>8){
+              return {text:"below_average", css:"remark-poor"}
+          }else if(average>5){
               return {text:"poor", css:"remark-poor"}
           }else{
               return {text:"very_poor", css:"remark-verypoor"}
           }
+        } else {
+            return {text:"", css:"remark-verypoor"};
         }
     }
 

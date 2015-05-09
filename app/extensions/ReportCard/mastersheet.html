@@ -1,10 +1,12 @@
 <div class="row">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
+
 	<div class="col-md-10 marksheet" ng-controller="MastersheetCtrl">
-    <div class="printonly text-center" ng-controller="ClassmenuCtrl">
-      <h3>{{lang === 'en' ? data.schoolInfo.nameEn : data.schoolInfo.nameFr}}</h3>
+    <div class="printonly" ng-controller="ClassmenuCtrl">
+      <center><h4>{{lang === 'en' ? data.schoolInfo.nameEn : data.schoolInfo.nameFr}}</h4>
       <h4>{{dict.mastersheet}} {{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4>
-      <h5>{{lang === 'en' ? form.nameEn : form.nameFr}}{{group.name}} {{department.name}}, {{term.name || dict.all_terms}}</h5>
+      <h5>{{lang === 'en' ? form.nameEn : form.nameFr}}{{group.name}} {{department.name}}, {{term.name || dict.all_terms}}</h5></center>
+
     </div>
 		<div class="" style="padding-bottom:10px;">
 		  <div ng-controller="ClassmenuCtrl">
