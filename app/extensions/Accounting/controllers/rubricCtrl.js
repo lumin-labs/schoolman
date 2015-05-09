@@ -38,6 +38,7 @@ function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang)
         rubric.save().then(function(success){
             $scope.validationError = false;
             rubric.amount = 0;
+            rubric.items = [];
             $scope.data.rubrics[rubric._id] = rubric;
             $scope.newRubric = new model.Rubric();
         }).catch(function(error){
