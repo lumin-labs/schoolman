@@ -54,6 +54,9 @@ function StaffprofileCtrl($scope, $routeParams, model, Users, Lang) {
 
     $scope.save = function(user){
       typeof user.salary === "string" ? user.salary = Number(user.salary.replace(/[^0-9\.]+/g,"")) : "";
+      if(user.fullname === ""){
+        user.fullname = staffCopy.fullname;
+      }
       user.save().then(function(success){
         console.log("Staff saved", success);
         $scope.editing = false;
@@ -64,5 +67,4 @@ function StaffprofileCtrl($scope, $routeParams, model, Users, Lang) {
     };
 }
 StaffprofileCtrl.$inject = ['$scope', '$routeParams', 'model', 'Users', 'Lang'];
-
 angular.module('SchoolMan.Staffing').controller('StaffprofileCtrl', StaffprofileCtrl);
