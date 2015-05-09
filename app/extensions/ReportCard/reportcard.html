@@ -262,11 +262,7 @@
       <div class="col-md-4 transcript-summary">
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
           <tr>
-<<<<<<< HEAD
-            <td>{{dict.total_mark}}</td>
-=======
             <td>{{dict.total_mark}}:</td>
->>>>>>> 80130c33841a5a3563d3a8a98ffe9f5e20fd179f
             <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff) : "0.0"}}</td>
           </tr>
           <tr>
