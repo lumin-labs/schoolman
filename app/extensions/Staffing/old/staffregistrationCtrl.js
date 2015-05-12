@@ -1,6 +1,6 @@
 'use strict';
 
-function StaffregistrationCtrl($scope, $routeParams, model, Staffid,Departments, Groups, Location, Staffs,  Lang) {
+function StaffregistrationCtrl($scope, $routeParams, model, Departments, Groups, Location, Staff,  Lang) {
 
     // $scope.formIndex = $routeParams.formIndex;
     $scope.showValidaton = false;
@@ -18,11 +18,11 @@ function StaffregistrationCtrl($scope, $routeParams, model, Staffid,Departments,
 
     $scope.newStaff = new model.Staff();
     console.log("NewStaff", $scope.newStaff);
-    Staffid.get().then(function(uid){
-        data.uid = uid;
-        console.log("Got Staffid", uid);
-        $scope.newStaff.id = uid.value;
-    })
+    // Staffid.get().then(function(uid){
+    //     data.uid = uid;
+    //     console.log("Got Staffid", uid);
+    //     $scope.newStaff.id = uid.value;
+    // })
 
     //update the marksheets once a student has been created -- otherwise mastersheet might
     //display incorrect totals
@@ -47,9 +47,9 @@ function StaffregistrationCtrl($scope, $routeParams, model, Staffid,Departments,
 
     $scope.add = function(staff){
         staff.save().then(function(success){
-            Staffid.save(data.uid);
+            // Staffid.save(data.uid);
             console.log("Save staff: ", success);
-            Location.open({page:"staffprofile", staffId:staff._id});
+            // Location.open({page:"staffprofile", staffId:staff._id});
             $scope.showValidaton = false;
             Staffs.set(staff);
             // updateMarksheets(staff);
@@ -105,7 +105,7 @@ function StaffregistrationCtrl($scope, $routeParams, model, Staffid,Departments,
 
 
 }
-StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'model', 'Staffid', 'Departments', 'Groups', 'Location', 'Staffs', 'Lang'];
+StaffregistrationCtrl.$inject = ['$scope', '$routeParams', 'model', 'Departments', 'Groups', 'Location', 'Staff', 'Lang'];
 angular.module('SchoolMan').controller('StaffregistrationCtrl', StaffregistrationCtrl);
 
 

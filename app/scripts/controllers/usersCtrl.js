@@ -26,6 +26,7 @@ function UsersCtrl($scope, $routeParams, model, Users, Location, SchoolInfos, La
   })
 
   $scope.addUser = function(){
+    // $scope.tempUser.name = $scope.tempUser.fullname;
   	$scope.tempUser.save().then(function(success){
       $scope.data.users[success.id] = $scope.tempUser;
   	  $scope.tempUser = new model.User();
@@ -41,6 +42,11 @@ function UsersCtrl($scope, $routeParams, model, Users, Location, SchoolInfos, La
       console.log("Could not save user:", error);
     });
   };
+  $scope.validate = function(user){
+    user.name = user.fullname;
+    return user.validates();
+  }
+
   $scope.getServiceYears = function(dateofentry){
     return $scope.date.getFullYear()-(new Date(dateofentry)).getFullYear();
   }

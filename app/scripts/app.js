@@ -36,7 +36,7 @@ angular.module('SchoolMan', [
   'SchoolMan.Staffing',
   'SchoolMan.TimeTable',
   'SchoolMan.Transcript',
-  'SchoolMan.Incomexpenditure'
+  'SchoolMan.Accounting'
 
 ]).config(function ($routeProvider, $controllerProvider, $provide) {
 
@@ -55,21 +55,16 @@ angular.module('SchoolMan', [
     reportcard:"/extensions/ReportCard/reportcard.html",
     classcouncil:"/extensions/ReportCard/classcouncil.html",
     adminStats:"/extensions/ReportCard/admin-stats.html",
-    IncomeandEpenditure:"/extensions/Accounting/incomexpend.html",
+    IncomeandExpenditure:"/extensions/Accounting/incomexpend.html",
+    rubrics:"/extensions/Accounting/rubrics.html",
     classmasterStats:"/extensions/ReportCard/classmaster-stats.html",
     registrarProfile:"/extensions/Finance/registrar-profile.html",
     fees:"/extensions/Finance/registrar-fees.html",
     balancesheet:"/extensions/Finance/balancesheet.html",
-    staff:"/extensions/Staffing/staff.html",
-    salarys:"/extensions/Staffing/salary.html",
-    staffregistration:"/extensions/Staffing/staffregistration.html",
     transcript: "/extensions/Transcript/transcript.html",
     annualreport:"/extensions/Reports/annualreport.html",
     enrollmentreport:"/extensions/Reports/enrollmentreport.html",
-    staffprofile:"/extensions/Staffing/staffprofile.html",
     stafflist:"/extensions/Staffing/stafflist.html",
-    registrarstaff:"/extensions/Staffing/registrar-staff.html",
-    staffsfinance:"/extensions/Staffing/staffs-finance.html",
     idcardsFull:"/extensions/IDCard/idcards-full.html",
     idcardsSmall:"/extensions/IDCard/idcards-small.html"
   };

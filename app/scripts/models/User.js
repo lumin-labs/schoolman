@@ -29,12 +29,22 @@ schoolman.config(['modelProvider', function(model){
         required:true
       },
       {
-        key:"post",
+        key:"sex",
         type:"string",
         required:false
       },
       {
-        key:"sex",
+        key:"staffEmail",
+        type:"string",
+        required:false
+      },
+      {
+        key:"salary",
+        type:"number",
+        required:true
+      },
+      {
+        key:"residence",
         type:"string",
         required:false
       },
@@ -77,23 +87,42 @@ schoolman.config(['modelProvider', function(model){
         key:"dateofentry",
         type:"object",
         required:false
-      },{
+      },
+      {
         key:"specialty",
         type:"string",
         required:false
-      },{
+      },
+      {
         key:"tribe",
         type:"string",
         required:false
-      },{
+      },
+      {
         key:"dateposted",
         type:"object",
         required:false
-      },{
+      },
+      {
+        key:"dutypost",
+        type:"string",
+        required:false
+      },
+      {
+        key:"region",
+        type:"string",
+        required:false
+      },
+      {
         key:"phoneNo",
         type:"string",
         required:false
-      },],
+      },
+      {
+        key:"name",
+        type:"string",
+        required:true
+      }],
       fields_key:0
     }
   };
@@ -109,6 +138,7 @@ schoolman.config(['modelProvider', function(model){
     }
 
     this.fullname = "";
+    this.name = ""; //unslugified username in case fullname is changed later
     this.username = "";
     this.password = "";
     this.access = {
@@ -117,16 +147,25 @@ schoolman.config(['modelProvider', function(model){
       classmaster:0,
       teacher:1
     };
-    this.post = "";
-    this.sex = "";
+    this.sex = "";     
+    this.staffEmail = "";
+    this.salary = 0;
+    this.residence = "";
     this.matricalno = "";
     this.maritalstatus = "";
-    this.birth = "";
+    this.birth = null; // Datetime integer
+    this.post = "";
     this.grade = "";
-    this.highestqual = "";
+    this.qualification = "";
     this.subdivision = "";
     this.division = "";
-    this.dateofentry = "";
+    this.dateofentry=null;
+    this.specialty = "";
+    this.tribe = "";
+    this.dateposted = null;
+    this.dutypost = "";
+    this.region="";
+    this.phoneNo = "";
 
     angular.forEach(specs, function(prop, key){
       if(self.hasOwnProperty(key)){

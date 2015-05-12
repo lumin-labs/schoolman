@@ -18,7 +18,7 @@ function Itemid($q, $log, Data2) {
     		s = "0" + s;
     	}
 
-    	var item = "Item" + s;
+    	var item = "I" + s;
 
     	if(item.length < 8){
     		$log.error("n", n);
@@ -49,7 +49,7 @@ function Itemid($q, $log, Data2) {
             if(error.status === 404){
                 var itemid = {
                     _id:"ItemID",
-                    value:"Item0000000"}
+                    value:"I0000000"}
                 deferred.resolve(next(itemid));
             };
         });
@@ -80,4 +80,4 @@ function Itemid($q, $log, Data2) {
 
   }
 Itemid.$inject = ['$q', '$log', 'Data2'];
-angular.module('SchoolMan').service('Itemid', Itemid);
+angular.module('SchoolMan.Accounting').service('Itemid', Itemid);

@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
-	<div class="col-md-10 marksheet" ng-controller="StafflistsCtrl">
+	<div class="col-md-10 marksheet" ng-controller="StafflistCtrl">
 		<div class="printonly"><h3>Staff List</h3></div>
 
 		<!-- Subject View -->
@@ -9,34 +9,35 @@
 				<table class="table table-striped table-bordered" style="font-size:12px">
 					<thead>
 						<tr>
-							<th>Specialty</th>
-							<th>Longevity</th>
-							<th style="width:300px;">Name</th>
-							<th>Matrical No</th>
-							<th>Salary</th>
-							<th>Region of Origin</th>
-							<th>Division of Origin</th>
-							<th>Subdivision of Origin</th>
-							<th>Tribe</th>
-							<th>Grade</th>
-							<th>Marital Status</th>	
-							<th style="width:200px;">Entry Into Service</th>
-							<th>Dutypost</th>
-							<th style="width:200px;">Date Posted</th>
-							<th>Sex</th>
-							<th>Contact</th>
+							<th>{{dict.specialty}}</th>
+							<th>{{dict.longevity}}</th>
+							<th style="width:300px;">{{dict.name}}</th>
+							<th>{{dict.matrical_number}}</th>
+							<th>{{dict.salary}}</th>
+							<th>{{dict.region_of_origin}}</th>
+							<th>{{dict.division_of_origin}}</th>
+							<th>{{dict.subdivision_of_origin}}</th>
+							<th>{{dict.tribe}}</th>
+							<th>{{dict.grade}}</th>
+							<th>{{dict.marital_status}}</th>	
+							<th style="width:200px;">{{dict.entry_into_service}}</th>
+							<th>{{dict.duty_post}}</th>
+							<th style="width:200px;">{{dict.date_posted}}</th>
+							<th>{{dict.sex}}</th>
+							<th>{{dict.contact}}</th>
 							<!-- <th>Email</th> -->
-							<th class="noprint">Remove</th>					
+							<!-- <th class="noprint">Remove</th> -->					
 							
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="(staffId, staff) in  data.staffs">
+						<tr ng-repeat="(staffId, staff) in  data.staff" ng-if="staff.username !== 'admin'">
 							<td>{{staff.specialty}}</td>
 							<td>{{getServiceYears(staff.dateofentry)}}</td>
-							<td style="width:300px;"><a ng-click ="open({staffId:staff._id,page:'staffprofile'})" >{{staff.name}}</a></td>
+							<td style="width:300px;">
+								<a ng-click ="open({subpage:staff.username,page:'user'})" >{{staff.fullname}}</a></td>
 							<td>{{staff.matricalno}}</td>
-							<td>{{staff.salary | number:0}}</td>
+							<td>{{staff.salary > 0 ? (staff.salary | number:0) : ""}}</td>
 							<td>{{staff.region}}</td>
 							<td>{{staff.division}}</td>
 							<td>{{staff.subdivision}}</td>
@@ -49,11 +50,11 @@
 							<td>{{staff.sex}}</td>
 							<td>{{staff.phoneNo}}</td>
 							<!-- <td>{{staff.staffEmail}}</td> -->
-							<td class="remove text-center noprint" style="width:80px;">
-						<a ng-click="remove(staff)">
-							<i class="glyphicon glyphicon-remove"></i>
-						</a>
-					</td>
+							<!-- <td class="remove text-center noprint" style="width:80px;">
+								<a ng-click="remove(staff)">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td> -->
 							
 						</tr>
 					</tbody>

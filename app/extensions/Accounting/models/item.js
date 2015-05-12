@@ -9,9 +9,13 @@ schoolman.config(['modelProvider', function(model){
       fields:[{
         key:"registrar",
         type:"string",
-        required:false
+        required:true
       },{
-        key:"itemId",
+        key:"date",
+        type:"object",
+        required:true
+      },{
+        key:"description",
         type:"string",
         required:true
       },{
@@ -26,10 +30,6 @@ schoolman.config(['modelProvider', function(model){
         key:"expenditure",
         type:"number",
         required:true
-      },{
-        key:"account_balance",
-        type:"number",
-        required:false
       }],
       fields_key:0
     }
@@ -43,33 +43,34 @@ schoolman.config(['modelProvider', function(model){
       return new Item();
     }
     this.registrar = "";  // string
-    this.itemId = "";  // string
+    this.description = "";
+    this.date = new Date();
     this.income = 0.00; // number
     this.expenditure = 0.00; // number
-    this.account_balance = 0.00; // number
   };
 
   Item.prototype = new model.Model();
   
   Item.prototype.datatype = Item.datatype = model.datatypes.item.v1;
-  Item.prototype.getAmount = function(){
-    var amount = this.amount;
-    if(typeof this.amount === 'string'){
-      amount = Number(this.amount.replace(/[^0-9\.]+/g,""));
+  Item.prototype.getAmount = function(amount){
+    if(typeof amount === 'string'){
+      amount = Number(amount.replace(/[^0-9\.]+/g,""));
     }
     return amount;
   }
   Item.prototype.normalize = function(){
     // convert amount from string to number
-    if(typeof this.amount === "string"){
-      this.amount = this.getAmount();
+    if(typeof this.income === "string"){
+      this.income = this.getAmount(this.income);
+    } 
+    if(typeof this.expenditure === "string"){
+      this.expenditure = this.getAmount(this.expenditure);
     } 
     this.date = new Date();
   };
 
   Item.prototype.generateID = function(){
-    this.date = new Date();
-    var id = "item_" + this.itemId + "_" + this.date.toISOString();
+    var id = "item_" + this.date.toISOString();
     return id;
   }
 

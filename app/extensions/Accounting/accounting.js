@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('SchoolMan.Incomexpenditure', ['ngCookies',
+angular.module('SchoolMan.Accounting', ['ngCookies',
                                                   'ngResource',
                                                   'ngSanitize',
                                                   'ngRoute',

@@ -1,6 +1,6 @@
 'use strict';
 
-function MockData(model, Data2, Forms, Departments, Groups, Fees, Uid, Students, Payments, Marksheets, Transcripts){
+function MockData(model, Data2, Forms, Departments, Groups, Fees, Uid, Students, Payments, Marksheets, Transcripts, Items){
 
   
   var forms = Forms.all();
@@ -18,16 +18,19 @@ function MockData(model, Data2, Forms, Departments, Groups, Fees, Uid, Students,
   window._mock.payments = {};
   window._mock.marksheets = {};
   window._mock.transcripts = {};
+  window._mock.items = {};
   window._mock.dbs = {};
   window._mock.students.destroy = Students.destroy;
   window._mock.payments.destroy = Payments.destroy;
   window._mock.marksheets.destroy = Marksheets.destroy;
   window._mock.transcripts.destroy = Transcripts.destroy;
+  window._mock.items.destroy = Items.destroy;
   window._mock.dbs.destroy = function(){
     Students.destroy();
     Payments.destroy();
     Marksheets.destroy();
     Transcripts.destroy();
+    Items.destroy();
   }
   window._mock.students.create = function(n){
     var students = {docs:[]};
@@ -76,15 +79,7 @@ function MockData(model, Data2, Forms, Departments, Groups, Fees, Uid, Students,
       });
     });
   }
-  // window._mock.dbs = {};
-  // window._mock.dbs.destroy = function(){
-  //   Students.destroy();
-  //   Payments.destroy();
-  //   Marksheets.destroy();
-  //   Transcripts.destroy();
-  // }
-
 
 }
-MockData.$inject = ['model', 'Data2', 'Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Marksheets', 'Transcripts'];
+MockData.$inject = ['model', 'Data2', 'Forms', 'Departments', 'Groups', 'Fees', 'Uid', 'Students', 'Payments', 'Marksheets', 'Transcripts', 'Items'];
 angular.module('SchoolMan').service('MockData', MockData);
