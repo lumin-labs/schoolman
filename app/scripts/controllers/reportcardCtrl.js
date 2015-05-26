@@ -3,9 +3,9 @@
 function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, Users, Subjects, Students, Data2, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, Cache, Registrar, CourseCatalog, ClassMaster, TimeTable, Data, Location, Mastersheet, SchoolInfos, PROMOTE_OPTIONS) {
   	 
       var termIndex = $scope.termIndex = $routeParams.termIndex;
-      if(parseInt($routeParams.termIndex) === 3){
-        Location.open({termIndex:2})
-      }
+      // if(parseInt($routeParams.termIndex) === 3){
+      //   Location.open({termIndex:2})
+      // }
       
       $scope.Marksheets = Marksheets;
       $scope.ClassMaster = ClassMaster;

@@ -164,9 +164,14 @@
                       <h4 class="section-header noprint">{{data.schoolInfo.schoolyear}} Academic Year</h4>
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
-                            data-toggle="dropdown">{{data.term.name}}
+                            data-toggle="dropdown">{{data.term.name || "All Terms"}}
                         </button>
                         <ul class="dropdown-menu">
+                          <li>
+                            <a ng-click="open({termIndex:3})">All Terms
+                          </a>
+                          </li>
+                          <li class="divider"></li>
                           <li ng-repeat="(termIndex,term) in data.terms">
                             <a  
                               ng-click="open({termIndex:termIndex})">{{data.terms[termIndex].name}}</a>
@@ -174,7 +179,7 @@
                         </ul>
                       </div>
                       <div class="student-info-section">
-                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} Academic Year <br>{{data.term.name}}</h4>
+                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} Academic Year <br>{{data.term.name || "Annual Report"}}</h4>
                         <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0" }} / 20<br>
                         {{getRemark(data.msheet.table[student._id][0]).text | uppercase}}</h5>
                       </div>
@@ -204,7 +209,7 @@
             <thead>
               <tr>
                 <th>Subject Discipline</th>
-                <th>S1</th>
+                <th>{{termIndex}}</th>
                 <th>S2</th>
                 <th>Average</th>
                 <th>Coeff</th>
