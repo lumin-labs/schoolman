@@ -1,13 +1,14 @@
 'use strict';
 
-function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang) {
+function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang, Fees, Payments, Students) {
     $scope.dict = Lang.getDict();
     $scope.validationError = false;
 
     var data = $scope.data = {
         rubrics: {},
         items: [],
-        total: 0
+        total: 0,
+        schoolFees: 0,
     };
 
     Rubrics.getAll().then(function(success){
@@ -27,6 +28,48 @@ function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang)
                 $scope.data.total += item.income - item.expenditure;
             })
         })
+    })
+
+    var fees = Fees.getAll();
+
+    angular.forEach(fees, function(fee, index){
+        fee.students = 0;
+    })
+
+    var allStudents = [];
+
+    Students.query().then(function(students){
+        allStudents = students;
+    }).catch(function(error){
+        console.log("Failed to get students", error);
+    });
+
+    Payments.getAll().then(function(paymentsByStudent){
+        var total = 0;
+
+        angular.forEach(allStudents, function(student, key){
+          var studentId = student._id;
+
+          if(paymentsByStudent[studentId]){
+            student.payments = paymentsByStudent[studentId].payments;
+          }
+          else{
+            student.payments = [];
+          }
+        });
+        
+        fees = _.reduce(allStudents, function(fees, student){
+          fees[student.feeId].students += 1;
+          return fees;
+        },fees)
+        
+        console.log("Fees object", fees);
+
+        angular.forEach(paymentsByStudent, function(payment, paymentId){
+            total += payment.amount;
+        })
+
+        $scope.data.totalPayments = total;
     })
 
     $scope.newRubric = new model.Rubric();
@@ -58,7 +101,7 @@ function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang)
         });
     }
 }
-RubricCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Rubrics', 'Items', 'Lang'];
+RubricCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Rubrics', 'Items', 'Lang', 'Fees', 'Payments', 'Students'];
 angular.module('SchoolMan.Accounting').controller('RubricCtrl', RubricCtrl);
 
 
