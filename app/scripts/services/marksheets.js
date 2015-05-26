@@ -49,6 +49,18 @@ function Marksheets($q, $log, model, modelTransformer, pouchdb, Subjects, Studen
               total += n;
               test = true;
               count += 1;
+            } else if(i % 2 === 0){
+              var n2 = parseFloat(row[i+2]);
+              if(typeof n2 === "number" && !isNaN(n2)){
+                total += n2;
+                count += 1;
+              }
+            } else if (i % 2 !== 0){
+              var n1 = parseFloat(row[i]);
+              if(typeof n1 === "number" && !isNaN(n1)){
+                total += n1;
+                count += 1;
+              }
             }
             
           });
