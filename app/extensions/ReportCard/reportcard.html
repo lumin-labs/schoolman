@@ -256,7 +256,7 @@
                 <td style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id].coeff : ""}}</td>
                 <td class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0] * set.msheet.table[student._id].coeff) : "0.0"}}</td>
                 <td style="padding:5px">{{set.rankings[student._id][termIndex]}}</td>
-                <td class="text-right" style="padding:5px"><strong>Average:</strong></td>
+                <td class="text-right" style="padding:5px"><strong>Term's Average:</strong></td>
                 <td  class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0]) : "0.0"}}</td>
               </tr>
             </tbody>
@@ -277,9 +277,14 @@
             <td>{{dict.total_coeff}}:</td>
             <td>{{data.msheet.table[student._id].coeff}}</td>
           </tr>
-          <tr>
-            <td>{{data.terms[term]}} {{dict.average}}:</td>
-            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0"}} / 20</td>
+          <tr ng-show="termIndex < 2">
+            <td>{{data.terms[term]}} {{dict.annual_average}}:</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? data.msheet.table[student._id][0] : 0 | number:1}} / 20</td>
+            </tr>
+
+          <tr ng-show="termIndex == 2">
+            <td>Annual {{data.terms[term]}} {{dict.average}}:</td>
+            <td class="{{getRemark(data.combinedMarksheet.table[student._id][0]).css}}">{{data.combinedMarksheet.table[student._id][0] >= 0 ? data.combinedMarksheet.table[student._id][0] : 0 | number:1}} / 20</td>
           </tr>
           <tr>
             <td>{{data.terms[term]}} {{dict.remark}}:</td>
@@ -309,11 +314,23 @@
             <td>{{dict.suspended}}</td>
             <td>{{data.dcard.suspended}}</td>
           </tr>
-          <tr>
+          <tr ng-show="termIndex < 2">
             <td>{{dict.promotion_status}}</td>
             <td>
                 <span ng-if="student.status[2014] === 0">
                   {{ data.msheet.table[student._id][0] < passingScore ? dict.fail : dict.pass}}
+                </span>
+                <span ng-if="student.status[2014] !== 0">
+                  {{PROMOTE_OPTIONS[student.status[2014]].name}}
+                </span>
+            </td>
+          </tr>
+
+          <tr ng-show="termIndex == 2">
+            <td>{{dict.promotion_status}}</td>
+            <td>
+                <span ng-if="student.status[2014] === 0">
+                  {{ data.combinedMarksheet.table[student._id][0] < passingScore ? dict.fail : dict.pass}}
                 </span>
                 <span ng-if="student.status[2014] !== 0">
                   {{PROMOTE_OPTIONS[student.status[2014]].name}}

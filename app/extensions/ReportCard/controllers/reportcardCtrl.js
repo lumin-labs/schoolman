@@ -66,6 +66,13 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
     angular.forEach($scope.data.marksheets, function(marksheet, $index){
       $scope.data.rankings[marksheet._id] = Marksheets.rank([marksheet]);
     });
+    // Create marksheet summaries 
+    var summaries = _.map($scope.data.marksheets , function(marksheet){
+    var summary = Marksheets.summarize(marksheet, 3);
+    return summary;
+    });
+    // combine all marksheets
+    $scope.data.combinedMarksheet = Marksheets.combine(summaries);
 
 
     var sets = $scope.data.sets = {};
