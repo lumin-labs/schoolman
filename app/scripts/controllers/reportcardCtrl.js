@@ -144,6 +144,23 @@ function ReportcardCtrl($scope, $routeParams, model, ClassCouncils, Dcards, User
         return d.row ? d.row[i] : undefined;
       }
 
+      $scope.getTermAve = function(d){
+        var s1 = d.row[(parseInt(d.t) + 1) * 2 - 2];
+        var s2 = d.row[(parseInt(d.t) + 1) * 2 - 1];
+        var ave = 0;
+
+        if(s1 !== ""){
+          if(s2 !== ""){
+            ave = (Number(s1) + Number(s2)) / 2
+          } else {
+            ave = s1;
+          }
+        } else {
+          ave = s2;
+        }
+        return ave;
+      }
+
       $scope.fitPage = function()
       {
         var container = document.getElementById ("marktable");
