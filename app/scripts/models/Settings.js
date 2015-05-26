@@ -22,8 +22,8 @@ schoolman.config(['modelProvider', function(model){
     this[ val ('access : object', required)] = {
       'admin':1,
       'registrar':1,
-      'classmaster':0,
-      'teacher':0
+      'classmaster':1,
+      'teacher':1
     };
 
     // this.def("_id", function(){

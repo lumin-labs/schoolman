@@ -209,8 +209,7 @@
             <thead>
               <tr>
                 <th>Subject Discipline</th>
-                <th>{{termIndex}}</th>
-                <th>S2</th>
+                <th ng-repeat="n in (termIndex === '3' ? ['T1', 'T2', 'T3'] : ['S1','S2'])">{{n}}</th>
                 <th>Average</th>
                 <th>Coeff</th>
                 <th>A*C</th>
@@ -225,7 +224,7 @@
                   <a ng-click="open({page:'classmasterMarksheet', subjectId:marksheet.subjectId})">{{data.subjects[marksheet.subjectId].en}} / {{data.subjects[marksheet.subjectId].fr}}</a>
                 </td>
 
-                <td ng-repeat="sequence in [0,1]" class="{{getRemark(getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})).css}}">{{getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})}}
+                <td ng-repeat="sequence in (termIndex === '3' ? [0,1,2] : [0,1])" class="{{getRemark(getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})).css}}">{{getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})}}
                 </td>
 
                 <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">
@@ -247,7 +246,7 @@
                 </td>
               </tr>
               <tr class="danger">
-                <td colspan="4" class="text-right" style="padding:5px"><strong>Sub Total:</strong></td>
+                <td colspan="{{termIndex === '3' ? 5 : 4}}" class="text-right" style="padding:5px"><strong>Sub Total:</strong></td>
                 <td style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id].coeff : ""}}</td>
                 <td class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0] * set.msheet.table[student._id].coeff) : "0.0"}}</td>
                 <td style="padding:5px">{{set.rankings[student._id][termIndex]}}</td>
