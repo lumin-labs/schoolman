@@ -166,7 +166,7 @@
                       <h4 class="section-header noprint">{{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4>
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
-                            data-toggle="dropdown">{{lang === 'en' ? data.term.nameEn : data.term.nameFr || dict.all_terms}}
+                            data-toggle="dropdown">{{(lang === 'en' ? data.term.nameEn : data.term.nameFr) || dict.all_terms}}
                         </button>
                         <ul class="dropdown-menu">
                           <li>
