@@ -3,6 +3,7 @@
 function Marksheets($q, $log, Slug, pouchdb, model, modelTransformer, Subjects, Students) {
  
   var self = {};
+  var numSeqPerTerm = 2;
 
   var db = model.Marksheet.db;
   if(typeof db === "string"){
@@ -15,13 +16,13 @@ function Marksheets($q, $log, Slug, pouchdb, model, modelTransformer, Subjects, 
   self.getSequences = function(termIndex){
       var sequences = [];
 
-      if(termIndex === "3" || termIndex === 3){
-        sequences = [0,1,2,3,4,5];
-      } else {
-        var i = 0;
-        i = (parseInt(termIndex) + 1) * 2;
-        sequences = [i-2, i-1];
+      var i = 0;
+      i = (parseInt(termIndex) + 1) * numSeqPerTerm;
+
+      for (var n = numSeqPerTerm; n > 0; n--){  
+        sequences.push(i-n);
       }
+
       return sequences;
     };
 
@@ -38,38 +39,70 @@ function Marksheets($q, $log, Slug, pouchdb, model, modelTransformer, Subjects, 
   };
 
   self.ave = function(list, sequences){
-      var newList = list.map(function(row){
-        var newRow = [row[0],0];
-        var total = 0;
-        var test = false;
-        var count = 0;
-        angular.forEach(sequences, function(i, sIndex){
-          var n = parseFloat(row[i + 1]);
-          if(typeof n === "number" && !isNaN(n)){
-            total += n;
-            test = true;
-            count += 1;
-          }
-          
-        });
-        if(test === true){
-          newRow[1] = total / count;
+    var newList = list.map(function(row){
+      var newRow = [row[0],0];
+      var total = 0;
+      var test = false;
+      var count = 0;
+      angular.forEach(sequences, function(i, sIndex){
+        var n = parseFloat(row[i + 1]);
+        if(typeof n === "number" && !isNaN(n)){
+          total += n;
+          test = true;
+          count += 1;
         }
-        else{
-          newRow[1] = -1;
-        }
-        return newRow;
-      }); 
-      return newList;
+      });
+      if(test === true){
+        newRow[1] = total / count;
+      }
+      else{
+        newRow[1] = -1;
+      }
+      return newRow;
+    }); 
+    return newList;
+  }
+
+  self.aveAllTerms = function(list) {
+    var numTerms = 3;
+    var aves = [];
+
+    for (var n = 0; n < numTerms; n++){
+      aves.push(self.ave(list, self.getSequences(n)));
     }
 
+    var newList = _.reduce(aves, function(prev, next, index){
+      angular.forEach(prev, function(student, ind){
+        if(!student[2]){
+          student[2] = 1;
+        }
+        if(student[1] >= 0){
+          if(next[ind][1] >= 0){
+            var x = student[1] * student[2];
+            var y = next[ind][1];
+            student[2] += 1;
+            var t = student[2];
+            student[1] = (x + y) / t;
+          }
+        } else {
+          student[1] = next[ind][1];
+        }
+      })
+      return prev;
+    })
+    angular.forEach(newList, function(student, ind){
+      student.splice(2,1);
+    });
+    return newList;
+  }
+
   self.dict = function(listWithKeysAtHead){
-      var d = {};
-      angular.forEach(listWithKeysAtHead, function(row, i){
-        d[row[0]] = row.slice(1);
-      });
-      return d;
-    }
+    var d = {};
+    angular.forEach(listWithKeysAtHead, function(row, i){
+      d[row[0]] = row.slice(1);
+    });
+    return d;
+  }
 
   self.rank = function(marksheets){
     var dict = self.dict;
@@ -171,7 +204,6 @@ function Marksheets($q, $log, Slug, pouchdb, model, modelTransformer, Subjects, 
         }
       }); 
     });
-    // console.log("New Marksheet", newMarksheet);
 
     // Reduce marksheets into the new marksheet
     var combined = _.reduce(tail, function(prevM, nextM){
@@ -179,8 +211,6 @@ function Marksheets($q, $log, Slug, pouchdb, model, modelTransformer, Subjects, 
       var t1 = angular.copy(prevM.table);
       var t2 = nextM.table;
       var coeffs = prevM.studentCoeffs;
-
-      // console.log("T1, T2, COEFFS", t1, t2, coeffs);
       
       var ignore = ["", null, undefined,-1];
 
@@ -244,9 +274,14 @@ function Marksheets($q, $log, Slug, pouchdb, model, modelTransformer, Subjects, 
     if(marksheet._id){
       summarized._id = marksheet._id;
     }
-    // console.log("error?", summarized.table, marksheet.table);
+
     var list = self.listify(summarized.table);
-    var ave  = self.ave(list, self.getSequences(termIndex));
+    var ave;
+    if(parseInt(termIndex) === 3){
+      ave = self.aveAllTerms(list);
+    } else {
+      ave  = self.ave(list, self.getSequences(termIndex));
+    }
 
     summarized.table = self.dict(ave);
     return summarized;
