@@ -204,7 +204,7 @@
 					<th>{{dict.dept}}</th>
 					<th>{{dict.Class}}</th>
 					<th ng-show="settings.extensions.indexOf('Finance') > -1">{{dict.fee_due}}</th>
-					<th>{{dict.promotion}}</th>
+					<th ng-show="settings.extensions.indexOf('ReportCard') > -1">{{dict.promotion}}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -235,7 +235,7 @@
 					<td ng-show="settings.extensions.indexOf('Finance') > -1">
 						{{data.fees[student.feeId].schoolAmount + data.fees[student.feeId].ptaAmount - student.totalPaid | currency:""}}
 					</td>
-					<td class="promotion">
+					<td class="promotion" ng-show="settings.extensions.indexOf('ReportCard') > -1">
 						<div  class="btn-group">
 						  <!-- If status is set to automatic -->
 							<button ng-if="student.status['2014'] === 0 && student.passing"
@@ -304,7 +304,7 @@
 					<td ng-show="settings.extensions.indexOf('Finance') > -1">
 						{{data.fees[student.feeId].schoolAmount + data.fees[student.feeId].ptaAmount - student.totalPaid | currency:""}}
 					</td>
-					<td class="promotion">
+					<td class="promotion" ng-show="settings.extensions.indexOf('ReportCard') > -1">
 						<div  class="btn-group">
 						  <!-- If status is set to automatic -->
 							<button ng-if="student.status['2014'] === 0 && student.passing"
