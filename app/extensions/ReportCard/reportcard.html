@@ -181,7 +181,7 @@
                         </ul>
                       </div>
                       <div class="student-info-section">
-                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}} <br>{{data.term.name || dict.annual_report}}</h4>
+                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}} <br>{{(lang === 'en' ? data.term.nameEn : data.term.nameFr) || dict.annual_report}}</h4>
                         <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0" }} / 20<br>
                         {{dict[getRemark(data.msheet.table[student._id][0]).text] | uppercase}}</h5>
                       </div>
