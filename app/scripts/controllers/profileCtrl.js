@@ -1,9 +1,10 @@
 'use strict';
 
-function ProfileCtrl($scope, $routeParams, $q, $modal, model, profile, Users, Students, Forms, Groups, Departments, Lang, Marksheets, Dcards, Transcripts, Payments) {
+function ProfileCtrl($scope, $routeParams, $q, $modal, model, profile, Users, Students, Forms, Groups, Departments, Lang, Marksheets, Dcards, Transcripts, Payments, settings) {
 
   $scope.accessCode = $routeParams.accessCode;
   $scope.showValidation = false;
+  $scope.settings = settings.get();
 
   $scope.Users = Users;
   $scope.username = $routeParams.username;
@@ -111,5 +112,5 @@ function ProfileCtrl($scope, $routeParams, $q, $modal, model, profile, Users, St
   }
   ModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'Lang', 'Location'];
 }
-ProfileCtrl.$inject = ['$scope', '$routeParams', '$q', '$modal', 'model', 'profile', 'Users', 'Students', 'Forms', 'Groups', 'Departments', 'Lang', 'Marksheets', 'Dcards', 'Transcripts', 'Payments'];
+ProfileCtrl.$inject = ['$scope', '$routeParams', '$q', '$modal', 'model', 'profile', 'Users', 'Students', 'Forms', 'Groups', 'Departments', 'Lang', 'Marksheets', 'Dcards', 'Transcripts', 'Payments', 'settings'];
 angular.module('SchoolMan').controller('ProfileCtrl', ProfileCtrl);
