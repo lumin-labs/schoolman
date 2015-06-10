@@ -232,10 +232,10 @@
       </form>
     </td>
     <td class="col-md-5">
-    <div ng-if="accessCode === 'registrar' || accessCode ==='admin'"
+    <div ng-if="(accessCode === 'registrar' || accessCode ==='admin') && settings.extensions.indexOf('Finance') > -1"
           ng-include="'extensions/Finance/_registrar-profile.html'"
           style="border-right:solid 1px #ddd !important;"></div>
-    <div ng-if="accessCode === 'classmaster' || accessCode ==='admin'"
+    <div ng-if="(accessCode === 'classmaster' || accessCode ==='admin') && settings.extensions.indexOf('ReportCard') > -1"
           ng-include="'extensions/ReportCard/_classmaster-profile.html'"
           style="border-right:solid 1px #ddd !important;"></div>
     </td>
