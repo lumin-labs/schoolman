@@ -63,6 +63,13 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
     angular.forEach($scope.data.marksheets, function(marksheet, $index){
       $scope.data.rankings[marksheet._id] = Marksheets.rank([marksheet]);
     });
+    // // Create marksheet summaries 
+    // var summaries = _.map($scope.data.marksheets , function(marksheet){
+    // var summary = Marksheets.summarize(marksheet, 3);
+    // return summary;
+    // });
+    // // combine all marksheets
+    // $scope.data.combinedMarksheet = Marksheets.combine(summaries);
 
 
     var sets = $scope.data.sets = {};
@@ -133,9 +140,10 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
       $scope.passingScore = 10;
     });
 
+
   $scope.getMark = function(d){
-    var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
-    return d.row ? d.row[i] : undefined;
+      var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
+      return d.row ? d.row[i] : undefined;
   }
 
   $scope.getTermAve = function(d){

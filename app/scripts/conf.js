@@ -212,7 +212,7 @@ var extensionList = [ {
       },{
         
         en:"Rubrics",
-        fr:"Rubrique",
+        fr:"Elément",
         page:"rubrics",
         access:['registrar','admin'],
         exclude:[],
@@ -290,7 +290,7 @@ var extensionList = [ {
 
 angular.module('SchoolMan')
   .constant('VERSION',{
-    mode:"gths"
+    mode:"ghs"
   })
   
   .constant('EXTENSIONS', extensionList)

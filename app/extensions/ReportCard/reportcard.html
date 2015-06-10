@@ -250,11 +250,11 @@
                 </td>
               </tr>
               <tr class="danger">
-                <td colspan="{{termIndex === '3' ? 5 : 4}}" class="text-right" style="padding:5px"><strong>Sub Total:</strong></td>
+                <td colspan="{{termIndex === '3' ? 5 : 4}}" class="text-right" style="padding:5px"><strong>{{dict.subtotal}}:</strong></td>
                 <td style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id].coeff : ""}}</td>
                 <td class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0] * set.msheet.table[student._id].coeff) : "0.0"}}</td>
                 <td style="padding:5px">{{set.rankings[student._id][termIndex]}}</td>
-                <td class="text-right" style="padding:5px"><strong>Average:</strong></td>
+                <td class="text-right" style="padding:5px"><strong>{{dict.average}}:</strong></td>
                 <td  class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0]) : "0.0"}}</td>
               </tr>
             </tbody>
@@ -338,5 +338,5 @@
 </div>
 
 <div class="footer">
-  <p><a href="http://luminlabs.com" target="_blank">LuminLabs.com</a> | &copy; 2014</p>
+  <p><a href="http://luminlabs.com" target="_blank">LuminLabs.com</a> | &copy; 2015</p>
 </div>
