@@ -3,9 +3,6 @@
 function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCouncils, Dcards, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang) {
  
   var termIndex = $scope.termIndex = $routeParams.termIndex;
-  if(parseInt($routeParams.termIndex) === 3){
-    Location.open({termIndex:2})
-  }
   
   $scope.s = [(parseInt(termIndex) + 1) * 2 - 1, (parseInt(termIndex) + 1) * 2]
 
@@ -66,6 +63,13 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
     angular.forEach($scope.data.marksheets, function(marksheet, $index){
       $scope.data.rankings[marksheet._id] = Marksheets.rank([marksheet]);
     });
+    // // Create marksheet summaries 
+    // var summaries = _.map($scope.data.marksheets , function(marksheet){
+    // var summary = Marksheets.summarize(marksheet, 3);
+    // return summary;
+    // });
+    // // combine all marksheets
+    // $scope.data.combinedMarksheet = Marksheets.combine(summaries);
 
 
     var sets = $scope.data.sets = {};
@@ -136,25 +140,35 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
       $scope.passingScore = 10;
     });
 
-  // Data2.get(model.ClassCouncil.generateID($routeParams)).then(function(data){
-  //   var spec = model.parse2(data, data.datatype);
-  //   var classcouncil = new model.ClassCouncil(spec);
-  //   $scope.passingScore = classcouncil.passingScore; 
-  // })
-
-  $scope.fitPage = function()
-  {
-    var container = document.getElementById ("marktable");
-    // var message = "The width of the contents with padding: " + container.scrollWidth + "px.\n";
-    // message += "The height of the contents with padding: " + container.scrollHeight + "px.\n";
-
-    // console.log(message);
-    return container.scrollHeight <= 480;
-  }
 
   $scope.getMark = function(d){
-    var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
-    return d.row ? d.row[i] : undefined;
+      var i = (parseInt(d.t) + 1) * 2 + d.s - 2;
+      return d.row ? d.row[i] : undefined;
+  }
+
+  $scope.getTermAve = function(d){
+    var s1 = parseFloat(d.row[(parseInt(d.t) + 1) * 2 - 2]);
+    var s2 = parseFloat(d.row[(parseInt(d.t) + 1) * 2 - 1]);
+
+    var sequences = [s1, s2];
+    var total = 0;
+    var test = false;
+    var count = 0;
+
+    angular.forEach(sequences, function(s, sIndex){
+      if(typeof s === "number" && !isNaN(s)){
+        total += s;
+        test = true;
+        count += 1;
+      }
+      
+    });
+    if(test === true){
+      return total / count;
+    }
+    else{
+      return null;
+    }
   }
 
   $scope.formatNumber = function(num){

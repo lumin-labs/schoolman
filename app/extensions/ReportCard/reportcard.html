@@ -166,9 +166,14 @@
                       <h4 class="section-header noprint">{{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4>
                       <div class="btn-group noprint">
                         <button class="btn btn-lg dropdown-toggle" 
-                            data-toggle="dropdown">{{lang === 'en' ? data.term.nameEn : data.term.nameFr}}
+                            data-toggle="dropdown">{{(lang === 'en' ? data.term.nameEn : data.term.nameFr) || dict.all_terms}}
                         </button>
                         <ul class="dropdown-menu">
+                          <li>
+                            <a ng-click="open({termIndex:3})">{{dict.all_terms}}
+                          </a>
+                          </li>
+                          <li class="divider"></li>
                           <li ng-repeat="(termIndex,term) in data.terms">
                             <a  
                               ng-click="open({termIndex:termIndex})">{{lang === 'en' ? data.terms[termIndex].nameEn : data.terms[termIndex].nameFr}}</a>
@@ -176,7 +181,7 @@
                         </ul>
                       </div>
                       <div class="student-info-section">
-                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}} <br>{{lang === 'en' ? data.term.nameEn : data.term.nameFr}}</h4>
+                        <h4 class="section-header printonly">{{data.schoolInfo.schoolyear}} {{dict.academic_year}} <br>{{(lang === 'en' ? data.term.nameEn : data.term.nameFr) || dict.annual_report}}</h4>
                         <h5 style="font-family:mono;" class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{ data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0" }} / 20<br>
                         {{getRemark(data.msheet.table[student._id][0]).text | uppercase}}</h5>
                       </div>
@@ -206,8 +211,7 @@
             <thead>
               <tr>
                 <th>{{dict.subject_discipline}}</th>
-                <th>S{{s[0]}}</th>
-                <th>S{{s[1]}}</th>
+                <th ng-repeat="n in (termIndex === '3' ? ['T1', 'T2', 'T3'] : ['S1','S2'])">{{n}}</th>
                 <th>{{dict.average}}</th>
                 <th>{{dict.coeff}}</th>
                 <th>{{dict.AxC}}</th>
@@ -222,7 +226,9 @@
                   <a ng-click="open({page:'classmasterMarksheet', subjectId:marksheet.subjectId})">{{data.subjects[marksheet.subjectId].en}} / {{data.subjects[marksheet.subjectId].fr}}</a>
                 </td>
 
-                <td ng-repeat="sequence in [0,1]" class="{{getRemark(getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})).css}}">{{getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})}}
+                <td ng-repeat="sequence in [0,1]" ng-if="termIndex !== '3'" class="{{getRemark(getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})).css}}">{{getMark({row:marksheet.table[student._id], t:termIndex, s:sequence})}}
+                </td>
+                <td ng-repeat="term in [0,1,2]" ng-if="termIndex === '3'" class="{{getRemark(getTermAve({row:marksheet.table[student._id], t:term})).css}}">{{getTermAve({row:marksheet.table[student._id], t:term})}}
                 </td>
 
                 <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">
@@ -244,11 +250,11 @@
                 </td>
               </tr>
               <tr class="danger">
-                <td colspan="4" class="text-right" style="padding:5px"><strong>Sub Total:</strong></td>
+                <td colspan="{{termIndex === '3' ? 5 : 4}}" class="text-right" style="padding:5px"><strong>{{dict.subtotal}}:</strong></td>
                 <td style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? set.msheet.table[student._id].coeff : ""}}</td>
                 <td class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0] * set.msheet.table[student._id].coeff) : "0.0"}}</td>
                 <td style="padding:5px">{{set.rankings[student._id][termIndex]}}</td>
-                <td class="text-right" style="padding:5px"><strong>Average:</strong></td>
+                <td class="text-right" style="padding:5px"><strong>{{dict.average}}:</strong></td>
                 <td  class="{{getRemark(set.msheet.table[student._id][0]).css}}" style="padding:5px">{{set.msheet.table[student._id][0] >= 0 ? formatNumber(set.msheet.table[student._id][0]) : "0.0"}}</td>
               </tr>
             </tbody>
@@ -332,5 +338,5 @@
 </div>
 
 <div class="footer">
-  <p><a href="http://luminlabs.com" target="_blank">LuminLabs.com</a> | &copy; 2014</p>
+  <p><a href="http://luminlabs.com" target="_blank">LuminLabs.com</a> | &copy; 2015</p>
 </div>
