@@ -48,7 +48,7 @@
 												  <li class="{{moveTab === 'group' ? 'active' : ''}}">
 												    <a ng-mouseover="moveTab = 'group'">{{dict.Class}}</a>
 												  </li>
-												  <li class="{{moveTab === 'fee' ? 'active' : ''}}">
+												  <li ng-show="settings.extensions.indexOf('Finance') > -1" class="{{moveTab === 'fee' ? 'active' : ''}}">
 												    <a style="margin-right:0px;" ng-mouseover="moveTab = 'fee'">{{dict.fee}}</a>
 												  </li>
 												</ul>
@@ -162,7 +162,7 @@
 										  </div>
 
 										  <!-- Fee Dropdown -->
-										  <div  class="input-group-btn" ng-if="settings.extensions.indexOf('Finance') > -1">
+										  <div  class="input-group-btn" ng-show="settings.extensions.indexOf('Finance') > -1">
 										    <button class="btn btn-md btn-default dropdown-toggle" data-toggle="dropdown">
 										      {{data.fees[queryParams.feeId].name || dict.all_fees}} <span class="caret"></span>
 										    </button>
@@ -203,7 +203,7 @@
 					<th>{{dict.form}}</th>
 					<th>{{dict.dept}}</th>
 					<th>{{dict.Class}}</th>
-					<th ng-if="settings.extensions.indexOf('Finance') > -1">{{dict.fee_due}}</th>
+					<th ng-show="settings.extensions.indexOf('Finance') > -1">{{dict.fee_due}}</th>
 					<th>{{dict.promotion}}</th>
 				</tr>
 			</thead>
@@ -232,7 +232,7 @@
 					<td>{{lang === 'en' ? data.forms[student.formIndex].nameEn : data.forms[student.formIndex].nameFr}}</td>
 					<td>{{data.departments[student.deptId].name}}</td>
 					<td>{{data.groups[student.groupId].name}}</td>
-					<td ng-if="settings.extensions.indexOf('Finance') > -1">
+					<td ng-show="settings.extensions.indexOf('Finance') > -1">
 						{{data.fees[student.feeId].schoolAmount + data.fees[student.feeId].ptaAmount - student.totalPaid | currency:""}}
 					</td>
 					<td class="promotion">
@@ -301,7 +301,7 @@
 					<td>{{data.forms[student.formIndex].name}}</td>
 					<td>{{data.departments[student.deptId].name}}</td>
 					<td>{{data.groups[student.groupId].name}}</td>
-					<td ng-if="settings.extensions.indexOf('Finance') > -1">
+					<td ng-show="settings.extensions.indexOf('Finance') > -1">
 						{{data.fees[student.feeId].schoolAmount + data.fees[student.feeId].ptaAmount - student.totalPaid | currency:""}}
 					</td>
 					<td class="promotion">
