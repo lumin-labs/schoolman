@@ -1,6 +1,6 @@
 'use strict';
 
-function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Rubrics, Payments) {
+function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Rubrics, Payments, Students) {
     $scope.dict = Lang.getDict();
     $scope.balance = 0;
     
@@ -8,30 +8,44 @@ function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Ru
     var data = $scope.data = {
         items: [],
         rubrics: {},
-        totalPayments: {}
+        allStudents: []
     };
+    Students.query().then(function(students){
+        $scope.data.allStudents = students;
 
-    Items.getAll().then(function(success){
-        $scope.data.items = success;    
-        angular.forEach($scope.data.items, function(item, itemId){
-            $scope.balance += item.income - item.expenditure;
-            item.balance = $scope.balance;
+        Rubrics.getAll().then(function(rubrics){
+            $scope.data.rubrics = rubrics;
+            angular.forEach($scope.data.rubrics, function(rubric, index){
+                rubric.schoolTotal = rubric.amount * data.allStudents.length * (100 - rubric.divPercent - rubric.regPercent - rubric.minPercent) / 100;
+                $scope.balance += rubric.schoolTotal;
+                rubric.balance = $scope.balance;
+            })
+        
+            Items.getAll().then(function(success){
+                $scope.data.items = success;    
+                angular.forEach($scope.data.items, function(item, itemId){
+                    $scope.balance += item.income - item.expenditure;
+                    item.balance = $scope.balance;
+                })
+            })
+        
         })
-    })
+    }).catch(function(error){
+        console.log("Failed to get students", error);
+    });
 
-    Rubrics.getAll().then(function(rubrics){
-        $scope.data.rubrics = rubrics;
-    })
 
-    Payments.getAll().then(function(payments){
-        var total = 0;
 
-        angular.forEach(payments, function(payment, paymentId){
-            total += payment.amount;
-        })
 
-        $scope.data.totalPayments = total;
-    })
+    // Payments.getAll().then(function(payments){
+    //     var total = 0;
+
+    //     angular.forEach(payments, function(payment, paymentId){
+    //         total += payment.amount;
+    //     })
+
+    //     $scope.data.totalPayments = total;
+    // })
 
     $scope.newItem = new model.Item();
     $scope.newItem.registrar = $routeParams.username;
@@ -55,7 +69,7 @@ function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Ru
 
 
 }
-IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Items', 'Lang', 'Rubrics', 'Payments'];
+IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Items', 'Lang', 'Rubrics', 'Payments', 'Students'];
 angular.module('SchoolMan.Accounting').controller('IncomexpendCtrl', IncomexpendCtrl);
 
 

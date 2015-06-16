@@ -44,9 +44,10 @@ schoolman.config(['modelProvider', function(model){
     }
     this.registrar = "";  // string
     this.description = "";
+    this.rubric = "";
     this.date = new Date();
-    this.income = 0.00; // number
-    this.expenditure = 0.00; // number
+    this.income = 0; // number
+    this.expenditure = 0; // number
   };
 
   Item.prototype = new model.Model();

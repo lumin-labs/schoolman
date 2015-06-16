@@ -16,6 +16,14 @@
 							</tr>
 						</thead>
 						<tbody>
+							<tr ng-repeat="rubric in data.rubrics">
+								<td></td>
+								<td>{{dict.school_fees}}</td>
+								<td>{{rubric.description}}</td>
+								<td>{{rubric.schoolTotal | number:0}}</td>
+								<td></td>
+								<td>{{rubric.balance | number: 0}}</td>
+							</tr>
 							<tr ng-repeat="item in data.items">
 								<td> 
 									{{item.date | date:'d MMM yyyy'}}
@@ -23,10 +31,10 @@
 								<td>
 								  {{item.description}}
 								</td>
-								<td>{{data.rubrics[item.rubric].description}}</td>
-								<td>{{item.income === 0 ? "" : (item.income | currency:"")}}</td>
-								<td style="color:red">{{item.expenditure === 0 ? "" : (item.expenditure | currency:"")}}</td>
-								<td style="{{item.balance <= 0 ? 'color:red' : ''}}">{{item.balance | currency:""}}</td>
+								<td>{{item.rubric}}</td>
+								<td>{{item.income === 0 ? "" : (item.income | number:0)}}</td>
+								<td style="color:red">{{item.expenditure === 0 ? "" : (item.expenditure | number:0)}}</td>
+								<td style="{{item.balance <= 0 ? 'color:red' : ''}}">{{item.balance | number:0}}</td>
 								
 							</tr>
 							<tr class="noprint">
@@ -40,12 +48,12 @@
 									  <div class="btn-group">
 										    <button class="btn btn-sm btn-default dropdown-toggle" 
 										    				data-toggle="dropdown">
-										      {{data.rubrics[newItem.rubric].description}} 
+										      {{newItem.rubric}} 
 										      &nbsp;<span class="caret"></span>
 										    </button>
 										    <ul class="dropdown-menu">
 										      <li ng-repeat="(rubricId, rubric) in data.rubrics">
-										        <a ng-click="newItem.rubric = rubricId">{{rubric.description}}</a>
+										        <a ng-click="newItem.rubric = rubric.description">{{rubric.description}}</a>
 										      </li>
 										    </ul>
 										  </div>

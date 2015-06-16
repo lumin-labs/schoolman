@@ -6,71 +6,34 @@ function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang,
 
     var data = $scope.data = {
         rubrics: {},
-        items: [],
-        total: 0,
-        schoolFees: 0,
+        allStudents: [],
+        rubricTotal: 0,
+        schoolTotal: 0,
+        divTotal: 0,
+        regTotal: 0,
+        minTotal: 0
     };
 
     Rubrics.getAll().then(function(success){
         $scope.data.rubrics = success;    
-        // console.log("Rubrics", $scope.data.rubrics);
-        angular.forEach($scope.data.rubrics, function(rubric, index){
-            rubric.amount = 0;
-            rubric.items = [];
+        console.log("Rubrics", $scope.data.rubrics);
+        
+        angular.forEach($scope.data.rubrics, function(rubric, key){
+            $scope.data.rubricTotal += rubric.amount;
+            $scope.data.schoolTotal += rubric.amount * (100 - rubric.divPercent - rubric.regPercent - rubric.minPercent) / 100;
+            $scope.data.divTotal += rubric.amount * rubric.divPercent / 100;
+            $scope.data.regTotal += rubric.amount * rubric.regPercent / 100;
+            $scope.data.minTotal += rubric.amount * rubric.minPercent / 100;
         })
 
-        Items.getAll().then(function(items){
-            $scope.data.items = items;
-
-            angular.forEach($scope.data.items, function(item, index){
-                $scope.data.rubrics[item.rubric].items.push(item);
-                $scope.data.rubrics[item.rubric].amount += item.income - item.expenditure;
-                $scope.data.total += item.income - item.expenditure;
-            })
-        })
     })
-
-    var fees = Fees.getAll();
-
-    angular.forEach(fees, function(fee, index){
-        fee.students = 0;
-    })
-
-    var allStudents = [];
 
     Students.query().then(function(students){
-        allStudents = students;
+        $scope.data.allStudents = students;
     }).catch(function(error){
         console.log("Failed to get students", error);
     });
 
-    Payments.getAll().then(function(paymentsByStudent){
-        var total = 0;
-
-        angular.forEach(allStudents, function(student, key){
-          var studentId = student._id;
-
-          if(paymentsByStudent[studentId]){
-            student.payments = paymentsByStudent[studentId].payments;
-          }
-          else{
-            student.payments = [];
-          }
-        });
-        
-        fees = _.reduce(allStudents, function(fees, student){
-          fees[student.feeId].students += 1;
-          return fees;
-        },fees)
-        
-        console.log("Fees object", fees);
-
-        angular.forEach(paymentsByStudent, function(payment, paymentId){
-            total += payment.amount;
-        })
-
-        $scope.data.totalPayments = total;
-    })
 
     $scope.newRubric = new model.Rubric();
     console.log("NewRubric", $scope.newRubric);
@@ -78,11 +41,15 @@ function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang,
     
 
     $scope.add = function(rubric){
+        typeof rubric.amount === "string" ? rubric.amount = Number(rubric.amount.replace(/[^0-9\.]+/g,"")) : "";
         rubric.save().then(function(success){
             $scope.validationError = false;
-            rubric.amount = 0;
-            rubric.items = [];
             $scope.data.rubrics[rubric._id] = rubric;
+            $scope.data.rubricTotal += rubric.amount;
+            $scope.data.schoolTotal += rubric.amount * (100 - rubric.divPercent - rubric.regPercent - rubric.minPercent) / 100;
+            $scope.data.divTotal += rubric.amount * rubric.divPercent / 100;
+            $scope.data.regTotal += rubric.amount * rubric.regPercent / 100;
+            $scope.data.minTotal += rubric.amount * rubric.minPercent / 100;
             $scope.newRubric = new model.Rubric();
         }).catch(function(error){
             //handle duplicate descriptions
@@ -97,6 +64,11 @@ function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang,
 
     $scope.remove = function(rubric){
         Rubrics.remove(rubric).then(function(success){
+            $scope.data.rubricTotal -= rubric.amount;
+            $scope.data.schoolTotal -= rubric.amount * (100 - rubric.divPercent - rubric.regPercent - rubric.minPercent) / 100;
+            $scope.data.divTotal -= rubric.amount * rubric.divPercent / 100;
+            $scope.data.regTotal -= rubric.amount * rubric.regPercent / 100;
+            $scope.data.minTotal -= rubric.amount * rubric.minPercent / 100;
           delete $scope.data.rubrics[rubric._id];
         });
     }
