@@ -1,10 +1,13 @@
 'use strict';
 
-function SchoolInfoCtrl($scope, Data2, model, $routeParams, SchoolInfos) {
+function SchoolInfoCtrl($scope, Data2, model, $routeParams, SchoolInfos, Logo, $route) {
 	
   $scope.accessCode = $routeParams.accessCode;
   $scope.User = model.User;
   $scope.regions = model.SchoolInfo.regions;
+  Logo.get().then(function(img){
+    document.getElementById("logo-image").appendChild(img);
+  })
 
 	SchoolInfos.get("schoolinfo").then(function(info){
     $scope.schoolInfo = info;
@@ -30,6 +33,35 @@ function SchoolInfoCtrl($scope, Data2, model, $routeParams, SchoolInfos) {
     }
     $scope.save();
   }
+
+  $scope.uploadImage = function(){
+    // var deferred = $q.defer();
+    // var promise;
+
+    chrome.fileSystem.chooseEntry({type:"openFile"}, 
+      function(entry){
+        entry.file(function(file){
+          var reader = new FileReader();
+
+          reader.onloadend = function(success){
+            var array = reader.result.split(",");
+            var dataURL = array[1];
+            Logo.save({_id:'logo', _attachments: {'logo.png': {content_type:'image/png', data: dataURL}}}).then(function(success){
+              $route.reload();
+            })
+          }
+          reader.onerror = function(error){
+            console.log("Read failed:", error);
+            // deferred.reject(error);
+          }
+
+          reader.readAsDataURL(file);
+
+        }).catch(function(error){
+          console.log("error reading file", error);
+        });
+    });
+  }
 }
-SchoolInfoCtrl.$inject = ['$scope', 'Data2', 'model', '$routeParams', 'SchoolInfos'];
+SchoolInfoCtrl.$inject = ['$scope', 'Data2', 'model', '$routeParams', 'SchoolInfos', 'Logo', '$route'];
 angular.module('SchoolMan').controller('SchoolInfoCtrl', SchoolInfoCtrl);
