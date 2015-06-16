@@ -43,8 +43,8 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
   });
   
   Logo.get().then(function(img){
-    document.getElementById("logo-image").appendChild(img);
-  })
+        document.getElementById("logo-image").appendChild(img);
+    })
 
   // Load marksheet and student data
   Marksheets.query({
