@@ -10,6 +10,26 @@ schoolman.config(['modelProvider', function(model){
         key:"description",
         type:"string",
         required:true
+      },
+      {
+        key:"divPercent",
+        type:"number",
+        required:false
+      },
+      {
+        key:"regPercent",
+        type:"number",
+        required:false
+      },
+      {
+        key:"minPercent",
+        type:"number",
+        required:false
+      },
+      {
+        key:"amount",
+        type:"number",
+        required:true
       }],
       fields_key:0
     }
@@ -24,6 +44,10 @@ schoolman.config(['modelProvider', function(model){
     }
 
     this.description = "";
+    this.divPercent = 0;
+    this.regPercent = 0;
+    this.minPercent = 0;
+    this.amount = 0;
     
   };
 

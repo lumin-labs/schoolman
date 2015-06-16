@@ -78,9 +78,9 @@ function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang,
     
 
     $scope.add = function(rubric){
+        typeof rubric.amount === "string" ? rubric.amount = Number(rubric.amount.replace(/[^0-9\.]+/g,"")) : "";
         rubric.save().then(function(success){
             $scope.validationError = false;
-            rubric.amount = 0;
             rubric.items = [];
             $scope.data.rubrics[rubric._id] = rubric;
             $scope.newRubric = new model.Rubric();
