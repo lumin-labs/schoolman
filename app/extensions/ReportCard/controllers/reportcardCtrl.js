@@ -1,6 +1,6 @@
 'use strict';
 
-function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCouncils, Dcards, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang) {
+function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCouncils, Dcards, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang, Logo) {
  
   var termIndex = $scope.termIndex = $routeParams.termIndex;
   
@@ -42,7 +42,9 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
     console.log("failed to get school info", error);
   });
   
-
+  Logo.get().then(function(img){
+    document.getElementById("logo-image").appendChild(img);
+  })
 
   // Load marksheet and student data
   Marksheets.query({
@@ -190,5 +192,6 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
   }
 
 }
-ReportcardCtrl.$inject = ['$scope', '$routeParams', 'PROMOTE_OPTIONS', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
+ReportcardCtrl.$inject = ['$scope', '$routeParams', 'PROMOTE_OPTIONS', 'model', 'ClassCouncils', 'Dcards', 'Users', 'Subjects', 'Students', 'Marksheets', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang', 'Logo'];
 angular.module('SchoolMan.ReportCard').controller('reportcardCtrl', ReportcardCtrl);
+
