@@ -11,12 +11,11 @@
 							<th>{{dict.rubric_description}}</th>
 							<th>{{dict.num_students}}</th>
 							<th>{{dict.amount_per_student}}</th>
-							<th>{{dict.total}}</th>
+							<th>{{dict.rubric_total}}</th>
 							<th>{{dict.school_amount}}</th>
 							<th>{{dict.divisional_del_amount}}</th>
 							<th>{{dict.regional_del_amount}}</th>
 							<th>{{dict.ministry_amount}}</th>
-							<th>{{dict.rubric_total}}</th>
 							<th class="noprint">{{dict.remove}}</th>
 						</tr>
 					</thead>
@@ -25,30 +24,28 @@
 							<td>
 							  {{rubric.description}}
 							</td>
-							<td></td>
-							<td>{{rubric.amount}}</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>{{data.allStudents.length}}</td>
+							<td>{{rubric.amount | number:0}}</td>
+							<td>{{data.allStudents.length * rubric.amount | number:0}}</td>
+							<td>{{data.allStudents.length * rubric.amount * (100 - rubric.divPercent - rubric.regPercent - rubric.minPercent) / 100 | number:0}}</td>
+							<td>{{data.allStudents.length * rubric.amount * rubric.divPercent / 100 | number:0}}</td>
+							<td>{{data.allStudents.length * rubric.amount * rubric.regPercent / 100 | number:0}}</td>
+							<td>{{data.allStudents.length * rubric.amount * rubric.minPercent / 100 | number:0}}</td>
 							<td class="remove text-center noprint" style="width:80px;padding-top:15px;">
-								<a ng-click="remove(rubric)" ng-if="rubric.items.length === 0">
+								<a ng-click="remove(rubric)">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>
 						</tr>
 						<tr>
 							<th style="text-align:right">{{dict.total}}</th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
+							<th>{{data.allStudents.length}}</th>
+							<th>{{data.rubricTotal | number: 0}}</th>
+							<th>{{data.rubricTotal * data.allStudents.length | number: 0}}</th>
+							<th>{{data.schoolTotal * data.allStudents.length | number: 0}}</th>
+							<th>{{data.divTotal * data.allStudents.length | number: 0}}</th>
+							<th>{{data.regTotal * data.allStudents.length | number: 0}}</th>
+							<th>{{data.minTotal * data.allStudents.length | number: 0}}</th>
 							<th class="noprint"></th>
 						</tr>
 						
