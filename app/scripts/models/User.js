@@ -29,22 +29,12 @@ schoolman.config(['modelProvider', function(model){
         required:true
       },
       {
+        key:"dutypost",
+        type:"string",
+        required:false
+      },
+      {
         key:"sex",
-        type:"string",
-        required:false
-      },
-      {
-        key:"staffEmail",
-        type:"string",
-        required:false
-      },
-      {
-        key:"salary",
-        type:"number",
-        required:true
-      },
-      {
-        key:"residence",
         type:"string",
         required:false
       },
@@ -104,17 +94,27 @@ schoolman.config(['modelProvider', function(model){
         required:false
       },
       {
-        key:"dutypost",
-        type:"string",
-        required:false
-      },
-      {
         key:"region",
         type:"string",
         required:false
       },
       {
         key:"phoneNo",
+        type:"string",
+        required:false
+      },
+      {
+        key:"staffEmail",
+        type:"string",
+        required:false
+      },
+      {
+        key:"salary",
+        type:"number",
+        required:false
+      },
+      {
+        key:"residence",
         type:"string",
         required:false
       },
@@ -147,14 +147,11 @@ schoolman.config(['modelProvider', function(model){
       classmaster:0,
       teacher:1
     };
+    this.dutypost = "";
     this.sex = "";     
-    this.staffEmail = "";
-    this.salary = 0;
-    this.residence = "";
     this.matricalno = "";
     this.maritalstatus = "";
     this.birth = null; // Datetime integer
-    this.post = "";
     this.grade = "";
     this.qualification = "";
     this.subdivision = "";
@@ -163,9 +160,11 @@ schoolman.config(['modelProvider', function(model){
     this.specialty = "";
     this.tribe = "";
     this.dateposted = null;
-    this.dutypost = "";
     this.region="";
     this.phoneNo = "";
+    this.staffEmail = "";
+    this.salary = 0;
+    this.residence = "";
 
     angular.forEach(specs, function(prop, key){
       if(self.hasOwnProperty(key)){
@@ -179,7 +178,8 @@ schoolman.config(['modelProvider', function(model){
       teacher: {nameEn:"Teacher", nameFr:"Enseignant"},
       admin:   {nameEn:"Administrator", nameFr:"Administrateur"},
       classmaster: {nameEn:"Class Master", nameFr:"Prof Titulaire"},
-      registrar:{nameEn:"Registrar", nameFr:"Économe"}
+      registrar:{nameEn:"Registrar", nameFr:"Économe"},
+      sales:{nameEn:"Sales", nameFr:"Sales"}
   }
 
   User.prototype = new model.Model();
@@ -243,4 +243,3 @@ schoolman.config(['modelProvider', function(model){
   model.User = User;
 
 }]);
- 
