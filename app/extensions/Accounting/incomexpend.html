@@ -2,7 +2,10 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="IncomexpendCtrl">
 		<div style="margin-bottom:10px;">
-			<div class="printonly"><h4>Income and Expenditure</h4></div> 
+			<div class="printonly" ng-controller="ClassmenuCtrl">
+		      <center><h4>{{lang === 'en' ? data.schoolInfo.nameEn : data.schoolInfo.nameFr}}</h4>
+		      <h4>{{dict.income_and_expenditures}} {{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4></center>
+		    </div>
 				<form class="navbar-form navbar-left" role="search" style="padding-left:15px;">		  
 					<table class="table table-striped table-bordered table-compact">
 						<thead>
