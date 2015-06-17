@@ -86,7 +86,8 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
                 {name:"students", list:[], db:pouchdb.create('db_students'), datatype:"datatype/student/v1"},
                 {name:"payments", list:[], db:pouchdb.create('db_payments'), datatype:"datatype/payment/v1"},
                 {name:"marksheets", list:[], db:pouchdb.create('db_marksheets'), datatype:"datatype/marksheet/v1"},
-                {name:"transcripts", list:[], db:pouchdb.create('db_transcripts'), datatype:"datatype/transcript/v1"}]
+                {name:"transcripts", list:[], db:pouchdb.create('db_transcripts'), datatype:"datatype/transcript/v1"},
+                {name:"items", list:[], db:pouchdb.create('db_items'), datatype:"datatype/item/v1"}]
     
     angular.forEach(data, function(item, itemKey){
       if(item.doc.datatype === dbs[1].datatype){
@@ -98,8 +99,11 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
       else if(item.doc.datatype === dbs[3].datatype){
         dbs[3].list.push(item.doc);
       }
-      else if(item.doc.datatype === dbs[3].datatype){
+      else if(item.doc.datatype === dbs[4].datatype){
         dbs[4].list.push(item.doc);
+      }
+      else if(item.doc.datatype === dbs[5].datatype){
+        dbs[5].list.push(item.doc);
       }
       else {
         dbs[0].list.push(item.doc);
