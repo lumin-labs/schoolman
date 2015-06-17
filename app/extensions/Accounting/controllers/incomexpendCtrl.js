@@ -1,9 +1,14 @@
 'use strict';
 
-function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Rubrics, Payments, Students) {
+function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Rubrics, Payments, Students, SchoolInfos) {
     $scope.dict = Lang.getDict();
     $scope.balance = 0;
     
+    SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+    }).catch(function(error){
+        console.log("failed to get school info", error);
+    });
 
     var data = $scope.data = {
         items: [],
@@ -69,7 +74,5 @@ function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Ru
 
 
 }
-IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Items', 'Lang', 'Rubrics', 'Payments', 'Students'];
+IncomexpendCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Items', 'Lang', 'Rubrics', 'Payments', 'Students', 'SchoolInfos'];
 angular.module('SchoolMan.Accounting').controller('IncomexpendCtrl', IncomexpendCtrl);
-
-

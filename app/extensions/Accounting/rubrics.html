@@ -2,8 +2,10 @@
 	<div class="col-md-2" ng-include="'views/_navstacked.html'"></div>
 	<div class="col-md-10 marksheet" ng-controller="RubricCtrl">
 		<div style="margin-bottom:10px;">
-			<div class="printonly"><h4>Rubrics</h4></div>
-			
+			<div class="printonly" ng-controller="ClassmenuCtrl">
+		      <center><h4>{{lang === 'en' ? data.schoolInfo.nameEn : data.schoolInfo.nameFr}}</h4>
+		      <h4>{{dict.accounting_rubrics}} {{data.schoolInfo.schoolyear}} {{dict.academic_year}}</h4></center>
+		    </div>
 				<table class="table table-striped table-bordered">
 					<thead>
 						

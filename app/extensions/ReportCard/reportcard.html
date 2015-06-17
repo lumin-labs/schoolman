@@ -310,8 +310,11 @@
           <tr>
             <td>{{dict.promotion_status}}</td>
             <td>
-                <span ng-if="student.status[2014] === 0">
+                <span ng-if="student.status[2014] === 0 && termIndex < 3">
                   {{ data.msheet.table[student._id][0] < passingScore ? dict.fail : dict.pass}}
+                </span>
+                <span ng-if="student.status[2014] === 0 && termIndex === '3'">
+                  {{ data.msheet.table[student._id][0] < passingScore ? dict.repeat : dict.promote}}
                 </span>
                 <span ng-if="student.status[2014] !== 0">
                   {{PROMOTE_OPTIONS[student.status[2014]].name}}
