@@ -1,9 +1,11 @@
 'use strict';
 
-function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments) {
+function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments, Data2) {
   // AngularJS will instantiate a singleton by calling "new" on this function
 
   var self = {};
+
+  
   
 
   self.import = function(){
@@ -157,11 +159,18 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
     });
 
     var merge = function(dbs){
-      pouchdb.create(dbs[0]).allDocs({include_docs:true}).then(function(success){
+      pouchdb.create(dbs[0]).allDocs({include_docs:true, attachments:true}).then(function(success){
         data = data.concat(success.rows);
         if(dbs.length === 1){
-          console.log("Merge successful:", data);
-          writeData(JSON.stringify(data));
+          Data2.get("logo", {attachments:true}).then(function(success){
+            angular.forEach(data, function(item){
+              if(item['id'] === "logo"){
+                item['doc']['_attachments']['logo.png'] = success['_attachments']['logo.png'];
+              }
+            })
+            console.log("Merge successful:", data);
+            writeData(JSON.stringify(data));
+          })
         }
         else if(dbs.length > 1){
           merge(dbs.slice(1));
@@ -199,6 +208,8 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
           });
         });
     }
+
+
     merge(dbs);
     return deferred.promise;
   }
@@ -236,5 +247,5 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
   window._export = self.export;
   return self;
 }
-File.$inject = ['pouchdb', '$q', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments'];
+File.$inject = ['pouchdb', '$q', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Data2'];
 angular.module('SchoolMan').service('File', File);
