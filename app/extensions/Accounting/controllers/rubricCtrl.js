@@ -1,8 +1,14 @@
 'use strict';
 
-function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang, Fees, Payments, Students) {
+function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang, Fees, Payments, Students, SchoolInfos) {
     $scope.dict = Lang.getDict();
     $scope.validationError = false;
+
+    SchoolInfos.get("schoolinfo").then(function(info){
+        $scope.data.schoolInfo = info;
+    }).catch(function(error){
+        console.log("failed to get school info", error);
+    });
 
     var data = $scope.data = {
         rubrics: {},
@@ -73,7 +79,7 @@ function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang,
         });
     }
 }
-RubricCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Rubrics', 'Items', 'Lang', 'Fees', 'Payments', 'Students'];
+RubricCtrl.$inject = ['$scope', '$routeParams', 'model', 'Location', 'Rubrics', 'Items', 'Lang', 'Fees', 'Payments', 'Students', 'SchoolInfos'];
 angular.module('SchoolMan.Accounting').controller('RubricCtrl', RubricCtrl);
 
 
