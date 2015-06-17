@@ -10,7 +10,7 @@
  * @description Class council view controller
  *
  */
-function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, Location, SchoolInfos, Lang){
+function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, ClassCouncils, Groups, Forms, Departments, Terms, Location, SchoolInfos, Lang, Logo){
 
     $scope.pageTitleEnglish = "CLASS COUNCIL REPORT";
     $scope.pageTitleFrench = "RAPPORT DU CONSEIL DE CLASSE";
@@ -51,6 +51,9 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
         console.log("failed to get school info", error);
     });
 
+    Logo.get().then(function(img){
+        document.getElementById("logo-image").appendChild(img);
+    })
 
     $scope.groupStats = {};
 
@@ -281,5 +284,5 @@ function ClasscouncilCtrl($scope, $routeParams, model, Marksheets, Students, Cla
 
 
 }
-ClasscouncilCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'Location', 'SchoolInfos', 'Lang']
+ClasscouncilCtrl.$inject = ['$scope', '$routeParams', 'model', 'Marksheets', 'Students', 'ClassCouncils', 'Groups', 'Forms', 'Departments', 'Terms', 'Location', 'SchoolInfos', 'Lang', 'Logo']
 angular.module('SchoolMan.ReportCard').controller('ClasscouncilCtrl', ClasscouncilCtrl);

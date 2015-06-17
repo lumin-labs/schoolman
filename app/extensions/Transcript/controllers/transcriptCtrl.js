@@ -1,6 +1,6 @@
 'use strict';
 
-function TranscriptCtrl($scope, $routeParams, model, Transcripts, Subjects, Students, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang) {
+function TranscriptCtrl($scope, $routeParams, model, Transcripts, Subjects, Students, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang, Logo) {
   
     var termIndex = $scope.termIndex = $routeParams.termIndex;
     $scope.dict = Lang.getDict();
@@ -14,6 +14,10 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Subjects, Stud
     $scope.studentId = $routeParams.studentId;
 
     $scope.classMaster = ClassMaster;
+
+    Logo.get().then(function(img){
+        document.getElementById("logo-image").appendChild(img);
+    })
 
     $scope.data = {
       allForms: Forms.all(),
@@ -266,5 +270,5 @@ function TranscriptCtrl($scope, $routeParams, model, Transcripts, Subjects, Stud
   };
 
 }
-TranscriptCtrl.$inject = ['$scope', '$routeParams', 'model', 'Transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang'];
+TranscriptCtrl.$inject = ['$scope', '$routeParams', 'model', 'Transcripts', 'Subjects', 'Students', 'Departments', 'Groups', 'Terms', 'SubjectTypes', 'Forms', 'ClassMaster', 'Location', 'SchoolInfos', 'Lang', 'Logo'];
 angular.module('SchoolMan.Transcript').controller('transcriptCtrl', TranscriptCtrl);
