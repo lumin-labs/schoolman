@@ -290,7 +290,7 @@ var extensionList = [ {
 
 angular.module('SchoolMan')
   .constant('VERSION',{
-    mode:"ghs"
+    mode:"gths"
   })
   
   .constant('EXTENSIONS', extensionList)
