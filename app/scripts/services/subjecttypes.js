@@ -5,7 +5,7 @@ function SubjectTypes() {
 
     var types = [
     	"General",
-    	"Specialized",
+    	"Professional",
     	"Other"
     ];
 
