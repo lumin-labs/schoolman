@@ -245,7 +245,7 @@
                 <td class="{{getRemark(set.summsheets[mId]['table'][student._id][0]).css}}">{{dict[getRemark(set.summsheets[mId]['table'][student._id][0]).text]}}</td>
                 <td>
                   <div class="signature">
-                    {{set.summsheets[mId]['table'][student._id][0] >= 0 ? Users.get(marksheet.teacherId).fullname : ""}}
+                    {{set.summsheets[mId]['table'][student._id][0] >= 0 ? Users.get(marksheet.teacherId).fullname : "" | limitTo:20}}
                   </div>
                 </td>
               </tr>

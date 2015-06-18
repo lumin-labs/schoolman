@@ -170,6 +170,9 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
             })
             console.log("Merge successful:", data);
             writeData(JSON.stringify(data));
+          }).catch(function(error){
+            console.log("Merge successful:", data);
+            writeData(JSON.stringify(data));
           })
         }
         else if(dbs.length > 1){

@@ -53,7 +53,7 @@ schoolman.config(['modelProvider', function(model){
 
   Subject.types = [
       "General",
-      "Specialized",
+      "Professional",
       "Other"
   ]
   Subject.prototype = new model.Model();
