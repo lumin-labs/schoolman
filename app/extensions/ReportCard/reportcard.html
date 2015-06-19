@@ -211,7 +211,9 @@
             <thead>
               <tr>
                 <th>{{dict.subject_discipline}}</th>
-                <th ng-repeat="n in (termIndex === '3' ? ['T1', 'T2', 'T3'] : ['S1','S2'])">{{n}}</th>
+                <!-- <th ng-repeat="n in (termIndex === '3' ? ['T1', 'T2', 'T3'] : ['S1','S2'])">{{n}}</th> -->
+                <th ng-repeat="n in ['T1', 'T2', 'T3']" ng-if="termIndex === '3'">{{n}}</th>
+                <th ng-repeat="n in Marksheets.getSequences(termIndex)" ng-if="termIndex !== '3'">S{{n+1}}</th>
                 <th>{{dict.average}}</th>
                 <th>{{dict.coeff}}</th>
                 <th>{{dict.AxC}}</th>

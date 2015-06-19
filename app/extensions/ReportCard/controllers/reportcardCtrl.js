@@ -184,10 +184,6 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
     }
   }
 
-  
-
-
-
   $scope.formatNumber = function(num){
   // console.log("n", num, Number(num));
   var n = "";
