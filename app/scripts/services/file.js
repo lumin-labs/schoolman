@@ -19,9 +19,15 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
           reader.onloadend = function(success){
             var data = JSON.parse(success.target.result);
             console.log("Read successful.", data);
-            $q.when(saveToDB(data)).then(function(success){
-              reloadData();
-            });
+            if(options.previousImport === true){
+              $q.when(savePreviousToDB(data)).then(function(success){
+                reloadData();
+              });
+            } else {
+              $q.when(saveToDB(data)).then(function(success){
+                reloadData();
+              });
+            }
           }
           reader.onerror = function(error){
             console.log("Read failed:", error);
@@ -132,6 +138,52 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
     return deferred.promise;
   }
   
+  var savePreviousToDB = function(data){
+    var deferred = $q.defer();
+    var dbs = [{name:"gen", list:[], db:pouchdb.create('gths')},
+                {name:"students", list:[], db:pouchdb.create('db_students'), datatype:"datatype/student/v1"},
+                {name:"transcripts", list:[], db:pouchdb.create('db_transcripts'), datatype:"datatype/transcript/v1"}]
+    var exclude = ["datatype/payment/v1", 
+                  "datatype/marksheet/v1", 
+                  "datatype/item/v1", 
+                  "datatype/classcouncil/v1", 
+                  "datatype/comment/v1",
+                  "datatype/dcard/v1"]
+    
+    angular.forEach(data, function(item, itemKey){
+      if(exclude.indexOf(item.doc.datatype) > -1){
+        //do not import
+      }
+      else if(item.doc.datatype === dbs[1].datatype){
+        dbs[1].list.push(item.doc);
+      }
+      else if(item.doc.datatype === dbs[2].datatype){
+        dbs[2].list.push(item.doc);
+      }
+      else if(item.doc.datatype === dbs[3].datatype){
+        dbs[3].list.push(item.doc);
+      }
+      else {
+        dbs[0].list.push(item.doc);
+      }
+    });
+    
+    
+    dbs[0].db.bulkDocs({docs: dbs[0].list}, {new_edits:false}).then(function(success){
+      console.log(dbs[0].name, "imported", success, dbs[0].list);
+      dbs[1].db.bulkDocs({docs: dbs[1].list}, {new_edits:false}).then(function(success){
+        console.log(dbs[1].name, "imported", success, dbs[1].list);
+        dbs[2].db.bulkDocs({docs: dbs[2].list}, {new_edits:false}).then(function(success){
+          console.log(dbs[2].name, "imported", success, dbs[2].list);
+          deferred.resolve();
+        });
+      });
+    }).catch(function(error){
+        console.log("Error saving to Import DB:", error);
+        deferred.reject();
+    });
+    return deferred.promise;
+  }
 
   self.export = function(){
     
