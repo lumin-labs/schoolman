@@ -149,6 +149,9 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
                   "datatype/classcouncil/v1", 
                   "datatype/comment/v1",
                   "datatype/dcard/v1"]
+    var modelChanges = ["datatype/user/v1",
+                        "datatype/settings/v1"
+                        "datatype/schoolinfo/v1"]
     
     angular.forEach(data, function(item, itemKey){
       if(exclude.indexOf(item.doc.datatype) > -1){
@@ -159,9 +162,6 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
       }
       else if(item.doc.datatype === dbs[2].datatype){
         dbs[2].list.push(item.doc);
-      }
-      else if(item.doc.datatype === dbs[3].datatype){
-        dbs[3].list.push(item.doc);
       }
       else {
         dbs[0].list.push(item.doc);
