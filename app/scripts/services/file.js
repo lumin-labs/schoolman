@@ -56,38 +56,38 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
 
       var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, infosP];
 
-        $q.all(promises).then(function(success){
-          var students = success[6];
-          
-          if(previous_flag){
-            angular.forEach(students, function(student, studentIndex){
-              if(student.totalPaid !== 0){
-                student.totalPaid = 0;
+      $q.all(promises).then(function(success){
+        var students = success[6];
+        
+        if(previous_flag){
+          angular.forEach(students, function(student, studentIndex){
+            if(student.totalPaid !== 0){
+              student.totalPaid = 0;
+              student.save().then(function(success){
+              });
+            }
+          });
+          deferred.resolve();
+        } else {
+          angular.forEach(students, function(student, studentIndex){
+            Payments.query({studentId:student._id}).then(function(payments){
+              var totalPaid = _.reduce(payments, function(total, payment){
+                return total + payment.amount;
+              },0);
+              if(student.totalPaid !== totalPaid){
+                student.totalPaid = totalPaid;
                 student.save().then(function(success){
+                  console.log("Student saved:", success);
                 });
               }
+            }).catch(function(error){
+              console.log("Failed to load payments for ", student.name, error);
             });
-            deferred.resolve();
-          } else {
-            angular.forEach(students, function(student, studentIndex){
-              Payments.query({studentId:student._id}).then(function(payments){
-                var totalPaid = _.reduce(payments, function(total, payment){
-                  return total + payment.amount;
-                },0);
-                if(student.totalPaid !== totalPaid){
-                  student.totalPaid = totalPaid;
-                  student.save().then(function(success){
-                    console.log("Student saved:", success);
-                  });
-                }
-              }).catch(function(error){
-                console.log("Failed to load payments for ", student.name, error);
-              });
-            });
-            deferred.resolve();
-          }
+          });
+          deferred.resolve();
+        }
 
-        });
+      });
 
     }
     
