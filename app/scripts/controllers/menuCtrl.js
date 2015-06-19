@@ -34,7 +34,7 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
   $scope.import = function(){
     var modalInstance = $scope.openModal("import");
     console.log("modal ", modalInstance);
-    $q.when(File.import()).then(function(success){
+    $q.when(File.import(false)).then(function(success){
       console.log("success importing");
       modalInstance.close();
     });
