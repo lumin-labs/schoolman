@@ -61,7 +61,7 @@
                     {{dict.print_current_report_card_only}}
                 </label></input></h4>
                 
-                <h4><input type="radio" id="printradio2" ng-model="ClassMaster.printVariable" value="true">
+                <h4><input type="radio" id="printradio2" ng-model="ClassMaster.printVariable" value="true" ng-click="getLogo()">
                 <label for="printradio2">
                     <button class="btn btn-md btn-light disabled" style="border:solid 1px #ddd;height:30px;width:40px;">
                     <i ng-if="ClassMaster.printVariable === 'true'" class="glyphicon glyphicon-ok" style="color:green;"></i></button>

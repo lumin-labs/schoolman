@@ -3,6 +3,7 @@
 function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCouncils, Dcards, Users, Subjects, Students, Marksheets, Departments, Groups, Terms, SubjectTypes, Forms, ClassMaster, Location, SchoolInfos, Lang, Logo) {
  
   var termIndex = $scope.termIndex = $routeParams.termIndex;
+
   
   $scope.s = [(parseInt(termIndex) + 1) * 2 - 1, (parseInt(termIndex) + 1) * 2]
 
@@ -35,6 +36,23 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
   $scope.data.students = [];
   $scope.data.student;
 
+  var getLogo = function(){
+    var elements = document.getElementsByName("logo-image");
+
+    Logo.getAttachment().then(function(success){
+      for(var i = 0; i < elements.length; i++){
+        if(elements[i].childElementCount === 0){
+          var img = document.createElement('img');
+          img.src = URL.createObjectURL(success);
+          img.width = "100";
+          elements[i].appendChild(img);
+        }
+      }
+      console.log("Image Elements", elements);
+
+    })
+  }
+
   SchoolInfos.get("schoolinfo").then(function(info){
     $scope.data.schoolInfo = info;
     //console.log("school info retrieved", $scope.data.schoolInfo);
@@ -51,9 +69,8 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
   })
   .then(function(marksheets){
     
-    Logo.get().then(function(img){
-      document.getElementById("logo-image").appendChild(img);
-    })
+
+    getLogo();
 
     var marksheetStudents = marksheets.map(function(marksheet){
       return Object.keys(marksheet.table);
