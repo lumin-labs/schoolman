@@ -123,7 +123,7 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
             console.log(dbs[3].name, "imported", success, dbs[3].list);
             dbs[4].db.bulkDocs({docs: dbs[4].list}, {new_edits:false}).then(function(success){
               console.log(dbs[4].name, "imported", success, dbs[4].list);
-              dbs[4].db.bulkDocs({docs: dbs[5].list}, {new_edits:false}).then(function(success){
+              dbs[5].db.bulkDocs({docs: dbs[5].list}, {new_edits:false}).then(function(success){
                 console.log(dbs[5].name, "imported", success, dbs[5].list);
                 deferred.resolve();
               });
