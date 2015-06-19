@@ -79,6 +79,11 @@ schoolman.config(['modelProvider', function(model){
         required:false
       },
       {
+        key:"name",
+        type:"string",
+        required:true
+      },
+      {
         key:"specialty",
         type:"string",
         required:false
@@ -117,11 +122,6 @@ schoolman.config(['modelProvider', function(model){
         key:"residence",
         type:"string",
         required:false
-      },
-      {
-        key:"name",
-        type:"string",
-        required:true
       }],
       fields_key:0
     }

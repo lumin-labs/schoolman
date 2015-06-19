@@ -63,7 +63,7 @@ function SchoolInfoCtrl($scope, Data2, model, $routeParams, SchoolInfos, Logo, $
     });
   }
   $scope.importPrevious = function(){
-    File.import({previousImport: true});
+    File.import(true);
   }
 }
 SchoolInfoCtrl.$inject = ['$scope', 'Data2', 'model', '$routeParams', 'SchoolInfos', 'Logo', '$route', 'File'];
