@@ -1,6 +1,6 @@
 'use strict';
 
-function SchoolInfoCtrl($scope, Data2, model, $routeParams, SchoolInfos, Logo, $route) {
+function SchoolInfoCtrl($scope, Data2, model, $routeParams, SchoolInfos, Logo, $route, File) {
 	
   $scope.accessCode = $routeParams.accessCode;
   $scope.User = model.User;
@@ -62,6 +62,9 @@ function SchoolInfoCtrl($scope, Data2, model, $routeParams, SchoolInfos, Logo, $
         });
     });
   }
+  $scope.importPrevious = function(){
+    File.import({previousImport: true});
+  }
 }
-SchoolInfoCtrl.$inject = ['$scope', 'Data2', 'model', '$routeParams', 'SchoolInfos', 'Logo', '$route'];
+SchoolInfoCtrl.$inject = ['$scope', 'Data2', 'model', '$routeParams', 'SchoolInfos', 'Logo', '$route', 'File'];
 angular.module('SchoolMan').controller('SchoolInfoCtrl', SchoolInfoCtrl);

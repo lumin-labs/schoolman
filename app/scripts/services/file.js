@@ -142,16 +142,18 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
     var deferred = $q.defer();
     var dbs = [{name:"gen", list:[], db:pouchdb.create('gths')},
                 {name:"students", list:[], db:pouchdb.create('db_students'), datatype:"datatype/student/v1"},
-                {name:"transcripts", list:[], db:pouchdb.create('db_transcripts'), datatype:"datatype/transcript/v1"}]
+                {name:"transcripts", list:[], db:pouchdb.create('db_transcripts'), datatype:"datatype/transcript/v1"}];
     var exclude = ["datatype/payment/v1", 
                   "datatype/marksheet/v1", 
                   "datatype/item/v1", 
                   "datatype/classcouncil/v1", 
                   "datatype/comment/v1",
-                  "datatype/dcard/v1"]
+                  "datatype/dcard/v1"];
+
+    //account for changes to the model for required attributes
     var modelChanges = ["datatype/user/v1",
-                        "datatype/settings/v1"
-                        "datatype/schoolinfo/v1"]
+                        "datatype/settings/v1",
+                        "datatype/schoolinfo/v1"];
     
     angular.forEach(data, function(item, itemKey){
       if(exclude.indexOf(item.doc.datatype) > -1){
@@ -164,6 +166,11 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
         dbs[2].list.push(item.doc);
       }
       else {
+        angular.forEach(modelChanges, function(dataype){
+          if(item.doc.datatype === dataype){
+            console.log(dataype, "Item:", item);
+          }
+        })
         dbs[0].list.push(item.doc);
       }
     });
