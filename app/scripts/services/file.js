@@ -45,6 +45,7 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
       var subjP = Subjects.load();
       var groupP= Groups.load();
       var studentsP= Students.load();
+      var infosP = SchoolInfos.get();
 
       // Initialize/Register ClassCouncil datatype
       var instClassCouncil = new model.ClassCouncil();
@@ -123,7 +124,10 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
             console.log(dbs[3].name, "imported", success, dbs[3].list);
             dbs[4].db.bulkDocs({docs: dbs[4].list}, {new_edits:false}).then(function(success){
               console.log(dbs[4].name, "imported", success, dbs[4].list);
-              deferred.resolve();
+              dbs[4].db.bulkDocs({docs: dbs[5].list}, {new_edits:false}).then(function(success){
+                console.log(dbs[5].name, "imported", success, dbs[5].list);
+                deferred.resolve();
+              });
             });
           });
         });
@@ -148,6 +152,7 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
       {getDB:function(){return 'db_payments'}},
       {getDB:function(){return 'db_marksheets'}},
       {getDB:function(){return 'db_transcripts'}},
+      {getDB:function(){return 'db_items'}}
     ]
 
     angular.forEach(services, function(service){
