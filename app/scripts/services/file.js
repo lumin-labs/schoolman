@@ -1,6 +1,6 @@
 'use strict';
 
-function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments, Data2) {
+function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments, Data2, SchoolInfos) {
   // AngularJS will instantiate a singleton by calling "new" on this function
 
   var self = {};
@@ -141,14 +141,14 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
   var savePreviousToDB = function(data){
     var deferred = $q.defer();
     var dbs = [{name:"gen", list:[], db:pouchdb.create('gths')},
-                {name:"students", list:[], db:pouchdb.create('db_students'), datatype:"datatype/student/v1"},
-                {name:"transcripts", list:[], db:pouchdb.create('db_transcripts'), datatype:"datatype/transcript/v1"}];
+                {name:"students", list:[], db:pouchdb.create('db_students'), datatype:"datatype/student/v1"}];
     var exclude = ["datatype/payment/v1", 
                   "datatype/marksheet/v1", 
                   "datatype/item/v1", 
                   "datatype/classcouncil/v1", 
                   "datatype/comment/v1",
-                  "datatype/dcard/v1"];
+                  "datatype/dcard/v1",
+                  "datatype/transcript/v1"];
 
     //account for changes to the model for required attributes
     var modelChanges = ["datatype/user/v1",
@@ -161,9 +161,6 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
       }
       else if(item.doc.datatype === dbs[1].datatype){
         dbs[1].list.push(item.doc);
-      }
-      else if(item.doc.datatype === dbs[2].datatype){
-        dbs[2].list.push(item.doc);
       }
       else {
         angular.forEach(modelChanges, function(dataype){
@@ -307,5 +304,5 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
   window._export = self.export;
   return self;
 }
-File.$inject = ['pouchdb', '$q', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Data2'];
+File.$inject = ['pouchdb', '$q', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Data2', 'SchoolInfos'];
 angular.module('SchoolMan').service('File', File);
