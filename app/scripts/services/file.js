@@ -5,10 +5,8 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
 
   var self = {};
 
-  
-  
 
-  self.import = function(){
+  self.import = function(options){
     var data = [];
     var deferred = $q.defer();
     var promise;
@@ -53,15 +51,10 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
       var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 
       $q.all(promises).then(function(success){
-        //console.log("Successes", success);
-        //var students = {};
         var students = success[6];
-        //console.log("students", students);
         
         angular.forEach(students, function(student, studentIndex){
-          //console.log("student", student);
           Payments.query({studentId:student._id}).then(function(payments){
-            //console.log("Got payments", student._id, payments);
             var totalPaid = _.reduce(payments, function(total, payment){
               return total + payment.amount;
             },0);
