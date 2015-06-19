@@ -6,7 +6,7 @@ schoolman.config(['modelProvider', function(model){
 
   function Settings(spec){
     
-    this.is("settings.v2");
+    this.is("settings.v1");
 
     var val = this.val.bind(this); var required = true;
 
