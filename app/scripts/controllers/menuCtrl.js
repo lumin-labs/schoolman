@@ -118,9 +118,25 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
     //modalInstance.close();
   //}
 
-  var PrintModalInstanceFunction = function ($scope, $modalInstance, ClassMaster, Lang) {
+  var PrintModalInstanceFunction = function ($scope, $modalInstance, ClassMaster, Lang, Logo) {
     $scope.dict = Lang.getDict();
     $scope.ClassMaster = ClassMaster;
+
+    $scope.getLogo = function() {
+      var elements = document.getElementsByName("logo-image");
+
+      Logo.getAttachment().then(function(success){
+        for(var i = 0; i < elements.length; i++){
+          if(elements[i].childElementCount === 0){
+            var img = document.createElement('img');
+            img.src = URL.createObjectURL(success);
+            img.width = "100";
+            elements[i].appendChild(img);
+          }
+        }
+
+      })
+    }
 
     $scope.ok = function () {
       $modalInstance.close();
@@ -128,13 +144,14 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
       ClassMaster.printVariable = false;
 
     };
-    
+
+
 
     $scope.cancel = function () {
       $modalInstance.dismiss('cancel');
     };
   }
-  PrintModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'ClassMaster', 'Lang'];
+  PrintModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'ClassMaster', 'Lang', 'Logo'];
   
   var ImportExportModalInstanceFunction = function ($scope, $modalInstance, Lang){
     $scope.dict = Lang.getDict();

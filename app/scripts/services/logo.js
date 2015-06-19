@@ -50,6 +50,17 @@ function Logo($q, Data2) {
         return deferred.promise;
     }
 
+    self.getAttachment = function() {
+        var deferred = $q.defer();
+        Data2.getAttachment('logo', 'logo.png').then(function(success){
+            deferred.resolve(success);
+        }).catch(function(error){
+            console.log("Error retreiving attachment", error);
+            deferred.reject(error);
+        })
+        return deferred.promise;
+    }
+
     return self;
 
   }

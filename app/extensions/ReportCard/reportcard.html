@@ -82,7 +82,7 @@
         </nav>
       </div>  
     </div>
-<div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'" ng-show="student._id === data.student._id" ng-if="student._id === data.student._id || ClassMaster.printVariable === true || ClassMaster.printVariable === 'true'" class="print-show">
+<div ng-repeat="(studentIndex, student) in data.students | orderBy:'name'" ng-if="student._id === data.student._id || ClassMaster.printVariable === true || ClassMaster.printVariable === 'true'">
   <div class="pagebreak" ng-if="studentIndex !== 0 && (ClassMaster.printVariable === true || ClassMaster.printVariable === 'true')"></div>
 
     <!-- School Name Letterhead -->
