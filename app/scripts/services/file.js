@@ -207,13 +207,13 @@ function File(pouchdb, $q, $modal, $log, model, settings, Users, Fees, Departmen
 
   self.export = function(){
     
-  	var dbs = [];
-  	var data = [];
+    var dbs = [];
+    var data = [];
     var deferred = $q.defer();
           
     var services = [
-    	{getDB:function(){return 'gths'}},
-    	{getDB:function(){return 'db_students'}},
+      {getDB:function(){return 'gths'}},
+      {getDB:function(){return 'db_students'}},
       {getDB:function(){return 'db_payments'}},
       {getDB:function(){return 'db_marksheets'}},
       {getDB:function(){return 'db_transcripts'}},
@@ -221,11 +221,11 @@ function File(pouchdb, $q, $modal, $log, model, settings, Users, Fees, Departmen
     ]
 
     angular.forEach(services, function(service){
-    	//Collect all the databases
-    	var db = service.getDB();
-    	if(dbs.indexOf(db) === -1){
-    		dbs.push(db);
-    	}
+      //Collect all the databases
+      var db = service.getDB();
+      if(dbs.indexOf(db) === -1){
+        dbs.push(db);
+      }
     });
 
     var merge = function(dbs){
