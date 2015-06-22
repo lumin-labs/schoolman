@@ -160,25 +160,27 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
                   "datatype/comment/v1",
                   "datatype/dcard/v1",
                   "datatype/transcript/v1"];
-
-    //account for changes to the model for required attributes
-    var modelChanges = ["datatype/user/v1",
-                        "datatype/settings/v1",
-                        "datatype/schoolinfo/v1"];
     
     angular.forEach(data, function(item, itemKey){
-      if(exclude.indexOf(item.doc.datatype) > -1){
+      if(exclude.indexOf(item.doc.datatype) > -1  || item.doc.type === "schema"){
         //do not import
       }
       else if(item.doc.datatype === dbs[1].datatype){
         dbs[1].list.push(item.doc);
       }
       else {
-        angular.forEach(modelChanges, function(dataype){
-          if(item.doc.datatype === dataype){
-            console.log(dataype, "Item:", item);
+        //user has a new required attribute for schoolyear 2015/2016
+        if(item.doc.datatype === "datatype/user/v1"){
+          var values = item.doc[0];
+          if((values[14] && model.slugify(values[14]) !== values[1]) || !values[14]){
+            if(model.slugify(values[0]) === values[1]){
+              values.push(values[0]);
+            } else {
+              values.push(values[1]);
+            }
           }
-        })
+          console.log("User Item:", item);
+        }
         dbs[0].list.push(item.doc);
       }
     });
