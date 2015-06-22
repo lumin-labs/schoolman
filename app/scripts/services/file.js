@@ -60,17 +60,16 @@ function File(pouchdb, $q, $modal, $log, model, settings, Users, Fees, Departmen
         var students = success[6];
         
         if(previous_flag){
-          $q.when(angular.forEach(students, function(student, studentIndex){
+          angular.forEach(students, function(student, studentIndex){
             if(student.totalPaid !== 0){
               student.totalPaid = 0;
               student.save().then(function(success){
               });
             }
-          })).then(function(success){
-            deferred.resolve();
-          })
+          });
+          deferred.resolve();
         } else {
-          $q.when(angular.forEach(students, function(student, studentIndex){
+          angular.forEach(students, function(student, studentIndex){
             Payments.query({studentId:student._id}).then(function(payments){
               var totalPaid = _.reduce(payments, function(total, payment){
                 return total + payment.amount;
@@ -84,10 +83,8 @@ function File(pouchdb, $q, $modal, $log, model, settings, Users, Fees, Departmen
             }).catch(function(error){
               console.log("Failed to load payments for ", student.name, error);
             });
-          })).then(function(success){
-            deferred.resolve();
-            
-          })
+          });
+          deferred.resolve();
         }
 
       });
