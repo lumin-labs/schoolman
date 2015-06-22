@@ -1,6 +1,6 @@
 'use strict';
 
-function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments, Data2, SchoolInfos) {
+function File(pouchdb, $q, $modal, $log, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments, Data2, SchoolInfos) {
   // AngularJS will instantiate a singleton by calling "new" on this function
 
   var self = {};
@@ -19,9 +19,15 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
           reader.onloadend = function(success){
             var data = JSON.parse(success.target.result);
             console.log("Read successful.", data);
-            $q.when(saveToDB(data)).then(function(success){
-              reloadData(false);
-            });
+            if(previous_flag){
+              $q.when(savePreviousToDB(data)).then(function(success){
+                reloadData(true);
+              });
+            } else {
+              $q.when(saveToDB(data)).then(function(success){
+                reloadData(false);
+              });
+            }
           }
           reader.onerror = function(error){
             console.log("Read failed:", error);
@@ -52,18 +58,19 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
 
       $q.all(promises).then(function(success){
         var students = success[6];
-
+        
         if(previous_flag){
-          angular.forEach(students, function(student, studentIndex){
+          $q.when(angular.forEach(students, function(student, studentIndex){
             if(student.totalPaid !== 0){
               student.totalPaid = 0;
               student.save().then(function(success){
               });
             }
-          });
-          deferred.resolve();
+          })).then(function(success){
+            deferred.resolve();
+          })
         } else {
-          angular.forEach(students, function(student, studentIndex){
+          $q.when(angular.forEach(students, function(student, studentIndex){
             Payments.query({studentId:student._id}).then(function(payments){
               var totalPaid = _.reduce(payments, function(total, payment){
                 return total + payment.amount;
@@ -77,9 +84,12 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
             }).catch(function(error){
               console.log("Failed to load payments for ", student.name, error);
             });
-          });
-          deferred.resolve();
+          })).then(function(success){
+            deferred.resolve();
+            
+          })
         }
+
       });
 
     }
@@ -142,16 +152,71 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
     return deferred.promise;
   }
   
+  var savePreviousToDB = function(data){
+    var deferred = $q.defer();
+    var dbs = [{name:"gen", list:[], db:pouchdb.create('gths')},
+                {name:"students", list:[], db:pouchdb.create('db_students'), datatype:"datatype/student/v1"}];
+    var exclude = ["datatype/payment/v1", 
+                  "datatype/marksheet/v1", 
+                  "datatype/item/v1", 
+                  "datatype/classcouncil/v1", 
+                  "datatype/comment/v1",
+                  "datatype/dcard/v1",
+                  "datatype/transcript/v1"];
+    
+    angular.forEach(data, function(item, itemKey){
+      if(exclude.indexOf(item.doc.datatype) > -1  || item.doc.type === "schema"){
+        //do not import
+      }
+      else if(item.doc.datatype === dbs[1].datatype){
+        dbs[1].list.push(item.doc);
+      }
+      else {
+        //user has a new required attribute for schoolyear 2015/2016
+        if(item.doc.datatype === "datatype/user/v1"){
+          var values = item.doc[0];
+          if(!values[14]){
+            if(model.slugify(values[0]) === values[1]){
+              values.push(values[0]);
+            } else {
+              values.push(values[1].replace(/-/g, " "));
+            }
+          } else if(model.slugify(values[14]) !== values[1]){
+            if(model.slugify(values[0]) === values[1]){
+              values[14] = values[0];
+            } else {
+              values[14] = values[1].replace(/-/g, " ");
+            }
+          }
+          console.log("User Item:", item);
+        }
+        dbs[0].list.push(item.doc);
+      }
+    });
+    
+    
+    dbs[0].db.bulkDocs({docs: dbs[0].list}, {new_edits:false}).then(function(success){
+      console.log(dbs[0].name, "imported", success, dbs[0].list);
+      dbs[1].db.bulkDocs({docs: dbs[1].list}, {new_edits:false}).then(function(success){
+        console.log(dbs[1].name, "imported", success, dbs[1].list);
+        deferred.resolve();
+      });
+    }).catch(function(error){
+        console.log("Error saving to Import DB:", error);
+        deferred.reject();
+    });
+    return deferred.promise;
+  }
 
   self.export = function(){
     
-  	var dbs = [];
-  	var data = [];
+    var dbs = [];
+    var data = [];
     var deferred = $q.defer();
           
     var services = [
-    	{getDB:function(){return 'gths'}},
-    	{getDB:function(){return 'db_students'}},
+      {getDB:function(){return 'gths'}},
+      {getDB:function(){return 'db_students'}},
       {getDB:function(){return 'db_payments'}},
       {getDB:function(){return 'db_marksheets'}},
       {getDB:function(){return 'db_transcripts'}},
@@ -159,11 +224,11 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
     ]
 
     angular.forEach(services, function(service){
-    	//Collect all the databases
-    	var db = service.getDB();
-    	if(dbs.indexOf(db) === -1){
-    		dbs.push(db);
-    	}
+      //Collect all the databases
+      var db = service.getDB();
+      if(dbs.indexOf(db) === -1){
+        dbs.push(db);
+      }
     });
 
     var merge = function(dbs){
@@ -253,10 +318,83 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
       });
     });
   }
+
+  self.openModal = function (type) {
+
+    var modalInstance; 
+    if(type === "print"){
+      modalInstance = $modal.open({
+      templateUrl: 'printModal.html',
+      controller: PrintModalInstanceFunction
+      });
+    } else if(type === "export"){
+      modalInstance = $modal.open({
+        templateUrl: 'exportModal.html',
+        controller: ImportExportModalInstanceFunction
+      });
+    } else if(type === "import"){
+      modalInstance = $modal.open({
+        templateUrl: 'importModal.html',
+        controller: ImportExportModalInstanceFunction
+      });
+    }
+
+    modalInstance.result.then(function () {
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+    return modalInstance;
+  };
+
+  var PrintModalInstanceFunction = function ($scope, $modalInstance, ClassMaster, Lang, Logo) {
+    $scope.dict = Lang.getDict();
+    $scope.ClassMaster = ClassMaster;
+
+    $scope.getLogo = function() {
+      var elements = document.getElementsByName("logo-image");
+
+      Logo.getAttachment().then(function(success){
+        for(var i = 0; i < elements.length; i++){
+          if(elements[i].childElementCount === 0){
+            var img = document.createElement('img');
+            img.src = URL.createObjectURL(success);
+            img.width = "100";
+            elements[i].appendChild(img);
+          }
+        }
+
+      })
+    }
+
+    $scope.ok = function () {
+      $modalInstance.close();
+      window.print();
+      ClassMaster.printVariable = false;
+
+    };
+
+
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  }
+  PrintModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'ClassMaster', 'Lang', 'Logo'];
+  
+  var ImportExportModalInstanceFunction = function ($scope, $modalInstance, Lang){
+    $scope.dict = Lang.getDict();
+    $scope.close = function () {
+      $modalInstance.close();
+    }
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  }
+  ImportExportModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'Lang'];
   
 
   window._export = self.export;
   return self;
 }
-File.$inject = ['pouchdb', '$q', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Data2', 'SchoolInfos'];
+File.$inject = ['pouchdb', '$q', '$modal', '$log', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Data2', 'SchoolInfos'];
 angular.module('SchoolMan').service('File', File);
