@@ -1,6 +1,6 @@
 'use strict';
 
-function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments, Data2, SchoolInfos) {
+function File(pouchdb, $q, $modal, $log, model, settings, Users, Fees, Departments, Subjects, Groups, Students, Payments, Data2, SchoolInfos) {
   // AngularJS will instantiate a singleton by calling "new" on this function
 
   var self = {};
@@ -309,10 +309,83 @@ function File(pouchdb, $q, model, settings, Users, Fees, Departments, Subjects, 
       });
     });
   }
+
+  self.openModal = function (type) {
+
+    var modalInstance; 
+    if(type === "print"){
+      modalInstance = $modal.open({
+      templateUrl: 'printModal.html',
+      controller: PrintModalInstanceFunction
+      });
+    } else if(type === "export"){
+      modalInstance = $modal.open({
+        templateUrl: 'exportModal.html',
+        controller: ImportExportModalInstanceFunction
+      });
+    } else if(type === "import"){
+      modalInstance = $modal.open({
+        templateUrl: 'importModal.html',
+        controller: ImportExportModalInstanceFunction
+      });
+    }
+
+    modalInstance.result.then(function () {
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+    return modalInstance;
+  };
+
+  var PrintModalInstanceFunction = function ($scope, $modalInstance, ClassMaster, Lang, Logo) {
+    $scope.dict = Lang.getDict();
+    $scope.ClassMaster = ClassMaster;
+
+    $scope.getLogo = function() {
+      var elements = document.getElementsByName("logo-image");
+
+      Logo.getAttachment().then(function(success){
+        for(var i = 0; i < elements.length; i++){
+          if(elements[i].childElementCount === 0){
+            var img = document.createElement('img');
+            img.src = URL.createObjectURL(success);
+            img.width = "100";
+            elements[i].appendChild(img);
+          }
+        }
+
+      })
+    }
+
+    $scope.ok = function () {
+      $modalInstance.close();
+      window.print();
+      ClassMaster.printVariable = false;
+
+    };
+
+
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  }
+  PrintModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'ClassMaster', 'Lang', 'Logo'];
+  
+  var ImportExportModalInstanceFunction = function ($scope, $modalInstance, Lang){
+    $scope.dict = Lang.getDict();
+    $scope.close = function () {
+      $modalInstance.close();
+    }
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  }
+  ImportExportModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'Lang'];
   
 
   window._export = self.export;
   return self;
 }
-File.$inject = ['pouchdb', '$q', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Data2', 'SchoolInfos'];
+File.$inject = ['pouchdb', '$q', '$modal', '$log', 'model', 'settings', 'Users', 'Fees', 'Departments', 'Subjects', 'Groups', 'Students', 'Payments', 'Data2', 'SchoolInfos'];
 angular.module('SchoolMan').service('File', File);

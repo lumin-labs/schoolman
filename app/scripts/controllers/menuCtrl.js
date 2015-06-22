@@ -17,7 +17,7 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
 	$scope.print = function(){
 		ClassMaster.printVariable = false;
     if($routeParams.page === "reportcard"){
-      $scope.openModal("print");
+      File.openModal("print");
     }
     else{
       window.print();
@@ -25,14 +25,14 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
   }
 
   $scope.export = function(){
-    var modalInstance = $scope.openModal("export");
+    var modalInstance = File.openModal("export");
     console.log("modal ", modalInstance);
     $q.when(File.export()).then(function(success){
       modalInstance.close();
     });
   }
   $scope.import = function(){
-    var modalInstance = $scope.openModal("import");
+    var modalInstance = File.openModal("import");
     console.log("modal ", modalInstance);
     $q.when(File.import(false)).then(function(success){
       console.log("success importing");
@@ -88,128 +88,6 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
     $location.path(path);
   };
 
-  $scope.openModal = function (type) {
-
-    var modalInstance; 
-    if(type === "print"){
-      modalInstance = $modal.open({
-      templateUrl: 'printModal.html',
-      controller: PrintModalInstanceFunction
-      });
-    } else if(type === "export"){
-      modalInstance = $modal.open({
-        templateUrl: 'exportModal.html',
-        controller: ImportExportModalInstanceFunction
-      });
-    } else if(type === "import"){
-      modalInstance = $modal.open({
-        templateUrl: 'importModal.html',
-        controller: ImportExportModalInstanceFunction
-      });
-    }
-
-    modalInstance.result.then(function () {
-    }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
-    });
-    return modalInstance;
-  };
-  //var closeModal = function(modalInstance){
-    //modalInstance.close();
-  //}
-
-  var PrintModalInstanceFunction = function ($scope, $modalInstance, ClassMaster, Lang, Logo) {
-    $scope.dict = Lang.getDict();
-    $scope.ClassMaster = ClassMaster;
-
-    $scope.getLogo = function() {
-      var elements = document.getElementsByName("logo-image");
-
-      Logo.getAttachment().then(function(success){
-        for(var i = 0; i < elements.length; i++){
-          if(elements[i].childElementCount === 0){
-            var img = document.createElement('img');
-            img.src = URL.createObjectURL(success);
-            img.width = "100";
-            elements[i].appendChild(img);
-          }
-        }
-
-      })
-    }
-
-    $scope.ok = function () {
-      $modalInstance.close();
-      window.print();
-      ClassMaster.printVariable = false;
-
-    };
-
-
-
-    $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
-    };
-  }
-  PrintModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'ClassMaster', 'Lang', 'Logo'];
-  
-  var ImportExportModalInstanceFunction = function ($scope, $modalInstance, Lang){
-    $scope.dict = Lang.getDict();
-    $scope.close = function () {
-      $modalInstance.close();
-    }
-    $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
-    };
-  }
-  ImportExportModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'Lang'];
-
-	// $scope.importFile = function(){
-	// 	chrome.fileSystem.chooseEntry({
-		// type:"openWritableFile", 
-		// suggestedName:"reportcard.data"}, 
-		// function(entry){
-		// 	// Save entryId in chrome.storage.local
-		// 	var entryId = chrome.fileSystem.retainEntry(entry);
-		// 	chrome.storage.local.set({"entryId":entryId},function(d){
-		// 		chrome.storage.local.set({initialized:true});
-		// 		// Location.set("form/7/subject/0/term/1");
-		// 		console.log($location.path());
-		// 	});
-		// });
-	// }
-
- //  $scope.saveFile = function(){
-
- //  	chrome.storage.local.get("entryId", function(entryId){
-	
-  //   	// If no entryId, prompt user to select a file
-  //   	if(!angular.isString(entryId.entryId)){
-  // 			chrome.fileSystem.chooseEntry({
-  // 				type:"saveFile", 
-  // 				suggestedName:"reportcard.data"}, 
-  //   			function(entry){
-  //   				// Save entryId in chrome.storage.local
-  //   				var entryId = chrome.fileSystem.retainEntry(entry);
-  //   				chrome.storage.local.set({"entryId":entryId});
-  //   			});
-	 //  	}
-
-	 //  	// Write to file
-	 //  	chrome.storage.local.get("entryId", function(entryId){
-	 //  		console.log(entryId);
-  // 			chrome.fileSystem.restoreEntry(entryId.entryId, function(entry){
-		// 		chrome.fileSystem.getWritableEntry(entry, function(file){
-		// 			file.createWriter(function(writer){
-		// 				writer.write(new Blob([angular.toJson({test:"this"})]), {type:'application/json'})
-		// 			});	
-		// 			console.log("Reader", file.createReader());
-		// 		});
-	 //  		});	
-  // 		});
-
-	// 	});
- //  }
 }
 MenuCtrl.$inject = ['$route','$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang', 'SchoolInfos'];
 angular.module('SchoolMan').controller('MenuCtrl', MenuCtrl);
