@@ -62,6 +62,16 @@ function MenuCtrl($route, $scope, $location, $routeParams, $modal, $q, $log, Loc
 
   }
 
+  $scope.open = function(params){
+    var newParams = angular.copy($routeParams);
+    angular.forEach(params, function(param, paramKey){
+      newParams[paramKey] = param;
+    });
+    console.log("newParams ", newParams);
+    var path = Path.get(newParams);
+    console.log("Open: ", path);
+    $location.path(path);
+  };
   
 }
 MenuCtrl.$inject = ['$route','$scope', '$location', '$routeParams', '$modal', '$q', '$log', 'Location', 'Path', 'Cache', 'File', 'ClassMaster', 'Lang', 'SchoolInfos'];
