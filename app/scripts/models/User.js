@@ -84,11 +84,6 @@ schoolman.config(['modelProvider', function(model){
         required:true
       },
       {
-        key:"specialty",
-        type:"string",
-        required:false
-      },
-      {
         key:"tribe",
         type:"string",
         required:false
@@ -99,12 +94,17 @@ schoolman.config(['modelProvider', function(model){
         required:false
       },
       {
+        key:"phoneNo",
+        type:"string",
+        required:false
+      },
+      {
         key:"region",
         type:"string",
         required:false
       },
       {
-        key:"phoneNo",
+        key:"specialty",
         type:"string",
         required:false
       },

@@ -172,11 +172,17 @@ function File(pouchdb, $q, $modal, $log, model, settings, Users, Fees, Departmen
         //user has a new required attribute for schoolyear 2015/2016
         if(item.doc.datatype === "datatype/user/v1"){
           var values = item.doc[0];
-          if((values[14] && model.slugify(values[14]) !== values[1]) || !values[14]){
+          if(!values[14]){
             if(model.slugify(values[0]) === values[1]){
               values.push(values[0]);
             } else {
-              values.push(values[1]);
+              values.push(values[1].replace(/-/g, " "));
+            }
+          } else if(model.slugify(values[14]) !== values[1]){
+            if(model.slugify(values[0]) === values[1]){
+              values[14] = values[0];
+            } else {
+              values[14] = values[1].replace(/-/g, " ");
             }
           }
           console.log("User Item:", item);
