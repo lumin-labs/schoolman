@@ -214,7 +214,7 @@ var extensionList = [ {
         en:"Rubrics",
         fr:"Elément",
         page:"rubrics",
-        access:['registrar','admin'],
+        access:['admin'],
         exclude:[],
         icon:'glyphicon-pencil'
       }
