@@ -266,7 +266,7 @@
     </div>
     
     <br>
-    <div class="row">
+    <div class="row" ng-if="termIndex !== '2' && termIndex !== 2">
       <div class="col-md-4 transcript-summary">
         <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
           <tr>
@@ -326,6 +326,102 @@
         </table>
       </div>
       <div class="col-md-4 transcript-summary signature">
+        <table class="table table-bordered">
+          <tr style="">
+            <td rowspan="6" class="text-center" style="vertical-align:middle;color:#B2B2B2 !important;">{{dict.principals_signature}}</td>
+          </tr>
+          <tr class="signature-padding"></tr>
+          <tr class="signature-padding"></tr>
+          <tr class="signature-padding"></tr>
+          <tr class="signature-padding"></tr>
+          <tr class="signature-padding"></tr>
+        </table>
+      </div>
+    </div>
+    <div class="row" ng-if="termIndex === '2' || termIndex === 2">
+      <div class="col-md-3 transcript-summary">
+        <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
+          <tr>
+            <td>{{dict.total_mark}}:</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0] * data.msheet.table[student._id].coeff) : "0.0"}}</td>
+          </tr>
+          <tr>
+            <td>{{dict.total_coeff}}:</td>
+            <td>{{data.msheet.table[student._id].coeff}}</td>
+          </tr>
+          <tr>
+            <td>{{data.terms[term]}} {{dict.average}}:</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{data.msheet.table[student._id][0] >= 0 ? formatNumber(data.msheet.table[student._id][0]) : "0.0"}} / 20</td>
+          </tr>
+          <tr>
+            <td>{{data.terms[term]}} {{dict.remark}}:</td>
+            <td class="{{getRemark(data.msheet.table[student._id][0]).css}}">{{dict[getRemark(data.msheet.table[student._id][0]).text]}}</td>
+          </tr>
+          <tr>
+            <td>{{dict.class_rank}}:</td>
+            <td>{{data.rankings.master[student._id][termIndex]}} / {{data.students.length}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-3 transcript-summary">
+        <table class="table table-bordered table-striped table-transcript" ng-init="totals = mastersheet.getAcTotals(student._id)">
+          <tr>
+            <td>{{dict.total_annual_mark}}:</td>
+            <td class="{{getRemark(data.annualmsheet.table[student._id][0]).css}}">{{data.annualmsheet.table[student._id][0] >= 0 ? formatNumber(data.annualmsheet.table[student._id][0] * data.annualmsheet.table[student._id].coeff) : "0.0"}}</td>
+          </tr>
+          <tr>
+            <td>{{dict.total_annual_coeff}}:</td>
+            <td>{{data.msheet.table[student._id].coeff}}</td>
+          </tr>
+          <tr>
+            <td>{{data.terms[term]}} {{dict.annual_average}}:</td>
+            <td class="{{getRemark(data.annualmsheet.table[student._id][0]).css}}">{{data.annualmsheet.table[student._id][0] >= 0 ? formatNumber(data.annualmsheet.table[student._id][0]) : "0.0"}} / 20</td>
+          </tr>
+          <tr>
+            <td>{{data.terms[term]}} {{dict.remark}}:</td>
+            <td class="{{getRemark(data.annualmsheet.table[student._id][0]).css}}">{{dict[getRemark(data.annualmsheet.table[student._id][0]).text]}}</td>
+          </tr>
+          <tr>
+            <td>{{dict.annual_class_rank}}:</td>
+            <td>{{data.rankings.master[student._id][3]}} / {{data.students.length}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-3 transcript-summary">
+        <table class="table table-bordered table-striped table-transcript">
+          <tr>
+            <td>{{dict.hours_of_absence}}</td>
+            <td>{{data.dcard.absence}}</td>
+          </tr>
+          <tr>
+            <td>{{dict.disciplinary_councils}}</td>
+            <td>{{data.dcard.council}}</td>
+          </tr>
+          <tr>
+            <td>{{dict.warned}}</td>
+            <td>{{data.dcard.warned}}</td>
+          </tr>
+          <tr>
+            <td>{{dict.suspended}}</td>
+            <td>{{data.dcard.suspended}}</td>
+          </tr>
+          <tr>
+            <td>{{dict.promotion_status}}</td>
+            <td>
+                <span ng-if="student.status[2014] === 0 && termIndex < 3">
+                  {{ data.msheet.table[student._id][0] < passingScore ? dict.fail : dict.pass}}
+                </span>
+                <span ng-if="student.status[2014] === 0 && termIndex === '3'">
+                  {{ data.msheet.table[student._id][0] < passingScore ? dict.repeat : dict.promote}}
+                </span>
+                <span ng-if="student.status[2014] !== 0">
+                  {{PROMOTE_OPTIONS[student.status[2014]].name}}
+                </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-3 transcript-summary signature">
         <table class="table table-bordered">
           <tr style="">
             <td rowspan="6" class="text-center" style="vertical-align:middle;color:#B2B2B2 !important;">{{dict.principals_signature}}</td>
