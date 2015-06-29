@@ -32,6 +32,7 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
   $scope.data.term = $scope.data.terms[$routeParams.termIndex];
   $scope.data.marksheets = [];
   $scope.data.summaries = [];
+  $scope.data.annualsummaries = [];
   $scope.data.rankings = {};
   $scope.data.students = [];
   $scope.data.student;
@@ -97,6 +98,10 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
       sets[type].marksheets.push(marksheet);
       var summsheet = Marksheets.summarize(marksheet, termIndex);
       sets[type].summsheets.push(summsheet);
+      if($scope.termIndex === '2' || $scope.termIndex === 2){
+        var annualsummsheet = Marksheets.summarize(marksheet, 3);
+        $scope.data.annualsummaries.push(annualsummsheet);
+      }
       $scope.data.summaries.push(summsheet);
     });
 
@@ -106,6 +111,9 @@ function ReportcardCtrl($scope, $routeParams, PROMOTE_OPTIONS, model, ClassCounc
       sets[i].rankings = Marksheets.rank(set.marksheets);
     });
 
+    if($scope.termIndex === '2' || $scope.termIndex === 2){
+      $scope.data.annualmsheet = Marksheets.combine($scope.data.annualsummaries);
+    }
     $scope.data.msheet = Marksheets.combine($scope.data.summaries);
     $scope.data.rankings.master = Marksheets.rank($scope.data.marksheets);
     console.log("data.rankings", $scope.data.rankings);
