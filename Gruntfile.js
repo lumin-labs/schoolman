@@ -30,7 +30,9 @@ module.exports = function (grunt) {
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: [
+          '<%= yeoman.app %>/scripts/{,*/}*.js',
+          '<%= yeoman.app %>/extensions/{,*/}*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: true
@@ -160,6 +162,7 @@ module.exports = function (grunt) {
         generatedImagesDir: '.tmp/images/generated',
         imagesDir: '<%= yeoman.app %>/images',
         javascriptsDir: '<%= yeoman.app %>/scripts',
+        extensionDir: '<%= yeoman.app %>/extensions',
         fontsDir: '<%= yeoman.app %>/styles/fonts',
         importPath: '<%= yeoman.app %>/bower_components',
         httpImagesPath: '/images',
@@ -187,6 +190,7 @@ module.exports = function (grunt) {
         files: {
           src: [
             '<%= yeoman.dist %>/scripts/{,*/}*.js',
+            '<%= yeoman.dist %>/extensions/{,*/}*.js',
             '<%= yeoman.dist %>/styles/{,*/}*.css',
             '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.dist %>/styles/fonts/*'
@@ -246,7 +250,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/{,*/}*.html'],
+          src: ['*.html', 'views/{,*/}*.html','extensions/{,*/}*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
@@ -286,6 +290,7 @@ module.exports = function (grunt) {
             '*.html',
             '*.{js,json}',
             'views/{,*/}*.html',
+            'extensions/{,*/}*.html',
             'bower_components/**/*',
             'bower_components/sass-bootstrap/fonts/*.*',
             'images/{,*/}*.{webp}',
