@@ -14,9 +14,9 @@ function LoadingCtrl($scope, $q, model, $routeParams, Location, Students, Subjec
     var groupP= Groups.load();
     var studentsP= Students.load();
     var feesP = Fees.load();
-    var infosP = SchoolInfos.get();
+    // var infosP = SchoolInfos.get();
 
-    var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP, infosP];
+    var promises = [settingsP, deptP, groupP, subjP, feesP, userP, studentsP];
 
     $q.all(promises).then(function(success){
         console.log("Successes", success);
