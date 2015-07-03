@@ -839,6 +839,11 @@ td.profile-photo{
       float:left;
     }
 
+    .transcript-summary2 {
+      width:25%;
+      float:left;
+    }
+
     /*.signature{
       width:60%;
       float:right;
