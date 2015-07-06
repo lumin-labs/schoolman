@@ -1,6 +1,6 @@
 'use strict';
 
-function ProfileCtrl($scope, $routeParams, $q, $modal, model, profile, Users, Students, Forms, Groups, Departments, Lang, Marksheets, Dcards, Transcripts, Payments, settings) {
+function ProfileCtrl($scope, $routeParams, $q, $modal, model, profile, Users, Students, Forms, Groups, Departments, Lang, Marksheets, Dcards, Transcripts, Payments, settings, SchoolInfos) {
 
   $scope.accessCode = $routeParams.accessCode;
   $scope.showValidation = false;
@@ -13,6 +13,13 @@ function ProfileCtrl($scope, $routeParams, $q, $modal, model, profile, Users, St
 
   var reports = {};
   var classCouncils = {};
+
+  SchoolInfos.get("schoolinfo").then(function(info){
+    $scope.data.schoolInfo = info;
+    //console.log("school info retrieved", $scope.data.schoolInfo);
+  }).catch(function(error){
+    console.log("failed to get school info", error);
+  });
 
 
   var studentId = $routeParams.studentId === "0" ? "student_U0000001" : $routeParams.studentId;
@@ -112,5 +119,5 @@ function ProfileCtrl($scope, $routeParams, $q, $modal, model, profile, Users, St
   }
   ModalInstanceFunction.$inject = ['$scope', '$modalInstance', 'Lang', 'Location'];
 }
-ProfileCtrl.$inject = ['$scope', '$routeParams', '$q', '$modal', 'model', 'profile', 'Users', 'Students', 'Forms', 'Groups', 'Departments', 'Lang', 'Marksheets', 'Dcards', 'Transcripts', 'Payments', 'settings'];
+ProfileCtrl.$inject = ['$scope', '$routeParams', '$q', '$modal', 'model', 'profile', 'Users', 'Students', 'Forms', 'Groups', 'Departments', 'Lang', 'Marksheets', 'Dcards', 'Transcripts', 'Payments', 'settings', 'SchoolInfos'];
 angular.module('SchoolMan').controller('ProfileCtrl', ProfileCtrl);

@@ -3,6 +3,7 @@
 function IncomexpendCtrl($scope, $routeParams, model, Location, Items,  Lang, Rubrics, Payments, Students, SchoolInfos) {
     $scope.dict = Lang.getDict();
     $scope.balance = 0;
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
     
     SchoolInfos.get("schoolinfo").then(function(info){
         $scope.data.schoolInfo = info;
