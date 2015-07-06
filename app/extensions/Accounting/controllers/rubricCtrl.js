@@ -3,6 +3,7 @@
 function RubricCtrl($scope, $routeParams, model, Location, Rubrics, Items, Lang, Fees, Payments, Students, SchoolInfos) {
     $scope.dict = Lang.getDict();
     $scope.validationError = false;
+    $scope.lang = $routeParams.lang ? $routeParams.lang : Lang.defaultLang;
 
     SchoolInfos.get("schoolinfo").then(function(info){
         $scope.data.schoolInfo = info;
